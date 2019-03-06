@@ -1,0 +1,23 @@
+%%% Number equations within section
+\numberwithin{equation}{section}
+
+
+%%%%%%%%These conflict with SIAM style
+\newtheorem{theorem}{Theorem}[section]
+
+% This is only here if amsthm is disabled
+%\newenvironment{proof}[1][Proof]{\noindent\emph{#1}\,}{\hfill$\square$}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{summary}[theorem]{Summary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{problem}[theorem]{Problem}

@@ -1,0 +1,104 @@
+\section{The subject of the thesis}
+
+\bit
+\item Fast methods and rigorous theory for stochastic Helmholtz, esp. large $k$ dependence.
+\item Helmholtz is simplest model of wave propagation---Fourier Transform of wave equation, in certain scenarios a simplification of Maxwell [references]
+\item Motivated by subsurface imaging, non-destructive testing, (something electromagnetic)---for physical derivation see [references]
+\item Interested in large $k$---high (effective) frequency---could be high-freq waves, or low-freq waves in a large domain (e.g. seismic)
+\item Interested in heterogeneity---modelling rocks etc.
+\item Interested in stochastic---modelling uncertainties
+\bit
+\item Can arise in inverse problem - uncertainties in measurements give uncertainties in inferred material
+\item Or, can arise in forward problem---assume there are uncertainties in material, and computed uncertainties in propagating wave\optodo{Try and find some genuine applications for the forward problem}
+\eit
+\item This thesis will focus mostly on forward problem
+\bit
+\item Some similar computational issues (both inverse and forward solve lots of deterministic problems)
+\item Avoiding issues that are unique to inverse problem, to do with exploring space of all materials
+\eit
+\eit
+
+\bit
+\item How does one solve the (deterministic) Helmholtz Equation?
+\item More details later; discretise for approximate solution - get linear system
+\item Solve linear system
+\item Linear systems arising from (standard discretisations of) Helmholtz are hard to solve, as they are large, indefinite, non-Hermitian\optodo{Find numerics that GMRES iterations for non-preconditioned Helmholtz systems increase rapidly with $k$. Also, think about if can one explain this growth from properties of the matrix}
+\item Direct solvers not applicable as too large\ednote{Is this true?}, and not competitive in 3-D (references)
+\item Standard linear solvers (e.g. CG) not applicable as non-Hermitian
+\item Need to use, e.g., GMRES
+\item Hard to prove convergence results for GMRES as indefinite
+\item For this intro, just consider why systems are large
+\item See (somewhere else in thesis) for discussion of indefiniteness/non-Hermitianness)
+\eit
+\paragraph{Large}\ednote{Is this section to detailed to come here?}
+\bit
+\item Must at least discretise with fixed ppw (insert picture) to keep interpolation error bounded
+\item Get linear system of size $\sim k^d$
+\item Recall interested in large $k$
+\item But FEM (and finite difference?) with fixed ppw suffers from `pollution'
+\bit
+\item Numerically calculated wave has different wavelength to `true' wave, so `drifts' (picture?)
+\item Gets worse with larger $k$
+\item For discussion see (MLMC chapter?, as will prove bound on error there)
+\eit
+\item So need to overrefine grid to keep error bounded---$h \sim k^{-1/5}$ turns out to be right, see (MLMC Chapter) and [references]
+\item Get linear systems of size $k^{3d/2}$
+\item If one wants quasi-optimality (see later for definition), then need to overrefine more (for theory to apply)---$h \sim k^2,$ so linear systems of size $k^{2d}$
+\eit
+\bit
+\item In all cases, very large linear systems (insert table giving orders of magnitude for different $k$ in 2- and 3-d.)
+\eit
+\bit
+\item Recall need to use GMRES
+\item GMRES applied directly doesn't perform well (references)
+\item So precondition
+\item Idea is that preconditioned matrix has better properties, but solution is the same
+\item Active work by many on constructing preconditioners for Helmholtz, but not (directly) considered in this thesis
+\eit
+\bit
+\item Further issue for UQ (i.e., computations for stochastic Helmholtz)
+\item Sampling-based methods compute solution to many deterministic Helmholtz problems, to calculate, e.g., average
+\item So need to compute solution to lots of deterministic Helmholtz problems---as just shown, computing each one of these is hard/expensive
+\item Reducing computational cost of these kind of calculations, and rigorous justification for reduction, is the subject of this thesis.
+\eit
+\section{The aims of the thesis}
+
+The aims of this PhD are to provide fast, rigorously justifiable uncertainty quantification methods for the high-frequency Helmholtz equation. We will first prove well-posedness results and a priori bounds on the solution of the Helmholtz equation in classes of random media that are almost-surely nontrapping. This nontrapping assumption will allow us to obtain frequency-independent a priori bounds on the solution. These results on well-posedness and a priori bounds are crucial for the numerics that follow, as they show us the problems we are solving are well-posed, and the bounds we obtain will allow us to rigorously prove results about our numerical method. The only similar existing results in the literature were for media that are frequency-dependent perturbations of a constant background (in \cite{FeLiLo:15}), and our results are a major improvement on these, not least because they are frequency-independent.
+
+We then seek to design numerical methods for the high-frequency Helmholtz equation that provide speedup over n\"aive numerical methods, in order to make UQ calculations for the Helmholtz equation more feasible. We also wish to analyse these numerical methods and show how their behaviour (both speedup and computational cost) depend on the wavenumber $k$, so that we may understand their applicability, or the limits thereof, to the Helmholtz equation with large $k$. We propose two complementary numerical methods to speed up UQ calculations for the Helmholtz equation.
+
+The first strategy, so-called nearby preconditioning, seeks to reduce the computational cost of assembling preconditioners for many deterministic Helmholtz problems. This reduction is achieved by re-using a preconditioner from one deterministic Helmholtz problems for other, nearby Helmholtz problems. We will investigate the effectiveness of this strategy, and see that, whilst its effectiveness degrades with increasing $k$, it still provides a speedup for a range of $k$ that are considered in applications.
+
+The second strategy, somewhat orthogonal to the first, is to use a Multi-Level Monte Carlo (MLMC) method to reducing the number of computations needed when performing UQ calculations. By reducing the number of computations needed, we will decrease the time taken for UQ calculations. The analysis of this method requires an extension of standard MLMC theory to the case where the numerical error in computations is dependent on a parameter besides the mesh size (in our case, the error in finite-element calculations depends on the wavenumber $k$). We will see that a MLMC approach does give speedup, both in theory and in practice, and that the relative speedup with respect to a standard Monte Carlo method does not degrade as $k$ grows.
+
+
+\section{The Main Acheivements of the Thesis}
+
+The main acheivements of the thesis are as follows:
+
+\ben
+\item\label{it:achievements-bounds} Well-posedness results and a priori bounds on the solution of the Helmholtz equation in random media, where the restrictions on the random media are frequency-independent. The previous work in the literature proved such results and bounds under restrictions that became more stringent as the frequency increased.
+
+\item A general framework for proving well-posedness results and a priori bounds for stochastic elliptic PDEs. These general tools are used to prove \cref{it:achievements-bounds}, but allow one to, in principle, conclude similar results to those in \cref{it:achie 	vements-bounds} for a range of stochastic elliptic PDEs. They can be used in cases where the bilinear form given by the PDE is indefinite, such as for the time-harmonic Maxwell's equations.
+
+\item A computational method (nearby preconditioning) that reduces the computational cost of solving many realisations of the Helmholtz equation in random media. The reduction in computational cost is gained by reusing the preconditioner from one realisation of the Helmholtz equation for subsequent `nearby' realisations. This computational method is rigorously analysed, and its effectiveness is precisely characterised, although this effectiveness does degrade as the frequency of the problems is decreased.
+
+\item Numerical experiments that show the rigorous analysis of nearby preconditioning is not sharp, and that the method is, in practice, more effective than can be rigorously proved. However, the effectiveness does still degrade as frequency is increased.
+
+\item Analysis of the Multi-Level Monte Carlo (MLMC) method applied to the Helmholtz equation in random media. MLMC is a variance reduction technique that uses computations on a sequence of meshes to reduce the variance in UQ calculations, and therefore to reduce the number of realisations of the Helmholtz equation that need to be solved. We extend the existing abstract MLMC analysis in the literature to the case where error in finite-element error is dependent on an additional parameter (here this parameter is the wavenumber $k$), and then apply this abstract analysis to the Helmholtz equation, obtaining speedup that is independent of $k$.
+
+\item Computational experiments for MLMC that show that, in many cases, the speedup one obtains using MLMC is greater than that predicting theoretically\ednote{I've no idea what the result of these computations will be at this point!}.
+\een
+
+
+\section{The Structure of the thesis}
+
+In \cref{chap:stochastic} we define three formulations of the stochastic exterior Dirichlet problem (SEDP) for the Helmholtz equation in random media. We prove well-posedness results for these formulations, and also prove a priori bounds on their solution that are explicit in all parameters of interest, especially the wavenumber $k.$ Crucially, using recent well-posedness results as a priori bounds obtained in \cite{GrPeSp:18} for the heterogeneous (but non-random) Helmholtz equation, we are able to prove such results and bounds for the stochastic Helmholtz equation under assumptions that are $k$-independent. We also give a general framework for proving such results for stochastic elliptic PDEs.
+\ednote{It might be something to think about later, but do we scatter literature reviews throughout (i.e., each chapter is `a paper') or have a separate chapter at the beginning?}
+
+In \cref{chap:nbpc} we set up the finite-element method for the deterministic Helmholtz equation in heterogeneous media. We then propose a computational technique, \emph{nearby preconditioning}, that speeds up the process of solving many realisations of the Helmholtz equation by reusing preconditioners from one realisation for (potentially) many subsequent `nearby' realisations. In this theoretical study, we assume that we have access to the action of an exact preconditioner for one Helmholtz problem, and study the convergence of GMRES for subsequent problems. That is, we investigate the convergence of GMRES applied to $\AmatoI\Amatt$, where $\Amato$ and $\Amatt$ are matrices arising from finite-element discretisations of the Helmholtz equation. We show that if the coefficients of the underlying PDEs are sufficiently close (or `nearby'), then GMRES applied to $\AmatoI\Amatt$ will converge in a number of iterations that is independent of $k.$ However, the conditions for 'sufficient closeness' that we prove depend on either $k$ or the mesh size $h$. We then provide numerical experiments showing the sharpness (in some cases) or the lack of sharpness (in other cases) of our proven results.
+
+In \cref{chap:mlmc} we study the multi-level Monte Carlo (MLMC) method for reducing the variance in UQ calculations for the Helmholtz equation in random media. We first extend the abstract theory for MLMC to the sitation when there is an additional parameter (in our case, the wavenumber $k$), alongside the mesh size $h$, governing the size of the error in numerical approximations. Having extended the abstract theory, we then apply it to the Helmholtz equation for a variety of different quantities of interest, and we prove that MLMC gives speedup over the Monte-Carlo method, and that this speedup is independent of $k$. We then investigate MLMC numerically, and find that in many cases the speedup we observe in numerics is better than the speedup we can prove rigorously.
+
+%for MLMC later?:
+%(that is the ratio $\CMC(\eps)/\CMLMC(\eps)$, where $\CMC(\eps)$ is the cost for the root-mean-sqaured
