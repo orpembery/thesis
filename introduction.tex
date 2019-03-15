@@ -1,75 +1,97 @@
 \section{The subject of the thesis}
 
-\bit
-\item Fast methods and rigorous theory for stochastic Helmholtz, esp. large $k$ dependence.
-\item Helmholtz is simplest model of wave propagation---Fourier Transform of wave equation, in certain scenarios a simplification of Maxwell [references]
-\item Motivated by subsurface imaging, non-destructive testing, (something electromagnetic)---for physical derivation see [references]
-\item Interested in large $k$---high (effective) frequency---could be high-freq waves, or low-freq waves in a large domain (e.g. seismic)
-\item Interested in heterogeneity---modelling rocks etc.
-\item Interested in stochastic---modelling uncertainties
-\bit
-\item Can arise in inverse problem - uncertainties in measurements give uncertainties in inferred material
-\item Or, can arise in forward problem---assume there are uncertainties in material, and computed uncertainties in propagating wave\optodo{Try and find some genuine applications for the forward problem}
-\eit
-\item This thesis will focus mostly on forward problem
-\bit
-\item Some similar computational issues (both inverse and forward solve lots of deterministic problems)
-\item Avoiding issues that are unique to inverse problem, to do with exploring space of all materials
-\eit
-\eit
+The subject of this thesis is rigorous theory and fast methods for the stochastic Helmholtz equation
+\beq\label{eq:introhh}
+\grad \cdot \mleft(A\grad u\mright) + k^2 \, n \, u = -f,
+\eeq
+where $A,$ $n,$ and $f$ are random fields (i.e., they are spatially heterogeneous and random). We are particularly interested in theory and methods that are applicable for large values of the wavenumber $k$, as the case of large $k$ is both of interest in applications and more theoretically and computationally demanding.
 
-\bit
-\item How does one solve the (deterministic) Helmholtz Equation?
-\item More details later; discretise for approximate solution - get linear system
-\item Solve linear system
-\item Linear systems arising from (standard discretisations of) Helmholtz are hard to solve, as they are large, indefinite, non-Hermitian\optodo{Find numerics that GMRES iterations for non-preconditioned Helmholtz systems increase rapidly with $k$. Also, think about if can one explain this growth from properties of the matrix}
-\item Direct solvers not applicable as too large\ednote{Is this true?}, and not competitive in 3-D (references)
-\item Standard linear solvers (e.g. CG) not applicable as non-Hermitian
-\item Need to use, e.g., GMRES
-\item Hard to prove convergence results for GMRES as indefinite
-\item For this intro, just consider why systems are large
-\item See (somewhere else in thesis) for discussion of indefiniteness/non-Hermitianness)
-\eit
-\paragraph{Large}\ednote{Is this section to detailed to come here?}
-\bit
-\item Must at least discretise with fixed ppw (insert picture) to keep interpolation error bounded
-\item Get linear system of size $\sim k^d$
-\item Recall interested in large $k$
-\item But FEM (and finite difference?) with fixed ppw suffers from `pollution'
-\bit
-\item Numerically calculated wave has different wavelength to `true' wave, so `drifts' (picture?)
-\item Gets worse with larger $k$
-\item For discussion see (MLMC chapter?, as will prove bound on error there)
-\eit
-\item So need to overrefine grid to keep error bounded---$h \sim k^{-1/5}$ turns out to be right, see (MLMC Chapter) and [references]
-\item Get linear systems of size $k^{3d/2}$
-\item If one wants quasi-optimality (see later for definition), then need to overrefine more (for theory to apply)---$h \sim k^2,$ so linear systems of size $k^{2d}$
-\eit
-\bit
-\item In all cases, very large linear systems (insert table giving orders of magnitude for different $k$ in 2- and 3-d.)
-\eit
-\bit
-\item Recall need to use GMRES
-\item GMRES applied directly doesn't perform well (references)
-\item So precondition
-\item Idea is that preconditioned matrix has better properties, but solution is the same
-\item Active work by many on constructing preconditioners for Helmholtz, but not (directly) considered in this thesis
-\eit
-\bit
-\item Further issue for UQ (i.e., computations for stochastic Helmholtz)
-\item Sampling-based methods compute solution to many deterministic Helmholtz problems, to calculate, e.g., average
-\item So need to compute solution to lots of deterministic Helmholtz problems---as just shown, computing each one of these is hard/expensive
-\item Reducing computational cost of these kind of calculations, and rigorous justification for reduction, is the subject of this thesis.
-\eit
+The Helmholtz equation is the simplest possible model of wave propagation. It is the Fourier transform (in time) of the scalar wave equation
+\beq\label{eq:introwave}
+n \, \frac{\partial^2 U}{\partial t^2} - \grad \cdot\mleft(A\grad U\mright) = F
+\eeq
+(equivalently, one can seek solutions of \eqref{eq:introwave} that are time-harmonic, that is, have a single frequency of oscillation in time, or can be written $U = e^{ikt}u$). In certain scenarios, 
+\eqref{eq:introhh} can be derived from the time-harmonic Maxwell's equations (the Fourier transform in time of Maxwell's Equations governing electromagnetics), see, e.g., \cite{MoSp:19} for this derivation.
+
+The physcial motivation for study \eqref{eq:introhh} is, therefore, any physical scenario in which wave propagation can be modelled by either \eqref{eq:introwave} or Maxwell's equations. One prominent example of the usage of \eqref{eq:introwave} is in subsurface imaging, where the rock structures of the earth's crust are imaged by generating waves within the rock structures, and recording the reflections of the waves. The waves within the earth's rock structures satisfy the elastic wave equation, but under the so-called acoustic approximation, this can be approximated by \eqref{eq:introwave}; see \cite[Section 1.2]{Ch:15} for a physical derivation of the elastic wave equation, and \cite[Section 1.2.6]{Ch:18} for a derivation and discussion of the acoustic approximation. Other physical scenarios involving waves modelled by either \eqref{eq:introwave} or Maxwell's equations are the propagation of sound in an inviscid fluid\cite[Section 2.1]{CoKr:13}, and Microwave imaging (see, e.g., cite[Section 6.4]{BoDoGrSpTo:19}).
+
+One commonality of all the examples given above is that they have high effective frequency, that is, the wavenumber $k$ is large. This could be because the physical frequency is large (as in, for example non-destructive testing, where waves of frequency $1\times10^5$--$2\times10^7$ Hz \cite{Bi}\optodo{citation is \url{http://www.bindt.org/What-is-NDT/Ultrasonic-methods/}} are passed through materials to image their interior), or because the waves are low-frequency, but propagate over a large domain (as in seismic imaging, where the wave frequencies are in the range 1-100 Hz (see, e.g., \optodo{Schlumberger glossary - ref 69 in transfer}) but the domain of interest is on the kilometre scale (e.g., the SEG Overthrust model, a common benchmark for seismic imaging applications has domain size 20km $\times$ 20km $\times$ 4.65 km.). These low-frequency, large-domain problems have many wavelengths in the domain, and hence, when they are scaled to a domain of size $\sim 1,$ they give rise to problems with large (effective) frequency.
+
+We mentioned above that we are interested in the Helmholtz equation with heterogeneous coefficients; again, this interest is driven by applications where the material parameters are not constant in space. For example, in subsurface imaging of the Earth's crust, there will be different rock types in the Earth's crust; these may well contain other materials, such as water, or oil, and above these rocks will be the sea; each of these materials will have different material properties, such as the density and Lam\'e parameters (see, e.g. \cite[Section 1.2.4]{Ch:15} for an explanation of how these parameters manifest themselves in \eqref{eq:introwave}).
+
+We also stated above that we will consider the Helmholtz equation with random coefficients, that is, we want to model physical situations where there is uncertainty in the material parameters. This uncertainty may arise in the inverse problem, where one has sent an incident wave into an unknown medium, recorded the scattered wave coming out of the medium, and wishes to reconstruct the medium itself. There will be uncertainties inherent in this process, for example, the scattered wave will only be recorded an discrete points in space, rather than everywhere, and these recordings will be subject to measurement error. These uncertanties in the measurement processes will result in uncertanties in the inferred properties of the medium. Alternatively, this uncertainty can arise in the forward problem, where we can assume we are already aware of uncertainty in our knowledge of the material parameters, and we wish to know properties of the wave passing through the uncertain medium. This occurs, for example, in radar imaging of ice sheets, where one wishes to know properties of the wave scattered by the ice \cite{JiPi:18}.
+
+This thesis will only focus on UQ for the forward problem, for two main reasons:
+\ben
+\item The inverse problem, whilst very relevant in applications, introduces other computational difficulties, unrelated to solving \eqref{eq:introhh}. Such difficulties are related to sampling the random coefficients $A$ and $n$; in wave propagation inverse problems their distributions may well be multi-modal\optodo{Really should try and find a reference or construct a simple example for this} (the stochastic analogue of solving an optimisation problem with multiple local minima), and constructing good samplers for such problems is an open research question\optodo{Find refs for this - ask Tom Pennington?}.
+\item The forward problem and inverse problem share the common computational difficulty of needing to solve many (deterministic) realisations of \eqref{eq:introhh}. Whether the uncertainty in $A$ and $n$ has arisen as a result of the inverse or forward problem, most UQ algorithms will require many samples of the (random)solution of \eqref{eq:introhh}. As will be discussed below, obtaining one sample of the solution of \eqref{eq:introhh} is a considerable computational task, and so obtaining many (and `many' could easily mean thousands) of such samples is an even harder task. Reducing the computational cost of obtaining lots of samples of the solution of \eqref{eq:introhh} will be the main focus of the algorithms studied and developed in this thesis.
+\een
+
+We have just stated that it is hard to solve the (deterministic) Helmholtz equation
+\beq\label{eq:introdet}
+\grad \cdot (\Ad \grad \ud) + k^2 \,\nd\,\ud = -\fd,
+\eeq
+i.e., a single realisation of \eqref{eq:introhh}, numerically; we now provide some background on why this is the case. When solving \eqref{eq:introdet} numerically we discretise it to obtain a linear system
+\beq\label{eq:intromat}
+\Amat \bu = \bff.
+\eeq
+In this thesis we will be exclusively concerned with discretisation via finite elements, see \cref{chap:background} for the details of such a discretisation. The linear systems \eqref{eq:intromat} arising from standard finite-element discretisations of \eqref{eq:introdet} are hard to solve\optodo{Find numerics that GMRES iterations for non-preconditioned Helmholtz systems increase rapidly with $k$. Also, think about if can one explain this growth from properties of the matrix}, as the matrices $\Amat$ are large, indefinite, and non-Hermitian. We now will briefly outline the reasons why the matrices $\Amat$ are large before discussing how the size of the matrices $\Amat$ affects the solution starategies used. For details on why the matrices $\Amat$ are indefinite and non-Hermitian, and how this affects the solution of \eqref{eq:intromat}, see \cref{chap:background}\optodo{Update this reference once this section has been written}
+
+The matrices $\Amat$ corresponding to large values of the wavenumber $k$ are large, because the number of degrees of freedom for standard numerical methods for the deterministic Helmholtz equation must increase as $k$ increases. One can see this by considering the problem of representing, or interpolating, the solution of \eqref{eq:introdet}; solutions of \eqref{eq:introdet} oscillate on a scale $1/k$, and therefore the number of degrees of freedom needed to interpolate the solution of \eqref{eq:introdet} must increase like $k^d$ (where $d$ is the spatial dimension) to keep the interpolation error bounded. (This maxim is referred to as a `fixed number of points per wavelength', as in practice one typically chooses to use 6--10 discretisation points in each dimension for each wavelength in the domain---this choice ensures the number of degrees of freedom increases like $k^d,$ and empirically keeps the interpolation error at a reasonable size.) Hence, when just considering the number of degrees of freedom needed to preserve interpolation error, the linear systems \eqref{eq:intromat} will have $k^d$ unknowns. This need for increasing degrees of freedom with $k$ is illustrated in \cref{fig:introinterp}, where we see the interpolation error grows if the number of degrees of freedom is not increased with $k$. This dependence of the number of degrees of freedom on $k$ to achieve bounded interpolation error can be made more rigorous, see \cref{chap:background}\optodo{Update link once chapter written}.
+
+\begin{figure}
+\caption{\label{fig:introinterp} Figure showing interpolation error growing if mesh is not refined}
+\end{figure}\optodo{Update Figure caption once figure is created}
+
+However, discretising \eqref{eq:introdet} with a fixed number of points per wavelength is \emph{not} enough to keep the error in the finite-element solution of \eqref{eq:introdet} bounded as $k\rightarrow \infty.$ This is because standard-finite-element methods applied to the Helmholtz equation suffer from pollution, where the numerically calculated wave has a different wavelength to the `true' wave, and so `drifts' away from the true solution, moreover, this error increases as $k$ increases. See \cref{fig:intropoll} for an illustration of this phenomenon, and \cref{chap:background}\optodo{Better ref once chapter written} for an extended discussion of this phenomena.
+
+\begin{figure}
+\caption{\label{fig:intropoll} Figure showing pollution effect}
+\end{figure}\optodo{Update Figure caption once figure is created}
+
+It transpires that in order to keep the finite-element error bounded when solving \eqref{eq:introdet}, once must over-refine the numerical grid. That is, rather than using a fixed number of points per wavelength, one must increase the number of points per wavelength as $k$ increases. Numerical experiments show that one must refine the finite-element mesh size $h$ like $k^{-3/2}$ in order to achieve bounded finite-element error. Whilst this result has been known numerically for some time, it was only proven for \eqref{eq:introdet} with constant coefficients in \cite{Wu:11}\optodo{And another one, and Theo and Serge}, and the first proof for \eqref{eq:introdet} with heterogeneous coefficients (to our knowledge) is contained in \cref{chap:background}. Choosing $h \sim k^{-3/2}$ means \eqref{eq:intromat} is a linear system of size $k^{3d/2}$, larger than if one merely wants the interpolation error to be bounded. Hence requiring a bounded finite-element error gives rise to very large linear systems.\optodo{Maybe do a summary of the $k$ you get in applications, and how that translates to linear system sizes}
+
+More briefly, if one wants the finite-element solution to be quasi-optimal (that is, up to a constant, the finite-element solution is the best approximation in the finite-element space), then one must over-refine even more, and take $h \sim k^{-2}$. This mesh condition will give rise to linear systems with $k^{2d}$ degres of freedom. See \cref{Chap:mlmc}\optodo{Adjust when chapters written} for further details on the different mesh conditions required to obtain different properties of the finite-element solution.
+
+In summary, numerically solving the Helmholtz equation gives rise to large linear systems, and the size of these linear systems increases as $k$ increases. The table \cref{tab:introlinsys} summarises the size of linear systems one obtains for different values of $k$, depending on the spatial dimension, and the properties of the finite-element solution that one requires.
+\optodo{Finish this table - the entries in the first column are WRONG}
+\begin{table}
+\begin{tabular}{c|cccccc}
+&\multicolumn{2}{c}{Interpolation error bounded ($h = 1/10 \times k^{-1}$)}&\multicolumn{2}{c}{Finite-element error bounded ($h = k^{-3/2}$)}&\multicolumn{2}{c}{Quasi-optimality ($h = k^{-2}$)}\\
+&2-D&3-D&2-D&3-D&2-D&3-D\\
+\hline
+$k$&&&&&&\\
+$10$&$10^2$&$10^3$&$10^3$&$\approx 3 \times 10^4$&$10^4$&$10^6$\\
+$100$&$10^4$&$10^6$&$10^6$&$10^9$&$10^8$&$10^{12}$\\
+$1000$&$10^6$&$10^9$&$10^9$&$\approx 3 \times 10^{13}$&$10^{12}$&$10^{18}$
+\end{tabular}
+\caption{\label{tab:introlinsys}Table showing the number of degrees of freedom that would be required }
+\end{table}\optodo{Update table and caption once table is made}
+
+We now turn our attention to how one might solve the large, indefinite, non-Hermitian linear systems \eqref{eq:intromat}. One option is to solve the linear systems \eqref{eq:intromat} using a direct solver (solvers that, up to machine precision, invert the linear system \eqref{eq:intromat} exactly). Such solvers are incredibly competitive for solving \eqref{eq:introdet} in 2-D, when \eqref{eq:intromat} has up to $10^6$ unknowns\optodo{Find a reference for this}; however, for larger linear systems \eqref{eq:intromat}, or those obtained from 3-D discretisations, direct solvers  are not as competitive as so-called iterative solvers\optodo{Find ref}. An iterative solver is one that does not solve \eqref{eq:intromat} exactly, but rather produces a sequence of approximations to the solution of \eqref{eq:intromat}. A standard iterative solver to use for non-Hermitian linear systems is GMRES\optodo{Ref}; this is the solver we will use throughout this thesis. However, it is hard to prove convergence results for GMRES applied to \eqref{eq	:intromat} as the matrices $\Amat$ are typically indefinite\optodo{Understand why this is the case}, and moreover, numerical evidence shows that GMRES applied to \eqref{eq:intromat} can perform very badly indeed (the number of interations to acheive convergence can grow dramatically with $k$), see, e.g.\optodo{Find ref}. Therefore we consider preconditioning the linear system \eqref{eq:intromat}, that is, solving the equivalent linear system
+\beq\label{eq:intropre}
+\PmatI\Amat \bu = \PmatI \bff.
+\eeq
+The idea of preconditioning\footnote{In this exposition we have only considered left-preconditioning, that is, multiplying $\Amat$ from the left by $\PmatI$. However, one can also-consider right-preconditioning, that is, solving the linear system $\Amat \PmatI \butilde = \bff,$ the solution $\bu$ is then given by $\bu = \PmatI \butilde.$} is that the preconditioned matrix $\PmatI \Amat$ will have better properties than $\Amat,$ and therefore iterative solvers (such as GMRES) will exhibit better convergence properties, but the solution of \eqref{eq:intropre} is the same as the solution of \eqref{eq:intromat}
+
+The goal of preconditioning is to choose the preconditioner $\Pmat$ such that:
+\ben
+\item\label{it:intropreone} The matrix $\PmatI \approx \AmatI$ (so that $\PmatI\Amat \approx \Imat$ and \eqref{eq:intropre} is close to the equation $\bu = \PmatI \bff$) and
+\item\label{it:intropretwo} The action of $\PmatI$ is cheap to compute.
+\een
+The ideal preconditioner from the point of view of \cref{it:intropreone} is $\AmatI$, however, if we could cheaply compute the action of $\AmatI,$ we could cheaply solve \eqref{eq:intromat}, and there would be no need for preconditioning. Hence, one needs to balance the requirements \cref{it:intropreone,it:intropretwo} so that one obtains a good approximation of $\AmatI$ that is cheap to apply. There are several groups around the world working on the construction of good preconditioners for the Helmholtz equation, and this is an open research area. However, the construction of such preconditioners is not the focus of this thesis\optodo{Either summarise preconditioners here, somewhere else, or put a link to some overviews - Gander SIREV?}.
+
+Aside from all the above issues in solving the deterministic Helmholtz equation \eqref{eq:introdet}, when seeking to perform UQ calculations for the stochastic Helmholtz equation \eqref{eq:introhh} one has the additional issue that one needs to solve many realisations of \eqref{eq:introhh}, i.e., one needs many different deterministic Helmholtz problems. This issue arises when using sampling-based methods such, e.g., as Monte-Carlo or Stochastic-Collocation methods to compute properties of the solution $u$ of \eqref{eq:introhh}. These methods rely on obtaining many samples of $u$ in order to compute approximations to its properties. Therefore, to perform UQ for the Helmholtz equation, one must solve many deterministic Helmholtz problems which, as has just been shown, are each individually difficult to solve. Reducing the computational cost of such UQ calculations, and rigorously justifying this reduction in cost, is the subject of this thesis.\optodo{Rewrite this paragraph, it goes round in circles too much}
+
 \section{The aims of the thesis}
 
-The aims of this PhD are to provide fast, rigorously justifiable uncertainty quantification methods for the high-frequency Helmholtz equation. We will first prove well-posedness results and a priori bounds on the solution of the Helmholtz equation in classes of random media that are almost-surely nontrapping. This nontrapping assumption will allow us to obtain frequency-independent a priori bounds on the solution. These results on well-posedness and a priori bounds are crucial for the numerics that follow, as they show us the problems we are solving are well-posed, and the bounds we obtain will allow us to rigorously prove results about our numerical method. The only similar existing results in the literature were for media that are frequency-dependent perturbations of a constant background (in \cite{FeLiLo:15}), and our results are a major improvement on these, not least because they are frequency-independent.
+The aims of this PhD are to conduct a detailed study of the Helmholtz equation in random media, with special regard to high-frequency behaviour, and to provide fast, rigorously justifiable uncertainty quantification methods for the high-frequency Helmholtz equation. We will first prove well-posedness results and a priori bounds on the solution of the Helmholtz equation in classes of random media that are almost-surely nontrapping. This nontrapping assumption will allow us to obtain frequency-independent a priori bounds on the solution. These results on well-posedness and a priori bounds are crucial for the numerics that follow, as they show us the problems we are solving are well-posed, and the bounds we obtain will allow us to rigorously prove results about our numerical method. The only similar existing results in the literature were for media that are frequency-dependent perturbations of a constant background (in \cite{FeLiLo:15}), and our results are a major improvement on these, not least because they are frequency-independent.
 
 We then seek to design numerical methods for the high-frequency Helmholtz equation that provide speedup over n\"aive numerical methods, in order to make UQ calculations for the Helmholtz equation more feasible. We also wish to analyse these numerical methods and show how their behaviour (both speedup and computational cost) depend on the wavenumber $k$, so that we may understand their applicability, or the limits thereof, to the Helmholtz equation with large $k$. We propose two complementary numerical methods to speed up UQ calculations for the Helmholtz equation.
 
 The first strategy, so-called nearby preconditioning, seeks to reduce the computational cost of assembling preconditioners for many deterministic Helmholtz problems. This reduction is achieved by re-using a preconditioner from one deterministic Helmholtz problems for other, nearby Helmholtz problems. We will investigate the effectiveness of this strategy, and see that, whilst its effectiveness degrades with increasing $k$, it still provides a speedup for a range of $k$ that are considered in applications.
 
-The second strategy, somewhat orthogonal to the first, is to use a Multi-Level Monte Carlo (MLMC) method to reducing the number of computations needed when performing UQ calculations. By reducing the number of computations needed, we will decrease the time taken for UQ calculations. The analysis of this method requires an extension of standard MLMC theory to the case where the numerical error in computations is dependent on a parameter besides the mesh size (in our case, the error in finite-element calculations depends on the wavenumber $k$). We will see that a MLMC approach does give speedup, both in theory and in practice, and that the relative speedup with respect to a standard Monte Carlo method does not degrade as $k$ grows.
+The second strategy, somewhat orthogonal to the first, is to use a Multi-Level Monte Carlo (MLMC) method to reducing the number of computations needed when performing UQ calculations. By reducing the number of computations needed, we will decrease the computational cost for UQ calculations. The analysis of this method requires an extension of standard MLMC theory to the case where the numerical error in computations is dependent on a parameter besides the mesh size (in our case, the error in finite-element calculations depends on the wavenumber $k$). We will see that a MLMC approach does reduce cost, both in theory and in practice, and that the relative cost reduction with respect to a standard Monte Carlo method does not degrade as $k$ grows.
 
 
 \section{The Main Acheivements of the Thesis}
@@ -77,15 +99,15 @@ The second strategy, somewhat orthogonal to the first, is to use a Multi-Level M
 The main acheivements of the thesis are as follows:
 
 \ben
-\item\label{it:achievements-bounds} Well-posedness results and a priori bounds on the solution of the Helmholtz equation in random media, where the restrictions on the random media are frequency-independent. The previous work in the literature proved such results and bounds under restrictions that became more stringent as the frequency increased.
+\item A general framework for proving well-posedness results and a priori bounds for stochastic elliptic PDEs. These general tools are used to prove \cref{it:achievements-bounds}, but allow one to, in principle, conclude similar results to those in \cref{it:achievements-bounds} for a range of stochastic elliptic PDEs. They can be used in cases where the bilinear form given by the PDE is indefinite, such as for the time-harmonic Maxwell's equations\ednote{Including this as a separate `acheivement' is conditional on me obtaining some other good examples to which I can apply the general framework}.
 
-\item A general framework for proving well-posedness results and a priori bounds for stochastic elliptic PDEs. These general tools are used to prove \cref{it:achievements-bounds}, but allow one to, in principle, conclude similar results to those in \cref{it:achie 	vements-bounds} for a range of stochastic elliptic PDEs. They can be used in cases where the bilinear form given by the PDE is indefinite, such as for the time-harmonic Maxwell's equations.
+\item\label{it:achievements-bounds} Well-posedness results and a priori bounds on the solution of the Helmholtz equation in random media, where the restrictions on the random media are frequency-independent. The previous work in the literature proved such results and bounds under restrictions that became more stringent as the frequency increased.
 
 \item A computational method (nearby preconditioning) that reduces the computational cost of solving many realisations of the Helmholtz equation in random media. The reduction in computational cost is gained by reusing the preconditioner from one realisation of the Helmholtz equation for subsequent `nearby' realisations. This computational method is rigorously analysed, and its effectiveness is precisely characterised, although this effectiveness does degrade as the frequency of the problems is decreased.
 
-\item Numerical experiments that show the rigorous analysis of nearby preconditioning is not sharp, and that the method is, in practice, more effective than can be rigorously proved. However, the effectiveness does still degrade as frequency is increased.
+\item Numerical experiments that show the rigorous analysis of nearby preconditioning may not be\optodo{change?} not sharp, and that the method is, in practice, more effective than can be rigorously proved. However, the effectiveness does still degrade as frequency is increased.
 
-\item Analysis of the Multi-Level Monte Carlo (MLMC) method applied to the Helmholtz equation in random media. MLMC is a variance reduction technique that uses computations on a sequence of meshes to reduce the variance in UQ calculations, and therefore to reduce the number of realisations of the Helmholtz equation that need to be solved. We extend the existing abstract MLMC analysis in the literature to the case where error in finite-element error is dependent on an additional parameter (here this parameter is the wavenumber $k$), and then apply this abstract analysis to the Helmholtz equation, obtaining speedup that is independent of $k$.
+\item Analysis of the Monte-Carlo (MC) and Multi-Level Monte Carlo (MLMC) methods applied to the Helmholtz equation in random media. MLMC is a variance reduction technique that uses computations on a sequence of meshes to reduce the variance in UQ calculations, and therefore to reduce the number of realisations of the Helmholtz equation that need to be solved. We extend the existing abstract MLMC analysis in the literature to the case where error in finite-element error is dependent on an additional parameter (here this parameter is the wavenumber $k$), and then apply this abstract analysis to the Helmholtz equation. We show that the error in MC is independent of the wavenumber $k$, and we show that MLMC gives a cost reduction over MC, with the relative cost reduction being independent of $k.$
 
 \item Computational experiments for MLMC that show that, in many cases, the speedup one obtains using MLMC is greater than that predicting theoretically\ednote{I've no idea what the result of these computations will be at this point!}.
 \een
@@ -93,8 +115,9 @@ The main acheivements of the thesis are as follows:
 
 \section{The Structure of the thesis}
 
+In \cref{chap:background} we give background material on the (deterministic) Helmholtz equation and its discretisation that will be necessary to understand the rest of this thesis. We provide an extended discussion of recent developments concerning the well-posedness of the deterministic heterogeneous Helmholtz equation and a priori bounds on its solution. We also give an overview of the theory of finite-element discretiations of the Helmholtz equation, and prove new results on the behaviour of the error when discretising the heterogeneous Helmholtz equation.
+
 In \cref{chap:stochastic} we define three formulations of the stochastic exterior Dirichlet problem (SEDP) for the Helmholtz equation in random media. We prove well-posedness results for these formulations, and also prove a priori bounds on their solution that are explicit in all parameters of interest, especially the wavenumber $k.$ Crucially, using recent well-posedness results as a priori bounds obtained in \cite{GrPeSp:18} for the heterogeneous (but non-random) Helmholtz equation, we are able to prove such results and bounds for the stochastic Helmholtz equation under assumptions that are $k$-independent. We also give a general framework for proving such results for stochastic elliptic PDEs.
-\ednote{It might be something to think about later, but do we scatter literature reviews throughout (i.e., each chapter is `a paper') or have a separate chapter at the beginning?}
 
 In \cref{chap:nbpc} we set up the finite-element method for the deterministic Helmholtz equation in heterogeneous media. We then propose a computational technique, \emph{nearby preconditioning}, that speeds up the process of solving many realisations of the Helmholtz equation by reusing preconditioners from one realisation for (potentially) many subsequent `nearby' realisations. In this theoretical study, we assume that we have access to the action of an exact preconditioner for one Helmholtz problem, and study the convergence of GMRES for subsequent problems. That is, we investigate the convergence of GMRES applied to $\AmatoI\Amatt$, where $\Amato$ and $\Amatt$ are matrices arising from finite-element discretisations of the Helmholtz equation. We show that if the coefficients of the underlying PDEs are sufficiently close (or `nearby'), then GMRES applied to $\AmatoI\Amatt$ will converge in a number of iterations that is independent of $k.$ However, the conditions for 'sufficient closeness' that we prove depend on either $k$ or the mesh size $h$. We then provide numerical experiments showing the sharpness (in some cases) or the lack of sharpness (in other cases) of our proven results.
 
