@@ -44,12 +44,12 @@ Helmholtz:
 \bit
 \item Will now talk about bounds - not UCP as don't get explicit bound - see discussion in hetero
 \item Focus on $k$-dependence (and later) parameter-dependence
-\item Long history of proving bounds on Helmholtz from 'analysis' community \cite{Bl:73,Va:75,BlKa:77,Bu:98,PeVe:99,PoVo:99a,PoVo:99b,CaPoVo:99,Bu:02,Be:03,Ca:12,CaLePa:12,NgVo:12,Sh:17}\optodo{Check each and every reference}\optodo{Check about Morawetz} and recent interest from NA \cite{Me:95,CuFe:02,He:07,EsMe:12,Sp:14,FeLiLo:15,BaSpWu:16,Ch:16,BrGaPe:17,BaChGo:17,SaTo:17,OhVe:18,GrSa:18,GrPeSp:18,GaSpWu:18,MoSp:19}
+\item Long history of proving bounds on Helmholtz from 'analysis' community \cite{Bl:73,Va:75,BlKa:77,Bu:98,PeVe:99,PoVo:99a,PoVo:99b,CaPoVo:99,Bu:02,Be:03,Ca:12,CaLePa:12,NgVo:12,Sh:18}\optodo{Check each and every reference}\optodo{Check about Morawetz} and recent interest from NA \cite{Me:95,CuFe:06,He:07,EsMe:12,Sp:14,FeLiLo:15,Ch:15,BaSpWu:16,BrGaPe:17,BaChGo:17,SaTo:18,OhVe:18,GrSa:18,GaSpWu:18,GrPeSp:19,MoSp:19}
 \item Worst-case scenario - bounds grows exponentially in $k$
 \bit
-\item If everything $C^\infty$, shown for $n=1$ in \cite{Bu:02} and if $A=1$ and $n$ Lipschitz in \cite{Sh:17}. For both jumping across same $C^\infty$ interface in \cite{Be:02}.
+\item If everything $C^\infty$, shown for $n=1$ in \cite{Bu:02} and if $A=1$ and $n$ Lipschitz in \cite{Sh:18}. For both jumping across same $C^\infty$ interface in \cite{Bu:98}.
 \item Graham-Sauter \cite{GrSa:18} show exponential blow up in (properties of) coefficients, not $k$ in 1-D\ednote{Ivan, am I right with this comment?}
-\item \cite{MoSp:19} - numerical evidence for super-algebraic growith with trapping jumps - proved in \cite{PoVo:99a,PoVo99b,CaPoVo:99}.
+\item \cite{MoSp:19} - numerical evidence for super-algebraic growith with trapping jumps - proved in \cite{PoVo:99a,PoVo:99b,CaPoVo:99}.
 \eit
 \item But only get exponential blow up when problem is trapping
 \item Trapping if rays (angle of incidence = angle of reflection) stay for arbitrarily long time
@@ -63,7 +63,7 @@ Helmholtz:
 \bit
 \item Multiplier techniques going back to Morawetz (and Rellich) \optodo{List results, demarcating homo and hetero} which give $k$-explicit bound directly, or
 \item more technical microlocal/semi-classical\ednote{Euan, is there  any real difference between these?} tools, which give nontrapping, from which you can conclude bound\optodo{Find ref}
-\item Recent work on bounds explicit in parameters---motivated in part by UQ - \cite{FeLiLo:15,GrPeSp:18,PeSp:18} prove bounds under conditions that ensure nontrapping, \cite{GaSpWu:18} assume problem is nontrapping and get `length of longest ray'.
+\item Recent work on bounds explicit in parameters---motivated in part by UQ - \cite{FeLiLo:15,GrPeSp:19,PeSp:18} prove bounds under conditions that ensure nontrapping, \cite{GaSpWu:18} assume problem is nontrapping and get `length of longest ray'.
 \eit
 \item In conclusion, subtle how things depend on $k,$ coefficients, and more difficult than stationary diffusion.
 \eit
@@ -116,7 +116,7 @@ First recap/state background theory on Helmholtz.
 \item Recall from intro $h\sim k^{-1}$ (fixed ppw as num. points $\sim 1/h$) means interpolation error bounded
 \bit
 \item Can see by interpolation bounds from, e.g., Scott-Zhang (see below)
-\item In 1-D\optodo{Find out if it works in higher D} motviate also by Shannon--Nyquist theorem
+\item In 1-D\optodo{Find out if it works in higher D} motivate also by Shannon--Nyquist theorem
 \item Both make precise intuition that we have bounded errors under fixed points per wavelength
 \eit
 \item Also recall Helmholtz suffers from pollution - fixed ppw not enough to keep FEM error bounded
@@ -179,7 +179,7 @@ Now give requisite background finite-element theory
 \item Lemma - Norm equivalence (Lemma 3.7 in current draft of nearby preconditioning article)
 \eit
 
-\section{Error bound for the heterogeneous IIP}\label{sec:backgroundbounds}
+\section{Error bound for the heterogeneous IIP}\label{sec:errbound}
 \bit
 \item This section contains new work
 \item Prove heterogeneous analogue of results on bounded error if $h \lesssim k^{-3/2}$
@@ -212,7 +212,7 @@ In this chapter:
 \item Extend results in literature---only for homogeneous
 \item Results crucial in analysis of numerical methods in subsequent chapters
 \eit
-Only new material that is the subject of this thesis is that in \cref{sec:backgroundbounds}
+Only new material that is the subject of this thesis is that in \cref{sec:errbound}
 \eit
 \optodo{Put size of linear systems in}
 \optodo{Put in poor performance of GMRES?}
