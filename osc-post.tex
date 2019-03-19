@@ -1,0 +1,39 @@
+We construct a simple 1-dimensional example to show that the posteriors arising in Bayesian inverse problems, and the objective functions arising in inverse problems, for the Helmholtz equation are typically oscillatory/multi-modal. Whilst such a statement is commonly made in the literature (see, e.g.,\optodo{Find some references}) and observed in practive (see, e.g.,\optodo{Find more references}), we do not know of an explicit construction of such a posterior, and so we give one for a simple, 1-dimensional Helmholtz problem here.
+
+We consider the 1-dimensional homogeneous Helmholtz equation, posed on on the interval $(-L,0)$, where ultimately $L$ will be an unknown to be determined. We impose a Dirichlet boundary condition given by an incoming plane wave and a sound-soft scatterer at $-L,$ and an outgoing impedance boundary condition at 0. That is, we consider the PDE
+\beq\label{eq:app1dhh}
+u'' + k^2 u = 0 \tin (-L,0),
+\eeq
+\beq\label{eq:app1dibc}
+u(L) = -\exp(ikL) \tat -L
+\eeq
+\beq\label{eq:app1ddbc}
+u'(0) - iku(0) = 0 \tat 0.
+\eeq
+
+We now suppose that $L$ is unknown, that we have measured $u(0)$ (with experimental error), and we wish to know the posterior distribution of $L$. A similar argument to the one presented below would also give analagous results for deterministic inverse problems for $L$. We will show that the posterior distribution of $L$ is multi-modal (that is, it has multiple local maxima/minima) and oscillates on a length scale $2\pi/k.$
+
+To proceed, we first derive an expression for $u(0)$ as a function of $L$. We will then use this expression to formulate the Bayesian posterior for $L$, given knowledge of $u(0).$
+
+Solutions of \eqref{eq:app1dhh} are of the form
+\beqs
+A\exp(ikx) + B\exp(-ikx),
+\eeqs
+for some (complex) constants $A$ and $B$. The impedance boundary condition \eqref{eq:app1dibc} immediately implies $B=0$. Then applying the Dirichlet boundary condition \eqref{eq:app1ddbc}\optodo{Finish this later, and talk to someone about it.}
+
+Setup:
+\bit
+\item Want to determine length of interval (proxy for distance to scatterer) in simple 1-D model
+\item Incoming wave, gives DBC \@ $L$ - $\exp(ikx)$ for scattered wave
+\item IBC \@ 0\optodo{Make sure you get the sign of the derivative correct!}
+\item Helmholtz
+\item think of varying $L$/consider BIP for $L$, and show that solution/posterior is an oscialltory/multi-modal function of $L$ on wavelength $2\pi/k$  
+\eit
+
+Problem:
+\bit
+\item For simplicity, Uniform prior on $L$\optodo{Make sure big enough to capture truth}
+\item Derive expression for $u(0)$
+\item Formulate likelihood (up to proportionality)
+\item Show $u(0)$ and likelihood are oscillatory functions of $L$ on length $2\pi/k$
+\eit
