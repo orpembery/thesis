@@ -3,6 +3,12 @@
 \usepackage[show]{ed}
 \usepackage{mathtools}
 \usepackage{mleftright}
-\usepackage{showkeys}
+\ifdefined\supervisorversion
+
+\else
+        \usepackage{showkeys}
+    \fi
+    % Based on https://tex.stackexchange.com/a/1495
+
 \usepackage{amssymb}
 \usepackage{enumitem}
