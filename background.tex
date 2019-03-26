@@ -3,93 +3,68 @@ This chapter has two main foci:
 \ben
 \item Theory for deterministic Helmholtz especially well-posedness and a priori bounds
 \item Theory for FEM for deterministic Helmholtz especially error bounds
-\een
+  \een
+
+In this chapter:
+\bit
+\item Provie overview of bounds/well-posedness for Helmholtz
+\bit
+\item More complicated than stationary diffusion
+\item Depends on trapping/nontrapping
+\item review historical and recent research efforts in this area; esp. heterogeneous/stochastic cases
+\eit
+\item Defin EDP/TEDP that we'll consider in this thesis
+\item Prove result on regularity of solutions
+\item Recap in detail results from \cite{GrPeSp:19} on well-posedness and a priori bounds in particular case of nontrapping - crucial for our analysis of the stochastic problem.
+\item Give background theory for FEM for Helmholtz
+\item Prove new results on error bounds for Helmholtz in heterogeneous media
+  \bit
+\item Extend results in literature---only for homogeneous
+\item Results crucial in analysis of numerical methods in subsequent chapters
+\eit
+\item Review history of FEM NA for Helmholtz
+\bit
+\item Discuss $k$-dependence of mesh conditions
+\item  overview of historical development of results on quasi-optimality/bounded error
+\item These mesh sizes are restricitive
+\eit
+
+
+Only new material that is the subject of this thesis is that in \cref{sec:errbound}
+\eit
 
 Will include:
 \bit
-\item Discussion of well-posedness/bounds for Helmholtz incl. historical development - much more challenging than stationary diffusion
 \item Background theory/setup for Helmholtz
 \item Bounds/well-posedness results from \cite{GrPeSp:19}
-\item Discussion of FE error bounds/Quasi-optimality etc. for Helmholtz incl. historical development
+\item Discussion of well-posedness/bounds for Helmholtz incl. historical development - much more challenging than stationary diffusion
 \item Background theory/setup for FEM
 \item New contribution: Proofs of boundedness of error in heterogeneous case under mesh size $h \sim k^{-3/2}$
-\eit
+\item Discussion of FE error bounds/Quasi-optimality etc. for Helmholtz incl. historical development
+  \eit
 
-\section{Discussion of results on well-posedness and a priori bounds for the Helmholtz equation}
-\bit
-\item Will review history of well-posedness and a priori bounds for Helmholtz
-\item Will contrast with stationary diffusion
-\item To prepare for well-posedness and a priori bounds for stochastic Helmholtz in \cref{chap:stochastic}
-\eit
-Recall for stationary diffusion:
-\bit
-\item Variational formulation has bounded and coercive form
-\item Lax--Milgram gives existence, uniqueness, a priori bound explicit in coeffs
-\eit
-Helmholtz:
-\bit
-\item Above approach doesn't work---not coercive for large $k$
-\item But do have G\r{a}rding
-\item So use Fredholm alternative to show existence and uniqueness equivalent
-\item Show uniqueness via
-\bit
-\item UCP - but don't get a priori bound explicit in $k,$ parameters
-\item Proving a priori bound explicit in $k$, parameters, but not always possible with current technology
-\eit
-\item A priori bounds major part of well-posedness
-\item Also $k$- and parameter-explicit bounds needed for $k$- and $parameter$-explicit analysis of numerical methods
-\item And to understand how medium affects wave propagation
-\item A lot more subtle than stationary diffusion - there only quantities that enter are $\Amin$ and $\Amax$
-\eit
-\bit
-\item Will now talk about bounds - not UCP as don't get explicit bound - see discussion in hetero
-\item Focus on $k$-dependence (and later) parameter-dependence
-\item Long history of proving bounds on Helmholtz from 'analysis' community \cite{Bl:73,Va:75,BlKa:77,Bu:98,PeVe:99,PoVo:99a,PoVo:99b,CaPoVo:99,Bu:02,Be:03,Ca:12,CaLePa:12,NgVo:12,Sh:18}\optodo{Check each and every reference}\optodo{Check about Morawetz} and recent interest from NA \cite{Me:95,CuFe:06,He:07,EsMe:12,Sp:14,FeLiLo:15,Ch:15,BaSpWu:16,BrGaPe:17,BaChGo:17,SaTo:18,OhVe:18,GrSa:18,GaSpWu:18,GrPeSp:19,MoSp:19}
-\item Worst-case scenario - bounds grows exponentially in $k$
-\bit
-\item If everything $C^\infty$, shown for $n=1$ in \cite{Bu:02} and if $A=1$ and $n$ Lipschitz in \cite{Sh:18}. For both jumping across same $C^\infty$ interface in \cite{Bu:98}.
-\item Graham-Sauter \cite{GrSa:18} show exponential blow up in (properties of) coefficients, not $k$ in 1-D\ednote{Ivan, am I right with this comment?}
-\item \cite{MoSp:19} - numerical evidence for super-algebraic growith with trapping jumps - proved in \cite{PoVo:99a,PoVo:99b,CaPoVo:99}.
-\eit
-\item But only get exponential blow up when problem is trapping
-\item Trapping if rays (angle of incidence = angle of reflection) stay for arbitrarily long time
-\item Can get trapping if there are jumps in one direction, but not in other direction - \cite{MoSp:19}
-\item Actually, trapping only happens at very few frequencies-\cite{MoSp:19,LaSpWu:19}
-\item Related to idea of `resonant frequency'
-\item Can be caused by obstacles or variations in speed - c.f. total internal reflection
-\item If problem non-trapping (i.e. rays escape) then get bound independent of $k$ - see hetero\optodo{Find a reference for this}\optodo{iff?}
-\item Therefore results proving $k$-indep bounds under some conditions can be seen as providing sufficient conditions for problem to be nontrapping.
-\item Such results use either:
-\bit
-\item Multiplier techniques going back to Morawetz (and Rellich) \optodo{List results, demarcating homo and hetero} which give $k$-explicit bound directly, or
-\item more technical microlocal/semi-classical\ednote{Euan, is there  any real difference between these?} tools, which give nontrapping, from which you can conclude bound\optodo{Find ref}
-\item Recent work on bounds explicit in parameters---motivated in part by UQ - \cite{FeLiLo:15,GrPeSp:19,PeSp:18} prove bounds under conditions that ensure nontrapping, \cite{GaSpWu:18} assume problem is nontrapping and get `length of longest ray'.
-\eit
-\item In conclusion, subtle how things depend on $k,$ coefficients, and more difficult than stationary diffusion.
-\eit
-
-\section{Theory for the Helmholtz equation}
-\ednote{Both - How much background do I assume on, e.g., Sobolev spaces? Do I assume it, put it in an Appendix, or put it here?}
+\section{PDE Theory of the Deterministic Helmholtz Equation}
+  
+  \subsection{Variational Formulations for the Helmholtz equation}
 First recap/state background theory on Helmholtz.
 \bit
 \item Define Helmholtz EDP/TEDP/IIP\optodo{Note to self, at this stage, but the weakest assumptions on the problem you need to define it}
-\item Define variational formulation (for both zero and non-zero Dirichlet data)\ednote{Both - Would I need to prove the two formulations are equivalent (under sufficient regularity on $A$, etc.)? Or could I just quote the result from the hetero paper?}
-\item Proof of $H^m$ regularity when $f$ etc. is smooth enough\optodo{See if I can just borrow from Serge and Theo}
+\item Define variational formulation (for both zero and non-zero Dirichlet data)
+\item Proof of $H^m$ regularity when $f$ etc. is smooth enough\optodo{Why did you think you needed more than $H^2$?}
 \item G\r{a}rding inequality
-\eit
+  \eit
 
-\section{Well-posedness and bounds}
+  \subsection{Well-posedness and bounds}
 \bit
 \item Now recap bounds/well-posedness results proved in hetero
 \item Will be crucial for stochastic bounds in \cref{chap:stochastic}
-\item Not the main focus of this thesis - only a joint author on hetero
 \item Will give bounds that are:
 \bit
 \item $k$-independent
 \item explicit in $A$ and $n$
 \eit
 \item Explicitness in $A$ and $n$ needed to prove stochastic bounds
-\item As stated above, conditions we assume for proof are sufficient (but not necessary) for nontrapping.
+\item conditions we assume for proof are sufficient (but not necessary) for nontrapping.
 \eit
 
 \bit
@@ -110,13 +85,108 @@ First recap/state background theory on Helmholtz.
 \eit
 \eit
 
-\section{Discussion of FEM for Helmholtz}
+\subsection{Discussion of results on well-posedness and a priori bounds for the Helmholtz equation}
+\bit
+\item Will review history of well-posedness and a priori bounds for Helmholtz
+\item Will contrast with stationary diffusion (becuase of UQ)
+  \eit
+
+  \bit
+\item Well-posedness $=$ existence, uniqueness, a priori bound (continuous dependence)
+\item Want bound explicit in $k$ and parameters
+  \item Also $k$- and parameter-explicit bounds needed for $k$- and $parameter$-explicit analysis of numerical methods
+  \item And to understand how medium affects wave propagation
+    \item A lot more subtle than stationary diffusion - there only quantities that enter are $\Amin$ and $\Amax$
+  \eit
+
+(PUT SOMEWHERE ELSE?) Recall for stationary diffusion:
+\bit
+\item Variational formulation has bounded and coercive form
+\item Lax--Milgram gives existence, uniqueness, a priori bound explicit in coeffs
+\eit
+  
+Helmholtz:
+\bit
+\item Above approach doesn't work---not coercive for large $k$
+\item But do have G\r{a}rding - indentity $+$ compact
+\item So use Fredholm alternative to show uniqueness $\implies$ existence and bound (bound not explicit in $k$)
+\item Show uniqueness via
+\bit
+\item UCP - but don't get a priori bound explicit in $k,$ parameters\optodo{Why does SRc give uniqueness for homogeneous problems?}
+\item Proving a priori bound directly - get uniqueness
+\eit
+\eit
+\bit
+\item Will now talk about bounds
+\item Focus on $k$-dependence (and later) parameter-dependence
+\item Long history of proving bounds on Helmholtz from 'analysis' community \cite{Bl:73,Va:75,BlKa:77,Bu:98,PeVe:99,PoVo:99a,PoVo:99b,CaPoVo:99,Bu:02,Be:03,Ca:12,CaLePa:12,NgVo:12,Sh:18}\optodo{Check each and every reference}\optodo{Check about Morawetz} and recent interest from NA \cite{Me:95,CuFe:06,He:07,EsMe:12,Sp:14,FeLiLo:15,Ch:15,BaSpWu:16,BrGaPe:17,BaChGo:17,SaTo:18,OhVe:18,GrSa:18,GaSpWu:18,GrPeSp:19,MoSp:19}
+\item Worst-case scenario - bounds grows exponentially in $k$
+\bit
+\item If everything $C^\infty$, shown for $n=1$ in \cite{Bu:02} and if $A=1$ and $n$ Lipschitz in \cite{Sh:18}. For both jumping across same $C^\infty$ interface in \cite{Bu:98}.
+\item Graham-Sauter \cite{GrSa:18} show exponential blow up in (properties of) coefficients, not $k$ in 1-D\ednote{Ivan, can we chat about your work with Stefan to check I've understood it correctly?}
+\item \cite{MoSp:19} - numerical evidence for super-algebraic growith with trapping jumps - proved in \cite{PoVo:99a,PoVo:99b,CaPoVo:99}.
+\eit
+\item But only get exponential blow up when problem is trapping
+\item When everything $C^\infty,$ can define rays (for penetrable and impenetrable obstacle) and thus define nontrapping
+\item Nontrapping gives $1/k$ cut-off resolvent bound
+\item Will get cases later where things aren't so smooth, but still get cut-off resolvent bound
+  \item Call these nontrapping
+\item Trapping of rays (angle of incidence = angle of reflection) stay for arbitrarily long time
+\item Can get trapping if there are jumps in one direction, but not in other direction - \cite{MoSp:19}
+\item Actually, trapping only happens at very few frequencies-\cite{MoSp:19,LaSpWu:19}
+\item Related to idea of `resonant frequency'
+\item Can be caused by obstacles or variations in speed - c.f. total internal reflection
+\item If problem non-trapping (i.e. rays escape) then get bound independent of $k$ - see hetero\optodo{Find a reference for this}\optodo{iff?}
+\item Therefore results proving $k$-indep bounds under some conditions can be seen as providing sufficient conditions for problem to be nontrapping.
+\item Such results use either:
+\bit
+\item Multiplier techniques going back to Morawetz (and Rellich) \optodo{List results, demarcating homo and hetero} which give $k$-explicit bound directly, or
+\item more technical microlocal tools, which give nontrapping, from which you can conclude bound\optodo{Look at Vainberg/Melrose--Sj\"ostrand}
+\item Recent work on bounds explicit in parameters---motivated in part by UQ - \cite{FeLiLo:15,GrPeSp:19,PeSp:18} prove bounds under conditions that ensure nontrapping, \cite{GaSpWu:18} assume problem is nontrapping and get `length of longest ray'.
+\eit
+\item In conclusion, subtle how things depend on $k,$ coefficients, and more difficult than stationary diffusion.
+\eit
+
 \bit
 \item Now shift attention to NA of Helmholtz, specifically, FEM.
+  \item Will prove new result on error bounds for Helmholtz in hetero media, generalises homo media result.
+  \eit
+
+\section{Theory of the Discretisation of the Helmholtz Equation}
+  
+\subsection{Finite-element theory}
+Now give requisite background finite-element theory
+\bit
+\item Definition - Finite element/Finite element space
+\item Definition - Triangulation
+\item Definition - quasi-uniform
+\item Definition - Nodal Finite element
+\item Definition - Mesh size
+\item Definition - Fe space (of order $p$) associated with a triangulation
+\item Definition - Scott--Zhang quasi-interpolant
+\item Remark - Nodal interpolant falls within Scott--Zhang framework
+\item Lemma - approximation properties of Scott--Zhang quasi-interpolant
+\item Definition - Finite-element problem
+\item Remark - won't be considering non-conforming error\optodo{At least understand this}
+\item Lemma - Norm equivalence (Lemma 3.7 in current draft of nearby preconditioning article)
+\eit
+
+\subsection{Error bound for the heterogeneous IIP}\label{sec:errbound}
+\bit
+\item This section contains new work
+\item Prove heterogeneous analogue of results on bounded error if $h \lesssim k^{-3/2}$
+\item Proof technique uses `elliptic projection' idea - see Feng \& Wu, Wu, Du \& Wu, Chaumont-Frelet \& Nicaise.
+\item Prove for IIP only, as need to use results on a related PDE from Chaumont-Frelet and Nicaise; only proved with impedance boundary condition - expect can extend to, e.g., exact DtN.
+\item These bounds crucial for MLMC analysis in \cref{chap:mlmc}
+\item Will prove for non-zero Dirichlet boundary condition, as motivation for MLMC is scattering
+\eit
+
+\subsection{Discussion of FEM for Helmholtz}
+\bit
 \item Recall from intro $h\sim k^{-1}$ (fixed ppw as num. points $\sim 1/h$) means interpolation error bounded
 \bit
 \item Can see by interpolation bounds from, e.g., Scott-Zhang (see below)
-\item In 1-D\optodo{Find out if it works in higher D} motivate also by Shannon--Nyquist theorem
+\item In 1-D\optodo{Find out if it works in higher D} motivate also by Shannon--Nyquist theorem\optodo{Find Shannon Proc I. R. E., 31:10-21, '49 Communication in the prescence of noise}
 \item Both make precise intuition that we have bounded errors under fixed points per wavelength
 \eit
 \item Also recall Helmholtz suffers from pollution - fixed ppw not enough to keep FEM error bounded
@@ -163,57 +233,16 @@ Conclusion:
 \item Rigorous NA of Helmholtz more demanding than, e.g., stationary diffusion
 \item Mesh conditions require decreasing mesh size with $k$; esp. for quasi-optimality, very restrictive.
 \eit
-\section{Finite-element theory}
-Now give requisite background finite-element theory
-\bit
-\item Definition - Finite element/Finite element space
-\item Definition - Triangulation
-\item Definition - Nodal Finite element
-\item Definition - Mesh size
-\item Definition - Fe space (of order $p$) associated with a triangulation
-\item Definition - Scott--Zhang quasi-interpolant
-\item Remark - Nodal interpolant falls within Scott--Zhang framework
-\item Lemma - approximation properties of Scott--Zhang quasi-interpolant
-\item Definition - Finite-element problem
-\item Remark - won't be considering non-conforming error\optodo{At least understand this}
-\item Lemma - Norm equivalence (Lemma 3.7 in current draft of nearby preconditioning article)
-\eit
 
-\section{Error bound for the heterogeneous IIP}\label{sec:errbound}
-\bit
-\item This section contains new work
-\item Prove heterogeneous analogue of results on bounded error if $h \lesssim k^{-3/2}$
-\item Proof technique uses `elliptic projection' idea - see Feng \& Wu, Wu, Du \& Wu, Chaumont-Frelet \& Nicaise.
-\item Prove for IIP only, as need to use results on a related PDE from Chaumont-Frelet and Nicaise; only proved with impedance boundary condition - expect can extend to, e.g., exact DtN.
-\item These bounds crucial for MLMC analysis in \cref{chap:mlmc}
-\item Will prove for non-zero Dirichlet boundary condition, as motivation for MLMC is scattering
-\eit
-\section{Conclusion}
-In this chapter:
-\bit
-\item Provided overview of bounds/well-posedness for Helmholtz
-\bit
-\item More complicatd than stationary diffusion
-\item Depends on trapping/nontrapping
-\item review historical and recent research efforts in this area; esp. heterogeneous/stochastic cases
-\eit
-\item Defined EDP/TEDP that we'll consider in this thesis
-\item Proved result on regularity of solutions
-\item Recapped in detail results from \cite{GrPeSp:19} on well-posedness and a priori bounds in particular case of nontrapping - crucial for our analysis of the stochastic problem.
-\item Reviewed history of FEM NA for Helmholtz
-\bit
-\item Discussed $k$-dependence of mesh conditions
-\item Had overview of historical development of results on quasi-optimality/bounded error
-\item These mesh sizes are restricitive
-\eit
-\item Gave background theory for FEM for Helmholtz
-\item Prove new results on error bounds for Helmholtz in heterogeneous media
-\bit
-\item Extend results in literature---only for homogeneous
-\item Results crucial in analysis of numerical methods in subsequent chapters
-\eit
-Only new material that is the subject of this thesis is that in \cref{sec:errbound}
-\eit
+
 \optodo{Put size of linear systems in}
 \optodo{Put in poor performance of GMRES?}
 \optodo{Put in need for preconditioners?}
+
+
+%%5 Can put the below somewhere %%
+
+%% To keep the finite-element error bounded when solving \eqref{eq:introdet}, one must over-refine the numerical grid. That is, rather than using a fixed number of points per wavelength, one must increase the number of points per wavelength as $k$ increases. To achieve bounded finite-element error, one must refine the finite-element mesh size $h$ like $k^{-3/2}$. Whilst this result has been known numerically for some time, it was proven for \eqref{eq:introdet} only with constant coefficients (on various domains and for various finite-element spaces) in \cite{IhBa:95a,Wu:14,DuWu:15,ChNi:18}, and the first proof (to our knowledge) for \eqref{eq:introdet} with heterogeneous coefficients  is contained in \cref{chap:background}. Choosing $h \sim k^{-3/2}$ means \eqref{eq:intromat} is a linear system of size $k^{3d/2}$, larger than if one merely wants the interpolation error to be bounded. Hence, requiring a bounded finite-element error gives rise to very large linear systems.
+
+%% More briefly, if one wants the finite-element solution to be quasi-optimal (that is, up to a constant, the finite-element solution is the best approximation in the finite-element space), then one must over-refine even more, and take $h \sim k^{-2}$. This mesh condition will give rise to linear systems with $k^{2d}$ degres of freedom. See \cref{chap:background} for further details on the necessity of this mesh condition, and further discussion of all the mesh conditions discussed above.\optodo{EDIT THE ABOVE TO REMOVE `OVER-REFINE'}
+
