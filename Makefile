@@ -8,12 +8,14 @@ all: thesis.pdf
 
 .tex.pdf:
 	pdflatex $<
-	bibtex thesis.aux
+	bibtex thesis.aux # This is a hack
 	pdflatex $<
 	pdflatex $<
+	#evince thesis.pdf # As is this
+	#touch $<
 
 clean:
-	rm *pdf *log *bbl *blg *dvi *out
+	rm *pdf *log *bbl *blg *dvi *out *aux
 
 supervisor:
 # Based on https://tex.stackexchange.com/a/1495

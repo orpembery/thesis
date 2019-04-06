@@ -1,91 +1,181 @@
 \section{Introduction}
 This chapter has two main foci:
+%    \setlist[enumerate]{restart} ????
+\optodo{Sort numbering}
 \ben
-\item Theory for deterministic Helmholtz especially well-posedness and a priori bounds
-\item Theory for FEM for deterministic Helmholtz especially error bounds
+\item Recapping theory for the deterministic Helmholtz equation in heterogeneous media, focussing especially on well-posedness and a priori bounds on the solution, and
+\item Recapping and extending theory for the finite-element method for the deterministic Helmholtz equation, especially error bounds.
   \een
 
-In this chapter:
-\bit
-\item Provie overview of bounds/well-posedness for Helmholtz
-\bit
-\item More complicated than stationary diffusion
-\item Depends on trapping/nontrapping
-\item review historical and recent research efforts in this area; esp. heterogeneous/stochastic cases
-\eit
-\item Defin EDP/TEDP that we'll consider in this thesis
-\item Prove result on regularity of solutions
-\item Recap in detail results from \cite{GrPeSp:19} on well-posedness and a priori bounds in particular case of nontrapping - crucial for our analysis of the stochastic problem.
-\item Give background theory for FEM for Helmholtz
-\item Prove new results on error bounds for Helmholtz in heterogeneous media
-  \bit
-\item Extend results in literature---only for homogeneous
-\item Results crucial in analysis of numerical methods in subsequent chapters
-\eit
-\item Review history of FEM NA for Helmholtz
-\bit
-\item Discuss $k$-dependence of mesh conditions
-\item  overview of historical development of results on quasi-optimality/bounded error
-\item These mesh sizes are restricitive
-\eit
+  In this chapter we will first provide an overview of well-posedness results for the deterministic Helmholtz equation, and a priori bounds on its solution.\optodo{Put somewhere below that Fredholm gives a bound without dependence on $k$} Such results are more complicated than analagous results for the simpler stationary diffusion equation
+  \beqs
+\grad \cdot \mleft( A \grad u \mright) = -f,
+\eeqs
+as results for the Helmholtz equation depend on whether the medium described by the coefficients $A$ and $n$ is `trapping' or `nontrapping' (these terms will be discussed in more precision below). We will then move on to discussing the finite-element approximation of \eqref{eq:introdet}, focussing especially on error bounds and quasi-optimality, and the $k$-dependent mesh conditions under which such properties can be proven.
 
+In \cref{sec:varform} we will define the deterministic Helmholtz problems we will study in this chapter (these are the deterministic analogues of the stochastic Helmholtz problems we will study), prove a straightforward lemma on the regularity of the solution of these problems, and show that these problems satisfy a so-called G\r{a}rding inequality. In \cref{sec:wpbounds} we will then state in some detail the well-posedness results and a priori bounds from \cite{GrPeSp:19}, these results will be crucial for our analysis of stochastic Helmholtz problems in \cref{chap:stochastic}. In \cref{sec:wpdisc} we will review recent and historical research efforts in this area. We then move on to the finite-element method for \eqref{eq:introdet}; in \cref{sec:fetheory} we recap basic concepts of the finite-element method, before proving new results on error bounds for the finite-element method for \eqref{eq:introdet} in \cref{sec:errbound}. We then give an overview of the literatureon error bounds and quasi-optimality for \eqref{eq:introdet} in \cref{sec:helmfedisc}.
 
-Only new material that is the subject of this thesis is that in \cref{sec:errbound}
-\eit
-
-Will include:
-\bit
-\item Background theory/setup for Helmholtz
-\item Bounds/well-posedness results from \cite{GrPeSp:19}
-\item Discussion of well-posedness/bounds for Helmholtz incl. historical development - much more challenging than stationary diffusion
-\item Background theory/setup for FEM
-\item New contribution: Proofs of boundedness of error in heterogeneous case under mesh size $h \sim k^{-3/2}$
-\item Discussion of FE error bounds/Quasi-optimality etc. for Helmholtz incl. historical development
-  \eit
 
 \section{PDE Theory of the Deterministic Helmholtz Equation}
   
-  \subsection{Variational Formulations for the Helmholtz equation}
-First recap/state background theory on Helmholtz.
-\bit
-\item Define Helmholtz EDP/TEDP/IIP\optodo{Note to self, at this stage, but the weakest assumptions on the problem you need to define it}
-\item Define variational formulation (for both zero and non-zero Dirichlet data)
-\item Proof of $H^m$ regularity when $f$ etc. is smooth enough\optodo{Why did you think you needed more than $H^2$?}
-\item G\r{a}rding inequality
+
+  We will begin by defining the two deterministic Helmholtz problems that we consider in this thesis (and the stochastic analogues of which we also consider). We first state these problems in `strong form' (that is, where derivatives are understood as distributional derivatives), in \cref{sec:varform}, when considering finite-element approximations of the problems, we will consider the variational formulations of these problems.\optodo{Somewhere explain convention on function spaces, and define matrix space} In this section we largely follow the presentation in \cite{GrPeSp:19}
+
+  \bprob[Exterior Dirichlet Problem]\label{prob:edp}
+  Let $\Dm$ be a bounded Lipschitz\optodo{Needed for statement?} open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\GD \de \partial \Dm.$ Given
+  \bit
+  \item $k > 0,$
+\item $f \in \LtDp$ with compact support,
+\item $\gD \in \HhGD,$
+\item $n \in \LiDpRR$ such that $1-n$ has compact support and there exist $0 < \nmin < \nmax < \infty$ such that
+  \beqs
+\nmin \leq n(\bx) < \nmax \tfae \bx \in \Dp,
+  \eeqs
+\item $A \in \LiDpRRdtd$ such that $I-A$ has compact support, $A$ is symmetric, and there exist $0 < \Amin < \Amax < \infty$ such that
+  \beqs
+\Amin \abs{\bxi}^2 \leq \mleft(A(\bx) \bxi \mright) \cdot \bxibar < \Amax \abs{\bxi}^2 \tfa \bxi \in \CCd \tfae \bx \in \Dp,
+  \eeqs
   \eit
+  we say $u \in \HolocDp$ satisfies the \defn{exterior Dirichlet problem} if
+  \beqs
+\grad \cdot \mleft(A \grad u\mright) + k^2 n u = -f \tin \Dp,
+\eeqs
+\beq\label{eq:dbc}
+\trGD u = \gD,
+\eeq
+and $u$ satisfies the Sommerfeld radiation condition\optodo{Make sure you understand this}
+\beq\label{eq:sommerfeld}
+\dudr(\bx) - iku(\bx) = o\mleft(\frac1{r^{(d-1)/2}}\mright)
+\eeq
+as $r \de \abs{\bx} \rightarrow \infty,$ uniformly in $\bxhat \de \bx/\abs{\bx}.$
+\eprob
 
-  \subsection{Well-posedness and bounds}
+To interpret \cref{prob:edp} physically, we can think of $u$ as being the acoustic pressure field caused by the scattering of an incoming wave $\ui$ by the scatterer $\Dm.$\footnote{In the literature the scattered field is sometimes denotes $us,$ and $u$ denotes the total field $\ui+ \us.$} The Dirichlet boundary condition \eqref{eq:dbc} means $\Dm$ corresponds to a sound-soft scatterer, that is, one on which the total field $u + \ui$ vanishes, with $\gD = - \trGD \ui.$ The function $f$ represents other pressume sources in the domain, although if one is solely interested in scattering, $f=0.$
+
+The Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the solutions of \cref{prob:edp} correspond to physically `outgoing' waves\optodo{Find reference}, and also guarantees the uniqueness of solution to \cref{prob:edp}\optodo{Ref for this}. However, \cref{prob:edp} is posed on an infinite domain, which cannot be fully represented when discretising with the FEM. Therefore, one must truncated the infinite domain $\Dp$ and impose an artificial boundary condition on the external boundary of the truncated domain. Options for the truncated boundary condition include a perfectly matched layer which\optodo{check} mimics the whole of the external domain, or so-called FEM-BEM coupling\optodo{Check}, where a boundary element method is used to approximate the solution in the exterior of the truncated domain. However, in this thesis, we will use a simpler approach, imposing an \defn{impedance boundary condition}
+\beq\label{eq:imptext}
+\dn u - iku = \gI
+\eeq
+on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as a first-order approximation to \eqref{eq:sommerfeld}. Truncating with an impedance boundary condition gives rise to the following alternative deterministic Helmholtz problem\optodo{Make a picture explaining EDP and TEDP on one pic}
+\bprob[Truncated Exterior Dirichlet Problem]\label{prob:tedp}
+ Let $\Dm$ be a bounded Lipschitz\optodo{Needed for statement?} open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Given
+  \bit
+  \item $k > 0,$
+\item $f \in \LtD$
+\item $\gD \in \HhGD,$
+  \item $\gI \in \LtGI$\optodo{Understand why these are the function space requirements}
+\item $n \in \LiDRR$ such that $\supp\mleft(1-n\mright) \compcont D$ and there exist $0 < \nmin < \nmax < \infty$ such that
+  \beqs
+\nmin \leq n(\bx) < \nmax \tfae \bx \in D,
+  \eeqs
+\item $A \in \LiDRRdtd$ such that $\supp\mleft(I-A\mright)\compcont D$,\ednote{Euan---in hetero, this requirement is instead phrased `$\dist(\supp(I-A),\GI) > 0'$. Is there any reason for phrasing it that way?} $A$ is symmetric, and there exist $0 < \Amin < \Amax < \infty$ such that
+  \beqs
+\Amin \abs{\bxi}^2 \leq \mleft(A(\bx) \bxi \mright) \cdot \bxibar < \Amax \abs{\bxi}^2 \tfa \bxi \in \CCd \tfae \bx \in D,
+  \eeqs
+  \eit
+  we say $u \in \HoD$ satisfies the \defn{truncated exterior Dirichlet problem} if
+  \beqs
+\grad \cdot \mleft(A \grad u\mright) + k^2 n u = -f \tin D,
+\eeqs
+\beqs
+\trGD u = \gD, \tand
+\eeqs
+\beq\label{eq:ibc}
+\trGI \dn u - ik\trGI u = \gI.
+\eeq
+\eprob
+Observe that, by construction, $\partial D = \GI \cup \GI$ and $\GD \cap \GI = \emptyset.$
+
+Whilst the impedance boundary condition \eqref{eq:ibc} does not exactly mimic the Sommerfeld radiation condition \eqref{eq:sommerfeld}, the solutions of \cref{prob:tedp} are still `wave-like', and we will see below that solutions of \cref{prob:tedp} posses many of the same properties as solutions of \cref{prob:edp}. We also note that a common Helmholtz model problem in the numerical-analysis community is the \defn{interior impedance problem}, which is simply \cref{prob:tedp} in the case $\Dm = \emptyset.$
+
+In order to approximation \cref{prob:edp,prob:tedp} by the finite-element method, we must instead work with the following 'variational forms' or 'weak forms' of \cref{prob:edp,prob:tedp}. For simplicity of exposition, we state both variational forms in the case $\gD = 0,$ although these can be generalised to the case $\gD \neq 0.$
+\optodo{Insert ball notation somewhere}
+\optodo{Define DtN}
+\optodo{Define duality pairing}
+
+\optodo{Fix cleverref referring to Problems as Theorems}
+
+
+  \subsection{Well-posedness and bounds}\label{sec:wpbounds}
+
+  We will now recap the well-posedness results and a priori bounds for \cref{prob:edp,prob:tedp} from \cite{GrPeSp:19}; these results will, in particular, be crucial for proving well-posedness results and a priori bounds for the stochastic analogues of \cref{prob:edp,prob:tedp} in \cref{chap:stochastic}. The novelty of these results is that they hold independently of $k,$ and that the a priori bounds we prove are explicit in $A$ and $n$. The explicitness in $A$ and $n$ is necessary in order to prove a priori bounds for stochastic $A$ and $n$, and we prove the results under conditions on $A$ and $n$ that are, in some sense `nontrapping'. Informally, a medium is `nontrapping' if all rays travelling through the medium escape in a uniform time; this definition, and the sense in which our conditions are `nontrapping', is discussed in \cref{sec:wpdisc} below.
+
+  We first define the classes of $A$ and $n$ for which we will prove well-posedness results and a priori bounds.% Since we will need to consider the classes on both finite and infinite domains (for \cref{prob:tedp,prob:edp} respectively), we first define the classes for finite domains, before using this definition to define the classes for infinite domains.
+
+  \optodo{Define star-shaped w.r.t. a point, ball}
+
+%%   \bde[Class of nontrapping media on a finite domain]\label{def:NTfinite}
+%% Let $\Dm$ be star-shaped with respect to the origin, and let $D$ be as in \cref{prob:tedp}. Let $A \in \CzoDclosRRdtd, n \in \CzoDclosRR$ and $\muo, \mut > 0.$ We say that 
+%%   \ede
+  
+\bde[Class of nontrapping media]\label{def:NT}
+Let $A \in \CzoDpclosRRdtd, n \in \CzoDpclosRR,$ and $\muo, \mut > 0.$ We say that $A \in \NTADp{\muo}$ if
+\beqs
+A(\bx) - \mleft(\bx \cdot \grad\mright)A(\bx) \geq \muo
+\eeqs
+in the sense of quadratic forms for almost every $\bx \in \Dp$. We say that $n \in \NTnDp{\mut}$ if
+\beqs
+n(\bx) + \bx \cdot \grad n(\bx) \geq \mut
+\eeqs
+for almost every $\bx \in \Dp.$
+
+If $D$ is as in \cref{prob:tedp}, then we define $\NTAD{\muo}$ and $\NTnD{\mut}$ analagously.
+\ede
+\ednote{Both---Can you think of better notation for these conditions? I'm not overly keen to write $\mathrm{NT}_{\mathrm{A}}$ etc., as there is potentially confusion between then function $A$ and the $\mathrm{A}$ is the subscript. Or am I being overcautious?}
+
+We can now prove well-posedness results and a priori bounds for the Helmholtz equation in the class of heterogeneous media we have just defined.
+
+\bth[Well-posedness and bound for the EDP]\label{thm:edp}
+If $\Dm, A, n,$ and $f$ satisfy the requirements in \cref{prob:edp}, $\Dm$ is star-shaped with respect to the origin, there exists $\muo, \mut > 0$ such that $A \in \NTADp{\muo}$ and $n \in \NTnDp{\mut}$, and $\gD = 0,$ then the solution of \cref{prob:edp} exists and is unique. Furthermore, given $R>0$ such that $\supp\mleft(I-A\mright),$ $\supp(1-n),$ and $\supp f$ are compactly contained in $\DR,$ then
+\beqs
+\muo \NLtDR{u}^2 + \mut k^2 \NLtDR{\grad u}^2 \leq \Co \NLtDR{f}^2,
+\eeqs
+for all $k>0,$ where
+\beqs
+\Co \de 4\mleft(\frac{R^2}{\muo} +\frac1{\mut}\mleft(R + \frac{d-1}{2k}\mright)^2\mright).
+\eeqs
+\enth
+
+For the proof of \cref{thm:edp}, see \cite[Theorem 2.5]{GrPeSp:19}.
+
+One can prove an analagous result to \cref{thm:edp} for \cref{prob:tedp} using the same techniques as in the proof of \cref{thm:edp}. However, the statement of the theorem is slightly more complicated due to the presence of the impedance boundary $\GI$, and its effect on the solution.
+
+\bth[Well-posedness and bound for the TEDP]\label{thm:tedp}
+If $\Dm, A, n, f,$ and $\gI$ satisfy the requirements in \cref{prob:tedp}, $\Dm$ is star-shaped with respect to the origin, $\Dtilde$, is star-shaped with respect to a ball, there exists $\muo, \mut > 0$ such that $A \in \NTAD{\muo}$ and $n \in \NTnD{\mut}$, and $\gD = 0,$ then the solution of \cref{prob:tedp} exists and is unique. Let:
 \bit
-\item Now recap bounds/well-posedness results proved in hetero
-\item Will be crucial for stochastic bounds in \cref{chap:stochastic}
-\item Will give bounds that are:
+\item $\LI \de \max_{\bx \in \GI} \abs{\bx}$ and
+\item $a\LI$ be the radius of the ball with respect to which $\Dtilde$ is star-shaped.
+    \eit
+Then
+\begin{multline*}
+  \muo \NLtD{u}^2 + \mut k^2 \NLtD{\grad u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2 + 2\LI k^2 \NLtGI{\trGI u}^2\\
+  \leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2
+\end{multline*}
+\optodo{Check that hetero grad boundary notation isn't hiding anything}
+for all $k>0,$ where $\gradGI$ is the surface gradient on $\GI,$
+\beqs
+\Ct \de 4\mleft(\frac{\LI^2}{\muo} + \frac1{\mut}\mleft(\beta + \frac{d-1}{2k}\mright)^2\mright),
+\eeqs
+\beqs
+\Cttilde \de 2\mleft(2\mleft(1+\frac2a\mright) + \frac\beta{\LI} + \frac{\mleft(d-1\mright)^2}4\mright)\LI,
+\eeqs
+and
+\beqs
+\beta \de \LI \mleft(2+\frac1{\mleft(k\LI\mright)^2} + 2\mleft(1+\frac2a\mright)\mright).
+\eeqs
+\enth
+
+Observe that the above results are stated only in the case that $\gD = 0$. Whilst there is no mathematical difficulty in proving analagous results in the case $\gD \neq 0,$ the calculations in this case are more involved, as one must consider the surface gradient on the Dirichlet boundary, and this surface gradient depends on $A.$ In the case $A=I,$ these calculations are significantly simplified, and so in the case $A=I$ and $\gD \neq 0$ analagous results to \cref{thm:edp,thm:tedp} are proved in \cite[Theorem 2.19(ii)]{GrPeSp:19} (for \cref{prob:edp}) and \cite[Theorem A.6(iv)]{GrPeSp:19} (for \cref{prob:tedp}).
+
+We highlight that these results are significant for the following two reasons.
 \bit
-\item $k$-independent
-\item explicit in $A$ and $n$
-\eit
-\item Explicitness in $A$ and $n$ needed to prove stochastic bounds
-\item conditions we assume for proof are sufficient (but not necessary) for nontrapping.
+\item These are the first $k$-explicit bounds on the solution of the Helmholtz equation in the case where both $A$ and $n$ are heterogeneous. As will discussed in more detail in \cref{sec:wpdisc} below, previous results were either not $k$-explicit, or did not have $A$ \emph{and} $n$ varying. The $k$-explicitness of these results is crucial for understanding how the solution of the Helmholtz equation (and numerical methods for its approximation) behave for large $k.$
+  \item These are the first bounds explicit in $A$ and $n$ where the bound and the restrictions on $A$ and $n$ are independent of $k.$ Such bounds are crucial for the rigorous analysis of the analagous stochastic problems, and previous results in the literature only proved such bounds by imposing conditions on $A$ and $n$ that became more stringent as $k \rightarrow \infty;$ again, this will be more fully discussed in \cref{sec:wpdisc} below.
 \eit
 
-\bit
-\item Define $NT_A,$ $NT_n$ etc. ($n + \bx \cdot \grad n \geq \mu$ etc.)
-\item Theorem: Bounds for EDP (with zero and non-zero Dirichlet data)
-\item Theorem: Bounds for TEDP (with zero and non-zero Dirichlet data)
-\item Result for non-zero Dirichlet data has $A=I$ to make things simpler, but could do for $A \neq I$
-\item Why results are significant:
-\bit
-\item First $k$-explicit bounds where $A$ and $n$ both vary
-\item First $k$-independent bounds explicit in $A$ and $n$
-\item Enable analysis of stochastic problem - enables rigorous UQ
-\eit
-\item Can extend results to:
-\bit
-\item Discontinuous $A$ and $n$
-\item $A$ and $n$ perturbations of $NT$
-\eit
-\eit
+We remark that \cref{thm:edp,thm:tedp} are extended to wider classes of heterogeneous $A$ and $n$ and to the case $\gD \neq 0$ in \cite{GrPeSp:19}. As stated above, the case $\gD \neq 0$ (with $A=I$) is treated in \cite[Theorem 2.19(ii)]{GrPeSp:19} (for \cref{prob:edp}) and \cite[Theorem A.6(iv)]{GrPeSp:19} (for \cref{prob:tedp}), and the case $n=1$ is covered in \cite[Theorem 2.19(i)]{GrPeSp:19} (for \cref{prob:edp}) and \cite[Theorem A.6(ii)]{GrPeSp:19}. We highlight that when $A=I$ or $n=1$ the conditions on the other coefficient can be slightly weakened from those in \cref{def:NT}. When $A$ and $n$ are discontinuous, \cite[Condition 2.6]{GrPeSp:19} gives analogues of the conditions in \cref{def:NT}, and then the result corresponding to \cref{thm:edp} is proved in \cite[Theorem 2.7]{GrPeSp:19}. Letting $A$ and $n$ be $L^\infty$-perturbations of nontrapping media is discussed in \cite[Remark 2.15]{GrPeSp:19}, and relaxing the Lipschitz assumption on $\GD$ is outlined in \cite[Remark 2.13]{GrPeSp:19}, with the caveat that when $\GD$ is non-Lipschitz, we instead formulate \cref{prob:edp} as a variational problem, which is discussed in \cref{sec:varform} below. The above extensions and generalisations all can also be applied to \cref{prob:tedp}, as mentioned in \cite[p. 2916]{GrPeSp:19}.
 
-\subsection{Discussion of results on well-posedness and a priori bounds for the Helmholtz equation}
+\subsection{Discussion of results on well-posedness and a priori bounds for the Helmholtz equation}\label{sec:wpdisc}
 \bit
 \item Will review history of well-posedness and a priori bounds for Helmholtz
 \item Will contrast with stationary diffusion (becuase of UQ)
@@ -96,7 +186,7 @@ First recap/state background theory on Helmholtz.
 \item Want bound explicit in $k$ and parameters
   \item Also $k$- and parameter-explicit bounds needed for $k$- and $parameter$-explicit analysis of numerical methods
   \item And to understand how medium affects wave propagation
-    \item A lot more subtle than stationary diffusion - there only quantities that enter are $\Amin$ and $\Amax$
+    \item A lot more subtle than stationary diffusion
   \eit
 
 Recall for stationary diffusion\optodo{PUT SOMEWHERE ELSE?}:
@@ -152,38 +242,91 @@ Helmholtz:
   \item Will prove new result on error bounds for Helmholtz in hetero media, generalises homo media result.
   \eit
 
-\section{Theory of the Discretisation of the Helmholtz Equation}
+\section{Theory of the Discretisation of the Helmholtz Equation}\label{sec:helmfe}
+
+  \subsection{Variational Formulations for the Helmholtz equation}\label{sec:varform}
+
+\optodo{Chat}
   
-\subsection{Finite-element theory}
+\bprob[Variational formulation of EDP when $\gD = 0$]\label{prob:vedp}
+Let $\Dp, A, n,$ and $f$ be as in \cref{prob:edp}. Choose $R>0$ such that $\supp f, \supp(I-A), \supp(1-n) \compcont \BR,$ and define $\DR \de \Dp \cap \BR.$
+
+We say $u \in \HozDDR$ satisfies the \defn{variational formulation of the exterior Dirichlet problem} with $\gD = 0$ if
+\beqs
+\aE(u,v) = \FE(v) \tfa v \in \HozDDR,
+\eeqs
+where
+\beqs
+\aE(w,v) \de \int_{\DR} \mleft(\IPRRd{A \grad w}{\grad v} - k^2 n w \vbar\mright) - \DPGR{\TR \trGR w}{\trGR v}
+\eeqs
+and
+\beqs
+\FE(v) \de \int_{\DR} f\vbar
+\eeqs
+\eprob
+
+\ble[Equivalence of formulations for the EDP]\label{lem:edpform}
+\Cref{prob:edp,prob:vedp} are equivalent, i.e., if $u \in \HolocDp$ solves \cref{prob:edp} then $u\restrict_{\DR} \in \HozDDR$ (for $R$ as in \cref{prob:vedp}) and $u\restrict_{\DR}$ solves \cref{prob:vedp}.\optodo{Sort restriction notation}
+\ele
+
+For a proof of \cref{lem:edpform}, see \cite[Lemma 3.3]{GrPeSp:19}.
+
+\bprob[Variational formulation of TEDP when $\gD = 0$]\label{prob:vtedp}
+Let $D, A, n, f,$ and $\gI$ be as in \cref{prob:tedp}. We say $u \in \HozDDR$ satisfies the \defn{variational formulation of the truncated exterior Dirichlet problem} with $\gD = 0$ if
+\beqs
+\aT(u,v) = \FT(v) \tfa v \in \HozDDR,
+\eeqs
+where
+\beqs
+\aT(w,v) \de \int_{\DR} \mleft(\IPRRd{A \grad w}{\grad v} - k^2 n w \vbar\mright) - ik\int_{\GI} \trGI w\trGI \vbar
+\eeqs
+and
+\beqs
+\FT(v) \de \int_{\DR} f\vbar + \int_{\GI} \gI \trGI \vbar
+\eeqs
+\eprob
+\ednote{Both---can we discuss whether it's worth stating the variational formulation of the EDP/TEDP with non-zero Dirichlet data? On the one hand, it's more technical, but on the other hand, if we want (e.g. for MLMC) to consider the far-field as a quantity of interest, it makes most sense to consider a `real' scattering problem, i.e., one with non-zero Dirichlet data.}
+
+\ble[Equivalence of formulations for the TEDP]\label{lem:tedpform}
+\Cref{prob:tedp,prob:vtedp} are equivalent, i.e., $u \in \HozDDR$ solves \cref{prob:tedp} if, and only if, $u$ solves \cref{prob:vtedp}.
+\ele
+
+For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
+  
+\subsection{Finite-element theory}\label{sec:fetheory}
+
 Now give requisite background finite-element theory
+
 \bit
 \item Definition - Finite element/Finite element space
 \item Definition - Triangulation
-\item Definition - quasi-uniform
-\item Definition - Nodal Finite element
 \item Definition - Mesh size
+\item Definition - Nodal Finite element
 \item Definition - Fe space (of order $p$) associated with a triangulation
+\item Proof of $H^m$ regularity when $f$ etc. is smooth enough\optodo{Why did you think you needed more than $H^2$?}
 \item Definition - Scott--Zhang quasi-interpolant
-\item Remark - Nodal interpolant falls within Scott--Zhang framework
 \item Lemma - approximation properties of Scott--Zhang quasi-interpolant
 \item Definition - Finite-element problem
-\item Remark - won't be considering non-conforming error\optodo{At least understand this}
-\item Lemma - Norm equivalence (Lemma 3.7 in current draft of nearby preconditioning article)
+\item Remark - won't be considering variational crimes, like approximating geometry\optodo{At least understand this}
 \eit
 
 \subsection{Error bound for the heterogeneous IIP}\label{sec:errbound}
 \bit
 \item This section contains new work
-\item Prove heterogeneous analogue of results on bounded error if $h \lesssim k^{-3/2}$
-\item Proof technique uses `elliptic projection' idea - see Feng \& Wu, Wu, Du \& Wu, Chaumont-Frelet \& Nicaise.
+\item Prove heterogeneous analogue of results on bounded error if $h \lesssim k^{-(2p+1)/2p}$
+\item Proof technique uses `elliptic projection' idea - see Feng \& Wu, Wu, Du \& Wu, Chaumont-Frelet \& Nicaise, WU \& Zou.
 \item Prove for IIP only, as need to use results on a related PDE from Chaumont-Frelet and Nicaise; only proved with impedance boundary condition - expect can extend to, e.g., exact DtN.
 \item These bounds crucial for MLMC analysis in \cref{chap:mlmc}
 \item Will prove for non-zero Dirichlet boundary condition, as motivation for MLMC is scattering
-\eit
+  \eit
+  Include:
+  \bit
+\item G\r{a}rding inequality
+  \eit
 
-\subsection{Discussion of FEM for Helmholtz}
+\subsection{Discussion of FEM for Helmholtz}\label{sec:helmfedisc}
 \bit
-\item Recall from intro $h\sim k^{-1}$ (fixed ppw as num. points $\sim 1/h$) means interpolation error bounded
+\item Recall from intro $h\sim k^{-1}$ (for first order; fixed ppw as num. points $\sim 1/h$) means interpolation error bounded, in general fixed ppw, but condition varies.
 \bit
 \item Can see by interpolation bounds from, e.g., Scott-Zhang (see below)
 \item In 1-D\optodo{Find out if it works in higher D} motivate also by Shannon--Nyquist theorem\optodo{Find Shannon Proc I. R. E., 31:10-21, '49 Communication in the prescence of noise}
@@ -210,7 +353,8 @@ Now give requisite background finite-element theory
 \item Wu - error $\sim h^2k^3$ if $h \sim k^{-3/2}$ for 1st-order FEM
 \item Du and Wu - error $\sim h^{2p}k^{2p+1}$ for higher-order FEM
 \item Chaumont-Frelet \& Nicaise - similar result with corner singularities
-\item Here in \cref{sec:errbound} first proof that $h\sim k^{-3/2}$ sufficient to keep relative error bounded in heterogeneous problems
+  \item WU \& Zou - special case in heterogeneous media
+\item Here in \cref{sec:errbound} first proof that $h\sim k^{-(2p+1)/2p}$ sufficient to keep relative error bounded in heterogeneous problems
 \eit
 \item For stationary diffusion, things are straightforward
 \item Prove quasi optimality using C\'ea
@@ -224,7 +368,7 @@ Now give requisite background finite-element theory
 \item Used by Aubin\optodo{For what}
 \item Applied by Schatz to problems satisfying G\r{a}rding inequality
 \item First applied to Helmholtz by Melenk
-\item Obtain quasi-optimality under nontrapping assumptions and restrictive mesh condition $h \sim k^{-2}$---see \cite[Proposition 8.2.7]{Me:95} for homogeneous, \cite[Theorem 3]{GaSpWu:18} for heterogeneous, related bound in \cite[Section 1.4]{ChSpGiSm:17} sketched for parabolic trapping cases
+\item Obtain quasi-optimality under nontrapping assumptions and restrictive mesh condition $h \sim k^{-2}$---see \cite[Proposition 8.2.7]{Me:95} for homogeneous, \cite{GrSa:18} and \cite[Theorem 3]{GaSpWu:18} for heterogeneous, related bound in \cite[Section 1.4]{ChSpGiSm:17} sketched for parabolic trapping cases
 \item Mesh condition is prohibitive for large $k$
 \eit
 \eit
