@@ -176,77 +176,69 @@ We highlight that these results are significant for the following two reasons.
 We remark that \cref{thm:edp,thm:tedp} are extended to wider classes of heterogeneous $A$ and $n$ and to the case $\gD \neq 0$ in \cite{GrPeSp:19}. As stated above, the case $\gD \neq 0$ (with $A=I$) is treated in \cite[Theorem 2.19(ii)]{GrPeSp:19} (for \cref{prob:edp}) and \cite[Theorem A.6(iv)]{GrPeSp:19} (for \cref{prob:tedp}), and the case $n=1$ is covered in \cite[Theorem 2.19(i)]{GrPeSp:19} (for \cref{prob:edp}) and \cite[Theorem A.6(ii)]{GrPeSp:19}. We highlight that when $A=I$ or $n=1$ the conditions on the other coefficient can be slightly weakened from those in \cref{def:NT}. When $A$ and $n$ are discontinuous, \cite[Condition 2.6]{GrPeSp:19} gives analogues of the conditions in \cref{def:NT}, and then the result corresponding to \cref{thm:edp} is proved in \cite[Theorem 2.7]{GrPeSp:19}. Letting $A$ and $n$ be $L^\infty$-perturbations of nontrapping media is discussed in \cite[Remark 2.15]{GrPeSp:19}, and relaxing the Lipschitz assumption on $\GD$ is outlined in \cite[Remark 2.13]{GrPeSp:19}, with the caveat that when $\GD$ is non-Lipschitz, we instead formulate \cref{prob:edp} as a variational problem, which is discussed in \cref{sec:varform} below. The above extensions and generalisations all can also be applied to \cref{prob:tedp}, as mentioned in \cite[p. 2916]{GrPeSp:19}.
 
 \subsection{Discussion of results on well-posedness and a priori bounds for the Helmholtz equation}\label{sec:wpdisc}
-\bit
-\item Will review history of well-posedness and a priori bounds for Helmholtz
-\item Will contrast with stationary diffusion (becuase of UQ)
-  \eit
 
-  \bit
-\item Well-posedness $=$ existence, uniqueness, a priori bound (continuous dependence)
-\item Want bound explicit in $k$ and parameters
-  \item Also $k$- and parameter-explicit bounds needed for $k$- and $parameter$-explicit analysis of numerical methods
-  \item And to understand how medium affects wave propagation
-    \item A lot more subtle than stationary diffusion
-  \eit
+We will now review the historical development of well-posedness results, and a priori bounds for the Helmholtz equation. Recall that by `well-posedness', we mean that a solution of the Helmholtz equation exists, is unique, and continuously depends on the data $f$ and $\gD$ (and $\gI$ for \cref{prob:tedp}). Observe that an a-priori bound of the form
+\beq\label{eq:bgbound}
+\N{u} \leq C \mleft(\N{f} + \N{\gD}\mright)
+\eeq
+(where $C$ is some constant, possibly dependent on $k, A, n,$ and the domain) immediately allows us to conclude uniqueness (as the solution of the Helmholtz equation with zero data must be the zero function) and continuous dependence (because small perturbations in $f$ and $\gD$ can only result in small perturbations in $u$). However, we will particularly focus our attention on a priori bounds that are explicit in their dependence both on $k$, and on the material coefficients $A$ and $n$. This is because knowing such dependence enables us to perform $k$- and parameter-explicit analysis of numerical methods for the heterogeneous (and stochastic) Helmholtz equation and also to understand in more detail how the medium (and the interplay between the medium and the frequency) affects the propagation of the wave.
 
-Recall for stationary diffusion\optodo{PUT SOMEWHERE ELSE?}:
-\bit
-\item Variational formulation has bounded and coercive form
-\item Lax--Milgram gives existence, uniqueness, a priori bound explicit in coeffs
-\eit
-  
-Helmholtz:
-\bit
-\item Above approach doesn't work---not coercive for large $k$
-\item But do have G\r{a}rding - indentity $+$ compact
-\item So use Fredholm alternative to show uniqueness $\implies$ existence and bound (bound not explicit in $k$)
-\item Show uniqueness via
-\bit
-\item UCP - but don't get a priori bound explicit in $k,$ parameters\optodo{Why does SRc give uniqueness for homogeneous problems?}
-\item Proving a priori bound directly - get uniqueness
-\eit
-\eit
-\bit
-\item Will now talk about bounds
-\item Focus on $k$-dependence (and later) parameter-dependence
-\item Long history of proving bounds on Helmholtz from 'analysis' community \cite{Bl:73,Va:75,BlKa:77,Bu:98,PeVe:99,PoVo:99a,PoVo:99b,CaPoVo:99,Bu:02,Be:03,Ca:12,CaLePa:12,NgVo:12,Sh:18}\optodo{Check each and every reference}\optodo{Check about Morawetz} and recent interest from NA \cite{Me:95,CuFe:06,He:07,EsMe:12,Sp:14,FeLiLo:15,Ch:15,BaSpWu:16,BrGaPe:17,BaChGo:17,SaTo:18,OhVe:18,GrSa:18,GaSpWu:18,GrPeSp:19,MoSp:19}
-\item Worst-case scenario - bounds grows exponentially in $k$
-\bit
-\item If everything $C^\infty$, shown for $n=1$ in \cite{Bu:02} and if $A=1$ and $n$ Lipschitz in \cite{Sh:18}. For both jumping across same $C^\infty$ interface in \cite{Bu:98}.
-\item Graham-Sauter \cite{GrSa:18} show exponential blow up in (properties of) coefficients, not $k$ in 1-D\ednote{Ivan, can we chat about your work with Stefan to check I've understood it correctly?}
-\item \cite{MoSp:19} - numerical evidence for super-algebraic growith with trapping jumps - proved in \cite{PoVo:99a,PoVo:99b,CaPoVo:99}.
-\eit
-\item But only get exponential blow up when problem is trapping
-\item When everything $C^\infty,$ can define rays (for penetrable and impenetrable obstacle) and thus define nontrapping
-\item Nontrapping gives $1/k$ cut-off resolvent bound
-\item Will get cases later where things aren't so smooth, but still get cut-off resolvent bound
-  \item Call these nontrapping
-\item Trapping of rays (angle of incidence = angle of reflection) stay for arbitrarily long time
-\item Can get trapping if there are jumps in one direction, but not in other direction - \cite{MoSp:19}
-\item Actually, trapping only happens at very few frequencies-\cite{MoSp:19,LaSpWu:19}
-\item Related to idea of `resonant frequency'
-\item Can be caused by obstacles or variations in speed - c.f. total internal reflection
-\item If problem non-trapping (i.e. rays escape) then get bound independent of $k$ - see hetero\optodo{Find a reference for this}\optodo{iff?}
-\item Therefore results proving $k$-indep bounds under some conditions can be seen as providing sufficient conditions for problem to be nontrapping.
-\item Such results use either:
-\bit
-\item Multiplier techniques going back to Morawetz (and Rellich) \optodo{List results, demarcating homo and hetero} which give $k$-explicit bound directly, or
-\item more technical microlocal tools, which give nontrapping, from which you can conclude bound\optodo{Look at Vainberg/Melrose--Sj\"ostrand}
-\item Recent work on bounds explicit in parameters---motivated in part by UQ - \cite{FeLiLo:15,GrPeSp:19,PeSp:18} prove bounds under conditions that ensure nontrapping, \cite{GaSpWu:18} assume problem is nontrapping and get `length of longest ray'.
-\eit
-\item In conclusion, subtle how things depend on $k,$ coefficients, and more difficult than stationary diffusion.
-\eit
+We note that proving well-posedness results and a priori bounds for the Helmholtz equation is much more involved than proving such results for the stationary diffusion equation
+\beq\label{eq:stdiff}
+\grad \cdot \mleft(A \grad u\mright) = -f \tin D.
+\eeq
+In \eqref{eq:stdiff} (where $A$ is heterogeneous but not stochastic), if $A$ is bounded above and below, then the associated bilinear form is bounded and coercive, and so the Lax--Milgram Theorem applies, and one immediately obtains well-posedness and an a priori bound (in $\HoD$) that is explicit in $A$.\optodo{Want to make a remark here about things being more subtle, but check multi-scale stuff for st. diff. first, so that I'm not misrepresenting}
 
-\bit
-\item Now shift attention to NA of Helmholtz, specifically, FEM.
-  \item Will prove new result on error bounds for Helmholtz in hetero media, generalises homo media result.
-  \eit
+In contrast, the associated sesquilinear form for the Helmholtz equation is not coercive, and so Laz--Milgram theory does not apply. However, the sesquilinear form $a$ satisfies a G\r{a}rding inequality
+\beq\label{eq:gardingbrief}
+\Re{a(v,v)} + 2 k^2 \nmax \NLtD{v}^2 \geq \NW{v}^2,
+\eeq
+, where $\NW{v} \de \mleft(\NLtD{\grad v} + k^2 \NLtD{v}\mright)^{1/2}$ is the weighted $H^1$ norm used frequently when studying Helmholtz problems, because solutions of the Helmholtz equation typically are of order $1/k$ and have first-order derivatives of order $k$. I.e., the G\r{a}rding inequality means $\Re{a(v,v)}$ is `coercive' if an appropriate multiple of the $L^2$-norm is added. In this case, if one can show that the solution of the Helmholtz equation is unique, then existence and an a priori bound on the solution follow from Fredholm Theory (see, e.g. \cite[Theorems 5.10 and 5.18]{Sp:15}). However, the a priori bound is \emph{not} explicit in $k,$ $A$ or $n$. Therefore, the main effort in showing well-posedness for the Helmholtz equation is reduced to:
+\ben
+\item Showing that a solution of the Helmholtz equation is unique, and
+  \item Proving a bound on the solution that is explicit in the parameters of interest, such as $k,$ $A$, and $n$.
+    \een
+    Observe that, as mentioned above, an a priori bound immediately gives uniqueness, but uniqueness also follows from the Sommerfeld radiation condition (for homogeneous problems)\optodo{Why?} or the Unique Continutation Principle (UCP), under some smoothness assumptions on $A$ and $n$ (see, e.g., \cite[p. 2871]{GrPeSp:19} for a discussion of the UCP and \cite[Section 2]{GrSa:18} for the application of the UCP to show uniqueness for hetergeneous Helmholtz problems). Therefore, in our following discussion, we will focus on a priori bounds \eqref{eq:bgbound} for the solution of the Helmholtz equation, and the dependence of these bounds on $k$, $A$, and $n.$ All these bounds will, unless otherwise stated, be for the weighted $H^1$ norm $\NW{\cdot}.$
+
+    There are two main classes of techniques for proving a priori bounds on the Helmholtz equation. The first uses techniques from semiclassical analysis (a subset of microlocal analysis), and studies the behaviour of rays through the medium. In order for this approach to be used $\Dm,$, $A$, and $n$ must all be smooth so that, e.g., the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is not well-defined if the scatterer has a corner).\ednote{Euan---I want to add some chat here about when these methods were first introduced, but I'm struggling to figure it out? Is it with Lax \& Phillips?} The second class of techniques is multiplier techniques, where the PDE\optodo{ref?} is multiplied by carefully chosen multiples of $u$ and $\bx\cdot\grad u$, and the resulting expression is then integrated by parts, and rearranged. Whilst simple, these methods allow one to prove bounds in situations that are inaccesible to semiclassical analysis, e.g., when the scatterer or coefficients are not smooth. These techniques were first introduced by Morawetz in the 60s for for studying how energy decays in the wave equation---see \cite{GaGrPaSaSoTa:18} for an overview of this, and other aspects of Morawetz's work and\optodo{Look up Vodev 99} for the connection between energy decay for the wave equation and a priori bounds on the Helmholtz equation. However, multiplier techniques typically require more severe restrictions on the geometry of the scatterer (and truncation boundary, in the case of \cref{prob:tedp}) than semiclassical analysis techniques\footnote{One can choose more complicated multipliers to mitigate some of these restrictions, as in \cite{MoRaSt:77}, but most of the works we will discuss below do not.}
+
+When one uses microlocal analysis results to prove a \emph{$k$-independent} bound, one typically proceeds by showing that the problem is nontrapping (in the sense of rays, defined above\optodo{Move}), and then using further technical tools\footnote{Either: (i) Vainberg's paramatrix argument from \cite{Va:75} and Melrose and Sj\"ostran's results propagation of singularities \cite{MeSj:82}, Lax--Phillips theorem \cite{LaPh:??} and propagation of singularities, or Burq's defect-measure argument \cite{Bu:02}.} to conclude a $k$-independent bound. We will see below that one can prove $k$-independent bounds even when rays cannot be defined (typically when $\Dm,$ $A$, and $n$ are not smooth), and so, in an abuse of terminology, we call such situations `nontrapping'. We also note that trapping behaviour can be caused either by $\Dm$ (for example, if $\Dm$ contains a cavity in which rays can be `trapped', see, e.g.,\optodo{Make figure}, or by variations in $A$ and $n$ (in the case where $A$ and $n$ are discontinuous, these discontinuities can cause rays to be trapped in a manner analagous to the concept of total internal reflection.
+
+We now summarise the state of the field regarding bounds \eqref{eq:bgbound}, and especially the dependence of the constant $C$ on $k,$ $A$, $n$, and $\Dm.$ Some of these results are proved in the context of energy decay results for the time-domain wave equation; for simplicity's sake, we do not distinguish in our comments between these results, and those proving bouinds \eqref{eq:bgbound} directly.
+
+    In the worst case, the constant $C$ can depend exponentially on $k$; in \cite{Bu:98}\ednote{Euan, is \cite[Theorem 2]{Bu:98} saying that the pole-free region is exponentially (as $k\rightarrow \infty$) close to the real axis, and in this region, the bound is exponential? My French isn't that great....}, \cite{Sh:18}, and \cite{Be:02} it was shown that $C = \Co \exp(k\Ct),$ for some constants $\Co$ and $\Ct$ depending on $\Dm, $ $A$, and $n$ when $n=1$ and $A$ are $C^\infty$ or $\Dm = \emptyset,$ $A=I$, and $n$ is a Lipschitz perturbation of $1$, or $A$ and $n$ are piecewise constant, jumping acros a common $C^\infty$ interface\optodo{Check}, respectively. Carleman estimates\optodo{Find out what these are/what went on} were used in \cite{Bu:98,Be:02}, and semiclassical analysis techniques (to prove energy decay for the in \cite{Sh:18}. In \cite{PoVo:99a}, it was shown that the same bound holds for the transmission problem (i.e., when $\Dm=\emptyset$ and $A$ and $n$ jump on a common interface) when $A=I$ and $n$ jumps downwards across an interface.\ednote{Euan---can you briefly recap for me how one moves from nontrapping/results on location of resonances to an a priori bound?} The papers \cite{Ca:12,CaLePa:13} study the transmission problem across a sphere and consider arbitrary-order Sobolev norms on spheres outside the transmission boundary. Using an expansion of the solution in terms of Bessel functions they show that the constant $C$ can grow super-algebraically in $k$ when $n$ jumps downwards, but is bounded when $n$ jump upwards. They also show that, even in the case of $n$ jumping downwards, if the jump is sufficiently small, $k$ is sufficiently small, or the norm is measured sufficiently far away (where all the definitions of `sufficient' depend on the size of the jump and the size of the sphere) $C$ is bounded independently of $k.$
+
+    For \cref{prob:edp}, results showing that $C$ is bounded independently of $k$ (subject to restrictions on the geometry of the scatterer) are aplenty: \cite{Mo:61,MoLu:68,Mo:75}\ednote{Euan, I'm having a hard time seeing what's different in each of these references} proves such for constant $A$ and $n$ in the exterior of a star-shaped Dirichlet scatterer (\cite{Mo:75} also proves a $k$-independent bound in the exterior of a convex Neumann scatterer). This approach is generalised in \cite{MoRaSt:77} to more complicated scatterers (but still constant $A$ and $n$) that possess a so-called `escape function', which can be thought of as analogous to ensuring rays escape from the scatterer. The works \cite{CaPoVo:99,PoVo:99b} use semiclassical analysis techniques to obtain $k$-independent $C$ for the transmission problem when piecewise-constant $n$ jumps up across a strictly convex, smooth boundary.
+
+%    In the case that $A$ or $n$ vary in the exterior of a Dirichlet obstacle, \cite{BlKa:77} proves $C$ is independent of $k$ when $A=I$, provided $\Dm$ can be `illuminated from the exterior', which, again, is an analogue to ensuring no rays are trapped.
+
+% Mention Bloom & Bloom Kazarinoff? As they make things go to zero, and Perthame-Vega?
+    
+    \optodo{Say somewhere that we're only considering (essentially) comnpact stuff}
+    \optodo{Check that you've mentioned a definition of nontrapping somewhere}
+%    to show that the domain (i.e., the combination of the scatterer $\Dm$ and the coefficients $A$ and $n$) is \defn{nontrapping}. In order to be nontrapping, all rays that start within any bounded region must have exited this region after a time that is uniform over all the rays (i.e., rays do not get trapped for an arbitrarily long time). In order to use this approach, $\Dm,$ $A$, and $n$ must all be smooth
+\optodo{Double check have mentioned that e.g. Burq are looking at hetero problems}
+Analagous bounds for \cref{prob:tedp} (or, more commonly, the \defn{interior impedance problem} (IIP), that is, \cref{prob:tedp} with no scatterer) have mostly been studied by the numerical analysis community, due to \cref{prob:tedp}'s usage as a model problem for numerical methods (the truncation boundary means that the problem is posed on a finite domain, enabling domain-discretisation methods, such as finite elements, to be used). The vast majority of these results use, in essence, the multiplier techniques introduced by Morawetz. The works \cite{Me:95,CuFe:06} prove that $C$ is $k$-independent for the IIP in a domain that is either convex or star-shaped and smooth, and this result is generalised to a mixture of impedance, Dirichlet, and Neumann boundary conditions in \cite{He:07}. In \cite{EsMe:12}, the restriction on the domain is loosened to only a Lipschitz condition, but can only prove that $C$ increases with $k$ at the rate $k^{5/2}.$ (The work \cite{EsMe:12} does not use multiplier techniques, but rather uses properties of the Green's function for the Helmholtz equation, which follow from \cite{MeSa:12}.) The rate of growth of $C$ for a general (Lipschitz) domain was improved to order $k$ in \cite{Sp:14} (using multiplier techniques) and finally eliminated for a general $C^\infty$ domain (using microlocal analysis) in \cite{BaSpWu:16}.
+
+Given the (largely) complete picture of bounds for the Helmholtz equation in \emph{homogeneous} media, recent research effort (especially in the numerical-analysis community) has shifted towards bounds for the Helmholtz equation in \emph{heterogeneous} media, of which the work \cite{GrPeSp:19} is a part; this shift in focus is motivated by the development of algorithms to solve the Helmholtz equation in heterogeneous or random media; the development of uncertainty quantification algorithms for random media also necessitates knowing explicitly how the constant $C$ in \eqref{eq:bgbound} depends on $A$ and $n$. Bounds where $C$ is independent of $k$ are given in \cite{FeLiLo:15} for random media, under the assumption that $A=I$ and $n = 1 + \eta,$ with $\eta$ a random field and $\NLiD{\eta} \lesssim 1/k.$ Results with $k$-independent $C$ are also proved in \cite{BrGaPe:17}, under related conditions to those in \cite{GrPeSp:19}, although the bounds in \cite{GrGaPe:17} are not explicit in $A$ and $n$. The case where $A$ is scalar-valued (i.e. $A = \eps I$) and given by many small inclusions is studied in \cite{OhVe:18}\optodo{Check this}, motivated by the analysis of multiscale methods for the Helmholtz equation; however \cite{OhVe:18} is only able to prove that $C$ is proportional to $k^3$ in this case, and the bound is not explicit in the parameters. The work \cite{GrSa:18} takes a very similar approach to \cite{GrPeSp:19}, proving results for heterogeneous media when $A=I$ under conditions on $n$ that are analogous to those in \cite{GrPeSp:19}; however, the bounds in \cite{GrSa:18} are not explicit in $n.$ In \cite{BaChGo:17} a $k$-independent bound is proven for 2-D piecwise-constant media, under suitable restrictions on $n.$ The work \cite{MoSp:19} proves $k$-independent bounds for the transmission problem with varying $A$ and $n$, where the bounds are fully explicit in all the parameters, under assumptions on the jumps in $A$ and $n.$ Finally, \cite{GaSpWu:18} uses microlocal analysis techniques to prove that, when all the parameters of interest are smooth, that the constant $C$ in a $k$-independent bound is given by the length of the longest ray.
+
+In related results, for the 1-dimensional Helmholtz equation in heterogeneous media, \cite{Ch:15} proves a $k$-independent bound for piecewise constant media, under assumptions on the media that limit the number of `pieces', whereas \cite{SaTo:18} proves a bound for arbitrarily many `pieces', but with the consequence that $C$ grows algebraically in $k$, using properties of the 1-dimensional Green's function. Also, \cite{LiWu:18} proves bounds for \cref{prob:edp} truncated with a perfectly matched layer (see, e.g., \optodo{Find a ref}), using properties of Bessel functions.
+
+Observe that many of the results above that prove a $k$-independent bound are of the form `place restrictions on $\Dm$, $A$, and $n$ to ensure nontrapping, then conclude result'. However, the recent works \cite{MoSp:19,LaSpWu:19} have shown that even in the worst case of exponential growth in $k$ of the constant $C$, this behaviour is realised at very few frequencies; \cite{MoSp:19} provided numerical evidence for the transmission problem through a sphere that showed the realisation of super-algebraic growth is very sensitive to the value of $k$ (in some cases, changing $k$ at the 13th significant figure changed the behaviour completely. More rigorously, \cite{LaSpWu:19} used microlocal analysis techniques to show that one can exclude a set of $k$ of arbitrarily small measure, and then obtain merely algebraic growth in $C$.
+
+We note in passing that the discussions above have been mainly concerned with the effect inhomogeneities in $A$ and $n$ have on the behaviour of the solution $u$, and thus on the constant $C$. When one considers the trapping caused by the scatterer $\Dm,$ a range of behaviours can occur; $C$ can grow logarithmically, polynomially, or exponentially in $k$ depending on the scatterer. We refer the reader to \cite[Seciotns 1.1 and 1.3]{ChGiSpSm:17} for a recent overview of the effect of obstacle scattering.
+   
+
+
+
 
 \section{Theory of the Discretisation of the Helmholtz Equation}\label{sec:helmfe}
 
+We will now shift our attention to the numerical analysis of the Helmholtz equation in heterogeneous media; more specifically, we will study the finite-element method for the Helmholtz equation. We will first provide the necessary formulations of the Helmholtz equation and definition of the finite element method, and related results, before proving our main result, a new error bound for the finite-element method for the Helmholtz equation in heterogeneous media.
+
   \subsection{Variational Formulations for the Helmholtz equation}\label{sec:varform}
 
-\optodo{Chat}
+In order to apply the finite-element method to the Helmholtz equation, we must first consider its variational formulation, which we define below for both \cref{prob:edp,prob:tedp}. With the variational formulation in place, we can then go on to define the finite-element method, before proving our error bounds.
   
 \bprob[Variational formulation of EDP when $\gD = 0$]\label{prob:vedp}
 Let $\Dp, A, n,$ and $f$ be as in \cref{prob:edp}. Choose $R>0$ such that $\supp f, \supp(I-A), \supp(1-n) \compcont \BR,$ and define $\DR \de \Dp \cap \BR.$
@@ -286,6 +278,7 @@ and
 \eeqs
 \eprob
 \ednote{Both---can we discuss whether it's worth stating the variational formulation of the EDP/TEDP with non-zero Dirichlet data? On the one hand, it's more technical, but on the other hand, if we want (e.g. for MLMC) to consider the far-field as a quantity of interest, it makes most sense to consider a `real' scattering problem, i.e., one with non-zero Dirichlet data.}
+\optodo{Proof of $H^m$ regularity when $f$ etc. is smooth enough}
 
 \ble[Equivalence of formulations for the TEDP]\label{lem:tedpform}
 \Cref{prob:tedp,prob:vtedp} are equivalent, i.e., $u \in \HozDDR$ solves \cref{prob:tedp} if, and only if, $u$ solves \cref{prob:vtedp}.
@@ -295,20 +288,70 @@ For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
   
 \subsection{Finite-element theory}\label{sec:fetheory}
 
-Now give requisite background finite-element theory
+We now give a brief summary of elementary concepts in finite-element theory, so that we can:
+\ben
+\item Prove the new error bound for finite-elements discretisations of the Helmholtz equation in \cref{sec:errbound} below, and
+  \item Develop and study a nearby preconditioning technique for finite-element discretisations of the Helmholtz equation in \cref{chap:nbpc} below.
+\een
+    \bde[Triangulation]
+    A triangulation of a \optodo{Polygonal?} domain $D$ is a finite collection of sets $\Ki \subseteq \Dclos$ such that
+    \ben
+  \item $\interior{\Ki} \cap \interior{\Kj} = \emptyset$ for $ i \neq j,$
+  \item $\bigcup_i \Ki = \Dclos,$ and
+    \item Something about triangles that works in 3-D too\optodo{Find ref - Brezzi/Johnson?}.
+    \een
+    \ede
 
-\bit
-\item Definition - Finite element/Finite element space
-\item Definition - Triangulation
-\item Definition - Mesh size
-\item Definition - Nodal Finite element
-\item Definition - Fe space (of order $p$) associated with a triangulation
-\item Proof of $H^m$ regularity when $f$ etc. is smooth enough\optodo{Why did you think you needed more than $H^2$?}
-\item Definition - Scott--Zhang quasi-interpolant
-\item Lemma - approximation properties of Scott--Zhang quasi-interpolant
-\item Definition - Finite-element problem
-\item Remark - won't be considering variational crimes, like approximating geometry\optodo{At least understand this}
-\eit
+
+    A crucial quantity in our analysis of finite-element methods will be the mesh size of the triangulation.\optodo{Say somewhere that `triangulation' and`'mesh' are interchangable}
+
+\bde[Mesh Size]
+Given a triangulation $\cT = \set{\Ki}$ of a domain $D$, the \defn{mesh size} of $\cT$ is defined to be
+\beqs
+h = \max_{\Ki} \diam{\Ki}.
+\eeqs
+\ede\optodo{Adapted from B\&S 4.4.13}
+
+    We can now define finite-element spaces associated with a trinagulation. Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$
+    \bde[Finite element space of degree $p$]
+    Given a triangulation $\set{\Ki}$ of a domain $D$, the \defn{(continuous) piecewise-polynomial finite-element space of degree $p$} associated with $\set{\Ki}$ is
+    \beqs
+\Vhp \de \set{\vh : D \rightarrow \CC \st \vh \restrict{\Ki} \in \polyp{\Kiclos} \tforall \Ki \tand \vh \in \CzD}
+    \eeqs\optodo{Check whether we want more than continuity for higher order}
+    \ede
+
+    The following lemma shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
+
+    \ble[Approximation properties of $\Vhp.$]
+    \optodo{Find what this actually is, and reference it}
+    There exists $C>0$ and $\vhptilde \in \Vhp$ such that for all $m \leq p+1$ if $v \in \HmD,$ then for all $s \leq m$\optodo{Do I mean integers here?}
+    \beqs
+\NLtD{v - \vhptilde} \leq C h^s \NHsD{v}
+    \eeqs
+    and
+    \beqs
+\NHoD{v - \vhptilde} \leq C h^s \NHsD{v}.
+    \eeqs
+    \ele
+
+    \bre[The function $\vhptilde$]
+The function $\vhptilde$ in \cref{lem:scottzhang} is constructed using `averaged Taylor polynomials', see, e.g., \cite{ScZh:90},\cite[Section 4.4]{BrSc:08} for details.
+    \ere
+
+    With the concept of a finite-element space in place, we can now define the finite-element approximation to the variational problems \cref{prob:vedp,prob:vtedp}.
+
+    \bprob[Finite-element approximation of \cref{prob:vedp}]\label{prob:fevedp}
+    Let $\Vhp \subset \HozDDR$ be a finite-element space. We say that $\uh \in \Vhp$ is the finite-element approximation of $u$ (the solution to \cref{prob:vedp} if
+    \beqs
+    a(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
+    The finite-element approximation of \cref{prob:vtedp} is defined analagously.
+    \eeqs
+    \eprob
+
+    \bre[Not considering variational crimes]
+    Observe that \cref{prob:fevedp} requires $\Vhp \subseteq \HozDDR.$ This inclusion is true if $\DR$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevedp} and commit a variational crime by approximating the boundary of $\DR$ by a polygon, or introducing mesh elements with curved boundaries; see, e.g.\optodo{Find refs for Helmholtz, otherwise Brenner and Scott has some of this}. In this thesis we will ignore such variational crimes, and the additional errors they induce; such analysis is standard, and orthogonal to the analysis in this thesis.
+    \ere
+    
 
 \subsection{Error bound for the heterogeneous IIP}\label{sec:errbound}
 \bit
