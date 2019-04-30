@@ -1,13 +1,12 @@
+\optodo{DOIS in references}
 \section{Introduction}
 This chapter has two main foci:
-%    \setlist[enumerate]{restart} ????
-\optodo{Sort numbering}
 \ben
 \item Recapping theory for the deterministic Helmholtz equation in heterogeneous media, focussing especially on well-posedness and a priori bounds on the solution, and
 \item Recapping and extending theory for the finite-element method for the deterministic Helmholtz equation, especially error bounds.
   \een
 
-  In this chapter we will first provide an overview of well-posedness results for the deterministic Helmholtz equation, and a priori bounds on its solution.\optodo{Put somewhere below that Fredholm gives a bound without dependence on $k$} Such results are more complicated than analagous results for the simpler stationary diffusion equation
+  In this chapter we will first provide an overview of well-posedness results for the deterministic Helmholtz equation, and a priori bounds on its solution. Such results are more complicated than analagous results for the simpler stationary diffusion equation
   \beq\label{eq:stdiff}
 \grad \cdot \mleft( A \grad u \mright) = -f,
 \eeq
@@ -19,10 +18,10 @@ In \cref{sec:varform} we will define the deterministic Helmholtz problems we wil
 \section{PDE Theory of the Deterministic Helmholtz Equation}
   
 
-  We will begin by defining the two deterministic Helmholtz problems that we consider in this thesis (and the stochastic analogues of which we also consider). We first state these problems in `strong form' (that is, where derivatives are understood as distributional derivatives), in \cref{sec:varform}, when considering finite-element approximations of the problems, we will consider the variational formulations of these problems.\optodo{Somewhere explain convention on function spaces, and define matrix space} In this section we largely follow the presentation in \cite{GrPeSp:19}
+  We will begin by defining the two deterministic Helmholtz problems that we consider in this thesis (and the stochastic analogues of which we also consider). We first state these problems in `strong form' (that is, where derivatives are understood as distributional derivatives), in \cref{sec:varform}, when considering finite-element approximations of the problems, we will consider the variational formulations of these problems. In this section we largely follow the presentation in \cite{GrPeSp:19}
 
   \bprob[Exterior Dirichlet Problem]\label{prob:edp}
-  Let $\Dm$ be a bounded Lipschitz\optodo{Needed for statement?} open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\GD \de \partial \Dm.$ Given
+  Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\GD \de \partial \Dm.$ Let $\LiDpRRdtd$ be the set of all matrix-valued functions $A:\Dp\rightarrow\RRdtd$ such that $A_{i,j} \in \LiDpRR$ for all $i,j = 1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~we write $\LiDp$ for $\LiDpCC.$  Given
   \bit
   \item $k > 0,$
 \item $f \in \LtDp$ with compact support,
@@ -37,13 +36,13 @@ In \cref{sec:varform} we will define the deterministic Helmholtz problems we wil
   \eeqs
   \eit
   we say $u \in \HolocDp$ satisfies the \defn{exterior Dirichlet problem} if
-  \beqs
+  \beq\label{eq:hhedp}
 \grad \cdot \mleft(A \grad u\mright) + k^2 n u = -f \tin \Dp,
-\eeqs
+\eeq
 \beq\label{eq:dbc}
 \trGD u = \gD,
 \eeq
-and $u$ satisfies the Sommerfeld radiation condition\optodo{Make sure you understand this}
+and $u$ satisfies the Sommerfeld radiation condition
 \beq\label{eq:sommerfeld}
 \dudr(\bx) - iku(\bx) = o\mleft(\frac1{r^{(d-1)/2}}\mright)
 \eeq
@@ -52,18 +51,18 @@ as $r \de \abs{\bx} \rightarrow \infty,$ uniformly in $\bxhat \de \bx/\abs{\bx}.
 
 To interpret \cref{prob:edp} physically, we can think of $u$ as being the acoustic pressure field caused by the scattering of an incoming wave $\ui$ by the scatterer $\Dm.$\footnote{In the literature the scattered field is sometimes denotes $us,$ and $u$ denotes the total field $\ui+ \us.$} The Dirichlet boundary condition \eqref{eq:dbc} means $\Dm$ corresponds to a sound-soft scatterer, that is, one on which the total field $u + \ui$ vanishes, with $\gD = - \trGD \ui.$ The function $f$ represents other pressume sources in the domain, although if one is solely interested in scattering, $f=0.$
 
-The Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the solutions of \cref{prob:edp} correspond to physically `outgoing' waves\optodo{Find reference}, and also guarantees the uniqueness of solution to \cref{prob:edp}\optodo{Ref for this}. However, \cref{prob:edp} is posed on an infinite domain, which cannot be fully represented when discretising with the FEM. Therefore, one must truncated the infinite domain $\Dp$ and impose an artificial boundary condition on the external boundary of the truncated domain. Options for the truncated boundary condition include a perfectly matched layer which\optodo{check} mimics the whole of the external domain, or so-called FEM-BEM coupling\optodo{Check}, where a boundary element method is used to approximate the solution in the exterior of the truncated domain. However, in this thesis, we will use a simpler approach, imposing an \defn{impedance boundary condition}
+The Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the solutions of \cref{prob:edp} correspond to physically `outgoing' waves (see, e.g., \cite[Section 1.1.3]{Ih:98}), and also guarantees the uniqueness of solution to \cref{prob:edp}, see, e.g., \cite[p. 16]{CoKr:13}. However, \cref{prob:edp} is posed on an infinite domain, which cannot be fully represented when discretising with the FEM. Therefore, one must truncated the infinite domain $\Dp$ and impose an artificial boundary condition on the external boundary of the truncated domain. Options for the truncated boundary condition include a perfectly matched layer, first introduced in \cite{Be:94}, which mimics the whole of the external domain, or so-called FEM-BEM coupling, as in, e.g., \cite{HiMe:06}, where a boundary element method is used to approximate the solution in the exterior of the truncated domain. However, in this thesis, we will use a simpler approach, imposing an \defn{impedance boundary condition}
 \beq\label{eq:imptext}
 \dn u - iku = \gI
 \eeq
 on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as a first-order approximation to \eqref{eq:sommerfeld}. Truncating with an impedance boundary condition gives rise to the following alternative deterministic Helmholtz problem\optodo{Make a picture explaining EDP and TEDP on one pic}
 \bprob[Truncated Exterior Dirichlet Problem]\label{prob:tedp}
- Let $\Dm$ be a bounded Lipschitz\optodo{Needed for statement?} open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Given
+ Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Given
   \bit
   \item $k > 0,$
 \item $f \in \LtD$
 \item $\gD \in \HhGD,$
-  \item $\gI \in \LtGI$\optodo{Understand why these are the function space requirements}
+  \item $\gI \in \LtGI$
 \item $n \in \LiDRR$ such that $\supp\mleft(1-n\mright) \compcont D$ and there exist $0 < \nmin < \nmax < \infty$ such that
   \beqs
 \nmin \leq n(\bx) < \nmax \tfae \bx \in D,
@@ -89,11 +88,8 @@ Observe that, by construction, $\partial D = \GI \cup \GI$ and $\GD \cap \GI = \
 Whilst the impedance boundary condition \eqref{eq:ibc} does not exactly mimic the Sommerfeld radiation condition \eqref{eq:sommerfeld}, the solutions of \cref{prob:tedp} are still `wave-like', and we will see below that solutions of \cref{prob:tedp} posses many of the same properties as solutions of \cref{prob:edp}. We also note that a common Helmholtz model problem in the numerical-analysis community is the \defn{interior impedance problem}, which is simply \cref{prob:tedp} in the case $\Dm = \emptyset.$
 
 In order to approximation \cref{prob:edp,prob:tedp} by the finite-element method, we must instead work with the following 'variational forms' or 'weak forms' of \cref{prob:edp,prob:tedp}. For simplicity of exposition, we state both variational forms in the case $\gD = 0,$ although these can be generalised to the case $\gD \neq 0.$
-\optodo{Insert ball notation somewhere}
-\optodo{Define DtN}
-\optodo{Define duality pairing}
 
-\optodo{Fix cleverref referring to Problems as Theorems}
+We denote the ball of radius $R$ about the point $\bxz$ by $\Ball{R}{\bxz}.$ We denote $\Ball{R}{\bfzero}$ by $\BR.$
 
 
   \subsection{Well-posedness and bounds}\label{sec:wpbounds}
@@ -102,11 +98,15 @@ In order to approximation \cref{prob:edp,prob:tedp} by the finite-element method
 
   We first define the classes of $A$ and $n$ for which we will prove well-posedness results and a priori bounds.% Since we will need to consider the classes on both finite and infinite domains (for \cref{prob:tedp,prob:edp} respectively), we first define the classes for finite domains, before using this definition to define the classes for infinite domains.
 
-  \optodo{Define star-shaped w.r.t. a point, ball}
-
 %%   \bde[Class of nontrapping media on a finite domain]\label{def:NTfinite}
 %% Let $\Dm$ be star-shaped with respect to the origin, and let $D$ be as in \cref{prob:tedp}. Let $A \in \CzoDclosRRdtd, n \in \CzoDclosRR$ and $\muo, \mut > 0.$ We say that 
-%%   \ede
+  %%   \ede
+
+  \bde[Star-shaped, star-shaped with respect to a ball]
+  We say that $\Dm$ is star-shaped with respect to the point $\bxz$ if for all $\bx \in \Dm,$ the line segment $\mleft[\bxz,\bx\mright] \in \Dm.$
+
+  We say that $\Dm$ is star-shaped with respect to the ball $B$ if $\Dm$ is start shaped with respect to $\bxz$, for all $\bxz \in B.$
+  \ede
   
 \bde[Class of nontrapping media]\label{def:NT}
 Let $A \in \CzoDpclosRRdtd, n \in \CzoDpclosRR,$ and $\muo, \mut > 0.$ We say that $A \in \NTADp{\muo}$ if
@@ -151,7 +151,6 @@ Then
   \muo \NLtD{u}^2 + \mut k^2 \NLtD{\grad u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2 + 2\LI k^2 \NLtGI{\trGI u}^2\\
   \leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2
 \end{multline*}
-\optodo{Check that hetero grad boundary notation isn't hiding anything}
 for all $k>0,$ where $\gradGI$ is the surface gradient on $\GI,$
 \beqs
 \Ct \de 4\mleft(\frac{\LI^2}{\muo} + \frac1{\mut}\mleft(\beta + \frac{d-1}{2k}\mright)^2\mright),
@@ -198,11 +197,11 @@ In contrast, the associated sesquilinear form for the Helmholtz equation is not 
 \item Showing that a solution of the Helmholtz equation is unique, and
   \item Proving a bound on the solution that is explicit in the parameters of interest, such as $k,$ $A$, and $n$.
     \een
-    Observe that, as mentioned above, an a priori bound immediately gives uniqueness, but uniqueness also follows from the Sommerfeld radiation condition (for homogeneous problems)\optodo{Why?} or the Unique Continutation Principle (UCP), under some smoothness assumptions on $A$ and $n$ (see, e.g., \cite[p. 2871]{GrPeSp:19} for a discussion of the UCP and \cite[Section 2]{GrSa:18} for the application of the UCP to show uniqueness for hetergeneous Helmholtz problems). Therefore, in our following discussion, we will focus on a priori bounds \eqref{eq:bgbound} for the solution of the Helmholtz equation, and the dependence of these bounds on $k$, $A$, and $n.$ All these bounds will, unless otherwise stated, be for the weighted $H^1$ norm $\NW{\cdot}.$
+    Observe that, as mentioned above, an a priori bound immediately gives uniqueness, but uniqueness also follows from the Sommerfeld radiation condition (for homogeneous problems) or the Unique Continutation Principle (UCP), under some smoothness assumptions on $A$ and $n$ (see, e.g., \cite[p. 2871]{GrPeSp:19} for a discussion of the UCP and \cite[Section 2]{GrSa:18} for the application of the UCP to show uniqueness for hetergeneous Helmholtz problems). Therefore, in our following discussion, we will focus on a priori bounds \eqref{eq:bgbound} for the solution of the Helmholtz equation, and the dependence of these bounds on $k$, $A$, and $n.$ All these bounds will, unless otherwise stated, be for the weighted $H^1$ norm $\NW{\cdot}.$ We will only consider the case where the scatterer $\Dm$ is compact, and the inhomogeneities in $A$ and $n$ are compactly supported, as in \cref{prob:edp}. Research into so-called rough surface scattering, where either $\Dm$ or the inhomogeneities in $A$ and $n$ are not compactly supported, is an active area of research\optodo{Look up a recent reference - Simon?}, but not the concern of this thesis.
 
-    There are two main classes of techniques for proving a priori bounds on the Helmholtz equation. The first uses techniques from semiclassical analysis (a subset of microlocal analysis), and studies the behaviour of rays through the medium. In order for this approach to be used $\Dm,$, $A$, and $n$ must all be smooth so that, e.g., the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is not well-defined if the scatterer has a corner).\ednote{Euan---I want to add some chat here about when these methods were first introduced, but I'm struggling to figure it out? Is it with Lax \& Phillips?} The second class of techniques is multiplier techniques, where the PDE\optodo{ref?} is multiplied by carefully chosen multiples of $u$ and $\bx\cdot\grad u$, and the resulting expression is then integrated by parts, and rearranged. Whilst simple, these methods allow one to prove bounds in situations that are inaccesible to semiclassical analysis, e.g., when the scatterer or coefficients are not smooth. These techniques were first introduced by Morawetz in the 60s for for studying how energy decays in the wave equation---see \cite{GaGrPaSaSoTa:18} for an overview of this, and other aspects of Morawetz's work and\optodo{Look up Vodev 99} for the connection between energy decay for the wave equation and a priori bounds on the Helmholtz equation. However, multiplier techniques typically require more severe restrictions on the geometry of the scatterer (and truncation boundary, in the case of \cref{prob:tedp}) than semiclassical analysis techniques\footnote{One can choose more complicated multipliers to mitigate some of these restrictions, as in \cite{MoRaSt:77}, but most of the works we will discuss below do not.}
+    There are two main classes of techniques for proving a priori bounds on the Helmholtz equation in inhomoegeneous media. The first uses techniques from semiclassical analysis (a subset of microlocal analysis), and studies the behaviour of rays through the medium. In order for this approach to be used $\Dm,$, $A$, and $n$ must all be smooth so that, e.g., the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is not well-defined if the scatterer has a corner).\ednote{Euan---I want to add some chat here about when these methods were first introduced, but I'm struggling to figure it out? Is it with Lax \& Phillips?} The second class of techniques is multiplier techniques, where the PDE \eqref{eq:hhedp} is multiplied by carefully chosen multiples of $u$ and $\bx\cdot\grad u$, and the resulting expression is then integrated by parts, and rearranged. Whilst simple, these methods allow one to prove bounds in situations that are inaccesible to semiclassical analysis, e.g., when the scatterer or coefficients are not smooth. These techniques were first introduced by Morawetz in the 60s for for studying how energy decays in the wave equation---see \cite{GaGrPaSaSoTa:18} for an overview of this, and other aspects of Morawetz's work and\optodo{Look up Vodev 99} for the connection between energy decay for the wave equation and a priori bounds on the Helmholtz equation. However, multiplier techniques typically require more severe restrictions on the geometry of the scatterer (and truncation boundary, in the case of \cref{prob:tedp}) than semiclassical analysis techniques\footnote{One can choose more complicated multipliers to mitigate some of these restrictions, as in \cite{MoRaSt:77}, but most of the works we will discuss below do not.}
 
-When one uses microlocal analysis results to prove a \emph{$k$-independent} bound, one typically proceeds by showing that the problem is nontrapping (in the sense of rays, defined above\optodo{Move}), and then using further technical tools\footnote{Either: (i) Vainberg's paramatrix argument from \cite{Va:75} and Melrose and Sj\"ostran's results propagation of singularities \cite{MeSj:82}, Lax--Phillips theorem \cite{LaPh:??} and propagation of singularities, or Burq's defect-measure argument \cite{Bu:02}.} to conclude a $k$-independent bound. We will see below that one can prove $k$-independent bounds even when rays cannot be defined (typically when $\Dm,$ $A$, and $n$ are not smooth), and so, in an abuse of terminology, we call such situations `nontrapping'. We also note that trapping behaviour can be caused either by $\Dm$ (for example, if $\Dm$ contains a cavity in which rays can be `trapped', see, e.g.,\optodo{Make figure}, or by variations in $A$ and $n$ (in the case where $A$ and $n$ are discontinuous, these discontinuities can cause rays to be trapped in a manner analagous to the concept of total internal reflection.
+When one uses microlocal analysis results to prove a \emph{$k$-independent} bound, one typically proceeds by showing that the problem is nontrapping (in the sense of rays, discussed above), and then using further technical tools\footnote{Either: (i) Vainberg's paramatrix argument from \cite{Va:75} and Melrose and Sj\"ostrand's results propagation of singularities \cite{MeSj:82}, Lax--Phillips theorem \cite{LaPh:??} and propagation of singularities, or Burq's defect-measure argument \cite{Bu:02}.} to conclude a $k$-independent bound. We will see below that one can prove $k$-independent bounds even when rays cannot be defined (typically when $\Dm,$ $A$, and $n$ are not smooth), and so, in an abuse of terminology, we call such situations `nontrapping'. We also note that trapping behaviour can be caused either by $\Dm$ (for example, if $\Dm$ contains a cavity in which rays can be `trapped', see, e.g.,\optodo{Make figure}, or by variations in $A$ and $n$ (in the case where $A$ and $n$ are discontinuous, these discontinuities can cause rays to be trapped in a manner analagous to the concept of total internal reflection.
 
 We now summarise the state of the field regarding bounds \eqref{eq:bgbound}, and especially the dependence of the constant $C$ on $k,$ $A$, $n$, and $\Dm.$ Some of these results are proved in the context of energy decay results for the time-domain wave equation; for simplicity's sake, we do not distinguish in our comments between these results, and those proving bouinds \eqref{eq:bgbound} directly.
 
@@ -214,19 +213,16 @@ We now summarise the state of the field regarding bounds \eqref{eq:bgbound}, and
 
 % Mention Bloom & Bloom Kazarinoff? As they make things go to zero, and Perthame-Vega?
     
-    \optodo{Say somewhere that we're only considering (essentially) comnpact stuff}
-    \optodo{Check that you've mentioned a definition of nontrapping somewhere}
 %    to show that the domain (i.e., the combination of the scatterer $\Dm$ and the coefficients $A$ and $n$) is \defn{nontrapping}. In order to be nontrapping, all rays that start within any bounded region must have exited this region after a time that is uniform over all the rays (i.e., rays do not get trapped for an arbitrarily long time). In order to use this approach, $\Dm,$ $A$, and $n$ must all be smooth
-\optodo{Double check have mentioned that e.g. Burq are looking at hetero problems}
 Analagous bounds for \cref{prob:tedp} (or, more commonly, the \defn{interior impedance problem} (IIP), that is, \cref{prob:tedp} with no scatterer) have mostly been studied by the numerical analysis community, due to \cref{prob:tedp}'s usage as a model problem for numerical methods (the truncation boundary means that the problem is posed on a finite domain, enabling domain-discretisation methods, such as finite elements, to be used). The vast majority of these results use, in essence, the multiplier techniques introduced by Morawetz. The works \cite{Me:95,CuFe:06} prove that $C$ is $k$-independent for the IIP in a domain that is either convex or star-shaped and smooth, and this result is generalised to a mixture of impedance, Dirichlet, and Neumann boundary conditions in \cite{He:07}. In \cite{EsMe:12}, the restriction on the domain is loosened to only a Lipschitz condition, but can only prove that $C$ increases with $k$ at the rate $k^{5/2}.$ (The work \cite{EsMe:12} does not use multiplier techniques, but rather uses properties of the Green's function for the Helmholtz equation, which follow from \cite{MeSa:12}.) The rate of growth of $C$ for a general (Lipschitz) domain was improved to order $k$ in \cite{Sp:14} (using multiplier techniques) and finally eliminated for a general $C^\infty$ domain (using microlocal analysis) in \cite{BaSpWu:16}.
 
-Given the (largely) complete picture of bounds for the Helmholtz equation in \emph{homogeneous} media, recent research effort (especially in the numerical-analysis community) has shifted towards bounds for the Helmholtz equation in \emph{heterogeneous} media, of which the work \cite{GrPeSp:19} is a part; this shift in focus is motivated by the development of algorithms to solve the Helmholtz equation in heterogeneous or random media; the development of uncertainty quantification algorithms for random media also necessitates knowing explicitly how the constant $C$ in \eqref{eq:bgbound} depends on $A$ and $n$. Bounds where $C$ is independent of $k$ are given in \cite{FeLiLo:15} for random media, under the assumption that $A=I$ and $n = 1 + \eta,$ with $\eta$ a random field and $\NLiD{\eta} \lesssim 1/k.$ Results with $k$-independent $C$ are also proved in \cite{BrGaPe:17}, under related conditions to those in \cite{GrPeSp:19}, although the bounds in \cite{GrGaPe:17} are not explicit in $A$ and $n$. The case where $A$ is scalar-valued (i.e. $A = \eps I$) and given by many small inclusions is studied in \cite{OhVe:18}\optodo{Check this}, motivated by the analysis of multiscale methods for the Helmholtz equation; however \cite{OhVe:18} is only able to prove that $C$ is proportional to $k^3$ in this case, and the bound is not explicit in the parameters. The work \cite{GrSa:18} takes a very similar approach to \cite{GrPeSp:19}, proving results for heterogeneous media when $A=I$ under conditions on $n$ that are analogous to those in \cite{GrPeSp:19}; however, the bounds in \cite{GrSa:18} are not explicit in $n.$ In \cite{BaChGo:17} a $k$-independent bound is proven for 2-D piecwise-constant media, under suitable restrictions on $n.$ The work \cite{MoSp:19} proves $k$-independent bounds for the transmission problem with varying $A$ and $n$, where the bounds are fully explicit in all the parameters, under assumptions on the jumps in $A$ and $n.$ Finally, \cite{GaSpWu:18} uses microlocal analysis techniques to prove that, when all the parameters of interest are smooth, that the constant $C$ in a $k$-independent bound is given by the length of the longest ray.
+Given the (largely) complete picture of bounds for the Helmholtz equation in \emph{homogeneous} media, recent research effort (especially in the numerical-analysis community) has shifted towards bounds for the Helmholtz equation in \emph{heterogeneous} media, of which the work \cite{GrPeSp:19} is a part; this shift in focus is motivated by the development of algorithms to solve the Helmholtz equation in heterogeneous or random media; the development of uncertainty quantification algorithms for random media also necessitates knowing explicitly how the constant $C$ in \eqref{eq:bgbound} depends on $A$ and $n$. Bounds where $C$ is independent of $k$ are given in \cite{FeLiLo:15} for random media, under the assumption that $A=I$ and $n = 1 + \eta,$ with $\eta$ a random field and $\NLiD{\eta} \lesssim 1/k.$ Results with $k$-independent $C$ are also proved in \cite{BrGaPe:17}, under related conditions to those in \cite{GrPeSp:19}, although the bounds in \cite{GrGaPe:17} are not explicit in $A$ and $n$. The case where $A$ is scalar-valued (i.e. $A = \eps I$) and the heterogeneity is given by many small inclusions is studied in \cite{OhVe:18}, motivated by the analysis of multiscale methods for the Helmholtz equation; however \cite{OhVe:18} is only able to prove that $C$ is proportional to $k^3$ in this case, and the bound is not explicit in the parameters. The work \cite{GrSa:18} takes a very similar approach to \cite{GrPeSp:19}, proving results for heterogeneous media when $A=I$ under conditions on $n$ that are analogous to those in \cite{GrPeSp:19}; however, the bounds in \cite{GrSa:18} are not explicit in $n.$ In \cite{BaChGo:17} a $k$-independent bound is proven for 2-D piecwise-constant media, under suitable restrictions on $n.$ The work \cite{MoSp:19} proves $k$-independent bounds for the transmission problem with varying $A$ and $n$, where the bounds are fully explicit in all the parameters, under assumptions on the jumps in $A$ and $n.$ Finally, \cite{GaSpWu:18} uses microlocal analysis techniques to prove that, when all the parameters of interest are smooth, that the constant $C$ in a $k$-independent bound is given by the length of the longest ray.
 
-In related results, for the 1-dimensional Helmholtz equation in heterogeneous media, \cite{Ch:15} proves a $k$-independent bound for piecewise constant media, under assumptions on the media that limit the number of `pieces', whereas \cite{SaTo:18} proves a bound for arbitrarily many `pieces', but with the consequence that $C$ grows algebraically in $k$, using properties of the 1-dimensional Green's function. Also, \cite{LiWu:18} proves bounds for \cref{prob:edp} truncated with a perfectly matched layer (see, e.g., \optodo{Find a ref}), using properties of Bessel functions.
+In related results, for the 1-dimensional Helmholtz equation in heterogeneous media, \cite{Ch:15} proves a $k$-independent bound for piecewise constant media, under assumptions on the media that limit the number of `pieces', whereas \cite{SaTo:18} proves a bound for arbitrarily many `pieces', but with the consequence that $C$ grows algebraically in $k$, using properties of the 1-dimensional Green's function. Also, \cite{LiWu:18} proves bounds for \cref{prob:edp} truncated with a perfectly matched layer, using properties of Bessel functions.
 
 Observe that many of the results above that prove a $k$-independent bound are of the form `place restrictions on $\Dm$, $A$, and $n$ to ensure nontrapping, then conclude result'. However, the recent works \cite{MoSp:19,LaSpWu:19} have shown that even in the worst case of exponential growth in $k$ of the constant $C$, this behaviour is realised at very few frequencies; \cite{MoSp:19} provided numerical evidence for the transmission problem through a sphere that showed the realisation of super-algebraic growth is very sensitive to the value of $k$ (in some cases, changing $k$ at the 13th significant figure changed the behaviour completely. More rigorously, \cite{LaSpWu:19} used microlocal analysis techniques to show that one can exclude a set of $k$ of arbitrarily small measure, and then obtain merely algebraic growth in $C$.
 
-We note in passing that the discussions above have been mainly concerned with the effect inhomogeneities in $A$ and $n$ have on the behaviour of the solution $u$, and thus on the constant $C$. When one considers the trapping caused by the scatterer $\Dm,$ a range of behaviours can occur; $C$ can grow logarithmically, polynomially, or exponentially in $k$ depending on the scatterer. We refer the reader to \cite[Seciotns 1.1 and 1.3]{ChGiSpSm:17} for a recent overview of the effect of obstacle scattering.
+We note in passing that the discussions above have been mainly concerned with the effect inhomogeneities in $A$ and $n$ have on the behaviour of the solution $u$, and thus on the constant $C$. When one considers the trapping caused by the scatterer $\Dm,$ a range of behaviours can occur; $C$ can grow logarithmically, polynomially, or exponentially in $k$ depending on the scatterer. We refer the reader to \cite[Sections 1.1 and 1.3]{ChGiSpSm:17} for a recent overview of the effect of obstacle scattering.
    
 
 
@@ -253,8 +249,9 @@ where
 \eeqs
 and
 \beqs
-\FE(v) \de \int_{\DR} f\vbar
+\FE(v) \de \int_{\DR} f\vbar,
 \eeqs
+where $\TR:\HhGR\rightarrow \HmhGR$ is the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation $\Lap u + k^2 u = 0$ in the exterior of $\BR,$ combined with the Sommerfeld radiation condition; and $\DPGR{\cdot}{\cdot}$ is the duality pairing on $\GR.$
 \eprob
 
 \ble[Equivalence of formulations for the EDP]\label{lem:edpform}
@@ -277,7 +274,7 @@ and
 \FT(v) \de \int_{\DR} f\vbar + \int_{\GI} \gI \trGI \vbar
 \eeqs
 \eprob
-\optodo{Proof of $H^m$ regularity when $f$ etc. is smooth enough}
+\optodo{Proof of $H^m$ regularity when $f$ etc. is smooth enough - Grisvard/McClean}
 
 \ble[Equivalence of formulations for the TEDP]\label{lem:tedpform}
 \Cref{prob:tedp,prob:vtedp} are equivalent, i.e., $u \in \HozDDR$ solves \cref{prob:tedp} if, and only if, $u$ solves \cref{prob:vtedp}.
@@ -293,7 +290,7 @@ We now give a brief summary of elementary concepts in finite-element theory, so 
   \item Develop and study a nearby preconditioning technique for finite-element discretisations of the Helmholtz equation in \cref{chap:nbpc} below.
 \een
     \bde[Triangulation]
-    A triangulation of a \optodo{Polygonal?} domain $D$ is a finite collection of sets $\Ki \subseteq \Dclos$ such that
+    A triangulation of a polygonal domain $D$ is a finite collection of sets $\Ki \subseteq \Dclos$ such that
     \ben
   \item $\interior{\Ki} \cap \interior{\Kj} = \emptyset$ for $ i \neq j,$
   \item $\bigcup_i \Ki = \Dclos,$ and
@@ -302,39 +299,38 @@ We now give a brief summary of elementary concepts in finite-element theory, so 
     \ede
 
 
-    A crucial quantity in our analysis of finite-element methods will be the mesh size of the triangulation.\optodo{Say somewhere that `triangulation' and`'mesh' are interchangable}
+    A crucial quantity in our analysis of finite-element methods will be the mesh size of the triangulation. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
 
 \bde[Mesh Size]
 Given a triangulation $\cT = \set{\Ki}$ of a domain $D$, the \defn{mesh size} of $\cT$ is defined to be
 \beqs
 h = \max_{\Ki} \diam{\Ki}.
 \eeqs
-\ede\optodo{Adapted from B\&S 4.4.13}
+\ede
 
     We can now define finite-element spaces associated with a trinagulation. Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$
     \bde[Finite element space of degree $p$]
     Given a triangulation $\set{\Ki}$ of a domain $D$, the \defn{(continuous) piecewise-polynomial finite-element space of degree $p$} associated with $\set{\Ki}$ is
     \beqs
 \Vhp \de \set{\vh : D \rightarrow \CC \st \vh \restrict{\Ki} \in \polyp{\Kiclos} \tforall \Ki \tand \vh \in \CzD}
-    \eeqs\optodo{Check whether we want more than continuity for higher order}
+    \eeqs
     \ede
 
-    The following \namecref{lem:fespaceapprox} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
+    The following \namecref{lem:scottzhang} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
 
-    \ble[Approximation properties of $\Vhp.$]\label{lem:fespaceapprox}
-    \optodo{Find what this actually is, and reference it}
-    There exists $C>0$ and $\vhptilde \in \Vhp$ such that for all $m \leq p+1$ if $v \in \HmD,$ then for all $s \leq m$\optodo{Do I mean integers here?}
+    \ble[Existence of quasi-interpolant]\label{lem:scottzhang}
+    Let $p \geq 1$ and let $v \in \HmD.$ Then there exists $C>0$ and $\vhptilde \in \Vhp$ such that for all $s \leq \min\set{m,p+1}$
     \beqs
 \NLtD{v - \vhptilde} \leq C h^s \NHsD{v}
     \eeqs
     and
     \beqs
-\NHoD{v - \vhptilde} \leq C h^s \NHsD{v}.
+\NHoD{v - \vhptilde} \leq C h^{s-1} \NHsD{v}.
     \eeqs
     \ele
 
     \bre[The function $\vhptilde$]
-The function $\vhptilde$ in \cref{lem:scottzhang} is constructed using `averaged Taylor polynomials', see, e.g., \cite{ScZh:90},\cite[Section 4.4]{BrSc:08} for details.
+The function $\vhptilde$ in \cref{lem:scottzhang} is constructed using `averaged Taylor polynomials', see, e.g., \cite{ScZh:90},\cite[Section 4.4]{BrSc:08} for details\footnote{Observe that in \cite{BrSc:08}, the authors use different notation to us; in that work $m$ denotes the degree of the basis functions in the finite-element space, and $p$ denotes the integrability in the Sobolev space $\WmpD.$}.
     \ere
 
     With the concept of a finite-element space in place, we can now define the finite-element approximation to the variational problems \cref{prob:vedp,prob:vtedp}.
@@ -362,7 +358,7 @@ We will only prove results for \cref{prob:fevtedp}, as our proof uses properties
 
 We will first provide a discussion of error bounds for finite-element methods for the Helmholtz equation. We will give some intuition behind them, provide a brief history of their development, and constrast them with error bounds for the stationary diffusion equation.
 
-Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$ (for first-order finite elements), then the interpolation (or best approximation) error is bounded uniformly in $k$; see \optodo{Add this in when it's done} below for more detail. As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solutiuon. This restriction can also be motivated by the Nyquist--Shannon sampling theorem\optodo{Find Shannon Proc I. R. E., 31:10-21, '49 Communication in the prescence of noise} (see, e.g., \cite[\S 5.21]{BaNaBe:00}) that states that any function $v$ (in 1-d) whose Fourier transform lies inside $[-\lambda,\lambda]$ (for some $\lambda >0$) is completely determined (via its Fourier series) by the point values $v(0)$, $v(\pm \mu),$ $v(\pm2\mu),  \ldots$, for any $\mu < 1/2\lambda.$
+Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$ (for first-order finite elements), then the interpolation (or best approximation) error is bounded uniformly in $k$. As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solutiuon. This restriction can also be motivated by the Nyquist--Shannon sampling theorem\optodo{Find Shannon Proc I. R. E., 31:10-21, '49 Communication in the prescence of noise} (see, e.g., \cite[\S 5.21]{BaNaBe:00}) that states that any function $v$ (in 1-d) whose Fourier transform lies inside $[-\lambda,\lambda]$ (for some $\lambda >0$) is completely determined (via its Fourier series) by the point values $v(0)$, $v(\pm \mu),$ $v(\pm2\mu),  \ldots$, for any $\mu < 1/2\lambda.$
 
 Therefore, since the solution of the one-dimensional Helmholtz equation with constant coefficients is
 \beq\label{eq:hh-1d}
@@ -372,23 +368,30 @@ Therefore, since the solution of the one-dimensional Helmholtz equation with con
 
 However, as was stated in \cref{sec:numsolve}, the finite-element method for the Helmholtz equation suffers from pollution; and $h \sim 1/k$ is not a sufficient condition to keep the finite-element error bounded uniformly as $k\rightarrow \infty.$ Therefore we will now provide an overview of previous work giving conditions under which the finite-element error is bounded as $k\rightarrow \infty$, as well as conditions under which the finite-element method is quasi-optimal.
 
-We will first define the properties of the finite-element method that we wish to investigate.
-\bde
-Let $(\Th)_{h \in (0,1)}$ be a \optodo{Double check this is the right terminology, and define it somewhere if it is}shape-regular family of tranigulations of $\DR$, where we assume $h$ is a function of $k$ (e.g., $h(k) = 1/k$). We say that \defn{the error in the finite-element method is bounded uniformly in $k$} if for all $A,n$ in some class there exists $C(A,n)$ (but independent of $k$ and $h$) such that
-\beqs
-\NW{u-\uh} \leq C\NLtD{f}.
+We will first define the properties of the finite-element method that we wish to investigate; we will restrict our meshes to the following class:
+\bde[Shape-regular]
+A family $(\Th)_{h \in (0,1)}$ of meshes of $\DR$ is said to be \defn{shape-regular} if there exists $\rho > 0$ such that for all $T \in \Th$ and for all $h \in (0,1]$
+  \beqs
+\diam B(T) \geq \rho \diam T,
 \eeqs
-\optodo{Include impedance data?}
-\optodo{Does it need to be this formal?}
+where $B(T)$ is the largest ball contained in $T$ such that $T$ is star-shaped with respect to $B(T)$.
+\ede
+\bde[Bounded finite-element error]
+Let $(\Th)_{h \in (0,1)}$ be a \optodo{Double check this is the right terminology} shape-regular family of triangulations of $\DR$, where we assume $h$ is a function of $k$ (e.g., $h(k) = 1/k$). We say that \defn{the error in the finite-element method is bounded uniformly in $k$} if for all $A,n$ in some class there exists $C(A,n)$ (but independent of $k$ and $h$) such that
+\beqs
+\NW{u-\uh} \leq C\mleft(\NLtD{f} + \NLtGD{\gD} + \NLtGI{\gI}\mright).
+\eeqs
 \ede
 
 A more natural quantity to consider would be the relative error $\NW{u-\uh}/\NW{u};$ and to investigate the conditions on $h$ which enable the relative error to be bounded as $k\rightarrow \infty.$ However, current technology only allows us to prove results for the error, not the relative error, and so we investigate the error instead.
 
 A natural question to ask is: `What mesh condition will keep the relative error bounded as $k \rightarrow \infty'?$
 
-We first provide a brief overview of the literature around this question. In \cite{BaGoTu:85}, Bayliss, Golstein, and Turkel showed empirically that taking $h \sim k^{-3/2}$ with first-order finite elements kept the error bounded. In \cite{IhBa}\optodo{Which one?}\optodo{What about the other one/the book?} Ihlenburg and Babuska proved for first-order elements if $h \sim k^{-1},$\optodo{lesssim?} then the error itself $\sim h^2 k^3$ (a quantity which is bounded if $h \lesssim k^{-3/2}$). However, their proof used special properties\optodo{what exactly?} of the 1-dimensional Green's function for the Helmholtz equation, and so has not been generalised to higher dimensions. Recent work proving results on bounded finite-element error (without first recoursing to proving quasi-optimality of the finite-element method, which will be discussed below) have used the idea of an elliptic projection; that is, using a related PDE as part of the proof process, similar to duality arguments for proving finite-element error bounds in the more well-known case of the stationary diffusion equation.
+ In $d=2$ or $3$ with $D$ a convex polygon or polyhedron,  \cite[Theorem 6.1]{Wu:14} showed that the error (but not the relative error) in both the $H^1$ seminorm and the $L^2$ norm is bounded uniformly in $k$ if $h \lesssim k^{-3/2}$. The proof of \cite[Theorem 6.1]{Wu:14} showed an analagous result for a continuous interior-penalty method, and then took the limit as the penalty parameter tends to 0 to obtain the result for the continuous piecewise-linear finite-element method. In summary, the mesh condition $h \lesssim k^{-3/2}$ seems to be sufficient for the (relative) error to be bounded uniformly in $k.$
 
-This technique was used for the Helmholtz equation in homogeneous media in dimensions 2 and 3 in \optodo{Feng Wu?}\cite{Wu:14}, where it was proved that the error in the first-order finite-element meothd $\sim h^2k^3$ if $h \sim k^{-3/2}$ (and therefore the error is bounded); this results was shown for a discontinuous-Galerkin first-order method for the Helmholtz equation, and the results for the standard finite-element method were obtained as a special case; the results in \cite{Wu:14} were extended in \cite{DuWu:15} to higher-order finite-elements, showing that the error $\sim h^{2p}k^{2p+1}.$ Similar results were obtained in \cite{ChNi:18} for Helmholtz problems with corner singularities (and therefore there were additional contraints on the mesh arising from the corner singularities, that we do not mention here). The first results for heterogeneous media were obtained for first-order finite elements in \cite[Lemma 3.3]{WuZo:18} for a special case of heterogeneous media, showing the error is bounded if $h \lesssim k^{-3/2}$; these results were used as part of an argument proving similar results for a nonlinear Helmholtz equation.
+We first provide a brief overview of the literature around this question. The paper \cite[\S 3]{BaGoTu:85} gave computational results suggesting the mesh condition $h \lesssim k^{-3/2}$ is sufficient to bound the relative error in the $L^2$ norm uniformly in $k,$ where the computations were performed for $d=2$ and $D$ a square with Neumann boundary conditions on three sides and an impedance-like boundary condition on the other side. For a 1-dimensional problem on an interval with a zero Dirichlet boundary condition at one end, an impedance boundary condition at the other end and a uniform mesh \cite[Theorem 5, \S 3.4]{IhBa:95} showed that the error in the $H^1$ seminorm is bounded independently of $k$ provided $h \lesssim k^{-3/2}$, and then concluded that the relative error is similarly bounded. However, the proof in \cite{IhBa:95} used the fact that the solution of the Helmholtz equation in 1-d is given by $A \cos(kx) + B \sin(kx),$ and so has not been generalised to higher dimensions. Recent work proving results on bounded finite-element error (without first recoursing to proving quasi-optimality of the finite-element method, which will be discussed below) have used the idea of an elliptic projection; that is, using a related PDE as part of the proof process, similar to duality arguments for proving finite-element error bounds in the more well-known case of the stationary diffusion equation.
+
+This technique was used for the Helmholtz equation in homogeneous media in dimensions 2 and 3 in \optodo{Feng Wu?}\cite{Wu:14}, where it was proved that the error in the first-order finite-element method $\sim h^2k^3$ if $h \sim k^{-3/2}$ (and therefore the error is bounded); this results was shown for a discontinuous-Galerkin first-order method for the Helmholtz equation, and the results for the standard finite-element method were obtained as a special case; the results in \cite{Wu:14} were extended in \cite{DuWu:15} to higher-order finite-elements, showing that the error $\sim h^{2p}k^{2p+1}.$ Similar results were obtained in \cite{ChNi:18} for Helmholtz problems with corner singularities (and therefore there were additional contraints on the mesh arising from the corner singularities, that we do not mention here). The first results for heterogeneous media were obtained for first-order finite elements in \cite[Lemma 3.3]{WuZo:18} for a special case of heterogeneous media, showing the error is bounded if $h \lesssim k^{-3/2}$; these results were used as part of an argument proving similar results for a nonlinear Helmholtz equation.
 
 Observe that the results proved above for higher-order finite elements (error is bounded if $h^{2p}k^{2p+1}$ is bounded) become less stringent as $p$ increases (the condition translates to requring $h \lesssim k^{-1-1/2p}$). In this section we present the first such results for general classes of heterogeneous media; that is, that the error in the finite-element method is bounded if $h \lesssim k^{-1-1/2p}$.
 
@@ -398,11 +401,11 @@ Before presenting these results, we briefly outline results concerning the relat
 \eeqs
 i.e., up to a constant, $\uh$ is the best approximation to $u$ in the space $\Vhp$ in the norm $\N{\cdot}.$
 
-In order to present results for the Helmholtz equation, we contrast with the stationary diffusion equation \eqref{eq:stdiff}. For the stationary diffusion equation, one immediately obtains quasi-optimality for emph{any} mesh by C\'ea's Lemma\optodo{ref} (and then obtains that the relative error is bounded by properties of particular members of the finite-element space as in, e.g., \cref{lem:fespaceapprox}. We emphaise again that this holds for any mesh, with no restriction on $h.$
+In order to present results for the Helmholtz equation, we contrast with the stationary diffusion equation \eqref{eq:stdiff}. For the stationary diffusion equation, one immediately obtains quasi-optimality for emph{any} mesh by C\'ea's Lemma (and then obtains that the relative error is bounded by properties of particular members of the finite-element space as in, e.g., \cref{lem:fespaceapprox}. We emphaise again that this holds for any mesh, with no restriction on $h.$
 
 For the Helmholtz equation, proving quasi-optimality is more tricky; C\'ea's Lemma relies on the coercivity of the sesquilinear form in question; in general the sesquilinear forms arising from standard discretisations of the Helmholtz equation are not coercive. Therefore, one instead uses the so-called Aubin--Nitsche duality argument to prove quasi-optimality. This duality argument was first introduced by Nitsche \cite{Ni:67} and Aubin \cite{Au:68} for coercive problems, and applied to problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74}. This argument was first used for Helmholtz problems by Melenk in his PhD thesis \cite[Proposition 8.2.7]{Me:95}.
 
-Using this so-called Aubin--Nitsche argument, one obtains quais-optimality for the Helmholtz equation under the incredbily restrictive mesh condition $h \lesssim k^{-2}.$ (Observe that for large values of $k,$ this mesh condition is prohibitive---it would result in linear systems that are too large to solve, even on modern high-performance computers. The derivation of analagous conditions for quasi-optimality for heterogeneous problems (under the assumption that the problem is nontrapping) have been conducted in \cite[Remark 4.4 b.]{GrSa:18}, \cite[Theorem 3]GaSpWu:18}.
+Using this so-called Aubin--Nitsche argument, one obtains quais-optimality for the Helmholtz equation under the incredbily restrictive mesh condition $h \lesssim k^{-2}.$ (Observe that for large values of $k,$ this mesh condition is prohibitive---it would result in linear systems that are too large to solve, even on modern high-performance computers. The derivation of analagous conditions for quasi-optimality for heterogeneous problems (under the assumption that the problem is nontrapping) have been conducted in \cite[Remark 4.4 b.]{GrSa:18}, \cite[Theorem 3]{GaSpWu:18}.
 
 In conclusion, the rigorous numerical analysis of the Helmholtz equation is more theoretically demanding than for the stationary diffusion equation. Furthermore, the restrictions one obtains on usable mesh sizes mean that finite-element methods for high-frequency Helmholtz problems are very computationally demanding.
 
@@ -423,27 +426,27 @@ In this section, we prove that the finite-element approximation of the solution 
 
 Whilst we prove the results in this section for the TEDP, we expect that they can be extended to the Helmholtz Exterior Dirichlet Problem (EDP) where the infinite domain is truncated, and the Dirichlet-to-Neumann map is realised exactly on the truncated boundary. However, our proof below uses recently-proved bounds on the solution of a related problem to the TEDP from \cite{ChNiTo:18}; in order to extend our results to the EDP we would need analogues to the results in \cite{ChNiTo:18} for the EDP.
 
-\paragraph{Problem Set-up} Let $\Dm$ be a bounded Lipschitz\ednote{We actually need this to be a $C^{k,\lambda}$ set, for $k+\lambda > 1.5,$ so that we can do the whole non-zero Dirichlet data thing. This is getting a bit complicated. I guess our options are (i) persevere, (ii) give up and just do the theory for zero Dirichlet data, or (iii) assume that we know $\ud,$ not just $\gD.$ Thoughts?} open set such that the open complement $\Dp\de \RRd\setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \subset\subset\Dtilde$. 
-Let $D\de\Dtilde\setminus\Dm$, $\GD\de \partial \Dm$, and $\GI \de\partial \Dtilde$, so that $\partial D= \GD \cup \GI$ and $\GD\cap \GI = \emptyset$. Throughout $\tr$ will denote the trace onto the whole boundary $\dD,$ whereas $\trGI$ and $\trGD$ will denote the traces on $\GI$ and $\GD$ respectively. Throughout we assume there exists some $\kz > 0$ such that $k \geq \kz$. Let $\NW{v}$ denote the weighted $H^1$ norm on $\HoD$:
-\beqs
-\NW{v}^2 \de \NLtD{\grad v}^2 + k^2 \NLtD{v}^2.
-\eeqs
+%% \paragraph{Problem Set-up} Let $\Dm$ be a bounded Lipschitz\ednote{We actually need this to be a $C^{k,\lambda}$ set, for $k+\lambda > 1.5,$ so that we can do the whole non-zero Dirichlet data thing. This is getting a bit complicated. I guess our options are (i) persevere, (ii) give up and just do the theory for zero Dirichlet data, or (iii) assume that we know $\ud,$ not just $\gD.$ Thoughts?} open set such that the open complement $\Dp\de \RRd\setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \subset\subset\Dtilde$. 
+%% Let $D\de\Dtilde\setminus\Dm$, $\GD\de \partial \Dm$, and $\GI \de\partial \Dtilde$, so that $\partial D= \GD \cup \GI$ and $\GD\cap \GI = \emptyset$. Throughout $\tr$ will denote the trace onto the whole boundary $\dD,$ whereas $\trGI$ and $\trGD$ will denote the traces on $\GI$ and $\GD$ respectively. Throughout we assume there exists some $\kz > 0$ such that $k \geq \kz$. Let $\NW{v}$ denote the weighted $H^1$ norm on $\HoD$:
+%% \beqs
+%% \NW{v}^2 \de \NLtD{\grad v}^2 + k^2 \NLtD{v}^2.
+%% \eeqs
 
 
-Let
-\bit
-\item $f\in \LtD$ 
-\item $\gD\in \HthtGD$,
-\item $\gI\in \LtGI$
-\item $n\in \LiDRR$ such that $\dist\mleft(\supp\mleft(1-n\mright),\GI\mright)>0$, satisfying
-\beq
-0<\nmin \leq n\mleft(\bx\mright)\leq\nmax<\infty\,\, \text{ for almost every } \bx \in D,
-\eeq
-\item $A \in \WoiDRRdtd$ such that $\dist\mleft(\supp\mleft(I -A\mright),\GI\mright)>0$, $A$ is symmetric, and there exist $0<\Amin\leq \Amax<\infty$ such that
-\beq\label{eq:AellEDP}
- \Amin |\bxi|^2\leq\mleft(A\mleft(\bx\mright) \bxi\mright) \cdot \overline{ \bxi}  \leq \Amax|\bxi|^2 \quad\text{ for almost every }\bx \in D \text{ and for all } \bxi\in \CCd.
-\eeq
-\eit
+%% Let
+%% \bit
+%% \item $f\in \LtD$ 
+%% \item $\gD\in \HthtGD$,
+%% \item $\gI\in \LtGI$
+%% \item $n\in \LiDRR$ such that $\dist\mleft(\supp\mleft(1-n\mright),\GI\mright)>0$, satisfying
+%% \beq
+%% 0<\nmin \leq n\mleft(\bx\mright)\leq\nmax<\infty\,\, \text{ for almost every } \bx \in D,
+%% \eeq
+%% \item $A \in \WoiDRRdtd$ such that $\dist\mleft(\supp\mleft(I -A\mright),\GI\mright)>0$, $A$ is symmetric, and there exist $0<\Amin\leq \Amax<\infty$ such that
+%% \beq\label{eq:AellEDP}
+%%  \Amin |\bxi|^2\leq\mleft(A\mleft(\bx\mright) \bxi\mright) \cdot \overline{ \bxi}  \leq \Amax|\bxi|^2 \quad\text{ for almost every }\bx \in D \text{ and for all } \bxi\in \CCd.
+%% \eeq
+%% \eit
 %we say $u\in \HoD$ satisfies the Helmholtz Truncated Exterior Dirichlet Problem (TEDP) if 
 %\beqs
 %\grad\cdot\mleft(A \grad u \mright) + k^2 n u = -f \quad \tin D,
@@ -457,10 +460,10 @@ Let
 %\eeq
 In order to study the TEDP with $\gD\neq0,$ we must, in essence reformulate to the TEDP with $\gD=0$ but a different right-hand side for the domain term.
 
-Define the space
-\beqs
-\HozDD \de \set{v \in \HoD \st \trGD u = 0}.
-\eeqs
+%% Define the space
+%% \beqs
+%% \HozDD \de \set{v \in \HoD \st \trGD u = 0}.
+%% \eeqs
 %and the sesquilinear form and antilinear functional
 %The variational formulation of the TEDP with $\gD = 0$ is%\optodo{Check exactly what's needed in hetero}
 %
@@ -474,43 +477,43 @@ Define the space
 %a(u,v) \de \int_D \mleft(A \grad u\mright)\cdot \grad \vb - k^2 n u\vb - ik \int_{\GI} \trGI u \trGI \vb\quad \tand\quad F(v) \de \int_D f\vb + \int_{\GI} \gI\trGI \vb.
 %\eeqs
 %
-In order to deal with non-zero Dirichlet data $\gD,$ we let  $\ud \in \HtD$ be such that $\trGD \ud = \gD$, and $\esssup \ud \compcont D$. The proof that such a $\ud$ exists is in \cref{lem:ud}.
-The variational formulation of the TEDP is then
-\beq\label{eq:tedp}
-\text{Find } u \in \HozDD\quad \tst\quad a(u,v) = F(v)\quad \tfa v \in \HozDD,
-\eeq
-where
-\beqs
-a(u,v) \de \int_D \mleft(A \grad u\mright)\cdot \grad \vb - k^2 n u\vb - ik \int_{\GI} \trGI u \trGI \vb
-\eeqs
-and
-\beqs
-F(v) \de  \int_D \mleft(f - \grad \cdot \mleft(A\grad \ud\mright) - k^2 n\ud\mright)\vb + \int_{\GI} \mleft(\gI-\dn\ud\mright)\trGI \vb.
-\eeqs
-The function $\us = u+ \ud$ is then the solution of the Helmholtz equation
-\beqs
-\grad\cdot\mleft(A \grad \us \mright) + k^2 n \us = -f \quad \tin D,
-\eeqs
-\beqs
-\trGD \us =\gD \quad\ton \GD,
-\eeqs
-and 
-\beq\label{eq:TEDP3}
-\dn \us - \ii k  \trGI \us = \gI \ton \GI.
-\eeq
-\bre[Reducing the smoothness of $\gD$]
-The assumption that $\gD \in \HthtGD$ is made so that the lifting $\ud$ of $\gD$ is in $\HtD$ (see \cref{app:ud}). As $\ud \in \HtD,$ the antilinear functional $F$ defined above is well-defined. We could reduce the smoothness of $\gD$ to $\HoGD$ (meaning $\ud \in \HthtD$) but this reduction in smoothness would then require us to reformulate the functional $F$ as
-\beqs
-F(v) = \int_D \mleft(A \grad \ud\mright)\cdot \grad \vb - k^2 n \ud \vb + f \vb + \int_{\GI} \mleft(\gI - \dn \ud\mright)\vb.
-\eeqs\optodo{Put a proof of this somewhere, in 28/2/19 notes}
-With this reformulation, $F \in \HozDDprime,$ but does not have a representative function in $\LtD$. Our proofs below will use results from \cite{ChNiTo:18}, which are stated for the TEDP with zero Dirichlet boundary condition and $L^2$ right-hand side. To avoid the complications stated above, and to allow us to use the results in \cite{ChNiTo:18}, we therefore impose the additional smoothness on $\gD.$ Also, in the case with $F$ only in $\HozDDprime$, proving a priori bounds on the solution of the TEDP is more complicated (c.f., e.g., \cite[Theorem 2.5]{GrPeSp:18} and \cite[Corollary 2.16]{GrPeSp:18} which consider the analogous EDP). For the same reason, we assume $A \in \WoiDRRdtd;$ if we only had $A \in \LiDRRdtd,$ we could reformulate $F$ as outlined above, but we would have the same complications as just described.
+%% In order to deal with non-zero Dirichlet data $\gD,$ we let  $\ud \in \HtD$ be such that $\trGD \ud = \gD$, and $\esssup \ud \compcont D$. The proof that such a $\ud$ exists is in \cref{lem:ud}.
+%% The variational formulation of the TEDP is then
+%% \beq\label{eq:tedp}
+%% \text{Find } u \in \HozDD\quad \tst\quad a(u,v) = F(v)\quad \tfa v \in \HozDD,
+%% \eeq
+%% where
+%% \beqs
+%% a(u,v) \de \int_D \mleft(A \grad u\mright)\cdot \grad \vb - k^2 n u\vb - ik \int_{\GI} \trGI u \trGI \vb
+%% \eeqs
+%% and
+%% \beqs
+%% F(v) \de  \int_D \mleft(f - \grad \cdot \mleft(A\grad \ud\mright) - k^2 n\ud\mright)\vb + \int_{\GI} \mleft(\gI-\dn\ud\mright)\trGI \vb.
+%% \eeqs
+%% The function $\us = u+ \ud$ is then the solution of the Helmholtz equation
+%% \beqs
+%% \grad\cdot\mleft(A \grad \us \mright) + k^2 n \us = -f \quad \tin D,
+%% \eeqs
+%% \beqs
+%% \trGD \us =\gD \quad\ton \GD,
+%% \eeqs
+%% and 
+%% \beq\label{eq:TEDP3}
+%% \dn \us - \ii k  \trGI \us = \gI \ton \GI.
+%% \eeq
+%% \bre[Reducing the smoothness of $\gD$]
+%% The assumption that $\gD \in \HthtGD$ is made so that the lifting $\ud$ of $\gD$ is in $\HtD$ (see \cref{app:ud}). As $\ud \in \HtD,$ the antilinear functional $F$ defined above is well-defined. We could reduce the smoothness of $\gD$ to $\HoGD$ (meaning $\ud \in \HthtD$) but this reduction in smoothness would then require us to reformulate the functional $F$ as
+%% \beqs
+%% F(v) = \int_D \mleft(A \grad \ud\mright)\cdot \grad \vb - k^2 n \ud \vb + f \vb + \int_{\GI} \mleft(\gI - \dn \ud\mright)\vb.
+%% \eeqs\optodo{Put a proof of this somewhere, in 28/2/19 notes}
+%% With this reformulation, $F \in \HozDDprime,$ but does not have a representative function in $\LtD$. Our proofs below will use results from \cite{ChNiTo:18}, which are stated for the TEDP with zero Dirichlet boundary condition and $L^2$ right-hand side. To avoid the complications stated above, and to allow us to use the results in \cite{ChNiTo:18}, we therefore impose the additional smoothness on $\gD.$ Also, in the case with $F$ only in $\HozDDprime$, proving a priori bounds on the solution of the TEDP is more complicated (c.f., e.g., \cite[Theorem 2.5]{GrPeSp:18} and \cite[Corollary 2.16]{GrPeSp:18} which consider the analogous EDP). For the same reason, we assume $A \in \WoiDRRdtd;$ if we only had $A \in \LiDRRdtd,$ we could reformulate $F$ as outlined above, but we would have the same complications as just described.
 
 The fact that we cannot reduce the smoothness of $\gD$ further to $\HhGD$ is due to the Morawetz multiplier techniques used to obtain the a priori bounds in \cite{GrPeSp:18}, see \cite[(iii), p. 2874]{GrPeSp:18}.
-\ere
+%% \ere
 \optodo{Probably need to prove this---I guess it'll go along similar lines as the proof in hetero}
 Also, for later use we state the \defn{adjoint} problem.
 \beq\label{eq:tedpadj}
-\text{Find } u \in \HozDD\quad \tst\quad \aadj(u,v) = F(v)\quad \tfa v \in \HozDD,
+\text{Find } u \in \HozDDR\quad \tst\quad \aadj(u,v) = F(v)\quad \tfa v \in \HozDDR,
 \eeq
 where
 \beqs
@@ -524,18 +527,18 @@ where
 The statement of the main result requires the following related sesquilinear form and \lcnamecref{lem:relatedwp}.
 
 \bde[Related sesquilinear form]
-For $\vo, \vt \in \HozDD$ we define
+For $\vo, \vt \in \HozDDR$ we define
 \beqs
 \api(\vo,\vt) = \int_D \IP{A \grad \vo}{\vt} - ik\int_{\GI} \vo\vtbar.
 \eeqs
 \ede
 
 \ble[Related PDE is well-posed and solution is in $H^2$]\label{lem:relatedwp}
-If $A \in \CzoDRRdtd,$ then the solution $\psi \in \HozDD$ of the related PDE
+If $A \in \CzoDRRRdtd,$ then the solution $\psi \in \HozDDR$ of the related PDE
 \beq\label{eq:relpde}
-\api(u,v) = \IPLtD{f}{v}\quad \tfa\quad v \in \HozDD
+\api(u,v) = \IPLtDR{f}{v}\quad \tfa\quad v \in \HozDDR
 \eeq
-exists, is unique, is in $\HtD,$ and satisfies the a priori bound
+exists, is unique, is in $\HtDR,$ and satisfies the a priori bound
 % \beqs\label{eq:relpdehobound}
 % \NW{\psi} \lesssim \frac{\max\set{\Amin^{-1},1}}k,
 % \eeqs
@@ -545,7 +548,7 @@ exists, is unique, is in $\HtD,$ and satisfies the a priori bound
 % \eeqs
 % and
 \beqs
-\NHtD{\psi} \lesssim \CHtell \NLtD{f}.
+\NHtDR{\psi} \lesssim \CHtell \NLtDR{f}.
 \eeqs
 for some constant $\CHtell > 0$ depending on $A,$ but independent of $k.$
 \ele
@@ -557,27 +560,27 @@ for some constant $\CHtell > 0$ depending on $A,$ but independent of $k.$
 %\paragraph{Finite-Element Set-up} Let $\Vh$ be the first-order linear finite-element space on some mesh on $D$ with mesh size $h.$
 
 \bas[Existence, uniqueness, and an a priori bound]\label{ass:bound}
-We assume that the coefficients $A$ and $n$ are such that for all $k \geq \kz$ the solutions of the TEDP \eqref{eq:tedp} and its adjoint \eqref{eq:tedpadj} exist, are unique, are in $\HtD,$ and satisfy the bound
+We assume that the coefficients $A$ and $n$ are such that for all $k \geq \kz$ the solutions of the TEDP \eqref{eq:tedp} and its adjoint \eqref{eq:tedpadj} exist, are unique, are in $\HtDR,$ and satisfy the bound
 \beq\label{eq:hhbound}
-\NHtD{u} \lesssim \CHthh \,k \mleft(\NLtD{f} + \Nunsure{g} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright),
+\NHtDR{u} \lesssim \CHthh \,k \mleft(\NLtDR{f} + \Nunsure{g} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright),
 \eeq
 where $\gradGD$ is the surface gradient on $\GD,$ $u$ is the solution of the TEDP or its adjoint, and $\CHthh >0$ is a constant dependent on $A$, $n,$ and possibly $k.$
 % \footnote{Determining the dependence of $\CHthh$ on $A$ and $n$ could be tricky. It was done in \cite{ChScTe:13} for a $C^2$ domain with scalar $A$ and homogeneous Dirichlet boundary conditions.}
  \eas
 
-\bde[Finite-element approximation] 
- The finite-element approximation to \eqref{eq:tedp} is the following:
-\beq\label{eq:tedpfe}
-\text{Find } \uh \in \Vh\quad \tst\quad a(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
-\eeq
-\ede
+%% \bde[Finite-element approximation] 
+%%  The finite-element approximation to \eqref{eq:tedp} is the following:
+%% \beq\label{eq:tedpfe}
+%% \text{Find } \uh \in \Vh\quad \tst\quad a(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
+%% \eeq
+%% \ede
 
 The main theorem we prove is the following:
 
 \bth[Finite-element-error bound]\label{thm:febound}
-If $A \in \CzoDRRdtd,$ $h \lesssim 1/k,$ \cref{ass:bound} holds, and
+If $A \in \CzoDRRRdtd,$ $h \lesssim 1/k,$ \cref{ass:bound} holds, and
 \beq\label{eq:hcond}
-h \lesssim \mleft(\NLiDRR{n} \mleft(\Amax + \half\mright)\CHtell \CHthh\mright)^{-1/2}k^{-3/2}, % There should be a factor of a half in front of the right-hand side of this, as it makes things clearer what's going on in the proof. However, since we're doing everything with \lesssim, a factor of a half doesn't matter. We could replace the half with any \eps in (0,1), but then the constant hidden in the \lesssim in \eqref{eq:hherrltbound} has a factor 1/\eps.
+h \lesssim \mleft(\NLiDRRR{n} \mleft(\Amax + \half\mright)\CHtell \CHthh\mright)^{-1/2}k^{-3/2}, % There should be a factor of a half in front of the right-hand side of this, as it makes things clearer what's going on in the proof. However, since we're doing everything with \lesssim, a factor of a half doesn't matter. We could replace the half with any \eps in (0,1), but then the constant hidden in the \lesssim in \eqref{eq:hherrltbound} has a factor 1/\eps.
 \eeq
 the finite-element solution $\uh$ to the problem \eqref{eq:tedpfe} exists, is unique, and satisfies the bounds
 \beq\label{eq:hherrltbound}
@@ -595,7 +598,7 @@ where
 \Cfemt \de \frac{\Amax+\half}{\Amin} \CHthh,
 \eeqs
 \beqs
-\Cfemth \de \frac{\mleft(\Amin+ \NLiDRR{n}\mright)^{1/2}}{\Amin^{1/2}}\Cfemo,
+\Cfemth \de \frac{\mleft(\Amin+ \NLiDRRR{n}\mright)^{1/2}}{\Amin^{1/2}}\Cfemo,
 \eeqs
 and $u$ is the solution of the TEDP \eqref{eq:tedp}.
 \enth
@@ -695,9 +698,9 @@ see, e.g., \cite[Equation (6.16)]{Sp:15}. We can then prove \eqref{eq:boundwe}:
 We now define the elliptic projection of a function in $\HoD.$% and also define a related PDE that will be used in proving the approximation properties of the elliptic projection.
 
 \bde[Elliptic Projection]
-For $w \in \HoD$ we define the \defn{elliptic projection} $\Ph w \in \Vh$ of $w$ by
+For $w \in \HoD$ we define the \defn{elliptic projection} $\Ph w \in \Vhp$ of $w$ by
 \beq\label{eq:ellproj}
-\api(\vh,\Ph w) = \api(\vh,w) \tfa \vh \in \Vh.
+\api(\vh,\Ph w) = \api(\vh,w) \tfa \vh \in \Vhp.
 \eeq
 \ede
 
@@ -724,70 +727,70 @@ For $w \in \HoD$ we define the \defn{elliptic projection} $\Ph w \in \Vh$ of $w$
 % \epf
 
 \ble[Properties of elliptic projection]\label{lem:ellprojbounds}
-Let $A \in \CzoDRRdtd.$ If $w \in \HtD,$ then the elliptic projection $\Ph w$ exists, is unique, and the error satisfies the bounds
+Let $A \in \CzoDRRRdtd.$ If $w \in \HtDR,$ then the elliptic projection $\Ph w$ exists, is unique, and the error satisfies the bounds
 \beq\label{eq:ellprojenbound}
-\Npi{w-\Ph w} \lesssim \sqrt{\Amax+\half}\,h\NHtD{w},
+\Npi{w-\Ph w} \lesssim \sqrt{\Amax+\half}\,h\NHtDR{w},
 \eeq
 and
 \beq\label{eq:ellprojltbound}
-\NLtD{w-\Ph w} \lesssim  \mleft(\Amax+\half\mright)\CHtell\,h^2\NHtD{w}.
+\NLtDR{w-\Ph w} \lesssim  \mleft(\Amax+\half\mright)\CHtell\,h^2\NHtDR{w}.
 \eeq
 \ele
 
 \bpf[Proof of \cref{lem:ellprojbounds}]
-We first assume $\Ph w$ exists. To show \eqref{eq:ellprojenbound} we apply C\'{e}a's Lemma in $\Vh$ using the energy norm $\Npi{\cdot}$ to conclude
+We first assume $\Ph w$ exists. To show \eqref{eq:ellprojenbound} we apply C\'{e}a's Lemma in $\Vhp$ using the energy norm $\Npi{\cdot}$ to conclude
 \beqs
 \Npi{w-\Ph w} \leq \Npi{w-\Ih w}.
 \eeqs
 We then apply \cref{lem:normbound,lem:scottzhangbound} to conclude \eqref{eq:ellprojenbound}.
 
-To prove \eqref{eq:ellprojltbound} we let $\psi$ solve the related PDE (\cref{lem:relpde}) with $f = w-\Ph w.$ By \cref{lem:relatedwp} $\psi \in \HtD$ and thus by  \cref{lem:normbound} and \cref{lem:scottzhangbound}
+To prove \eqref{eq:ellprojltbound} we let $\psi$ solve the related PDE (\cref{lem:relpde}) with $f = w-\Ph w.$ By \cref{lem:relatedwp} $\psi \in \HtDR$ and thus by  \cref{lem:normbound} and \cref{lem:scottzhangbound}
 \beqs
-\Npi{\psi - \Ih \psi} \lesssim \sqrt{\Amax + \half}\CHtell \,h\NLtD{w-\Ph w}.
+\Npi{\psi - \Ih \psi} \lesssim \sqrt{\Amax + \half}\CHtell \,h\NLtDR{w-\Ph w}.
 \eeqs
 
 If we now set $v = w-\Ph w$ in \eqref{eq:relpde}, then we obtain
 \begin{align}
-  \NLtD{w - \Ph w}^2 &= \api\mleft(\psi,w-\Ph w\mright)\nonumber\\
+  \NLtDR{w - \Ph w}^2 &= \api\mleft(\psi,w-\Ph w\mright)\nonumber\\
                      &= \api\mleft(\psi-\Ih \psi,w-\Ph w\mright) \text{ by Galerkin orthogonality for } w-\Ph w\nonumber\\
                      &\leq \Npi{\psi-\Ih \psi}\Npi{w-\Ph w}\nonumber\\
-                       &\lesssim \sqrt{\Amax + \half}\CHtell \,h\NLtD{w-\Ph w}\Npi{w-\Ph w}\label{eq:epltfinal}.
+                       &\lesssim \sqrt{\Amax + \half}\CHtell \,h\NLtDR{w-\Ph w}\Npi{w-\Ph w}\label{eq:epltfinal}.
 \end{align}
-By cancelling $\NLtD{w- \Ph w}$ from both sides of \eqref{eq:epltfinal} and using \eqref{eq:ellprojenbound} we obtain \eqref{eq:ellprojltbound}.
+By cancelling $\NLtDR{w- \Ph w}$ from both sides of \eqref{eq:epltfinal} and using \eqref{eq:ellprojenbound} we obtain \eqref{eq:ellprojltbound}.
 
-We have proved the bounds \eqref{eq:ellprojenbound} and \eqref{eq:ellprojltbound} under the assumption of existence. To show uniqueness, suppose $\wh, \whtilde$ both satisfy \eqref{eq:ellproj} (with $\Ph = \wh$ or $\whtilde$ respectively). Then by linearity, for all $\vh \in \Vh,$
+We have proved the bounds \eqref{eq:ellprojenbound} and \eqref{eq:ellprojltbound} under the assumption of existence. To show uniqueness, suppose $\wh, \whtilde$ both satisfy \eqref{eq:ellproj} (with $\Ph = \wh$ or $\whtilde$ respectively). Then by linearity, for all $\vh \in \Vhp,$
 \beqs
 \api\mleft(\vh,\Ph\mleft(\wh-\whtilde\mright)\mright) = \IP{\vh}{w-w} = 0.
 \eeqs
 That is, the function $\wh - \whtilde$ is an elliptic projection of the zero function.
 
-Therefore, by \eqref{eq:ellprojltbound} $\NLtD{0 - \mleft(\wh - \whtilde\mright)} \lesssim 0,$ i.e., $\wh = \whtilde.$ Therefore, if the elliptic projection $\Ph w$ exists, it is unique. As the space $\Vh$ is finite-dimensional, by the Rank--Nullity Theorem, the uniqueness of $\Ph w$ implies its existence; hence $\Ph w$ exists, and is unique, as required.
+Therefore, by \eqref{eq:ellprojltbound} $\NLtDR{0 - \mleft(\wh - \whtilde\mright)} \lesssim 0,$ i.e., $\wh = \whtilde.$ Therefore, if the elliptic projection $\Ph w$ exists, it is unique. As the space $\Vhp$ is finite-dimensional, by the Rank--Nullity Theorem, the uniqueness of $\Ph w$ implies its existence; hence $\Ph w$ exists, and is unique, as required.
 \epf
 
 
 \subsubsection{Proof of Main Result}
 
-We let $\Ih$ denote the Scott--Zhang quasi-interpolant in $\Vh$ (see \cite{ScZh:90}), and will use its following property.
-
+We let $\Ih$ denote the Scott--Zhang quasi-interpolant in $\Vhp$ (see \cite{ScZh:90}), and will use its following property.
+\optodo{What to do with this?}
 \ble[Properties of Scott-Zhang interpolant]\label{lem:scottzhangbound}
-let $h \lesssim 1/k.$ If $w \in \HtD,$ then
+let $h \lesssim 1/k.$ If $w \in \HtDR,$ then
 \beq\label{eq:scottzhangbound}
-\NW{w - \Ih w} \lesssim h \NHtD{w}.
+\NW{w - \Ih w} \lesssim h \NHtDR{w}.
 \eeq
 \ele
 
 \bpf[Proof of \cref{lem:scottzhangbound}]
 The Scott-Zhang interpolant $\Ih w$ satisfies
 \beq\label{eq:szlt}
-\NLtD{w-\Ih w} \lesssim h^2 \NHtD{w}
+\NLtDR{w-\Ih w} \lesssim h^2 \NHtDR{w}
 \eeq
 \and
 \beq\label{eq:szho}
-\NHoD{w-\Ih w} \lesssim h \NHtD{w}.
+\NHoDR{w-\Ih w} \lesssim h \NHtDR{w}.
 \eeq
 Hence by the definition of $\NW{\cdot},$ by combining \eqref{eq:szlt} and \eqref{eq:szho} we have
 \beqs
-\NW{w-\Ih w} \lesssim h\mleft(1+hk\mright)\NHtD{w}.
+\NW{w-\Ih w} \lesssim h\mleft(1+hk\mright)\NHtDR{w}.
 \eeqs
 As $h\lesssim 1/k,$ \eqref{eq:scottzhangbound} follows.
 \epf
@@ -797,15 +800,15 @@ The following \lcnamecref{cor:hhszbound} follows from \cref{ass:bound}, and is u
 \bco\label{cor:hhszbound}
 If $u$ is the solution of the Helmholtz Interior Impedance Problem (or its adjoint) then the error in the Scott--Zhang quasi-interpolant satisfies
 \beq\label{eq:hhszbound}
-\NW{u-\Ih u} \lesssim \CHthh hk \mleft(\NLtD{f} + \Nunsure{g} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright).
+\NW{u-\Ih u} \lesssim \CHthh hk \mleft(\NLtDR{f} + \Nunsure{g} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright).
 \eeq
 \eco
 
 The proof of the main theorem (\cref{thm:febound} below) also uses the fact that $a$ satisfies a G\r{a}rding inequality.
 \ble[G\r{a}rding inequality]
-If $v \in \HozDD,$ then
+If $v \in \HozDDR,$ then
 \beq\label{eq:garding}
-\Re\mleft(a(v,v)\mright) \geq \Amin \NW{v}^2 - \mleft(\Amin + \NLiDRR{n}\mright)\NLtD{v}^2,
+\Re\mleft(a(v,v)\mright) \geq \Amin \NW{v}^2 - \mleft(\Amin + \NLiDRRR{n}\mright)\NLtDR{v}^2,
 \eeq
 where $\Re$ denotes the real part.
 \ele
@@ -827,35 +830,35 @@ We are now in a position to prove our main theorem.
 \bpf[Proof of \cref{thm:febound}]
 In this proof, for brevity we let
 \beqs
-\rhs = \NLtD{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}.
+\rhs = \NLtDR{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}.
 \eeqs
 By \cref{ass:bound} the solution $u$ of the TEDP exists and is unique. Assume the finite-element solution $\uh$ exists. Let $\xi \in \HoD$ satisfy the adjoint TEDP \eqref{eq:tedpadj} with $f=u-\uh,$ $\gD=0,$ and $\gI=0.$ Taking complex conjugates, it follows that
 \beq\label{eq:errordual}
-a(v,\xi) = \IPLtD{v}{u-\uh} \tfa v \in \HoD.
+a(v,\xi) = \IPLtDR{v}{u-\uh} \tfa v \in \HoDR.
 \eeq
-By \cref{ass:bound} $\xi$ exists, is unique and is in $\HtD.$. Setting $v = u-\uh$ in \eqref{eq:errordual} we obtain
+By \cref{ass:bound} $\xi$ exists, is unique and is in $\HtDR.$. Setting $v = u-\uh$ in \eqref{eq:errordual} we obtain
 \begin{align*}
-  \NLtD{u-\uh}^2 &= a\mleft(u-\uh,\xi\mright)\\
+  \NLtDR{u-\uh}^2 &= a\mleft(u-\uh,\xi\mright)\\
                  &= a\mleft(u-\uh,\xi-\Ph \xi\mright) \quad\text{by Galerkin orthogonality for } u-\uh\\
-                 &= \api\mleft(u-\uh,\xi-\Ph \xi\mright) - k^2 \IPLtD{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
-                 &= \api\mleft(u-\Ih u,\xi-\Ph \xi\mright) - k^2 \IPLtD{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
+                 &= \api\mleft(u-\uh,\xi-\Ph \xi\mright) - k^2 \IPLtDR{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
+                 &= \api\mleft(u-\Ih u,\xi-\Ph \xi\mright) - k^2 \IPLtDR{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
   &\quad\quad\quad\text{by Galerkin orthogonality for }\xi  - \Ph \xi\\
-                 &\leq \Npi{u-\Ih u}\Npi{\xi - \Ph \xi} + \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\\
+                 &\leq \Npi{u-\Ih u}\Npi{\xi - \Ph \xi} + \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\\
                  &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk \rhs\Npi{\xi-\Ph \xi}\\
-  &\quad\quad+  \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\quad \text{by \eqref{eq:boundew} and \eqref{eq:hhszbound}}\\
-                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk\rhs\,\sqrt{\Amax + \half}\,h\NHtD{\xi}\\
-                 &\quad\quad  + \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\quad \text{by \eqref{eq:ellprojenbound}}\\
-                 &\lesssim \mleft(\Amax + \half\mright)\CHthh\, hk\rhs \, \CHthh \,hk \NLtD{u-\uh}\\
-&\quad\quad  + \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\quad \text{by \eqref{eq:hhbound}}\\
+  &\quad\quad+  \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\quad \text{by \eqref{eq:boundew} and \eqref{eq:hhszbound}}\\
+                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk\rhs\,\sqrt{\Amax + \half}\,h\NHtDR{\xi}\\
+                 &\quad\quad  + \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\quad \text{by \eqref{eq:ellprojenbound}}\\
+                 &\lesssim \mleft(\Amax + \half\mright)\CHthh\, hk\rhs \, \CHthh \,hk \NLtDR{u-\uh}\\
+&\quad\quad  + \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\quad \text{by \eqref{eq:hhbound}}\\
 \end{align*}
-Cancelling a factor of $\NLtD{u-\uh}$ and rearranging terms we obtain
+Cancelling a factor of $\NLtDR{u-\uh}$ and rearranging terms we obtain
 \beqs
-\NLtD{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2\rhs + k^2 \NLiDRR{n} \NLtD{\xi - \Ph \xi}
+\NLtDR{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2\rhs + k^2 \NLiDRRR{n} \NLtDR{\xi - \Ph \xi}
 \eeqs
 and therefore
 \begin{align*}
-&  \NLtD{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2 \rhs\\
-&\quad\quad  + h^2k^3 \NLiDRR{n} \mleft(\Amax + \half\mright) \CHtell \CHthh \NLtD{u-\uh}
+&  \NLtDR{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2 \rhs\\
+&\quad\quad  + h^2k^3 \NLiDRRR{n} \mleft(\Amax + \half\mright) \CHtell \CHthh \NLtDR{u-\uh}
 \end{align*}
   using the definition of $\xi$, \eqref{eq:ellprojltbound}, and \eqref{eq:hhbound}Therefore if $h$ satisfies \eqref{eq:hcond} we obtain \eqref{eq:hherrltbound}.
 % \beqs
@@ -867,24 +870,24 @@ and therefore
 % \eeqs
 To obtain the bound \eqref{eq:hherrwbound}, we use the G\r{a}rding inequality \eqref{eq:garding}:
 \begin{align*}
-  \Amin \NW{u-\uh}^2 &\leq \Re\mleft(a\mleft(u-\uh,u-\uh\mright)\mright) + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\\
-                     &= \Re\mleft(a\mleft(u-\uh,u-\Ih u\mright)\mright) + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\\
+  \Amin \NW{u-\uh}^2 &\leq \Re\mleft(a\mleft(u-\uh,u-\uh\mright)\mright) + k^2\mleft(\Amin+ \NLiDRRR{n}\mright) \NLtDR{u-\uh}^2\\
+                     &= \Re\mleft(a\mleft(u-\uh,u-\Ih u\mright)\mright) + k^2\mleft(\Amin+ \NLiDRRR{n}\mright) \NLtDR{u-\uh}^2\\
   &\quad\quad\quad\text{by Galerkin orthogonality}\\
-                     &\leq \mleft(\Amax+\half\mright) \NW{u-\uh}\NW{u-\Ih u} + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\\
+                     &\leq \mleft(\Amax+\half\mright) \NW{u-\uh}\NW{u-\Ih u} + k^2\mleft(\Amin+ \NLiDRRR{n}\mright) \NLtDR{u-\uh}^2\\
   &\quad\quad\quad\text{by \cref{lem:normbound}}\\
-  &\leq \frac{\mleft(\Amax+\half\mright)^2}{2\Amin} \NW{u-\Ih u}^2 + \frac{\Amin}2 \NW{u-\uh}^2 + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2,\\
+  &\leq \frac{\mleft(\Amax+\half\mright)^2}{2\Amin} \NW{u-\Ih u}^2 + \frac{\Amin}2 \NW{u-\uh}^2 + k^2\mleft(\Amin+ \NLiDRRR{n}\mright) \NLtDR{u-\uh}^2,\\
 \end{align*}
 by Cauchy's inequality \eqref{eq:cauchy} with $\eps = \Amin.$ Therefore,
 \beqs
-\NW{u-\uh}^2 \leq \frac2{\Amin} \mleft(\frac{\mleft(\Amax+\half\mright)^2}{2\Amin} \NW{u-\Ih u}^2+ k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\mright)
+\NW{u-\uh}^2 \leq \frac2{\Amin} \mleft(\frac{\mleft(\Amax+\half\mright)^2}{2\Amin} \NW{u-\Ih u}^2+ k^2\mleft(\Amin+ \NLiDRRR{n}\mright) \NLtDR{u-\uh}^2\mright)
 \eeqs
 and hence
 \beq\label{eq:hherrboundnearly}
-\NW{u-\uh} \lesssim \frac1{\Amin^{1/2}} \mleft(\frac{\Amax+\half}{\Amin^{1/2}} \NW{u-\Ih u}+ k\mleft(\Amin+ \NLiDRR{n}\mright)^{1/2} \NLtD{u-\uh}\mright).
+\NW{u-\uh} \lesssim \frac1{\Amin^{1/2}} \mleft(\frac{\Amax+\half}{\Amin^{1/2}} \NW{u-\Ih u}+ k\mleft(\Amin+ \NLiDRRR{n}\mright)^{1/2} \NLtDR{u-\uh}\mright).
 \eeq
 By substituting \eqref{eq:hhszbound} and \eqref{eq:hherrltbound} into \eqref{eq:hherrboundnearly} we obtain \eqref{eq:hherrwbound}.
 
-To show that $\uh$ exists, as in the proof of \cref{lem:ellprojbounds} we can use the error bound \eqref{eq:hherrltbound} to show that $\uh$ is unique, and we can then use the fact that $\Vh$ is finite-dimensional to show that $\uh$ exists.
+To show that $\uh$ exists, as in the proof of \cref{lem:ellprojbounds} we can use the error bound \eqref{eq:hherrltbound} to show that $\uh$ is unique, and we can then use the fact that $\Vhp$ is finite-dimensional to show that $\uh$ exists.
 \epf
 
 

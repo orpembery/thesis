@@ -54,7 +54,7 @@ In this thesis we will be exclusively concerned with discretisation via finite e
 \een
     We will now briefly discuss each of these properties in turn, outlining why the matrices $\Amat$ have these three properties, and how these properties affetc the numerical solution of \eqref{eq:intromat}.
 
-    For \cref{it:nonh}, the matrices $\Amat$ are non-Hermitian because the underlying boundary-value problems are not self-adjoint (see cite[Section 4.2]{Sp:15} for a discussion of the non-selfadjointness of exterior-boundary-value problems for the Helmholtz equation). This lack of slef-adjointness means the sesquilinear forms arising in standard variational formulations of \eqref{eq:introhh} are not conjugate symmetric, and this lack of conjugate symmetry is inherited by the discretisation matrices $\Amat$. the non-Hermitian nature of the matrices means that an iterative solver, such as GMRES, that is suitable for such matrices must be used.\ednote{Both---I'm struggling to find anything else to say here, is there anything I've missed? In particular, does the non-Hermitian nature of the matrices make the problem \emph{hard} to solve, or does it simply require we use an appropriate linear solver?}
+    For \cref{it:nonh}, the matrices $\Amat$ are non-Hermitian because the underlying boundary-value problems are not self-adjoint (see cite[Section 4.2]{Sp:15} for a discussion of the non-selfadjointness of exterior-boundary-value problems for the Helmholtz equation). This lack of self-adjointness means the sesquilinear forms arising in standard variational formulations of \eqref{eq:introhh} are not conjugate symmetric, and this lack of conjugate symmetry is inherited by the discretisation matrices $\Amat$. the non-Hermitian nature of the matrices means that an iterative solver, such as GMRES, that is suitable for such matrices must be used.\ednote{Both---I'm struggling to find anything else to say here, is there anything I've missed? In particular, does the non-Hermitian nature of the matrices make the problem \emph{hard} to solve, or does it simply require we use an appropriate linear solver?}
 
     For \cref{it:indef}, the matrices $\Amat$ are indefinite because the sesquilinear forms arising from standard variational formulations of \eqref{eq:introhh} are not coercive. This indefiniteness means that GMRES applied to \eqref{eq:intromat} exhibits poor convergence properties, especially as the wavenumber $k$ is increased\ednote{Both---would it be helpful to run some experiments showing the blow-up in the number of GMRES iterations needed for convergence as $k$ increases?}\ednote{Both---I've been trying to find anything explaining why GMRES for indefinite systems doesn't behave well. Obviously one can't prove convergence if $\bzero \in W(\Amat)$, but is there any more intution about why it behaves poorly that I've missed?}. In addition, the standard convergence theory for GMRES (originally presented in \cite{El:82}\optodo{Find ref} and given in a helpful form in \cite[Equation (1.1)]{BeGoTy:06}) does not apply to indefinite systems, and so proving convergence results is also challenging.\ednote{Both---similar to the previous paragraph, I'm finding it hard to find anything else to say here, have I missed anything?}
     
@@ -127,9 +127,9 @@ The main acheivements of the thesis are as follows:
 
 These error bounds are the first for the Helmholtz equation in a heterogeneous medium; similar bounds have been proved for the Helmholtz equation in a homogeneous medium in, e.g., \cite{Wu:14,DuWu:15,ChNi:18} and for a homogeneous medium with a small, frquency-dependent nonlinear perturbation in \cite{WuZo:18}. These bounds (and their explicit dependence on $k$, $A4$ and $n$) are crucial for the analysis of the numerical methods developed in this thesis.
 
-\setlist[enumerate]{resume}
 
-\ben
+
+\ben[resume]
 
 \item\label[itemachievement]{it:achievements-bounds} Well-posedness results and a priori bounds on the solution of the Helmholtz equation in random media, where the results and bounds obtained are frequency-independent.  The arguments behind these results are written in a sufficiently general way that they can be used, in principle, to conclude similar results for a range of stochastic elliptic PDEs. 
 
@@ -137,8 +137,8 @@ These error bounds are the first for the Helmholtz equation in a heterogeneous m
 
 This work is an advance on the only previous work in the literature, \cite{FeLiLo:15}, in which similar results and bounds were proved, but under restrictions that became more stringent as the frequency increased; in contrast the results in this thesis are frequency-independent. To prove such frequency-independent results, we will consider classes of random media that are almost-surely nontrapping. This nontrapping assumption will allow us to obtain our frequency-independent results. These results on well-posedness and a priori bounds are crucial for analysing the numerical methods that follow. Our results show that the problems we are solving are well-posed, and will enable us to rigorously prove properties of the numerical methods considered in this thesis. We expect that the arguments behind these results can be used in other cases where the bilinear form given by the PDE is indefinite, such as for the time-harmonic Maxwell's equations.
 
-  \setlist[enumerate]{resume}
-  \ben
+
+  \ben[resume]
 \item\label[itemachievement]{it:achievements-nbpc} A computational strategy (nearby preconditioning) that reduces the computational cost of solving many realisations of the Helmholtz equation in random media. 
 \item\label[itemachievement]{it:achievements-nbpcnum} Numerical experiments that show the rigorous analysis of nearby preconditioning may not be\optodo{change?} not sharp, and that the method is, in practice, more effective than can be rigorously proved. We demonstrate the effectiveness of nearby preconditioning when applied to a Quasi-Monte-Carlo method for the Helmholtz equation.
   \een
@@ -149,10 +149,8 @@ This work is an advance on the only previous work in the literature, \cite{FeLiL
 
  % In \cref{chap:nbpc} we propose a computational technique, \emph{nearby preconditioning}, that speeds up the process of solving many realisations of the Helmholtz equation by reusing preconditioners from one realisation for (potentially) many subsequent `nearby' realisations. In this theoretical study, we assume that we have access to the action of an exact preconditioner for one Helmholtz problem, and study the convergence of GMRES for subsequent problems. That is, we investigate the convergence of GMRES applied to $\AmatoI\Amatt$, where $\Amato$ and $\Amatt$ are matrices arising from finite-element discretisations of the Helmholtz equation. We show that if the coefficients of the underlying PDEs are sufficiently close (or `nearby'), then GMRES applied to $\AmatoI\Amatt$ will converge in a number of iterations that is independent of $k.$ However, the conditions for 'sufficient closeness' that we prove depend on either $k$ or the mesh size $h$. We then provide numerical experiments showing the sharpness (in some cases) or the lack of sharpness (in other cases) of our proven results.
 
-  
-
-%    \setlist[enumerate]{resume}
-  \ben
+ 
+  \ben[resume]
 
 
 
