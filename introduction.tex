@@ -36,7 +36,7 @@ This thesis will only focus on UQ for the forward problem. The forward problem a
 
 The computational techniques developed in this thesis are applicable to the inverse problem for \eqref{eq:introhh}. However, the inverse problem introduces other computational difficulties, unrelated to solving \eqref{eq:introhh}. Such difficulties are related to sampling the random coefficients $A$ and $n$; in wave propagation inverse problems the distributions of $A$ and $n$ may well be multi-modal\ednote{I've been able to construct a simple 1-D example of this---it'll go in an appendix, but it's not written up yet.}\optodo{Finish example in appendix} (the stochastic analogue of having multiple local minima), and constructing good samplers for such problems is an open research question\optodo{Find refs for this - ask Tom Pennington?}.
 
-\subsection{Solving the Helmholtz Equation Numerically}
+\subsection{Solving the Helmholtz Equation Numerically}\label{sec:numsolve}
 
 We have just stated that it is hard to solve the (deterministic) Helmholtz equation
 \beq\label{eq:introdet}

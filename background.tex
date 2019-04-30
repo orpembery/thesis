@@ -8,9 +8,9 @@ This chapter has two main foci:
   \een
 
   In this chapter we will first provide an overview of well-posedness results for the deterministic Helmholtz equation, and a priori bounds on its solution.\optodo{Put somewhere below that Fredholm gives a bound without dependence on $k$} Such results are more complicated than analagous results for the simpler stationary diffusion equation
-  \beqs
+  \beq\label{eq:stdiff}
 \grad \cdot \mleft( A \grad u \mright) = -f,
-\eeqs
+\eeq
 as results for the Helmholtz equation depend on whether the medium described by the coefficients $A$ and $n$ is `trapping' or `nontrapping' (these terms will be discussed in more precision below). We will then move on to discussing the finite-element approximation of \eqref{eq:introdet}, focussing especially on error bounds and quasi-optimality, and the $k$-dependent mesh conditions under which such properties can be proven.
 
 In \cref{sec:varform} we will define the deterministic Helmholtz problems we will study in this chapter (these are the deterministic analogues of the stochastic Helmholtz problems we will study), prove a straightforward lemma on the regularity of the solution of these problems, and show that these problems satisfy a so-called G\r{a}rding inequality. In \cref{sec:wpbounds} we will then state in some detail the well-posedness results and a priori bounds from \cite{GrPeSp:19}, these results will be crucial for our analysis of stochastic Helmholtz problems in \cref{chap:stochastic}. In \cref{sec:wpdisc} we will review recent and historical research efforts in this area. We then move on to the finite-element method for \eqref{eq:introdet}; in \cref{sec:fetheory} we recap basic concepts of the finite-element method, before proving new results on error bounds for the finite-element method for \eqref{eq:introdet} in \cref{sec:errbound}. We then give an overview of the literatureon error bounds and quasi-optimality for \eqref{eq:introdet} in \cref{sec:helmfedisc}.
@@ -277,7 +277,6 @@ and
 \FT(v) \de \int_{\DR} f\vbar + \int_{\GI} \gI \trGI \vbar
 \eeqs
 \eprob
-\ednote{Both---can we discuss whether it's worth stating the variational formulation of the EDP/TEDP with non-zero Dirichlet data? On the one hand, it's more technical, but on the other hand, if we want (e.g. for MLMC) to consider the far-field as a quantity of interest, it makes most sense to consider a `real' scattering problem, i.e., one with non-zero Dirichlet data.}
 \optodo{Proof of $H^m$ regularity when $f$ etc. is smooth enough}
 
 \ble[Equivalence of formulations for the TEDP]\label{lem:tedpform}
@@ -320,9 +319,9 @@ h = \max_{\Ki} \diam{\Ki}.
     \eeqs\optodo{Check whether we want more than continuity for higher order}
     \ede
 
-    The following lemma shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
+    The following \namecref{lem:fespaceapprox} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
 
-    \ble[Approximation properties of $\Vhp.$]
+    \ble[Approximation properties of $\Vhp.$]\label{lem:fespaceapprox}
     \optodo{Find what this actually is, and reference it}
     There exists $C>0$ and $\vhptilde \in \Vhp$ such that for all $m \leq p+1$ if $v \in \HmD,$ then for all $s \leq m$\optodo{Do I mean integers here?}
     \beqs
@@ -340,87 +339,72 @@ The function $\vhptilde$ in \cref{lem:scottzhang} is constructed using `averaged
 
     With the concept of a finite-element space in place, we can now define the finite-element approximation to the variational problems \cref{prob:vedp,prob:vtedp}.
 
-    \bprob[Finite-element approximation of \cref{prob:vedp}]\label{prob:fevedp}
+    \bprob[Finite-element approximation of \cref{prob:vtedp}]\label{prob:fevtedp}
     Let $\Vhp \subset \HozDDR$ be a finite-element space. We say that $\uh \in \Vhp$ is the finite-element approximation of $u$ (the solution to \cref{prob:vedp} if
     \beqs
     a(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
-    The finite-element approximation of \cref{prob:vtedp} is defined analagously.
+    The finite-element approximation of \cref{prob:vedp} is defined analagously.
     \eeqs
     \eprob
 
     \bre[Not considering variational crimes]
-    Observe that \cref{prob:fevedp} requires $\Vhp \subseteq \HozDDR.$ This inclusion is true if $\DR$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevedp} and commit a variational crime by approximating the boundary of $\DR$ by a polygon, or introducing mesh elements with curved boundaries; see, e.g.\optodo{Find refs for Helmholtz, otherwise Brenner and Scott has some of this}. In this thesis we will ignore such variational crimes, and the additional errors they induce; such analysis is standard, and orthogonal to the analysis in this thesis.
+    Observe that \cref{prob:fevtedp} requires $\Vhp \subseteq \HozDDR.$ This inclusion is true if $\DR$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevtedp} and commit a variational crime by approximating the boundary of $\DR$ by a polygon, or introducing mesh elements with curved boundaries; see, e.g.\optodo{Find refs for Helmholtz, otherwise Brenner and Scott has some of this}. In this thesis we will ignore such variational crimes, and the additional errors they induce; such analysis is standard, and orthogonal to the analysis in this thesis.
     \ere
     
 
-\subsection{Error bound for the heterogeneous IIP}\label{sec:errbound}
-\bit
-\item This section contains new work
-\item Prove heterogeneous analogue of results on bounded error if $h \lesssim k^{-(2p+1)/2p}$
-\item Proof technique uses `elliptic projection' idea - see Feng \& Wu, Wu, Du \& Wu, Chaumont-Frelet \& Nicaise, WU \& Zou.
-\item Prove for IIP only, as need to use results on a related PDE from Chaumont-Frelet and Nicaise; only proved with impedance boundary condition - expect can extend to, e.g., exact DtN.
-\item These bounds crucial for MLMC analysis in \cref{chap:mlmc}
-\item Will prove for non-zero Dirichlet boundary condition, as motivation for MLMC is scattering
-  \eit
-  Include:
-  \bit
-\item G\r{a}rding inequality
-  \eit
+    \subsection{Error bound for the heterogeneous IIP}\label{sec:errbound}
+
+    We now move on to present new work---bounds on the error $\uh-u$ between the finite-element approximation and the true solution of \cref{prob:vtedp}. These bounds, proven for the Helmholtz equation in \emph{heterogeneous} media are generalisations of results already in the literature that the finite-element error is bounded (as $k\rightarrow \infty$) provided $h \lesssim k^{-(2p+1)/2p}$. They will also be crucial for our analysis of the multi-level Monte Carlo method for the Helmholtz equation in \cref{chap:mlmc}. The proof uses a so-called `elliptic projection' technique, where the variational; formulation of a PDE related to \cref{pron:vtedp} is used as part of the proof. 
+
+We will only prove results for \cref{prob:fevtedp}, as our proof uses properties of the related PDE used in the elliptic projection; the required results for this PDE have only been proven with impedance boundary conditions, in the recent preprint \cite{ChNiTo:18}, and not with an exact Dirichlet-to-Neumann map on the truncation boundary. However, whilst we only prove results with impedance boundary conditions, we imagine our results could be extended to an exact Dirichlet-to-Neumann boundary condition, if the required results on the related PDE were available.
 
 \subsection{Discussion of FEM for Helmholtz}\label{sec:helmfedisc}
-\bit
-\item Recall from intro $h\sim k^{-1}$ (for first order; fixed ppw as num. points $\sim 1/h$) means interpolation error bounded, in general fixed ppw, but condition varies.
-\bit
-\item Can see by interpolation bounds from, e.g., Scott-Zhang (see below)
-\item In 1-D\optodo{Find out if it works in higher D} motivate also by Shannon--Nyquist theorem\optodo{Find Shannon Proc I. R. E., 31:10-21, '49 Communication in the prescence of noise}
-\item Both make precise intuition that we have bounded errors under fixed points per wavelength
-\eit
-\item Also recall Helmholtz suffers from pollution - fixed ppw not enough to keep FEM error bounded
-\item This section will summarise conditions under which error bounded, and related property of quasi-optimality holds
-\item Plan:
-\bit
-\item Introduce concepts of bounded error and quasi-optimality
-%\item Show (for contrast) that they are straightforward for stationary diffusion
-\item Give overview of results on bounded error and Quasi-optimality for Helmholtz
-\eit
-\eit
-\bit
-\item Definition: error bounded
-\item Would really like relative error bounded, however, not possible with current technology
-\item Definition: Quasi-optimal
-\item Natural question: what mesh size keeps error bounded?
-\item Short history:
-\bit
-\item Bayliss, Goldstein, Turkel - computations showing $h\sim k^{-3/2}$ sufficient to keep error bounded
-\item Ihlenburg, Babu\v{s}ka - prove error $\sim h^2k^3$ in 1-D if $h \sim k^{-1}$
-\item Wu - error $\sim h^2k^3$ if $h \sim k^{-3/2}$ for 1st-order FEM
-\item Du and Wu - error $\sim h^{2p}k^{2p+1}$ for higher-order FEM
-\item Chaumont-Frelet \& Nicaise - similar result with corner singularities
-  \item WU \& Zou - special case in heterogeneous media
-\item Here in \cref{sec:errbound} first proof that $h\sim k^{-(2p+1)/2p}$ sufficient to keep relative error bounded in heterogeneous problems
-\eit
-\item For stationary diffusion, things are straightforward
-\item Prove quasi optimality using C\'ea
-\item Get FEM error bounded by using properties of interpolant, e.g., via Scott-Zhang.
-\item No condition on $h$ needed, unlike Helmholtz
-\item For Helmholtz Cea unavailable as not coercive
-\item Proving Quasi-optimality more tricky
-\item Instead use Aubin--Nitsche duality argument
-\bit
-\item Introduced by Nitsche\optodo{FOr what?}
-\item Used by Aubin\optodo{For what}
-\item Applied by Schatz to problems satisfying G\r{a}rding inequality
-\item First applied to Helmholtz by Melenk
-\item Obtain quasi-optimality under nontrapping assumptions and restrictive mesh condition $h \sim k^{-2}$---see \cite[Proposition 8.2.7]{Me:95} for homogeneous, \cite{GrSa:18} and \cite[Theorem 3]{GaSpWu:18} for heterogeneous, related bound in \cite[Section 1.4]{ChSpGiSm:17} sketched for parabolic trapping cases
-\item Mesh condition is prohibitive for large $k$
-\eit
-\eit
-Conclusion:
-\bit
-\item Rigorous NA of Helmholtz more demanding than, e.g., stationary diffusion
-\item Mesh conditions require decreasing mesh size with $k$; esp. for quasi-optimality, very restrictive.
-\eit
 
+We will first provide a discussion of error bounds for finite-element methods for the Helmholtz equation. We will give some intuition behind them, provide a brief history of their development, and constrast them with error bounds for the stationary diffusion equation.
+
+Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$ (for first-order finite elements), then the interpolation (or best approximation) error is bounded uniformly in $k$; see \optodo{Add this in when it's done} below for more detail. As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solutiuon. This restriction can also be motivated by the Nyquist--Shannon sampling theorem\optodo{Find Shannon Proc I. R. E., 31:10-21, '49 Communication in the prescence of noise} (see, e.g., \cite[\S 5.21]{BaNaBe:00}) that states that any function $v$ (in 1-d) whose Fourier transform lies inside $[-\lambda,\lambda]$ (for some $\lambda >0$) is completely determined (via its Fourier series) by the point values $v(0)$, $v(\pm \mu),$ $v(\pm2\mu),  \ldots$, for any $\mu < 1/2\lambda.$
+
+Therefore, since the solution of the one-dimensional Helmholtz equation with constant coefficients is
+\beq\label{eq:hh-1d}
+\uz(x) = A \sin(kx) + B \cos(kx),
+\eeq
+(for some constants $A$ and $B$), if $\uz(x)$ is sampled at regularly-spaced points that are strictly closer together than $\pi/k$ (as $\lambda = 2\pi/k$ here), then $\uz$ can be reconstructed perfectly from these samples. In conclusion, one expects the be able to interpolate the solution of the Helmholtz equation with uniform error in $k$ if $h \sim 1/k.$
+
+However, as was stated in \cref{sec:numsolve}, the finite-element method for the Helmholtz equation suffers from pollution; and $h \sim 1/k$ is not a sufficient condition to keep the finite-element error bounded uniformly as $k\rightarrow \infty.$ Therefore we will now provide an overview of previous work giving conditions under which the finite-element error is bounded as $k\rightarrow \infty$, as well as conditions under which the finite-element method is quasi-optimal.
+
+We will first define the properties of the finite-element method that we wish to investigate.
+\bde
+Let $(\Th)_{h \in (0,1)}$ be a \optodo{Double check this is the right terminology, and define it somewhere if it is}shape-regular family of tranigulations of $\DR$, where we assume $h$ is a function of $k$ (e.g., $h(k) = 1/k$). We say that \defn{the error in the finite-element method is bounded uniformly in $k$} if for all $A,n$ in some class there exists $C(A,n)$ (but independent of $k$ and $h$) such that
+\beqs
+\NW{u-\uh} \leq C\NLtD{f}.
+\eeqs
+\optodo{Include impedance data?}
+\optodo{Does it need to be this formal?}
+\ede
+
+A more natural quantity to consider would be the relative error $\NW{u-\uh}/\NW{u};$ and to investigate the conditions on $h$ which enable the relative error to be bounded as $k\rightarrow \infty.$ However, current technology only allows us to prove results for the error, not the relative error, and so we investigate the error instead.
+
+A natural question to ask is: `What mesh condition will keep the relative error bounded as $k \rightarrow \infty'?$
+
+We first provide a brief overview of the literature around this question. In \cite{BaGoTu:85}, Bayliss, Golstein, and Turkel showed empirically that taking $h \sim k^{-3/2}$ with first-order finite elements kept the error bounded. In \cite{IhBa}\optodo{Which one?}\optodo{What about the other one/the book?} Ihlenburg and Babuska proved for first-order elements if $h \sim k^{-1},$\optodo{lesssim?} then the error itself $\sim h^2 k^3$ (a quantity which is bounded if $h \lesssim k^{-3/2}$). However, their proof used special properties\optodo{what exactly?} of the 1-dimensional Green's function for the Helmholtz equation, and so has not been generalised to higher dimensions. Recent work proving results on bounded finite-element error (without first recoursing to proving quasi-optimality of the finite-element method, which will be discussed below) have used the idea of an elliptic projection; that is, using a related PDE as part of the proof process, similar to duality arguments for proving finite-element error bounds in the more well-known case of the stationary diffusion equation.
+
+This technique was used for the Helmholtz equation in homogeneous media in dimensions 2 and 3 in \optodo{Feng Wu?}\cite{Wu:14}, where it was proved that the error in the first-order finite-element meothd $\sim h^2k^3$ if $h \sim k^{-3/2}$ (and therefore the error is bounded); this results was shown for a discontinuous-Galerkin first-order method for the Helmholtz equation, and the results for the standard finite-element method were obtained as a special case; the results in \cite{Wu:14} were extended in \cite{DuWu:15} to higher-order finite-elements, showing that the error $\sim h^{2p}k^{2p+1}.$ Similar results were obtained in \cite{ChNi:18} for Helmholtz problems with corner singularities (and therefore there were additional contraints on the mesh arising from the corner singularities, that we do not mention here). The first results for heterogeneous media were obtained for first-order finite elements in \cite[Lemma 3.3]{WuZo:18} for a special case of heterogeneous media, showing the error is bounded if $h \lesssim k^{-3/2}$; these results were used as part of an argument proving similar results for a nonlinear Helmholtz equation.
+
+Observe that the results proved above for higher-order finite elements (error is bounded if $h^{2p}k^{2p+1}$ is bounded) become less stringent as $p$ increases (the condition translates to requring $h \lesssim k^{-1-1/2p}$). In this section we present the first such results for general classes of heterogeneous media; that is, that the error in the finite-element method is bounded if $h \lesssim k^{-1-1/2p}$.
+
+Before presenting these results, we briefly outline results concerning the related property of quasi-optimality. Recall that the finite-element method is quasi-optimal if there exists $C>0$, independent of $h$ such that
+\beqs
+\N{u-\uh} \leq C \inf_{\vh \in \Vhp} \N{u-\vh};
+\eeqs
+i.e., up to a constant, $\uh$ is the best approximation to $u$ in the space $\Vhp$ in the norm $\N{\cdot}.$
+
+In order to present results for the Helmholtz equation, we contrast with the stationary diffusion equation \eqref{eq:stdiff}. For the stationary diffusion equation, one immediately obtains quasi-optimality for emph{any} mesh by C\'ea's Lemma\optodo{ref} (and then obtains that the relative error is bounded by properties of particular members of the finite-element space as in, e.g., \cref{lem:fespaceapprox}. We emphaise again that this holds for any mesh, with no restriction on $h.$
+
+For the Helmholtz equation, proving quasi-optimality is more tricky; C\'ea's Lemma relies on the coercivity of the sesquilinear form in question; in general the sesquilinear forms arising from standard discretisations of the Helmholtz equation are not coercive. Therefore, one instead uses the so-called Aubin--Nitsche duality argument to prove quasi-optimality. This duality argument was first introduced by Nitsche \cite{Ni:67} and Aubin \cite{Au:68} for coercive problems, and applied to problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74}. This argument was first used for Helmholtz problems by Melenk in his PhD thesis \cite[Proposition 8.2.7]{Me:95}.
+
+Using this so-called Aubin--Nitsche argument, one obtains quais-optimality for the Helmholtz equation under the incredbily restrictive mesh condition $h \lesssim k^{-2}.$ (Observe that for large values of $k,$ this mesh condition is prohibitive---it would result in linear systems that are too large to solve, even on modern high-performance computers. The derivation of analagous conditions for quasi-optimality for heterogeneous problems (under the assumption that the problem is nontrapping) have been conducted in \cite[Remark 4.4 b.]{GrSa:18}, \cite[Theorem 3]GaSpWu:18}.
+
+In conclusion, the rigorous numerical analysis of the Helmholtz equation is more theoretically demanding than for the stationary diffusion equation. Furthermore, the restrictions one obtains on usable mesh sizes mean that finite-element methods for high-frequency Helmholtz problems are very computationally demanding.
 
 \optodo{Put size of linear systems in}
 \optodo{Put in poor performance of GMRES?}
@@ -433,3 +417,9 @@ Conclusion:
 
 %% More briefly, if one wants the finite-element solution to be quasi-optimal (that is, up to a constant, the finite-element solution is the best approximation in the finite-element space), then one must over-refine even more, and take $h \sim k^{-2}$. This mesh condition will give rise to linear systems with $k^{2d}$ degres of freedom. See \cref{chap:background} for further details on the necessity of this mesh condition, and further discussion of all the mesh conditions discussed above.\optodo{EDIT THE ABOVE TO REMOVE `OVER-REFINE'}
 
+\subsection{New error bounds for the Helmholtz equation in heterogeneous media}\label{sec:heterr}
+
+  Include:
+  \bit
+\item G\r{a}rding inequality
+  \eit
