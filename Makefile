@@ -28,6 +28,17 @@ supervisor:
 
 	evince thesis.pdf &
 
+revision:
+# Based on https://tex.stackexchange.com/a/1495
+	pdflatex  "\def\revisionversion{1} \input{thesis.tex}" 
+	bibtex thesis.aux
+	pdflatex  "\def\revisionversion{1} \input{thesis.tex}"
+	pdflatex  "\def\revisionversion{1} \input{thesis.tex}" 
+
+	touch thesis.tex # This means next time I try and make the thesis, make runs
+
+	evince thesis.pdf &
+
 # Check style:
 # From http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/
 proof:
