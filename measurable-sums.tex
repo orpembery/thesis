@@ -1,0 +1,155 @@
+Here we collect together results from measure theory that allow us to conclude in \cref{lem:seriesmeas} that the series expansions for $A$ and $n$ in \cref{sec:generating} are measurable. As mentioned in \cref{sec:generating}, the proof that the sum of measurable functions is measurable is standard, but we have not been able to find this result stated in the literature for this particular setting of mappings into a separable subspace of a general normed vector space.
+\ble\label{lem:sepsum}
+If $U$ is a separable normed vector space, $m \in \NN,$ and $\phi_j:\Omega\rightarrow U,$ $j=1,\ldots,m$  are measurable functions, then $\phi_1+\cdots+\phi_m : \Omega\rightarrow U$ is measurable.
+\ele
+
+\bpf[Sketch proof of \cref{lem:sepsum}]
+By induction, it is sufficient to show the result for $m=2.$ We let $\Ballspace{U}{r}{v}$ denote the ball of radius $r>0$ about $v \in U$. To show $\phio+\phit$ is measurable, we let $v \in U, r>0$ and we show $\mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright) \in \cF.$ Let $\QQU$ denote a countable dense subset of $U,$ which exists as $U$ is separable.
+
+For $s \in \QQ, q \in \QQU$ let
+\beqs
+\setsq = \set{\omega \in \Omega \st \NU{\phio(\omega)-\half v - q} < s} \cap \set{\omega \in \Omega \st \NU{\phit(\omega)-\half v + q} < r-s}.
+\eeqs
+We claim
+\beq\label{eq:sumseteq}
+\mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright) = \bigcup_{s \in \QQFF} \bigcup_{q \in \QQU} \setsq,
+\eeq
+and the result then follows as the right-hand side is an element of the $\sigma$-algebra $\cF.$ To show \eqref{eq:sumseteq}, let $\omega \in \cup_{s \in \QQ}\cup_{q \in \QQU} \setsq,$ and let $s \in \QQ, q \in \QQU$ be such that $\omega \in \setsq.$ Then it follows from the triangle inequality that $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright).$
+Now let $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright),$ define $\dw \de r - \NU{\phio(\omega)+\phit(\omega)-v} > 0,$ fix $s \in \QQ \cap (0,\dw/2),$ and choose $q \in \QQU$ such that $\NU{\phi(\omega) - v/2 -q} < s.$ Then again it follows from the triangle inequality that $\omega \in \setsq,$ and thus \eqref{eq:sumseteq} holds, as required.
+\epf
+
+% Corollary: finite sums lying in a separable subspace of a normed vector space are measurable
+\bco\label{cor:sepsubsum}
+If $V$ is a normed vector space, $U \subseteq V$ is a separable subspace, and $\phi_j:\Omega\rightarrow U,$  $j=1,\ldots,m$  are measurable functions, then $\phi_1+\cdots+\phi_m : \Omega\rightarrow U$ is measurable.
+\eco
+
+% Lemma: scalar measurable function multiplied by a vector is measurable (as it's continuous)
+\ble\label{lem:scalarmultmeas}
+Let $V$ be a normed vector space. If $v \in V$ and $Y:\Omega\rightarrow \FF$ is a measurable function, then $Yv:\Omega\rightarrow V$ is a measurable function.
+\ele
+
+\bpf[Proof of \cref{lem:scalarmultmeas}]
+The map $\scalarmult:\FF\rightarrow V$ given by $\scalarmult(x) = xv$ is continuous. As $Yv = \scalarmult \circ Y,$ it follows from \cref{lem:contplusmeas} that $Yv$ is measurable.
+\epf
+
+% Lemma: Inclusion map is Borel
+\ble\label{lem:incborel}
+If $V$ is a normed vector space and $U \subseteq V,$ then the inclusion map $\inc:U\rightarrow V$ is measurable.
+\ele
+
+\bpf[Proof of \cref{lem:incborel}]
+As $\inc$ is continuous, it immediately follows that it is measurable.
+\epf
+
+% Corollary: measurable into subspace means measurable into space
+\bco\label{cor:meassubmeansmeas}
+If $V$ is a normed vector space, $U\subseteq V$ and $\phi:\Omega\rightarrow U$ is measurable, then $\phi:\Omega\rightarrow V$ is measurable.
+\eco
+
+\bpf[Proof of \cref{cor:meassubmeansmeas}]
+This is immediate from \cref{lem:incborel} and \cref{lem:contplusmeas}.
+\epf
+
+% Lemma: the $\FF$-span  of a finite set of functions is a separable subspace if $\FF$ is separable
+\ble\label{lem:spansep}
+If $V$ is a normed vector space, $m \in \NN,$ and $\phi_1,\ldots,\phi_m \in V$ for $j = 1,\ldots,m$ then $\spanset{\phi_1,\ldots,\phi_m}$ is a separable subspace of $V.$
+\ele
+
+\bpf[Sketch Proof of \cref{lem:spansep}]
+As $\FF = \RR$ or $\CC,$ it has a separable subset $\QQFF.$ Since a finite product of countable sets is countable, the set
+\beqs
+\set{\Ballspace{V}{1/n}{q_1\phi_1 + \cdots + q_m \phi_m} \st n \in \NN, q_1,\ldots,q_m \in \QQFF}
+\eeqs
+is a countable base for the topology on $\spanset{\phi_1,\ldots,\phi_m}$ induced by the norm $\NV{\cdot}.$ 
+\epf
+
+\ble\label{lem:summeas}
+If $V$ is a normed vector space, $m \in \NN,$ and for $j = 1,\ldots,m$, $\phi_j\in V$ and $Y_j : \Omega \rightarrow \FF$ are measurable, then the function $\phi:\Omega\rightarrow V$ given by
+\beqs
+\phi(\omega) = \phi_0 + \sum_{j=1}^m Y_j(\omega)\phi_j
+\eeqs
+is measurable.
+\ele
+
+\bpf[Proof of \cref{lem:summeas}]
+The subspace $U=\spanset{\phi_0,\phi_1,\ldots,\phi_m}$ is separable by \cref{lem:spansep}, and it is clear that the image of $\phi$ lies in $U.$ By \cref{lem:scalarmultmeas} and \cref{cor:sepsubsum}, $\phi:\Omega\rightarrow U$ is measurable, and therefore $\phi:\Omega\rightarrow V$ is measurable by \cref{cor:meassubmeansmeas}.
+\epf
+
+We now prove that almost-surely convergent sequences of measurable functions are measurable, and we then apply this result to the partial sums of the definitions of $A$ and $n$ in \eqref{eq:nseries}. %In order to prove this, from this point onwards we make the assumption that the space $V$ is complete. This assumption is satisfied by the spaces involved in the definitions of $A$ and $n$ ($\WoiDRRRdtd$ and $\WoiDRRR$ respectively).
+
+We will use the following theorem to establish that the almost-surely limit of a sequence of measurable functions is measurable.
+
+\bth[{\cite[Theorem 4.2.2]{Du:02}}]\label{thm:dudley}
+Let $(\metsp,\metric)$ be a metric space. Suppose the functions $\zeta_j:\Omega \rightarrow \metsp$ are measurable, for all $j \in \NN.$ If the limit
+\beqs
+\zeta(\omega) = \lim_{j \rightarrow \infty} \zeta_j(\omega)
+\eeqs
+exists for every $\omega \in \Omega,$ then the function $\zeta:\Omega \rightarrow \metsp$ is measurable.
+\enth
+
+\bco\label{lem:paelimitmeas}
+Let $(\metsp,\metric)$ be a metric space. Suppose the functions $\zeta_m:\Omega \rightarrow \metsp$ are measurable, for all $m \in \NN.$ If the limit
+\beq\label{eq:zetalimit}
+\lim_{m \rightarrow \infty} \zeta_m(\omega)
+\eeq
+exists almost surely, then there exists a measurable function $\zeta:\Omega \rightarrow \metsp$ such that $\zeta(\omega) = \lim_{m \rightarrow \infty} \zeta_m(\omega)$ whenever the limit exists.
+\eco
+
+\bpf[Proof of \cref{lem:paelimitmeas}]
+Following \cite{El:11}, we define $\Omegatilde = \set{\omega \in \Omega \st \text{ \eqref{eq:zetalimit} exists}}.$ Then, for $m \in \NN$ define $\zetatilde_m:\Omega\rightarrow \metsp$ by
+\beqs
+\zetatilde_m(\omega) =
+\begin{cases}
+\zeta_m(\omega) & \tif \omega \in \Omegatilde\\
+0 & \tif \omega \not\in\Omegatilde
+\end{cases}
+\eeqs
+Observe that, by construction, the limit $\zetatilde(\omega) = \lim_{m\rightarrow\infty} \zetatilde_m(\omega)$ exists \emph{for all} $\omega \in \Omega.$ Therefore, by \cref{thm:dudley}, $\zetatilde$ is measurable.
+\epf
+
+\ble\label{lem:paeseriesmeas}
+Let $V$ be a normed vector space. If there exist $\phi_j\in V,$ $j=0,1,\ldots$ and measurable functions $\Yj:\Omega \rightarrow \FF,$ $j \in \NN$ such that the series
+\beqs
+\phi_0 + \sum_{j=1}^\infty \Yj(\omega)\phi_j
+\eeqs
+exists in $V$ almost surely, then there exists a measurable function $\phi:\Omega\rightarrow V$ such that
+\beqs
+\phi(\omega) = \phi_0 + \sum_{j=1}^\infty \Yj(\omega)\phi_j
+\eeqs
+almost surely.
+\ele
+
+\bpf[Proof of \cref{lem:paeseriesmeas}]
+By \cref{lem:summeas}, the partial sums $\phi_0 + \sum_{j=1}^m \Yj(\omega)\phi_j$, for $m \in \NN$ are measurable, and by assumption their limit as $m \rightarrow \infty$ exists almost surely. Therefore, applying \cref{lem:paelimitmeas} to the partial sums, we obtain the result.
+\epf
+
+\ble\label{lem:seriesexistsas}
+The series expansions for $A$ and $n$ defined by \eqref{eq:nseries} exist almost surely in $\WoiDRRRdtd$ and $\WoiDRRR$ respectively.
+\ele
+
+\bpf[Proof of \cref{lem:seriesexistsas}]
+The spaces $\WoiDRRRdtd$ and $\WoiDRRR$ are Banach spaces, by definition of their norms (see, e.g., \eqref{eq:normsdef}). Therefore it suffices to show that the partial sums of the series expansions for $A$ and $n$ in \eqref{eq:nseries} for Cauchy sequences. As the proofs for $A$ and $n$ are completely analogous, we only give the proof for $A$ here.
+
+First observe that as the random variables $\Yj$ in \eqref{eq:nseries} are uniformly distributed on $[-1/2,1/2],$ it follows that for all $j \in \NN$, $\esssup_{\omega \in \Omega} \abs{\Yj(\omega)} = \frac12.$
+Therefore, we can conclude that the bound $\esssup_{\omega \in \Omega} \sup_{j \in \NN} \abs{\Yj(\omega)} \leq \half$ holds.
+(For if not, then, there would exist $\Omegahat \subseteq \Omega$ with $\PP(\Omegahat) > 0$ such that for all $\omega \in \Omegahat$, $\sup_{j \in \NN} \abs{\Yj(\omega)} > \half.$
+Then there would exist $\jhat \in \NN$ such that $\abs{\Yj(\omega)} > 1/2$ for all $\omega \in \Omegahat,$ which would give the contradiction $\esssup_{\omega \in \Omega} |\Yjhat(\omega)| > \half$.)
+
+It now suffices to show that for $\PP$-almost every $\omega \in \Omega,$ the partial sums of the series expansion in \eqref{eq:nseries} form a Cauchy sequence. Recall that for $\PP$-almost every $\omega \in \Omega$
+\beqs
+\sup_{j \in \NN} \abs{\Yj(\omega)} \leq \half.
+\eeqs
+For such an $\omega$, and $m \in \NN,$ define the $m$th partial sum
+\beqs
+\Am(\omega) = \Az + \sum_{j=1}^m \Yj(\omega)\Psij.
+\eeqs
+It is straightforward to show that the sequence $\mleft(\Am(\omega)\mright)_{m \in \NN}$ forms a Cauchy sequence in $\WoiDRRRdtd$, using the assumption \eqref{eq:Apsimeas}; therefore, the series expansion for $A(\omega)$ in \eqref{eq:nseries} exists almost surely.
+\epf
+
+\ble\label{lem:seriesmeas}
+The functions $A$ and $n$ defined by \eqref{eq:nseries} are measurable.
+\ele
+
+\bpf[Proof of \cref{lem:seriesmeas}]
+The result immediately follows from \cref{lem:seriesexistsas,lem:paeseriesmeas}.
+\epf

@@ -1,0 +1,20 @@
+The standard approach to proving existence and uniqueness of a (deterministic) Helmholtz BVP is to  show that the associated sesquilinear form satisfies a G\r{a}rding inequality, and then apply Fredholm theory to deduce that existence and uniqueness are equivalent; see, e.g., \cite[Theorem 4.10]{Mc:00}. This procedure relies on the fact that the inclusion $\HozDDR \hookrightarrow \LtDR$ is compact; see, e.g., \cite[Theorem 3.27]{Mc:00}.
+
+As noted in \cref{sec:otherwork}, the analysis in \cite{FeLiLo:15} of \cref{prob:svsedp} for the Helmholtz Interior Impedance Problem mimics this approach and assums that $\LtOHoD$ is compactly contained  in $\LtOLtD,$ where $D$ is the spatial domain. Here we briefly show $\LtOHoD$ is \emph{not} compactly contained  in $\LtOLtD$ by giving an explicit example of a bounded sequence in  $\LtOHoD$ that has no convergent subsequence in $\LtOLtD.$ Necessary and sufficient conditions for a subset of $L^p\mleft(\mleft[0,T\mright];B\mright),$ for $B$ a Banach space, to be compact, can be found in \cite{Si:86}. In particular, \cite{Si:86} shows that a space $C$ being compactly contained in a space $B$ does not by itself imply $L^2\mleft(\mleft[0,T\mright];C\mright)$ is compactly contained in $L^2\mleft(\mleft[0,T\mright];B\mright).$
+
+\begin{example} \label{ex:federico}
+Let $(\Omega,\cF,\PP) = (\mleft[0,1\mright],\cB(\mleft[0,1\mright]),\lambda).$ Let $D$ be a compact subset of $\mathbb{R}^d.$ Since $\LtO$ is separable, it has an orthonormal basis, which we denote by $(f_m)_{m \in \NN}.$ Let $u_m \in  \LtOHoD$ be defined by $ u_m(\omega)(x) \de f_m(\omega), \tfa x \in D,$
+i.e., for each value of $\omega,$ $u_m(\omega)$ is a constant function on $D$ and so $\NHoD{u_m(\omega)} = \NLtD{u_m(\omega)}.$ Then
+\beqs
+\NLtOHoD{u_m}^2 = \int_\Omega \NHoD{u_m(\omega)}^2 \dd\PP(\omega) = \lambda(D)^2\int_\Omega \abs{f_m(\omega)}^2 \dd\PP(\omega)= \NLtO{f_m}^2 \lambda(D)^2,
+\eeqs
+and so $u_m$ is a bounded sequence in $\LtOHoD.$ However, for $n \neq m,$ we have
+\begin{align*}
+\NLtOLtD{u_m-u_n}^2 &= \int_\Omega \NLtD{u_m(\omega)-u_n(\omega)}^2 \dd\PP(\omega)\\
+&= \lambda(D)^2 \int_\Omega \abs{u_m(\omega) - u_n(\omega)}^2 \dd\PP(\omega) = \lambda(D)^2\NLtO{f_m-f_n}^2 = 2\lambda(D)^2
+\end{align*}
+%\beqs
+%\NLtOLtD{u_m-u_n}^2 = \int_\Omega \NLtD{u_m(\omega)-u_n(\omega)}^2 \dd\PP(\omega) = \lambda(D)^2\NLtO{f_m-f_n}^2 = 2\lambda(D)^2
+%\eeqs
+if $n \neq m,$ since the $f_m$ form an orthonormal basis for $\LtD.$ Therefore $(u_m)_{m \in \NN}$ is bounded in $\LtOHoD$ but does not have a convergent subsequence in $\LtOLtD,$ and thus the inclusion of $\LtOHoD$ into $\LtOLtD$ cannot be compact.
+\end{example}

@@ -1,0 +1,111 @@
+\begin{figure}
+\begin{centering}
+\scalebox{0.65}{
+\begin{tikzpicture}[scale=0.5,even odd rule]
+
+
+      
+        % For explanation, search the TiKZ/PGF manual for \pgfdecalrepatternformonly
+    \pgfdeclarepatternformonly{owennortheast}
+    {\pgfpoint{-0.1cm}{-0.1cm}}{\pgfpoint{1.1cm}{1.1cm}}
+    {\pgfpoint{1cm}{1cm}}
+    {
+    \pgfpathmoveto{\pgfpointorigin}
+    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+    
+     \pgfdeclarepatternformonly{owennorthwest}
+    {\pgfpoint{-0.1cm}{-0.1cm}}{\pgfpoint{1.1cm}{1.1cm}}
+    {\pgfpoint{1cm}{1cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+   \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+    
+      \pgfdeclarepatternformonly{owennorthwestsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+   \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+    
+       \pgfdeclarepatternformonly{owennortheastsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpointorigin}
+    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+
+
+    \filldraw[pattern=owennortheast] % The obstacle
+(4.5,0) .. controls (5,-1) and (4,-2) ..
+(3,-2.5) .. controls (2,-3) and (2,-2.5) ..
+(1.5,-3.5) .. controls (1,-4.5) and (-1,-3.5) ..
+(-2,-3) .. controls (-3,-2.5) and (-2.5,-2.5) ..
+(-4,-3) .. controls (-5.5,-3.5) and (-6,-0.5)..
+(-5,0) .. controls (-4,0.5) and (-4,0.5) ..
+(-4.5,1.5) .. controls (-5,2.5) and (-5,2.5) ..
+(-3,3.5) .. controls (-1,2.5) and (1,3.5) ..
+(1.5,3.5) .. controls (2,3.5) and (4,1) ..
+    cycle;
+    
+    % BR
+    \draw (0,-1) circle [radius=10];
+    
+    % Support of f
+    \filldraw[pattern=owennorthwestsmall,yshift=-0.5cm]
+    (0,8)  .. controls (1.5,9) and (2,9) ..
+    (4,8) .. controls (5,7) and (4.5,7) ..
+    (4,6.5) .. controls (3.5,6) and (4,6) .. % edge midpoint
+    (4,5) .. controls (4,4) and (2,4) ..
+    (0,5) .. controls (-2,6) and (-1.5,7) ..
+    cycle;
+    
+    
+    
+    % Support of I-A
+    \filldraw[pattern=owennorthwestsmall]
+    (1.5,-3.5) .. controls (1,-4.5) and (-1,-3.5) ..
+    (-2,-3) .. controls (-3,-2.5) and (-2.5,-2.5) ..
+    (-4,-3) .. controls (-5.5,-3.5) and (-8.8,-3)..
+    (-9,-4) .. controls (-9.2,-5) and (-7,-5.5) ..
+    (-6,-6) .. controls (-5,-6.5) and (-3,-6) ..
+    (-2,-7) .. controls (-1,-8) and (1.5,-6) ..
+    (2,-5.5) .. controls (2.5,-5) and (2,-4) ..
+    cycle;
+    
+    % Support of 1-n
+    \filldraw[pattern=owennortheastsmall]
+    (3,-2.5) .. controls (2,-3) and (2,-2.5) ..
+    (1.5,-3.5) .. controls (1,-4.5) and (-1,-3.5) ..
+    (-2,-3) .. controls (-3,-2.5) and (1,-8) ..
+    (2,-8) .. controls (3,-8) and (7,-8) ..
+    (8,-6) .. controls (8.5,-5) and (8.5,-4) ..
+    (8.5,-3.5) .. controls (7.5,-2.5) and (3.5,-2.5) ..
+    cycle;
+    
+    
+    
+
+% The labels
+
+\draw (-0.1,0.1) node[fill=white] {\large$\Dm$};
+\draw (7.8,6.8) node[fill=white] {\large$\GR$};
+\draw (-5.3,-4.2) node[fill=white] {\large$\supp\mleft(I-A\mright)$};
+\draw (5.3,-4.4) node[fill=white] {\large$\supp\mleft(1-n\mright)$};
+\draw (1.5,5.8) node[fill=white] {\large$\supp f$};
+\draw (6,2) node[fill=white] {\large$\DR$};
+\end{tikzpicture}}
+\caption{Examples of the domains $\Dm$  and $\DR$, the set $\GR,$ and essential supports of $I-A,$ $1-n$ and $f$ in the definition of the Helmholtz stochastic EDP.}  \label{fig:domain}
+  \end{centering}
+  \end{figure}

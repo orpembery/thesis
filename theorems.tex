@@ -1,0 +1,101 @@
+%%% Number equations within section
+%\numberwithin{equation}{section}
+
+%\newcounter{neverused}
+%\newtheorem{theorem}{Theorem}[section]
+
+%\newenvironment{proof}[1][Proof]{\noindent\emph{#1}\,}{\hfill$\square$}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{assumption}{Assumption}
+%\newtheorem{example}{Example}
+%\newremark{remark}{Remark}
+%\newsiamremark{summary}[theorem]{Summary}
+%\newsiamremark{criterion}[theorem]{Criterion}
+%\newtheorem{notation}[theorem]{Notation}
+%\newtheorem{algorithm}[theorem]{Algorithm}
+%\newtheorem{construction}[theorem]{Construction}
+%\newtheorem{condition}{Condition}
+%\newtheorem{problem}{Problem}
+\newtheorem{neverused}{Labelled Problems and Theorems}
+
+% The following is inspired by, but, I feel, not copied from 
+% https://tex.stackexchange.com/questions/53978/custom-theorem-numbering
+%\newsiamthm{convariable}[neverused]{Condition}
+\newtheorem{convariable}{Condition}
+\newcommand{\bconvar}[1]{\renewcommand{\theconvariable}{#1}\setcounter{theorem}{\value{theorem}-1}\begin{convariable}}
+%\newcommand{\bconvar}{\begin{convariable}}
+\newcommand{\econvar}{\end{convariable}}
+%\newsiamthm{probvariable}[neverused]{Problem}
+\newtheorem{probvariable}{Problem}
+\newcommand{\bprobvar}[1]{\renewcommand{\theprobvariable}{#1}\setcounter{theorem}{\value{theorem}-1}\begin{probvariable}}
+\newcommand{\eprobvar}{\end{probvariable}}
+
+
+\newcommand{\bconS}{\bconvar{S}}
+\newcommand{\bconB}{\bconvar{B}}
+\newcommand{\bconL}{\bconvar{L2}}
+\newcommand{\bconAo}{\bconvar{A1}}
+\newcommand{\bconLo}{\bconvar{L1}}
+\newcommand{\bconA}{\bconvar{A2}}
+\newcommand{\bconCo}{\bconvar{C1}}
+\newcommand{\bconC}{\bconvar{C2}}
+\newcommand{\bconAL}{\bconvar{AL}}
+\newcommand{\bconK}{\bconvar{U}}
+
+\newcommand{\bprobAE}{\bprobvar{AS}}
+\newcommand{\bprobM}{\bprobvar{MAS}}
+\newcommand{\bprobLT}{\bprobvar{SOAS}}
+\newcommand{\bprobSVAR}{\bprobvar{SV}}
+
+
+%\newtheorem{probo}[neverused]{Problem}
+%\renewcommand{\theprobo}{{\ref{prob:sedp}}}
+%
+%\newtheorem{probt}[neverused]{Problem}
+%\renewcommand{\theprobt}{{\ref{prob:msedp}}}
+%
+%\newtheorem{probth}[neverused]{Problem}
+%\renewcommand{\theprobth}{{\ref{prob:somsedp}}}
+%
+%\newtheorem{probf}[neverused]{Problem}
+%\renewcommand{\theprobf}{{\ref{prob:svsedp}}}
+%
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%Eike's new theorem version 1%%%%%%%%%%%%%%%%
+
+%\newcounter{mycount}
+%\newsiamthm{myprob}{Problem}
+%\renewcommand{\themycount}{\Alph{mycount}}
+
+%\addtoreset{mycount}{section}
+
+%%%%%%%%%%%%Eike's new theorem version 2%%%%%%%%%%%5
+%%%%%% give e.g Theorem 2.A 
+%\newcounter{mycountsec}
+%\newsiamthm{myprobsec}[mycountsec]{Problem}
+%\newsiamthm{myprobsec}{Problem}
+%\renewcommand{\themycountsec}{\thesection.\Alph{mycountsec}}
+
+%\addtoreset{mycount}{section}
+%%%%%% line above resets counter at beginning of section
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Shortcuts for special theorems etc.
+\newcommand{\bmps}{\begin{myprobsec}}
+\newcommand{\emps}{\end{myprobsec}}
+\newcommand{\bmp}{\begin{myprob}}
+\newcommand{\emp}{\end{myprob}}
