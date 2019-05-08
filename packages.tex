@@ -4,14 +4,15 @@
 \usepackage{mathtools}
 %\usepackage{amsthm} % Needed?
 \usepackage{mleftright}
-%% \ifdefined\supervisorversion
+\ifdefined\supervisorversion
 
-%% \else
-%%         \usepackage{showkeys}
-%%     \fi
+\else
+        \usepackage{showkeys}
+    \fi
     % Based on https://tex.stackexchange.com/a/1495
 
 \usepackage{amssymb}
 \usepackage{enumitem}
-\usepackage{showkeys}
-\usepackage[capitalise]{cleveref}
+%\usepackage{showkeys}
+\usepackage{cleveref}
+\usepackage[margin=2cm]{geometry}
