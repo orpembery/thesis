@@ -1,0 +1,123 @@
+\subsection{Setup}\optodo{Remove $A$ from everything}
+Let either (i) $\Dm \subset \RRd,$ $d=2,3,$ be a bounded Lipschitz open set such that $\bzero \in \Dm$ and the open complement $\Dp\de \RR^d\setminus \overline{\Dm}$ is connected or (ii) $\Dm = \emptyset.$ Let $\GD = \partial \Dm.$ 
+ Define $\GI := \partial \Dtilde$ and $D \de \Dp \cap \Dtilde$ (see \cref{fig:domain}). Let $\gamma$ denote the trace operator from $D$ to $\partial D = \GD \cup \GI$ and define $\HozDD \de \set{v \in \HoD \st \gamma v = 0 \ton \GD}.$ 
+ 
+Let $\trGI: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ be the Dirichlet-to-Neumann map for the deterministic equation $\Delta u+k^2 u=0$ posed in the exterior of $\Dtilde$ with the Sommerfeld radiation condition 
+
+\beq
+\frac{\partial u}{\partial r}(\bx) - \ii ku(\bx) = o\mleft(\frac1{r^{(d-1)/2}}\mright) \text{ as } r\de\abs{\bx}\rightarrow \infty, \text{ uniformly in } \frac{\bx}{\abs{\bx}}.
+\eeq
+Let $\IPGI{\cdot}{\cdot}$ be the duality pairing on $\GI$ between $\HmhGI$ and $\HhGI$ and write $\dd\Leb$ for Lebesgue measure.
+
+ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~we write $\LiDp$ for $\LiDpCC.$ We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Let $\OFP$ be a complete probability space. Let
+\bit
+\item $f:\Omega\rightarrow\LtDp$ be such that $\supp f \compcont \Dtilde$ almost surely
+\item $n:\Omega\rightarrow \LiDpRR$ be such that $\supp(1-n) \compcont \Dtilde$ almost surely and there exist $\nmin,\nmax :\Omega rightarrow \RR$ such that
+\beqs
+0 < \nmin(\omega)\leq n(\omega)(\bx) \leq \nmax(\omega)
+\eeqs
+for almost every $\bx \in \Dp$ almost surely, and
+\eit
+
+Define the sesquilinear form $a(\omega)$ on $\HozDD \times \HozDD$ by
+\beq
+\mleft[a(\omega)\mright]\mleft(\vo,\vt\mright)\de\int_{D_R}\Big( \mleft(\grad \vo\mright)\cdot \grad \vtb 
+ - k^2 n(\omega)\, \vo\,\vtb \Big)\dd\Leb- \big\langle T_R \gamma \vo,\gamma \vt\big\rangle_{\Gamma_R},
+ \eeq
+ and the antilinear functional $L(\omega)$ on $\HozDD$ by
+\beq
+\mleft[L(\omega)\mright](\vt)\de \int_{D_R} f(\omega)\, \vtb\,\dd\Leb.
+\eeq
+
+\optodo{Problem}
+Find $u\in\LtOHozDD$ such that
+\beqs
+\mleft[a(\omega)\mright]\mleft(u(\omega),v\mright) = \mleft[L(\omega)\mright](v) \tfa v \in \HozDD \text{ almost surely.}
+\eeqs
+
+\bcon[Regularity and stochastic regularity of $f,$ $A,$ and $n$]\label{con:reg}
+The map $f \in \LtOLtD$  and the map $n \in \LiOLiDRR.$
+\econ
+
+\bcon[{$k$-independent nontrapping conditions on (random) $A$ and $n$}]\label{con:nt}
+The map $n:\Omega\rightarrow \WoiDRR,$ and there exists $\mu:\Omega\rightarrow \RR$  such that $\mu(\omega) > 0$ almost surely and
+\beq
+2\nz(\omega,\bx) + \bx\cdot\grad \nz(\omega\bx) \geq \mu(\omega)
+\eeq
+for almost every $\bx \in D,$ almost surely.
+\econ
+
+\bde[Star-shaped]
+The set $D \subseteq \RRd$ is \defn{star-shaped with respect to} the point $\bxz$ if for any $\bx \in D$ the line segment $\mleft[\bxz,\bx\mright] \subseteq D.$
+\ede
+
+\bas\label{ass:nmaxmu}
+The functions $\mu \in \LtO, 1/\mu \in \LfO, \nmax \in \LfO,$ and $1/\nmax \in \LtO.$
+\eas
+
+\bth[]\optodo{Double check generic requirements}Let $\Dm$ be star-shaped with respect to the origin. Let $\LD \de \min_{\bx \in \GD} \abs{\bx},$ $\LI \de\max_{\bx \in \LI} \abs{\bx}$, $\aD\LD$ be the radius of the ball with resepct to which $\Dm$ is star-shaped, and let $\aI\LI$ be the radius of the ball with respect to which $\Dtilde$ is star-shaped. Under \cref{ass:nmaxmu} \optodo{Conditions}:
+The solution $u \in \LtOHozDD$ of \optodo{problem} exists, is unique, and, given $\kz > 0,$ satisfies the bound
+\begin{multline*}
+  \NLtOLtD{\grad u}^2 + k^2\NLtOLtD{u}^2 + \frac{\aD\LD}{2} \NLtOLtGD{\dn u}^2\\
+  \leq \NLoO{\Cth} \NLtOLtD{f}^2 + \NLoO{\Cthtilde} \NLtOLtGI{\gI}^2\\
+  + \NLoO{\Cf}\NLtOLtGD{\gradGD \gD}^2 + k^2 \NLoO{\Cfi} \NLtOLtGD{\gD}^2
+\end{multline*}\optodo{Lesssim or leq with a factor of 2 or something?}
+for all $k\geq\kz$, where $\Cth,\Cthtilde,\Cf\Cfi:\Omega\rightarrow\RR$ are given by
+\beqs
+\Cth \de 2\max\set{1,\frac1\mu}\mleft(\frac{2}{\mu} \mleft(1 + \frac32 \nmax \mright)^2 \mleft(\LI^2 + \mleft(\hetbeta + \frac{d-2}{2\kz}\mright)^2\mright) + \frac{\mu}{2\kz^2 \nmax}\mright),
+\eeqs
+\beqs
+\Cthtilde \de  2\max\set{1,\frac1\mu}\mleft(\mleft(1+\frac32 \nmax \mright)\Cotilde + \frac{2\mu^2}{\LI\kz^2}\mright),
+\eeqs
+\beqs
+\Cf \de 2 \max\set{1,\frac1\mu}\mleft(1 + \frac32 \nmax\mright) \LD \mleft(1+\frac4{\aD}\mright),\tand
+\eeqs
+\beqs
+\Cfi \de 2 \max\set{1,\frac1\mu}\mleft(\mleft(1+\frac32 \nmax\mright)\frac4{\aD\LD}\mleft(\hetbeta + \frac{d-2}{2\kz}\mright)^2 + \frac{2\mu^2}{\aD\LD}\mright),
+\eeqs
+where
+\beqs
+\Cotilde \de 2\mleft(2\mleft(1+\frac2\aI\mright) + \frac{\hetbeta}{\LI} + \frac{\mleft(d-1\mright)^2}{4}\mright)\LI
+\eeqs
+and
+\beqs
+\hetbeta \de \LI\mleft(2 + \frac1{\mleft(k\LI\mright)^2} + 2\mleft(1+\frac2{\aI}\mright)\mright)
+\eeqs
+\optodo{When I've copied these, mult all by the $1\mu$ bit, and $\nmaxGI$}
+\enth
+\optodo{Sketch proof/say you can apply the arguments in stochastic - check measurability etc.}
+
+Let $m \in \NN$ and define
+\beq\label{eq:nseriesml}
+n(\omega,\bx) = \nz(\bx) + \sum_{j=1}^m\Yj(\omega) \psij(\bx)
+\eeq
+where:
+\bit
+\item $\supp\mleft(1-\nz\mright) \compcont \Dtilde,$
+\item $\Yj \sim \Unif(-1/2,1/2)$ i.i.d.,
+\item $\psij \in \WoiDRR$ with $\supp \psij \compcont \Dtilde$ for all $j = 1,\ldots,m,$ and
+\eit
+\optodo{Double check that all the generalisations work}
+
+\ble[Series expansion of $n$ satisfies \cref{con:hh-hetero}]
+Let $\mu > 0$ and $\delta \in \mleft(0,1\mright).$ If $\nz \in \NTn{\mu}$ and
+\beq\label{eq:nseriescond}
+\sum_{j=1}^m\NLiDRR{\psij(\bx) + \bx\cdot\grad\psij(\bx)} \leq 2\delta\mu,
+\eeq
+then $n \in \NTn{(1-\delta)\mu}.$\optodo{Maybe change this so that we get path dependent $\mu.$}
+\ele
+
+\subsection{$H^2$ bounds}
+
+\bas[Assumptions needed for Chaumont bound]\label{ass:chaumont}
+$\GD$ and $\GI$ are piecewise $\Coo$\ednote{\cite{ChNiTo:18} only proves the a priori bound for $\gD=0$ - is this an issue/what do we do?}, and for all $\bx \in \dD,$ there exists $\epsbx > 0$ such that either:
+\ben
+\item $\partial\mleft(\Ball{\epsbx}{\bx} \cap D\mright)$ is convex, or
+\item $\Ball{\epsbx}{\bx} \cap \dD$ is $\Coo.$
+  \een
+    If $d=3,$ $ \bx \in \GI,$ and $\Ball{\epsbx}{\bx}$ is only convex, then $\Ball{\epsbx}{\bx} \cap \GI$ is piecewise flat.
+    \eas
+
+    \bth[Bound on related PDE {\cite[Theorem 5.1]{ChNiTo:18}}]
+Under \cref{ass:chaumont} if $u \in \HozDD$ solves \eqref{eq:relpde} with $\gD=0,$ then $u \in \HtD$ and $\CHtell \sim 1.$
+    \enth

@@ -1,0 +1,100 @@
+
+
+Here we calculate the complexity for `standard' Monte Carlo applied to the Helmholtz equation to achieve a RMSE $\leq \eps.$ This will enable us to see whether MLMC is `better' or not.
+
+We let $\QhatMC$ denote the Monte Carlo estimator of $Q$, that is
+\beqs
+\QhatMC = \frac1{\NMC} \sum_{i=1}^{\NMC} \QMLMC,
+\eeqs
+where $\LMC$ is a level to be chosen, and $\NMC$ is the number of Monte Carlo samples, to be chosen.
+
+In the context of SPDEs, $\MLMC$ represents the number of DoFs in our discretisation (observe that now all of our samples are taken at the same mesh size). We therefore need to choose the level $\LMC$ and the number of samples $\NMC$ to ensure the RMSE is $\leq \eps.$
+
+One can repeat the computation in \cite[Section 2.1]{ClGiScTe:11} (i.e., the bias-variance decomposition in the proof of \cref{thm:mlmccomp}) to show that sufficient conditions for RMSE $\leq \eps$ are
+
+\beq\label{eq:mch}
+\hLMC = \mleft(\frac{\eps}{\sqrt{2}\co k^\sigma}\mright)^{\frac1\alpha}
+\eeq
+(c.f. \eqref{eq:hLcond} and
+\beqs
+\NMC = 2 \V \eps^{-2},
+\eeqs
+where $\V = \VAR{\Qhl,},$ is assumed independent of $\hl.$\footnote{This is assumed in \cite[Section 2.1]{ClGiScTe:11}. For the Helmholtz equation, if the QoIs are norms, as studied above, if we have a mesh-independent bound on the finite-element solution, then this assumption is satisfied-ish (the variance is bounded independently of $h$). Also see notes from 3/9/18.}
+
+With these choices, and using Assumption \eqref{ass:c}  the computational complexity to achieve a RMSE $\leq \eps$ satisfies the bound
+\beq\label{eq:mchhcomp1}
+\CMC(\eps) \lesssim k^{\rho + \frac{\sigma\gamma}{\alpha}}\eps^{-\mleft(2+ \frac\gamma\alpha\mright)},
+\eeq
+as in \cite[Equation before Section 2.2]{ClGiScTe:11}.
+
+\subsection{MC Complexity for $Q=\NW{u}$}
+
+We have $\sigma = 3$ and $\alpha = 2.$
+
+\subsubsection{In 2-D}
+
+\paragraph{Direct solver}
+
+We have $\rho=0$ and $\gamma = 3$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^{4.5} \eps^{-3.5}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\rho=0$ and  $\gamma = 2$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^3 \eps^{-3}.
+\eeqs
+
+\subsubsection{In 3-D}
+
+\paragraph{Direct solver}
+
+We have $\rho=0$ and $\gamma = 4.5$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^{6.75} \eps^{-4.25}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\rho=0$ and  $\gamma = 3$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^{4.5} \eps^{-3.5}.
+\eeqs
+
+\subsection{MC Complexity for $Q=\NLtD{u}$}
+
+We have $\sigma = 2$ and $\alpha = 2.$
+
+\subsubsection{In 2-D}
+
+\paragraph{Direct solver}
+
+We have $\gamma = 3$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^3 \eps^{-3.5}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\gamma = 2$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^2 \eps^{-3}.
+\eeqs
+
+\subsubsection{In 3-D}
+
+\paragraph{Direct solver}
+
+We have $\gamma = 4.5$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^{4.5} \eps^{-4.25}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\gamma = 3$. Therefore  the computational complexity satisfies
+\beqs
+\CMC(\eps) \lesssim k^3 \eps^{-3.5}.
+\eeqs

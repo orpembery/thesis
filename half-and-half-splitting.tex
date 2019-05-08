@@ -1,0 +1,117 @@
+ \paragraph{The nice case, where $k^{-\sigma/\alpha} \lesssim k^{-\coarseexp}.$}
+\optodo{Might need todo something with the constants, as we need $\hL$ (as calculated) $< \hz.$ ensuring the constants are monotone is probably sufficient, as it'll just mean `for $\eps$ sufficiently small'.}
+ The following theorem describes the computational effort needed to obtain RMSE $\leq \eps$. It is exactly the same as \cite[Theorem 1]{ClGiScTe:11}, but with the dependence on all the parameters explicit.%, and with some additional cases enumerated. %\Cref{thm:mlmccomp} contains more cases than in \cite[Theorem 1]{ClGiScTe:11} because \cite[Theorem 1]{ClGiScTe:11} makes the assumption throughout that $\alpha \geq 1/2\min\set{\beta,\gamma}.$ This assumption does not always hold for the Helmholtz equation (see the cases of a direct solver in 3-D below), however, examining the proof of \cite[Theorem 1]{ClGiScTe:11}  shows that in any given case, one only needs the assumption $\alpha \geq \beta/2$ or the assumption $\alpha \geq \gamma2$, never both at the same time. Therefore, for convenience, we explicitly state when these conditions are needed, and for completeness, we give the results when these conditions are violated. 
+
+  The next two \lcnamecref{ass:powersnice}\optodo{plural} means that the restriction on the coarse space in \cref{ass:coarse} do not come into play,
+
+ \bas[Epsilon sufficiently small]\label{ass:constants}
+ Assume
+ \beqs
+\eps \leq \sqrt{2} \co \Ccoarse^{\alpha}.
+ \eeqs
+ \eas
+
+ \bas\label{ass:powersnice}
+ Suppose
+ \beqs
+\frac{\sigma}{\alpha} \geq \coarseexp.
+ \eeqs
+ \eas
+ 
+ \bth[MLMC Complexity Theorem]\label{thm:mlmccomp}
+If \cref{ass:constants,ass:powersnice} hold, $L$ is given by
+\beq\label{eq:Lcond}
+L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)},
+\eeq
+that is,
+\beqs
+\hL \leq \mleft(\frac{\eps}{\sqrt{2}\co k^\sigma}\mright)^{\frac1\alpha},
+\eeqs
+and the number of samples on each computational level is given by
+\beqs
+\Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
+\eeqs
+then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ satisfies the bounds
+ 
+ \begin{numcases}{ \CMLhL(\eps) \lesssim}
+ k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\log_s\mleft(\sqrt{2}\co\Cppw^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)+2\alpha\mright)^2 +  k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha}
+ & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
+k^{\tau + \rho+\mleft(\gamma-\beta\mright)\frac\sigma\alpha}\eps^{-2+\mleft(\frac{\beta-\gamma}{\alpha}\mright)}
+ +  k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} & otherwise.\label{eq:mlmchhoth}
+\end{numcases}
+ \enth
+ \optodo{Need to say why the latter two cases are the same - in one case $\gamma/\alpha$ dominates, and in the other case the other term dominates? (At least in the Cliffe et. al. set up)}
+ \bpf[Proof of \cref{thm:mlmccomp}]
+ \ednote{This isn't all the details of the proof, but the bits I've skipped over are exactly the same as those in {\cite{ClGiScTe:11}}.}
+ 
+We first decompose the (squared) mean-squared error into the bias error and the sampling error:
+
+\beqs
+\errQhatMLhL^2 = \mleft(\EXP{\QhatMLhL} - \EXP{Q}\mright)^2 + \underbrace{\EXP{\mleft(\QhatMLhL - \EXP{\QhatMLhL}\mright)^2}}_{V\de},
+\eeqs
+the first term is the \emph{bias}, and the second term is the \emph{variance} of the estimator $\QhatMLhL.$ We now proceed to choose the parameters $L$ and $\Nl, l = 0,\ldots,L$ such that we can bound both the bias and the variance by $\eps^2/2.$
+
+We first bound the bias, to do this, we only need to choose $L.$ One can show\ednote{As in {\cite{ClGiScTe:11}}} that the bias is equal to $\abs{\EXP{\QhL - Q}}^2.$ By \cref{ass:constants,ass:powersnice}, we don't need to worry about the coarse mesh restriction\optodo{Make this proper speak}. Therefore a sufficient condition for the bias to be $\leq \eps^2/2$ is (by \cref{ass:a})
+\beqs
+\co k^\sigma \hL^\alpha \leq \frac{\eps}{\sqrt{2}},
+\eeqs
+that is
+\beq\label{eq:hLcond}
+\hL \leq \mleft(\frac{\eps}{\sqrt{2}\co k^\sigma}\mright)^{\frac1\alpha}.
+\eeq
+\ednote{Observe that if $Q$ is the weighted $H^1$ norm, then we assume (see below for details) $\alpha=2$ and $\sigma=3,$ so we require $\hL \lesssim k^{-\frac32}.$ If we take $Q$ to be the $L^2$ norm, and assume $\alpha=2$ and $\sigma=2,$ then we only require $\hL \lesssim k^{-1}.$}
+
+As $\hL = \hz s^{-L},$ it follows from \eqref{eq:hLcond} that a sufficient condition for the bias to be $\leq \eps^2/2$ is
+\beq\label{eq:Lcondpart}
+L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co k^\sigma \hz^\alpha \eps^{-1}\mright)}.
+\eeq
+As $\hz = \Ccoarse k^{-\coarseexp},$ we can simplify \eqref{eq:Lcondpart} to obtain \eqref{eq:Lcond}.
+% \beqs
+% L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
+% \eeqs
+
+We now seek to bound the variance. One can show\ednote{Again, as in \cite{ClGiScTe:11}} the variance $V = \sum_{l=0}^L \Nl^{-1} \Vl,$ and the cost is $\cC = \sum_{l=0}^L \Nl \Cl.$
+
+To find the optimal number of samples per level (the values of $\Nl, l=0,\ldots,L$) we formulate this as an optimisation problem to find $\Nl$ that minimise $\cC$, subject to $V=\eps/2.$ This can be solved using a Lagrange multiplier as in \cite{Gi:15}, and we obtain
+\beq\label{eq:Nl}
+\Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half}}.
+\eeq
+\optodo{Check this is correct, should it be divided by the sum?}
+We now just need to infer the computational complexity for MLMC with $L$ given by \eqref{eq:Lcond} and the $\Nl$ given by \eqref{eq:Nl}.
+
+The computational complexity $\cC$ is given by
+\begin{align}
+\cC &= \sum_{l=0}^{L} \Cl \Nl\nonumber\\
+&\leq \sum_{l=0}^L \Cl \mleft(\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half} + 1\mright) \text{ (by \eqref{eq:Nl})}\nonumber\\
+&= 2\eps^{-2}\mleft(\sum_{l=0}^L\mleft(\Vl\Cl\mright)^{\half}\mright)^2 + \sum_{l=0}^L \Cl\nonumber\\
+&\leq 2 \ct \cth k^{\tau + \rho}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth k^\rho \sum_{l=0}^L \hl^{-\gamma} \text{ (by \cref{ass:b,ass:c})}\nonumber\\
+&= 2 \ct\cth k^{\tau + \rho}\eps^{-2}\hz^{\beta-\gamma}\mleft(\sum_{l=0}^L s^{-l\mleft(\frac{\beta-\gamma}2\mright)}\mright)^2 + \cth k^\rho \hz^{-\gamma} \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hl\text{ )}\nonumber\\
+&=2 \ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\Cppw^{-\gamma} k^{\rho + \gamma\coarseexp}  \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hz\text{ )}\nonumber\\
+&\leq2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} \text{ (since }\gamma>0,\text{ by \cref{lem:sumbound})}.\label{eq:complexitymidway}
+\end{align}
+To bound the sum in the first part of \eqref{eq:complexitymidway}, we must distinguish three cases based on $\gamma - \beta.$
+
+If $\gamma=\beta,$ then \eqref{eq:complexitymidway} becomes (using \cref{lem:sumbound})
+\begin{multline}
+2 \ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(L+1\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha}\\
+\leq
+2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\frac1\alpha\log_s\mleft(\sqrt{2}\co\Cppw^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)+2\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha}\label{eq:gammaequal}
+\end{multline}
+by \eqref{eq:Lcond}.
+
+If $\gamma > \beta$ then by \cref{lem:sumbound} \eqref{eq:complexitymidway} becomes
+\beq
+2 \ct\cth \Cppw^{\beta-\gamma}
+\frac{\mleft(\sqrt{2}\co\mright)^{\mleft(\frac{\gamma-\beta}{\alpha}\mright)}\Cppw^{\mleft(\gamma-\beta\mright)}s^{\gamma-\beta}}{\mleft(1-s^{\mleft(\frac{\beta-\gamma}2\mright)}\mright)^{2}}k^{\tau + \rho+\mleft(\gamma-\beta\mright)\frac\sigma\alpha}\eps^{-2+\mleft(\frac{\beta-\gamma}{\alpha}\mright)}
+ +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha}.\label{eq:gammagtr}
+\eeq
+If $\gamma < \beta,$ then by \cref{lem:sumbound} \eqref{eq:complexitymidway} becomes
+\beq
+2 \ct\cth \Cppw^{\beta-\gamma}
+\frac{\mleft(\sqrt{2}\co\mright)^{\mleft(\frac{\gamma-\beta}{\alpha}\mright)}\Cppw^{\mleft(\gamma-\beta\mright)}}{\mleft(1-s^{\mleft(\frac{\beta-\gamma}2\mright)}\mright)^{2}}k^{\tau + \rho+\mleft(\gamma-\beta\mright)\frac\sigma\alpha}\eps^{-2+\mleft(\frac{\beta-\gamma}{\alpha}\mright)}
+ +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha},\label{eq:gammaless}
+\eeq
+the only difference from \eqref{eq:gammagtr} being the loss of the $s^{\gamma-\beta}$ term.
+
+Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
+\epf

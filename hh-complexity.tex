@@ -1,0 +1,181 @@
+\optodo{REDO}
+We now apply \cref{thm:mlmccomp} to the (heterogeneous) Helmholtz equation. We first need to ascertain what the quantities $\alpha, \beta, \gamma, \sigma, \tau$ and $\rho$ are.Throughout, $D$ will be the spatial domain.
+
+%\bre[Relationship between $\Ml$ and $\hl$]
+%Recall that $\Ml$ denotes the number of DoFs associated with the discretisation on level $l.$ Therefore if $\hl$ denotes the mesh size on level $l,$ we have 
+%\beqs
+%\Ml = \CMh^d \hl^{-d},
+%\eeqs
+%for some constant $\CMh$ (i.e., halving the mesh size increases the number of DoFs by a factor $2^d)$. It follows that 
+%\beqs
+%\hl = \CMh \Ml^{-1/d},
+%\eeqs
+%and thus $\hl = s^{1/d} \hlmo.$ I.e., if we perform uniform refinement, in 2-D, $s=4.$ For uniform refinement in 3-D, $s=8.$ We'll use the relationship between $\Ml$ and $\hl$ a lot, as it's more intutive to work with $\hl$ than $\Ml$. (Alternatively, we could recast \cref{thm:mlmccomp} in terms of $\hl.$)
+%\ere
+%
+%Throughout, we'll use the following assumption:
+%
+%\bas[At least fixed points-per-wavelength, and error term]\label{ass:ppwfem}
+%There exist constants $\Cppw$ and $\CFEM > 0$, independent of all the parameters of interest, such that
+%\beqs
+%\hl \leq \frac{\Cppw}k
+%\eeqs
+%and
+%\beq\label{eq:femerror}
+%\NW{u-\uhl} \leq \CFEM \hl^2 k^3
+%\eeq
+%for all $l \geq 0,$ where $u$ is the true solution of the Helmholtz equation, and $\uhl$ is the solution of the piecewise-linear continuous finite-element approximation of the Helmholtz equation on level $l.$
+%\eas
+%
+%\bre[How to show \cref{ass:a,ass:b}]
+%For the \emph{heterogeneous} Helmholtz equation, showing \eqref{eq:femerror} is currently an open question, although we might be able to do it using the argument in \cite{ChNi:18}. In general, $\CFEM$ will depend on any forcing functions in the Helmholtz equation, and on the coefficients, but we don't worry about that here.
+%
+%Of course, because we'll be dealing with the Helmholtz equation with random coefficients, $\CFEM$ will, in general, be a random variable. We won't worry about its precise properties for now, we only assume that $\CFEM$ is `nice enough' that we can take expectations of all the quantities we need to. (Nontrapping almost-surely would, I think, give a `nice enough' $\CFEM$.)
+%\ere
+
+We now show \cref{ass:a,ass:b,ass:c} hold, and we will calculate the values of $\alpha, \beta, \gamma, \sigma, \tau,$ and $\rho$.
+
+We assume throughout that the FEM error for the weighted $H^1$ norm decays like $h^2k^3,$ and the the FEM error for the $L^2$ norm decays like $h^2k^2.$
+
+%\subsection{Verifying the assumptions of MLMC}
+
+%Throughout, we will take
+%\beqs
+%\hz = \frac{\Cppw}k,
+%\eeqs
+%i.e., our coarsest mesh corresponds to a fixed number of points per wavelength. This corresponds to
+%\beqs
+%\Mz = \frac{\CMh^d}{\Cppw^d} k^d,
+%\eeqs
+%that is, $\rho = d$ in \cref{cor:mlmccomphh}.
+
+For now, we consider two different quantities of interest $Q$: $Q = \NW{u} $ and $Q = \NLtD{u}$.% and $Q = \NLtGI{\uinfty},$ where $\uinfty$ is an approximation on the impedance boundary $\GI$ of the far-field pattern. To elaborate on the construction of $\uinfty,$ we have that the scattered field $\uS$ satisfies
+%\beqs
+%\uS(\bx) = \frac{e^{ikr}}{r}\mleft(\uinfty + O\mleft(\frac1r\mright)\mright),
+%\eeqs
+%for the \emph{true} far-field pattern $\uinfty$ hence if we assume $r \approx 1$ on the impedance boundary, we form an approximation of the far-field pattern on the impedance boundary by taking
+%\beqs
+%\uinfty \approx e^{-ik} \uS = e^{-ik}\mleft(u-\uI\mright).
+%\eeqs
+%We'll see that $\uI$ doesn't come into the calculations we do below.
+
+\subsection{Verifying \cref{ass:a,ass:b} for $Q = \NW{u}$}\label{sec:abweight}
+To verify \cref{ass:a}, we have
+\begin{align*}
+\abs{\EXP{\Qhl(\omega) - Q}} &\leq \EXP{\abs{\NW{\uhl} - \NW{u}}}\\
+&\leq \EXP{\NW{\uhl - u}}\\
+&\leq \CFEM \hl^2 k^3
+\end{align*}
+so $\sigma = 3$ and $\alpha=2.$
+
+To verify \cref{ass:b}, we have 
+\begin{align*}
+\VAR{\Yl} &= \EXP{\Yl^2} - \EXP{\Yl}^2\\
+&\leq \EXP{\Yl^2}\\
+&= \EXP{\abs{\Qhl-\Qhlmo}^2}\\
+&= \EXP{\abs{\NW{\uhl}-\NW{\uhlmo}}^2}\\
+&\leq \EXP{\NW{\uhl-\uhlmo}^2}\\
+&\leq 2\EXP{\NW{\uhl-u}^2 + \NW{\uhlmo-u}^2}\\
+&\leq 2\CFEM^2 k^6 \mleft(\hl^4 + \hlmo^4\mright)\\
+&= 2\CFEM^2 k^6 \mleft(\hl^4 + s^{4d}\hl^4\mright)\\
+&= 2\CFEM^2\mleft(1+s^{4d}\mright) k^6 \hl^4
+\end{align*}
+so $\tau = 6$ and $\beta = 4.$
+
+\subsection{Verifying \cref{ass:a,ass:b} for $Q = \NLtD{u}$}\label{sec:abltwo}
+
+This proceeds similarly to the calculations for $\NW{u},$ except we use the error estimate
+\beqs
+\NLtD{\uhl -u} \leq \mleft(\hl k\mright)^2.
+\eeqs
+Proceeding as above, we find $\sigma = 2,$ $\alpha = 2,$ $\tau = 4$, and $\beta = 4.$
+
+%\subsection{Verifying Assumptions \ref{ass:a} and \ref{ass:b} for $Q = \NLtGI{\uinfty}$}cref!!!
+%
+%To come.
+
+\subsection{Verifying \cref{ass:c} for the Helmholtz equation}
+
+\Cref{ass:c} is asking what the cost is of solving one realisation of the Helmholtz equation on a mesh with size $\hl.$
+
+My knowledge here is currently not good enough to give a complete answer, so in the analysis that follows, I'll look at two situations:
+
+\ben[(i)]
+\item\label{it:solverlu} $\cth$ independent of all parameters of interest, and $\gamma = 1.5d,$ and
+\item\label{it:solverlin} $\cth$ independent of all parameters of interest, and $\gamma= d.$
+
+Situation \ref{it:solverlu} is the case where for each realisation we use a sparse direct solver (I think I've got this right, although my knowledge of solver complexities isn't very deep - this is taken from \cite[Section 4]{ClGiScTe:11}).
+Situation \ref{it:solverlin} is the (theoretical) case where for each realisation we use a $\cO(\Ml)$ solver for the Helmholtz equation (discretised with mesh size $\hl$)---i.e., we have an `$\cO(N)$' solver for the Helmholtz equation. This is included so that we can see what the `best case' is.
+\een
+
+\subsection{MLMC complexity for $Q=\NW{u}$}
+
+We have $\rho=0,$ $\sigma = 3, \alpha = 2, \tau = 6,$ and $\beta = 4$.
+
+\subsubsection{In 2-D}
+
+\paragraph{Direct solver}
+
+We have $\gamma = 3$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^{4.5} \eps^{-1.5}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\gamma = 2$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^3 \eps^{-1}.
+\eeqs
+
+\subsubsection{In 3-D}
+
+\paragraph{Direct solver}
+
+We have $\gamma = 4.5$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^{6.75} \eps^{-2.25}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\gamma = 3$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^{4.5} \eps^{-1.5}.
+\eeqs
+
+\subsection{MLMC complexity for $Q=\NLtD{u}$}
+
+We have $\rho=0,$ $\sigma = 2, \alpha = 2, \tau = 4,$ and $\beta = 4$.
+
+\subsubsection{In 2-D}
+
+\paragraph{Direct solver}
+
+We have $\gamma = 3$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^3 \eps^{-1.5}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\gamma = 2$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^2 \eps^{-1}.
+\eeqs
+
+\subsubsection{In 3-D}
+
+\paragraph{Direct solver}
+
+We have $\gamma = 4.5$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^{4.5} \eps^{-2.25}.
+\eeqs
+
+\paragraph{`Ideal' solver}
+
+We have $\gamma = 3$. We check that  $\beta \neq \gamma.$ Therefore we are in case \eqref{eq:mlmchhoth}, and the computational complexity satisfies
+\beqs
+\CMLhL(\eps) \lesssim k^3 \eps^{-1.5}.
+\eeqs

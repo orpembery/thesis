@@ -1,0 +1,625 @@
+\subsection{Statement of Problem, Assumptions, and Main Result}
+
+In this section, we prove that the finite-element approximation of the solution to the Helmholtz TEDP exists if $ h \lesssim k^{-3/2}.$ Moreover, we give an expression for the hidden constant that is completely explicit in $A$ and $n$, and we also prove a bound on the finite-element error, again completely explicit in $A$ and $n$. The argument in this section closely follows those in \cite{FeWu:11,ChNi:18} in its use of an elliptic projection argument to prove the required finite-element existence result and error bound. The paper \cite{FeWu:11} proved a similar result for the Helmholtz equation in homogeneous media, and \cite{ChNi:18} does so for the homogeneous Helmholtz equation with corner singularities.
+
+Whilst we prove the results in this section for the TEDP, we expect that they can be extended to the Helmholtz Exterior Dirichlet Problem (EDP) where the infinite domain is truncated, and the Dirichlet-to-Neumann map is realised exactly on the truncated boundary. However, our proof below uses recently-proved bounds on the solution of a related problem to the TEDP from \cite{ChNiTo:18}; in order to extend our results to the EDP we would need analogues to the results in \cite{ChNiTo:18} for the EDP.
+
+\paragraph{Problem Set-up} Let $\Dm$ be a bounded Lipschitz\ednote{We actually need this to be a $C^{k,\lambda}$ set, for $k+\lambda > 1.5,$ so that we can do the whole non-zero Dirichlet data thing. This is getting a bit complicated. I guess our options are (i) persevere, (ii) give up and just do the theory for zero Dirichlet data, or (iii) assume that we know $\ud,$ not just $\gD.$ Thoughts?} open set such that the open complement $\Dp\de \RRd\setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \subset\subset\Dtilde$. 
+Let $D\de\Dtilde\setminus\Dm$, $\GD\de \partial \Dm$, and $\GI \de\partial \Dtilde$, so that $\partial D= \GD \cup \GI$ and $\GD\cap \GI = \emptyset$. Throughout $\tr$ will denote the trace onto the whole boundary $\dD,$ whereas $\trGI$ and $\trGD$ will denote the traces on $\GI$ and $\GD$ respectively. Throughout we assume there exists some $\kz > 0$ such that $k \geq \kz$. Let $\NW{v}$ denote the weighted $H^1$ norm on $\HoD$:
+\beqs
+\NW{v}^2 \de \NLtD{\grad v}^2 + k^2 \NLtD{v}^2.
+\eeqs
+
+
+Let
+\bit
+\item $f\in \LtD$ 
+\item $\gD\in \HthtGD$,
+\item $\gI\in \LtGI$
+\item $n\in \LiDRR$ such that $\dist\mleft(\supp\mleft(1-n\mright),\GI\mright)>0$, satisfying
+\beq
+0<\nmin \leq n\mleft(\bx\mright)\leq\nmax<\infty\,\, \text{ for almost every } \bx \in D,
+\eeq
+\item $A \in \WoiDRRdtd$ such that $\dist\mleft(\supp\mleft(I -A\mright),\GI\mright)>0$, $A$ is symmetric, and there exist $0<\Amin\leq \Amax<\infty$ such that
+\beq\label{eq:AellEDP}
+ \Amin |\bxi|^2\leq\mleft(A\mleft(\bx\mright) \bxi\mright) \cdot \overline{ \bxi}  \leq \Amax|\bxi|^2 \quad\text{ for almost every }\bx \in D \text{ and for all } \bxi\in \CCd.
+\eeq
+\eit
+%we say $u\in \HoD$ satisfies the Helmholtz Truncated Exterior Dirichlet Problem (TEDP) if 
+%\beqs
+%\grad\cdot\mleft(A \grad u \mright) + k^2 n u = -f \quad \tin D,
+%\eeqs
+%\beqs
+%\trGD u =\gD \quad\ton \GD,
+%\eeqs
+%and 
+%\beq\label{eq:TEDP3}
+%\dn u - \ii k  \trGI u = \gI \ton \GI.
+%\eeq
+In order to study the TEDP with $\gD\neq0,$ we must, in essence reformulate to the TEDP with $\gD=0$ but a different right-hand side for the domain term.
+
+Define the space
+\beqs
+\HozDD \de \set{v \in \HoD \st \trGD u = 0}.
+\eeqs
+%and the sesquilinear form and antilinear functional
+%The variational formulation of the TEDP with $\gD = 0$ is%\optodo{Check exactly what's needed in hetero}
+%
+%\beq\label{eq:tedpz}
+%\text{Find } u \in \HozDD\quad \tst\quad a(u,v) = F(v)\quad \tfa v \in \HozDD,
+%\eeq
+%
+%where
+%
+%\beqs
+%a(u,v) \de \int_D \mleft(A \grad u\mright)\cdot \grad \vb - k^2 n u\vb - ik \int_{\GI} \trGI u \trGI \vb\quad \tand\quad F(v) \de \int_D f\vb + \int_{\GI} \gI\trGI \vb.
+%\eeqs
+%
+In order to deal with non-zero Dirichlet data $\gD,$ we let  $\ud \in \HtD$ be such that $\trGD \ud = \gD$, and $\esssup \ud \compcont D$. The proof that such a $\ud$ exists is in \cref{lem:ud}.
+The variational formulation of the TEDP is then
+\beq\label{eq:tedp}
+\text{Find } u \in \HozDD\quad \tst\quad a(u,v) = F(v)\quad \tfa v \in \HozDD,
+\eeq
+where
+\beqs
+a(u,v) \de \int_D \mleft(A \grad u\mright)\cdot \grad \vb - k^2 n u\vb - ik \int_{\GI} \trGI u \trGI \vb
+\eeqs
+and
+\beqs
+F(v) \de  \int_D \mleft(f - \grad \cdot \mleft(A\grad \ud\mright) - k^2 n\ud\mright)\vb + \int_{\GI} \mleft(\gI-\dn\ud\mright)\trGI \vb.
+\eeqs
+The function $\us = u+ \ud$ is then the solution of the Helmholtz equation
+\beqs
+\grad\cdot\mleft(A \grad \us \mright) + k^2 n \us = -f \quad \tin D,
+\eeqs
+\beqs
+\trGD \us =\gD \quad\ton \GD,
+\eeqs
+and 
+\beq\label{eq:TEDP3}
+\dn \us - \ii k  \trGI \us = \gI \ton \GI.
+\eeq
+\bre[Reducing the smoothness of $\gD$]
+The assumption that $\gD \in \HthtGD$ is made so that the lifting $\ud$ of $\gD$ is in $\HtD$ (see \cref{app:ud}). As $\ud \in \HtD,$ the antilinear functional $F$ defined above is well-defined. We could reduce the smoothness of $\gD$ to $\HoGD$ (meaning $\ud \in \HthtD$) but this reduction in smoothness would then require us to reformulate the functional $F$ as
+\beqs
+F(v) = \int_D \mleft(A \grad \ud\mright)\cdot \grad \vb - k^2 n \ud \vb + f \vb + \int_{\GI} \mleft(\gI - \dn \ud\mright)\vb.
+\eeqs\optodo{Put a proof of this somewhere, in 28/2/19 notes}
+With this reformulation, $F \in \HozDDprime,$ but does not have a representative function in $\LtD$. Our proofs below will use results from \cite{ChNiTo:18}, which are stated for the TEDP with zero Dirichlet boundary condition and $L^2$ right-hand side. To avoid the complications stated above, and to allow us to use the results in \cite{ChNiTo:18}, we therefore impose the additional smoothness on $\gD.$ Also, in the case with $F$ only in $\HozDDprime$, proving a priori bounds on the solution of the TEDP is more complicated (c.f., e.g., \cite[Theorem 2.5]{GrPeSp:18} and \cite[Corollary 2.16]{GrPeSp:18} which consider the analogous EDP). For the same reason, we assume $A \in \WoiDRRdtd;$ if we only had $A \in \LiDRRdtd,$ we could reformulate $F$ as outlined above, but we would have the same complications as just described.
+
+The fact that we cannot reduce the smoothness of $\gD$ further to $\HhGD$ is due to the Morawetz multiplier techniques used to obtain the a priori bounds in \cite{GrPeSp:18}, see \cite[(iii), p. 2874]{GrPeSp:18}.
+\ere
+\optodo{Probably need to prove this---I guess it'll go along similar lines as the proof in hetero}
+Also, for later use we state the \defn{adjoint} problem.
+\beq\label{eq:tedpadj}
+\text{Find } u \in \HozDD\quad \tst\quad \aadj(u,v) = F(v)\quad \tfa v \in \HozDD,
+\eeq
+where
+\beqs
+\aadj(u,v) \de \int_D \mleft(A \grad u\mright)\cdot \grad \vb - k^2 n u\vb + ik \int_{\GI} \trGI u \trGI \vb.
+\eeqs
+%and
+%\beqs
+%\Fadj(v) \de \aadj(\uz,v) + \int_D f\vb + \int_{\GI} \gI\trGI \vb.
+%\eeqs
+
+The statement of the main result requires the following related sesquilinear form and \lcnamecref{lem:relatedwp}.
+
+\bde[Related sesquilinear form]
+For $\vo, \vt \in \HozDD$ we define
+\beqs
+\api(\vo,\vt) = \int_D \IP{A \grad \vo}{\vt} - ik\int_{\GI} \vo\vtbar.
+\eeqs
+\ede
+
+\ble[Related PDE is well-posed and solution is in $H^2$]\label{lem:relatedwp}
+If $A \in \CzoDRRdtd,$ then the solution $\psi \in \HozDD$ of the related PDE
+\beq\label{eq:relpde}
+\api(u,v) = \IPLtD{f}{v}\quad \tfa\quad v \in \HozDD
+\eeq
+exists, is unique, is in $\HtD,$ and satisfies the a priori bound
+% \beqs\label{eq:relpdehobound}
+% \NW{\psi} \lesssim \frac{\max\set{\Amin^{-1},1}}k,
+% \eeqs
+% and
+% \beqs
+% \NHoD{\psi} \lesssim \CHoell \NLtD{f}
+% \eeqs
+% and
+\beqs
+\NHtD{\psi} \lesssim \CHtell \NLtD{f}.
+\eeqs
+for some constant $\CHtell > 0$ depending on $A,$ but independent of $k.$
+\ele
+
+\bre[Proof of \cref{lem:relatedwp}]
+\Cref{lem:relatedwp} is proved in \cite{ChNiTo:18}, although the dependence on $A$ is not made explicit.
+\ere
+
+%\paragraph{Finite-Element Set-up} Let $\Vh$ be the first-order linear finite-element space on some mesh on $D$ with mesh size $h.$
+
+\bas[Existence, uniqueness, and an a priori bound]\label{ass:bound}
+We assume that the coefficients $A$ and $n$ are such that for all $k \geq \kz$ the solutions of the TEDP \eqref{eq:tedp} and its adjoint \eqref{eq:tedpadj} exist, are unique, are in $\HtD,$ and satisfy the bound
+\beq\label{eq:hhbound}
+\NHtD{u} \lesssim \CHthh \,k \mleft(\NLtD{f} + \Nunsure{g} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright),
+\eeq
+where $\gradGD$ is the surface gradient on $\GD,$ $u$ is the solution of the TEDP or its adjoint, and $\CHthh >0$ is a constant dependent on $A$, $n,$ and possibly $k.$
+% \footnote{Determining the dependence of $\CHthh$ on $A$ and $n$ could be tricky. It was done in \cite{ChScTe:13} for a $C^2$ domain with scalar $A$ and homogeneous Dirichlet boundary conditions.}
+ \eas
+
+\bde[Finite-element approximation] 
+ The finite-element approximation to \eqref{eq:tedp} is the following:
+\beq\label{eq:tedpfe}
+\text{Find } \uh \in \Vh\quad \tst\quad a(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
+\eeq
+\ede
+
+The main theorem we prove is the following:
+
+\bth[Finite-element-error bound]\label{thm:febound}
+If $A \in \CzoDRRdtd,$ $h \lesssim 1/k,$ \cref{ass:bound} holds, and
+\beq\label{eq:hcond}
+h \lesssim \mleft(\NLiDRR{n} \mleft(\Amax + \half\mright)\CHtell \CHthh\mright)^{-1/2}k^{-3/2}, % There should be a factor of a half in front of the right-hand side of this, as it makes things clearer what's going on in the proof. However, since we're doing everything with \lesssim, a factor of a half doesn't matter. We could replace the half with any \eps in (0,1), but then the constant hidden in the \lesssim in \eqref{eq:hherrltbound} has a factor 1/\eps.
+\eeq
+the finite-element solution $\uh$ to the problem \eqref{eq:tedpfe} exists, is unique, and satisfies the bounds
+\beq\label{eq:hherrltbound}
+\NLtD{u-\uh} \lesssim \Cfemo \mleft(hk\mright)^2 \mleft(\NLtD{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright)
+\eeq
+and
+\beq\label{eq:hherrwbound}
+\NW{u-\uh} \lesssim \mleft(\Cfemt hk +  \Cfemth h^2k^3\mright)\mleft(\NLtD{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright),
+\eeq
+where
+\beqs
+\Cfemo \de \mleft(\Amax + \half\mright)\CHthh^2,
+\eeqs
+\beqs
+\Cfemt \de \frac{\Amax+\half}{\Amin} \CHthh,
+\eeqs
+\beqs
+\Cfemth \de \frac{\mleft(\Amin+ \NLiDRR{n}\mright)^{1/2}}{\Amin^{1/2}}\Cfemo,
+\eeqs
+and $u$ is the solution of the TEDP \eqref{eq:tedp}.
+\enth
+
+\subsubsection{Properties of the Elliptic Projection, and a related PDE}
+
+The proof technique we use below (adapted from \cite{FeWu:11,ChNi:18}) uses an `elliptic projection' of the solution of the TEDP using the related sesquilinear form $\api.$ We define the energy norm induced by the sesquilinear form $\api$:
+\beqs
+\Npi{\vo} = \sqrt{\abs{\api(\vo,\vo)}}.
+\eeqs
+
+\ble[Energy Norm is a norm]\label{lem:inducednorm}
+The induced norm $\Npi{\cdot}$ is a norm on $\HoD.$
+\ele
+
+\bpf[Proof of \cref{lem:inducednorm}]
+The main thing to check is that, for $v \in \HoD,$ $\Npi{v}=0 \implies v=0.$ By construction, if $\Npi{v}=0,$ then $\int_{D} \IP{A \grad v}{\grad v} =0$ and $\NLtGI{v}^2 = 0,$ as these are the real and imaginary parts of $\api(v,v).$ By \eqref{eq:AellEDP}, it follows that $\Amin \abs{\grad v}^2 \leq 0,$ and thus $v$ is constant. As $\NLtGI{v} = 0,$ it follows that $\trGI v =0,$ and hence by the trace theorem, as $v$ is constant, it follows that $v=0.$
+
+Other properties of norms follow analagously as with any definition of an energy norm.
+\epf
+\ble[Energy norm is equivalent to weighted norm]\label{lem:normbound}
+If $v \in \HoD,$ then
+\beq\label{eq:boundew}
+\Npi{v} \lesssim \sqrt{\Amax+\half}\NW{v}
+\eeq
+and
+\beq\label{eq:boundwe}
+\NW{v} \lesssim \max\set{\Amin^{-\half},1} \Npi{v}
+\eeq
+\ele
+
+\bpf[Proof of Lemma \ref{lem:normbound}]
+To show \eqref{eq:boundew}, for $ v \in \HoD$ we have
+\begin{align*}
+  \Npi{v}^2 &= \abs{\api(v,v)}\\
+            &\lesssim \abs{\int_{D} \IP{A \grad v}{\grad v}} + k\NLtGI{v}^2 \\
+            &\lesssim \abs{\int_{D} \IP{A \grad v}{\grad v}} + k\NLtD{v}\NHoD{v}, \text{ by the multiplicative trace inequality}\\
+            &\lesssim \Amax \NLtD{\grad v}^2 + \half k^2 \NLtD{v}^2 + \half \NHoD{v}^2\\
+  &\lesssim \mleft(\Amax+\half\mright)\NW{v}^2
+\end{align*}
+as required.
+
+To show \eqref{eq:boundwe} we first show that, for $v \in \HoD,$ $\Npi{v} \gtrsim \min\set{\Amin^{\half},1} \mleft(\NLtD{\grad v} + k^{\half} \NLtGI{\trGI v}\mright)$:
+\begin{align}
+  \Npi{v} &= \mleft(\abs{\api(v,v)}\mright)^{\half}\nonumber\\
+          &= \mleft(\mleft(\int_D \IP{A \grad v}{\grad v}\mright)^2 + k^2 \mleft(\int_{\GI}\abs{\trGI v}^2\mright)^2\mright)^{\quarter}\nonumber\\
+  &\geq \mleft(\mleft(\int_D \Amin \abs{\grad v}\mright)^2 + k^2 \NLtGI{\trGI v}^4\mright)^{\quarter}\nonumber\\
+          &= \mleft(\Amin^2 \NLtD{\grad v}^4 + k^2 \NLtGI{\trGI v}^4\mright)^{\quarter}\nonumber\\
+          &\geq \min\set{\Amin^{\half},1}\mleft(\NLtD{\grad v}^4 + k^2 \NLtGI{\trGI v}^4\mright)^{\quarter}\nonumber\\
+  &\gtrsim \min\set{\Amin^{\half},1} \mleft(\NLtD{\grad v} + k^{\half} \NLtGI{\trGI v}\mright), \text{ as } \mleft(x+y\mright)^4 \lesssim x^4 + y^4.\label{eq:Npifour}
+\end{align}
+
+We recall the fact that for $v \in \HoD,$
+\beq\label{eq:poincarelike}
+\NLtD{v} \lesssim \NLtD{\grad v} + \NLtGI{\trGI v},
+\eeq
+see, e.g., \cite[Equation (6.16)]{Sp:15}. We can then prove \eqref{eq:boundwe}:
+\begin{align*}
+   \NW{v} &\lesssim \NLtD{v}+ \NLtD{\grad v}\\
+          &\lesssim \NLtGI{\trGI v}+ \NLtD{\grad v} + \NLtD{\grad v}\text{ by \eqref{eq:poincarelike}}\\
+          &\lesssim k^{\half}\NLtGI{v} + \NLtD{\grad v}\\
+  &\lesssim \max\set{\Amin^{-\half},1}\Npi{v}, \text{ by \eqref{eq:Npifour}.}
+\end{align*}
+\epf
+
+% \ble[Bound on $L^2$ norm]\label{lem:ltbound}
+% If $v \in \HoD$ then the bound
+% \beqs
+% \NLtD{v} \lesssim  \NLtGI{\trGI v} + \NLtD{\grad v}
+% \eeqs
+% holds.
+% \ele
+
+% \bpf[Proof of \cref{lem:ltbound}]
+% \optodo{Look at proof in IbyPs article}
+% If $v \in \HozDD,$ then by the Poincar\'e inequality, we have that $\NLtD{v} \lesssim \NLtD{\grad v}.$ Alternatively, if $\GD = \emptyset$ and $\trGI v$ is constant, then $v - \trGI v \in \HozDD,$ and thus (abusing notation, and letting $\trGI v$ denote the value of the constant, and also a constant function defined on $D$ taking that value everywhere)
+% \begin{align*}
+%   \NLtD{v} &\leq \NLtD{\trGI v} + \NLtD{v-\trGI v}\\
+%   &= \NLtGI{\trGI v} + \NLtD{v-\trGI v}\\
+%            &\lesssim \NLtGI{\trGI v} +  \NLtD{\grad \mleft(v-\trGI v\mright)}\\
+%              &= \NLtGI{\trGI v} + \NLtD{\grad v},
+% \end{align*}
+% as required.
+% \epf
+
+% \ble[Bound on weighted norm by energy norm]\label{lem:othernormbound}
+% If $v \in \HozDD,$ or if $\GD = \emptyset$ and $\trGI v$ is constant, the bound
+% \beq\label{eq:boundwe}
+% \NW{v} \lesssim \max\set{\Amin^{-\half},1} \Npi{v}
+% \eeq
+% holds.
+% \ele
+
+% \bpf[Proof of \cref{lem:othernormbound}]
+% \epf
+
+We now define the elliptic projection of a function in $\HoD.$% and also define a related PDE that will be used in proving the approximation properties of the elliptic projection.
+
+\bde[Elliptic Projection]
+For $w \in \HoD$ we define the \defn{elliptic projection} $\Ph w \in \Vh$ of $w$ by
+\beq\label{eq:ellproj}
+\api(\vh,\Ph w) = \api(\vh,w) \tfa \vh \in \Vh.
+\eeq
+\ede
+
+% \bde[Related PDE]\label{lem:relpde}
+% Given $f \in \LtD$ we define the related (adjoint) PDE; find $\psi \in \HoD$ such that for all $v \in \HoD$
+% \beq\label{eq:relpde}
+% \api(\psi,v) = \IPLtD{f}{v}.
+% \eeq\ede
+
+% \bpf[Proof of \cref{lem:relatedwp}]
+% By \eqref{eq:boundwe} we have, for $v \in \HozDD$
+% \beqs
+% \min\set{\Amin,1}\NW{v}^2 \lesssim \abs{\api(v,v)},
+% \eeqs
+% and we also have that
+% \beqs
+% \NWs{\IP{f}{\cdot}} \leq \frac1k \NLtD{f},
+% \eeqs
+% where $\NWs{\cdot}$ denotes the norm on $\HozDDs$ induced by $\NW{\cdot}.$ By the Lax--Milgram Theorem, we can therefore conclude that $\psi$ exists, is unique, and satisfies the bound
+% \beqs
+% \NW{\psi} \lesssim \frac{\max\set{\Amin^{-1},1}}{k}\NLtD{f}.
+% \eeqs
+% Use Grisvard Magic to get $H^2.$\optodo{this}
+% \epf
+
+\ble[Properties of elliptic projection]\label{lem:ellprojbounds}
+Let $A \in \CzoDRRdtd.$ If $w \in \HtD,$ then the elliptic projection $\Ph w$ exists, is unique, and the error satisfies the bounds
+\beq\label{eq:ellprojenbound}
+\Npi{w-\Ph w} \lesssim \sqrt{\Amax+\half}\,h\NHtD{w},
+\eeq
+and
+\beq\label{eq:ellprojltbound}
+\NLtD{w-\Ph w} \lesssim  \mleft(\Amax+\half\mright)\CHtell\,h^2\NHtD{w}.
+\eeq
+\ele
+
+\bpf[Proof of \cref{lem:ellprojbounds}]
+We first assume $\Ph w$ exists. To show \eqref{eq:ellprojenbound} we apply C\'{e}a's Lemma in $\Vh$ using the energy norm $\Npi{\cdot}$ to conclude
+\beqs
+\Npi{w-\Ph w} \leq \Npi{w-\Ih w}.
+\eeqs
+We then apply \cref{lem:normbound,lem:scottzhangbound} to conclude \eqref{eq:ellprojenbound}.
+
+To prove \eqref{eq:ellprojltbound} we let $\psi$ solve the related PDE (\cref{lem:relpde}) with $f = w-\Ph w.$ By \cref{lem:relatedwp} $\psi \in \HtD$ and thus by  \cref{lem:normbound} and \cref{lem:scottzhangbound}
+\beqs
+\Npi{\psi - \Ih \psi} \lesssim \sqrt{\Amax + \half}\CHtell \,h\NLtD{w-\Ph w}.
+\eeqs
+
+If we now set $v = w-\Ph w$ in \eqref{eq:relpde}, then we obtain
+\begin{align}
+  \NLtD{w - \Ph w}^2 &= \api\mleft(\psi,w-\Ph w\mright)\nonumber\\
+                     &= \api\mleft(\psi-\Ih \psi,w-\Ph w\mright) \text{ by Galerkin orthogonality for } w-\Ph w\nonumber\\
+                     &\leq \Npi{\psi-\Ih \psi}\Npi{w-\Ph w}\nonumber\\
+                       &\lesssim \sqrt{\Amax + \half}\CHtell \,h\NLtD{w-\Ph w}\Npi{w-\Ph w}\label{eq:epltfinal}.
+\end{align}
+By cancelling $\NLtD{w- \Ph w}$ from both sides of \eqref{eq:epltfinal} and using \eqref{eq:ellprojenbound} we obtain \eqref{eq:ellprojltbound}.
+
+We have proved the bounds \eqref{eq:ellprojenbound} and \eqref{eq:ellprojltbound} under the assumption of existence. To show uniqueness, suppose $\wh, \whtilde$ both satisfy \eqref{eq:ellproj} (with $\Ph = \wh$ or $\whtilde$ respectively). Then by linearity, for all $\vh \in \Vh,$
+\beqs
+\api\mleft(\vh,\Ph\mleft(\wh-\whtilde\mright)\mright) = \IP{\vh}{w-w} = 0.
+\eeqs
+That is, the function $\wh - \whtilde$ is an elliptic projection of the zero function.
+
+Therefore, by \eqref{eq:ellprojltbound} $\NLtD{0 - \mleft(\wh - \whtilde\mright)} \lesssim 0,$ i.e., $\wh = \whtilde.$ Therefore, if the elliptic projection $\Ph w$ exists, it is unique. As the space $\Vh$ is finite-dimensional, by the Rank--Nullity Theorem, the uniqueness of $\Ph w$ implies its existence; hence $\Ph w$ exists, and is unique, as required.
+\epf
+
+
+\subsubsection{Proof of Main Result}
+
+We let $\Ih$ denote the Scott--Zhang quasi-interpolant in $\Vh$ (see \cite{ScZh:90}), and will use its following property.
+
+\ble[Properties of Scott-Zhang interpolant]\label{lem:scottzhangbound}
+let $h \lesssim 1/k.$ If $w \in \HtD,$ then
+\beq\label{eq:scottzhangbound}
+\NW{w - \Ih w} \lesssim h \NHtD{w}.
+\eeq
+\ele
+
+\bpf[Proof of \cref{lem:scottzhangbound}]
+The Scott-Zhang interpolant $\Ih w$ satisfies
+\beq\label{eq:szlt}
+\NLtD{w-\Ih w} \lesssim h^2 \NHtD{w}
+\eeq
+\and
+\beq\label{eq:szho}
+\NHoD{w-\Ih w} \lesssim h \NHtD{w}.
+\eeq
+Hence by the definition of $\NW{\cdot},$ by combining \eqref{eq:szlt} and \eqref{eq:szho} we have
+\beqs
+\NW{w-\Ih w} \lesssim h\mleft(1+hk\mright)\NHtD{w}.
+\eeqs
+As $h\lesssim 1/k,$ \eqref{eq:scottzhangbound} follows.
+\epf
+
+The following \lcnamecref{cor:hhszbound} follows from \cref{ass:bound}, and is used to prove \cref{thm:febound}.
+
+\bco\label{cor:hhszbound}
+If $u$ is the solution of the Helmholtz Interior Impedance Problem (or its adjoint) then the error in the Scott--Zhang quasi-interpolant satisfies
+\beq\label{eq:hhszbound}
+\NW{u-\Ih u} \lesssim \CHthh hk \mleft(\NLtD{f} + \Nunsure{g} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}\mright).
+\eeq
+\eco
+
+The proof of the main theorem (\cref{thm:febound} below) also uses the fact that $a$ satisfies a G\r{a}rding inequality.
+\ble[G\r{a}rding inequality]
+If $v \in \HozDD,$ then
+\beq\label{eq:garding}
+\Re\mleft(a(v,v)\mright) \geq \Amin \NW{v}^2 - \mleft(\Amin + \NLiDRR{n}\mright)\NLtD{v}^2,
+\eeq
+where $\Re$ denotes the real part.
+\ele
+
+Finally, we recall \defn{Cauchy's inquality}: For all $a,b \in \RR$, and for all $\eps > 0,$
+\beq\label{eq:cauchy}
+ab \leq \frac{a^2}{2\eps} + \frac{\eps b^2}{2}.
+\eeq
+
+\bpf[Proof of \cref{cor:hhszbound}]
+The proof follows from \cref{lem:scottzhangbound,ass:bound}.
+\epf
+
+We are now in a position to prove our main theorem.
+
+
+
+
+\bpf[Proof of \cref{thm:febound}]
+In this proof, for brevity we let
+\beqs
+\rhs = \NLtD{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}.
+\eeqs
+By \cref{ass:bound} the solution $u$ of the TEDP exists and is unique. Assume the finite-element solution $\uh$ exists. Let $\xi \in \HoD$ satisfy the adjoint TEDP \eqref{eq:tedpadj} with $f=u-\uh,$ $\gD=0,$ and $\gI=0.$ Taking complex conjugates, it follows that
+\beq\label{eq:errordual}
+a(v,\xi) = \IPLtD{v}{u-\uh} \tfa v \in \HoD.
+\eeq
+By \cref{ass:bound} $\xi$ exists, is unique and is in $\HtD.$. Setting $v = u-\uh$ in \eqref{eq:errordual} we obtain
+\begin{align*}
+  \NLtD{u-\uh}^2 &= a\mleft(u-\uh,\xi\mright)\\
+                 &= a\mleft(u-\uh,\xi-\Ph \xi\mright) \quad\text{by Galerkin orthogonality for } u-\uh\\
+                 &= \api\mleft(u-\uh,\xi-\Ph \xi\mright) - k^2 \IPLtD{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
+                 &= \api\mleft(u-\Ih u,\xi-\Ph \xi\mright) - k^2 \IPLtD{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
+  &\quad\quad\quad\text{by Galerkin orthogonality for }\xi  - \Ph \xi\\
+                 &\leq \Npi{u-\Ih u}\Npi{\xi - \Ph \xi} + \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\\
+                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk \rhs\Npi{\xi-\Ph \xi}\\
+  &\quad\quad+  \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\quad \text{by \eqref{eq:boundew} and \eqref{eq:hhszbound}}\\
+                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk\rhs\,\sqrt{\Amax + \half}\,h\NHtD{\xi}\\
+                 &\quad\quad  + \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\quad \text{by \eqref{eq:ellprojenbound}}\\
+                 &\lesssim \mleft(\Amax + \half\mright)\CHthh\, hk\rhs \, \CHthh \,hk \NLtD{u-\uh}\\
+&\quad\quad  + \NLiDRR{n} k^2 \NLtD{u-\uh}\NLtD{\xi-\Ph \xi}\quad \text{by \eqref{eq:hhbound}}\\
+\end{align*}
+Cancelling a factor of $\NLtD{u-\uh}$ and rearranging terms we obtain
+\beqs
+\NLtD{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2\rhs + k^2 \NLiDRR{n} \NLtD{\xi - \Ph \xi}
+\eeqs
+and therefore
+\begin{align*}
+&  \NLtD{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2 \rhs\\
+&\quad\quad  + h^2k^3 \NLiDRR{n} \mleft(\Amax + \half\mright) \CHtell \CHthh \NLtD{u-\uh}
+\end{align*}
+  using the definition of $\xi$, \eqref{eq:ellprojltbound}, and \eqref{eq:hhbound}Therefore if $h$ satisfies \eqref{eq:hcond} we obtain \eqref{eq:hherrltbound}.
+% \beqs
+% \half \NLtD{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh \mleft(hk\mright)^2 \mleft(\NLtD{f} + \Nunsure{g}\mright).
+% \eeqs
+% that is, if $\Cmess \de (\mleft(\NLiDRR{n} \mleft(\Amax + \half\mright) \CHthh \mright)^{-1/2},$ then
+% \beqs
+% \NLtD{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh \Cmess^2k^{-1} \mleft(\NLtD{f} + \Nunsure{g}\mright),
+% \eeqs
+To obtain the bound \eqref{eq:hherrwbound}, we use the G\r{a}rding inequality \eqref{eq:garding}:
+\begin{align*}
+  \Amin \NW{u-\uh}^2 &\leq \Re\mleft(a\mleft(u-\uh,u-\uh\mright)\mright) + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\\
+                     &= \Re\mleft(a\mleft(u-\uh,u-\Ih u\mright)\mright) + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\\
+  &\quad\quad\quad\text{by Galerkin orthogonality}\\
+                     &\leq \mleft(\Amax+\half\mright) \NW{u-\uh}\NW{u-\Ih u} + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\\
+  &\quad\quad\quad\text{by \cref{lem:normbound}}\\
+  &\leq \frac{\mleft(\Amax+\half\mright)^2}{2\Amin} \NW{u-\Ih u}^2 + \frac{\Amin}2 \NW{u-\uh}^2 + k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2,\\
+\end{align*}
+by Cauchy's inequality \eqref{eq:cauchy} with $\eps = \Amin.$ Therefore,
+\beqs
+\NW{u-\uh}^2 \leq \frac2{\Amin} \mleft(\frac{\mleft(\Amax+\half\mright)^2}{2\Amin} \NW{u-\Ih u}^2+ k^2\mleft(\Amin+ \NLiDRR{n}\mright) \NLtD{u-\uh}^2\mright)
+\eeqs
+and hence
+\beq\label{eq:hherrboundnearly}
+\NW{u-\uh} \lesssim \frac1{\Amin^{1/2}} \mleft(\frac{\Amax+\half}{\Amin^{1/2}} \NW{u-\Ih u}+ k\mleft(\Amin+ \NLiDRR{n}\mright)^{1/2} \NLtD{u-\uh}\mright).
+\eeq
+By substituting \eqref{eq:hhszbound} and \eqref{eq:hherrltbound} into \eqref{eq:hherrboundnearly} we obtain \eqref{eq:hherrwbound}.
+
+To show that $\uh$ exists, as in the proof of \cref{lem:ellprojbounds} we can use the error bound \eqref{eq:hherrltbound} to show that $\uh$ is unique, and we can then use the fact that $\Vh$ is finite-dimensional to show that $\uh$ exists.
+\epf
+
+
+
+
+
+
+
+
+% \section{Summary}
+
+
+% BELOW HERE IS OLD STUFF
+
+
+% The key step in \cite{ChNi:18} is that properties of the `elliptic projection' allow us to prove the bound
+% \beqs
+% k\NLtD{u-\uh} \lesssim h^2k^3 \NLtD{f},
+% \eeqs
+% which we then leverage to show the main result.
+% Contrast this with the corresponding bound for the Scott-Zhang quasi-interpolant:
+% \beq\label{eq:SZ}
+% k\NLtD{u-\Ih u} \lesssim  \mleft(hk^2 + \mleft(hk\mright)^2\mright)\NLtD{f}.
+% \eeq
+% Any argument involving the quasi-interpolant will therefore include the condition $h \lesssim k^{-2},$ due to the $hk^2$ term in \eqref{eq:SZ}, whereas the bound \eqref{eq:Lt} only includes the term $h^2k^3,$ and so will only require the condition $h \lesssim k^{-3/2}.$
+
+
+% \section{Details}
+
+% We are interested in the error in the $h$-FEM for the following variational problem:
+
+% Find $u \in V$ such that  for all $v \in V$
+% \beqs
+% a(u,v) \de \int_D \IP{A \grad u}{\grad v} - k^2 n u\vbar - ik\int_{\GI} u \vbar = \int_{D} f \vbar + \int_{\GI} g \vbar,
+% \eeqs
+% where all of the boundary terms are understood as traces, and we assume that $A$, $n$ and the domain $D$ (with impedance boundary $\GI$ are sufficiently well-behaved such that an a priori bound of the form
+% \beqs
+% \NW{u} \lesssim \NLtD{f}
+% \eeqs
+% for all $k \geq \kz,$ for some $\kz > 0$, holds, where the hidden constant may depend on $A$ and $n,$ but is independent of $k$. 
+
+% We introduce the following `elliptic projection' sesquilinear form:
+
+% \beqs
+% \api(\vo,\vt) = \int_D \IP{A \grad \vo}{\vt} - ik\int_{\GI} \vo\vtbar.
+% \eeqs
+% %so that the equation $\api(u,v) = \int_D \ftilde\vbar + \int_{\GI} \gtilde \vbar$ corresponds to the PDE
+% %\beqs
+% %\grad \cdot \mleft(A \grad u\mright) = -\ftilde \tin D,
+% %\eeqs
+% %\beqs
+% %\dn u - iku = \gtilde \ton \GI.
+% %\eeqs
+
+% We then define the elliptic projection $\Ph $ of $w \in \HoD$ by
+% \beq\label{eq:ellproj}
+% \api(\vh,\Ph w) = \api(\vh,w) \tfa \vh \in \Vh,
+% \eeq
+% where $\Vh$ is the finite-element space.We also define the corresponding energy norm
+% \beqs
+% \Npi{u} = \sqrt{\abs{\api(u,u)}}.
+% \eeqs
+
+% Using this elliptic projection, we are able to prove the following theorem\footnote{I've generalised this slightly from \cite{ChNi:18} as you can get a little bit more out of their argument, so that you \emph{nearly} get that the relative error is bounded.}
+
+% \bth
+% If $u$ solves the Helmholtz equation, $u \in \HtD,$ and $h \lesssim k^{-3/2},$ then
+% \beqs
+% \frac{\NW{u-\uh}}{\NW{u}} \lesssim hk + h^2k^3 + \mleft(h + h^2k^2\mright)\frac{\NLtD{f} + \NHhGI{g}}{\NW{u}}.
+% \eeqs
+% \enth
+
+% \bre
+% If we can show that
+% \beqs
+% \NW{u} \gtrsim \NLtD{f} + \NHhGI{g},
+% \eeqs
+% for all $k \geq \kz,$ then we will be able to prove that the relative error is bounded, under the assumption $h \lesssim k^{-3/2}.$
+% \ere
+
+% \bpf[Sketch Proof]
+% The proof consists of four main steps:
+
+% \paragraph{Step 1} If $w \in \HtD,$ then
+% \beq\label{eq:step1}
+% \Npi{w - \Ph w} \lesssim h\mleft(\NHtD{w} + k\NHoD{w}\mright).
+% \eeq
+% Proof - By Cea's Lemma.
+
+% \paragraph{Step 2} If $w \in \HtD,$ then
+% \beq\label{eq:step2}
+% k \NLtD{w-\Ph w} \lesssim h^2 k\mleft(\NHtD{w} + k\NHoD{w}\mright).
+% \eeq
+% Proof - duality argument using \eqref{eq:step1}.
+
+% \paragraph{Step 3} If $u$ solves the Helmholtz equation, $u \in \HtD,$ and $h \lesssim k^{-3/2},$ then
+% \beq\label{eq:step3}
+% \NLtD{u-\uh} \lesssim h^2 k\mleft(k \NHoD{u} + \NLtD{f} + \NHhGI{g}\mright).
+% \eeq
+% Proof - duality argument, splitting $a$ into an `$\api$' part and a `$k^2 \IPLtD{\cdot}{\cdot}$' part, and using \eqref{eq:step1}, \eqref{eq:step2}, and \eqref{eq:step3}.
+% \epf
+
+%We first prove the following lemma\optodo{this in cref}.
+%
+%\ble\label{lem:projbound}
+%If $u$ exists, then the error in the elliptic projection satisfies the bounds
+%\beq\label{eq:projboundenergy}
+%\Npi{u - \Ph u} \lesssim hk \NLtD{f}
+%\eeq
+%\ele
+%and
+%\beq\label{eq:projboundlt}
+%k \NLtD{u - \Ph u} \lesssim h^2 k^2 \NLtD{f}
+%\eeq
+%\bpf[Sketch Proof of \cref{lem:projbound}]
+%We obtain  \eqref{eq:projboundenergy} using standard arguments, as $\api$ is bounded and coercive, so we apply Cea's Lemma (the factor $k$ arising from $u$ on the right-hand side of \eqref{eq:ellproj}).
+%
+%We then obtain  \eqref{eq:projboundlt} using \eqref{eq:projboundenergy} and a duality argument.
+%\epf
+%
+%We can then prove the following theorem\optodo{This in cref?}:
+%
+%\bth\label{thm:bound}
+%If $h \lesssim k^{-3/2}$ (where the hidden constant is dependent on $A$ and $n$) then
+%\beq\label{eq:wbound}
+%\NW{u - \uh} \lesssim \NLtD{f},
+%\eeq
+%where, again, the hidden constant depends on $A$ and $n.$
+%\enth
+%
+%\bpf[Sketch Proof of \cref{thm:bound}]
+%We first seek the bound 
+%\beqs
+%\NLtD{u-\uh} \lesssim (hk)^2 \NLtD{f}
+%\eeqs
+% via the following steps.
+%\ben
+%\item Study $\psi$ satisfying the dual problem 
+%\beq\label{eq:dualplain}
+%a(v,\psi) = \IPLtD{v}{u-\uh}.
+%\eeq
+%\item Use Galerkin orthogonality to obtain 
+%\beq\label{eq:dual}
+%\NLtD{u-\uh}^2 = a(u-\uh,\psi-\Ph \psi).
+%\eeq
+%\item Split $a$ into an`elliptic projection' part and a `$k^2 L^2$' part, i.e. 
+%\beqs
+%a(u-\uh,\psi-\Ph \psi) = \api(u-\uh,\psi-\Ph \psi) - k^2\IPLtD{u-\uh}{\psi-\Ph\psi}.
+%\eeqs
+%\item The `elliptic projection' part is bounded by $(hk)^2\NLtD{u-\uh}\NLtD{f}$ by \cref{lem:projbound}.The $k^2 L^2$ part is bounded by $h^2k^3\NLtD{u-\uh}^2$ (again using \cref{lem:projbound}) and hence can be absorbed into the left-hand side of \eqref{eq:dual} if $h^2k^3 \lesssim 1.$
+%\een
+%The bound on $\NW{u-\uh}$ is obtained using the $L^2$ result, the fact that $h \lesssim k^{-3/2}$, and the fact that $a$ satisfies a G\r{a}rding inequality.
+%\epf
+%
+%\section{Comparison with Schatz' argument for quasi-optimality}
+%
+%The core of Schatz' argument (as in, for example, \cite[Theorem 5.21]{Sp:15}) is the same dual problem \eqref{eq:dualplain}.

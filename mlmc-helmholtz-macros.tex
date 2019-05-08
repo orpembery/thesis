@@ -1,0 +1,154 @@
+\newcommand{\Ml}{M_{l}}
+\newcommand{\Mlmo}{M_{l-1}}
+\newcommand{\Qhl}{\QoI_{\hl}}
+\newcommand{\Qhlmo}{\QoI_{\hlmo}}
+\newcommand{\QMl}{CHANGE\QoI_{\hl}}
+\newcommand{\QMlmo}{CHANGE\QoI_{\hlmo}}
+\newcommand{\QoI}{Q}
+\newcommand{\uhl}{u_{l}}
+\newcommand{\hl}{h_{l}}
+\newcommand{\Yl}{Y_{l}}
+\newcommand{\Yz}{Y_{0}}
+\newcommand{\Qhz}{\QoI_{\hz}}
+\newcommand{\QMz}{CHANGE\QoI_{\hz}}
+\newcommand{\Mz}{M_{0}}
+\newcommand{\Ylhat}{\hat{\Yl}}
+\newcommand{\Nl}{N_{l}}
+\newcommand{\Yli}{\Yl^{(i)}}
+\newcommand{\QhatMLML}{CHANGE\hat{\QoI}^{ML}_{\hL}}
+\newcommand{\QhatMLhL}{\hat{\QoI}^{ML}_{\hL}}
+\newcommand{\QhatMC}{\hat{\QoI}^{MC}}
+\newcommand{\ML}{M_{L}}
+%\newcommand{\co}{c_{1}}
+%\newcommand{\ct}{c_{2}}
+\newcommand{\cth}{c_{3}}
+\newcommand{\Cl}{\cC_{l}}
+\newcommand{\Vl}{V_{l}}
+\newcommand{\err}[1]{e\mleft(#1\mright)}
+\newcommand{\CMLML}{CHANGE\cC^{ML}_{M_{L}}}
+\newcommand{\CMLhL}{\cC^{ML}_{\hL}}
+\renewcommand{\ln}[1]{\mathrm{ln}\mleft(#1\mright)}
+\newcommand{\Cppw}{\Ccoarse}
+\newcommand{\CFEM}{C_{FEM}}
+\newcommand{\uinfty}{u_{\infty}}
+\newcommand{\uS}{u^{S}}
+%\newcommand{\uI}{u^{I}}
+\newcommand{\CMh}{C_{Mh}}
+\newcommand{\hlmo}{h_{l-1}}
+\newcommand{\uhlmo}{u_{l-1}}
+\newcommand{\hz}{h_{0}}
+\newcommand{\NMC}{N_{MC}}
+\newcommand{\QMLMC}{Q_{\MLMC}}
+\newcommand{\MLMC}{M_{\LMC}}
+%\newcommand{\LMC}{L_{MC}}
+\newcommand{\LMC}{\tilde{L}}
+\newcommand{\V}{\cV}
+\newcommand{\CMC}{\cC^{MC}}
+\newcommand{\hL}{h_{L}}
+\newcommand{\hMC}{h_{MC}}
+\newcommand{\ceil}[1]{\lceil#1\rceil}
+\newcommand{\Vj}{V_{j}}
+%\newcommand{\Cj}{\cC_{j}}
+\newcommand{\errQhatMLhL}{\err{\QhatMLhL}}
+\newcommand{\QhL}{Q_{\hL}}
+\newcommand{\hLMC}{h_{LMC}}
+\newcommand{\Ccoarse}{C_{\mathrm{coarse}}}
+\newcommand{\coarseexp}{\mu}
+\newcommand{\splitting}{\chi}
+\newcommand{\func}{\eta}
+%\newcommand{\Do}{D_{1}}
+%\newcommand{\Dt}{D_{2}}
+%\newcommand{\muo}{\mu_{1}}
+%\newcommand{\mut}{\mu_{2}}
+%\newcommand{\Az}{A_{0}}
+%\newcommand{\nz}{n_{0}}
+%\newcommand{\bxz}{\bx_{0}}
+\newcommand{\LD}{L_{D}}
+%\newcommand{\LI}{L_{I}}
+\newcommand{\aD}{a_{D}}
+\newcommand{\aI}{a_{I}}
+\newcommand{\NLtOLtGD}[1]{\N{#1}_{\LtOLtGD}}
+\newcommand{\LtOLtGD}{\Lt{\Omega;\LtGD}}
+\newcommand{\Cth}{C_{3}}
+\newcommand{\Cthtilde}{\widetilde{C}_{3}}
+%\newcommand{\NLtOLtGI}[1]{\N{#1}_{\LtOLtGI}}
+%\newcommand{\LtOLtGI}{\Lt{\Omega;\LtGI}}
+\newcommand{\Cf}{C_{4}}
+\newcommand{\Cfi}{C_{5}}
+\newcommand{\hetbeta}{\zeta}
+\newcommand{\Cotilde}{\widetilde{C}_{1}}
+\newcommand{\nmaxGI}{n_{\max,\GI}}
+\newcommand{\Coo}{C^{1,1}}
+\newcommand{\epsbx}{\eps_{\bx}}
+%\newcommand{\Ball}[2]{B_{#1}\mleft(#2\mright)}
+%\newcommand{\bzero}{\mathbf{0}}
+%\newcommand{\IPGI}[2]{\IP{#1}{#2}_{\GI}}
+%\newcommand{\HmhGI}{\Hmh{\GI}}
+%\newcommand{\Hmh}[1]{H^{-1/2}\mleft(#1\mright)}
+%\newcommand{\dd}{\mathrm{d}}
+%\newcommand{\Leb}{\lambda}
+%\newcommand{\LiDp}{\Li{\Dp}}
+%\newcommand{\LiDpCC}{\Li{\Dp;\CC}}
+%\newcommand{\compcont}{\subset\subset}
+%\newcommand{\LtDp}{\Lt{\Dp}}
+%\newcommand{\LtDpRR}{\Lt{\Dp;\RR}}
+%\newcommand{\LiDpRR}{\Li{\Dp;\RR}}
+%% \newcommand{\vtb}{\overline{v}_{2}}
+%% \newcommand{\LtOHozDD}{\Lt{\Omega;\HozDD}}
+%% \newcommand{\LtOLtD}{\Lt{\Omega;\LtD}}
+%% \newcommand{\LiOLiDRR}{\Li{\Omega;\LiDRR}}
+%% \newcommand{\WoiDRR}{\Woi{D;\RR}}
+%% \newcommand{\Woi}[1]{W^{1,\infty}\mleft(#1\mright)}
+%% \newcommand{\LtO}{\Lt{\Omega}}
+%% \newcommand{\LfO}{\Lf{\Omega}}
+%% \newcommand{\Lf}[1]{L^{4}\mleft(#1\mright)}
+%% \newcommand{\NLtOLtD}[1]{\N{#1}_{\LtOLtD}}
+%% \newcommand{\NLoO}[1]{\N{#1}_{\LoO}}
+%% \newcommand{\LoO}{\Lo{\Omega}}
+%% \newcommand{\Lo}[1]{L^{1}\mleft(#1\mright)}
+%% \newcommand{\Yj}{Y_{j}}
+%% \newcommand{\psij}{\psi_{j}}
+%% \newcommand{\Unif}{\mathrm{unif}}
+%% \newcommand{\NTn}[1]{\mathrm{NT}_{n}\mleft(#1\mright)}
+\newcommand{\Lconst}{C_{L}}
+%\newcommand{\ud}{u_{d}}
+%% \DeclareMathOperator{\esssup}{ess\,sup}
+%\newcommand{\us}{u_{s}}
+%\newcommand{\Htht}[1]{H^{3/2}\mleft(#1\mright)}
+\newcommand{\HthtGD}{\Htht{\GD}}
+\newcommand{\HthtD}{\Htht{D}}
+\newcommand{\HozDDprime}{\HozDD'}
+%\newcommand{\HhGD}{\Hh{\GD}}
+%\newcommand{\WoiDRRdtd}{\Woi{D;\RRdtd}}
+\newcommand{\appspace}{U} % Space used in the appendix
+\newcommand{\WspU}{\Wsp{\appspace}}
+\newcommand{\Wsp}[1]{W^{s,p}\mleft(#1\mright)}
+\newcommand{\WsmoppdU}{\Wsmopp{\dU}}
+\newcommand{\dU}{\partial \appspace}
+\newcommand{\Wsmopp}[1]{W^{s-\frac1p,p}\mleft(#1\mright)}
+\newcommand{\udtilde}{\widetilde{u}_{d}}
+\newcommand{\WspRRdsmDm}{\Wsp{\RRd\setminus\Dm}}
+\newcommand{\Qhtilde}{\widetilde{Q}_{h}}
+\newcommand{\Cmesh}{C_{\mathrm{mesh}}}
+\newcommand{\mesh}{m}
+%\newcommand{\RRp}{\RR^{+}}
+\newcommand{\hmaxomega}{h^{\max}_{\omega}}
+\newcommand{\homega}{h_{\omega}}
+\newcommand{\Qtildehomega}{\widetilde{Q}_{\homega}}
+\newcommand{\Qh}{Q_{h}}
+\newcommand{\Ch}{\cC_{h}}
+\newcommand{\cthtilde}{\widetilde{c}_{3}}
+\newcommand{\Cost}[1]{\cC\mleft(#1\mright)}
+\newcommand{\LpO}{\Lp{\Omega}}
+%\newcommand{\Lp}[1]{L^{p}\mleft(#1\mright)}
+\newcommand{\Lqgamma}[1]{L^{q\gamma}\mleft(#1\mright)}
+\newcommand{\LqgammaO}{\Lqgamma{\Omega}}
+\newcommand{\NLpO}[1]{\N{#1}_{\LpO}}
+\newcommand{\NLqgammaO}[1]{\N{#1}_{\LqgammaO}}
+\newcommand{\Qhomegatilde}{\widetilde{Q}_{\homega}}
+%\newcommand{\ddPPomega}{\dd\PP(\omega)}
+\newcommand{\csum}[1]{C_{\mathrm{sum},#1}}
+\newcommand{\csumdelta}{\csum{\delta}}
+\newcommand{\csumgammambetat}{\csum{\frac{\gamma-\beta}{2}}}
+\newcommand{\Cgammagtrbeta}{C_{\gamma > \beta}}
+\newcommand{\Cgammalessbeta}{C_{\gamma < \beta}}
