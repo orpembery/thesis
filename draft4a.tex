@@ -1,0 +1,2120 @@
+%%%%% arxiv5c.tex, now changing Poisson bracket definition
+%%%%% arxiv5b.tex now going to go from 4 problems to 3, and reorder
+%%%%% arxiv5.tex has changes all \sim bounds to =. in 5a now going to move all TEDP stuff to an appendix.
+
+\documentclass[10pt]{article}%
+%\documentclass[final]{siamltex}
+
+\usepackage{showkeys}
+
+\usepackage[show]{ed}
+% This is Ivan's editing package, allowing foot and margin notes.
+% To hide all notes, comment out above line and add in the line below
+%\usepackage[hide]{ed}
+
+%\usepackage[protrusion=true,expansion=true]{microtype} 
+
+%\usepackage[pdftex]{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%SCRIPT FONTS%%%%%%%%%%%%%%%%%%%%%%
+%%NB both mathscr and mathrsfs are called using \mathscr so need to comment one out
+%\usepackage[mathscr]{euscript}
+\usepackage{mathrsfs}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\newcommand{\ZA}{A_{k,\eta,Z}}
+\newcommand{\starA}{\mathscr{A}_k}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}%
+\usepackage{latexsym}
+\usepackage{psfrag}
+\usepackage{subfig}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+
+
+%\usepackage{showkeys}
+
+\setcounter{MaxMatrixCols}{30}
+
+%%%%%%%%These conflict with SIAM style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}[1][Proof]{\noindent \emph{#1.} }
+{\hfill \ \rule{0.5em}{0.5em}}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{summary}[theorem]{Summary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{condition}[theorem]{Condition}
+
+\newenvironment{condition2}[2][Condition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]\end{trivlist}}
+
+\newenvironment{condition3}[2][Condition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]\end{trivlist}}
+
+%%%%%%%%%%%Eike's new theorem version 1%%%%%%%%%%%%%%%%
+
+\newcounter{mycount}
+\newtheorem{mytheorem}[mycount]{Condition}
+\renewcommand{\themycount}{\Alph{mycount}}
+
+%\addtoreset{mycount}{section}
+
+%%%%%%%%%%%%Eike's new theorem version 2%%%%%%%%%%%5
+%%%%%% give e.g Theorem 2.A 
+%\newcounter{mycount}
+%\newtheorem{mytheorem}[mycount]{Theorem}
+%\renewcommand{\themycount}{\thesection.\Alph{mycount}}
+
+%\addtoreset{mycount}{section}
+%%%%%% line above resets counter at beginning of section
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section}
+
+%\renewcommand{\theequation}{\thesection.\arabic{equation}}
+%\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+
+\usepackage[a4paper]{geometry}
+%\geometry{left={2cm}, right={2cm}, top={2cm}, bottom={2cm}}
+\geometry{left={3cm}, right={3cm}, top={3cm}, bottom={3cm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%begin/end environment short-cuts%%%%%%%%%%%%%5
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqs}{\begin{equation*}}
+\newcommand{\eeqs}{\end{equation*}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\bal}{\begin{align}}
+\newcommand{\eal}{\end{align}}
+\newcommand{\bals}{\begin{align*}}
+\newcommand{\eals}{\end{align*}}
+\newcommand{\bse}{\begin{subequations}}
+\newcommand{\ese}{\end{subequations}}
+\newcommand{\bpr}{\begin{proposition}}
+\newcommand{\epr}{\end{proposition}}
+\newcommand{\bre}{\begin{remark}}
+\newcommand{\ere}{\end{remark}}
+\newcommand{\bpf}{\begin{proof}}
+\newcommand{\epf}{\end{proof}}
+\newcommand{\ble}{\begin{lemma}}
+\newcommand{\ele}{\end{lemma}}
+\newcommand{\bco}{\begin{corollary}}
+\newcommand{\eco}{\end{corollary}}
+\newcommand{\bex}{\begin{example}}
+\newcommand{\eex}{\end{example}}
+\newcommand{\bth}{\begin{theorem}}
+\newcommand{\enth}{\end{theorem}}
+
+%%%%%%%%%%%%%mathematical symbols%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\noi}{\noindent}
+\newcommand{\satop}[2]{\stackrel{\scriptstyle{#1}}{\scriptstyle{#2}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bP}{\mathbb{P}}
+%\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\cA}{{\cal A}}
+\newcommand{\cC}{{\cal C}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cE}{{\cal E}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cH}{{\cal H}}
+\newcommand{\cI}{{\cal I}}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\opL}{\cL}
+\newcommand{\cP}{{\cal P}}
+\newcommand{\cQ}{{\cal Q}}
+\newcommand{\cR}{{\cal R}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\cK}{{\cal K}}
+\newcommand{\cD}{{\cal D}}
+\newcommand{\cV}{{\cal V}}
+\newcommand{\cW}{{\cal W}}
+\newcommand{\cX}{{\cal X}}
+\newcommand{\cU}{{\cal U}}
+\newcommand{\cM}{{\cal M}}
+\newcommand{\cN}{{\cal N}}
+\newcommand{\cB}{{\cal B}}
+\newcommand{\cO}{{\cal O}}
+\newcommand{\cZ}{{\cal Z}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bfr}{\mathbf{r}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\bxi}{{\boldsymbol{\xi}}}
+\newcommand{\balpha}{{\boldsymbol{\alpha}}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bze}{\mathbf{0}}
+\newcommand{\brr}{\br}
+\newcommand{\bn}{\mathbf{n}}
+\newcommand{\bnu}{\boldsymbol{\nu}}
+\newcommand{\btau}{\mathbf{\tau}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bm}{\mathbf{m}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bff}{\mathbf{f}}
+\newcommand{\bt}{\mathbf{t}}
+\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bbb}{\mathbf{b}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bQ}{\mathbf{Q}}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\tU}{\tilde{U}}
+\newcommand{\ta}{\tilde{a}}
+\newcommand{\hu}{\hat{u}}
+\newcommand{\hax}{\hat{x}}
+\newcommand{\rsons}{\mathrm{sons}}
+\newcommand{\rfar}{\mathrm{far}}
+\newcommand{\rnear}{\mathrm{near}}
+\newcommand{\hx}{\hat{x}}
+\newcommand{\bd}{\mathbf{d}}
+\newcommand{\bah}{\hat{\mathbf{a}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\END}{\hfill$\Box$\vspace{0.2cm}}
+\newcommand{\bNo}{\mathbb{N}\cup\{0\}}
+\newcommand{\bfgamma}{\boldsymbol{\gamma}}
+\newcommand{\tbx}{\widetilde{\bx}}
+\newcommand{\tOmega}{\widetilde{\Omega}}
+
+\newcommand{\la}{\lambda}
+
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\re}{{\rm e}}
+\newcommand{\ri}{{\rm i}}
+\newcommand{\rd}{{\rm d}}
+
+\newcommand{\Rea}{\mathbb{R}}
+\newcommand{\Com}{\mathbb{C}}
+
+\newcommand{\half}{\frac{1}{2}}
+
+%%%%%%%%%%%%% math operators %%%%%%%
+
+\newcommand{\esssup}{\mathop{{\rm ess} \sup}}
+\newcommand{\essinf}{\mathop{{\rm ess} \inf}}
+
+\newcommand{\comp}{\mathop{{\rm comp}}}
+\newcommand{\loc}{\mathop{{\rm loc}}}
+\newcommand{\diam}{\mathop{{\rm diam}}}
+\newcommand{\dist}{\mathop{{\rm dist}}}
+\newcommand{\card}{\mathop{{\rm card}}}
+\newcommand{\sspan}{\mathop{{\rm span}}}
+
+\newcommand{\ntlim}[1]{\mathop{{\rm n.t.} \lim_{#1}}}
+
+\newcommand{\diff}[2]{\frac{\rd #1}{\rd #2}}
+\newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}
+
+%%%%%%%%%%%%% geometric set up %%%%%%
+
+\newcommand{\Oi}{{\Omega_-}}
+\newcommand{\Oe}{{\Omega_+}}
+\newcommand{\OR}{{\Omega_R}}
+\newcommand{\ON}{{\Omega_N}}
+%\newcommand{\ORo}{{\Omega_{R+1}}}
+\newcommand{\ORo}{{\Omega_{R_1}}}
+\newcommand{\Ob}{{\Omega_b}}
+\newcommand{\GR}{{\Gamma_R}}
+\newcommand{\GN}{{\Gamma_N}}
+\newcommand{\GRo}{{\Gamma_{R_1}}}
+
+\newcommand{\po}{\Gamma}%partial \Omega}
+\newcommand{\pD}{{\partial \domaingen}}
+\newcommand{\baro}{\overline{\Omega}}
+
+\newcommand{\length}{L}
+
+\newcommand{\GammaR}{\Gamma_R}% B_R}%\Gamma_R}
+\newcommand{\GammaRo}{\Gamma_{R_1}}
+
+\newcommand{\BR}{B_R}
+\newcommand{\BRo}{B_{R_1}}
+
+%%%%%%%%%% normal derivatives 
+\newcommand{\dudn}{\pdiff{u}{n}}
+\newcommand{\dudnw}{\partial u/\partial n}
+\newcommand{\dudnu}{\pdiff{u}{\nu}}
+\newcommand{\dudnuw}{\partial u/\partial \nu}
+\newcommand{\dudnuA}{\pdiff{u}{\nu_A}}
+\newcommand{\dudnuAw}{\partial u/\partial \nu_A}
+
+\newcommand{\dvdnu}{\pdiff{v}{\nu}}
+\newcommand{\dvdnuw}{\partial v/\partial \nu}
+\newcommand{\dvdnuA}{\pdiff{v}{\nu_A}}
+\newcommand{\dvdnuAw}{\partial v/\partial \nu_A}
+
+\newcommand{\dvdn}{\pdiff{v}{n}}
+\newcommand{\dwdn}{\pdiff{w}{n}}
+\newcommand{\dvdnw}{\partial v/\partial n}
+\newcommand{\dwdnw}{\partial w/\partial n}
+
+\newcommand{\dnu}{\partial_n u}
+\newcommand{\dnv}{\partial_n v}
+\newcommand{\dnpu}{\partial_n^+ u}
+\newcommand{\dnmu}{\partial_n^- u}
+\newcommand{\dnpv}{\partial_n^+ v}
+\newcommand{\dnmv}{\partial_n^- v}
+\newcommand{\dnpw}{\partial_n^+ w}
+\newcommand{\dnmw}{\partial_n^- w}
+
+\newcommand{\gpu}{\gamma_+ u}
+
+%%%%%%%%%% tangential 
+
+
+\newcommand{\gtu}{\nabla_T u}
+\newcommand{\gtv}{\nabla_T v}
+
+\newcommand{\nT}{\nabla_{\pD}}
+
+\newcommand{\ntS}{\nabla_\Gamma S_k}%\pdiff{S_k}{T}}
+
+%%%%%%%%%%%%%% nus ets.
+\newcommand{\nus}{|u|^2}
+\newcommand{\mus}{\nus}
+\newcommand{\ngus}{|\nabla u|^2}
+\newcommand{\nurs}{|u_r|^2}
+\newcommand{\ngtus}{\ngus - \nurs}
+\newcommand{\gu}{\nabla u}
+
+\newcommand{\nvs}{|v|^2}
+\newcommand{\ngvs}{|\nabla v|^2}
+\newcommand{\nws}{|w|^2}
+\newcommand{\ngws}{|\nabla w|^2}
+\newcommand{\nvrs}{|v_r|^2}
+\newcommand{\ngtvs}{\ngvs - \nvrs}
+\newcommand{\gv}{\nabla v}
+\newcommand{\gw}{\nabla w}
+\newcommand{\gvb}{\overline{\nabla v}}
+
+\newcommand{\vb}{\overline{v}}
+\newcommand{\ub}{\overline{u}}
+
+\newcommand{\mphs}{|\phi|^2}
+\newcommand{\nphs}{\|\phi\|^2_{\LtG}}
+\newcommand{\npss}{\|\psi\|^2_{\LtG}}
+%\newcommand{\nvs}{|v|^2}
+%\newcommand{\ngvs}{|\nabla v|^2}
+%\newcommand{\nvrs}{|v_r|^2}
+%\newcommand{\ngtvs}{\ngvs - \nvrs}
+%\newcommand{\gv}{\nabla v}
+
+\newcommand{\mdudns}{\left|\dudn\right|^2}
+\newcommand{\mdudss}{\left|\duds\right|^2}
+
+%%%%%%%%% function spaces %%%%%%%%%
+
+\newcommand{\LtG}{{L^2(\Gamma)}}
+\newcommand{\LtGD}{{L^2(\Gamma_D)}}
+\newcommand{\LtGI}{{L^2(\Gamma_I)}}
+\newcommand{\LtGN}{{L^2(\GN)}}
+\newcommand{\HoG}{H^1(\Gamma)}
+
+\newcommand{\HhG}{H^{1/2}(\Gamma)}
+\newcommand{\HmhG}{H^{-1/2}(\Gamma)}
+%\newcommand{\HoG}{H^{1}(\Gamma)}
+\newcommand{\HmoG}{H^{-1}(\Gamma)}
+
+\newcommand{\LtD}{{L^2(\domain)}}
+\newcommand{\HoD}{H^1(\domain)}
+\newcommand{\HhdD}{H^{1/2}(\partial D)}
+\newcommand{\HmhdD}{H^{-1/2}(\partial D)}
+
+\newcommand{\LtO}{{L^2(\Omega)}}
+%\newcommand{\Ho}{{H^1(\Omega)}}
+\newcommand{\HoDk}{{H^1_{0,D}(\domain_R)}}
+\newcommand{\HoDkk}{{H^1_{k}(\domain_R)}}
+
+\newcommand{\LtOR}{{L^2(\OR)}}
+\newcommand{\LtON}{{L^2(\ON)}}
+\newcommand{\LtOe}{{L^2(\Oe)}}
+
+\newcommand{\Holoc}{H^1_{\text{loc}}}
+\newcommand{\Holoce}{H^1_{\text{\emph{loc}}}}
+
+\newcommand{\Lt}[1]{L^2( #1 )}
+\newcommand{\Ho}[1]{H^1( #1 )}
+\newcommand{\Hh}[1]{H^{1/2}( #1)}
+\newcommand{\Hmh}[1]{H^{-1/2}( #1)}
+
+\newcommand{\CicompR}{C^\infty_{\text{comp}}(\Rea^d)}
+\newcommand{\DOmega}{\cD(\domaingen)}%C_{\text{comp}}^\infty(\Omega)}
+\newcommand{\DOmegabar}{\cD(\overline{\domaingen})}%C_{\text{comp}}^\infty(\overline{\Omega})}
+
+%%%%%%%%limits 
+
+\newcommand{\tendi}{\rightarrow \infty}
+\newcommand{\tendo}{\rightarrow 0}
+\newcommand{\intpmi}{\int^{\infty}_{-\infty}}
+\newcommand{\intpmii}{\int^{i\infty}_{-i\infty}}
+\newcommand{\intoi}{\int^{\infty}_{0}}
+\newcommand{\intoii}{\int^{i\infty}_{0}}
+\newcommand{\intomii}{\int^{-i\infty}_{0}}
+\newcommand{\sumpmi}{\sum^{\infty}_{n=-\infty}}
+\newcommand{\sumoi}{\sum^{\infty}_{n=1}}
+\newcommand{\sumni}{\sum^{\infty}_{n=0}}
+\newcommand{\intotp}{\int^{2\pi}_{0}}
+
+
+%%%%%%%%%%%integral equations 
+
+\newcommand{\Ainv}{\Vert (A'_{k,\eta})^{-1}\Vert}
+
+\newcommand{\opA}{A'_{k,\eta}}
+\newcommand{\opAk}{A'_{k,k}}
+\newcommand{\opABW}{A_{k,\eta}}
+\newcommand{\opABWk}{A_{k,k}}
+\newcommand{\opAinv}{(A'_{k,\eta})^{-1}}
+\newcommand{\opABWinv}{A^{-1}_{k,\eta}}
+\newcommand{\normA}{\|\opA\|}
+\newcommand{\normABW}{\|\opABW\|}
+\newcommand{\normAinv}{\|\opAinv\|}
+\newcommand{\normABWinv}{\|\opABWinv\|}
+
+%%%%%%%%%%%% vectors in curvilinear coords %%%%%%%%%
+
+\newcommand{\vecen}{\mathbf{e}_n}
+\newcommand{\vecer}{\mathbf{e}_r}
+\newcommand{\veces}{\mathbf{e}_s}
+\newcommand{\vecet}{\mathbf{e}_t}
+
+\newcommand{\unitn}{\widehat{\mathbf{e}}_n}
+\newcommand{\units}{\widehat{\mathbf{e}}_s}
+\newcommand{\unitt}{\widehat{\mathbf{e}}_t}
+
+\newcommand{\ML}{\text{ML}}
+\newcommand{\altR}{\cR}
+
+
+%%%%%%% special functions 
+
+\newcommand{\Ai}{\mathop{{\rm Ai}}}
+\newcommand{\Aip}{\mathop{{\rm Ai}'}}
+\newcommand{\Hankel}[2]{H^{(1)}_{#1}(#2)}
+\newcommand{\Hankelp}[2]{H^{(1)'}_{#1}(#2)}
+\newcommand{\HankelJ}[2]{J_{#1}(#2)}
+\newcommand{\HankelJp}[2]{J'_{#1}(#2)}
+
+%%%%%%%%%% new for this paper
+
+\newcommand{\ks}{\kappa(s)}
+\newcommand{\kl}{\kappa_*}
+\newcommand{\ku}{\kappa^*}
+\newcommand{\factor}{1+ n \ks}
+\newcommand{\factorb}{(1+ n \ks)}
+\newcommand{\factorbb}{\big(1+ n \ks\big)}
+
+\newcommand{\duds}{\pdiff{u}{s}}
+\newcommand{\dvds}{\pdiff{v}{s}}
+\newcommand{\dudsw}{\partial u/\partial s}
+\newcommand{\dvdsw}{\partial v/\partial s}
+\newcommand{\dudr}{\pdiff{u}{r}}
+\newcommand{\dudrw}{\partial u/\partial r}
+\newcommand{\cc}{\beta}
+
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\Cot}{\widetilde{C_{1}}}
+\newcommand{\optodo}[1]{\ednote{OPTODO: #1}}
+\newcommand{\dd}{\,d}
+\newcommand{\abs}[1]{|#1|}
+\newcommand{\So}{S_{1}}
+\newcommand{\sol}{\cS}
+%\newcommand{\coeff}{\text{coeff}}
+\newcommand{\coeff}{c}
+\newcommand{\dothis}{\optodo{Do this}}
+\newcommand{\etamax}{\eta_{\max}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\mean}{n_{0}}
+\newcommand{\nmin}{\varmin}
+\newcommand{\solDR}{\sol}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\MpsiR}{M_{\psi,\Rea}}
+\newcommand{\inc}{\iota}
+\newcommand{\nmax}{\varmax}
+\newcommand{\nsl}{n_{l}}
+\newcommand{\nsu}{n_{u}}
+\newcommand{\CSol}{\cC_{\text{sol}}}
+\newcommand{\CsR}{\cC_{R}}
+\newcommand{\Omegas}{\Omega_{\text{s}}}
+%\newcommand{\ctilde}{\widetilde{\coeff}}
+%\newcommand{\Atilde}{\widetilde{A}}
+%\newcommand{\ntilde}{\widetilde{n}}
+
+
+% For fiddling with diagram
+\newcommand{\hout}{(1.5,-2)}
+\newcommand{\iin}{(2,-2)}
+
+
+%%%%%%%%%%%%%%PV integral%%%%%%%%%%%%
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+%%%%%%%%From paper with Andrea%%%%%%%
+\newcommand*{\N}[1]{\left\|#1\right\|}
+%\newcommand*{\Nn}[1]{\vertiii#1\right\|}
+
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+
+%%%%%%%%%%%%%%%%%%%% ANDREA'S %%%%%%%%%%%%%%5
+\usepackage{hyperref}
+\definecolor{myblue}{rgb}{0,0,0.6}
+\hypersetup{colorlinks=true,
+linkcolor=myblue,citecolor=myblue,filecolor=myblue,urlcolor=myblue}
+\providecommand{\red}{\textcolor{red}}
+\allowdisplaybreaks[4]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% text short cuts %%%%%%
+
+\newcommand{\ton}{\text{ on }}
+\newcommand{\tin}{\text{ in }}
+\newcommand{\tfa}{\text{ for all }}
+\newcommand{\tfor}{\text{ for }}
+\newcommand{\tas}{\text{ as }}
+\newcommand{\tand}{\text{ and }}
+\newcommand{\tst}{\text{ such that }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\multa}{\cZ}
+\newcommand{\multb}{\cM}
+\newcommand{\cont}{C_c}
+\newcommand{\bU}{\mathbf{u}} % !!!!!!
+%\newcommand{\bv}{\mathbf{v}} % !!!!!!
+%\newcommand{\DOmega}{\cD(D)}%C_{\text{comp}}^\infty(\Omega)}
+%\newcommand{\DOmegabar}{\cD(\overline{D})}%C_{\text{comp}}^\infty(\overline{\Omega})}
+\newcommand{\hatx}{\widehat{\bx}}
+\newcommand{\surface}{{\sigma}}
+\newcommand{\kp}{{\kappa}}
+\newcommand{\var}{{n}}
+\newcommand{\varmin}{{n_{\min}}}
+\newcommand{\varmax}{{n_{\max}}}
+\newcommand{\thetamin}{{\vartheta_{\min}}}
+\newcommand{\thetamax}{{\vartheta_{\max}}}
+\newcommand{\ang}[1]{{\left\langle{#1}\right\rangle}}
+\newcommand{\GammaN}{{\Gamma}}
+
+\newcommand{\princP}{\sigma(P)}
+
+\newcommand{\domain}{\Omega}
+\newcommand{\domaingen}{\Omega}
+
+\newcommand{\Oin}{\Omega_T}
+\newcommand{\Oout}{\Rea^d\setminus\overline{\Omega_T}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{escol}{rgb}{0,0,0.8}
+\definecolor{estcol}{rgb}{0,0.8,0}
+\newcommand{\es}[1]{{\color{escol}{#1}}}
+\newcommand{\est}[1]{{\color{estcol}{#1}}}
+\newcommand{\esnote}[1]{\footnote{\es{ES: #1}}}
+\newcommand{\esdel}[1]{\es{\st{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\matrixI}{{\bf I}}
+
+\newcommand{\matrixA}{{\bf A}}
+\newcommand{\matrixC}{{\bf C}}
+\newcommand{\matrixD}{{\bf D}}
+\newcommand{\matrixS}{{\bf S}}
+\newcommand{\matrixM}{{\bf M}}
+\newcommand{\matrixN}{{\bf N}}
+\newcommand{\matrixAj}{{\bf A}^{(j)}}
+\newcommand{\matrixAo}{{\bf A}^{(1)}}
+\newcommand{\matrixAt}{{\bf A}^{(2)}}
+\newcommand{\matrixSj}{{\bf S}^{(j)}}
+\newcommand{\matrixMj}{{\bf M}^{(j)}}
+\newcommand{\matrixNj}{{\bf N}^{(j)}}
+
+\newcommand{\coeffA}{A}
+\newcommand{\coeffn}{n}
+\newcommand{\coeffAj}{A^{(j)}}
+\newcommand{\coeffAo}{A^{(1)}}
+\newcommand{\coeffAt}{A^{(2)}}
+\newcommand{\coeffnj}{n^{(j)}}
+\newcommand{\coeffno}{n^{(1)}}
+\newcommand{\coeffnt}{n^{(2)}}
+\newcommand{\solj}{u^{(j)}}
+%\usepackage{refcheck}
+\newcommand{\tu}{\widetilde{u}}
+\newcommand{\tbu}{\widetilde{\bu}}
+
+
+\begin{document}
+
+\title{Preconditioning discretisations of the heterogeneous Helmholtz equation for multiple realisations of the coefficients
+}
+
+\author{
+I. G.~Graham\footnotemark[1],\,\, 
+O. R.~Pembery\footnotemark[1],\,\, 
+E. A.~Spence\footnotemark[1]
+}
+
+\date{\today}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\footnotetext[1]{Department of Mathematical Sciences, University of Bath, Bath, BA2 7AY, UK, \tt I.G.Graham@bath.ac.uk, O.R.Pembery@bath.ac.uk, E.A.Spence@bath.ac.uk}
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+\maketitle
+
+\begin{abstract}
+
+This paper answers the following question: let $\matrixAj$, $j=1,2,$ be the Galerkin matrices corresponding to finite-element discretisations of the exterior Dirichlet problem for the heterogeneous Helmholtz equations $\nabla\cdot (\coeffAj \nabla \solj) + k^2 \coeffnj \solj = -f$. How small must 
+$\|\coeffAo - \coeffAt\|_{L^\infty}$ and 
+$\|\coeffno - \coeffnt\|_{L^\infty}$ be (in terms of $k$-dependence) for GMRES applied to either $(\matrixA^{(1)})^{-1}\matrixA^{(2)}$ 
+or $\matrixA^{(2)}(\matrixA^{(1)})^{-1}$
+to converge in a $k$-independent number of iterations
+%$ to be a good preconditioner for $\matrixA^{(2)}$
+ for arbitrarily large $k$? (In other words, for $\matrixA^{(1)}$ to be a good left- or right-preconditioner for $\matrixA^{(2)}$?)
+
+Our motivation for tackling this question comes from calculating quantities of interest for the Helmholtz equation with \emph{random} coefficients $A$ and $n$. Such a calculation requires the solution of many deterministic Helmholtz problems, each with different $A$ and $n$, and the answer to the question above dictates to what extent a previously-calculated inverse of one of the Galerkin matrices can be used as a preconditioner for other Galerkin matrices. 
+
+\paragraph{Keywords:} Helmholtz equation, preconditioning, heterogeneous, variable wave speed, high frequency, uncertainty quantification.
+
+\paragraph{AMS subject classifications:} 35J05, 65F08, 65N22, 65N30  
+
+\end{abstract}
+
+%\ednote{I'm struggling to find a good title. Options:
+%\ben
+%\item Preconditioning discretisations of the heterogeneous Helmholtz equation
+%\item Preconditioning discretisations of the heterogeneous Helmholtz equation for multiple realisations of the coefficients
+%\een
+%}
+
+
+
+\section{Introduction}\label{sec:intro}
+
+\subsection{Statement of the problem}\label{sec:problem}
+
+Let $\Oi \subset \Rea^d, d=2,3, $ be a bounded Lipschitz open set such that the open complement $\Oe:= \Rea^d\setminus\overline{\Oi}$ is connected. 
+Let $\solj(\bx)$, $j=1,2,$ satisfy 
+%be the solutions of the exterior Dirichlet problem for 
+the heterogeneous Helmholtz equation
+\beq\label{eq:pde}
+\nabla\cdot(\coeffAj \nabla\solj ) + k^2 \coeffnj \solj =-f \quad \tin \Oe,
+\eeq
+the Dirichlet boundary condition $u^{(j)}=0$ on $\Gamma:= \partial \Oi$, and the Sommerfeld radiation condition 
+\beq\label{eq:src}
+\pdiff{u^{(j)}}{r}(\bx) - \ri k u^{(j)}(\bx) = o \left( \frac{1}{r^{(d-1)/2}}\right)
+\eeq
+as $r:= |\bx|\tendi$ (uniformly in $\hatx:= \bx/r$),
+where $k>0$ is the wavenumber. In Equation \eqref{eq:pde},
+\ben
+\item $\coeffAj$ are symmetric, real-valued, positive-definite  matrix functions of $\bx$, 
+\item $\coeffnj$ are real-valued functions of $\bx$, bounded away from zero, and 
+\item $\supp(I-\coeffAj)$, $\supp(1-\coeffnj)$, and $\supp\, f$ are all %compactly 
+contained in $B_R:= \{\bx : \|\bx\|_2<R\}$ for some $R>0$
+\een
+(see Definition \ref{def:EDP} below for a precise definition of this boundary-value problem).
+
+Let $\matrixAj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-version finite-element discretisations (with decreasing mesh size $h$ and fixed polynomial degree $p$)
+of \eqref{eq:pde} truncated to $\Omega_R:= \Oe \cap B_R$, with the radiation condition realised exactly on $\Gamma_R:=\partial B_R$ via the exact Dirichlet-to-Neumann map (see Definition \ref{def:Galerkin} and \eqref{eq:matrixAjdef} below for a precise definition of $\matrixAj$). Our results also hold in the case when the radiation condition is approximated by an impedance boundary condition, and the truncation boundary is not necessarily $\Gamma_R$; see Section \ref{sec:TEDP}.
+ 
+This paper answers the following question:
+
+\bit
+\item[Q1.] How small must $\|\coeffAo - \coeffAt\|_{L^\infty}$ and 
+$\|\coeffno - \coeffnt\|_{L^\infty}$ be (in terms of $k$-dependence) for GMRES 
+applied to $(\matrixA^{(1)})^{-1}\matrixA^{(2)}$ to converge in a $k$-independent number of iterations
+%$ to be a good preconditioner for $\matrixA^{(2)}$
+ for arbitrarily large $k$? 
+\eit
+
+\subsection{Motivation from uncertainty quantification of the Helmholtz equation} 
+Consider the Helmholtz equation 
+\beqs%\label{eq:pde}
+\nabla\cdot\big(\coeffA(\bx;\omega) \nabla u(\bx,\omega) \big) + k^2 \coeffn(\bx;\omega) u(\bx;\omega) =-f(\bx), \quad \bx\in\Oe,
+\eeqs
+where $\coeffA(\bx;\omega)$ and $\coeffn(\bx;\omega)$ are \emph{random fields}, and $\omega$ is an element of the underlying probability space.
+To calculate quantities of interest of the solution $u(\cdot;\omega)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\cdot,\omega)$ and $n(\cdot,\omega)$.
+Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; this difficulty is due to the following three reasons:
+\begin{enumerate}
+\item 
+The solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ oscillate on a scale of $1/k$, and so to approximate them accurately with piecewise-polynomial functions one needs the total number of degrees of freedom, $N$, to be proportional to $k^d$ as $k$ increases.
+\item The \emph{pollution effect} means that, for fixed-order finite-element methods, having $N\sim k^d$ is still not enough to keep the relative finite-element error bounded independently of $k$ as $k$ increases. This growth of $N$ with $k$ leads to very large matrices, and hence to large computational costs.
+\item 
+The standard variational formulation of the Helmholtz equation is not coercive (i.e.~it is sign-indefinite) when $k$ is sufficiently large; in other words, zero is in the \emph{numerical range} or \emph{field of values} of the operator (defined in \eqref{eq:fov} below). This indefiniteness is inherited by the Galerkin linear system; therefore 
+even when the linear system has a unique solution (which depends on the discretisation and on $k$), one expects iterative methods to behave extremely badly if the system is not preconditioned.
+\end{enumerate}
+%The search for good preconditioners for discretisations of the H
+%Therefore, solving 
+
+%Our motivation for tackling this question comes from calculating quantities of interest for the Helmholtz equation with \emph{random} coefficients $A$ and $n$. Such a calculation requires the solution of many deterministic Helmholtz problems, each with different $A$ and $n$, and
+
+Suppose one calculates the LU factorisation of the Galerkin matrix for one realisation of the coefficients $A$ and $n$. The answer to Q1 above makes $k$-explicit the extent to which this factorisation can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
+
+\subsection{Statement of the main results}\label{sec:main}
+The main results about Q1, Theorem \ref{thm:1} and Corollaries \ref{cor:1} and \ref{cor:1a} below, are proved under two conditions. These are defined precisely in Conditions \ref{cond:1} and \ref{cond:2} below, but they can be informally stated as 
+\bit
+\item the obstacle $\Oi$ and the coefficients $\coeffAo$ and $\coeffno$ are such that $u^{(1)}$ exists and the problem is \emph{nontrapping} (i.e.~all the rays of geometric optics starting in $\Omega_R$ leave $\Omega_R$ after some uniform time), and
+\item the meshsize $h$ and polynomial degree $p$ in the finite-element method are chosen to depend on $k$ to ensure that the 
+finite-element solution to the problem with coefficients $\coeffAo$ and $\coeffno$ exists, is unique, and 
+%Galerkin method (with coefficients $\coeffAo$ and $\coeffno$) 
+is uniformly accurate as $k\tendi$. 
+\eit 
+
+We prove results \emph{both} in the Euclidean norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), \emph{and} in the weighted norms $\|\cdot\|_{\matrixD_k}$ and $\|\cdot\|_{(\matrixD_k)^{-1}}$ defined by 
+\beq\label{eq:Dk}
+\N{\bv}_{\matrixD_k}^2:= \big( \matrixD_k \bv, \bv\big)_2 = %\big( (\matrixS_I + k^2 \matrixM_1)\bv,\bv\big)_2 
+\N{v_h}^2_{\HoDkk}
+\quad \tand
+\quad \N{\bv}_{(\matrixD_k)^{-1}}^2:= \big( \matrixD_k^{-1} \bv, \bv\big)_2 %= %\big( (\matrixS_I + k^2 \matrixM_1)\bv,\bv\big)_2 
+%\N{v_h}^2_{\HoDkk}
+\eeq
+where $\matrixD_k$ is given in terms of familiar finite-element stiffness- and mass-matrices by \eqref{eq:Dk2} below, 
+$v_h =\sum_i v_i \phi_i$, and 
+\beq\label{eq:1knorm}
+\N{v}^2_{\HoDkk} := \N{\gv}^2_{L^2(\domain_R)} + k^2 \N{v}^2_{L^2(\domain_R)} \quad \tfor v \in H^1_{0,D}(\domain_R),
+\eeq
+where the space $H^1_{0,D}(\domain_R)$, defined by \eqref{eq:spaceEDP} below, is the natural space containing the solution of the exterior Dirichlet problem. 
+
+The PDE analysis of the Helmholtz equation naturally takes place in the norm $\|\cdot\|_{\HoDkk}$, and \eqref{eq:Dk} shows that the norm $\|\cdot\|_{\matrixD_k}$ is
+the discrete analogue of the norm $\|\cdot\|_{\HoDkk}$. %See \eqref{eq:Dk2} and \eqref{eq:Dk3} below for this norm expressed in terms of the Euc
+The norms $\|\cdot\|_{\matrixD_k}$ and $\|\cdot\|_{(\matrixD_k)^{-1}}$ recently appeared in results about the convergence of domain-decomposition methods %in this norm are proved 
+for the Helmholtz equation \cite{GrSpVa:17}, \cite{GrSpZo:18}, and for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:17}. 
+
+Our main results about Q1 are the following.
+
+\begin{theorem}[Main ingredient to answer to Q1]\label{thm:1}
+Assume that $\Oi$, $\coeffAo$, and $\coeffno$ satisfy Condition \ref{cond:1}, and assume that $h$ and $p$ satisfy Condition \ref{cond:2}. 
+Let the $k$- and $h$-independent constants $m_{\pm}$ and $s_{\pm}$ be given as in Lemma \ref{lem:normequiv} below.
+Then, given $k_0>0$, there exist $C_1, C_2>0$, independent of $h$ and $k$ (but dependent on $\Oi, \coeffAo, \coeffno$, $p$, and $k_0$) such that
+\begin{align}\nonumber
+&\max\Big\{
+\N{\matrixI - (\matrixA^{(1)})^{-1}\matrixA^{(2)}}_{\matrixD_k}, 
+\N{\matrixI -\matrixA^{(2)} (\matrixA^{(1)})^{-1}}_{(\matrixD_k)^{-1}}
+\Big\}\\
+&\hspace{3cm} 
+\leq C_1 \,k \,
+\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)} + C_2 \, k \, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}
+\label{eq:main1}
+\end{align}
+and 
+\begin{align}\nonumber
+&\max\Big\{
+\N{\matrixI - (\matrixA^{(1)})^{-1}\matrixA^{(2)}}_2, 
+\N{\matrixI -\matrixA^{(2)} (\matrixA^{(1)})^{-1}}_2
+\Big\}\\
+&\hspace{0cm} 
+\leq C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
+\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}
+\label{eq:main1a}
+\end{align}
+for all $k\geq k_0$. 
+\end{theorem}
+
+Two notes regarding Theorem \ref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \eqref{eq:C1} and \eqref{eq:C2} below in terms of constants appearing in Conditions \ref{cond:1} and \ref{cond:2}, and (ii) the $L^\infty(\Omega_R)$ norm on a matrix-valued functions appearing on the right-hand sides of \eqref{eq:main1} and \eqref{eq:main1a} is defined by
+\beqs
+\N{A}_{L^\infty(\Omega_R)}:= \esssup_{\bx\in\Omega_R}\N{A(\bx)}_2.
+\eeqs
+
+By using the field-of-values-based theory for the convergence of GMRES introduced in \cite{El:82}, \cite{EiElSc:83} (the so-called ``Elman estimate), we have the following corollaries.
+
+\begin{corollary}[Answer to Q1: $k$-independent weighted GMRES iterations]\label{cor:1}
+Assume that $\Oi$, $\coeffAo$, and $\coeffno$ satisfy Condition \ref{cond:1}, and $h$ and $p$ satisfy Condition \ref{cond:2}. Given $k_0>0$,
+let $C_1$ and $C_2$ be as in Theorem \ref{thm:1}. Then if 
+% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Oi, \coeffAo, \coeffno$, $p$, and $k_0$) and given explicitly in \eqref{eq:C2} below,
+% such that if 
+\beq\label{eq:cond}
+C_1 \,k \,\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)} +C_2 \, k\, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}
+\leq \frac{1}{2}
+\eeq
+for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\matrixD_k}$ (and the associated inner product) applied to 
+\beq\label{eq:pcsystem1}
+(\matrixA^{(1)})^{-1}\matrixA^{(2)}\bu = \bff
+\eeq
+\emph{and} weighted GMRES working in $\|\cdot\|_{(\matrixD_k)^{-1}}$ (and the associated inner product) applied to 
+\beq\label{eq:pcsystem2}
+\matrixA^{(2)}(\matrixA^{(1)})^{-1}\bv = \bff
+\eeq
+ converge in a $k$-independent number of iterations for all $k\geq k_0$.
+\end{corollary}
+
+\begin{corollary}[Answer to Q1: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
+Assume that $\Oi$, $\coeffAo$, and $\coeffno$ satisfy Condition \ref{cond:1}, and $h$ and $p$ satisfy Condition \ref{cond:2}. Given $k_0>0$,
+let $C_1$ and $C_2$ be as in Theorem \ref{thm:1}, and let $s_{\pm}$ and $m_{\pm}$ be as in Lemma \ref{lem:normequiv} (note that all these constants are independent of $k$, $h$, and $p$). Then if 
+% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Oi, \coeffAo, \coeffno$, $p$, and $k_0$) and given explicitly in \eqref{eq:C2} below,
+% such that if 
+\beq\label{eq:conda}
+ C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
+\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}
+\leq \frac{1}{2}
+\eeq
+for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \eqref{eq:pcsystem1} or \eqref{eq:pcsystem2}
+%\beqs
+%(\matrixA^{(1)})^{-1}\matrixA^{(2)}\bu = \bff\quad\text{ or } \quad\matrixA^{(2)}(\matrixA^{(1)})^{-1}\bv = \bff
+%\eeqs
+ converges in a $k$-independent number of iterations for all $k\geq k_0$.
+\end{corollary}
+
+
+
+The factor $1/2$ on the right-hand sides of \eqref{eq:cond} and \eqref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations is then larger -- but still independent of $k$.
+%In \S\ref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
+
+\bre
+When $h\sim  k^{-1}$, the bounds \eqref{eq:main1} and \eqref{eq:main1a} (and hence also \eqref{eq:cond} and \eqref{eq:conda}) are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect) the bound \eqref{eq:main1a} for standard GMRES is more pessimistic than the bound \eqref{eq:main1} for weighted GMRES.
+\ere
+
+
+\paragraph{How sharp are Theorem \ref{thm:1} and Corollaries \ref{cor:1} and \ref{cor:1a} in their $k$-dependence?}
+Numerical experiments in \S\ref{sec:num} indicate that the condition \eqref{eq:cond} is sharp, in that the $k$ in \eqref{eq:cond} cannot be replaced by $k^\alpha$ for $\alpha<1$ \ednote{put some plots in here}. This suspected sharpness of \eqref{eq:cond} is also supported by the PDE-result Theorem \ref{thm:2} below. Indeed, Theorem \ref{thm:2} % and Lemma \ref{lem:1} 
+ shows that the condition
+\beqs
+k\,
+\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)} \quad\text{ and } \quad k\,\big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}
+%\Big) 
+\quad\text{ both sufficiently small}
+\eeqs
+is not only an answer to Q1 (about finite-element discretisations), but is also the natural answer to the analogue of Q1 at the level of PDEs, namely 
+\bit
+\item[Q2.]
+How small must $\|\coeffAo - \coeffAt\|_{L^\infty}$ and 
+$\|\coeffno - \coeffnt\|_{L^\infty}$ be (in terms of $k$-dependence) for the relative error in approximating 
+%$u^{(1)}$ to be a good approximation to 
+$u^{(2)}$ by $u^{(1)}$ to be bounded independently of $k$ for arbitrarily-large $k$? 
+\eit
+Lemma \ref{lem:sharp} then shows that the condition ``$k\|\coeffno - \coeffnt\|_{L^\infty}$ sufficiently small" is the \emph{provably-sharp} answer to Q2 when $\coeffAo= \coeffAt= I$.
+
+%Before stating these PDE results, we define the weighted $H^1$ norm
+%\beq\label{eq:1knorm}
+%\N{v}^2_{\HoDkk} := \N{\gv}^2_{L^2(\domain_R)} + k^2 \N{v}^2_{L^2(\domain_R)} \quad \tfor v \in H^1_{0,D}(\domain_R),
+%\eeq
+%where the space $H^1_{0,D}(\domain_R)$, defined by \eqref{eq:spaceEDP} below, is the natural space containing the solution of the exterior Dirichlet problem. 
+To state these PDE results, we use the notation for $a,b>0$ that $a\lesssim b$ when $a\leq C b$ for some $C>0$, independent of $k$, and $a\sim b$ if $a\lesssim b$ and $b\lesssim a$.
+
+
+%The sharpness of \eqref{eq:cond} and \eqref{eq:main1} is also supported by the answer to the analogue of Q1 at the level of PDEs. Indeed, the following Theorem \ref{thm:2} is the analogue of Theorem \ref{thm:1} 
+
+\begin{theorem}[Answer to Q2 (the PDE analogue of Q1)]\label{thm:2}
+%Given $f\in L^2(\Omega_R)$ such that $\supp \, f \subset B_R$, 
+Let $\Oi$, $\coeffAo$, and $\coeffno$ satisfy Condition \ref{cond:1}, and let $\Oi$, $\coeffAt$, and $\coeffnt$ be such that $u^{(2)}$ exists
+for any $f\in L^2(\Omega_R)$ such that $\supp \, f \subset B_R$. 
+Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicitly in terms of $\Oi$, $\coeffAo$, and $\coeffno$ in \eqref{eq:C3} below, such that
+\beq\label{eq:PDEbound}
+\frac{\big\|u^{(1)}-u^{(2)}\big\|_{\HoDkk}
+}{
+\N{u^{(2)}}_{\HoDkk}
+}\leq C_3 \,k\, \max\Big\{\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}\Big\}%\right)
+\eeq
+for all $k\geq k_0$. 
+\end{theorem}
+
+\ble[Sharpness of the bound \eqref{eq:PDEbound} when $\coeffAo = \coeffAt= I$]\label{lem:sharp}
+
+\
+
+\noi 
+There exist $f, \,\coeffno$, and $\coeffnt$ (with $\coeffno\neq \coeffnt$) such that 
+the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\coeffAo = \coeffAt= I$ exist, are unique, and satisfy
+\beq\label{eq:sharp1}
+\frac{\N{u^{(1)}-u^{(2)}}_{\HoDkk}
+}{
+\N{u^{(2)}}_{\HoDkk}
+}
+\sim 
+\frac{\N{u^{(1)}-u^{(2)}}_{L^2(\Omega_R)}
+}{
+\N{u^{(2)}}_{L^2(\Omega_R)}
+}\sim k \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}.
+\eeq
+%\noi (ii) There exist $f, \coeffAo, \coeffAt$, (with $\coeffAo\not\equiv \coeffAt$), such that 
+%the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\coeffno \equiv \coeffnt\equiv 1$ exist, are unique, and satisfy
+%%There exist $f\in L^2(\Omega_R), \coeffAj \in C^{0,1}(\Omega_R)$, $j=1,2$ (with $\coeffAo\not\equiv \coeffAt$), such that the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\coeffno \equiv \coeffnt\equiv 1$ satisfy
+%\beq\label{eq:sharp2}
+%\frac{\N{u^{(1)}-u^{(2)}}_{\HoDkk}
+%}{
+%\N{u^{(2)}}_{\HoDkk}
+%}
+%\sim 
+%\frac{\N{u^{(1)}-u^{(2)}}_{L^2(\Omega_R)}
+%}{
+%\N{u^{(2)}}_{L^2(\Omega_R)}
+%}\sim k \big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)}.
+%\eeq
+\ele
+
+
+\section{Numerical experiments}\label{sec:num}
+
+\subsection{Investigating the sharpness of Theorem \ref{thm:1} and Corollary \ref{cor:1}}
+
+Theorem \ref{thm:1} and Corollary \ref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \S\ref{sec:problem} and shown in \S\ref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \eqref{eq:src} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see Definition \ref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of Theorem \ref{thm:1} and Corollary \ref{cor:1} for the TEDP.
+
+\subsection{Fancy experiments Owen is doing where \eqref{eq:cond} only holds ``on average"}
+
+%Say that these are for the TEDP defined in Definition \ref{def:TEDP}.
+
+\section{Definitions and conditions}\label{sec:3}
+
+\subsection{The variational problem and the Galerkin method}\label{sec:vpGm}
+
+All our function spaces will be complex-valued, unless stated otherwise; i.e., $L^2(D)$ denotes the space of \emph{complex-valued} $L^2$ functions on $D$, but $L^\infty(D,\Rea)$ denotes the space of \emph{real-valued} $L^\infty$ functions on $D$.
+
+%$L^\infty(\domain)$ denotes complex-valued $L^\infty$ functions on a Lipschitz open set $\domain$. 
+%When the range of the functions is not $\Com$, it will be given in the second argument; e.g. 
+%$L^\infty(\domain,\Rea^{d\times d})$ denotes the space of $d\times d$ matrices with each entry a real-valued $L^\infty$ function on $\domain$.
+%We write $A\subset \subset B$ iff $A$ is \emph{compactly contained} in $B$ (i.e. $A$ is a compact subset of the open set $B$). 
+%We use $\gamma$ to denote the trace operator $H^1(\domain)\rightarrow H^{1/2}(\partial \domain)$ and use $\dist(\cdot,\cdot)$ to denote the distance function.
+
+\begin{definition}[Exterior Dirichlet problem (EDP)]\label{def:EDP}
+Let $\domain_-$ be a bounded Lipschitz open set such that the open complement $\domain_+:= \Rea^d\setminus \overline{\domain_-}$ is connected. Let $\Gamma:= \partial \domain_-$. 
+Let $\domain_R:= \domain_+\cap B_R$ and let %$H_{0,D}^1(\domain_R)$ be the completion of 
+\beq\label{eq:spaceEDP}
+H_{0,D}^1(\domain_R):= \big\{ v\in H^1(\domain_R) : \gamma v=0 \ton \Gamma\big\},
+\eeq
+where $\gamma$ denotes the trace operator on $\Gamma$.
+Define $T_R: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ to be the Dirichlet-to-Neumann (DtN) map for the equation $\Delta u+k^2 u=0$ posed in the exterior of $B_R$ with the Sommerfeld radiation condition \eqref{eq:src}; the definition of $T_R$ in terms of Hankel functions and polar coordinates (when $d=2$)/spherical polar coordinates (when $d=3$) is given in, e.g., \cite[Equations 3.5 and 3.6]{ChMo:08} \cite[\S2.6.3]{Ne:01}, \cite[Equations 3.7 and 3.10]{MeSa:10}.
+
+Given 
+%\bit
+%\item 
+$f\in L^2(\domain_+)$ with $\supp\, f\subset B_R$,
+%\item 
+$\coeffn\in L^\infty(\domain_+,\Rea)$ such that $\supp(1-n)\subset B_R$ and 
+\beq\label{eq:nlimitsEDP}
+0<\varmin \leq \coeffn(\bx)\leq\varmax<\infty\,\, \text{ for almost every } \bx \in \domain_+,
+\eeq
+%\item 
+$\coeffA \in L^\infty (\domain_+ , \Rea^{d\times d})$ such that $\supp(I -\coeffA)\subset B_R$, $\coeffA$ is symmetric, and there exist $0<\coeffA_{\min}\leq \coeffA_{\max}<\infty$ such that
+\beq\label{eq:AellEDP}
+ \coeffA_{\min} |\bxi|^2\leq\big(\coeffA(\bx) \bxi\big) \cdot\overline{ \bxi}  \leq \coeffA_{\max}|\bxi|^2 \quad\text{ for almost every }\bx \in \domain_+ \text{ and for all } \bxi\in \Com^d,
+\eeq
+%\eit
+we say that $u \in H^1_{0,D}(\domain_R)$ satisfies the \emph{exterior Dirichlet problem} if 
+\beq\label{eq:EDPvar}
+%\text{ find } u \in H^1_{0,D}(\domain_R) \tst 
+%\quad 
+a(u,v)=F(v) \quad \tfa v\in H^1_{0,D}(\domain_R),
+\eeq
+where
+\beq\label{eq:EDPa}
+a(u,v):= \int_{\domain_R} 
+\Big((\coeffA \gu)\cdot\gvb
+ - k^2 \coeffn u\vb\Big) - \big\langle T_R \gamma u,\gamma v\big\rangle_{\Gamma_R}\quad\tand\quad
+F(v):= \int_{\domain_R} f\, \vb,
+\eeq
+and where $\langle\cdot,\cdot\rangle_{\GR}$ is the duality pairing on $\GR$ that is linear in the first argument and antilinear in the second.
+\end{definition}
+
+\bre[The EDP with data in $(\HoDkk)'$]
+In Definition \ref{def:EDP} we defined the EDP with the antilinear functional $F$ arising from an $f\in L^2(\OR)$. In the rest of the paper, 
+%\item In the rest of the paper, we usually consider the EDP with data given by $F$ defined in \eqref{eq:EDPvar}, but sometimes 
+we sometimes consider the EDP with general $F\in (\HoDk)'$ and we indicate when this is the case.
+In this latter situation, we recall that $\|\cdot\|_{\HoDkk}$ is defined by \eqref{eq:1knorm} and define the dual norm by
+\beq\label{eq:dualnorm}
+\N{F}_{(\HoDkk)'}:= \sup_{v\in \HoDk} \frac{|F(v)|}{\N{v}_{\HoDkk}}.
+\eeq
+%where $\|\cdot\|_{\HoDkk}$ is defined by \eqref{eq:1knorm}.
+\ere
+
+\bre[Relationship to the scattering problem posed on $\Oe$]
+For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \eqref{eq:pde} posed in $\Oe$ in a weak sense, and satisfying both the Sommerfeld radiation condition \eqref{eq:src} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:18}.
+\ere
+
+\bre[Existence and uniqueness]
+Since $a(\cdot,\cdot)$ satisfies the G\aa rding inequality 
+\beq\label{eq:Garding}
+\Re a(v,v) \geq \min\big\{ A_{\min}, n_{\min}\big\} \N{v}^2_{\HoDkk} - 2k^2 \N{v}^2_{L^2(\Omega_R)},
+\eeq
+Fredholm theory implies that existence of a solution to \eqref{eq:EDPvar} follows from uniqueness (see, e.g., \cite[Theorem 2.34]{Mc:00}).
+Unique continuation results then imply that, under the additional assumption that $A$ is piecewise Lipschitz, the solution of the EDP of Definition \ref{def:EDP} exists and is unique; see \cite{GaLi:87}, \cite{BaCaTs:12}, and the discussion in \cite[\S1 and \S2.4]{GrPeSp:18} and \cite[\S]{GrSa:18}.
+\ere
+
+
+%\noi Note:
+%\bit
+%\item Here we have defined the EDP with the antilinear functional $F$ arising from an $f\in L^2(\OR)$. In the rest of the paper, 
+%%\item In the rest of the paper, we usually consider the EDP with data given by $F$ defined in \eqref{eq:EDPvar}, but sometimes 
+%we sometimes consider the EDP with general $F\in (\HoDk)'$ and we indicate when this is the case.
+%In this latter situation, we let 
+%\beq\label{eq:dualnorm}
+%\N{F}_{(\HoDkk)'}:= \sup_{v\in \HoDk} \frac{|F(v)|}{\N{v}_{\HoDkk}},
+%\eeq
+%where $\|\cdot\|_{\HoDkk}$ is defined by \eqref{eq:1knorm}.
+%\item For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \eqref{eq:pde} posed in $\Oe$ in a weak sense, and satisfying both the Sommerfeld radiation condition \eqref{eq:src} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:18}.
+%\item Since $a(\cdot,\cdot)$ satisfies the G\aa rding inequality 
+%\beq\label{eq:Garding}
+%\Re a(v,v) \geq \min\big\{ A_{\min}, n_{\min}\big\} \N{v}^2_{\HoDkk} - 2k^2 \N{v}^2_{L^2(\Omega_R)},
+%\eeq
+%Fredholm theory implies that existence of a solution to \eqref{eq:EDPvar} follows from uniqueness (see, e.g., \cite[Theorem 2.34]{Mc:00}).
+%Unique continuation results then imply that, under the additional assumption that $A$ is piecewise Lipschitz, the solution of the EDP of Definition \ref{def:EDP} exists and is unique; see \cite{GaLi:87}, \cite{BaCaTs:12}, and the discussion in \cite[\S1 and \S2.4]{GrPeSp:18} and \cite[\S]{GrSa:18}.
+%\eit
+
+Given $\Oi$, $f$, $\coeffAj, j=1,2,$ and $\coeffnj, j=1,2,$ all satisfying the conditions in Definition \ref{def:EDP}, we let  $u^{(j)}$ denote the solution of the exterior Dirichlet problem of Definition \ref{def:EDP} with $\coeffA=\coeffAj$ and $\coeffn= \coeffnj$.
+We also let $a^{(j)}(\cdot,\cdot)$ denote the sesquilinear form $a(\cdot,\cdot)$ defined in \eqref{eq:EDPa} with $\coeffA=\coeffAj$ and $\coeffn= \coeffnj$.
+
+\begin{definition}[Finite-element/Galerkin solution]\label{def:Galerkin}
+
+Let $(\cV_h)_{h>0}$ be a family of finite-dimensional, nested subspaces of $H_{0,D}^1(\domain_R)$, whose union is dense in $H_{0,D}^1(\domain_R)$. Furthermore let $\cV_h$ consist of piecewise-polynomials on a simplicial mesh with mesh-size $h$
+%\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Oi$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
+and fixed polynomial degree $p$. (Note that the dimension $N$ of $V_h$ then satisfies $N\sim h^{-d}$.)
+
+
+Let $a(\cdot,\cdot)$ be defined by \eqref{eq:EDPa}. Given $F\in (\HoDk)'$, let $u$ be the solution of the variational problem \eqref{eq:EDPvar} (i.e.~$u$ is the solution of the exterior Dirichlet problem with general data). The \emph{finite-element/Galerkin solution}, $u_h$, satisfies the variational problem
+\beq\label{eq:Galerkin}
+%\text{ find } u \in H^1_{0,D}(\domain_R) \tst 
+%\quad 
+a(u_h,v_h)=F(v_h) \quad \tfa v_h \in V_h.
+\eeq
+\end{definition}
+
+%Definition of Galerkin method
+
+Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\cV_h$ with each $\phi_i$ \emph{real-valued}.
+Let 
+\beq\label{eq:matrixSjdef}
+\big(\matrixS_{A}\big)_{ij}:= \int_\Omega \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
+\big(\matrixM_{n}\big)_{ij}:= \int_\Omega n\,\phi_i\, \phi_j,
+\quad\tand\quad
+\big(\matrixN\big)_{ij}:= \int_{\GR} T_R (\gamma\phi_j) \,\gamma \phi_i.
+\eeq
+Note that both $\matrixS_A$ and $\matrixM_n$ are \emph{real-valued}, but $\matrixN$ is \emph{complex-valued} (because the DtN operator $T_R$ is complex-valued).
+Let
+\beq\label{eq:matrixAdef}
+\matrixA := \matrixS_{A} - k^2 \matrixM_{n} - \matrixN,
+\eeq
+and let $u_h:= \sum_j u_j \phi_j$. Then \eqref{eq:Galerkin} implies that
+\beqs
+\matrixA \bu = \bff,
+\eeqs
+where $(\bff)_i := F(\phi_i)$.
+Similar to above we let 
+\beq\label{eq:matrixAjdef}
+\matrixAj := \matrixS_{A^{(j)}} - k^2 \matrixM_{n^{(j)}} - \matrixN.
+\eeq
+Finally, let 
+\beq\label{eq:Dk2}
+\matrixD_k:= \matrixS_I + k^2 \matrixM_1;
+\eeq
+so that \eqref{eq:Dk} holds.
+%then the weighted norm $\|\cdot\|_{\matrixD_k}$ is given by 
+%\beq\label{eq:Dk3}
+%\N{\bv}_{\matrixD_k}^2:=   \N{v_h}^2_{\HoDkk}=\big( \matrixD_k \bv,\bv\big)_2,
+%\eeq
+%for
+%$v_h =\sum_i v_i \phi_i$. 
+
+\bre
+For arbitrary Lipschitz $\Oi$, it is not always possible to fit $\Gamma$ exactly with simplicial elements, and some analysis of non-conforming error is then necessary; since this is very standard, we do not give it here.
+%\ednote{Euan copied this remark from \cite{GaGrSp:15}. Probably need to say something along these lines since don't have $H^2$ regularity for polyhedral $\Oi$ (and will talk about $H^2$ regularity in \S\ref{sec:cond2}).}
+\ere
+
+\ble[Norm equivalences of FE functions]\label{lem:normequiv}
+\ednote{Euan says: need to say using a nodal basis here} If $\cV_h$ is quasi-uniform, then
+there exist $m_\pm$ and $s_\pm$, independent of $h$ and $p$, such that
+\beq\label{eq:normequiv1}
+m_- h^{d/2} \N{\bv}_2 \leq \N{v_h}_{L^2(\OR)} \leq m_+ h^{d/2} \N{\bv}_2,
+\eeq
+and
+\beq\label{eq:normequiv2}
+s_- h^{d/2} \N{\bv}_2 \leq \N{\nabla v_h}_{L^2(\OR)} \leq s_+ h^{d/2-1} \N{\bv}_2,
+\eeq
+for all finite-element functions $v_h =\sum_i v_i \phi_i \in \cV_h$.
+\ele
+
+Written in terms of the matrices $\matrixM_1$ and $\matrixS_I$ defined in \eqref{eq:matrixSjdef}, the bounds \eqref{eq:normequiv1} and \eqref{eq:normequiv2} are, respectively, the familiar bounds
+\beqs
+(\matrixM_1 \bv,\bv)_2 \sim h^d \N{\bv}^2_2 \quad\tand\quad h^{d}\N{\bv}^2_2 \lesssim (\matrixS_I \bv,\bv)_2 \lesssim h^{d-2} \N{\bv}^2_2.
+\eeqs
+
+\bpf[Sketch proof of Lemma \ref{lem:normequiv}]\ednote{can omit this if can find a good reference. One possibility \cite[Chapter V, Lemma 2.6]{Br:97}.}
+The inequalities in \eqref{eq:normequiv1} follow from writing $\|v_h\|_{L^2(\OR)}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
+%\beqs
+%\N{v_h}^2_{L^2(\O
+%\eeqs
+Then, \eqref{eq:normequiv2} follows from \eqref{eq:normequiv1} and the inequalities
+\beqs
+\N{v_h}_{L^2(\Omega_R)}\lesssim \N{\nabla v_h}_{L^2(\Omega_R)}\lesssim \frac{1}{h} \N{v_h}_{L^2(\Omega_R)},
+\eeqs
+the first of which follows from the Poincar\'e inequality, since $v_h \in \HoDk$
+(see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
+\epf
+
+
+Finally, we need the concept of the \emph{adjoint} sesquilinear form to $a(\cdot,\cdot)$.
+
+\begin{definition}[The adjoint sesquilinear form $a^*(\cdot,\cdot)$]\label{def:adjoint}
+Let $\Oi$, $n$, and $A$, be as in the definition of the EDP (Definition \ref{def:EDP}). The adjoint sesquilinear form, $a^*(u,v)$, to $a(\cdot,\cdot)$ defined in \eqref{eq:EDPa} is given by
+\beq\label{eq:EDPadjoint}
+a^*(u,v) := \int_{\domain_R} 
+\Big((\coeffA \gu)\cdot\gvb
+ - k^2 \coeffn u\vb\Big) - \big\langle \gamma u,T_R(\gamma v)\big\rangle_{\Gamma_R}.
+\eeq
+\end{definition}
+
+\noi It is then straightforward to check that
+\beq\label{eq:A*}
+\matrixA^* := \matrixS_A -k^2 \matrixM_n - \matrixN^*
+\eeq
+(where $^*$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $a^*(\cdot,\cdot)$; i.e.~$(\matrixA^*)_{ij} = a^*(\phi_j, \phi_i)$.
+
+\ble[Link between variational problems involving $a(\cdot,\cdot)$ and $a^*(\cdot,\cdot)$]\label{lem:adjoint}
+Given $F\in (\HoDk)'$, if $u$ is the solution to the variational problem
+\beq\label{eq:adjoint1}
+a^*(u,v)= F(v) \quad\tfa v\in H^1_{0,D}(\OR),
+\eeq
+then $\overline{u}$ satisfies
+\beq\label{eq:adjoint2}
+a(\overline{u},v)= \overline{F(\overline{v})} \quad\tfa v\in H^1_{0,D}(\OR).
+\eeq
+\ele
+
+For the proof of Lemma \ref{lem:adjoint} we need the following property of the DtN map $T_R$:
+\beq\label{eq:DtN}
+\big\langle T_R\psi, \overline{\phi} \big\rangle_\Gamma = \big\langle T_R \phi, \overline{\psi}\big\rangle_\Gamma \quad\tfa \phi,\psi \in H^{1/2}(\GR).
+\eeq
+This property follows from the fact that, if $u$ and $v$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\Rea^d\setminus \overline{B_R}$, both satisfying the Sommerfeld radiation condition \eqref{eq:src}, then
+\beqs
+\int_{\GR} (\gamma u)\, \pdiff{v}{n} = \int_{\GR} (\gamma v)\,\pdiff{u}{n};
+\eeqs
+see, e.g., \cite[Lemma 6.13]{Sp:15}.
+
+\bpf[Proof of Lemma \ref{lem:adjoint}]
+From \eqref{eq:adjoint1} we have that 
+\beqs
+\overline{a^*(u,\overline{v})}= \overline{F(\overline{v})} \quad\tfa v\in H^1_{0,D}(\OR).
+\eeqs
+Using the definition of $a^*(\cdot,\cdot)$ and the property \eqref{eq:DtN} in the left-hand side of this last equation, we find \eqref{eq:adjoint2}.
+\epf
+
+\subsection{Nontrapping condition on $\coeffAo, \coeffno,$ and $\Oi$ (Condition \ref{cond:1})}\label{sec:cond1}
+
+
+\begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1}
+$\coeffAo, \coeffno,$ and $\Oi$ are such that, given $f\in L^2(\Omega_R)$ with $\supp \, f \subset B_R$, 
+the solution of the EDP %(Definition \ref{def:EDP}) 
+$u^{(1)}$ exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
+\beq\label{eq:bound1}
+\big\|u^{(1)}\big\|_{\HoDkk} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(\Oe)} \quad \tfa k\geq k_0,
+\eeq
+where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\coeffAo, \coeffno, \Oi, R$, and $k_0$.
+\end{condition}
+
+Using the G\aa rding inequality \eqref{eq:Garding}, one can prove the following result; see \cite[Lemma 5.1]{GrPeSp:18}.
+
+\ble[Bound for data in $(\HoDk)'$]\label{lem:H1}
+%With the sesquilinear form $a(\cdot,\cdot)$ defined by \eqref{eq:EDPa} with $\coeffA=\coeffAo$ and $\coeffn=\coeffno$, 
+Given $\widetilde{F}\in (H^1_{0,D}(\Omega_R))^*$, let $\widetilde{u}$ be the solution of the variational problem
+\beqs
+\text{ find } \,\,\widetilde{u} \in H^1_{0,D}(\domain_R) \,\,\tst \,\,
+a^{(1)}(\widetilde{u},v)=\widetilde{F}(v) \,\, \tfa v\in H^1_{0,D}(\domain_R).
+\eeqs
+If Condition \ref{cond:1} holds, then $\widetilde{u}$ exists, is unique, and satisfies the bound
+\beq\label{eq:bound2}
+\N{\widetilde{u}}_{\HoDkk} \leq \frac{1}{\min\{\coeffAo_{\min},\coeffno_{\min}\}}\left( 1 + 2 C^{(1)}_{\rm bound}\coeffno_{\max}  k\right) \big\|\widetilde{F}\big\|_{(\HoDkk)'}
+\eeq
+for all $k\geq k_0$.
+\ele
+
+
+\subsubsection{When does Condition \ref{cond:1} hold?}\label{sec:cond1hold}
+
+%\ednote{Euan says: could make this an appendix}
+We now discuss the situations for when Condition \ref{cond:1} has been proved to hold. The main point is that Condition \ref{cond:1} holds when $\coeffAo, \coeffno,$ and $\Oi$ are such that the problem is \emph{nontrapping}, but the definition of nontrapping is subtle in the case when \emph{either} $\Oi \neq\emptyset$ \emph{or} $A$ and $n$ are discontinuous.
+
+We discuss four cases.
+\ben
+\item[Case 1:] $\Oi=\emptyset$, $\coeffAo$ and $\coeffno$ are $C^\infty$,
+\item[Case 2:] $\Oi\in C^\infty$, both $\coeffno$ and $\coeffAo$ are $C^{1,1}$ in $\Oe$ and $C^\infty$ in a neighbourhood of $\Oi$.
+\item[Case 3:] $\Oi$ is starshaped, $\coeffAo$ and $\coeffno$ are Lipschitz and satisfy radial monotonicity-like conditions.
+\item[Case 4:] $\coeffAo$ and $\coeffno$ are allowed to be discontinuous.
+\een
+
+\paragraph{Case 1.}
+In this case, %In the case when $\Oi=\emptyset$ and both $\coeffAo$ and $\coeffno$ are $C^{1,1}$, 
+the \emph{rays} of the Helmholtz equation $\nabla\cdot(A\gu)+ k^2 nu =-f$ are defined as the projections in $\bx$ of the solutions $(\bx(s), \bxi(s)) \in \Rea^d\times \Rea^d$ of the Hamiltonian system
+\beq\label{eq:rays}
+%\dot{x}_i
+\diff{x_i}{s}(s) = \pdiff{}{\xi_i}H\big(\bx(s), \bxi(s) \big), \qquad
+%\dot{\xi}_i
+\diff{\xi_i}{s}(s)
+ = -\pdiff{}{x_i}H\big(\bx(s), \bxi(s) \big),
+\eeq
+%where $\dot{}$ denotes differentiation with respect to $s$,
+where the Hamiltonian $H(\bx,\bxi)$ given by 
+\beqs
+H(\bx,\bxi):= \frac{1}{n(\bx)}\sum_{i=1}^d\sum_{j=1}^{d} A_{ij}(\bx)\xi_i \xi_j - 1%n(\bx)
+\eeqs
+(observe that $H$ is the \emph{semiclassical principle symbol} of the Helmholtz equation; see, e.g., \cite[\S7]{GrPeSp:18} for discussion on this aimed at a non-expert).
+
+\begin{definition}[Trapping/nontrapping]\label{def:trap}
+Given $\coeffAo$ and $\coeffno$ as in Definition \ref{def:EDP} and $\Oi=\emptyset$, the EDP is \emph{nontrapping} if 
+%Given $n\in C^1(\Rea^d)$ with $\supp(1-n)$ compact, consider the bicharacteristics defined by \eqref{eq:64} with $\tau=-1$ and thought of as a function of $t$ by Remark \ref{rem:bichar}. We say that $\coeffno$ is \emph{nontrapping} if, given $B_R(\bze)\supset \supp\, n$, 
+there exists a $S(R)>0$ such that all rays with $|\bx(s_0)|<R$ satisfy $|\bx(s)|>R$ for all $s\geq S(R)$; i.e.~all rays starting inside $B_R$ at $s_0$ have left $B_R$ by $S(R)$. 
+We say that the EDP \emph{trapping} if it is not nontrapping.
+\end{definition}
+
+The propagation of singularities results of \cite[\S VI]{DuHo:72} (see also, e.g., \cite[Chapter 24]{Ho:85}, \cite[\S12.3]{Zw:12}) combined with the parametrix argument of \cite{Va:75} then imply that Condition \ref{cond:1} is satisfied. These arguments, however, do not give an explicit expression for $C^{(1)}_{\rm bound}$ in terms of (properties of) $\coeffAo$ and $\coeffno$.
+
+\paragraph{Case 2.}
+Defining how the rays interact with the boundary $\Gamma$ is subtle, and requires the notion of the Melrose--Sj{\"o}strand generalized-bicharacteristic flow 
+\cite[\S24.3]{Ho:85}, \cite{MeSj:78}, \cite{MeSj:82}; the definition of trapping/non-trapping in this case \cite[Definition 7.20]{MeSj:82} is then analogous to Definition \ref{def:trap}.
+
+If the EDP is nontrapping, both $\coeffno$ and $\coeffAo$ are globally $C^{1,1}$ and $C^\infty$ in a neighbourhood of $\Oi$, and no rays are tangent to $\Gamma$ to infinite order, 
+then \cite[Theorem 2 and Equation 6.32]{GaSpWu:18} proves that Condition \ref{cond:1} holds with
+\beqs
+C^{(1)}_{\rm bound} := \frac{2\sqrt{2}}{\pi} \frac{1}{ (n_{\rm min})^{1/2}} \text{(Length of the longest ray in $\Omega_{R+2}$)};
+\eeqs
+%and the constant $k_0$ can be chosen uniformly as A and ? vary within a sufficiently small open neighborhood in C2,? (? > 0), 
+this result also holds when $\Oi=\emptyset$ and both $\coeffno$ and $\coeffAo$ are globally $C^{1,1}$.
+
+\paragraph{Case 3.}
+When $\Oi$ is star-shaped with respect to the origin, identities due originally to Morawetz and involving the vector field $\bx$ can be used to prove that Condiiton \ref{cond:1} holds, with an explicit expression for $C^{(1)}_{\rm bound}$, when $\coeffAo$ and $\coeffno$ are both Lipschitz and satisfy
+\beq\label{eq:A1}
+\coeffAo(\bx) - (\bx\cdot\nabla)\coeffAo(\bx) \geq \mu_1,\,\, \text{ in the sense of quadratic forms, for almost every }\bx\in \domain_+,
+\eeq
+and 
+\beq\label{eq:n1}
+\coeffno(\bx)+ \bx\cdot\nabla \coeffno(\bx) \geq \mu_2 \quad\text{ for almost every }\bx\in \domain_+,
+\eeq
+for $\mu_1, \mu_2>0$;
+see \cite[Theorem 2.5]{GrPeSp:18}. When $\coeffAo= I$, the condition on $\coeffno$ in \eqref{eq:n1} can be improved to $2\coeffno + \bx \cdot \nabla \coeffno \geq \mu_2$ \cite[Theorem 2.19(ii)]{GrPeSp:18}, and when $\coeffno$ is radial (i.e.~$\coeffno= \coeffno(r)$) and $\Oi=\emptyset$ this latter condition is equivalent to nontrapping \cite[Theorem 7.7]{GrPeSp:18}.
+Similarly, when $n= 1$, the condition on $\coeffAo$ in \eqref{eq:A1} can be improved to $2\coeffAo - (\bx\cdot\nabla)\coeffAo \geq \mu_1$
+\cite[Theorem 2.19(i)]{GrPeSp:18}.
+
+\paragraph{Case 4.}
+When $A$ and $n$ are discontinuous on a common $C^\infty$ interface with strictly positive curvature and $n$ jumps \emph{down} (when moving towards infinity) and $A$ jumps \emph{up}, then the problem is trapping and the solution operator grows exponentially through a sequence of complex $k$, exponentially close to the real axis, by the results in \cite{PoVo:99} (see \cite[\S6]{MoSp:17} for how this growth implies exponential growth through a sequence of \emph{real} $k$).
+
+When $A$ and $n$ are discontinuous on a common $C^\infty$ interface with strictly positive curvature and $n$ jumps \emph{up} and $A$ jumps \emph{down}, and $\Oi$ is 
+$C^\infty$ and nontrapping (in the sense that all rays starting in the intersection of $\Oe$ and any neighbourhood of $\Oi$ leave that set, and never return, after some uniform time) then
+%of \cite[Definition 7.20]{MeSj:82} 
+then Condition \ref{cond:1} is proved in \cite{CaPoVo:99}, but without an explicit expression for $C^{(1)}_{\rm bound}$.
+
+When $\Oi=\emptyset$ and $A$ and $n$ are piecewise constant (with $A$ scalar), discontinuous on a common Lipschitz star-shaped interface, and $n$ jumps \emph{up} and $A$ jumps \emph{down}, then Condition \ref{cond:1} is proved in \cite{MoSp:17} with an explicit expression for $C^{(1)}_{\rm bound}$. 
+This result was then generalised in \cite[Theorem 2.7]{GrPeSp:18}, where 
+Condition \ref{cond:1} is proved, again with an explicit expression for $C^{(1)}_{\rm bound}$, under the assumptions that $\Oi$ is starshaped with respect to the origin and $A$ and $n$ are $L^\infty$, with $A$ monotonically \emph{non-increasing} in the radial direction, and $n$ monotonically \emph{non-decreasing} (see \cite[Condition 2.6]{GrPeSp:18} for a more-precise statement of these conditions).
+
+
+%When $A$ and $n$ are discontinuous on an interface, the problem is trapping if $n$ jumps up (as one travels across the interface in the direction away from the obstacle) and $A$ jumps down; otherwise the problem is nontrapping. When the interfaces across which $A$ and $n$ jump -- in the nontrapping way -- are $C^\infty$ with strictly positive curvature and $\Oi$ is $C^\infty$ and nontrapping in the sense of \cite[Definition 7.20]{MeSj:82} then Condition \ref{cond:1} is proved in \cite{CaPoVo:99}.
+
+
+%defined by \
+%The rays are again defined by \eqref{eq:rays} in $\Oe$, but defining how they interact with the boundary $\Gamma$ is subtle.
+
+
+%Condition \ref{cond:1} holds when $\coeffAo, \coeffno,$ and $\Oi$ are \emph{nontrapping} in the sense of Melrose--Sj{\"o}strand~\cite[Definition 7.20]{MeSj:82}.
+
+
+
+%\begin{definition}[Nontrapping]\label{def:nt1}
+%We say that $\Oi\subset \Rea^d, \,d=2, 3$, is
+%\emph{nontrapping} if $\bound$ is smooth ($C^\infty$) and,
+%given $R$ such that $\overline{\Oi}\subset B_R$, there exists a $T(R)<\infty$ such that
+%all the billiard trajectories (in the sense of Melrose--Sj{\"o}strand~\cite[Definition 7.20]{MeSj:82})
+%that start in $\Omega_R$ %e\cap B_R(0)$
+% at time zero leave $\Omega_R$ %e\cap B_R(0)$
+% by time $T(R)$.
+%\end{definition}
+
+
+
+%for all $k\geq k_0$, where $\domain_R:= \domain_+\cap B_R(\bze)$, 
+%When $A, n$, and $\domain_-$ are all $C^\infty$ and such that the problem is \emph{nontrapping} (i.e.~all billiard trajectories starting in an exterior neighbourhood of $\domain_+:= \Rea^d\setminus \overline{\domain_-}$
+%and evolving according to the Hamiltonian flow defined by the symbol of \eqref{eq:1} escape from that neighbourhood after some uniform time),
+%then either (i) the propagation of singularities results of \cite{MeSj:82} combined with either the paramatrix argument of \cite{Va:75} or Lax--Phillips theory \cite{LaPh:89},
+% or (ii) the defect-measure argument of  \cite{Bu:02}\footnote{The arguments in \cite{Bu:02} actually require that, additionally, $\partial\domain_-$ has no points where the tangent vector makes infinite-order contact with $\partial\domain_-$.}
+
+
+\subsection{$k$-independent accuracy of the FE solution (Condition \ref{cond:2})}\label{sec:cond2}
+
+\begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
+\label{cond:2}
+
+\
+
+(i) Given $k_0>0$, $h$ and $p$ are such that, given $f\in L^2(\OR)$ with $\supp\, f \subset B_R$, the solution $u_h$ of the Galerkin method \eqref{eq:Galerkin} with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$ (and with $F(v)$ defined in \eqref{eq:EDPa}) exists and is unique for all $k\geq k_0$. % (so that the matrix $\matrixAo$ is invertible). 
+Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some  $n\in L^\infty(\OR,\Rea)$ and $\alpha_j \in \Com$ (i.e.~$f$ is an arbitrary element of $\cV_h$ multiplied by $n$), then
+\beq\label{eq:bound3}
+\N{u-u_h}_{\HoDkk} \leq C^{(1)}_{\rm FEM1} \N{f}_{L^2(\OR)} \quad\tfa k\geq k_0, 
+\eeq
+where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\coeffAo, \coeffno, \Oi, R, k_0$, and $p$.
+
+(ii) Given $k_0>0$, $h$ and $p$ are such that, given $F\in (\HoDk)'$, the solution $u_h$ of the Galerkin method \eqref{eq:Galerkin} 
+with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$
+exists, and is unique for all $k\geq k_0$.
+%(so that the matrix $\matrixAo$ is invertible). 
+Furthermore, if $F(v)= (A\nabla \widetilde{f},\nabla v)_{L^2(\OR)}$, where $A\in L^\infty(\OR, \Rea^{d\times d})$, $A$ is symmetric, and $\widetilde{f} := \sum_j \alpha_j \phi_j$ with $\alpha_j\in \Com$
+ (i.e.~$\widetilde{f}$ is an arbitrary element of $\cV_h$), then
+\beq\label{eq:bound4}
+\N{u-u_h}_{\HoDkk} \leq C^{(1)}_{\rm FEM2}\,k\, \N{F}_{(\HoDkk)'} \quad\tfa k\geq k_0, 
+\eeq
+where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\coeffAo, \coeffno, \Oi, R, k_0$, and $p$.
+\end{condition}
+
+\subsubsection{When does Condition \ref{cond:2} hold?}\label{sec:cond2hold}
+
+First recall that the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$ if there exists $h_0= h_0(k,p)>0$ and $C_{\rm qo}>0$ (independent on $k$) such that if $h\leq h_0$ then 
+\beq\label{eq:qo}
+\N{u-u_h}_{\HoDkk} \leq C_{\rm qo} \min_{v_h\in V_h} \N{u-v_h}_{\HoDkk}.
+\eeq
+Observe that if Condition \ref{cond:1} holds and the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$, 
+then Condition \ref{cond:2} holds (by choosing $v_h=0$). Furthermore, $C^{(1)}_{\rm FEM1}$ is then the product of $C_{\rm qo}$ and $C^{(1)}_{\rm bound}$, and  $C^{(1)}_{\rm FEM2}$ is related to $C_{\rm qo}$ and the constant on the right-hand side of \eqref{eq:bound2}.
+
+In the case of the \emph{homogeneous} Helmholtz equation (i.e.~\eqref{eq:pde} with $\coeffAo= I$ and $\coeffno=1$) conditions on $h,k,$ and $p$ for either quasi-optimality \eqref{eq:qo} or bounds on the Galerkin error in terms of the data (as in Condition \ref{cond:2}) were obtained in 1-d in \cite{IhBa:95, IhBa:97}, and then in 2- and 3-d in \cite{Me:95, Sa:06, MeSa:10, MeSa:11, Wu:13, ZhWu:13, ChNi:18} (with many of these references studying the truncated EDP -- see Section \S\ref{sec:TEDP} -- instead of the EDP). 
+\ednote{Maybe quote here all the thresholds, or put in numerical results section.}
+Initial analogues of these results for heterogeneous Helmholtz problems (making everything explicit in the coefficients $\coeffAo$ and $\coeffno$, as well as in $h, k$, and $p$) can be found in \cite{GrSa:18} (for the TEDP) and \cite{GaSpWu:18} (for the EDP).
+ 
+We now give results involving sufficient conditions for Part (ii) of Condition \ref{cond:2}  to hold. 
+We highlight at this stage that all the techniques discussed below
+%used to prove Lemmas \ref{lem:hp1} and \ref{lem:hp2} 
+require at least $H^2$ regularity of the (adjoint) solution. Since the data for the variational problem in Part (ii) of Condition \ref{cond:2} is in $(\HoDkk)'$ and not in $L^2(\OR)$, none of these techniques can be used to obtain conditions under which Part (ii) of Condition \ref{cond:1} holds.
+
+\ble[Conditions under which Part (i) of Condition \ref{cond:2} holds when $p=1$]\label{lem:hp1}
+If $\Gamma\in C^{1,1}$, $A\in C^{0,1}$, Condition \ref{cond:1} holds and $p=1$, then Part (i) of Condition \ref{cond:2} holds
+if $h k^2$ is sufficiently small. 
+\ele
+
+\bpf[Sketch proof]
+Quasi-optimality follows from the convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the context of the homogeneous Helmholtz equation by \cite{Me:95, Sa:06, MeSa:10, MeSa:11}); see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of Definition \ref{def:EDP} (and for an explicit expression for the constant $C_{\rm qo}$ in terms of $C_{\rm bound}^{(1)}$). 
+Inserting the bound  \eqref{eq:bound1} of Condition \ref{cond:1} into standard elliptic regularity estimates for the operator $\nabla\cdot(\coeffAo\nabla )$ implies that $\|u\|_{H^2(\OR)}\lesssim k\N{f}_{L^2(\OR)}$, and then, using results from polynomial approximation theory, we have
+ \beq\label{eq:AN1}
+\N{u-u_h}_{\HoDkk} \lesssim h \N{u}_{H^2(\OR)} + hk \N{u}_{H^1(\OR)}\lesssim hk \N{f}_{L^2(\OR)} \lesssim \frac{1}{k}\N{f}_{L^2(\OR)},
+\eeq
+and so Part (i) of Condition \ref{cond:2} is readily satisfied.
+\epf
+
+\bre[Results about Part (i) of Condition \ref{cond:2} for the truncated EDP]
+In the context of the truncated EDP (TEDP) defined in \S\ref{sec:TEDP}, the result of Lemma \ref{lem:hp1} holds more generally. Indeed,
+if $\Gamma_D\in C^{1,1}$, $\Gamma_I$ is either $C^{1,1}$ or convex, $A\in C^{0,1}$, Condition \ref{cond:1} holds and $p\leq r+1$, then Part (i) of Condition \ref{cond:2} holds
+if $h^p k^{p+1}$ is sufficiently small. This result is proved 
+%When $r\geq 1$ and $p\leq r+1$, quasi-optimality is proved when $h^p k^{p+1}$ is sufficiently small 
+in \cite{ChNi:18a}, using a novel splitting of the solution (motivated by the splittings in \cite{MeSa:10, MeSa:11} for the case $\coeffAo= I, \coeffno=1$). The first two bounds in \eqref{eq:AN1} hold as before, and then 
+$\|u-u_h\|_{\HoDkk} \lesssim  k^{-1/p}\|f\|_{L^2(\OR)}$, so the analogue of Part (i) of Condition \ref{cond:2} for the TEDP is readily satisfied.
+
+In addition, when $\coeffAo=I$ and $\coeffno=1$, Condition \ref{cond:1} holds, and $p=1$,  Part (i) of Condition \ref{cond:2} holds when $hk^{3/2}$ sufficiently small (cf.~$hk^2$ is sufficiently small in Lemma \ref{lem:hp1}) by 
+%. This result is proved when $\coeffAo=I$ and $\coeffno=1$ in 
+\cite{ZhWu:13} (see also \cite{ChNi:18}). This proof uses 
+a variation of the Schatz technique first introduced by \cite{FeWu:11} in the context of DG methods, and this technique requires a regularity assumption recently proved in \cite{ChNiTo:18}. Since this latter regularity result holds for general Hermitian-postive-definite $A\in C^{0,1}$, this result for the TEDP can be generalised for such $\coeffAo$ and arbitrary $\coeffno$ satisfying the requirements in the definition of the TEDP (Definition \ref{def:TEDP}).
+\ere
+
+
+%\bpf[Sketch proof]
+%When $r=0$, quasi-optimality follows from the convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the Helmholtz context by \cite{Me:95, Sa:06, MeSa:10, MeSa:11}); see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of Definition \ref{def:EDP} (and for an explicit expression for the constant $C_{\rm qo}$ in terms of $C_{\rm bound}^{(1)}$). 
+%Inserting the bound  \eqref{eq:bound1} of Condition \ref{cond:1} into standard elliptic regularity estimates for the operator $\nabla\cdot(\coeffAo\nabla )$ implies that $\|u\|_{H^2(\OR)}\lesssim k\N{f}_{L^2(\OR)}$, and then, using results from polynomial approximation theory, we have
+% \beq\label{eq:AN1}
+%\N{u-u_h}_{\HoDkk} \lesssim h \N{u}_{H^2(\OR)} + hk \N{u}_{H^1(\OR)}\lesssim hk \N{f}_{L^2(\OR)} \lesssim \frac{1}{k}\N{f}_{L^2(\OR)},
+%\eeq
+%and so Part (i) of Condition \ref{cond:2} is readily satisfied.
+%
+%When $r\geq 1$ and $p\leq r+1$, quasi-optimality is proved when $h^p k^{p+1}$ is sufficiently small in \cite{ChNi:18a}, using a novel splitting of the solution (motivated by the splittings in \cite{MeSa:10, MeSa:11} for the case $\coeffAo= I, \coeffno=1$). The first two bounds in \eqref{eq:AN1} hold as before, and then 
+%$\|u-u_h\|_{\HoDkk} \lesssim  k^{-1/p}\|f\|_{L^2(\OR)}$, so Part (i) of Condition \ref{cond:2} is again readily satisfied.
+%\epf
+%
+%The next lemma is useful only when $p=1$.
+%
+%\ble[Alternative conditions under which Part (i) of Condition \ref{cond:2} holds]\label{lem:hp2}
+%Part (i) of Condition \ref{cond:2} holds for $p=1$ when $hk^{3/2}$ sufficiently small. 
+%\ele
+%
+%\bpf[References for proof]
+%This result is proved when $\coeffAo=I$ and $\coeffno=1$ in \cite{ChNi:18}. This proof uses 
+%a variation of the Schatz technique first introduced by \cite{FeWu:11} in the context of DG methods, 
+%and underlined by the regularity result of \cite{ChNiTo:18}. Since this latter regularity result holds 
+%\epf
+%
+%\
+%
+
+
+
+%%%%%%%%%EUAN KEEPING OLD VERSION
+%We make the following remarks about Condition \ref{cond:2}.
+%\ben
+%%\item If both Conditions \ref{cond:1} and \ref{cond:2} are satisfied, then $u_h$ satisfies an a priori bound with the same $k$-dependence as the bound on $u$ in Condition \ref{cond:1}. % (and this is how we'll use Condition \ref{cond:2} in the proof of Theorem \ref{thm:1}).
+%\item If the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$, i.e.~there exists $h_0= h_0(k,p)>0$ and $C_{\rm qo}>0$ (independent on $k$) such that if $h\leq h_0$ then 
+%\beq\label{eq:qo}
+%\N{u-u_h}_{\HoDkk} \leq C_{\rm qo} \min_{v_h\in V_h} \N{u-v_h}_{\HoDkk},
+%\eeq
+%and Condition \ref{cond:1} holds, then Condition \ref{cond:2} holds. Furthermore, $C^{(1)}_{\rm FEM1}$ is then the product of $C_{\rm qo}$ and $C^{(1)}_{\rm bound}$, and  $C^{(1)}_{\rm FEM2}$ is related to $C_{\rm qo}$ and the constant on the right-hand side of \eqref{eq:bound2}.
+%\item The convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the Helmholtz context by \cite{Me:95}, \cite{Sa:06}, \cite{MeSa:10}) requires that the solution of the adjoint problem be $H^2$ regular. Applied to the PDE \eqref{eq:pde}, these techniques prove that quasi-optimality \eqref{eq:qo} holds
+% when $\Gamma \in C^{1,1}$ $A\in C^{0,1}$, $f\in L^2$, Condition \ref{cond:1} holds,  $p=1$, and $hk^2$ is sufficiently small; see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of Definition \ref{def:EDP}.
+% 
+%If Condition \ref{cond:1} holds and $u\in H^2$, one can show that $\|u\|_{H^2(\OR)}\lesssim k\N{f}_{L^2(\OR)}$, and then, using results about polynomial approximation theory, we have
+% \beq\label{eq:AN1}
+%\N{u-u_h}_{\HoDkk} \lesssim h \N{u}_{H^2(\OR)} + hk \N{u}_{H^1(\OR)}\lesssim hk \N{f}_{L^2(\OR)} \lesssim \frac{1}{k}\N{f}_{L^2(\OR)},
+%\eeq
+%and so Part (i) of Condition \ref{cond:2} is readily satisfied.
+%%(omitted constant depends on $C^{(1)}_{\rm bound}$ and ``$H^2$ regularity constant"). To get Part (ii) satisfied using these arguments would need $\phi_i \in H^2$ (restrictive).
+%\item A generalisation of the arguments in Point 2 with $f\in H^r$, $\Gamma\in C^{r+1,1}$, $A\in C^{r,1}$ (so that $u\in H^{r+2}$ by elliptic regularity), $p\leq r+1$, shows that quasioptimality
+%% (and hence \eqref{eq:AN1}) 
+%holds if $h^p k^{p+1}$ is sufficiently small \cite{ChNi:18a}, and one can then show that $\N{u-u_h}_{\HoDkk}\lesssim k^{-1} \N{f}_{L^2(\OR)}$, as in \eqref{eq:AN1}; so Part (i) of Condition \ref{cond:2} is again readily satisfied.
+%
+%\item A new variation of the Schatz technique from \cite{FeWu:11} in the context of DG methods, used in context of standard FEM in \cite{ChNi:18}
+%and underlined by the regularity result of \cite{ChNiTo:18}
+%
+%
+%Part (i) of Condition \ref{cond:2} holds for $p=1$ when $hk^{3/2}$ sufficiently small. This result proved already in 1-d in \cite{IhBa:95a}.
+%%\item ***Numerical experiments for Owen to do*** If we don't have $H^2$ regularity, do we still have that Condition \ref{cond:2} holds with $hk^2 \sim 1$? (I would guess yes.) What about when $hk^{3/2}\sim 1$?
+%\een
+
+
+\section{Proofs of the main results}\label{sec:proofs}
+
+\subsection{Proof of Theorem \ref{thm:1}} 
+
+The following two lemmas are the heart of the proof of Theorem \ref{thm:1}.
+
+\ble[Bounds on $(\matrixAo)^{-1} \matrixM_{n}$]\label{lem:keylemma1}
+Assume that Condition \ref{cond:1} holds, and assume that Part (i) of Condition \ref{cond:2} holds. Then, for $n\in L^\infty(\OR,\Rea)$,
+\beq\label{eq:keybound1}
+\max\Big\{\big\| (\matrixAo)^{-1} \matrixM_{n} \big\|_{\matrixD_k}, \,\,
+\big\|  \matrixM_{n}(\matrixAo)^{-1} \big\|_{(\matrixD_k)^{-1}}
+\Big\}\leq 
+C_2
+%\frac{m_+}{m_-} \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right] 
+\frac{\N{n}_{L^\infty(\OR)}}{k}
+\eeq
+and 
+\beq\label{eq:keybound1a}
+\max\Big\{\big\| (\matrixAo)^{-1} \matrixM_{n} \big\|_2, \,\,
+\big\|  \matrixM_{n}(\matrixAo)^{-1} \big\|_2 
+\Big\}\leq 
+C_2 
+%\frac{m_+}{m_-} \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right] 
+\left(\frac{m_+}{m_-}\right) \frac{\N{n}_{L^\infty(\OR)}}{k}
+\eeq
+for all $k\geq k_0$,
+where
+\beq\label{eq:C2}
+C_2:=%\frac{m_+}{m_-} 
+%\left[ 
+C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}.%\right].
+\eeq
+\ele
+
+\ble[Bounds on $(\matrixAo)^{-1} \matrixS_A$]\label{lem:keylemma2}
+Assume that Condition \ref{cond:1} holds, and assume that Part (ii) of Condition \ref{cond:2} holds. Then, for $A\in L^\infty(\OR,\Rea^{d\times d})$,
+\beq\label{eq:keybound2}
+\max\Big\{\big\| (\matrixAo)^{-1} \matrixS_A \big\|_{(\matrixD_k)^{-1}}, \,\,
+\big\| \matrixS_A (\matrixAo)^{-1} \big\|_{\matrixD_k}\Big\} \leq C_1\, k\N{A}_{L^\infty(\OR)}
+\eeq
+and
+\beq\label{eq:keybound2a}
+\max\Big\{\big\| (\matrixAo)^{-1} \matrixS_A \big\|_2, \,\,
+\big\| \matrixS_A (\matrixAo)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\N{A}_{L^\infty(\OR)}
+\eeq
+%\begin{align}\nonumber
+%&\max\Big\{\big\| (\matrixAo)^{-1} \matrixS_A \big\|_2, \,\,
+%\big\| \matrixS_A (\matrixAo)^{-1} \big\|_2\Big\}\nonumber \\
+%&\hspace{2cm}
+% \leq \frac{s_+}{s_-} \left[ C_{\rm FEM2}^{(1)} + 
+% \frac{1}{\min\big\{\coeffAo_{\min},\coeffno_{\min}\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\coeffno_{\max}  \right) \right]k\N{A}_{L^\infty(\OR)}\label{eq:keybound2}
+%% + C_{\rm bound}^{(1)}\right) \frac{\N{n}_{L^\infty(\OR)}}{k}.
+%\end{align}
+for all $k\geq k_0$, where
+\beq\label{eq:C1}
+C_1:=%\frac{s_+}{s_-} 
+\left[ C_{\rm FEM2}^{(1)} + 
+ \frac{1}{\min\big\{\coeffAo_{\min},\coeffno_{\min}\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\coeffno_{\max}  \right) \right]
+\eeq
+\ele
+
+\bpf[Proof of Theorem \ref{thm:1} using Lemmas \ref{lem:keylemma1} and \ref{lem:keylemma2}]
+Using the definition of the matrices $\matrixAj, \matrixS_A$, and $\matrixMj$ in \eqref{eq:matrixAjdef} and \eqref{eq:matrixSjdef}, we have
+\begin{align}\nonumber
+\matrixI - (\matrixAo)^{-1}\matrixAt = (\matrixAo)^{-1}\big(\matrixAo-\matrixAt\big) &=  (\matrixAo)^{-1}\left( \matrixS_{A^{(1)}} - \matrixS_{A^{(2)}} - k^2 \big(\matrixM_{n^{(1)}}-\matrixM_{n^{(2)}}\big)\right)\\
+&= (\matrixAo)^{-1}\left( \matrixS_{A^{(1)}-A^{(2)}} - k^2 \matrixM_{n^{(1)}-n^{(2)}}\right),\label{eq:idea1}
+\end{align}
+and similarly 
+\beq\label{eq:idea2}
+\matrixI -\matrixAt  (\matrixAo)^{-1}= \left( \matrixS_{A^{(1)}-A^{(2)}} - k^2 \matrixM_{n^{(1)}-n^{(2)}}\right)(\matrixAo)^{-1}.
+\eeq
+The bound  \eqref{eq:main1} on $\|\matrixI - (\matrixAo)^{-1}\matrixAt\|_2$ and  $\|\matrixI - \matrixAt(\matrixAo)^{-1}\|_2$ then follows from using the bounds \eqref{eq:keybound1} and \eqref{eq:keybound2} in \eqref{eq:idea1} and \eqref{eq:idea2}.
+%
+%, and $C_1$, $C_2$ in \eqref{eq:main1} are given explicitly by
+%\beq\label{eq:C1}
+%C_1:=%\frac{s_+}{s_-} 
+%\left[ C_{\rm FEM2}^{(1)} + 
+% \frac{1}{\min\big\{\coeffAo_{\min},\coeffno_{\min}\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\coeffno_{\max}  \right) \right] \,\,\tand\,\,
+%\quad C_2:=  %+ \frac{m_+}{m_-} 
+% \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right].
+%\eeq
+\epf
+
+\
+
+\bpf[Proof of Lemma \ref{lem:keylemma1}]
+We first concentrate on proving \eqref{eq:keybound1}.
+Given $\bff \in \Com^N$ and $n\in L^\infty(\OR,\Rea)$, we create a variational problem whose Galerkin discretisation leads to the equation $\matrixAo \tbu = \matrixM_n\,\bff$.
+Indeed, let $\widetilde{f} := \sum_j f_j \phi_j\in H^1_{0,D}(\OR)$. Define $\widetilde{u}$ to be the solution of the variational problem 
+\beq\label{eq:411}
+a^{(1)}(\widetilde{u},v)= (n\widetilde{f},v)_{L^2(\Omega)} \quad\text{ for all } v\in H^1(\Omega),
+\eeq
+let $\tu_h$ be the solution of the finite-element approximation of \eqref{eq:411}, i.e.,
+\beq\label{eq:41}
+a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h\in \cV_h,
+\eeq
+and let $\tbu$ be the vector of nodal values of $\tu_h$ \ednote{rephrase this as haven't (yet) assumed that $\{\phi_i\}$ is a nodal basis}. The definition of $\widetilde{f}$ then implies that \eqref{eq:41} is equivalent to the linear system $\matrixAo \tbu = \matrixM_{n}\,\bff$, and so to obtain a bound on $\|(\matrixAo)^{-1}\matrixM_n\|_{\matrixD_k}$ we need to bound $\|\tbu\|_{\matrixD_k}$ in terms of $\|\bff\|_{\matrixD_k}$. Because of the definition 
+of $\|\cdot\|_{\matrixD_k}$ in \eqref{eq:Dk}, this is equivalent to bounding $\|\tu_h\|_{\HoDkk}$ in terms of $\|\widetilde{f}\|_{\HoDkk}$.
+
+%First observe that the bound \eqref{eq:bound3} from Part (i) of Condition \ref{cond:2} holds for the solution of the variational problem
+%\beqs%\label{eq:411}
+%a^{(1)}(u,v)= (n\phi_j,v)_{L^2(\Omega)} \quad\text{ for all } v\in H^1(\Omega),
+%\eeqs
+%and hence, by linearity, it also holds for the solution $\widetilde{u}$ of the variational problem \eqref{eq:411}.
+
+Using %the bounds in \eqref{eq:normequiv1}, 
+the triangle inequality and the bounds \eqref{eq:bound3} and \eqref{eq:bound1} from Conditions \ref{cond:2} and \ref{cond:1} respectively, we find
+%Note that the hypotheses imply that the bound on the solution operator 
+%\eqref{eq:bound_unif} holds (by Corollary \ref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \eqref{eq:qoeps_lemma} holds (by Lemma \ref{lem:qo}).
+%Starting with \eqref{eq:equiv} we then have 
+\begin{align}
+%m_- h^{d/2}k \N{\tbu}_2 \leq k\N{\tu_h}_{L^2(\OR)}\leq  
+\N{\tu_h}_{\HoDkk} \leq
+\N{\tu-\tu_h}_{\HoDkk} + \N{\tu}_{\HoDkk} \label{eq:mainevent1}
+& \leq C^{(1)}_{\rm FEM1}\N{nf}_{L^2(\OR)} + C^{(1)}_{\rm bound}\big\|n\widetilde{f}\big\|_{L^2(\OR)} \\ \nonumber
+& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\OR)}\frac{\big\|\widetilde{f}\big\|_{\HoDkk}}{k};
+%& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\OR)} m_+ h^{d/2} \N{\bff}_2,
+\end{align}
+the bound on $\|(\matrixAo)^{-1}\matrixM_n\|_{\matrixD_k}$ in \eqref{eq:keybound1} then follows from the definition of $\|\cdot\|_{\matrixD_k}$ in \eqref{eq:Dk} and the definition of $C_2$ \eqref{eq:C2}.
+
+To prove the bound on $\|\matrixM_n(\matrixAo)^{-1}\|_{(\matrixD_k)^{-1}}$ in \eqref{eq:keybound1}, first observe that the definitions of $\|\cdot\|_{\matrixD_k}$ and $\|\cdot\|_{(\matrixD_k)^{-1}}$ imply that, for any matrix $\matrixC$ and for any $\bv\in \Com^N$,
+\beq\label{eq:A380-0}
+\frac{
+\big\|\matrixC \bv \big\|_{(\matrixD_k)^{-1}}
+}{
+\big\|\bv\|_{(\matrixD_k)^{-1}}
+} = 
+\frac{
+\big\|\matrixC^* \bw \big\|_{\matrixD_k}
+}{
+\big\|\bw\|_{\matrixD_k}
+}
+\eeq
+where $\bw := (\matrixD_k)^{1/2}\bv$, and where $\matrixC^*$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
+Therefore, since $\matrixM_n$ is a real, symmetric matrix,
+\beqs%
+\frac{
+\big\|\matrixM_n (\matrixAo)^{-1}\bv\big\|_{(\matrixD_k)^{-1}}
+}{
+\N{\bv}_{(\matrixD_k)^{-1}}
+}
+=
+\frac{
+\big\|((\matrixAo)^*)^{-1}\matrixM_n\bw\big\|_{\matrixD_k}
+}{
+\N{\bw}_{\matrixD_k}
+},
+ \eeqs
+ so that 
+\beq\label{eq:A380} 
+ \big\|\matrixM_n (\matrixAo)^{-1}\big\|_{(\matrixD_k)^{-1}}=\big\|((\matrixAo)^*)^{-1}\matrixM_n\big\|_{\matrixD_k}.
+ \eeq 
+Recall from the text below \eqref{eq:A*} that $(\matrixAo)^*$ is the Galerkin matrix corresponding to the variational problem \eqref{eq:adjoint1} -- the adjoint problem. Lemma \ref{lem:adjoint} implies that if the EDP %with coefficients $A^{(1)}$ and $n^{(1)}$ 
+satisfies Conditions \ref{cond:1} and \ref{cond:2}, then so does the adjoint problem. Therefore, the argument above leading to the bound on $\|(\matrixAo)^{-1}\matrixM_n\|_{\matrixD_k}$ under Condition \ref{cond:1} and Part (i) of Condition \ref{cond:2} proves the same bound on $\|((\matrixAo)^*)^{-1}\matrixM_n\|_{\matrixD_k}$, and then, using \eqref{eq:A380}, also on $\big\|\matrixM_n(\matrixAo)^{-1}\big\|_{(\matrixD_k)^{-1}}$.
+
+To prove the bound on  $\|(\matrixAo)^{-1}\matrixM_n\|_{2}$ in \eqref{eq:keybound1a}, we use the bounds 
+\beqs
+m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{L^2(\OR)} \leq \N{\widetilde{u}_h}_{\HoDkk}
+\,\tand\,
+\big\|\widetilde{f}\big\|_{L^2(\OR)} \leq m_+ h^{d/2}\N{\bff}_2,
+\eeqs
+on either side of the inequality \eqref{eq:mainevent1}, with these bounds coming from \eqref{eq:normequiv1}. The proof of the bound on 
+$\|\matrixM_n((\matrixAo)^*)^{-1}\|_{2}$ in \eqref{eq:keybound1a} follows in a similar way to above, using the fact that 
+$\|\matrixM_n (\matrixAo)^{-1}\|_2=\|((\matrixAo)^*)^{-1}\matrixM_n\|_2$ (compare to \eqref{eq:A380}).
+%, namely the variational problem \eqref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \eqref{eq:src} being changed to $+\ri k$).
+%
+%Now, if $u$ is the solution of the adjoint problem with data $F(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{F(\overline{v})}$; 
+%
+%in particular if $F(v)$ is as in \eqref{eq:EDPa}, then the $L^2$ data of the adjoint problem is just $\overline{f}$. Therefore, if the EDP satisfies Conditions \ref{cond:1} and \ref{cond:2}, then so does its adjoint, and
+% the bound in \eqref{eq:keybound1} on $\|(\matrixAo)^{-1}\matrixM_n\|_{2}$ also holds for $\|((\matrixAo)^*)^{-1}\matrixM_n\|_{2}$.
+\epf
+
+\
+
+\bpf[Proof of Lemma \ref{lem:keylemma1}]
+In a similar way to the proof of Lemma \ref{lem:keylemma1}, given $\bff \in \Com^N$ and a symmetric $A\in L^\infty(\OR, \Rea^{d\times d})$, let $\widetilde{f} := \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in H^1_{0,D}(\OR)$. Define $\widetilde{u}$ to be the solution of the variational problem 
+\beq\label{eq:411a}
+a^{(1)}(\widetilde{u},v)= \widetilde{F}(v) \quad\text{ for all } v\in H^1(\Omega),
+\quad\text{ where } \quad
+ \widetilde{F}(v) :=(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
+\eeq
+Observe that the definition of the norms $\|\cdot\|_{(\HoDkk)'}$ \eqref{eq:dualnorm} and $\|\cdot\|_{\HoDkk}$ \eqref{eq:1knorm} and the Cauchy-Schwarz inequality imply that
+\beq\label{eq:Fbound}
+\big\| \widetilde{F}\big\|_{(\HoDkk)'}\leq \big\|A\nabla \widetilde{f}\big\|_{L^2(\OR)} \leq \big\|A\big\|_{L^\infty(\OR)} \big\|\nabla \widetilde{f}\big\|_{L^2(\OR)}\leq 
+\big\|A\big\|_{L^\infty(\OR)} \big\| \widetilde{f}\big\|_{\HoDkk}.
+\eeq
+Let $\tu_h$ be the solution of the finite element approximation of \eqref{eq:411a}, i.e.,
+\beq\label{eq:41a}
+a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \cV_h,
+\eeq
+and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \eqref{eq:41a} is equivalent to $\matrixAo \tbu = \matrixS_A\,\bff$. 
+
+Similar to in the proof of Lemma \ref{lem:keylemma1},
+using the triangle inequality, the bound \eqref{eq:bound4} from Condition \ref{cond:2}, the bound \eqref{eq:bound2} from Lemma \ref{lem:H1}, the bound \eqref{eq:Fbound}, and the definition of $C_1$ \eqref{eq:C1},
+we find
+%Note that the hypotheses imply that the bound on the solution operator 
+%\eqref{eq:bound_unif} holds (by Corollary \ref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \eqref{eq:qoeps_lemma} holds (by Lemma \ref{lem:qo}).
+%Starting with \eqref{eq:equiv} we then have 
+\begin{align}\nonumber 
+%s_- h^{(d-2)/2} \N{\tbu}_2 &\leq \N{\nabla \tu_h}_{L^2(\OR)}\leq  
+\N{\tu_h}_{\HoDkk} &\leq
+\N{\tu-\tu_h}_{\HoDkk} + \N{\tu}_{\HoDkk},\nonumber \\ \nonumber
+& \leq \left[ C^{(1)}_{\rm FEM2} k + 
+\frac{1}{\min\{\coeffAo_{\min},\coeffno_{\min}\}}\left( 1 + 2 C^{(1)}_{\rm bound}\coeffno_{\max}k  \right) 
+\right]\big\|\widetilde{F}\big\|_{(\HoDkk)'},\\
+&\leq C_1 \, k\, 
+%\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\coeffAo_{\min},\coeffno_{\min}\}}\left( 1 + 2 C^{(1)}_{\rm bound}\coeffno_{\max}k  \right) \right]
+\big\|A\big\|_{L^\infty(\OR)} \big\|\nabla\widetilde{f}\big\|_{L^2(\OR)},\label{eq:mainevent2}\\
+&\leq C_1 \, k\, 
+%\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\coeffAo_{\min},\coeffno_{\min}\}}\left( 1 + 2 C^{(1)}_{\rm bound}\coeffno_{\max}k  \right) \right]
+\big\|A\big\|_{L^\infty(\OR)} \big\|\widetilde{f}\big\|_{\HoDkk},\nonumber
+%&\leq \left[ C^{(1)}_{\rm FEM2} k + 
+%\frac{1}{\min\{\coeffAo_{\min},\coeffno_{\min}\}}\left( 1 + 2 C^{(1)}_{\rm bound}\coeffno_{\max}k  \right) 
+%\right]\big\|A\big\|_{L^\infty(\OR)}s_+ h^{(d-2)/2} \N{\bff}_2,
+\end{align}
+and the bound on $\|(\matrixAo)^{-1}\matrixS_A\|_{\matrixD_k}$ in \eqref{eq:keybound2} follows.
+
+The bound on $\|\matrixS_A(\matrixAo)^{-1}\|_{(\matrixD_k)^{-1}}$ follows in a similar way to how we obtained the 
+bound on  $\|(\matrixAo)^{-1}\matrixM_n\|_{(\matrixD_k)^{-1}}$ from the bound on $\|\matrixM_n(\matrixAo)^{-1}\|_{\matrixD_k}$ in Part (i). Indeed, 
+\eqref{eq:A380-0} and the fact that $\matrixS_A$ is a real, symmetric matrix imply that 
+\beq\label{eq:A380-2} 
+ \big\|\matrixS_A (\matrixAo)^{-1}\big\|_{(\matrixD_k)^{-1}}=\big\|\big((\matrixAo)^*\big)^{-1}\matrixS_A\big\|_{\matrixD_k}
+ \eeq 
+%since 
+%\beqs
+%\big\|\matrixS_A(\matrixAo)^{-1}\big\|_{2}=\big\|(\matrixS_A(\matrixAo)^{-1})^*\big\|_{2}=\big\|((\matrixAo)^*)^{-1}\matrixS_A\big\|_{2},
+%\eeqs
+(compare to \eqref{eq:A380}),
+and then the arguments in the proof of Part (i) imply that 
+the bound in \eqref{eq:keybound2} on $\|(\matrixAo)^{-1}\matrixS_A\|_{\matrixD_k}$ also holds for $\|((\matrixAo)^*)^{-1}\matrixS_A\|_{\matrixD_k}$.
+
+To prove the bound on  $\|(\matrixAo)^{-1}\matrixS_A\|_{2}$ in \eqref{eq:keybound2a}, we use the bounds 
+\beqs
+m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{L^2(\OR)} \leq \N{\widetilde{u}_h}_{\HoDkk}
+\,\tand\,
+\big\|\nabla \widetilde{f}\big\|_{L^2(\OR)} \leq s_+ h^{d/2-1}\N{\bff}_2,
+\eeqs
+on either side of the inequality \eqref{eq:mainevent2}, with these bounds coming from \eqref{eq:normequiv1}.and \eqref{eq:normequiv2} respectively. The proof of the bound on 
+$\|\matrixS_A((\matrixAo)^*)^{-1}\|_{2}$ in \eqref{eq:keybound2a} follows in a similar way to above, using the fact that 
+$\|\matrixS_A (\matrixAo)^{-1}\|_2=\|((\matrixAo)^*)^{-1}\matrixS_A\|_2$ (compare to \eqref{eq:A380}).
+\epf
+
+\bre[Link to the results of \cite{GaGrSp:15}]
+A result analogous to the Euclidean-norm bounds in Theorem \ref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\coeffAo= \coeffAt= I$, $\coeffnt= 1$, and $\coeffno = 1 + \ri\eps/k^2$, with the ``absorption parameter"/``shift" $\eps$ satisfying $0<\eps\lesssim k^2$. The motivation for proving this result was that the so-called ``shifted Laplacian preconditioning" of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\matrixAt$ with an approximation of $\matrixAo$. Similar to in Corollary \ref{cor:1}, bounds on $\|\matrixI -  (\matrixAo)^{-1}\matrixAt \|_2$ and 
+$\|\matrixI - \matrixAt  (\matrixAo)^{-1}\|_2$
+ then give upper bounds on large the ``shift" $\eps$ can be for GMRES to converge in a $k$-independent number of iterations in the case when the action of $(\matrixAo)^{-1}$ is computed exactly.
+
+%\cite[Lemma 4.1]{GaGrSp:15}
+The main differences between \cite{GaGrSp:15} and the present paper are that (i)  \cite{GaGrSp:15} focused on the TEDP, not the EDP,
+(ii) \cite{GaGrSp:15} focused on the particular case that $\Oi$ is star-shaped with respect to a ball, finding a $k$- and $\eps$-explicit expression for $C^{(1)}_{\rm bound}$ in this case using Morawetz identities,
+(iii) \cite{GaGrSp:15} required a bound analogous to that on 
+$(\matrixAo)^{-1}\matrixM_{n}$, along with one on $(\matrixAo)^{-1}\matrixN$ (in the case that $T_R$ is approximated by $\ri k$), but \emph{not} on 
+$(\matrixAo)^{-1}\matrixS_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\|\cdot\|_2$ norm.
+%The result of Theorem \ref{thm:1}
+\ere
+
+%\bre[Analogue of Theorem \ref{thm:1} in a weighted norm]\label{rem:weight1}
+%The PDE analysis of the Helmholtz equation naturally takes place in the weighted $H^1$ norm $\|\cdot\|_{\HoDkk}$ defined by \eqref{eq:1knorm}. The discrete analogue of this norm is the norm $\|\cdot\|_{\matrixD_k}$ defined by 
+%\beq\label{eq:Dk}
+%\N{\bv}_{\matrixD_k}^2:= \big( (\matrixS_I + k^2 \matrixM_1)\bv,\bv\big)_2 = \N{v_h}^2_{\HoDkk}
+%\eeq
+%for
+%$v_h =\sum_i v_i \phi_i$. 
+%This norm is used, e.g., in recent results about the convergence of domain-decomposition methods %in this norm are proved 
+%for the Helmholtz equation \cite{GrSpVa:17}, \cite{GrSpZo:18}, and for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:17}. 
+%
+%Inspecting the proof of Lemma \ref{lem:keylemma}, we see that the bounds \eqref{eq:keybound1} and \eqref{eq:keybound2} hold with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\matrixD_k}$ norm and without the terms involving $m_\pm$ and $s_\pm$ on the right-hand side. Theorem \ref{thm:1} 
+%%(and also Corollary \ref{cor:1}) 
+%therefore also holds with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\matrixD_k}$ norm and the constant $C_1$ modified appropriately.
+%\ere
+
+\subsection{Proof of Corollaries \ref{cor:1} and \ref{cor:1a}}
+
+We first give the set-up for weighted GMRES.
+Consider the abstract  linear system 
+% \begin{equation*}
+$\matrixC \bx = \bd$
+%\end{equation*}
+in $\mathbb{C}^N$, where $\matrixC \in \Com^{N\times N}$ is invertible.   
+Given an initial guess $\bx^0$, we introduce the residual $\br^0 := \bd- C \bx^0$ and 
+the usual Krylov spaces:  
+\beqs  
+\cK^m(C, \br^0) := \mathrm{span}\big\{\matrixC^j \br^0 : j = 0, \ldots, m-1\big\}.
+\eeqs
+Let $(\cdot , \cdot )_{\matrixD}$ denote the inner product on $\C^n$ 
+induced by some Hermitian positive-definite matrix $\matrixD$, i.e.~
+%\begin{equation*}
+$(\bv,\bw)_{\matrixD} := (\matrixD \bv, \bw)_2,$
+%\end{equation*} 
+with induced norm $\Vert \cdot \Vert_\matrixD$. For $m \geq 1$, define   $\bx^m$  to be  the unique element of $\cK^m$ satisfying  the  
+ minimal residual  property: 
+$$ \ \Vert \br^m \Vert_\matrixD := \Vert \bd - \matrixC \bx^m \Vert_\matrixD \ = \ \min_{\bx \in \cK^m(C, \br^0)} \Vert {\bd} - {\matrixC} {\bx} \Vert_\matrixD. $$
+When $\matrixD = \matrixI$ this is just the usual GMRES algorithm, but for  more general  $\matrixD$ it 
+is the weighted GMRES method \cite{Es:98} in which case  
+its implementation requires the application of the weighted Arnoldi process \cite{GuPe:14}.
+Let 
+\beq\label{eq:fov}
+W_\matrixD(\matrixC):= \Big\{ (\matrixC \bx, \bx)_{\matrixD} : \bx \in \Com^N, \|\bx\|_\matrixD=1\Big\};
+\eeq
+$W_\matrixD(\matrixC)$ is called the \emph{numerical range} or \emph{field of values} of $\matrixC$ (in the $(\cdot,\cdot)_\matrixD$ inner product).
+
+%Recall the so-called ``Elman estimate" for GMRES
+
+\begin{theorem}[Elman estimate for weighted GMRES]\label{thm:GMRES1_intro} 
+Let $\matrixC$ be a matrix with $0\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
+\beq\label{eq:cosbeta}
+\cos \beta := \frac{\mathrm{dist}\big(0, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
+\eeq
+If the matrix equation $\matrixC \bx = \by$ is solved using weighted GMRES then, 
+for $m\in \mathbb{N}$, the GMRES residual $\br_m$ %:= \matrixC \bx_m - \by$ 
+satisfies
+\beq\label{eq:Elman}
+\frac{\N{\bfr_m}_{\matrixD}}{\N{\bfr_0}_{\matrixD}} \leq \sin^m \beta. %, \quad \text{ where}\quad 
+\eeq
+\end{theorem}
+The bound \eqref{eq:Elman} with $\matrixD=\matrixI$ was originally proved in \cite{El:82} (see also \cite[Theorem 3.3]{EiElSc:83}) and appears in the form above in \cite[Equation 1.2]{BeGoTy:06}. The bound \eqref{eq:Elman} (for arbitrary Hermitian positive-definite $\matrixD$) was stated (without proof) in \cite{CaWi:92} and proved in \cite[Theorem 5.1]{GrSpVa:17}. % (see also \cite[Remark 5.2]{GrSpVa:17}). 
+
+
+
+Theorem \ref{thm:GMRES1_intro} has the following corollary, and the proofs of Corollaries \ref{cor:1} and \ref{cor:1a} follow from combining this with Theorem \ref{thm:1}.
+
+\begin{corollary}
+\label{cor:GMRES_intro} 
+If $\|\matrixI - \matrixC \|_\matrixD \leq \sigma < 1$, then, with $\beta$ defined as in \eqref{eq:cosbeta},
+$$\cos \beta \geq \frac{1-\sigma}{1+\sigma} \quad \text{and} \quad
+\sin \beta \leq \frac{2 \sqrt{\sigma}}{(1+\sigma)^2} \ . $$
+\end{corollary}
+
+\bpf[Proof of Corollary \ref{cor:1}]
+This follows from Theorem \ref{thm:1} by applying Corollary \ref{cor:GMRES_intro} first with $\matrixC= (\matrixAo)^{-1} \matrixAt$, $\matrixD=\matrixD_k$, and $\sigma=1/2$, and then with $\matrixC= \matrixAt(\matrixAo)^{-1} $, $\matrixD=(\matrixD_k)^{-1}$, and $\sigma=1/2$.
+\epf
+
+\
+
+\bpf[Proof of Corollary \ref{cor:1a}]
+This follows from Theorem \ref{thm:1} by applying Corollary \ref{cor:GMRES_intro} first with $\matrixC= (\matrixAo)^{-1} \matrixAt$, $\matrixD=\matrixI$, and $\sigma=1/2$, and then with $\matrixC= \matrixAt(\matrixAo)^{-1} $, $\matrixD=\matrixI$, and $\sigma=1/2$.
+\epf
+
+
+\bre[The improvement of the Elman estimate \eqref{eq:Elman} in \cite{BeGoTy:06}]
+A stronger result than \eqref{eq:Elman} is given for standard (unweighted) GMRES in \cite[Theorem 2.1]{BeGoTy:06}, and then converted to a result about weighted GMRES in \cite[Theorem 5.3]{BoDoGrSpTo:17}; indeed, the convergence factor $\sin \beta$ is replaced by a function of $\beta$ strictly less than $\sin\beta$ for $\beta\in (0,\pi/2)$. Using this stronger result, however, does not improve the $k$-dependence of Corollary \ref{cor:1}.
+\ere
+
+
+%\section{Proof of }\label{sec:proofPDE}
+
+\subsection{Proofs of Theorem \ref{thm:2}, and Lemma \ref{lem:sharp}}
+
+\bpf[Proof of Theorem \ref{thm:2}]
+%We first prove the upper bound \eqref{eq:PDEbound}.
+By Definition \ref{def:EDP}, $u^{(1)}$ and $u^{(2)}$ satisfy $a^{(1)}(u^{(1)}, v) = F(v)$ and 
+$a^{(2)}(u^{(2)}, v) = F(v)$ respectively. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
+\beq\label{eq:vp1}
+a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{F}(v) \quad\tfa v\in H^1_{0,D}(\Omega_R)
+\eeq
+where
+\beqs
+ \widetilde{F}(v):= \int_{\Omega_R} \left((\coeffAt-\coeffAo) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\coeffno-\coeffnt) u^{(2)}\overline{v}.
+\eeqs
+Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HoDkk}$ \eqref{eq:1knorm}, we have that
+\begin{align*}
+| \widetilde{F}(v)| &\leq \big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)} \big\|\nabla u^{(2)}\big\|_{L^2(\Omega_R)}
+\N{\nabla v}_{L^2(\Omega_R)} 
+\\& \hspace{5cm}+ k^2 
+\big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)} \big\| u^{(2)}\big\|_{L^2(\Omega_R)}
+\N{v}_{L^2(\Omega_R)}\\
+&\leq\max\Big\{\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}\Big\}
+\big\| u^{(2)}\big\|_{\HoDkk} \N{v}_{\HoDkk}.
+\end{align*}
+and thus, by the definition of the norm $\|\cdot\|_{(\HoDkk)'}$ \eqref{eq:dualnorm},
+\beqs
+\big\|\widetilde{F}\big\|_{(\HoDkk)'}\leq \max\Big\{\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}\Big\}
+\big\| u^{(2)}\big\|_{\HoDkk}.
+\eeqs
+Since Condition \ref{cond:1} holds, we can then apply the result of Lemma \ref{lem:H1}, i.e.~the bound \eqref{eq:bound2}, to the solution of the variational problem \eqref{eq:vp1}  to find that 
+\begin{align*}
+\frac{\big\| u^{(1)} - u^{(1)}\big\|_{\HoDkk}}
+{\big\| u^{(2)}\big\|_{\HoDkk}, 
+}
+ \leq 
+\,&\frac{1}{\min\big\{\coeffAo_{\min},\coeffno_{\min}\big\}}\left( 1 + 2 C^{(1)}_{\rm bound}\coeffno_{\max}  k\right)
+\\
+&\quad\times \left(\max\Big\{\big\|\coeffAo-\coeffAt\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)}\Big\}\right),
+\end{align*}
+and then the result \eqref{eq:PDEbound} follows with 
+\beq\label{eq:C3}
+C_3:= \frac{1}{\min\big\{\coeffAo_{\min},\coeffno_{\min}\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\coeffno_{\max}  \right).
+\eeq
+\epf
+
+\bpf[Proof of Lemma \ref{lem:sharp}]
+We actually prove the stronger result that given any function $c(k)$ such that $c(k)>0$ for all $k>0$, there exist 
+$f, \coeffno, \coeffnt$ (with $\coeffno\not= \coeffnt$), such that, firstly,
+\beqs
+\big\|\coeffno-\coeffnt\big\|_{L^\infty(\Omega_R)} \sim c(k)
+\eeqs
+and, secondly,
+the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\coeffAo = \coeffAt= I$ exist, are unique, and satisfy \eqref{eq:sharp1}. 
+
+The heart of the proof is the equation
+\beq\label{eq:obs1}
+(\Delta + k^2) \big(\re^{\ri k r}\chi(r)\big) =  \re^{\ri k r}\left(\ri k \frac{d-1}{r} \chi(r) + 2 \ri k \diff{\chi}{r}(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
+\eeq
+where $\chi(r)$ is chosen to have $\supp \chi \subset \Omega_R$.
+This equation proves the sharpness of the nontrapping resolvent estimate \eqref{eq:bound1}, since both the $L^2(\Omega_R)$ norm of $\widetilde{f}$ and the $\HoDkk$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
+
+The overall idea of the proof is to set things up so that $(u^{(1)}-u^{(2)})(\bx) = \re^{\ri k r}\chi(r)$, the rationale being that \eqref{eq:obs1} proves the sharpness of \eqref{eq:bound1}, and \eqref{eq:bound1} and its corollary \eqref{eq:bound2} (applied to $u^{(1)}-u^{(2)}$) are the main ingredients in the proof of Theorem \ref{thm:2}.
+% to prove the sharpness of Theorem \ref{thm:2} (at least when $\coeffAj:=I$, $j=1,2,$), 
+
+Observe that, when $\coeffAj:=I$, $j=1,2,$ and $\coeffno:=1$, the variational problem \eqref{eq:vp1} implies that 
+\beq\label{eq:obs2}
+\Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = -k^2 \big(1-\coeffnt\big)u^{(2)}.
+\eeq
+Let $\coeffnt:= 1 + c(k)\widetilde{\chi}$ with $\widetilde{\chi}= \widetilde{\chi}(r)$, $\widetilde{\chi}\in C^{\infty}(\Omega_R)$, $\widetilde{\chi}\not = 1$ (so that $\coeffnt\not = \coeffno$), and 
+ $\supp \, \widetilde{\chi} \subset\Omega_R$. 
+%observe then that $\coeffnt(\bx) >1$ for all $\bx \in \Omega_R$ and thus, in particular, %for some function $c(k)>0$ for all $k>0$ 
+%$\coeffnt\not = \coeffno$. 
+As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(\Omega_R)$ and
+$\supp \,\chi$ a compact subset of $\Omega_R$. Then with $\widetilde{f}$ defined in \eqref{eq:obs1}, our goal is to let 
+\beq\label{eq:obs3}
+u^{(2)}(\bx):= -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)} \quad\tand\quad  f(\bx):= -\big(\Delta +k^2 \coeffnt(\bx)\big) u^{(2)}(\bx);
+\eeq
+however, since $\widetilde{\chi}(r)$ has compact support, we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined.
+
+Setting aside for the moment this need to synchronise the definitions of $\chi$ and $\widetilde{\chi}$, since $\supp \,\widetilde{f}$ is a compact subset of $\Omega_R$, so is 
+$\supp \,u^{(2)}$, and so $u^{(2)}$ is then the solution of the exterior Dirichlet problem (in the sense of Definition \ref{def:EDP}) with data $f$ defined in \eqref{eq:obs3} and coefficient $\coeffnt:=1 + c(k)\widetilde{\chi}$.
+Finally, define $u^{(1)}$ to be the solution of the exterior Dirichlet problem with $f$ defined in \eqref{eq:obs3}. The whole point of these definitions is that, combined with \eqref{eq:obs1} and \eqref{eq:obs2} and the uniqueness of the solution of the exterior Dirichlet problem, they imply that 
+\beq\label{eq:obs4}
+u^{(1)}(\bx)- u^{(2)}(\bx) = \re^{\ri k x_1}\chi(r),
+\eeq
+and from this we therefore have that
+\beqs
+\big\|u^{(1)}-u^{(2)}\big\|_{L^2(\Omega_R)} \sim 1
+\quad \tand \quad
+\big\|u^{(1)}-u^{(2)}\big\|_{\HoDkk} \sim k.
+\eeqs
+Furthermore, the definitions of $u^{(2)}$ \eqref{eq:obs3} and $\widetilde{f}$ \eqref{eq:obs1} imply that
+\beqs
+\big\| u^{(2)}\big\|_{L^2(\Omega_R)} \sim \frac{1}{k\, c(k)} \quad\tand \quad 
+\big\| u^{(2)}\big\|_{\HoDkk} \sim \frac{1}{c(k)},
+\eeqs 
+and, since $\|\coeffno- \coeffnt\|_{L^\infty(\Omega_R)} = c(k)$, \eqref{eq:sharp1} holds.
+
+Therefore, to complete the proof, we only need to show that there exists a choice of $\chi$ and $\widetilde{\chi}$ for which $u^{(2)}$ and $f$ defined by \eqref{eq:obs3} are 
+in $H^{1}(\OR)$ and $L^2(\OR)$ respectively (in fact, we prove that they are in $W^{1,\infty}(\OR)$ and $L^\infty(\OR)$ respectively).
+%well-defined. 
+Since $\chi$ and $\widetilde{\chi} \in C^\infty(\OR)$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
+Since $\overline{\Omega_-} \subset B_R$, there exist $0<R_1<R_2<R$ such that $\overline{\Oi} \subset B_{R_2}\setminus B_{R_1} \subset B_R$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \rightarrow (R_1)^+$ and 
+$\chi(r) \sim (R_2-r)^m$ as $r \rightarrow (R_2)^-$. The definition of $\widetilde{f}$ \eqref{eq:obs3} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $n$ at $r= R_1$ and $r=R_2$. 
+We now claim that if $m >n+4$, then $u^{(2)}\in W^{1,\infty}(\OR)$ and $f$ $\in L^\infty(\Omega_R)$. Indeed,  
+straightforward calculation from \eqref{eq:obs3} shows that  $u^{(2)}(r) \sim (r-R_1)^{m-n-2}$, $\nabla u^{(2)}(r) \sim (r-R_1)^{m-n-3}$, and $\Delta u^{(2)}(r) \sim (r-R_1)^{m-n-4}$ as $r \rightarrow (R_1)^+$, with analogous behaviour at $r=R_2$.
+%vanishes to order $m-n-2$ and $\Delta u^{(2)}$ vanishes to order $m-n-4$ at $r= R_1$ and $r=R_2$. 
+The assumption 
+$m >n+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta u^{(2)}$ vanish (and hence are finite) at $r=R_1$ and $r=R_2$.
+\epf
+
+\bre[Why doesn't Lemma \ref{lem:sharp} cover the case $\coeffAo\neq  \coeffAt$?]
+When $\coeffnj:=1$, $j=1,2,$, $\coeffAo:=I$, and $\coeffAt:= I + c(k)\widetilde{\chi}$, the variational problem \eqref{eq:vp1} implies that 
+\beqs%\label{eq:obs2}
+\Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = c(k)\nabla\cdot \big(\widetilde{\chi}\nabla u^{(2)}\big).
+\eeqs
+It is now much harder than in \eqref{eq:obs2} to set things up so that $ u^{(1)}(\bx) - u^{(2)}(\bx)=\re^{\ri kr}\chi(r)$ (so that one can then use \eqref{eq:obs1}).
+\ere
+
+%\section{Proof of Lemma \ref{lem:2}}
+
+\section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
+
+%\subsection{Definition of the TEDP and analogues of the results in \S\ref{sec:3}}
+
+\begin{definition}[Truncated Exterior Dirichlet Problem (TEDP)]\label{def:TEDP}
+Let $\domain_-$ be a bounded Lipschitz open set such that the open complement $\domain_+:= \Rea^d\setminus \overline{\domain_-}$ is connected. 
+Let $\widetilde{\domain}$ be a bounded connected Lipschitz open set such that $\overline{\domain_-}\subset \widetilde{\domain}$. 
+Let $\domain:=\widetilde{\domain}\setminus\overline{\domain_-}$, $\Gamma_D:= \partial \domain_-$, and $\Gamma_I :=\partial \widetilde{\domain}$, so that $\partial \domain= \Gamma_D \cup \Gamma_I$ and $\Gamma_D\cap \Gamma_I = \emptyset$. Let % (see Figure \ref{fig:TEDP}). Let
+\beqs
+H_{0,D}^1(\domain):= \big\{ v\in H^1(\domain) : \gamma v=0 \ton \Gamma_D\big\}.
+\eeqs
+Given 
+%\bit
+%\item 
+$f\in L^2(\domain)$ 
+%\item 
+$g_I\in L^2(\Gamma_I)$
+%%\item $\vartheta\in L^\infty(\Gamma_I, \Rea)$ with 
+%%\beq\label{eq:thetaineq}
+%%0<\vartheta_{\min} \leq \vartheta(\bx)\leq\vartheta_{\max}<\infty\,\, \text{ for almost every } \bx \in \Gamma_I,
+%%\eeq
+%\item 
+$n\in L^\infty(\domain,\Rea)$ such that $\dist(\supp(1-n),\Gamma_I)>0$, and there exist $0<n_{\min}\leq n_{\max}<\infty$ such that
+\eqref{eq:nlimitsEDP} holds with $\domain_+$ replaced by $\domain$,
+%\item 
+$A \in L^\infty(\domain , \Rea^{d\times d})$ such that $\dist(\supp(I -A),\Gamma_I)>0$, $A$ is symmetric, and there exist $0<A_{\min}\leq A_{\max}<\infty$ such that
+\eqref{eq:AellEDP} holds with $\domain_+$ replaced by $\domain$,
+%\eit
+we say $u\in H^1_{0,D}(\domain)$ satisfies the truncated exterior Dirichlet problem if
+\beq\label{eq:TEDPvar}
+%\text{ find } u \in H^1_{0,D}(\domain) \tst \quad 
+a(u,v)=F(v) \quad \tfa v\in H^1_{0,D}(\domain),
+\eeq
+where
+\beq\label{eq:TEDPa}
+a(u,v):= \int_\domain 
+\Big((A \gu)\cdot\gvb
+- k^2 n u\vb\Big) - \ri k \int_{\Gamma_I}\gamma u\, \overline{\gamma v} \quad\tand\quad
+F(v):= \int_\domain f\, \vb + \int_{\Gamma_I} g_I \, \overline{\gamma v}.
+\eeq
+%\beqs
+%\opL_{A,n} u:= \nabla\cdot(A \gu ) + k^2 n u = -f \quad \tin \domain,
+%\eeqs
+%\beqs
+%\gamma u =g_D \quad\ton \Gamma_D,
+%\eeqs
+%and 
+%\beq\label{eq:TEDP3}
+%\dudnu - \ri k\vartheta  \gamma u = g_I \ton \Gamma_I.
+%\eeq
+\end{definition}
+
+%\begin{figure}
+%\begin{centering}
+%\begin{tikzpicture}[scale=0.4,even odd rule]
+%    % This will hopefully be some lines
+%    \pgfdeclarepatternformonly{owennortheast}
+%    {\pgfpointorigin}{\pgfpoint{1cm}{1cm}}
+%    {\pgfpoint{1cm}{1cm}}
+%    {
+%    \pgfpathmoveto{\pgfpointorigin}
+%    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+%    \pgfsetlinewidth{0.5\pgflinewidth}
+%    \pgfusepath{stroke}
+%    }
+%    
+%     \pgfdeclarepatternformonly{owennorthwest}
+%    {\pgfpointorigin}{\pgfpoint{1cm}{1cm}}
+%    {\pgfpoint{1cm}{1cm}}
+%    {
+%    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
+%    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+%   \pgfsetlinewidth{0.5\pgflinewidth}
+%    \pgfusepath{stroke}
+%    }
+%
+%
+%
+%    \filldraw[pattern=owennorthwest] % Truncation
+%    (6,5) .. controls (5.5,3) .. %1
+%    (7,0) -- %2
+%    (5,-5.5) .. controls (2.5,-4) .. %3
+%    (0,-5) .. controls (-3.75,-6.5) .. %4
+%    (-7.5,-5) -- %5
+%    (-7,-3) -- %6
+%    (-8,2) -- %7
+%    (-5,6) -- %8
+%    (0,5) -- %9
+%    (3,7) .. controls (4.2,5.4) ..%10
+%    cycle
+%    
+%   [scale=2/3] (4.5,0) .. controls (4.5,-0.5) and (4.25,-2) .. %A
+%    (3,-3) .. controls (2.875,-3.1) and (2.25,-3.5) ..%B
+%    (1.5,-3) .. controls (0.75,-2.5) and (0.5,-2.5) ..%C
+%    (-0.75,-3) .. controls (-2,-3.5) and (-2.8,-3.4)..%D
+%    (-3,-3) .. controls (-3.75,-1.5) and (-4.95,-1.1) ..%E
+%    (-5.25,-1) .. controls (-6,-0.75) and (-6,0.25) ..%F
+%    (-4.5,1.5) .. controls (-4.35,1.625) and (-3.5,2.25) ..%G
+%    (-3,3.5) .. controls (0,3) and (0.6,2.9) ..%H
+%    (1.5,3.5) .. controls (2.25,4) and (3.5,3.5) ..%I
+%    (3.75,3) .. controls (4,2.5) and (4.5,0.5)..%J
+%    cycle;
+%
+%    \filldraw[pattern=owennortheast,scale=2/3] % The obstacle
+%    (4.5,0) .. controls (4.5,-0.5) and (4.25,-2) .. %A
+%    (3,-3) .. controls (2.875,-3.1) and (2.25,-3.5) ..%B
+%    (1.5,-3) .. controls (0.75,-2.5) and (0.5,-2.5) ..%C
+%    (-0.75,-3) .. controls (-2,-3.5) and (-2.8,-3.4)..%D
+%    (-3,-3) .. controls (-3.75,-1.5) and (-4.95,-1.1) ..%E
+%    (-5.25,-1) .. controls (-6,-0.75) and (-6,0.25) ..%F
+%    (-4.5,1.5) .. controls (-4.35,1.625) and (-3.5,2.25) ..%G
+%    (-3,3.5) .. controls (0,3) and (0.6,2.9) ..%H
+%    (1.5,3.5) .. controls (2.25,4) and (3.5,3.5) ..%I
+%    (3.75,3) .. controls (4,2.5) and (4.5,0.5)..%J
+%    cycle;
+%
+%% The labels
+%
+%\draw (0,0) node[fill=white] {$\domain_{-}$};
+%\draw (-3.5,-3.5) node[fill=white] {$\domain:=\widetilde{\domain}\setminus \overline{\domain_-}$};
+%
+%\draw (3.4,-2.2) node[fill=white] {$\Gamma_{D}$};
+%
+%\draw (3.8,7) node {$\Gamma_{I}$};
+%    
+%  % \draw (-2,2) .. controls (-1,3) and (-2,1.5) .. (-1,2.5)
+%  % .. controls (0,1.5) and (-1,1) .. (0,2.5)
+%  % .. controls (1,3) and (1,4.5) .. (2,3)
+%  % .. controls (3,1.5) and (2,2) .. (3,2.5)
+%  % .. controls (4,3) and (4,2.5) .. (4,1.5)
+%  % .. controls (4,0.5) and (4.5,-0.5) .. (4,-1.5)
+%  % .. controls (3.5,-2.5) and (4,-3.5) .. (3,-2.5)
+%  % .. controls \hout and \iin .. (2,-3)
+%  % .. controls (1,-4) and (1.5,-4) .. (0.5,-3)
+%  % .. controls (-0.5,-2) and (-2,-1) .. (-3,-1)
+%  % .. controls (-4,-1) and (-5,-0.25) .. (-4,0.5)
+%  % .. controls (-3,1.25) and (-3,1) .. cycle;
+%\end{tikzpicture}
+%
+%  \caption{The domains $\Omega$ and $\Oi$, and boundaries $\Gamma_I$ and $\Gamma_D$, in the definition of the TEDP (Definition \ref{def:TEDP}).}\label{fig:TEDP}
+%  \end{centering}
+%  \end{figure}
+
+\paragraph{The impedance boundary $\Gamma_I$.} By comparing \eqref{eq:EDPa} and \eqref{eq:TEDPa}, we see that, in the case $g_I=0$, the TEDP approximates the DtN operator $T_R$ by $\ri k$. Indeed, by using Green's first identity and the definition of the normal derivative (see, e.g., \cite[Lemma 4.3]{Mc:00}), show that the boundary condition on $\Gamma_I$ imposed in the variational problem \eqref{eq:TEDPvar} is 
+%In this BVP, the DtN operator $T_R$ Sommerfeld radiation condition 
+\beq\label{eq:imp}
+\dudnu - \ri k\gamma u = g_I \ton \Gamma_I.
+\eeq
+where $\nu$ is the unit outward-pointing normal vector to $\Omega$ on $\Gamma_I$.
+
+\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $a(\cdot,\cdot)$ defined in \eqref{eq:TEDPa} satisfies the G\aa rding inequality \eqref{eq:Garding}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \S\ref{sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.
+
+\paragraph{Finite-element/Galerkin solution.}
+The Galerkin matrix is defined exactly as in \eqref{eq:matrixAdef}, except that 
+\beq\label{eq:NTEDP}
+\big(\matrixN\big)_{ij}:= \ri k\int_{\Gamma_I}  (\gamma\phi_i) \,\gamma \phi_j.
+\eeq
+
+\paragraph{The adjoint sesquilinear form.} For the TEDP, the adjoint sesquilinear form is given by 
+\beq\label{eq:TEDPadjoint}
+a^*(u,v) := \int_{\domain_R} 
+\Big((\coeffA \gu)\cdot\gvb
+ - k^2 \coeffn u\vb\Big) +\ri k\int_{\Gamma_I} \gamma u\, \overline{\gamma v};
+\eeq
+then \eqref{eq:A*} holds (with $\matrixN$ now given by \eqref{eq:NTEDP}, and the analogue of Lemma \ref{lem:adjoint} follows in a straightforward way.
+
+
+\paragraph{The analogues of Conditions \ref{cond:1} and \ref{cond:2}.}
+The statement of the TEDP analogues of Conditions \ref{cond:1} and \ref{cond:2} are the same as for the EDP, apart from the following.
+\ben
+\item
+$\supp \,f$ need not be a subset of $\widetilde{\Omega}$ (i.e.~the support of $f$ can go up to the impedance boundary $\Gamma_I$), and
+\item the assumption $g_I= 0$ needs to be added to Condition \ref{cond:1} and Part (i) of Condition \ref{cond:2}.
+\een
+ Note that, since $a(\cdot,\cdot)$ for the TEDP satisfies the same G\aa rding inequality \eqref{eq:Garding} as the $a(\cdot,\cdot)$ for the EDP, Lemma \ref{lem:H1} holds for the TEDP under the TEDP-analogue of Condition \ref{cond:1}.
+
+\paragraph{The main results Theorem \ref{thm:1} and Corollary \ref{cor:1}.}
+Since Conditions \ref{cond:1} and \ref{cond:2} are essentially unchanged from the EDP case, Lemmas \ref{lem:keylemma1} and \ref{lem:keylemma2} hold for the TEDP, and thus so do Theorem \ref{thm:1} and Corollaries \ref{cor:1} and \ref{cor:1a}.
+
+\paragraph{The PDE results Theorem \ref{thm:2} and Lemma \ref{lem:sharp}.}
+
+The PDE bound Theorem \ref{thm:2} relies only on Lemma \ref{lem:H1}, which, as stated above, also holds for the TEDP. Therefore Theorem \ref{thm:2} holds for the TEDP under the TEDP-analogue of Condition \ref{cond:1} described above. The construction in Lemma \ref{lem:sharp} to show sharpness of the bound in Theorem \ref{thm:1} (at least when $\coeffAo= \coeffAt= I$) also holds for the TEDP; this is because one can choose the supports of $\chi$ and $\widetilde{\chi}$ to be contained inside $\widetilde{\Omega}$, and then $u^{(1)}$ and $u^{(2)}$ defined in Lemma \ref{lem:sharp} satisfy the impedance boundary condition \eqref{eq:imp} on $\Gamma_I$.
+
+\paragraph{When the TEDP-analogue of Condition \ref{cond:1} holds.}
+
+In \S\ref{sec:cond1hold} we discussed 4 situations (Cases 1-4) where Condition \ref{cond:1} is proved to hold for the EDP. We now discuss the TEDP-analogues of these.
+%Cases 1, 3, and 4 (there is no proof yet for the TEDP-analogue of Case 2).
+
+\emph{Cases 1 and 2: $\coeffAo$, $\coeffno$, and $\Gamma_I$  are $C^\infty$.} 
+With the rays defined as in the EDP case (by the Melrose--Sj{\"o}strand generalized bicharacteristic flow 
+\cite[\S24.3]{Ho:85}), the TEDP-analogue of nontrapping for the EDP is the assumption that 
+every ray eventually hits the boundary at a \emph{non-diffractive point} (defined in \cite[Page 1037]{BaLeRa:92}). Note that, in the case $\Oi=\emptyset$ $\coeffAo= I$, and $\coeffno=1$, every ray eventually hits the boundary at a non-diffractive point by \cite[Lemma 5.3]{BaSpWu:16}.
+Under the additional assumption that $\coeffno= 1$, Condition \ref{cond:1} follows from the results of \cite{BaLeRa:92} by combining \cite[Theorem 1.8]{BaSpWu:16} and \cite[Remark 5.6]{BaSpWu:16}, but $C^{(1)}_{\rm bound}$ is not given explicitly.
+
+\emph{Case 3: $\Oi$ is starshaped with respect to the origin, $\coeffAo$ and $\coeffno$ are Lipschitz and satisfy radial monotonicity-like conditions.}
+When $\Gamma_I$ is also starshaped with respect to the origin and $A$ and $n$ satisfy \eqref{eq:A1} and \eqref{eq:n1} respectively (with $\Oe$ replaced by $\Omega$), 
+\cite[Theorem A.6(i)]{GrPeSp:18} proves that
+Condition \ref{cond:1} holds, with an explicit expression for $C^{(1)}_{\rm bound}$. Analogous results when (a) $2\coeffAo - (\bx\cdot\nabla)\coeffAo \geq \mu_1$ and $\coeffno= 1$,
+and  (b) $\coeffAo= I$ and  $2\coeffno + \bx \cdot \nabla \coeffno \geq \mu_2$, 
+are contained in \cite[Theorem A.6(ii)]{GrPeSp:18} and \cite[Theorem A.6(iii)]{GrPeSp:18} respectively.
+When $A$ is scalar, these results were also proved in \cite[Theorem 1]{BrGaPe:15} and, when $\coeffAo= I$ and $\Oi=\emptyset$, also in \cite[Theorem 3.2]{GrSa:18}.
+
+\emph{Case 4: %\item[Case 4:]
+ $\coeffAo$ and $\coeffno$ are allowed to be discontinuous.}
+%\een
+Condition \ref{cond:1} is proved in \cite{CaVo:10} (without an explicit expression for $C^{(1)}_{\rm bound}$) when $\Oi$ is $C^\infty$ and nontrapping, $\Gamma_I$ is $C^\infty$, $\coeffAo= I $, and $\coeffno$ is a piecewise-constant, monotonically non-decreasing function, jumping on interfaces that are $C^\infty$ with strictly positive curvature.
+Recall from \S\ref{cond:1} that \cite[Theorem 2.7]{GrPeSp:18} proves that Condition \ref{cond:1} holds for the EDP (with an explicit expression for $C^{(1)}_{\rm bound}$) when $\Oi$ is starshaped with respect to the origin, $A$ and $n$ are $L^\infty$, with $A$ monotonically \emph{non-increasing} in the radial direction, and $n$ monotonically \emph{non-decreasing}. This proof can be extended to the TEDP, with the additional assumption that $\Gamma_I$ is star-shaped with respect to the origin; see the discussion in \cite[Section A.2]{GrPeSp:18}.
+
+%Condition \ref{cond:1} is proved, with an explicit expression for $C^{(1)}_{\rm bound}$, when 
+
+%\newpage
+%
+%\section*{Questions for Th\'eo}
+%
+%\ben
+%\item At the place marked A on the scanned pages, you seem to use the inequality 
+%\beq\label{eq:Theo1}
+%\vert\vert\vert \xi - \cP_h \xi\vert\vert\vert \lesssim h^\alpha \N{u_\phi- \cP_h u_\phi}_{0,\Omega}.
+%\eeq
+%\een
+%
+%\newpage
+
+
+
+\footnotesize{
+
+\bibliographystyle{plain}
+\bibliography{biblio_acta}
+
+}
+
+\section*{Owen to do list}
+\ben
+\item Varying  $\|\coeffAo-\coeffAt\|_{L^\infty}$ and $\|\coeffno-\coeffnt\|_{L^\infty}$ in standard GMRES.
+\item Computations where $\|\coeffAo-\coeffAt\|_{L^\infty}$ and $\|\coeffno-\coeffnt\|_{L^\infty}$ are sometimes large; is having the standard deviations of these $\sim 1/k$ good enough for $k$-independent GMRES iterations?
+\item ***on backburner*** Checking under what conditions (if any) Part (ii) Condition \ref{cond:2} holds by running the following experiment:
+%\item Exciting experiments for random $n$ that you told us about last week.
+%\item In the weighted norm, the condition on $A$ is ``$k \|\coeffAo-\coeffAt\|_{L^\infty}$ sufficiently small" but in the Euclidean norm the best we have so far is ``$h^{-1} \|\coeffAo-\coeffAt\|_{L^\infty}$ sufficiently small". You indicated before that experiments seemed to indicate that ``$k \|\coeffAo-\coeffAt\|_{L^\infty}$ sufficiently small" seemed correct for the Euclidean norm too. The next time we meet, can you show me these results please?
+%\item Please run the following numerical experiment.
+\bit
+\item TEDP with $\Omega$ a square/rectangle.
+\item $\coeffAo$ being at least Lipschitz (but smooth is fine). To keep things simple, just take scalar- (as opposed to matrix-) valued $\coeffAo$ and don't worry about making it nontrapping.
+\item Smoothness of $\coeffno$ doesn't really matter, just take smooth in the first instance for simplicity (and also don't worry about nontrapping).
+\item $\cV_h$ piecewise linear.
+\item Linear system $\matrixAo \bu = \matrixS_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of Condition \ref{cond:2},  but please check this!)
+\item For each $\coeffAo, \coeffno, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
+\item Goal: see if the bound \eqref{eq:bound4} holds, using 
+\beqs
+\N{\sum_j \alpha_j (A\nabla \phi_j)}_{L^2(\OR)} \quad \text{ as a proxy for } \quad \N{F}_{(\HoDkk)'}.
+\eeqs
+\eit
+%\item Varying  $\|\coeffAo-\coeffAt\|_{L^\infty}$ and $\|\coeffno-\coeffnt\|_{L^\infty}$ in \emph{weighted} GMRES.
+\een
+
+
+\end{document}
+
