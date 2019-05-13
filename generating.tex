@@ -1,0 +1,67 @@
+\subsection{Random fields satisfying \cref{con:hh-hetero}}\label{sec:generating}
+The main focus of this paper is proving well-posedness of the variational formulations of the stochastic Helmholtz equation, and a priori bounds on the solution, for the most-general class of $A$ and $n$ allowed by the deterministic bounds in \cite{GrPeSp:19}. However, in this section, motivated by the Karhunen-Lo\`eve expansion (see e.g.~\cite[p.~201ff.]{LoPoSh:14}) and similar expansions of material coefficients for the stationary diffusion equation \cite[Section 2.1]{KuNu:16}, we consider $A$ and $n$ as series expansions around known non-random fields $\Az$ and $\nz$ satisfying \cref{con:hh-hetero} (i.e., \cref{con:hh-hetero} is satisfied for $\nz, \Az$ independent of $\omega \in \Omega$, and therefore $\muo,\mut$ independent of $\omega$).
+Define
+\beq\label{eq:nseries}
+A(\omega,\bx) = \Az(\bx) + \sum_{j=1}^\infty \Yj(\omega) \Psij(\bx)\quad\text{and}\quad n(\omega,\bx) = \nz(\bx) + \sum_{j=1}^\infty\Zj(\omega) \psij(\bx) ,
+\eeq
+where:
+\bit
+\item $\supp\mleft(1-\Az\mright),\,\supp \mleft(I-\nz\mright) \compcont \BR,$
+\item $\Az$ and $\nz$ satisfy \cref{con:hh-hetero} with $\muo$ and $\mut$ independent of $\omega \in \Omega$
+\item $\Yj,\Zj \sim \Unif(-1/2,1/2)$ i.i.d.,
+\item $\Psij \in \WoiDRRRdtd$ with $\supp \Psij \compcont \BR$ for all $j =1,\ldots,m$,
+\beq\label{eq:Apsimeas}
+\sum_{j=1}^\infty \NWoiDRRRdtd{\Psij} < \infty, \tand
+\eeq
+\beq\label{eq:Apsipos}
+\sum_{j=1}^\infty \esssup_{\bx \in \DR} \NopCCd{\Psij} < 2\Azmin,
+\eeq
+where $\Azmin > 0$ is such that $\Azmin\abs{\bxi}^2 \leq \big(A(\bx)\bxi\big)\cdot \bxi$ for almost every $\bx \in \Dp$ and for all $\bxi \in \CCd$, and where $\NopCCd{\cdot}$ is the operator norm induced by the Euclidean vector norm on $\CCd$ (i.e., $\NopCCd{\cdot}$ is the spectral norm).
+\item $\psij \in \WoiDRRR$ with $\supp \psij \compcont \BR$ for all $j = 1,\ldots,m$,
+\beq\label{eq:npsimeas}
+\sum_{j=1}^\infty \NWoiDRRR{\psij} < \infty, \tand
+\eeq
+\beq\label{eq:npsipos}
+\sum_{j=1}^\infty \NLiDRRR{\psij} < 2 \nzmin,
+\eeq
+where $\nzmin \de \essinf_{\bx \in \DR} \nz(\bx),$ and
+\eit
+%Regarding the measurability of $n$ and $A$ defined by \eqref{eq:nseries}: the proof for this particular setting of mappings into a separable subspace of a general normed vector space is analagous to the proof in the case of a sum of real-valued measurable mappings, and so we do not give it here.
+
+The assumptions \eqref{eq:Apsipos} and \eqref{eq:npsipos} ensure that $A > 0$ (in the sense of quadratic forms) and $n > 0$  almost surely, and the assumptions \eqref{eq:Apsimeas} and \eqref{eq:npsimeas} are used to prove $A$ and $n$ are measurable.
+
+Regarding the measurability of $A$ and $n$ defined by \eqref{eq:nseries}: the proof that $A$ and $n$ given by \eqref{eq:nseries} are measurable is given in \cref{lem:seriesmeas}, and relies on the proof that the sum of measurable functions
+is measurable. This latter result is standard, but we have not been able to find this result for this particular setting of mappings
+into a separable subspace of a general normed vector space, and so we briefly give it in \cref{lem:summeas}. 
+
+The following lemmas give sufficient conditions for the series in \eqref{eq:nseries} to satisfy \cref{con:hh-hetero}.
+
+\ble[Series expansion of $A$ satisfies \cref{con:hh-hetero}]\label{lem:Agen}
+Let $\mu > 0$, $\delta \in \mleft(0,1\mright).$ If $\Az \in \NTA{\mu},$ and
+\beq\label{eq:Aseriescond}
+\sum_{j=1}^\infty \esssup_{\bx \in \DR} \NopCCd{\Psij(\bx) - \mleft(\bx\cdot\grad\mright)\Psij(\bx)} \leq 2\delta\mu,
+\eeq
+then $A \in \NTA{(1-\delta)\mu}$ almost surely.
+\ele
+
+\bpf[Proof of \cref{lem:Agen}]
+Since $\Az \in \NTA{\mu},$ we have 
+\beq\label{eq:Aseries1}
+\Big(\mleft(A(\omega,\bx) - \mleft(\bx\cdot\grad\mright)A(\omega,\bx)\mright)\bxi\Big)\cdot\bxib \geq\mu \abs{\bxi}^2+\sum_{j=1}^\infty  \Big(\Yj(\omega)\mleft(\Psij(\bx)- \mleft(\bx\cdot\grad\mright)\Psij(\bx)\mright)\bxi\Big)\cdot\bxib
+\eeq
+for all $\bxi \in \CCd,$ for almost every $\bx \in \DR,$ almost surely. As $\Yj \sim \Unif(-1/2,1/2)$ for all $j$ and the bound \eqref{eq:Aseriescond} holds, the right-hand side of \eqref{eq:Aseries1} is bounded below by
+\beqs
+\mu \abs{\bxi}^2 -\half 2\delta \mu \abs{\bxi}^2 = (1-\delta)\mu\abs{\bxi}^2\text{ almost surely.}
+\eeqs
+Since $\bxi \in \CCd$ was arbitrary, it follows that $A(\omega) \in \NTA{(1-\delta)\mu)}$ almost surely, as required.
+\epf
+
+\ble[Series expansion of $n$ satisfies \cref{con:hh-hetero}]\label{lem:ngen}
+Let $\mu > 0$ and $\delta \in \mleft(0,1\mright).$ If $\nz \in \NTn{\mu}$ and
+\beq\label{eq:nseriescond}
+\sum_{j=1}^m\NLiDRRR{\psij(\bx) + \bx\cdot\grad\psij(\bx)} \leq 2\delta\mu,
+\eeq
+then $n \in \NTn{(1-\delta)\mu}.$
+\ele
+
+The proof of \cref{lem:ngen} is omitted, since it is similar to the proof of \cref{lem:Agen}; in fact it is simpler, because it involves scalars rather than matrices.

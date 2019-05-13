@@ -1,0 +1,54 @@
+We now want to compare whether Multi-level Monte Carlo performs better than `standard' Monte Carlo. The results of the two previous sections (i.e., the computational complexity required to obtain a RMSE $\leq \eps$) are summarised for the different cases we considered in the following table:
+
+\begin{tabular}{c|c|c}
+Scenario (Type of norm in QoI, dimension, direct or `ideal' solver) & MLMC & MC \\
+\hline
+&&\\
+weighted, 2d, direct & $k^{4.5} \eps^{-1.5}$ & $k^{4.5} \eps^{-3.5}$\\
+weighted, 2d, ideal & $k^3 \eps^{-1}$ & $k^3 \eps^{-3}$\\
+weighted, 3d, direct & $k^{6.75} \eps^{-2.25}$& $k^{6.75} \eps^{-4.25}$ \\
+weighted, 3d, ideal & $k^{4.5} \eps^{-1.5}$& $k^{4.5} \eps^{-3.5}$ \\
+$L^2$, 2d, direct & $k^3 \eps^{-1.5}$& $k^3 \eps^{-3.5}$ \\
+$L^2$, 2d, ideal & $k^2 \eps^{-1}$& $k^2 \eps^{-3}$\\
+$L^2$, 3d, direct & $k^{4.5} \eps^{-2.25}$& $k^{4.5} \eps^{-4.25}$ \\
+$L^2$, 3d, ideal & $k^3 \eps^{-1.5}$ & $k^3 \eps^{-3.5}$ \\
+\end{tabular}
+
+To summarise, we see that in terms of the dependence on $\eps,$ MLMC is always better (which is no surprise, this is well-known). However, in terms of the dependence on $k,$ MLMC is always the same as MC.
+
+As of yet, I don't have an intution for why this is true - given the MLMC calculations take account of the `constants' (i.e., terms independent of $\eps,$ which are dependent on $k$), it doesn't seem immediately obvious why there is no improvement w.r.t. $k.$ This requires further investigation.
+
+%I've got no definite conclusion on why this is true, but have sketched out below are some thoughts on why this might be the case, and what we could possibly do about it.
+
+%\subsection{Suggestions why the observed behaviour might occur}
+%
+%I haven't written explicitly above how we chose the finest level $L$ in the MLMC method, nor have I written how $\ML$ and $\MLMC$ depend on $k$ (that is, I haven't written out how the finest discretisation level for MLMC, or the fixed discretisation level in MC, depend on $k$). However, one can figure this out (although I won't write out all the details now, as I'm a little short on time) and one obtains that for MLMC the finest mesh size $\hL$ satisfies
+%\beqs
+%\hL \sim 
+%\begin{cases}
+%k^{-3}\eps^{0.5} & \text{ in 2-D if } Q = \NW{u}\\
+%k^{-2}\eps^{0.5}& \text{ in 2-D if } Q = \NLtD{u}\\
+%k^{-4.5}\eps^{0.5}& \text{ in 3-D if } Q = \NW{u}\\
+%k^{-3}\eps^{0.5} & \text{ in 3-D if } Q = \NLtD{u}\\
+%\end{cases}.
+%\eeqs
+%
+%In contrast, for MC, the mesh size $\hMC$ satisfies
+%\beqs
+%\hMC \sim 
+%\begin{cases}
+%k^{-3/2}\eps^{0.5} & \text{ in 2-D if } Q = \NW{u}\\
+%k^{-1}\eps^{0.5}& \text{ in 2-D if } Q = \NLtD{u}\\
+%k^{-3/2}\eps^{0.5}& \text{ in 3-D if } Q = \NW{u}\\
+%k^{-1}\eps^{0.5} & \text{ in 3-D if } Q = \NLtD{u}\\
+%\end{cases}.\eeqs
+%
+%The results for Monte Carlo make sense - when the QoI the weighted $H^1$ norm of the true solution, the error term (in \cref{ass:a} is $h^2k^3,$ (see \S \ref{sec:abweight}) and so we refine to avoid this. Similarly, when the QoI is the $L^2$ norm of the true solution, the error term (see \S \ref{sec:abltwo}) is $h^2k^2$, and so we refine to avoid this.
+%
+%However, for MLMC, we appear to \emph{over-refine} in order to achieve a given error tolerance. Why this is happening isn't particularly clear to me, other than I can guess that we're trading better dependence on $\eps$ for worse dependence on $k$ (which intutively makes sense, as the standard MLMC complexity theorem is only interested in the dependence on $\eps,$ and doesn't `see' $k,$ as it's just hidden in the constants. 
+%
+%This needs more thought from me as to exactly why this is happening.
+%
+%\subsection{Remedies}
+%
+%I don't have any definite ideas, although the main drawback of the above analysis is that $k$ does not explicitly come into the choice of $\hL$ and $\hMC$ (or the choice of the the numbers of samples)---the choice of $\hL$ and $\hMC$ is motivated by $\eps$ alone, and then $k$ appears in the final analysis, since the constants in \cref{thm:mlmccomp} depend on $k$. Therefore, maybe there is scope for a more `$k$-explicit construction that isn't just `apply the standard MLMC theorem, and see how things depend on $k$'. But I haven't had any more time to think about this yet.

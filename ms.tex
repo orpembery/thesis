@@ -1,0 +1,127 @@
+%%%%%%% Generic Stuff %%%%%%%%
+\documentclass[final]{siamonline171218}
+
+%%%%%%% Page Setup %%%%%%%
+%\usepackage[a4paper]{geometry}
+%\geometry{left={2cm}, right={2cm}, top={2cm}, bottom={2cm}}
+
+
+%%%%%%% Other Packages %%%%%%%
+\usepackage{mathtools} 
+\usepackage{thmtools} 
+\usepackage{hyperref} 
+\usepackage{color} 
+\usepackage{amssymb} 
+\usepackage{tikz} 
+\usepgflibrary{shapes.misc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix} 
+\usetikzlibrary{patterns}
+%\usepackage{enumerate} % Allows letters in enumeration
+\usepackage{mleftright} % Fixes occasional bugs with \left and \right introducing extra spacing
+\usepackage{bbm} % Allows blackboard bold 1
+\usepackage{enumitem}
+\usepackage{cleveref}
+
+% Making cleverref play nicely with newly defined environments
+\crefname{convariable}{Condition}{Conditions}
+\Crefname{convariable}{Condition}{Conditions}
+\crefname{probvariable}{Problem}{Problems}
+\Crefname{probvariable}{Problem}{Problems}
+\crefname{myprobsec}{Problem}{Problems}
+\Crefname{myprobsec}{Problem}{Problems}
+\crefname{step}{Step}{Steps}
+\Crefname{step}{Step}{Steps}
+\crefname{point}{Point}{Points}
+\Crefname{point}{Point}{Points}
+\crefname{part}{Part}{Parts}
+\Crefname{part}{Part}{Parts}
+\crefname{condition}{Condition}{Conditions}
+\Crefname{condition}{Condition}{Conditions}
+\crefname{problem}{Problem}{Problems}
+\Crefname{problem}{Problem}{Problems}
+
+
+% Customising cleverref
+\newcommand{\crefrangeconjunction}{--}
+
+% Following is from SIAM documentation/examples
+% Prevent itemized lists from running into the left margin inside theorems and
+\setlist[enumerate]{leftmargin=.5in}
+\setlist[itemize]{leftmargin=.5in}
+% Add a serial/Oxford comma by default.
+\newcommand{\creflastconjunction}{, and~}
+
+% Sets running headers as well as PDF title and authors
+\headers{The Helmholtz equation in random media}{O.~R.~Pembery and E.~A.~Spence}
+
+% Optional PDF information
+\ifpdf
+\hypersetup{
+  pdftitle={The Helmholtz equation in random media: well-posedness and a priori bounds},
+  pdfauthor={O. R. Pembery and E. A. Spence}
+}
+\fi
+
+
+
+
+
+
+\input{owens-macros}
+
+\input{anton-macros}
+
+\title{The Helmholtz equation in random media: well-posedness and a priori bounds}%\thanks{Submitted to the editors 09/06/2018.}}
+
+\author{O.~R.~Pembery\thanks{Department of Mathematical Sciences, University of Bath, Claverton Down, Bath, BA2 7AY, UK. This author is supported by a scholarship from the EPSRC Centre for Doctoral Training in Statistical Applied Mathematics at Bath (SAMBa), under the project EP/L015684/1. (\email{O.R.Pembery@bath.ac.uk}).}
+\and E.~A.~Spence\thanks{Department of Mathematical Sciences, University of Bath, Claverton Down, Bath, BA2 7AY, UK. This author is supported by EPSRC grant EP/R005591/1. (\email{E.A.Spence@bath.ac.uk}).}}
+
+\begin{document}
+
+\maketitle
+
+\input{theorems} % Defines new environments
+
+%%%%%%% Body Text %%%%%%%
+
+\begin{abstract}
+We prove well-posedness results and a priori bounds on the solution of the Helmholtz equation $\nabla\cdot(A\grad u) + k^2 n u = -f$, posed either in $\RRd$ or in the exterior of a star-shaped Lipschitz obstacle, for a class of random $A$ and $n,$ random data $f$, and for all $k>0$. The particular class of $A$ and $n$ and the conditions on the obstacle ensure that the problem is nontrapping almost surely. These are the first well-posedness results and a priori bounds for the stochastic Helmholtz equation for arbitrarily large $k$ and for $A$ and $n$ varying independently of $k$. These results are obtained by combining recent bounds on the Helmholtz equation for deterministic $A$ and $n$ and general arguments (i.e.~not specific to the Helmholtz equation) presented in this paper for proving a priori bounds and well-posedness of variational formulations of linear elliptic stochastic PDEs. We emphasise that these general results do not rely on either the Lax-Milgram theorem or Fredholm theory, since neither are applicable to the stochastic variational formulation of the Helmholtz equation.
+\end{abstract}
+
+\begin{keywords}
+Helmholtz equation, random media, well-posedness, a priori bounds, high frequency, nontrapping
+\end{keywords}
+
+\begin{AMS}
+35J05, 35R60, 60H15
+\end{AMS}
+
+
+\input{new-introduction} 
+
+\input{discussion}
+
+\input{general-framework}
+
+\input{proofs-abstract}
+
+\input{proofs-helmholtz}
+
+\appendix
+
+\input{federico} 	
+
+\input{review-material}
+
+\input{measurable-sums}
+
+\input{acknowledgements}
+
+%%%%%% Bibliography %%%%%%%
+
+\bibliographystyle{siamplain}
+\bibliography{biblio_svar}
+
+\end{document}
+\grid

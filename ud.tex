@@ -1,0 +1,15 @@
+The main ingredient of our proof is the following Theorem (slightly simplified from the original)
+\bth[\cite{Ma:87}]\label{thm:marschall}
+Let $U$ be a bounded or unbounded Lipschitz domain. Suppose that $1<p<\infty$ and $s > 1- 1/p'$, where $p'$ is the conjugate exponent to $p,$ i.e., $1/p + 1/p' = 1.$\ednote{I presume this is the definition of $p'$, \cite{Ma:87} doesn't actually define it} Suppose further that $D$ is a $C^{k,\lambda}$ set, for $k+\lambda > 1-1/p.$ Then the trace map
+\beqs
+\gamma : \WspU \rightarrow \WsmoppdU
+\eeqs
+is a surjection\ednote{This relies on the construction of the Besov space on the boundary in \cite{Ma:87} being the same as the Sobolev space. I'm really not sure this is the case, can someone help me please?}. In the case $s- 1/p$ is not an integer, it has a bounded linear right inverse.
+\enth
+
+\ble[Existence of $\ud$]\label{lem:ud}
+Let $\gD \in \HthtGD.$ Then there exists $\ud \in \HtD$ such that $\trGD \ud = \gD$ in $\HthtGD.$
+\ele
+\bpf[Proof of \cref{lem:ud}]
+The proof is immediate from \cref{thm:marschall}, as we can construct  $\udtilde \in \WspRRdsmDm$ such that $\trGD \udtilde = \gD,$ and then let $\ud = \udtilde\restrict{D}.$
+\epf

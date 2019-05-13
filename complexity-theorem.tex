@@ -1,0 +1,144 @@
+%% In this \lcnamecref{sec:comp} we state and prove an abstract result on the convergence of multi-level Monte Carlo methods, laregly following the proof of \cite[Theorem 1]{ClGiScTe:11}. Our result is a generalisation of \cite[Theorem 1]{ClGiScTe:11} in the following three ways:
+%% \ben
+%% \item In \cite{ClGiScTe:11} it is assumed that the convergence of the approximate QoIs $\Qhl$, and the cost of producing samples of these QoIs, only depends on the parameter $\hl$ (where, in stochastic PDE applications, $\hl$ is the mesh size for the finite-element discretisation). However, in this work, we assume that the convergence and cost also depend on another parameter $k,$ and we make the dependence of the final computational cost of the MLMC method explicit in $k.$ In our application to the Helmholtz equation, $k$ will be the wavenumber of the problem.
+%% \item In \cite{ClGiScTe:11} it is assumed that the approximating QoIS $\Qhl$ exist for all levels $l$. This corresponds to the finite-element solution of the PDE under investigation existing for all mesh sizes $h.$ Whilst this assumption is true for the stationary diffusion equation studied in \cite{ClGiScTe:11}, it is \emph{not} true for the Helmholtz equation that we study here. Therefore we make the additional assumption (\cref{ass:qoie} below) that $\Qhl$ only exists for sufficiently small $\hl.$
+%% \item In \cite{ClGiScTe:11} the error $\eps$ incurred in the MLMC method is equally divided between the bias and the variance of the MLMC method (see the Proof of \cref{thm:mlmccomp3}). However, in this work we assume that there is a quantity $\splitting \in (0,1)$ (see \cref{ass:splittingbounds}), possibly dependent on $k$ that allows a vairable `split' of the error between the bias and the variance. Our main use of this is in\optodo{Insert refs once it's done}, where we use this variable splitting to compensate for the fact that to bound the (squared) bias error by $\eps^2/2$ would mean we take $\hL \lesssim k^{-1},$ but to ensure the finite-element solution $\uh$ exists, we must take $\hL \lesssim k^{-3/2}.$
+%% \een
+%% We now proceed to prove our abstract MLMC convergence result, comtaining the generalisations metioned above.
+
+Let $\OFP$ be a probability space, and let $Q$ be a random variable\footnote{One can think of $Q$ as being $Q(u),$ where $u$ is the solution of some stochastic PDE.} on $\OFP$ such that $\EXP{Q} < \infty.$ We will refer to $Q$ as the \defn{quantity of interest} or QoI. In order to define the multi-level Monte Carlo (MLMC) method for estimating $\EXP{Q},$ we must also define the following quantities, following  \cite[Theorem 1]{ClGiScTe:11}. We assume there exist
+\bit
+\item A set of levels\footnote{One can think of $\hl$ as the mesh size associated with level $l$.} $\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =\frac{\hlmo}s$ for $l \geq 1.$
+\item A set of random variables (that may or may not exist)\footnote{One can think of $\Qhtilde$ as $Q(\uh),$ where $\uhl$ is the finite-element solution of the PDE with mesh size $h  $.} $\set{\Qhtilde}_{h \in (0,1)}.$
+  \eit
+
+We denote the random variables $\Qhtilde,$ in order to simplify the notation for mesh dependence in what follows.
+
+In order to do things for the Helmholtz equation, we use the following assumption:
+
+\bas[Mesh conditions for existence and uniqueness]
+There exists a measurable function $\Cmesh:\Omega\rightarrow \RRp$ and a function $\mesh:\RRp\rightarrow \RRp$ such that $\Qhtilde(\omega)$ exists (and satisfies the error bounds etc. below) if
+\beqs
+h \leq \Cmesh(\omega)\mesh(k).
+\eeqs
+Note that $\mesh(k)\rightarrow 0$ as $k\rightarrow \infty.$
+\eas
+
+Observe that for a given $k, \omega$ there is no guarantee that $\Qhtilde(\omega)$ exists. Therefore, we follow [Graham, Parkinson, Scheichl] and define
+\beq\label{eq:hmaxomega}
+\hmaxomega \de \Cmesh(\omega)\mesh(k).
+\eeq
+We then define
+\beqs
+\homega \de \max\set{h,\hmaxomega}
+\eeqs
+and subsequently define
+\beqs
+\Qh(\omega) \de \Qtildehomega.
+\eeqs
+That is, the random variable $\Qh$ is (thinking about things in terms of PDEs etc.) the QoI evaluated at the numerical solution, where that solution is taken on a mesh that is the finer of $h$ and $\hmaxomega$. This guarantees the QoI exists, and the error bounds below hold.
+
+\bre[What is $\mesh(k)$?]
+If nontrapping, $\mesh(k)=k^{-3/2}$. If trapping, more stringent, nothing proved in literature, but would expect to be similar to results for contant wavespeed.
+\ere
+
+With this setup in place, we define the following quantities.
+
+We define the correction operators\optodo{You may be able to save some time computing these - if both $\hl$ and $\hlmo$ are larger that $\hmaxomega$, then the difference between them is zero.} between the levels by $\Yl \de \Qhl - \Qhlmo, l \geq 1,$ $\Yz = \Qhz.$ We let $\Ylhat$ be an unbiased estimator of $\Yl$, i.e., $\EXP{\Ylhat} = \EXP{\Yl}.$ In what follows $\Ylhat$ will be the Monte Carlo estimator
+ \beqs
+\Ylhat \de \frac1{\Nl}\sum_{i=1}^{\Nl} \Yli,
+ \eeqs
+ with $\Nl$ to be chosen, where $\Yli$ denotes independent samples of $\Yl$. Finally we are able to define the \defn{multi-level Monte Carlo estimator}
+ \beqs
+ \QhatMLhL \de \sum_{l=1}^L \Ylhat,
+ \eeqs
+ where the $\Ylhat$ are independent.
+
+  The following assumptions
+  % \lcnamecrefs{ass:coarse}
+   will form the backbone of our analysis. They are a generalisation of the assumptions contained in \cite{ClGiScTe:11,ChScTe:13} for the MLMC method, the generalisation being that we assume that the quantities below depend not only on the levels $\hl$ but also on some additional parameter $k>1.$ When this theory is applied to the Helmholtz equation, $k$ will be the wavenumber of the Helmholtz equation.
+
+%% The following assumption (which will be realised in a more concrete setting for the Helmholtz equation) concerns the existence of the approximating QoIs $\Qhl.$
+
+%% \bas[Existence of $\Qhl$]\label{ass:qoie}
+%% There exist $\Ccoarse,\coarseexp > 0$ with $\Ccoarse$ independent of $k$ such that if
+%% \beqs
+%% \hl \leq \Ccoarse k^{-\coarseexp},
+%% \eeqs
+%% then the QoI $\Qhl$ exists.
+%% \eas
+
+\bas[Convergence of numerical method]\label{ass:a}
+There exist $\co, \alpha, \sigma> 0$, such that $\co$ is independent of $h$ and $k$, and
+\beqs
+\abs{\EXP{\Qh-Q}} \leq \co k^\sigma h^{\alpha}.
+\eeqs
+\eas
+
+\bas[Variance of correction operators]\label{ass:b}
+There exist $\ct, \beta, \tau > 0$, such that $\ct$ is independent of $h$ and $k,$ and
+\beqs
+\Vl \de \VAR{\Yl} \leq \ct k^\tau\hl^{\beta},
+\eeqs  where $\VAR{\cdot}$ denotes variance.
+\eas
+
+\bas[Cost of one sample]\label{ass:costone}
+There exist $\cthtilde, \gamma > 0$ such that $\cthtilde$ is independent of $h$ and $k$, and if $\Qhtilde(\omega)$ exists, then
+\beqs
+\Cost{\Qhtilde(\omega)} \leq \cthtilde(\omega) h^{-\gamma},
+\eeqs
+\eas
+
+In order to obtain a nice expression for the cost of computing one sample of $\Qh,$ we require the following assumption on the coarse space:
+
+\bas[Dependence of coarse space on $k$]\label{ass:coarse}
+We let
+\beqs
+\hz = \Ccoarse \mesh(k).
+\eeqs
+for some chosen constant $\Ccoarse > 0.$
+\eas
+
+\ble[Expected cost of one sample]\label{lem:c}
+If
+\beq\label{eq:cass}
+\cthtilde \in \LpO\text{ for some }p \geq 1 \tand 1/\Cmesh \in \LqgammaO \tfor q \text{ the conjugate exponent of } p,
+\eeq
+then
+\beq\label{eq:singlecost}
+\EXP{\Cost{\Qh}} \leq \cth h^{-\gamma},
+\eeq
+where $\cth = \NLoO{\cthtilde} + \Ccoarse^\gamma \NLpO{\cthtilde}\NLqgammaO{\Cmesh^{-1}}^\gamma.$
+\ele
+
+\bpf[Proof of \cref{lem:c}]
+The proof follows closely that in \cite[Lemma 5.8]{GrPaSc:19}.
+
+We have
+\begin{align}
+\EXP{\Cost{\Qh}} &= \int_{\Omega} \Cost{\Qhomegatilde(\omega)} \ddPPomega\nonumber\\
+&\leq \int_\Omega \cthtilde(\omega) \homega^{-\gamma} \ddPPomega \text{ by \eqref{eq:singlecost}}\nonumber\\
+&\leq \int_{\Omega} \cthtilde(\omega) \mleft(h^{-\gamma} +  \mleft(\hmaxomega\mright)^{-\gamma} \mright) \ddPPomega \text{ as } \homega = \max\set{h,\hmaxomega} \leq h + \hmaxomega\nonumber\\
+&=\int_{\Omega} \cthtilde(\omega) \mleft(h^{-\gamma} + \Cmesh^{-\gamma} \mesh(k)^{-\gamma}\mright)\ddPPomega \text{ by \eqref{eq:hmaxomega}}\nonumber\\
+= h^{-\gamma} \NLoO{\cthtilde} + \mesh(k)^{-\gamma}\EXP{\cthtilde\Cmesh^{-\gamma}}\label{eq:cfinal}
+\end{align}
+As the assumptions \eqref{eq:cass} hold, the result follows.
+\epf
+ 
+% We write $\Vl$ for $\VAR{\Yl}.$
+ 
+ We want to determine the choices of $L$ and $\Nl, l = 0,\ldots,L,$ such that the root-mean-squared eror (RMSE)
+ \beqs
+ \err{\QhatMLhL} \de \mleft(\EXP{\mleft(\QhatMLhL - \EXP{Q}\mright)^2}\mright)^{\half}
+ \eeqs
+ satisfies $\err{\QhatMLhL} \leq \eps,$ for some pre-defined $\eps > 0.$
+
+The proof of the main \lcnamecref{thm:mlmccomp} will require the following \lcnamecref{lem:sumbound}.
+
+\input{lemma}
+
+%\input{nice}
+
+\input{variable}
+
+%\input{nasty}

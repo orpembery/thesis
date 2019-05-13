@@ -1,0 +1,69 @@
+\begin{figure}[h]
+  \centering
+  \scalebox{0.90}{
+\begin{tikzpicture}
+
+% Inspired by https://tex.stackexchange.com/questions/109102/anchor-arrow-start-position
+
+\draw (0,1) node [rounded rectangle, fill=gray!45!white] (meas) {\Cref{prob:meas}};
+
+
+
+\draw (0,-1) node [rounded rectangle, fill=gray!45!white] (lt) {\Cref{prob:lt}};
+
+
+\draw (0,-3) node [rounded rectangle, fill=gray!45!white] (svar) {\Cref{prob:svar}};
+
+
+\path node [left = \owenshift of meas.north] (meas top left) {};
+\path node [right = \owenshift of meas.north] (meas top right) {};
+\path node [left = \owenshift of meas.south] (meas bottom left) {};
+\path node [right = \owenshift of meas.south] (meas bottom right) {};
+
+\path node [left = \owenshift of lt.north] (lt top left) {};
+\path node [right = \owenshift of lt.north] (lt top right) {};
+\path node [left = \owenshift of lt.south] (lt bottom left) {};
+\path node [right = \owenshift of lt.south] (lt bottom right) {};
+
+\path node [left = \owenshift of svar.north] (svar top left) {};
+\path node [right = \owenshift of svar.north] (svar top right) {};
+
+
+
+
+% Arrows
+\begin{scope}[->]
+
+
+\draw
+(meas bottom right)
+--
+node[right,align=center,text width=5cm] {Under \cref{con:B}, get stochastic a priori bound \eqref{eq:sbresult} (\Cref{thm:3})}
+ (lt top right);
+
+\draw
+(lt top left)
+--
+node[left] {Immediate}
+ (meas bottom left);
+
+\draw
+(lt bottom right)
+--
+node[right,align=center,text width=5cm] {Under \cref{con:coeffstofunc,,con:L,,con:cborel,,con:C},  (\Cref{thm:11})}
+ (svar top right);
+
+\draw
+(svar top left)
+--
+node[left,align=center,text width=5cm] {If \cref{prob:svar} is well-defined (\cref{thm:12})}
+(lt bottom left);
+\end{scope}
+
+\path node [align=center,below = \owentextshift of svar,text width=10cm] (svar wd) {Well-defined under  \cref{con:coeffstoform,,con:A,,con:coeffstofunc,,con:L,,con:cborel,,con:C} (\Cref{lem:svarwelldefined})};
+
+
+\end{tikzpicture}
+}
+\caption{The relationship between the variational formulations. An arrow from Problem P to Problem Q with Conditions R indicates `under Conditions R, the solution of Problem P is a solution of Problem Q'}\label{fig:ladder}
+\end{figure}

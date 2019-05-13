@@ -1,0 +1,77 @@
+\ble\label{lem:sumboundnew}
+If $L$ is given by
+\beq\label{eq:Ldef}
+L = \ceil{\Lconst\log_{s}\mleft( \func \eps^{-1}\mright)},
+\eeq
+for some $\func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the bound
+\beq\label{eq:sumbound}
+\sum_{l=0}^{L} s^{\delta l} \leq
+\begin{cases}
+L+1 & \tif \delta = 0,\\
+\frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0\\
+\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0
+\end{cases}
+\eeq
+\beq\label{eq:sumboundLmo}
+\sum_{l=0}^{L} s^{\delta l} \leq
+\begin{cases}
+L & \tif \delta = 0,\\
+\frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0\\
+\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0
+\end{cases}
+\eeq
+\optodo{Tidy}
+\ele
+
+\bpf[Proof of \cref{lem:sumboundnew}]
+The proof follows that in \cite{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldef}, it follows that
+\beq\label{eq:Lbounds}
+\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1.
+\eeq
+Rearranging \eqref{eq:Lbounds}, we obtain the bounds
+\beq\label{eq:saLbounds}
+\mleft( \func\eps^{-1}\mright)^{\alpha \Lconst} \leq s^{\alpha L} < \mleft( \func\eps^{-1}\mright)^{\alpha \Lconst}s^\alpha.
+\eeq
+If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLbounds} to obtain
+\beq\label{eq:sdLpos}
+s^{\delta L} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{\delta},
+\eeq
+and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLbounds} to obtain
+\beq\label{eq:sdLneg}
+s^{\delta L} \leq \func^{\delta\Lconst}\eps^{-\delta\Lconst}.
+\eeq
+We now observe that, for $\delta \neq 0,$
+\begin{align}
+\sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
+&= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
+&\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumbound}
+\end{align}
+since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumbound} with \eqref{eq:sdLpos} and \eqref{eq:sdLneg}, we obtain \eqref{eq:sumbound} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
+
+
+
+\paragraph{For sum up to $L-1$}
+The proof follows that in \cite{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldef}, it follows that
+\beq\label{eq:Lmobounds}
+\Lconst\log_s\mleft(\func \eps^{-1}\mright)-1 \leq L-1 < \Lconst\log_s\mleft(\func \eps^{-1}\mright).
+\eeq
+Rearranging \eqref{eq:Lmobounds}, we obtain the bounds
+\beq\label{eq:saLmobounds}
+\mleft( \func\eps^{-1}\mright)^{\alpha \Lconst}s^{-\alpha} \leq s^{\alpha (L-1)} < \mleft( \func\eps^{-1}\mright)^{\alpha \Lconst}.
+\eeq
+If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLmobounds} to obtain
+\beq\label{eq:sdLmopos}
+s^{\delta (L-1)} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}
+\eeq
+and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLmobounds} to obtain
+\beq\label{eq:sdLmoneg}
+s^{\delta (L-1)} \leq \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{-\delta}.
+\eeq
+We now observe that, for $\delta \neq 0,$
+\begin{align}
+\sum_{l=0}^{L-1} s^{\delta l} &= \frac{s^{\delta\mleft(L\mright)} -1}{s^{\delta}-1}\nonumber\\
+&= \frac{s^{\delta (L-1)} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
+&\leq \frac{s^{\delta (L-1)}}{1-s^{-\delta}},\label{eq:ssumboundLmo}
+\end{align}
+since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundLmo} with \eqref{eq:sdLmopos} and \eqref{eq:sdLmoneg}, we obtain \eqref{eq:sumboundLmo} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
+\epf

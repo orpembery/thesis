@@ -1,0 +1,182 @@
+\section{General results on proving a priori bounds and well-posedness of stochastic variational formulations}\label{sec:gen-framework}\label{sec:general}
+In this section we state general results for proving a priori bounds and well-posedness results for variational formulations of linear elliptic SPDEs.
+
+\subsection{Notation and definitions of the variational formulations}\label{sec:notdef}
+Let $\OFP$ be a complete probability space. Let $X$ and $Y$ be separable Banach spaces over a field $\FF,$ (where $\FF = \RR$ or $\CC$).
+Let $\homspace$ denote the space of bounded linear maps $X\rightarrow\Ys.$ Let $\cC$ be a topological space with topology $\TC.$ Given maps
+\beqs
+\coeff:\Omega\rightarrow\cC,\quad\toform:\cC \rightarrow \homspace,\quad\text{and } \rhs:\cC \rightarrow \Ys,
+\eeqs let $\SAc:\LtOX \rightarrow \LtOYas$ and  $\SLc \in \LtOYas$ be defined by
+\beq\label{eq:SA}
+\big[\SAc(u)\big](v) \de \int_\Omega \big[\Acomega u(\omega)\big]\big(v(\omega)\big) \dd\PP(\omega) \quad\text{and} \quad 
+\SLc(v) \de \int_\Omega \Lcomega\big(v(\omega)\big) \dd \PP(\omega)
+\eeq
+%for $v \in \LtOY,$ and let be defined by
+%\beq\label{eq:SL}
+%%\SLc(v) \de \int_\Omega \Lcomega\big(v(\omega)\big) \dd \PP(\omega)
+%\eeq
+for $v \in \LtOY.$ Recall that a bounded linear map $X\rightarrow\Ys$ is equivalent to a sesquilinear (or bilinear) form on $X \times Y;$ see e.g. \cite[Lemma 2.1.38]{SaSc:11}. To keep notation compact, we write $\Acomega=(\toform \circ c)(\omega)$ and $\Lcomega=(\rhs\circ c)(\omega).$
+
+
+
+\bre[Interpretation of the space $\cC$]
+The space $\cC$ is the `space of inputs'. For the stochastic Helmholtz EDP in \cref{sec:hh-results} the space $\cC$ is defined in \cref{def:cCHh} below, but the upshot of this definition is that for any $\omega \in \Omega$ the triple $(A(\omega),n(\omega),f(\omega))$ is an element of $\cC.$
+The maps $\coeff,$ $\toform,$ and $\rhs$ are given by $\coeff = \mleft(A,n,f\mright),$ $\toform = a,$ and $\rhs = L,$ where $a$ and $L$ are given by \eqref{eq:SEDPa} and \eqref{eq:SEDPL} respectively and the equality $\toform=a$ is meant in the sense of the one-to-one correspondence between $\homspace$ and sesquilinear forms on $X\times Y.$
+\ere
+
+The following three problems are the analogues in this general setting of \cref{prob:msedp,prob:somsedp,prob:svsedp} in \cref{sec:intro}.
+
+\bprobM[Measurable variational formulation almost surely]\label{prob:meas}
+Find a measurable function $u:\Omega \rightarrow X$ such that 
+\beq\label{eq:aeeq}
+\Acomega u(\omega) = \Lcomega \tin \Ys
+\eeq
+almost surely.
+\eprobvar
+
+\bprobLT[Second-order moment variational formulation almost surely]\label{prob:lt}
+Find $u \in \LtOX$ such that \eqref{eq:aeeq} holds almost surely.
+\eprobvar
+
+\bprobSVAR[Stochastic variational formulation]\label{prob:svar}
+Find $u \in \LtOX$ such that
+\beq\label{eq:stoeq}
+\SAc u = \SLc \tin \LtOYas.
+\eeq
+\eprobvar
+
+\bre[Immediate relationships between formulations]\label{rem:imm}
+Since $\LtOX \subseteq \BorelOX$ (the space of all measurable functions $\Omega\rightarrow X$)
+it is immediate that if $u$ solves \cref{prob:lt} then every member of the equivalence class of $u$ solves \cref{prob:meas}.
+\ere
+
+\subsection{Conditions on $\toform,$ $\rhs,$ and $\coeff$}\label{sec:cons}
+We now state the conditions under which we prove results about the equivalence of \cref{prob:meas,prob:lt,prob:svar}.
+
+
+\bconAo[$\toform$ is continuous] \label{con:coeffstoform}
+The function $\toform:\cC \rightarrow \homspace$ is continuous, where we place the norm topology on $X,$ the dual norm topology on $\Ys$, and the operator norm topology on $\homspace.$
+\econvar
+
+\bconA[Regularity of {$\toform\circ\coeff$}]\label{con:A}
+The map $\toform\circ\coeff \in \LiOhomspace.$
+\econvar
+
+
+We note that \cref{con:A} is violated in the well-studied case of a log-normal coefficient $\kappa$ for the stationary diffusion equation \eqref{eq:diffusion}; in order to ensure the stochastic variational formulation is well-defined in this case, one must change the space of test functions as in \cite{Gi:10,MuSt:11}
+
+\bconLo[$\rhs$ is continuous] \label{con:coeffstofunc}
+The function $\rhs:\cC \rightarrow \Ys$  is continuous, where we place the dual norm topology on $\Ys.$
+\econvar
+
+\bconL[Regularity of {$\rhs\circ\coeff$}]\label{con:L}
+The map $\rhs\circ \coeff \in \LtOYs.$
+\econvar
+
+\bconCo[$\coeff$ is measurable]\label{con:cborel}
+ The function $c:\Omega \rightarrow \cC$ is measurable.
+\econvar
+
+To state the next condition, we need to recall the following definition.
+
+\bde[{$\PP$}-essentially separably valued {\cite[p26]{Ry:02}}]\label{def:sepval}
+Let $\mleft(S,\Top{S}\mright)$ be a topological space. A function $h:\Omega\rightarrow S$ is \defn{$\PP$-essentially separably valued} if there exists $E \in \cF$ such that $\PP(E) = 1$ and $h(E)$ is contained in a separable subset of $S$.
+\ede
+
+
+\bconC[{$\coeff$} is {$\PP$}-essentially separably valued]\label{con:C}
+The map $\coeff:\Omega\rightarrow\cC$  is $\PP$-essentially separably valued.
+\econvar
+
+\bre[Why do we need \cref{con:C}?]
+The theory of Bochner spaces requires strong measurability of functions (see \cref{def:strongmeas,def:bochnerspace} below). However, the proof techniques used in this paper rely heavily on the measurability of functions (see \cref{def:meas} below). In separable spaces these two notions are equivalent (see \cref{cor:pettis}). However, some of the spaces we encounter (such as $\LiDRRR$) are not separable. Therefore, in our arguments we use \cref{con:C} along with the Pettis Measurability Theorem (\cref{thm:pettis} below) to conclude that measurable functions are strongly measurable.
+\ere
+
+\bconB[A priori bound almost surely]\label{con:B}
+There exist $\Cj,\fj:\Omega\rightarrow \RR, \,j=1,\ldots,m$ such that $\Cj\fj \in \LoO$ for all $j=1,\ldots,m$ and the bound
+\beq \label{eq:sbe1}
+\NX{u(\omega)}^2 \leq \sum_{j=1}^m\Cj(\omega)\fj(\omega)
+\eeq
+holds almost surely.
+\econvar
+
+\bre[Notation in the a priori bound]
+We use the notation $f_j$ in the right-hand side of \eqref{eq:sbe1} to emphasise the fact that typically these terms relate to the right-hand sides of the PDE in question. For the stochastic Helmholtz EDP, $m=1,$ $f_1 = \NLtD{f}^2,$ and $C_1$ is given by \eqref{eq:C1}.
+\ere
+
+
+\bconK[Uniqueness almost surely]\label{con:K}
+$\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely.
+\econvar
+
+The condition  $\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely can be stated as: given $\cG \in \LtOYas,$ for $\PP$-almost every $\omega \in \Omega$ the deterministic problem $\Acomega \uz = \cG$ has a unique solution,
+
+\subsection{Results on the equivalence of \cref{prob:meas,,prob:lt,,prob:svar}}
+
+
+\bth[Measurable solution implies second-order solution]\label{thm:3}
+Under \cref{con:B}, if $u$ solves \cref{prob:meas} then $u$ solves \cref{prob:lt}  and satisfies the stochastic a priori bound
+\beq\label{eq:sbresult}
+\NLtOX{u}^2 \leq\sum_{j=1}^m \NLoO{C_jf_j}.
+\eeq
+\enth
+
+Note that the right-hand side of the stochastic a priori bound \eqref{eq:sbresult} is the expectation of the right-hand side of the bound \eqref{eq:sbe1}.
+
+\ble[Stochastic variational formulation well-defined]\label{lem:svarwelldefined}
+Under \cref{con:coeffstoform,,con:A,,con:coeffstofunc,,con:L,,con:cborel,,con:C},  the maps $\SA$ and $\SL$ defined by \eqref{eq:SA} are well-defined in the sense that
+\beq\label{eq:finite}
+\mleft[\SA(\vo)\mright](\vt),\, \SL(\vt) < \infty \quad\text{for all } \vo \in \LtOX, \text{ for all }\vt \in \LtOY.
+\eeq
+\ele
+
+\bth[Second-order solution implies stochastic variational solution]\label{thm:11}
+Under \cref{con:coeffstofunc,,con:L,,con:cborel,,con:C}, if $u$ solves \cref{prob:lt} then $u$ solves \cref{prob:svar}.
+\enth
+
+\bth[Stochastic variational solution implies second-order solution]\label{thm:12}
+If \cref{prob:svar} is well-defined and $u$ solves \cref{prob:svar}, then $u$ solves \cref{prob:lt}.
+\enth
+
+\Cref{thm:3,thm:11,thm:12,lem:svarwelldefined} are summarised in \cref{fig:ladder}.
+
+\input{theorem-ladder}
+
+\bre[\Cref{con:L} in \cref{thm:11}]
+In \Cref{thm:11} we could replace \cref{con:L} with \cref{con:A}, and the result would still hold---see the proof for further details. However, \cref{con:L} is less restrictive than \cref{con:A}, as it only requires $L^2$ integrability of $\rhs\circ\coeff$ as opposed to essential boundedness of $\toform\circ\coeff.$ 
+\ere
+
+\ble[Showing uniqueness of the solution to \cref{prob:meas,prob:lt,prob:svar}]\label{lem:uniq}
+If \cref{con:K} holds, then
+\ben
+\item\label[part]{part:uniq1} the solution to \cref{prob:meas} (if it exists) is unique up to modification on a set of $\PP$-measure 0 in $\Omega$, 
+\item\label[part]{part:uniq2} the solution to \cref{prob:lt} (if it exists) is unique in $\LtOX,$ and 
+\item\label[part]{part:uniq3} if \cref{prob:svar} is well-defined, the solution to \cref{prob:svar} (if it exists) is unique in $\LtOX.$
+\een
+\ele
+
+\bre[Informal discussion on the ideas behind the equivalence results]\label{rem:nontechnical}
+The diagram in \cref{fig:ladder} summarises the relationships between the variational formulations, and the conditions under which they hold. Moving `up' the left-hand side of the diagram, we prove a solution of \cref{prob:svar} is a solution of \cref{prob:lt} in \cref{thm:12}; the key idea in this theorem is to use a particular set of test functions and the general measure-theory result of \cref{lem:gotoae} below; this approach was used for the stationary diffusion equation \eqref{eq:diffusion} with log-normal coefficients in \cite{Gi:10}, and for a wider class of coefficients in \cite{MuSt:11}.
+
+Moving `down' the right-hand side, we prove a solution of \cref{prob:meas} is a solution of \cref{prob:lt} in \cref{thm:3}; the key part of this proof is that the bound in \cref{con:B} gives information on the integrability of the solution $u.$ (In the case of \eqref{eq:diffusion} with uniformly coercive and bounded coefficient $\kappa,$ the analogous integrability result follows from the Lax--Milgram theorem; \cite[Proposition 2.4]{Ch:12} proves an equivalent result for \eqref{eq:diffusion} with lognormal coefficient $\kappa$ with an isotropic Lipschitz covariance function.) Proving a solution of \cref{prob:lt} is a solution of \cref{prob:svar} in \cref{thm:11} essentially amounts to posing conditions such that the quantities $\mleft[\Acomega\mleft(u(\omega)\mright)\mright] \mleft(v(\omega)\mright)$ and $\Lcomega \mleft(v(\omega)\mright)$ are Bochner integrable for any $v \in \LtOY,$ so that \eqref{eq:stoeq} makes sense. \Cref{lem:svarwelldefined} shows that the stronger property \eqref{eq:finite} holds, and requires stronger assumptions than \cref{thm:11}, since the proof of \cref{thm:11} uses the additional information that u solves \cref{prob:lt}.
+\ere
+
+\bre[Changing the condition $u \in \LtOX$]
+Here we seek the solution $u \in \LtOX$ but we could instead require $u \in \LpOX,$ for some $p>0$ and require $\SA u = \SL$ in $\LqOYas,$ for some $q>0$ (i.e. use test functions in $\LqOY$). In this case, the proof of \cref{thm:12} would be nearly identical, as the space $\D$ of test functions used there %(see \eqref{eq:Dspace} below) 
+is a subset of $\LqOY$ for all $q>0.$ One could also develop analogues of \cref{thm:3,thm:11,lem:svarwelldefined} in this setting---see e.g.~\cite[Theorem 3.20]{Gi:10} for an example of this approach for the stationary diffusion equation with lognormal diffusion coefficient.
+\ere
+
+\bre[Non-reliance on the Lax-Milgram theorem]
+The above results hold for an arbitrary sesquilinear form and hence are applicable to a wide variety of PDEs; their main advantage is that they apply to PDEs whose stochastic variational formulations are not coercive. For example, as noted in \cref{sec:intro}, for the stationary diffusion equation \eqref{eq:diffusion} with coefficient $\kappa$ bounded uniformly below in $\omega,$ the bilinear form of \cref{prob:svar} is coercive; existence and uniqueness follow from the Lax-Milgram theorem, and hence the chain of results above leading to the well-posedness of \cref{prob:svar} is not necessary.
+\ere
+
+\bre[Overview of how these results are applied to the Helmholtz equation in \cref{sec:hhproof}]
+
+We obtain the results for the Helmholtz equation via the following steps (which could also be applied to other SPDEs fitting into this framework):
+\ben
+\item\label[step]{it:step1pw} Define the map $\coeff$ (via $A,n,$ and $f$) such that for almost every $\omega \in \Omega$ there exists a solution of the deterministic Helmholtz EDP corresponding to $\coeff(\omega).$
+\item\label[step]{it:step2pw} Define $u:\Omega\rightarrow X$ to map $\omega$ to the solution of the deterministic problem corresponding to $\coeff(\omega).$
+\item Prove that \cref{con:coeffstoform,,con:A,,con:coeffstofunc,,con:L,,con:cborel,,con:C,,con:B,,con:K} hold, so that one can apply \cref{thm:3,,thm:11,,thm:12} along with \cref{lem:svarwelldefined,lem:uniq} to show \cref{prob:svsedp} is well-defined and $u$ is unique and satisfies \cref{prob:msedp,prob:somsedp,prob:svsedp}.
+\een
+\Cref{it:step1pw,it:step2pw} can be thought of as constructing a solution pathwise.
+\ere

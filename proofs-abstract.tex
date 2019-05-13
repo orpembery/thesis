@@ -1,0 +1,204 @@
+\section{Proof of the results in \cref{sec:general}}\label{sec:genproof}
+
+\subsection{Preliminary lemmas}\label{sec:prelemmanary}
+To simplify notation, we introduce the following definition.
+\bde[Pairing map]
+For fixed $\coeff:\Omega\rightarrow\cC,\,\toform:\Omega\rightarrow\homspace,$ given $v:\Omega\rightarrow X$ we define the map $\comp:\Omega\rightarrow \Ys$ by
+\beq\label{eq:comp}
+\comp(\omega) \de \mleft[\mleft(\toform\circ\coeff\mright)(\omega)\mright]\mleft(v(\omega)\mright).
+\eeq
+\ede
+
+A key ingredient in proving that the stochastic variational formulation is well-defined (\cref{lem:svarwelldefined}) is showing that the maps $\compu$ and $\fullrhs$ are measurable. Showing that $\fullrhs $ is measurable is straightforward (see \cref{lem:thetaborel} below), but showing that $\compu$ is measurable is not. This is because $\fullrhs$ depends on $\omega$ only through its dependence on $\coeff,$ but $\compu$ depends on $\omega$ through both the dependence of $\toform\circ\coeff$ on $\omega$ and the dependence of $u$ on $\omega;$ it is this dual dependence that causes the extra complication.
+
+\ble[$\fullrhs$ is measurable] \label{lem:thetaborel}
+Under \cref{con:coeffstofunc,con:cborel} the function $\fullrhs$ is measurable.
+\ele
+
+\begin{proof}[Proof of \cref{lem:thetaborel}]
+The map $\coeff$ is measurable (by \cref{con:cborel})
+  and $\rhs$ is continuous  (by \cref{con:coeffstofunc}), therefore \cref{lem:contplusmeas} implies that $\fullrhs $ is measurable.
+\end{proof}
+
+We now move on to the more-involved process of showing $\comp$ is measurable.
+
+\bde[Product map]
+For $v:\Omega\rightarrow X,$ let $\toprod:\Omega\rightarrow \homspace \times X$ be defined by $\toprod(\omega) = \big(\mleft(\toform\circ\coeff\mright)(\omega),v(\omega)\big).$
+\ede
+
+\ble[Product map is measurable]\label{lem:Pmeas}
+When $\homspace \times X$ is equipped with the product topology,  if \cref{con:coeffstoform,con:cborel} hold, and if $v:\Omega\rightarrow X$ is measurable, then $\toprod:\Omega\rightarrow \homspace\times X$ is measurable.
+\ele
+
+\bpf[Proof of \cref{lem:Pmeas}]
+By the result on the measurability of the Cartesian product of measureable functions (\cref{lem:measprod}), $\toprod$ is measurable with respect to $\big(\cF,\bigBorel{\homspace}\otimes \Borel{X}\big)$ (where $\cB$ denotes the Borel $\sigma$-algebra---see \cref{def:borelsigma}), as both of the coordinate functions $\toform\circ c$ and $v$ are measurable. Since $\homspace$ and $X$ are both metric spaces, they are both Hausdorff. As $X$ is separable, \cref{lem:bogachev} on the product of Borel $\sigma$-algebras imples $\bigBorel{\homspace} \otimes \Borel{X} = \bigBorel{\homspace \times X}.$ Hence $\toprod$ is measurable with respect to $\big(\cF,\bigBorel{\homspace\times X}\big).$
+\epf
+
+\bde[Evaluation map]
+Let $Z$ be a separable Banach space. The function $\eval:\homspaceZ \times X \rightarrow \Zs$ is defined by
+\beq\label{eq:evaldef}
+\eval\big(\mleft(\cH,v\mright)\big) \de \cH(v) \quad\tfor \cH \in \homspaceZ \tand v \in X.
+\eeq
+\ede
+
+Observe that the pairing, product, and evaluation maps ($\comp, \toprod,$ and, $\evalY$ respectively) are related by $\comp = \evalY \circ \toprod.$
+
+\ble[Evaluation map is continuous]\label{lem:vstarcont}
+Let $Z$ be a separable Banach space. The map $\eval$ is continuous with respect to the product topology on $\homspaceZ \times X$ and the dual norm topology on $\Zs.$
+\ele
+
+The proof of \cref{lem:vstarcont} is straightforward and omitted.
+
+\ble[$\comp$ is measurable] \label{lem:gammaborel}
+If  \cref{con:coeffstoform,con:cborel} hold and $v$ is measurable, then the function $\comp$ as defined by \eqref{eq:comp} is measurable.
+\ele
+
+\begin{proof}[Proof of \cref{lem:gammaborel}]
+By \cref{lem:Pmeas} $\toprod$ is measurable
+ and by \cref{lem:vstarcont} $\evalY$ is continuous. Therefore \cref{lem:contplusmeas} implies that $\comp = \evalY \circ \toprod$ is measurable.
+ \end{proof}
+
+
+
+\subsection{Proofs of \cref{thm:3,thm:11,thm:12,lem:svarwelldefined,lem:uniq}}
+\bpf[Proof of \cref{thm:3}]
+We need to show $u:\Omega \rightarrow X$ is strongly measurable, satisfies the bound \eqref{eq:sbresult}, and therefore is Bochner integrable and is in the space $\LtOX.$ Our plan is to use \cref{cor:bochnersimple} to show $u$ is Bochner integrable, and establish \eqref{eq:sbresult} as a by-product. Since $u$ solves \cref{prob:meas}, $u$ is measurable. As $X$ is separable, it follows from \cref{cor:pettis} that $u$ is strongly measurable.
+Define $N:X \rightarrow \RR$ by
+$ N(v) \de \N{v}_X^2.$
+Since $N$ is continuous, \cref{lem:contplusmeas} implies $N \circ u:\Omega \rightarrow \RR$ is measurable. 
+Therefore, since both the left- and right-hand sides of \eqref{eq:sbe1} are measurable and \eqref{eq:sbe1} holds for almost every $\omega \in \Omega$ we can integrate \eqref{eq:sbe1} over $\Omega$ with respect to $\PP$ and obtain
+\beq\label{eq:sbmid}
+\int_\Omega \NX{u(\omega)}^2 \dd\PP(\omega) \leq \sum_{j=1}^m \NLoO{\Cj\fj},
+\eeq
+the right-hand side of which is finite since \cref{con:B} includes that $\Cj\fj \in \LoO$ for all $j = 1,\ldots,m.$ Since $u$ is strongly measurable, the bound \eqref{eq:sbmid} and \cref{cor:bochnersimple} with $p=2$ imply that $u$ is Bochner integrable. The norm $\NLtOX{u}$ is thus well-defined by \cref{def:bochnernorm} and \eqref{eq:sbmid} shows that \eqref{eq:sbresult} holds, and so in particular $\NLtOX{u} < \infty.$
+\epf
+
+\bpf[Proof of \cref{lem:svarwelldefined}]
+We must show that for any $\vo \in \LtOX$ and any $\vt \in \LtOY$:
+\bit
+\item The quantities $\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)$ and $\Lcomega\big(\vt(\omega)\big)$ are Bochner integrable, so that the definitions of $\SA$ and $\SL$ as integrals over $\Omega$ make sense.
+\item The maps $\SA(\vo)$ and $\SL$ are linear and bounded on $\LtOY,$ that is, $\SA:\LtOX\rightarrow\LtOYas$ and $\SL \in \LtOYas.$
+\eit
+It follows from these two points that $\SA$ and $\SL$ are well-defined.
+Thanks to the groundwork laid in \cref{sec:prelemmanary}, the measurability of $\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)$ and $\Lcomega\big(\vt(\omega)\big)$  follows from \cref{lem:gammaborel,lem:thetaborel} (which need \cref{con:coeffstoform,con:coeffstofunc,con:C}).
+Their $\PP$-essential separability follows from \cref{con:coeffstoform,con:coeffstofunc,con:C,lem:esssep} and thus their strong measurability follows from \cref{cor:pettis} on the equivalence of measurability and strong measurability when the image is separable. Their Bochner integrability then follows from the Bochner integrability condition in \cref{thm:bochnercond} (with $V=\FF$) and the Cauchy--Schwartz inequality since
+\begin{align}
+\int_\Omega \abs{\Lcomega\big(\vt(\omega)\big)}\dd\PP(\omega)&\leq \int_\Omega \NYs{\mleft(\rhs\circ\coeff\mright)(\omega)}\NY{\vt(\omega)}\dd\PP(\omega)\nonumber\\
+&\leq \NLtOYs{\rhs\circ\coeff}\NLtOY{\vt},\label{eq:Lfirst}
+\end{align}
+which is finite by \cref{con:L}, and 
+\begin{align}
+\int_\Omega \Big|\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)\Big|\dd\PP(\omega) %&\leq \int_\Omega \NYs{\Acomega \vo(\omega)}\NY{\vt(\omega)}\dd\PP(\omega)\nonumber\\
+&\leq \esssup_{\omega \in \Omega} \Nhomspace{\Acomega} \int_\Omega \NX{\vo(\omega)}\NY{\vt(\omega)}\dd\PP(\omega)\nonumber\\
+&\leq \NLiOhomspace{\toform\circ\coeff}\NLtOX{\vo}\NLtOY{\vt},\label{eq:Afirst}
+\end{align}
+which is finite by \cref{con:A}.
+
+We now show $\SL\in  \LtOYas$ and $\SA:\LtOX \rightarrow \LtOYas.$ Observe that 
+
+\noindent $\abs{\SL(\vt)} \leq \int_\Omega \abs{\Lcomega\mleft(\vt(\omega)\mright)}\dd\PP(\omega)$ and $\abs{\mleft[\SA \mleft(\vo\mright)\mright](\vt)} \leq \int_\Omega \abs{\mleft[\Acomega \vo(\omega)\mright]\mleft(\vt(\omega)\mright)}\dd\PP(\omega)$ and thus by \eqref{eq:Lfirst} and \eqref{eq:Afirst} $\SL$ and $\SA(\vo)$ are bounded. They are clearly linear, and so it follows that $\SL \in \LtOYas$ and $\SA(\vo)\in \LtOYas,$ i.e., $\SA:\LtOX \rightarrow \LtOYas.$
+\epf
+
+\bpf[Proof of \cref{thm:11}]
+In order to show that $u$ solves \cref{prob:svar}, we must show:
+\ben
+\item\label[point]{it:111} either the functional $\SLc \in \LtOYas$ or the functional $\SA(u) \in \LtOYas$, and
+\item\label[point]{it:112} the equality \eqref{eq:stoeq} holds.
+\een
+
+For \cref{it:111} we show that $\SL \in \LtOYas,$ (since this is easier than showing $\SA(u) \in \LtOYas$); in fact the proof of this is contained in the proof of \cref{lem:svarwelldefined}.
+
+For \cref{it:112}, since $u$ solves \cref{prob:lt}, for $\PP$-almost every $\omega \in \Omega$ we have
+%\beqs
+$\Acomega u(\omega) = \Lcomega$
+%\eeqs
+in $\Ys.$ Hence, for any $v \in \LtOY$ we have
+\beq\label{eq:midwaytoeu2}
+\big[\Acomega u(\omega)\big]\big(v(\omega)\big) = \Lcomega\big(v(\omega)\big)
+\eeq
+for $\PP$-almost every $\omega \in \Omega.$ Since $\SL \in \LtOYas$, the right-hand side of \eqref{eq:midwaytoeu2} is a strongly measurable function with finite integral. Hence the left-hand side of \eqref{eq:midwaytoeu2} is as well, and we can integrate over $\Omega$ to conclude
+%\beqs
+$\big[\SAc u\big](v) = \SLc(v) \tforall v \in \LtOY,$
+%\eeqs
+that is, $\SAc u = \SLc$ in $\LtOYas.$
+\epf
+The following lemma is needed for the proof of \cref{thm:12}.
+\ble\label{lem:settheory}
+Let $\diff:\Omega\times Y \rightarrow \FF.$  For $y \in Y,$ define $\Omegay \de \set{\omega \in \Omega \st \diff(\omega,y)=0}$ and define $\Omegat \de \set{\omega \in \Omega \st \diff(\omega,y)=0 \tforall y \in Y}.$ If
+\bit
+\item for all $\omega \in \Omega,$ $\diff(\omega,\cdot)$ is a continuous functional on $Y$ and
+\item for all $y \in Y,$ the map $\diff(\cdot,y):\Omega\rightarrow \FF$ is measurable and $\PP(\Omegay)=1,$
+  \eit
+  then $\PP(\Omegat)=1.$
+\ele
+
+\bpf[Proof of \cref{lem:settheory}]
+We must show that the set $\Omegat \in \cF,$ and $\PP(\Omegat)=1.$ Observe that, for any $y \in Y$, the set $\Omegay \in \cF,$ since  $\Omegay = \delta(\cdot,y)^{-1}\mleft(\set{0}\mright),$ which  is the preimage under a measurable map of a measurable set. 
+
+Since $Y$ is a Hilbert space, it is separable, and therefore it has a countable dense subset $\mleft(\yn\mright)_{n \in \NN}.$ We will show that $\PP\mleft(\cap_{n \in \NN} \Omegayn\mright)=1$ and $\Omegat = \cap_{n \in \NN} \Omegayn.$ The set $\cap_{n \in \NN} \Omegayn \in \cF,$ as $\cF$ is a $\sigma$-algebra and $\PP\mleft(\cup_{n \in \NN} \Omegaync\mright) \leq \sum_{n \in \NN} \PP\mleft(\Omegaync\mright) = 0,$ and hence $\PP\mleft(\cap_{n\in\NN} \Omegayn\mright)=1.$ To next show $\Omegat =  \cap_{n \in \NN} \Omegayn$ we observe that $\Omegat = \cap_{y \in Y} \Omegay$ and $\cap_{y \in Y} \Omegay \subseteq \cap_{n \in \NN} \Omegayn.$ It therefore suffices to show $\cap_{n \in \NN} \Omegayn \subseteq \cap_{y \in Y} \Omegay$ to conclude $\Omegat =  \cap_{n \in \NN} \Omegayn.$
+
+
+Fix $y \in Y.$ By density of $\mleft(\yn\mright)_{n \in \NN}$, there exists a subsequence $\ynmseq$ such that $\ynm \rightarrow y$ as $m \rightarrow \infty.$ Fix $\omega \in \cap_{n \in \NN} \Omegayn.$ Note that $\omega \in \cap_{m \in \NN} \Omegaynm;$ that is, for all $m \in \NN,$ $\diff(\omega,\ynm) =0.$ As $\diff(\omega,\cdot)$ is a continuous function on $Y$, $\diff(\omega,\ynm) \rightarrow \diff(\omega,y)$ as $m \rightarrow \infty.$ But as previously noted, $\diff(\omega,\ynm)=0$ for all $m \in \NN.$ Hence we must have $\diff(\omega,y)=0,$ and thus $\omega \in \Omegay.$ Since $\omega \in \cap_{n \in \NN} \Omegayn$ was arbitrary, it follows that $\cap_{n \in \NN} \Omegayn \subseteq \Omegay,$ and since $y \in Y$ was arbitrary, it follows that $\cap_{n \in \NN} \Omegayn \subseteq \cap_{y \in Y} \Omegay$ as required.
+\epf
+
+\bpf[Proof of \cref{thm:12}]
+Let $u \in \LtOX$ solve \cref{prob:svar}. We need to show that $u$ solves \cref{prob:lt}. Observe that $u$ solving \cref{prob:lt} means $\Acomega(u(\omega)) = \mleft(\Lcomega\mright)(\omega)$ in $\Ys$ for almost every $\omega \in \Omega.$ We now use an idea from \cite[Theorem 3.3]{Gi:10}. Our plan is to use test functions of the form $y\Ind{E},$ where $y \in Y$ and $E \in \cF$ to reduce \cref{prob:svar} to the statement
+\beqs
+\int_E \mleft[\Acomega\big(u(\omega)\big)\mright]\big(y(\omega)\big) \dd\PP(\omega) = \int_E \mleft[\mleft(\Lcomega\mright)(\omega)\mright]\big(y(\omega)\big) \dd\PP(\omega)\quad \tforall E \in \cF
+\eeqs
+and then show this implies $u$ satisfies \cref{prob:lt} via \cref{lem:gotoae}.
+
+First define the space
+%\beqs%\label{eq:Dspace}
+$\D := \set{y\Ind{E} \st y \in Y, E \in \cF}.$
+%\eeqs
+It is straightforward to see that the elements of $\D$ are maps from $\Omega$ to $Y.$ The fact that $\D \subseteq \LtOY$ follows via the following three steps:
+
+\ben
+\item The elements of $\D$ are measurable, indeed the indicator function of a measurable set is a measurable function $\Omega\rightarrow\RR,$ and multiplication by $y \in Y$ is a continuous function $\RR\rightarrow Y.$ Hence elements of $\D$ are measurable by \cref{lem:contplusmeas}.
+\item As $Y$ is a separable Hilbert space, it follows from \cref{cor:pettis} that the elements of $\D$ are strongly measurable.
+\item $\NLtOY{y\Ind{E}} = \sqrt{\PP\mleft(E\mright)}\NY{y} < \infty$ for all $y \in Y, E \in \cF.$
+  \een
+
+  
+
+Since \cref{prob:svar} is well-defined, and $u$ solves \cref{prob:svar}, and $\D \subseteq \LtOY,$ we have that $\mleft[\SA u\mright](v) = \SL(v) \tforall v \in \D.$ Therefore, we have
+
+\beq\label{eq:initialint}
+\int_\Omega \mleft[\Acomega\mleft(u(\omega)\mright)\mright]\mleft(y\Ind{E}(\omega)\mright) \dd\PP(\omega) = \int_\Omega \mleft[\Lcomega\mright]\mleft(y\Ind{E}(\omega)\mright) \dd\PP(\omega)
+\eeq
+for all $y \in Y$ and $E \in \cF.$ If we define $\diff:\Omega\times Y \rightarrow \FF$ by $\diff(\omega,y) \de \mleft[\Acomega\mleft(u(\omega)\mright) - \Lcomega\mright]\mleft(y\mright)$ then, by the definition of $\Ind{E},$ \eqref{eq:initialint} becomes
+\beq\label{eq:intoverE}
+\int_E \diff(\omega,y) \dd\PP(\omega)=0\quad \tforall E \in \cF.
+\eeq
+ To conclude $u$ solves \cref{prob:lt} we must show $\diff(\omega,y)=0$ for all $y \in Y,$ almost surely. We will use \cref{lem:gotoae}, so the first step is to show that for all $y \in Y$ $\diff(\cdot,y)$ is Bochner integrable. This follows from the fact that \cref{prob:svar} is well-defined, and thus the quantities $\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)$ and $\Lcomega\big(\vt(\omega)\big)$ are Bochner integrable for any $\vo\in \LtOX,\vt \in \LtOY.$ In particular, they are Bochner integrable when $\vo=u,$ and $\vt=y\Ind{E}$ and thus their difference $\diff$ is Bochner integrable. Secondly, $\diff(\omega,\cdot)$ is a continuous function on $Y$ since $\Acomega\mleft(u(\omega)\mright)$ and $\mleft(\Lcomega\mright)(\omega) \in \Ys,$ for all $\omega \in \Omega.$
+
+We now show $\diff(\omega,y)=0$ for all $y \in Y,$ almost surely. For $y \in Y$ define the set $\Omegay \de \set{\omega \in \Omega \st \diff(\omega,y)=0};$ by \eqref{eq:intoverE} and \cref{lem:gotoae} we have that $\PP(\Omegay)=1$ for all $y \in Y.$ By \cref{lem:settheory}, $  \diff(\omega,y)=0$ for all $y \in Y$, almost surely, that is, $\Acomega u(\omega) = \Lcomega$ almost surely; it follows that $u$ solves \cref{prob:lt}.
+\epf
+
+\bre[Connection with the argument in {\cite[Remark 2.2]{MuSt:11}}]
+The argument in 
+
+\noindent \cref{lem:settheory} and the final part of \cref{thm:12} closely mirrors the result in \cite[Remark 2.2]{MuSt:11}. Indeed, we prove in general that
+\beqs
+\PP\big(\diff(\omega,y)=0\big)=1\text{ for all } y \in Y \quad\text{implies} \quad\PP\big(\diff(\omega,y)=1\text{ for all } y \in Y\big)=1,
+\eeqs
+and \cite[Remark 2.2]{MuSt:11} shows an analogous result for the stationary diffusion equation \eqref{eq:diffusion} with non-uniformly coercive and unbounded coefficient $\kappa.$
+\ere
+
+\bpf[Proof of \cref{lem:uniq}]
+\emph{Proof of \cref{part:uniq1}.} Suppose $\uo,\ut:\Omega\rightarrow X$ solve \cref{prob:meas}. Let $E = \set{\omega \in \Omega \st \uo(\omega) \neq \ut(\omega)}.$ Denote by $\Eo$ and $\Et$ the sets (of measure zero) where the variational problems for $\uo$ and $\ut$ fail to hold, i.e. $\Eo,\Et \in \cF$ with $\PP(\Eo)=\PP(\Et)=0$ and %such that  and
+\beqs
+\Acomega\mleft(\uo(\omega)\mright) \neq \Lcomega \tiff \omega \in \Eo,\quad\text{and}\quad \Acomega\mleft(\ut(\omega)\mright) \neq \Lcomega \tiff \omega \in \Et.
+\eeqs As  $\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely, there exists $\Eth \in \cF$ such that $\PP(\Eth) = 0$ and
+%\beqs
+
+\noindent $\ker\mleft(\Acomega\mright) \neq \set{0} \tiff \omega \in \Eth.$
+%\eeqs
+We claim $E \subseteq \Eo\cup\Et\cup\Eth.$ Indeed, if $\uo(\omega) \neq \ut(\omega)$ then either: (i) at least one of $\uo$ and $\ut$ does not solve \cref{prob:meas} at $\omega$ or (ii) $\uo$ and $\ut$ both solve \cref{prob:meas} at $\omega,$ but $\ker\mleft(\Acomega\mright) \neq \set{0}.$
+Since $\PP(E_j)=0, j = 1,2,3,$ we have $\PP(\Eo\cup\Et\cup\Eth) = 0.$  Therefore $E \in \cF$ and $\PP(E)=0$ since $\OFP$ is a complete probability space; hence $\uo = \ut$ almost surely, as required.
+
+\emph{Proof of \cref{part:uniq2}.} By \cref{rem:imm}, if $\uo,\ut \in \LtOX$ solve \cref{prob:lt}, then all the representatives of the equivalence classes of $\uo$ and $\ut$ solve \cref{prob:meas}. Hence, by \cref{part:uniq1}, any representative of $\uo$ and any representative of $\ut$ differ only on some set (depending on the representatives) of $\PP$-measure zero in $\Omega.$ Therefore $\uo=\ut$ in $\LtOX,$ by definition of $\LtOX.$
+
+\emph{Proof of \cref{part:uniq3}.} As \cref{prob:svar} is well-defined, by \cref{rem:imm,thm:12}, if $\uo$ and $\ut$ solve \cref{prob:svar}, then $\uo$ and $\ut$ also solve \cref{prob:meas}. We then repeat the reasoning in the proof of \cref{part:uniq2} to show $\uo=\ut$ in $\LtOX.$
+\epf

@@ -273,13 +273,13 @@ We say $u \in \HozDDR$ satisfies the \defn{variational formulation of the exteri
 \eeqs
 where
 \beqs
-\aE(w,v) \de \int_{\DR} \mleft(\IPRRd{A \grad w}{\grad v} - k^2 n\minispace w \vbar\mright) - \DPGR{\TR \trGR w}{\trGR v}
+\aE(w,v) \de \int_{\DR} \mleft(\IPRRd{A \grad w}{\grad v} - k^2 n\minispace w \vbar\mright) - \DPGR{\DtN \trGR w}{\trGR v}
 \eeqs
 and
 \beqs
 \FE(v) \de \int_{\DR} f\minispace\vbar,
 \eeqs
-where $\TR:\HhGR\rightarrow \HmhGR$ is the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation $\Lap u + k^2 u = 0$ combined with the Sommerfeld radiation condition in the exterior of $\BR$; and $\DPGR{\cdot}{\cdot}$ is the duality pairing on $\GR.$
+where $\DtN:\HhGR\rightarrow \HmhGR$ is the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation $\Lap u + k^2 u = 0$ combined with the Sommerfeld radiation condition in the exterior of $\BR$; and $\DPGR{\cdot}{\cdot}$ is the duality pairing on $\GR.$
 \eprob
 
 \ble[Equivalence of formulations for the EDP]\label{lem:edpform}
@@ -533,7 +533,7 @@ In order to study the TEDP with $\gD\neq0,$ we must, in essence reformulate to t
 %% \beqs
 %% F(v) = \int_D \mleft(A \grad \ud\mright)\cdot \grad \vb - k^2 n \ud \vb + f \vb + \int_{\GI} \mleft(\gI - \dn \ud\mright)\vb.
 %% \eeqs\optodo{Put a proof of this somewhere, in 28/2/19 notes}
-%% With this reformulation, $F \in \HozDDprime,$ but does not have a representative function in $\LtD$. Our proofs below will use results from \cite{ChNiTo:18}, which are stated for the TEDP with zero Dirichlet boundary condition and $L^2$ right-hand side. To avoid the complications stated above, and to allow us to use the results in \cite{ChNiTo:18}, we therefore impose the additional smoothness on $\gD.$ Also, in the case with $F$ only in $\HozDDprime$, proving a priori bounds on the solution of the TEDP is more complicated (c.f., e.g., \cite[Theorem 2.5]{GrPeSp:18} and \cite[Corollary 2.16]{GrPeSp:18} which consider the analogous EDP). For the same reason, we assume $A \in \WoiDRRdtd;$ if we only had $A \in \LiDRRdtd,$ we could reformulate $F$ as outlined above, but we would have the same complications as just described.
+%% With this reformulation, $F \in \HozDDprime,$ but does not have a representative function in $\LtD$. Our proofs below will use results from \cite{ChNiTo:18}, which are stated for the TEDP with zero Dirichlet boundary condition and $L^2$ right-hand side. To avoid the complications stated above, and to allow us to use the results in \cite{ChNiTo:18}, we therefore impose the additional smoothness on $\gD.$ Also, in the case with $F$ only in $\HozDDprime$, proving a priori bounds on the solution of the TEDP is more complicated (c.f., e.g., \cite[Theorem 2.5]{GrPeSp:19} and \cite[Corollary 2.16]{GrPeSp:19} which consider the analogous EDP). For the same reason, we assume $A \in \WoiDRRdtd;$ if we only had $A \in \LiDRRdtd,$ we could reformulate $F$ as outlined above, but we would have the same complications as just described.
 
 We will restrict our meshes to the following class:
 \bde[Shape-regular]
@@ -864,7 +864,7 @@ We are now in a position to prove our main theorem.
 \bpf[Proof of \cref{thm:febound}]
 In this proof, for brevity we let
 \beqs
-\rhs = \NLtDR{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}.
+\Mfg = \NLtDR{f} + \Nunsure{\gI} + \NLtGD{\gradGD \gD} + k \NLtGD{\gD}.
 \eeqs
 By \cref{ass:bound} the solution $u$ of the TEDP exists and is unique. Assume the finite-element solution $\uh$ exists. Let $\xi \in \HoD$ satisfy the adjoint TEDP \eqref{eq:tedpadj} with $f=u-\uh,$ $\gD=0,$ and $\gI=0.$ Taking complex conjugates, it follows that
 \beq\label{eq:errordual}
@@ -878,20 +878,20 @@ By \cref{ass:bound} $\xi$ exists, is unique and is in $\HtDR.$. Setting $v = u-\
                  &= \api\mleft(u-\Ih u,\xi-\Ph \xi\mright) - k^2 \IPLtDR{n\mleft(u-\uh\mright)}{\xi-\Ph \xi}\\
   &\quad\quad\quad\text{by Galerkin orthogonality for }\xi  - \Ph \xi\\
                  &\leq \Npi{u-\Ih u}\Npi{\xi - \Ph \xi} + \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\\
-                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk \rhs\Npi{\xi-\Ph \xi}\\
+                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk \Mfg\Npi{\xi-\Ph \xi}\\
   &\quad\quad+  \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\quad \text{by \eqref{eq:boundew} and \eqref{eq:hhszbound}}\\
-                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk\rhs\,\sqrt{\Amax + \half}\,h\NHtDR{\xi}\\
+                 &\lesssim \sqrt{\Amax + \half}\, \CHthh\, hk\Mfg\,\sqrt{\Amax + \half}\,h\NHtDR{\xi}\\
                  &\quad\quad  + \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\quad \text{by \eqref{eq:ellprojenbound}}\\
-                 &\lesssim \mleft(\Amax + \half\mright)\CHthh\, hk\rhs \, \CHthh \,hk \NLtDR{u-\uh}\\
+                 &\lesssim \mleft(\Amax + \half\mright)\CHthh\, hk\Mfg \, \CHthh \,hk \NLtDR{u-\uh}\\
 &\quad\quad  + \NLiDRRR{n} k^2 \NLtDR{u-\uh}\NLtDR{\xi-\Ph \xi}\quad \text{by \eqref{eq:hhbound}}\\
 \end{align*}
 Cancelling a factor of $\NLtDR{u-\uh}$ and rearranging terms we obtain
 \beqs
-\NLtDR{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2\rhs + k^2 \NLiDRRR{n} \NLtDR{\xi - \Ph \xi}
+\NLtDR{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2\Mfg + k^2 \NLiDRRR{n} \NLtDR{\xi - \Ph \xi}
 \eeqs
 and therefore
 \begin{align*}
-&  \NLtDR{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2 \rhs\\
+&  \NLtDR{u-\uh} \lesssim \mleft(\Amax + \half\mright)\CHthh^2 \mleft(hk\mright)^2 \Mfg\\
 &\quad\quad  + h^2k^3 \NLiDRRR{n} \mleft(\Amax + \half\mright) \CHtell \CHthh \NLtDR{u-\uh}
 \end{align*}
   using the definition of $\xi$, \eqref{eq:ellprojltbound}, and \eqref{eq:hhbound}Therefore if $h$ satisfies \eqref{eq:hcond} we obtain \eqref{eq:hherrltbound}.

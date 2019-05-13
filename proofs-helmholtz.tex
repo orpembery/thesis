@@ -1,0 +1,288 @@
+\section{Proofs of \cref{thm:hh-gen,thm:hh-hetero}}\label{sec:hhproof}
+In \cref{sec:placing} we place the Helmholtz stochastic EDP into the framework developed in \cref{sec:gen-framework}. In \cref{sec:hh-cond} we give sufficient conditions for the Helmholtz stochastic EDP to satisfy \cref{con:coeffstoform,,con:coeffstofunc,,con:cborel}, etc.. In \cref{sec:applying} we apply the general theory developed in \cref{sec:gen-framework} to prove \cref{thm:hh-gen,,thm:hh-hetero}.
+
+\subsection{Placing the Helmholtz stochastic EDP into the framework of \cref{sec:gen-framework}}\label{sec:placing}
+Recall $R>0$ is fixed. We let $X=Y=\HozDDR$ and define the norm $\NW{v}^2 \de \NLtDR{\grad v}^2 + k^2 \NLtDR{v}^2$ on $\HozDDR.$ Throughout this section, $\Az,\nz,$ and $\fz$ will be deterministic functions. Recall that since the supports of $1-n,$ $I-A,$ and $f$ are compactly contained in $\BR$, we can consider $A, n,$ and $f$ as functions on $\DR$ rather than on $\Dp$. In order to define the space $\cC$ and the maps $\coeff,\toform,$ and $\rhs$ we define the following function spaces on $\DR$.
+
+\bde[Compact-support spaces]\label{def:compsuppspace}
+Let
+\beqs
+\LtRDR \de \set{\fz \in \LtDR \st \supp\mleft(\fz\mright) \compcont \BR}.
+\eeqs
+\begin{align*}
+\LiRminDRRR \de \big\{&\nz \in \LiDRRR \st\supp\mleft(1-\nz\mright) \compcont \BR,\\
+&\text{there exists } \alphanz > 0 \text{ such that } \nz(\bx) \geq \alphanz \text{ almost everywhere }\big\},\\
+\hspace{-3cm}\LiRminDRRRdtd \de \Big\{&\Az \in \LiDRRRdtd \st\Az(\bx) \text{ is symmetric almost everywhere,}\\
+&\supp\mleft(I-\Az\mright) \compcont \BR, \text{there exists } \alphaAz>0 \text{ s.~t.~}\alphaAz \leq \Az(\bx)\\
+&\text{almost everywhere, in the sense of quadratic forms}\Big\},\text{ and}\\
+%\end{align*}
+%\begin{align*}
+&\hspace{-3cm}\WoiRminDRRRdtd \de \set{\Az \in \LiRminDRRRdtd \st\Az \in \WoiDRRRdtd}.
+\end{align*}
+\ede
+
+Observe that the norm on $\LiDRRR$ induces a metric on $\LiRminDRRR,$ and similarly for $\LiRDRRRdtd,$ $\WoiRminDRRRdtd,$ and $\LtRDR.$ These spaces are not vector spaces, and are not complete, but completeness and being a vector space is not required in what follows---we only need them to be metric spaces.
+
+
+\bde[Deterministic form and functional]
+
+\noindent For $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRminDRRR \times \LtRDR$ let the sesquilinear form $\aGm$ on $\HozDDR \times \HozDDR$  and the antilinear functional $\Lh$ on $\HozDDR$ be given by
+\begin{align*}
+\aGm\mleft(\vo,\vt\mright) &\de \int_{D_R} \Big(\mleft(\Az \grad \vo\mright)\cdot \grad \vtb \rangle 
+ - k^2 \nz\, \vo\,\vtb \Big)\dd\Leb- \big\langle T_R \gamma \vo,\gamma \vt\big\rangle_{\Gamma_R}, \quad\text{and}\\
+ \Lh(\vt) &\de \int_{D_R} \fz\, \vtb\,\dd\Leb, \quad\text{ for } \vo, \vt \in \HozDDR.
+\end{align*}
+%for $\vo,\vt \in \HozDDR.$
+\ede
+
+\bprob[Helmholtz EDP]\label{prob:edp}
+For $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRDRRR \times \LtRDR$ find 
+$\uz \in \HozDDR$ such that $\aGm(\uz,v) = \Lh(v) \tforall v \in \HozDDR.$
+\eprob
+
+\bde[$\dinfty$ metric]\label{def:dinfty}
+Let $\mleft(\Xo,\done\mright),\ldots,\mleft(\Xm,\dm\mright)$ be metric spaces. The \defn{$\dinfty$ metric} on the Cartesian product $\Xo\times\cdots\times\Xm$ is defined by
+\beqs
+\dinfty\mleft(\mleft(\xo,\ldots,\xm\mright),\mleft(\yo,\ldots,\ym\mright)\mright) \de \max_{j = 1,\ldots,m} \dmetj\mleft(\xj,\yj\mright).
+\eeqs
+\ede
+
+
+\bde[The input space $\cC$]\label{def:cCHh}
+We let
+%\beqs
+$\cC \de \WoiRminDRRRdtd \times \LiRminDRRR \times \LtRDR$
+%\eeqs
+with topology given by the $\dinfty$ metric.
+\ede
+
+
+\bde[The input map $\coeff$]\label{def:inputmap}
+Define $\coeff:\Omega\rightarrow\cC$ by
+%\beq\label{eq:hh-c}
+$\coeff(\omega) = \mleft(A(\omega),n(\omega),f(\omega)\mright).$
+%\eeq
+\ede
+
+\bde[The maps $\toform$ and $\rhs$ for the Helmholtz stochastic EDP]
+Let
+\beq\label{eq:hhform}
+\toform\mleft(\mleft(\Az,\nz,\fz\mright)\mright) \de \aGm \quad \text{and} \quad \rhs\mleft(\mleft(\Az,\nz,\fz\mright)\mright) \de \Lh,
+\eeq
+where the definition of $\toform$ is understood in terms of the equivalence between $\homspace$ and sesquilinear forms on $X \times Y.$
+\ede
+
+\subsection{Verifying the Helmholtz stochastic EDP satisfies the general conditions in \cref{sec:gen-framework}}\label{sec:hh-cond}
+
+\ble[{\Cref{con:cborel,con:C}} for Helmholtz stochastic EDP]\label{lem:hh-borelC}
+If $A,n,$ and $f$ are strongly measurable, then $\coeff$ defined by  \cref{def:inputmap} satisfies \cref{con:cborel,con:C}.
+\ele
+
+\bpf
+Since $A,n,$ and $f$ are strongly measurable, by \cref{thm:pettis} they are measurable and $\PP$-essentially separably valued. By \cref{lem:measprod}, it follows that $\coeff$ is measurable, so $\coeff$ satisfies \cref{con:cborel}. By \cref{lem:prodsep}, it follows that $\coeff$ is $\PP$-essentially separably valued, so $\coeff$ satisfies \cref{con:C}.
+\epf
+
+\ble[\Cref{con:coeffstoform,con:coeffstofunc} for Helmholtz stochastic EDP]\label{lem:hh-AL}
+The maps $\toform$ and $\rhs$ given by \eqref{eq:hhform} satisfy \cref{con:coeffstoform,con:coeffstofunc}.
+\ele
+
+\bpf[Proof of \cref{lem:hh-AL}]
+We need to show that if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC$ then $\toform((\Am,\nm,\fm)) \rightarrow \toform((\Az,\nz,\fz))$ in $\homspace,$ and similarly for $\rhs.$ We have, for $\vo \in X,\vt \in Y,$
+\begin{align*}
+&\biggabs{\Big[\big[\toform\mleft(\Am,\nm,\fm\mright) - \toform\mleft(\Az,\nz,\fz\mright)\big]\mleft(\vo\mright)\Big]\mleft(\vt\mright)}\\
+&\quad\quad\quad\,\,= \abs{\int_{\DR} \Big(\big(\mleft(\Am-\Az\mright)\grad \vo\big)\cdot\grad\vtb- k^2 \mleft(\nm-\nz\mright) \vo\vtb\Big)\dd\Leb}\\
+&\quad\quad\quad\,\,\leq\NLiDRRRdtd{\Am-\Az}\NLtDR{\grad \vo}\NLtDR{\grad \vt} 
+\\
+&\quad\quad\quad\,\,\quad\quad
++k^2\NLiDRRR{\nm-\nz}\NLtDR{\vo}\NLtDR{\vt}\\
+&\quad\quad\quad\,\,\leq 2\dinfty((\Am,\nm,\fm),(\Az,\nz,\fz))\Nw{\vo}\Nw{\vt},
+\end{align*}
+Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\toform((\Am,\nm,\fm)) \rightarrow \toform((\Az,\nz,\fz))$ in 
+
+\noindent $\homspace.$ We also have
+\beqs
+\Bigabs{\big[\rhs\mleft(\mleft(\Am,\nm,\fm\mright),\mright) - \rhs\mleft(\mleft(\Az,\nz,\fz\mright)\mright)\big]\mleft(\vt\mright)} 
+ = \abs{\int_{\DR} \mleft(\fm- \fz\mright)\vtb\,\dd\Leb}
+ %&\hspace{-2cm}\leq\NLtDR{\fm-\fz}\NLtDR{\vt}
+ \leq \NLtDR{\fm-\fz} \frac{\Nw{\vt}}{k}.
+\eeqs
+Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\rhs((\Am,\nm,\fm)) \rightarrow \rhs((\Az,\nz,\fz))$ in $\Ys.$
+\epf
+
+\bde[The solution operator $\sol$]
+Define $\sol:\cC\rightarrow \HozDDR$ by letting 
+
+\noindent $\sol\mleft(\Az,\nz,\fz\mright) \in \HozDDR$ be the solution of the Helmholtz EDP (\cref{prob:edp}).
+\ede
+
+\bth[$\sol$ is well defined]\label{thm:deteu}
+For $\mleft(\Az,\nz,\fz\mright) \in \cC$ the solution $\sol\mleft(\mleft(\Az,\nz,\fz\mright)\mright)$ of the Helmholtz EDP (\cref{prob:edp}) exists, is unique, and depends continuously on $\fz.$
+\enth
+
+\bpf[Proof of \cref{thm:deteu}] Since $\Real{-\langle \TrR \gamma v,\gamma v\rangle_{\GR}} \geq 0$ for all $v \in \HozDDR$ (see, e.g.~\cite[Theorem 2.6.4]{Ne:01}), $\aGm$ satisfies a G\r{a}rding inequality. Since the inclusion $\HozDDR \hookrightarrow \LtDR$ is compact, Fredholm theory shows that uniqueness implies well-posedness (see, e.g.~\cite[Theorem 2.34]{Mc:00}). Since $A$ is Lipschitz and $n$ is $L^\infty$, uniqueness follows from the unique continuation results in  \cite{JeKe:85,GaLi:87};
+%\cite{GaLi:87};
+see \cite[Section 2]{GrSa:18} for these results specifically applied to Helmholtz problems.
+\epf
+
+
+\ble[Continuity of solution operator for Helmholtz stochastic EDP]\label{lem:solcont}
+For the 
+
+\noindent  Helmholtz stochastic EDP, the solution operator $\sol:\cC\rightarrow\HozDDR$ is continuous.
+\ele
+
+\bpf[Sketch Proof of \cref{lem:solcont}]
+Let $(\Az,\nz,\fz), (\Ao,\no,\fo) \in \cC,$ with $\sol((\Az,\nz,\fz)) = \uz$ and $\sol((\Ao,\no,\fo)) = \uo.$
+Then for any $v \in \HozDDR$ we have, for $j=0,1,$
+
+\beqs\label{eq:S1}
+%\noindent$\label{eq:S1}
+\mleft[\mleft[\toform((A_j, n_j, f_j))\mright](u_j)\mright](v) = \mleft[\rhs((A_j,n_j,f_j))\mright](v).% \tand
+%\mleft[\mleft[\toform((\Ao,\no,\fo))\mright](\uo)\mright](v) = \mleft[\rhs((\Ao,\no,\fo))\mright](v).
+\eeqs%$
+Continuity of $\sol$ then follows from:
+
+\ben
+\item Deriving the Helmholtz equation with coefficients $\Az$ and $\nz$ satisfied by $\ud\de\uz-\uo.$
+\item\label[point]{it:contrecall} Recalling that the well-posedness result of \cref{thm:deteu} holds when $\fz \in \LtRDR$ is replaced by a right-hand side in $(\HozDDR)^*$; see, e.g., \cite[Theorem 2.34]{Mc:00}.
+\item Applying the result in \cref{it:contrecall} to obtain a bound
+%  \beqs
+  $\NW{\ud} \leq C(\Az,\nz) \NHozDDRas{F}.$
+%  \eeqs
+
+\item Showing $\NHozDDRas{F}$ depends on $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRRRdtd{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
+\item Eliminating the dependence on $\uo$ by writing $\uo = \uz-\ud$ and moving terms in $\ud$ to the left-hand side, to obtain a bound on $\ud$ of the form
+  \begin{align*}
+&\NLtDR{\grad \ud} + k\NLtDR{\ud} \\
+&\qquad\leq \Ctilde\Big(\uz,\Az,\nz,\NLiDRRRdtd{\Ao-\Az},\NLiDRRR{\no-\nz},\NLtDR{\fz-\fo}\Big).
+\end{align*}
+\item Concluding that $\ud\rightarrow0$ in $\HozDDR$ as $(\Ao,\no,\fo) \rightarrow (\Az,\nz,\fz)$ in $\cC.$
+\een\epf
+
+\ble[\Cref{con:K} for the Helmholtz stochastic EDP]\label{lem:hh-K}
+The Helmholtz stochastic EDP satisfies \cref{con:K}.
+\ele
+
+\bpf[Proof of \cref{lem:hh-K}]
+This condition holds immediately from \cref{thm:deteu}.
+%The fact that this %uniqueness 
+%condition holds is immediate from \cref{thm:deteu}.
+\epf
+
+To prove that \cref{con:B} holds for the Helmholtz stochastic EDP, we first state the deterministic analogues of \cref{con:hh-hetero,thm:hh-hetero}.
+
+\bcon[Nontrapping condition for Helmholtz EDP {\cite[Condition 2.4]{GrPeSp:19}}]\label{cond:1}
+$d=2,3$, $\Dm$ is star-shaped with respect to the origin, $\Az\in \WoiDRRRdtd$, $\nz\in \WoiDRRR$, and there exist $\consto, \constt>0$ such that,
+for almost every $\bx\in \Dp$,
+\begin{align}\label{eq:A1}
+&\Az(\bx) - (\bx\cdot\nabla)\Az(\bx) \geq \consto, \text{ in the sense of quadratic forms, and }\\
+\label{eq:n1}
+& \hspace{2cm}\nz(\bx)+ \bx\cdot\nabla \nz(\bx) \geq \constt. %\text{ for almost every }\bx\in \Dp.
+\end{align}
+\econ
+
+\bth[Well-posedness of the Helmholtz EDP under \cref{cond:1} {\cite[Theorem 2.5]{GrPeSp:19}}]\label{thm:eubedp}
+Let $(\Az,\nz,\fz) \in \cC$ and suppose $\Az$ and $\nz$ satisfy \cref{cond:1}. Then the solution of the Helmholtz EDP (\cref{prob:edp}) exists and is unique. Furthermore, given $\kz > 0$ for all $k \geq \kz,$ the solution $\uz$ of the Helmholtz EDP satisfies the bound 
+\beq\label{eq:heterobound1}
+\consto \NLtDR{\grad \uz}^2 + \constt k^2 \NLtDR{\uz}^2\leq \Co \NLtDR{\fz}^2,\,\, \text{where} \,\, \Co := 4\mleft[\frac{R^2}{\consto} + \frac{1}{\constt}\mleft(R+ \frac{d-1}{2\kz}\mright)^2\mright].
+\eeq
+\enth
+
+We can now prove \cref{con:B} holds for the Helmholtz stochastic EDP.
+
+\ble[\Cref{con:B} for Helmholtz stochastic EDP]\label{lem:hh-B}
+If \cref{con:hh-fAn,con:hh-hetero} hold, then \cref{con:B} holds for the Helmholtz stochastic EDP.
+\ele
+
+\bpf[Proof of \cref{lem:hh-B}]
+As \cref{con:hh-hetero} holds,  \cref{cond:1} holds for $\PP$-almost every $\omega \in \Omega$ (with $\Az = A(\omega),$ $\nz = n(\omega),$ $\consto = \muo(\omega),$ and $\constt = \mut(\omega)$). Hence, by \cref{thm:eubedp} the bound \eqref{eq:sbe1} holds for all $k \geq \kz$, with $X = \HozDDR, m=1,$
+\beqs
+\Co(\omega) = \frac4{\min\set{\muo(\omega),\mut(\omega)}}\mleft[\frac{R^2}{\muo(\omega)} + \frac{1}{\mut(\omega)}\mleft(R+ \frac{d-1}{2\kz}\mright)^2\mright],
+\eeqs
+and $\fo = \NLtDR{f(\omega)}^2.$ It now remains to show that $\Co\,\NLtDR{f}^2 \in \LoO.$ We first show $\Co\,\NLtDR{f}^2$ is measurable and then show that it lies in $\LoO.$ To show measurability, we rewrite $\Co(\omega)$ as 
+\beqs
+\Co(\omega) =  \max\left\{\frac{2 R^2}{\mu_1^2(\omega)} + \frac{2}{\mu_1(\omega)\mu_2(\omega)}\left(R+ \frac{d-1}{2\kz}\right)^2,\frac{2 R^2}{\mu_1(\omega)\mu_2(\omega)} + \frac{2}{\mu_2^2(\omega)}\left(R+ \frac{d-1}{2\kz}\right)^2\right\}.
+\eeqs
+The functions $\muo^{-1}$ and $\mut^{-1}$ are measurable by assumption; to conclude $\Co$ is measurable we use the facts (see e.g. \cite[Theorems 19.C, 20.A]{Ha:74}): (i) the square of a measurable function is measurable, and (ii) the product, sum, and maximum of two measurable functions are measurable. Under 
+\cref{con:hh-fAn}, the function $f$ lies in the Bochner space $\LtOLtDR.$ Therefore, $f$ is strongly measurable and hence $f$ is measurable  by \cref{thm:pettis}. The map $f\mapsto\NLtDR{f}^2$ is clearly continuous, and therefore $\fo$ is measurable by \cref{lem:contplusmeas}. As the product of two measurable functions is measurable, it follows that $\Co\,\NLtDR{f}^2$ is measurable.
+
+We now show that $\Co\NLtDR{f}^2 \in \LoO.$ The assumptions $1/\muo,1/\mut \in \LtO$ and the Cauchy--Schwarz inequality imply $1/(\muo\mut) \in \LoO.$ Therefore the maps,
+\beqs\omega \mapsto \frac{2 R^2}{\mu_1^2(\omega)} + \frac{2}{\mu_1(\omega)\mu_2(\omega)}\left(R+ \frac{d-1}{2\kz}\right)^2 \text{ and } \omega \mapsto \frac{2 R^2}{\mu_1(\omega)\mu_2(\omega)} + \frac{2}{\mu_2^2(\omega)}\left(R+ \frac{d-1}{2\kz}\right)^2
+\eeqs
+are in $\LoO.$ Since the maximum of two functions in $\LoO$ is also in $\LoO,$ it follows that $\Co \in \LoO.$ \cref{con:hh-fAn} implies that $\NLtDR{f}^2 \in \LoO.$
+
+To conclude $\Co\NLtDR{f}^2 \in \LoO,$ observe that the only dependence of $\Co$ on $\omega$ is through $\muo$ and $\mut.$ As $\muo$ and $\mut$ are assumed independent of $f,$ and measurable functions of independent random variables are independent \cite[p.236]{Lo:77} it follows that $\Co$ and $\NLtDR{f}^2$ are independent, and therefore
+\begin{align}\nonumber
+&\hspace{-2ex}\NLoO{\Co\NLtDR{f}^2} = \int_\Omega \Co(\omega) \NLtDR{f(\omega)}^2 \dd\PP(\omega) 
+\\ &= \mleft(\int_\Omega \Co(\omega) \dd\PP(\omega)\mright)\mleft(\int_\Omega \NLtDR{f(\omega)}^2 \dd\PP(\omega)\mright)= \NLoO{\Co}\NLoO{\NLtDR{f}^2} < \infty.\label{eq:normsplit}
+\end{align}
+Therefore $\Co\NLtD{f}^2 \in \LoO$ as required. We take the expectation (equivalently, the $L^1$ norm) of \eqref{eq:heterobound1} (with $\Az = A(\omega)$ etc.) and use \eqref{eq:normsplit} to obtain \eqref{eq:Sbound1}.
+\epf
+
+\bre[The case when $f,$ $\muo,$ and $\mut$ are not independent]\label{rem:notindep}
+\Cref{rem:planewave} shows that for the physically relevant example of scattering by a plane wave, $f,$ $\muo,$ and $\mut$ may not be independent. In this case, if we replace the requirements in \cref{con:hh-hetero} that $f \in \LtOLtD$ and $1/\muo,\,1/\mut \in \LtO$ with the stronger requirements $f \in \LfOLtD$ and $1/\muo,\,1/\mut \in \LfO$, then one can obtain the bound
+\beqs
+\NLtOHozDDR{\grad u}^2 + k^2\NLtOHozDDR{ u}^2\leq \NLtO{\Co} \NLfOLtDR{f}^2.
+\eeqs
+Indeed, instead of independence, we use the Cauchy--Schwartz inequality in \eqref{eq:normsplit} to conclude
+\beqs
+\NLoO{\Co \NLtDR{f}^2}  \leq \NLtO{\Co}\NLtO{\NLtDR{f}^2} = \NLtO{\Co} \NLfOLtDR{f}^2.
+\eeqs
+\ere
+
+\ble[\Cref{con:L} for Helmholtz stochastic EDP]\label{lem:hh-L}
+If $f \in \LtOLtDR$ and $A$ and $n$ are strongly measurable, then \cref{con:L} holds for the Helmholtz stochastic EDP.
+\ele
+
+\bpf[Proof of \cref{lem:hh-L}]
+Since $A,n,$ and $f$ are strongly measurable, \cref{con:cborel,con:C} hold by \cref{lem:hh-borelC}; i.e., $\coeff$ is both measurable and $\PP$-essentially separably valued. Furthermore, by \cref{thm:pettis} $\coeff$ is strongly measurable. By \cref{lem:hh-AL}, \cref{con:coeffstofunc} holds, so the map $\rhs$ is continuous. Hence, by \cref{lem:contplusstrong}, $\rhs\circ\coeff$ is strongly measurable. We also have that
+%\beqs
+$\NYs{\mleft(\rhs\circ\coeff\mright)(\omega)} = \NLtDR{f(\omega)}/k,$
+%\eeqs
+and thus $\rhs\circ\coeff \in \LtOYs$ since $f \in \LtOLtDR,$ i.e.~\cref{con:L} holds.
+\epf
+
+\ble[\Cref{con:A} for the Helmholtz stochastic EDP]\label{lem:hh-A}
+
+\noindent If $A \in \LiOLiDRRRdtd,$ $n \in \LiOLiDRRR,$ and $f$ is strongly measurable, then \cref{con:A} holds for the Helmholtz stochastic EDP.
+\ele
+
+\bpf[Proof of \cref{lem:hh-A}]
+A near-identical argument to that at the beginning of the proof of \cref{lem:hh-L} shows $\toform\circ\coeff$ is strongly measurable. Recall that the Dirichlet-to-Neumann operator $\TrR$ is continuous from $\HhGR$ to $\HmhGR,$ see e.g.~\cite[Theorem 2.6.4]{Ne:01}. Let $\vo \in X, \vt \in Y,$ and observe that the Cauchy--Schwartz inequality and these properties of $\TrR$
+%, and the fact that the norm on $\LiDRRRdtd$ is defined as 
+%\beqs
+%\NLiDRRRdtd{\Az} = \esssup_{\bx \in \DR}\NopCCd{\Az(\bx)}
+%\eeqs
+imply that there exists $C(k) > 0$ such that 
+\begin{align*}
+\bigg|\Big[\mleft[\Acomega\mright](\vo)\Big](\vt)\bigg| &= \abs{\int_{\DR} \Big(\mleft(A(\omega) \grad \vo\mright)\cdot\grad \vtb - k^2n(\omega) \vo\vtb \Big)\dd\Leb- \IPGRbig{\DtN \vo}{\vt}}\\
+&\hspace{-1cm}\leq \NLiDRRRdtd{A(\omega)}  \NLtDR{\grad \vo}\NLtDR{\grad \vt}\\
+&\hspace{-1cm}\quad+ k^2 \NLiDRRR{n(\omega)}\NLtDR{\vo}\NLtDR{\vt}+ C(k) \NHhGR{\gamma\vo}\NHhGR{\gamma\vt},
+\end{align*}
+where we have used the fact that the two norms
+\beq\label{eq:normsdef}
+ \esssup_{\bx \in \DR} \NopCCd{A(\omega,\bx)} \quad\tand\quad\NLiDRRRdtd{A(\omega)} \de \max_{i,j \in \set{1,\ldots,d}} \NLiDRRR{A_{i,j}(\omega)}
+\eeq
+are equivalent.
+Since the trace operator $\gamma$ is continuous from $\HoDR$ to $\HhGR$ (see, e.g.~\cite[Theorem 3.38]{Mc:00}), there exists $\Ctilde > 0$ such that
+\beqs
+\Nhomspace{\mleft(\toform\circ\coeff\mright)(\omega)}\leq\Ctilde\max\set{\NLiDRRRdtd{A(\omega)},\NLiDRRR{n(\omega)},C(k)}\Nw{\vo}\Nw{\vt}.
+\eeqs
+and hence $\toform\circ\coeff \in \LiOhomspace.$
+\epf
+
+\subsection{Proofs of \cref{thm:hh-gen,thm:hh-hetero}}\label{sec:applying}
+
+\bpf[Proof of \cref{thm:hh-gen}]
+We construct a solution of \cref{prob:msedp} by letting $u = \sol\circ\coeff$ (which is well-defined by \cref{thm:deteu}), and observe that, by construction, $\mleft[a(\omega)\mright]\mleft(u(\omega),v\mright) = \mleft[L(\omega)\mright](v)$ for all $v \in \HozDDR$ almost surely. It follows that $u$ is measurable by \cref{con:hh-fAn,lem:solcont,lem:solcont,lem:contplusmeas}, and so $u$ solves \cref{prob:msedp}. We therefore proceed to apply the general theory.
+
+\Cref{con:coeffstoform,con:coeffstofunc} hold by \cref{lem:hh-AL};
+\cref{con:A} holds by \cref{lem:hh-A};
+\cref{con:L} holds by \cref{lem:hh-L};
+ \cref{con:cborel,con:C} hold by \cref{lem:hh-borelC,con:hh-fAn};
+and \cref{con:K} holds by \cref{lem:hh-K}. Therefore we can apply \cref{thm:11,thm:12,lem:svarwelldefined,lem:uniq} to conclude the results.
+\epf
+
+\bpf[Proof of \cref{thm:hh-hetero}]
+All the conclusions of \cref{thm:hh-gen} hold, and we only need to show that if $u$ solves \cref{prob:msedp} then it also solves \cref{prob:somsedp}. \Cref{con:B} holds by \cref{con:hh-fAn,con:hh-hetero,lem:hh-B}. The result then follows from \cref{thm:3}.
+\epf

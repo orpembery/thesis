@@ -10,3 +10,28 @@
 \Crefname{itemblank}{}{}
 \crefname{problem}{problem}{problems}
 \crefname{problem}{Problem}{Problems}
+
+% Making cleverref play nicely with newly defined environments
+\crefname{convariable}{Condition}{Conditions}
+\Crefname{convariable}{Condition}{Conditions}
+\crefname{probvariable}{Problem}{Problems}
+\Crefname{probvariable}{Problem}{Problems}
+\crefname{myprobsec}{Problem}{Problems}
+\Crefname{myprobsec}{Problem}{Problems}
+\crefname{step}{Step}{Steps}
+\Crefname{step}{Step}{Steps}
+\crefname{point}{Point}{Points}
+\Crefname{point}{Point}{Points}
+\crefname{part}{Part}{Parts}
+\Crefname{part}{Part}{Parts}
+\crefname{condition}{Condition}{Conditions}
+\Crefname{condition}{Condition}{Conditions}
+\crefname{problem}{Problem}{Problems}
+\Crefname{problem}{Problem}{Problems}
+
+
+% Customising cleverref
+\newcommand{\crefrangeconjunction}{--}
+
+% Add a serial/Oxford comma by default.
+\newcommand{\creflastconjunction}{, and~}
