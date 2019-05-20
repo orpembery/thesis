@@ -1,0 +1,450 @@
+We first recap a collection of results that will be needed for the error bounds that follow. All of these results are already available elsewhere, but we name the constants explicitly, so that what follows is, in principle, explicit in $k,$ $A$, and $n.$
+
+We assume throughout this section that were are working with degree-$p$ finite elements, for some integer $p \geq 1.$ Also, we work with a general impedance boundary (satisfying certain assumptions, listed below) and so our domain is $D$ rather than $\DR$.
+
+Throughout this section, we make the following additional \namecrefs{ass:highp}:
+\bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
+\bit
+\item $\Aij \in \CpmooDclos$
+\item $\GD$ and $\GI$ are $\Cpo$
+%\item $f \in \HpmoD$
+%  \item $\gI \in \HpmhGI$
+  \eit
+\eas
+
+We also adopt the notation $\Cfg \de \NLtD{f} + \NLtGI{\gI}$\optodo{Check what norm of $\gI$ we want}\optodo{propagate this notation through}
+
+\subsection{Decomposition of solution and best approximation bound}
+
+We first prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:18a} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for higher $p$, we require the following shift \namecref{thm:shift}:
+
+\bth[Shift theorem]\label{thm:shift}
+Under \cref{ass:highp}\optodo{Sort assumption capitalisation}, For all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that, if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique\optodo{haven't yet proved this} $\utilde \in \HlptD$ such that $\utilde$ solves
+\beqs
+\grad \cdot \mleft(A \grad \utilde\mright) = -\ftilde,
+\eeqs
+\beqs
+\dn \utilde = \gItilde,
+\eeqs
+and
+\beqs
+\trD \utilde = 0
+\eeqs
+and $\utilde$ satisfies the bound
+\beq\label{eq:shift}
+\NHlptD{\utilde} \leq \CAl \mleft(\NHlD{\ftilde} + \NHlphGI{\gItilde}\mright).
+\eeq
+\enth
+
+\bpf[Proof of \cref{thm:shift}]
+The proof uses standard elliptic regularity estimates in the interior, and near the boundaries $\GD$ and $\GI$, as a reference for these we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these results.
+
+To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
+\bit
+\item $\Dint \compcont \Dinttilde \compcont D$,
+\item $\GD \subset \Dscatclos$
+\item $\dist(\Dscat,\GI) > 0 $
+  \item $\GI \subset \Dtruncclos$
+\item $\dist(\Dtrunc,\GD) > 0 $
+    \eit
+    First applying interior regularity \cite[Theorem 4.16]{Mc:00} in $\Dinttilde,$ we obtain the bound
+    \beq\label{eq:shiftint}
+\NHlptDint{\utilde} \leq \CintAl \mleft(\NHoDinttilde + \NHlDinttilde{\ftilde}\mright).
+\eeq
+Applying regularity up to the boundary for Dirichlet data \cite[Theorem 4.18 (i)]{Mc:00} in $\Dscat,$ we obtain (as $\trD \utilde = 0$)\optodo{Sanity check that trace operator isn't different for different values of $l$}
+\beq\label{eq:shiftscat}
+\NHlptDscat{\utilde} \leq \CscatAl \mleft(\NHoD{\utilde} + \NHlD{\ftilde}\mright)
+\eeq
+and similarly\optodo{Spell checker} for Neumann data \cite[Theorem 4.18 (ii)]{Mc:00} in $\Dtrunc,$ we obtain
+\beq\label{eq:shifttrunc}
+\NHlptDtrunc{\utilde} \leq \CtruncAl \mleft(\NHoD{\utilde} + \NHlphGI{\dn \utilde} + \NHlD{\ftilde}\mright).
+\eeq
+Combining \cref{eq:shiftint,eq:shiftscat,eq:shifttrunc}, we obtain \cref{eq:shift} with $\CAl = \CintAl + \CscatAl + \CtruncAl.$
+\epf
+
+We make the following \namecref{ass:htwo} on the solution of \cref{prob:vtedp}, and adopt notation for an a priori bound on its solution:
+
+\bas\label{ass:htwo}
+\Cref{prob:vtedp} (or its adjoint)\optodo{Fix everything needed for this} has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
+\beq\label{eq:generalhtwo}
+k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \mleft(\NLtD{f} + \NLtGI{\gI}\mright).
+\eeq
+\eas
+Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
+
+We are now able to prove the following theorem giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts (meaning the power of $k$ in the a priori boudn is lower) and a smoother, more-oscilatory part.\optodo{Make contact with Melenk and Sauter} This result is essentially \cite[Theorem 1]{ChNi:18a}, in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of.
+
+The following trace theorem is standard, see, e.g., \cite[Theorem 3.37]{Mc:00}.
+\bth[Trace Theorem]\label{thm:trace}
+If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independent of $v$ such that
+\beqs
+\NHsmhGI{\trI v} \leq \CTrs \NHsD{v}.
+\eeqs
+\enth
+
+We first have this simple \namecref{lem:domainshift}:
+
+\ble\label{lem:domainshift}
+Let $\ftilde \in \HlD$ and $\gtilde \in \HlpoD,$ for $0 \leq l \leq p-1$. If $\utilde \in \HlptD$ solves
+\beqs
+\grad \cdot \mleft(A\grad \utilde\mright) = -\ftilde
+\eeqs
+and
+\beqs
+\dn u = i\gtilde,
+\eeqs
+then
+\beqs
+\NHlptD{\utilde} \leq \CAl\mleft(1+\CTrlpo\mright)\mleft(\NHlD{\ftilde} + \NHlpoD{\gtilde}\mright).
+\eeqs
+\ele
+\bpf[Proof of \cref{lem:domainshift}]
+By \cref{thm:shift,lem:domainshift}
+\beqs
+\NHlptD{\utilde} \leq \CAl \mleft(\NHlD{\ftilde} + \NHlphGI{\gtilde}\mright) \leq \CAl \mleft(\NHlD{\ftilde} + \CTrs\NHlpoD{\gtilde}\mright),
+\eeqs
+and the result follows.
+\epf
+
+We can now prove our expansion of the solution of \cref{prob:vtedp} or its adjoint.
+
+\bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
+Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
+\beq\label{eq:expansionuj}
+\NHjptD{\usj} \leq \Pj(\NLiD{n}) k^j \NLtD{f}, \text{ for }\Cj > 0,
+\eeq
+\beq\label{eq:expansionuosc}
+\NHppoD{\uosc} \leq \Cosc k^p \NLtD{f}, \text{ for some } \Cosc > 0,
+\eeq
+and
+\beq\label{eq:expansionid}
+u = \uosc + \sum_{j=0}^{p-2} \usj.
+\eeq
+Where the $\Pj(x) = \sum_{m=0}^{j-2}\pfn{j,m}x^m $ are polynomials of degree at most $j-2$\optodo{Correct for j=1,2,3} whose coefficients are given by the recurrence relations
+\begin{align*}
+\pfn{0,0}&= \CAz\\
+\pfn{1,0}&  = \CAz\CAo\mleft(1+\CTrt\mright)\\
+\pfn{j,m}& = 0, \quad\tif m \leq \floor{\frac{j-2}2}\\
+\pfn{j,m}& = \CAj\mleft(1+\CTrjpo\mright) \mleft(\pfn{j-2,m-1} + \pfn{j-1,m-1}\mright),\quad\tif \floor{\frac{j-2}2} < m \leq j-3\\
+\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3}.
+\end{align*}
+\enth
+
+\bit
+\item Powers of $k$ in non-oscillatory parts one smaller
+\item Just copying Theo and Serge
+\item Make contact with Melenk and Sauter
+\item In principle exponential growth of constant with $p$
+\eit
+
+\bpf[Proof of \cref{thm:expansion}]
+The idea of the proof is as follows. We write $u$ as a formal series expansion
+\beq\label{eq:formalseries}
+u = \sum_{j=0}^\infty \usj,
+\eeq
+and then substitute this series into the PDE \cref{eq:hhtedp} and the boundary condition \eqref{eq:ibc}. Equating powers of $k$, we derive a recursive sequence of stationary diffusion equations for the functions $\usj,$ with right-hand sides dependent on $\ujmo$ and $\ujmt$. We use this recursive sequence and \cref{lem:domainshift} to prove the a priori bounds \cref{eq:expansionuj}. We then define the remainder from the $l$th partial sum, $\rl = u - \sum_{j=0}^{l-1} \usj,$ and by applying the operator $\grad\cdot\mleft(A\grad \cdot\mright)$ with Neumann boundary conditions to $\rl$, we obtain a recursive sequence for the remainders $\rl,$ and can similarly prove a priori bounds for the $\rl$s. The oscillatory function $\uosc$ is then just $\rpmo.$ The format of this proof is identical to that in \cite[Theorem 1]{ChNi:18a}, except we keep track of all of the constants involved.
+
+For the purposes of the proof, it is more convenient to define $\vj = \usj/k^j,$ so that the series expansion \cref{eq:formalseries} becomes
+\beq\label{eq:formalseriesv}
+u = \sum_{j=0}^\infty k^j\vj,
+\eeq
+
+By applying the Helmholtz operator to the formal series \eqref{eq:formalseriesv} we obtain the following problems for $\vj \in \HjptD, j \geq 1$:
+\beqs
+\grad \cdot \mleft(A\grad \vz\mright) = -f \quad\tand\quad \dn \vz = \gI,
+\eeqs
+\beqs
+\grad \cdot \mleft(A\grad \vo\mright) = 0\quad\tand\quad\dn \vo = i\vz,
+\eeqs
+and, for $j \in \mleft[2,p-2\mright]$
+\beqs
+\grad \cdot \mleft(A\grad \vj\mright) = - n\vjmt\quad\tand\quad\dn \vz = i\vjmo.
+\eeqs
+
+By \cref{thm:shift} we immediately conclude the bound
+\beq\label{eq:expuz}
+\NHtD{\vz} \leq \CAz\mleft(\NLtD{f} + \NHhGI{\gI}\mright),
+\eeq
+and by \cref{lem:domainshift,eq:expuz} we can conclude the bound
+\beqs
+\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \CAz \CAo \mleft(1+\CTrt\mright)\mleft(\NLtD{f} + \NHhGI{\gI}\mright).
+\eeqs
+Then for $j \in \mleft[2,p-2\mright]$, let $\vj \in \HjptD$ solve
+
+Using \cref{lem:domainshift} and the relationship between $\usj$ and $\vj$, by induction we have the bound \cref{eq:expansionuj}.
+
+We will now similarly define the remainders $\rl$, and proceed similarly.
+Let $\ro \in \HthD$ solve
+\beqs
+\grad \cdot \mleft(A\grad \ro\mright) = -k^2 u
+\eeqs
+\beqs
+\dn \ro = iku.
+\eeqs
+Then by \cref{lem:domainshift}
+\begin{align*}
+\NHthD{\ro} &\leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\\
+&\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\mleft(\NLtD{f} + \NLtGI{\gI}\mright).
+\end{align*}
+Let $\rt \in \HfD$ solve
+\beqs
+\grad \cdot \mleft(A\grad \rt\mright) = -k^2 u
+\eeqs
+\beqs
+\dn \rt = ik\ro.
+\eeqs
+Then by \cref{lem:domainshift}
+\begin{align*}
+\NHfD{\rt} &\leq \CAt\mleft(1+\CTrth\mright)\mleft(k^2\NHtD{u} + k\NHthD{\ro}\mright)\\
+&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\CAnk k^3\mleft(\NLtD{f} + \NLtGI{\gI}\mright).
+\end{align*}
+Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
+\beqs
+\grad \cdot \mleft(A\grad \rt\mright) = -k^2 \rjmt
+\eeqs
+\beqs
+\dn \rj = ik\rjmo.
+\eeqs
+And by \cref{lem:domainshift} again, we have \eqref{eq:cosc}.
+\epf
+\optodo{Just a note while I think about it - could you do DtN boundary conditions in this proof by testing with a different function when wanting to bound the $L^2$ norm on the boundary? I wonder if testing with the NtD of $u$ would mean you end up with a $\LtGI{u}^2$ term, and then you could use properties of the NtD map to bound other bits. Might foil $k$-dependency though.}
+Using the expansion in \cref{thm:expansion}, we can prove the following error bound for the best approximation of $u$ in $\Vhp$:
+
+\ble[Best approximation error bound]\label{lem:bestapprox}
+Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt, \CFEMotilde, \CFEMttilde > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uzhat \in \Vhp$ such that
+\beqs
+\NLtD{u-\uzhat} \leq \mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg
+\eeqs
+and
+\beqs
+\NHoD{u-\uzhat} \leq \mleft(\CFEMotilde h + \CFEMttilde \CAnk \mleft(hk\mright)^p \mright)\Cfg.
+\eeqs
+The constants are given by\optodo{Insert}
+\ele
+
+\bpf[Proof of \cref{lem:bestapprox}]
+\optodo{Do the proof}
+\epf
+
+\subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
+In this \namecref{sec:errgalerkin} we state and prove a sequence of error bounds for various projections, in various norms. We first define the projections we use.
+
+Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
+\beqs
+\IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp
+\eeqs
+Observe that this is just solving a stationary diffusion equation with special RHS.\optodo{Write this better}
+The elliptic projection obeys the following error bounds:
+\ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
+For any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
+\beqs
+\NHmsD{w-\Ph w} \leq \Cmso h^{s+1} \BAHoD{w}{\wh}.
+\eeqs
+\ele\optodo{Prove it}
+
+We define the $\LtD$ projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+\beqs
+\IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
+\eeqs
+The $\LtD$ projection satisfies the following error bound:
+\ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
+For any integer $s \in [0,p-1],$ there exists a constant $\Cmsz >0$ such that for all $w \in \LtD$
+\beqs
+\NHmsD{w-\Qh w} \leq \Cmso h^{s} \BALtD{w}{\wh}.
+\eeqs
+\ele\optodo{Prove it}
+
+We also need to define the $\LtD$ projection in a norm weighted by $n$
+
+For $v,w \in \LtD,$ define the $n$-weighted inner product
+\beqs
+\IPLtDn{v}{w} = \int_{D} n v \wbar,
+\eeqs
+and the corresponding $n$-weighted $\LtD$ norm
+\beqs
+\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}.
+\eeqs
+The $n$-weighted $\HsD$ norms, for $s \in \ZZ$, are defined as normal, but replacing the appearance of an $\LtD$ norm by its weighted version\optodo{Check for negative norms}.
+
+Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+\beqs
+\IPLtDn{\Qh w}{\vh} = \IPLtDn{w}{\vh} \tforall \vh \in \Vhp.
+\eeqs
+The $n$-weighted $\LtD$ projection satisfies the following error bound:
+\ble[Error bounds for $\LtD$ projection]\label{lem:wltdprojerr}
+For any integer $s \in [0,p-1],$ there exists a constant $\Cnmsz >0$ such that for all $w \in \HozDD$
+\beqs
+\NHmsnD{w-\Qhn w} \leq \Cmso h^{s} \BALtDn{w}{\wh}.
+\eeqs
+\ele\optodo{Prove it}
+\optodo{Double check how weighted negative norm spaces compare with standard spaces}
+
+We also have the following best-approximation error in higer-order Sobolev spaces:
+\ble[Best approximation in $\HsD$]\label{lem:bestapproxhigh}
+For integer $s$ in $[1,p+1]$, there exists $\Cinterps>0$ such that for every $v \in \HsD$ there exists $\vhhat \in \Vhp$ such that
+\beqs
+\NLtD{v - \vhhat} + h\NHoD{v-\vhhat} \leq \Cinterps h^s \SNHsD{v}.
+\eeqs
+\ele
+
+
+
+\subsection{Discrete Sobolev spaces}\label{sec:discsob}
+In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivates, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
+
+We let $\DeltaA$ denote the (distributional) $A$-weighted Laplacian; i.e., for $v \in \LolocD,$ $\DeltaA v = \grad\cdot\mleft(A\grad v\mright).$
+
+\bde[Discrete derivative operator]
+Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ for $\wh \in \Vhp$ by
+\beqs
+\IPLtD{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} \tforall \vh \in \Vhp.
+\eeqs
+\ede
+
+\ble[Discrete derivative operator is well-defined]\label{lem:ddwd}
+For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
+\ele
+
+\bpf[Proof of \cref{lem:ddwd}]
+We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\optodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
+\epf
+
+By\optodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\optodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\optodo{Maybe define this}
+
+Similarly\optodo{Need to figure out the details, but if the Galerkin problem is always sovable, things \emph{must} be fine}, for $\Deltah$ there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding eigenvalues $0 < \lambdaoh < \cdots < \lambdadimVhph$ such that the $\phimh$ form an orthonormal basis of $\Vhp$ (orthonormal in the $\HoD$-norm).
+
+\bde[Higher-order derivative operators]
+For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in \RR$ define
+\beqs
+\Deltah^j \vh = \sum_{m=1}^{\dimVhp} \lambdamh^j \am \phimh.
+\eeqs
+
+Similarly, for $v \in \LtD,$ if $v = \sum_{m=1}^\infty \am \phim,$ then for $j \in \RR$ define
+\beq\label{eq:deltaaseries}
+\DeltaA^j v = \sum_{m=1}^\infty \lambdam^j \am \phim,
+\eeq
+if this series exists in $\LtD.$
+\ede
+
+We let $\Domain{\DeltaA^j}$ denote the subset of $\LtD$ on which $\DeltaA^j$ is defined.
+
+\bre[Negative powers of $\DeltaA$]
+Observe that for \emph{every} $j \leq 0$, $\DeltaA^j v$ is defined for \emph{any} $v \in \LtD$ (i.e., $\Domain{\DeltaA^{j}} = \LtD$ for $j \leq 0$). For $\lambdam \geq 1,$ $\lambdam^j < \lambdam$, and only finitely many $\lambdam$ are in the interval $(0,1)$; therefore the series \cref{eq:deltaaseries} can be decomposed as a finite sum (for $\lambdam < 1$) and a convergent series (for $\lambdam \geq 1$).
+\ere
+
+\bre[Consistent Notation]
+Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\optodo{Maybe just double-check this is watertight.}\optodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
+\ere
+
+We can use the higher-order derivative operators to define higher-order norms:
+
+\bde[$A$-weighted higher-order continuous norm]
+For $v \in \LtD$ and $m \in \RR$, if $\DeltaA^{m/2} v$ exists, define
+\beqs
+\NmA{v} = \NLtD{\DeltaA^{m/2} v}.
+\eeqs
+\ede
+
+In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \namecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
+\ble[Relationship between $\DeltaA^m$ and standard higher-order derivatives]\label{lem:normrelationshiptech}
+For $m \in \NN,$ $\Domain{\DeltaA^{m/2}} \subseteq \HmD,$ and there exists a constant $\Cma > 0$ such that for all $v \in \Domain{\DeltaA^{m}}$
+\beqs
+\NHmD{v} \leq \Cma \NLtD{\DeltaA^{m/2}v}.
+\eeqs\optodo{The latter bit will probably use something shift-theorem-like, but you need to be careful because powers of the differential operator aren't defined standardly.}
+\ele
+
+
+\ble[Relationship between $A$-weighted and standard higher-order continuous norms]\label{lem:normrelationship}
+For all $m \in \NNz,$ for all $v \in \HmmD,$
+\beqs
+\NHmmD{v} \geq \frac1{\Cma} \NmmA{v}.
+\eeqs
+\ele
+
+\bpf[Proof of \cref{lem:normrelationship}]
+For $v \in \HmmD,$ we have
+\begin{align*}
+\NHmmD{v} &= \sup_{w \in \HmD} \frac{\IPLtD{v}{w}}{\NHmD{w}}\\
+&\geq \frac1{\Cma} \sup_{w \in \Domain{\DeltaA^{m/2}}} \frac{\IPLtD{v}{w}}{\NmA{w}} \text{ by \cref{lem:normrelationshiptech}}\\
+& = \frac1{\Cma} \sup_{w \in \Domain{\DeltaA^{m/2}}} \frac{\IPLtD{\DeltaA^{-m/2}v}{\DeltaA^{m/2}w}}{\NmA{w}} \text{ by \cref{lem:intoip}}\\
+&= \frac1{\Cma} \NmmA{v} \text{ the supremum is achieved when } \IPLtD{\DeltaA^{-m/2}v,\DeltaA^{m/2}w} = \NLtD{\DeltaA^{-m/2}v}\NLtD{\DeltaA^{m/2}w}
+\end{align*}
+\epf
+
+\ble[Introduction of derivatives into inner product]\label{lem:intoip}
+For $m \in \RR,$ $v \in \LtD$, and $w \in \LtD\cap\Domain{\DeltaA^{m/2}}$ we have
+\beqs
+\IPLtD{\DeltaAmmt v}{\DeltaAmt w} = \IPLtD{v}{w}.
+\eeqs
+Similarly, for $\vh, \wh \in \Vhp,$ we have
+\beq\label{eq:feipsplit}
+\IPLtD{\Deltahmmt \vh}{\Deltahmt \wh} = \IPLtD{\vh}{\wh}
+\eeq
+and
+\beq\label{eq:feiptrans}
+\IPLtD{\Deltahmt \vh}{\Deltahmt \vh} =  \IPLtD{\Deltah^m \vh}{\vh}.
+\eeq
+\ele
+
+\bpf[Proof of \cref{lem:intoip}]
+Since $v,w \in \LtD,$ there exist sequences $(\aj)_{j \in \NN}$ and $(\bsl)_{l \in \NN}$ such that $v = \sum_{j=1}^\infty \aj\phij$ and $w = \sum_{l=1}^\infty \bl \phil.$ Then we have
+\begin{align*}
+\IPLtD{\DeltaAmmt v}{\DeltaAmt w} &= \int_D \mleft(\sum_{j=1}^\infty\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^\infty \lambdal^{m/2}\bsl \phil\mright)}\\
+&= \sum_{j,l=1}^\infty \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D \phij \philbar \text{ as the series have limits in } \LtD, \text{ the dominated convergence theorem applies}\\
+& =\sum_{j}^\infty \aj \bsj \int_D \abs{\phij}^2 \text{ as the } \phij \text{ are orthonormal}\\
+&= \IPLtD{v}{w} \text{ by repeating the above process in reverse, without the factors } \lambdaj^{-m/2} \tand \lambdal^{m/2}.
+\end{align*}
+The proofs of \cref{eq:feipsplit,eq:feiptrans} are analagous.
+\epf
+
+The following \namecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
+
+\bco[Inner product bounded by discrete norms]\label{cor:ipdiscbound}
+If $vh, \wh \in \Vhp,$ then for all $j \in \RR$
+\beqs
+\IPLtD{\vh}{\wh} \leq \Njh{\vh}\Nmjh{\wh}.
+\eeqs
+\eco
+
+\ble[Inverse inequality for discrete norms]\label{lem:inversediscrete}
+For all $j \in \ZZ$, for all $\vh \in \Vhp$
+\beqs
+\Njh{\vh} \leq \Chinv h^{-1} \Njmoh{\vh},
+\eeqs
+where
+\beqs
+\Chinv = \CinvVhp \NLiDop{A}^{1/2},
+\eeqs
+where $\CinvVhp$ is the constant in the standard inverse estimate\optodo{Maybe put this in}.
+\ele
+
+\bpf[Proof of \cref{lem:inversediscrete}]
+by the definition of $\Njh{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^{1/2}\Deltah^{(j-1)/2},$ it suffices to prove the result for $j=1$. We have
+\begin{align*}
+\Noh{\vh}^2 &= \IPLtD{\Deltahh \vh}{\Deltahh \vh}\\
+&= \IPLtD{\Deltah \vh}{\vh} \text{ by \cref{eq:feiptrans}}\\
+&= \IPLtD{A \grad \vh}{\grad \vh} \text{ by definition of } \Deltah\\
+&\leq \NLiDop{a} \CinvVhp h^{-2} \NLtD{\vh} \text{ by the standard inverse estimate}\\
+&= \NLiDop{a} \CinvVhp h^{-2} \Nzh{\vh} \text{ as } \Nzh{\cdot} = \NLtD{\cdot},
+\end{align*}
+and the result follows.
+\epf
+
+\ble[Relationship between standard and discrete $H^1$ norms]\label{lem:h1contdisc}
+Let $\vh \in \Vhp$. Then
+\beqs
+\SNHoD{\vh} \leq \Amin^{\half} \Noh{\vh}.
+\eeqs
+\ele
+
+\bpf[Proof of \cref{lem:h1contdisc}]
+We have
+\begin{align*}
+\Noh{\vh}^2 &= \IPLtD{\Deltahh \vh}{\Deltahh \vh}\\
+&= \IPLtD{\Deltah \vh}{\vh} \text{ by \cref{lem:feiptrans}}\\
+&= \IPLtD{A \grad \vh}{\grad \vh}\\
+&\geq \Amin \NLtD{\grad \vh}^2,
+\end{align*}
+and the result follows.
+\epf
+
