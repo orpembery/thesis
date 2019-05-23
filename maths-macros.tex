@@ -265,8 +265,8 @@
 \newcommand{\Cfg}{C_{f,\gI}}
 \newcommand{\CFEMo}{C_{\mathrm{FEM},1}}
 \newcommand{\CFEMt}{C_{\mathrm{FEM},2}}
-\newcommand{\CFEMotilde}{\widetilde{C}_{\mathrm{FEM},1}}
-\newcommand{\CFEMttilde}{\widetilde{C}_{\mathrm{FEM},2}}
+\newcommand{\CFEMotilde}{\CFEMo}
+\newcommand{\CFEMttilde}{\CFEMt}
 \newcommand{\Cmszfn}[1]{C_{#1,0}}
 \newcommand{\Cmsofn}[1]{C_{#1,1}}
 \newcommand{\Cnmszfn}[1]{C_{n,#1,0}}
@@ -316,9 +316,12 @@
 \newcommand{\CLtboundt}{\Cboundfn{L^{2}}{2}}
 \newcommand{\CHoboundo}{\Cboundfn{H^{1}}{1}}
 \newcommand{\CHoboundt}{\Cboundfn{H^{1}}{2}}
-
-
-
+\newcommand{\CFEMohat}{2\CFEMo} % Needs tidying
+\newcommand{\CFEMthat}{2\CFEMt}
+\newcommand{\Ccorfn}[1]{\Cfn{\mathrm{Cor},#1}}
+\newcommand{\CcorLt}{\Ccorfn{L^{2}}}
+\newcommand{\CcorHo}{\Ccorfn{H^{1}}}
+\newcommand{\Coscfn}[1]{\Cfn{\mathrm{osc},#1}}
 
 
 
@@ -509,4 +512,6 @@
 \newcommand{\IPLtGI}[2]{\IP{#1}{#2}_{\LtGI}}
 \newcommand{\Npmoh}[1]{\Nfn{p-1,h}{#1}}
 \newcommand{\eh}{e_{h}}
-
+\newcommand{\uhhat}{\hat{u}_{h}}
+\newcommand{\vjh}{v_{j,h}}
+\newcommand{\vosch}{v_{\mathrm{osc},h}}

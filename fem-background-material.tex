@@ -126,8 +126,16 @@ Where the $\Pj(x) = \sum_{m=0}^{j-2}\pfn{j,m}x^m $ are polynomials of degree at 
 \pfn{1,0}&  = \CAz\CAo\mleft(1+\CTrt\mright)\\
 \pfn{j,m}& = 0, \quad\tif m \leq \floor{\frac{j-2}2}\\
 \pfn{j,m}& = \CAj\mleft(1+\CTrjpo\mright) \mleft(\pfn{j-2,m-1} + \pfn{j-1,m-1}\mright),\quad\tif \floor{\frac{j-2}2} < m \leq j-3\\
-\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3}.
+\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3},
 \end{align*}
+and $\Cosc$ is given by the recurrence relations
+\begin{align*}
+\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
+\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
+\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
+\end{align*}
+and $\Cosc = \Coscfn{p-1}\CAnk.$
+
 \enth
 
 \bit
@@ -211,19 +219,34 @@ And by \cref{lem:domainshift} again, we have \eqref{eq:cosc}.
 Using the expansion in \cref{thm:expansion}, we can prove the following error bound for the best approximation of $u$ in $\Vhp$:
 
 \ble[Best approximation error bound]\label{lem:bestapprox}
-Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt, \CFEMotilde, \CFEMttilde > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uzhat \in \Vhp$ such that
+Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt, \CFEMotilde, \CFEMttilde > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
+\beq\label{eq:bestapproxL2}
+\NLtD{u-\uhhat} \leq \mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg,
+\eeq
+\beq\label{eq:bestapproxH1}
+\NHoD{u-\uhhat} \leq \mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg \tand
+\eeq
+\beq\label{eq:bestapproxW}
+\NW{u-\uhhat} \leq 2\mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg.
+\eeq
+The constants are given by
+\beq\label{eq:CFEMs}
+\CFEMo = \sum_{j=0}^{p-2}\Cinterpfn{j+2} \Pj\mleft(\NLiD{n}\mright) \tand \CFEMt = \Cinterpfn{p+1}\Cosc
+\eeq
+\ele
+
+We write bounds for the standard and weighted $H^1$ norms separately, as we will use each individual bound in differents of proofs in \cref{sec:fembound}.
+
+\bpf[Proof of \cref{lem:bestapprox}]
+We apply \cref{lem:approxhigh} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exists $\vjh,$ $j=0,\ldots,p-2$ and $\vosch$ in $\Vhp$ such that 
 \beqs
-\NLtD{u-\uzhat} \leq \mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg
+\NLtD{\usj - \vjh} + h\NHoD{\usj - \vjh} \leq \Cinterpfn{j+2} \Pj\mleft(\NLiD{n}\mright) h^{j+2}k^j \Cfg
 \eeqs
 and
 \beqs
-\NHoD{u-\uzhat} \leq \mleft(\CFEMotilde h + \CFEMttilde \CAnk \mleft(hk\mright)^p \mright)\Cfg.
+\NLtD{\uosc - \vosch} + h\NHoD{\uosc - \vosch} \leq \Cinterpfn{p+1} \Cosc\CAnk h^{p+1}k^p \Cfg.
 \eeqs
-The constants are given by\optodo{Insert}
-\ele
-
-\bpf[Proof of \cref{lem:bestapprox}]
-\optodo{Do the proof}
+Therefore, by letting $\uhhat = \vosch + \sum_{j=0}^{p-2} \vjh,$ we have (using the fact that $hk \leq 1$) \cref{eq:bestapproxL2,eq:bestapproxHo,eq:bestapproxW}, with $\CFEMo$ and $\CFEMt$ as given by \cref{eq:CFEMs}.
 \epf
 
 \subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
@@ -574,11 +597,11 @@ h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}},
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
 \beqs
-\NLtD{u-\uh} \leq \CFEMLt \mleft(h + (kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh}, \tand
+\NLtD{u-\uh} \leq \CFEMLt \mleft(h \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh}, \tand
 \eeqs
 \beqs
-\NW{u-\uh} \leq \CFEMHo \mleft(1 + k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},
-\eeqs
+\NW{u-\uh} \leq \CFEMHo \mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},
+\eeqs\optodo{Change these so they are just the rhs of the pde}
 where $\CFEMLt$, $\CFEMHo,$ and $\Chcond$ are given by
 \beqs
 \Chcond = \frac1{\mleft(4\Csecond \CReco^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}
@@ -814,14 +837,28 @@ where
 \beqs
 \CHoboundt = \Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright).
 \eeqs
-Therefore, by \cref{lem:ellprojerr}, and the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}, where
+Therefore, by \cref{lem:ellprojerr,lem:bestapprox}, and the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}, where
 \beqs
 \CFEMLt = \Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}\tand
 \eeqs
 \beqs
-\CFEMHo = \Cfn{-1,1}\max\set{\CLtboundo+\CHoboundo,\CLtboundt+\CHoboundt}.
-\eeqs
+\CFEMHo = \Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}.
+\eeqs\optodo{Double check these are right}
 \epf
+\optodo{Put $\gI$ into Theo and Serge's stuff}
+\optodo{Change Theo and serge notation as might not all be the same function}
+
+From \cref{thm:fembound,thm:bestapproximation} we have the following corollary, with $\CcorLt = \CFEMLt\mleft(\CFEMo+\CFEMt\mright)$ and $\CcorHo = \CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$
+
+\bco[Completely explicit FEM bound]
+Under the assumptions on \cref{thm:fembound},
+\beqs
+\NLtD{u-\uh} \leq \CcorLt \mleft(h^3 + \CAnk h^2 (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
+\eeqs
+\beqs
+\NW{u-\uh} \leq \CcorHo \mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
+\eeqs
+\eco\optodo{I'm suspicious about two orders of magnitude...}
 
 Put the following somewhere:
 For $a,b > 0$\optodo{Extend to many}
