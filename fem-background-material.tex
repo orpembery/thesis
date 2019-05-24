@@ -12,14 +12,14 @@ Throughout this section, we make the following additional \namecrefs{ass:highp}:
   \eit
 \eas
 
-We also adopt the notation $\Cfg \de \NLtD{f} + \NLtGI{\gI}$\optodo{Check what norm of $\gI$ we want}\optodo{propagate this notation through}
+Whilst the calculations in this \namecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}.
 
 \subsection{Decomposition of solution and best approximation bound}
 
 We first prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:18a} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for higher $p$, we require the following shift \namecref{thm:shift}:
 
 \bth[Shift theorem]\label{thm:shift}
-Under \cref{ass:highp}\optodo{Sort assumption capitalisation}, For all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that, if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique\optodo{haven't yet proved this} $\utilde \in \HlptD$ such that $\utilde$ solves
+Under \cref{ass:highp}, For all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that, if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique\optodo{haven't yet proved this} $\utilde \in \HlptD$ such that $\utilde$ solves
 \beqs
 \grad \cdot \mleft(A \grad \utilde\mright) = -\ftilde,
 \eeqs
@@ -51,7 +51,7 @@ To deal with the interior regularity and regularity near the boundary separately
     \beq\label{eq:shiftint}
 \NHlptDint{\utilde} \leq \CintAl \mleft(\NHoDinttilde + \NHlDinttilde{\ftilde}\mright).
 \eeq
-Applying regularity up to the boundary for Dirichlet data \cite[Theorem 4.18 (i)]{Mc:00} in $\Dscat,$ we obtain (as $\trD \utilde = 0$)\optodo{Sanity check that trace operator isn't different for different values of $l$}
+Applying regularity up to the boundary for Dirichlet data \cite[Theorem 4.18 (i)]{Mc:00} in $\Dscat,$ we obtain (as $\trD \utilde = 0$)
 \beq\label{eq:shiftscat}
 \NHlptDscat{\utilde} \leq \CscatAl \mleft(\NHoD{\utilde} + \NHlD{\ftilde}\mright)
 \eeq
@@ -59,16 +59,17 @@ and similarly\optodo{Spell checker} for Neumann data \cite[Theorem 4.18 (ii)]{Mc
 \beq\label{eq:shifttrunc}
 \NHlptDtrunc{\utilde} \leq \CtruncAl \mleft(\NHoD{\utilde} + \NHlphGI{\dn \utilde} + \NHlD{\ftilde}\mright).
 \eeq
-Combining \cref{eq:shiftint,eq:shiftscat,eq:shifttrunc}, we obtain \cref{eq:shift} with $\CAl = \CintAl + \CscatAl + \CtruncAl.$
+Combining \cref{eq:shiftint,eq:shiftscat,eq:shifttrunc}, we obtain \cref{eq:shift}.
 \epf
 
 We make the following \namecref{ass:htwo} on the solution of \cref{prob:vtedp}, and adopt notation for an a priori bound on its solution:
 
 \bas\label{ass:htwo}
-\Cref{prob:vtedp} (or its adjoint)\optodo{Fix everything needed for this} has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
+\Cref{prob:vtedp} (or its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
 \beq\label{eq:generalhtwo}
-k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \mleft(\NLtD{f} + \NLtGI{\gI}\mright).
+k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \Cfg,
 \eeq
+where $\Cfg \de \NLtD{f} + \NLtGI{\gI}$.
 \eas
 Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
 
@@ -111,30 +112,36 @@ We can now prove our expansion of the solution of \cref{prob:vtedp} or its adjoi
 \bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
 Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
 \beq\label{eq:expansionuj}
-\NHjptD{\usj} \leq \Pj(\NLiD{n}) k^j \NLtD{f}, \text{ for }\Cj > 0,
+\NHjptD{\usj} \leq \Pj(\NLiD{n}) k^j \Cfg, \text{ for }\Cj > 0,
 \eeq
 \beq\label{eq:expansionuosc}
-\NHppoD{\uosc} \leq \Cosc k^p \NLtD{f}, \text{ for some } \Cosc > 0,
+\NHppoD{\uosc} \leq \Cosc k^p \Cfg, \text{ for some } \Cosc > 0,
 \eeq
 and
 \beq\label{eq:expansionid}
 u = \uosc + \sum_{j=0}^{p-2} \usj.
 \eeq
-Where the $\Pj(x) = \sum_{m=0}^{j-2}\pfn{j,m}x^m $ are polynomials of degree at most $j-2$\optodo{Correct for j=1,2,3} whose coefficients are given by the recurrence relations
-\begin{align*}
-\pfn{0,0}&= \CAz\\
-\pfn{1,0}&  = \CAz\CAo\mleft(1+\CTrt\mright)\\
-\pfn{j,m}& = 0, \quad\tif m \leq \floor{\frac{j-2}2}\\
-\pfn{j,m}& = \CAj\mleft(1+\CTrjpo\mright) \mleft(\pfn{j-2,m-1} + \pfn{j-1,m-1}\mright),\quad\tif \floor{\frac{j-2}2} < m \leq j-3\\
-\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3},
-\end{align*}
+Where the $\Pj(x) = \sum_{m=0}^{j-2}\pfn{j,m}x^m $ are polynomials of degree at most $j-2$ (\optodo{Correct for j=1,2,3} whose coefficients are given by the recurrence relations
+\begin{align}
+\label{eq:p1}\pfn{0,0}&= \CAz\\
+\label{eq:p2}\pfn{1,0}&  = \CAz\CAo\mleft(1+\CTrt\mright)\\
+\label{eq:p3}\pfn{j,m} &=
+\begin{dcases}
+ 0, &\tif m \leq \floor{\frac{j-2}2}\\
+\CAj\mleft(1+\CTrjpo\mright) \mleft(\pfn{j-2,m-1} + \pfn{j-1,m-1}\mright),&\tif \floor{\frac{j-2}2} < m \leq j-3
+\end{dcases}\\
+\label{eq:p4}\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3},
+\end{align}
 and $\Cosc$ is given by the recurrence relations
-\begin{align*}
-\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
-\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
-\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
-\end{align*}
-and $\Cosc = \Coscfn{p-1}\CAnk.$
+\begin{align}
+\label{eq:osc1}\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
+\label{eq:osc2}\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
+\label{eq:osc3}\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
+\end{align}
+and
+\beq\label{eq:cosc}
+\Cosc = \Coscfn{p-1}\CAnk.
+\eeq
 
 \enth
 
@@ -154,8 +161,9 @@ and then substitute this series into the PDE \cref{eq:hhtedp} and the boundary c
 
 For the purposes of the proof, it is more convenient to define $\vj = \usj/k^j,$ so that the series expansion \cref{eq:formalseries} becomes
 \beq\label{eq:formalseriesv}
-u = \sum_{j=0}^\infty k^j\vj,
+u = \sum_{j=0}^\infty k^j\vj.
 \eeq
+Also, in this proof, all the boundary-value problems involved included a zero Dirichlet condition on the scatterer $\GD;$ we omit this throughout the proof for brevity.
 
 By applying the Helmholtz operator to the formal series \eqref{eq:formalseriesv} we obtain the following problems for $\vj \in \HjptD, j \geq 1$:
 \beqs
@@ -171,11 +179,11 @@ and, for $j \in \mleft[2,p-2\mright]$
 
 By \cref{thm:shift} we immediately conclude the bound
 \beq\label{eq:expuz}
-\NHtD{\vz} \leq \CAz\mleft(\NLtD{f} + \NHhGI{\gI}\mright),
+\NHtD{\vz} \leq \CAz\Cfg,
 \eeq
 and by \cref{lem:domainshift,eq:expuz} we can conclude the bound
 \beqs
-\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \CAz \CAo \mleft(1+\CTrt\mright)\mleft(\NLtD{f} + \NHhGI{\gI}\mright).
+\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \CAz \CAo \mleft(1+\CTrt\mright)\Cfg.
 \eeqs
 Then for $j \in \mleft[2,p-2\mright]$, let $\vj \in \HjptD$ solve
 
@@ -192,7 +200,7 @@ Let $\ro \in \HthD$ solve
 Then by \cref{lem:domainshift}
 \begin{align*}
 \NHthD{\ro} &\leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\\
-&\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\mleft(\NLtD{f} + \NLtGI{\gI}\mright).
+&\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg.
 \end{align*}
 Let $\rt \in \HfD$ solve
 \beqs
@@ -204,7 +212,7 @@ Let $\rt \in \HfD$ solve
 Then by \cref{lem:domainshift}
 \begin{align*}
 \NHfD{\rt} &\leq \CAt\mleft(1+\CTrth\mright)\mleft(k^2\NHtD{u} + k\NHthD{\ro}\mright)\\
-&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\CAnk k^3\mleft(\NLtD{f} + \NLtGI{\gI}\mright).
+&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\CAnk k^3\Cfg.
 \end{align*}
 Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \beqs
@@ -213,13 +221,21 @@ Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \beqs
 \dn \rj = ik\rjmo.
 \eeqs
-And by \cref{lem:domainshift} again, we have \eqref{eq:cosc}.
+And by \cref{lem:domainshift} again, we have \cref{eq:osc1,eq:osc2,eq:osc3,eq:cosc}.
 \epf
-\optodo{Just a note while I think about it - could you do DtN boundary conditions in this proof by testing with a different function when wanting to bound the $L^2$ norm on the boundary? I wonder if testing with the NtD of $u$ would mean you end up with a $\LtGI{u}^2$ term, and then you could use properties of the NtD map to bound other bits. Might foil $k$-dependency though.}
+%\optodo{Just a note while I think about it - could you do DtN boundary conditions in this proof by testing with a different function when wanting to bound the $L^2$ norm on the boundary? I wonder if testing with the NtD of $u$ would mean you end up with a $\LtGI{u}^2$ term, and then you could use properties of the NtD map to bound other bits. Might foil $k$-dependency though.}
 Using the expansion in \cref{thm:expansion}, we can prove the following error bound for the best approximation of $u$ in $\Vhp$:
 
+We also have the following best-approximation error in higer-order Sobolev spaces:
+\ble[Best approximation in $\HsD$]\label{lem:bestapproxhigh}
+For integer $s$ in $[1,p+1]$, there exists $\Cinterps>0$ such that for every $v \in \HsD$ there exists $\vhhat \in \Vhp$ such that
+\beqs
+\NLtD{v - \vhhat} + h\NHoD{v-\vhhat} \leq \Cinterps h^s \SNHsD{v}.
+\eeqs
+\ele
+
 \ble[Best approximation error bound]\label{lem:bestapprox}
-Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt, \CFEMotilde, \CFEMttilde > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
+Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
 \beq\label{eq:bestapproxL2}
 \NLtD{u-\uhhat} \leq \mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg,
 \eeq
@@ -256,7 +272,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 \beqs
 \IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp
 \eeqs
-Observe that this is just solving a stationary diffusion equation with special RHS.\optodo{Write this better}
+Observe that $\Ph$ is simply the finite-element solution of a stationary diffusion problem, with a particular right-hand side in $\HozDD'.$
 The elliptic projection obeys the following error bounds:
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
 For any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
@@ -273,7 +289,7 @@ The $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
 For any integer $s \in [0,p-1],$ there exists a constant $\Cmsz >0$ such that for all $w \in \LtD$
 \beqs
-\NHmsD{w-\Qh w} \leq \Cmso h^{s} \BALtD{w}{\wh}.
+\NHmsD{w-\Qh w} \leq \Cmsz h^{s} \BALtD{w}{\wh}.
 \eeqs
 \ele\optodo{Prove it}
 
@@ -297,20 +313,9 @@ The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
 For any integer $s \in [0,p-1],$ there exists a constant $\Cnmsz >0$ such that for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
-\NHmsnD{w-\Qhn w} \leq \Cmso h^{s} \BALtDn{w}{\wh}.
+\NHmsnD{w-\Qhn w} \leq \Cnmsz h^{s} \BALtDn{w}{\wh}.
 \eeq
 \ele\optodo{Prove it}
-\optodo{Double check how weighted negative norm spaces compare with standard spaces}
-
-We also have the following best-approximation error in higer-order Sobolev spaces:
-\ble[Best approximation in $\HsD$]\label{lem:bestapproxhigh}
-For integer $s$ in $[1,p+1]$, there exists $\Cinterps>0$ such that for every $v \in \HsD$ there exists $\vhhat \in \Vhp$ such that
-\beqs
-\NLtD{v - \vhhat} + h\NHoD{v-\vhhat} \leq \Cinterps h^s \SNHsD{v}.
-\eeqs
-\ele
-
-
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
 In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivates, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
@@ -329,7 +334,6 @@ We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stati
 
 
 %% $A$-weighted Laplacian; that is $\DeltaA w = \grad\cdot\mleft(\grad w\mright),$ and give it domain $\DomainDeltaA = \set{w \in \HtD \st \trD w = 0, \dn w = 0};$
-\optodo{Make sure it's clear this is Neumann on the impedance boundary, or adjust notation}
 %% hence $\DeltaA:\DomainDeltaA \rightarrow \LtD.$ Observe that, for any $f \in \LtD$ there exists $\wf \in \DomainDeltaA$ such that $\DeltaA \wf = -f.$
 \optodo{Need to check this with Ivan and Euan---I'm a little bit nervous about it. It's not immediately clear to how one shows this; coercivity of the related sesquilinear form isn't immedaite, because I'm not sure if you have a POIncare inequality (you don't have zero Dirichlet boundary condition on the whole boundary). But that might not be an issue.}
 Therefore, observe that $\DeltaA^{-m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD.$
@@ -461,7 +465,7 @@ where
 \beqs
 \Chinv = \CinvVhp \NLiDop{A}^{1/2},
 \eeqs
-where $\CinvVhp$ is the constant in the standard inverse estimate\optodo{Maybe put this in}.
+where $\CinvVhp$ is the constant in the standard inverse estimate\optodo{Maybe put this in---update constants table if I do}.
 \ele
 
 \bpf[Proof of \cref{lem:inversediscrete}]
@@ -551,11 +555,12 @@ If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for a
 \beq\label{eq:evenrecursivesum}
 \Nfn{-2l,h}{\vh} \leq \sum_{m=0}^t h^{2m} \NHDfn{-2(t-m)}{\Deltah^{-l+t} \vh} \Efn{m,t},
 \eeq
-where the $\Efn{m,t}$ are defined inductively by $\Efn{0,0}=1$ and
-\begin{align*}
-\Efn{m,t+1} &= \CAfn{2(t-m)} \Efn{m,t} \tfor 0 \leq m \leq t \tand\\
-\Efn{t+1,t+1} &= \sum_{m=0}^t \Cfn{2(t-m)} \Efn{m,t}.
-\end{align*}
+where the $\Efn{m,t}$ are defined inductively by
+\begin{align}
+\label{eq:Emt1}\Efn{0,0} &= 1 \tif m=t=0\\
+\label{eq:Emt2}\Efn{m,t+1} &= \CAfn{2(t-m)} \Efn{m,t} \tfor 0 \leq m \leq t \tand\\
+\label{eq:Emt3}\Efn{t+1,t+1} &= \sum_{m=0}^t \Cfn{2(t-m)} \Efn{m,t}.
+\end{align}
 
 If $j=2l+1,$ then we reduce to a point analagous to the even case, and then proceed as before. Let $\wh,$ $\zh,$ and $z$ be as at the beginning of the proof. We have
 \begin{align}
@@ -577,12 +582,13 @@ Similarly to \cref{eq:evenrecursivesum}, one can show that, for integers $t \in 
 \beqs
 \NHmmD{\Deltah^{-l}} \leq \Etildefn{t,t} \NHDfn{-2t-1}{\Deltah^{-1+t}\vh} + \sum_{m=0}^t h^{2(t-m)+1} \Etildefn{m,y} \NHDfn{-2m}{\Deltah^{-l+t}},
 \eeqs
-where $\Etildefn{0,0} = 1,$ and the $\Etildefn{}$ are given, for $t \in [0,l-1]$ by
-\begin{align*}
-\Etildefn{0,t+1} &= \Etildefn{t,t}\Cfn{2t+1} + \sum_{m=0}^{t-1} \Etildefn{m,t}\Cfn{2m},\\
-\Etildefn{t+1,t+1} &= \Etildefn{t,t}\CAfn{2t+1},\tand\\
-\tfor m = 1,\ldots,t, \Etildefn{m,t+1} &= \Etildefn{m-1,t}\CAfn{2(m-1)}.
-\end{align*}
+where  the $\Etildefn{m,t}$ are given, for $t \in [0,l-1]$ by
+\begin{align}
+\label{eq:Etilde1}\Etildefn{0,0} &= 1\\
+\label{eq:Etilde2}\Etildefn{0,t+1} &= \Etildefn{t,t}\Cfn{2t+1} + \sum_{m=0}^{t-1} \Etildefn{m,t}\Cfn{2m},\\
+\label{eq:Etilde3}\Etildefn{m,t+1} &= \Etildefn{m-1,t}\CAfn{2(m-1)}.\tfor m = 1,\ldots,t\\
+\label{eq:Etilde4}\Etildefn{t+1,t+1} &= \Etildefn{t,t}\CAfn{2t+1},\tand
+\end{align}
 Therefore, letting $\Csumj = \max\set{\Efn{m,l},2\CAmo\NLiDop{A}\Etildefn{m,l} \st m \in \set{0,\ldots,l}},$ the result follows.\optodo{Maybe put recursion in, but it's all in notes.}
 \epf
 
@@ -850,7 +856,7 @@ Therefore, by \cref{lem:ellprojerr,lem:bestapprox}, and the fact that $hk \leq 1
 
 From \cref{thm:fembound,thm:bestapproximation} we have the following corollary, with $\CcorLt = \CFEMLt\mleft(\CFEMo+\CFEMt\mright)$ and $\CcorHo = \CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$
 
-\bco[Completely explicit FEM bound]
+\bco[Completely explicit FEM bound]\label{cor:fembound}
 Under the assumptions on \cref{thm:fembound},
 \beqs
 \NLtD{u-\uh} \leq \CcorLt \mleft(h^3 + \CAnk h^2 (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand

@@ -1,0 +1,57 @@
+To summarise the constants used in \cref{sec:fem}, we use the following table, where the constants are given in logical order (i.e., constants lower in the table will only depend on constants higher in the table). As well as giving the definitions of the constants, we also state the place (Theorem, Lemma, etc.) where they are defined. If a constant is not defined in terms of other constants, but rather is given in the statement of a Theorem or Lemma, then the `Definition' column is left blank.
+
+\begin{tabular}{ccc}
+  \toprule
+  Constant & Definition & Defined\\
+  \midrule
+  $\CintAl$ & & \cite[Theorem 4.16]{Mc:00}\\
+  $\CscatAl$ & & \cite[Theorem 4.18(i)]{Mc:00}\\
+    $\CtruncAl$ & & \cite[Theorem 4.18(ii)]{Mc:00}\\
+  $\CAl$ & $\CintAl + \CscatAl + \CtruncAl.$ & \cref{thm:shift}\\
+  $\CAnk$ && \cref{ass:htwo}\\
+  $\Cfg$ && \cref{ass:htwo}\\
+  $\CTrs$ && \cref{thm:trace}\\
+  $\Pj$ & See \cref{eq:p1,eq:p2,eq:p3,eq:p4}& \cref{thm:expansion}\\
+  $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
+  $\Cosc$ & $\Coscfn{p-1}\CAnk$ & \cref{thm:expansion}\\
+  $\Cinterps$ && \cref{lem:bestapproxhigh}\\
+  $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2} \Pj\mleft(\NLiD{n}\mright)$ & \cref{lem:bestapprox}\\
+  $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
+  $\Cmso$ && \cref{lem:ellprojerr} \\
+  $\Cmsz$ && \cref{lem:ltdprojerr}\\
+  $\Cnmsz$ && \cref{lem:wltdprojerr}\\
+  $\CinvVhp$ && \cref{lem:inversediscrete}\\
+  $\Chinv$ & $\CinvVhp \NLiDop{A}^{1/2}$ & \cref{lem:inversediscrete}\\
+  $\Cm$ & $\Cmmo \Cinterpt \CAt$ & Proof of \cref{lem:negdiscsum}\\
+  $\Efn{m,t}$ & See \cref{eq:Emt1,eq:Emt2,eq:Emt3} & Proof of \cref{lem:negdiscsum}\\
+  $\Etildefn{m,t}$ & See \cref{eq:Etilde1,eq:Etilde2,eq:Etilde3,eq:Etilde4} & Proof of \cref{lem:negdiscsum}\\
+  $\Csumj$ &$\Csumj = \max\set{\Efn{m,l},2\CAmo\NLiDop{A}\Etildefn{m,l} \st m \in \set{0,\ldots,l}},$ & Proof of \cref{lem:negdiscsum}\\
+  $\Csecond$ &&\\
+  $\CReco$&&\\
+  $\Ctildemin$&&\\
+  $\Chcond$ & $\frac1{\mleft(4\Csecond \CReco^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
+  $\CFEMLt$ &&\\
+  $\CFEMHo$ &&\\
+  $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0} \Cfn{0,1} + \Cfn{-m,1}\mright)$&Proof of \cref{lem:boundarybound}\\
+  $\CMT$ &&\\
+  $\Cboundaryo$ & $2\Cmess^2$ & \cref{lem:boundarybound} \\
+  $\Cboundaryt$ & $\mleft(1 + \CMT^2 \Cfn{0,1}\mright)/2$ & \cref{lem:boundarybound}\\
+  $\CBo$&$\CMT \CinvVhp \Chinv^{m-1} \Cboundaryo^{\half} \NLiD{n}^2\Chinv^{p-m}$&Proof of \cref{lem:higherbound}\\
+  $\CBt$&$\CMT \CinvVhp \Chinv^{m-1} \Cboundaryt^{\half}$&Proof of \cref{lem:higherbound}\\
+  $\CBth$&$\CMT^2 \CinvVhp \Chinv^{m-1}\Cfn{0,1}^{\half}$&Proof of \cref{lem:higherbound}\\
+  $\CReco$&$\sqrt{\frac32 \NLiD{n}^2 + \CBo + 1/2}$&Proof of \cref{lem:higherbound}\\
+  $\CRect$&$\frac{\NLiD{n}}{\sqrt{2}} \Chinv^{m-1} \mleft(\frac{\NLiD{n}}{\nmin} \Cfn{n,0,0} + 1\mright)\Cfn{0,1}$&Proof of \cref{lem:higherbound}\\
+  $\Chighmo$ & $\CReco^m$&Proof of \cref{lem:higherbound}\\
+  $\Chighmt$ &$\sum_{j=0}^{m-1} \CReco^j \CRect$&Proof of \cref{lem:higherbound}\\
+  $\Cfourteen$ &$\Csumfn{p-1}\mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0}\Cfn{0,1} + \Cfn{-m,1}\Cfn{-1,1}\mright)$&Proof of \cref{lem:ltthetabound}\\
+  $\Cfirst$ &&\\
+  $\CLtboundo$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright) \CFEMotilde$&Proof of \cref{thm:fembound}\\
+  $\CLtboundt$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright)\CFEMttilde$&Proof of \cref{thm:fembound}\\
+  $\CHoboundo$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundo + \Chighfn{1,2}\mright)$&Proof of \cref{thm:fembound}\\
+  $\CHoboundt$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright)$&Proof of \cref{thm:fembound}\\
+  $\CFEMLt$&$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&Proof of \cref{thm:fembound}\\
+  $\CFEMHo$&$ \Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&Proof of \cref{thm:fembound}\\
+  $\CcorLt$&$\CFEMLt\mleft(\CFEMo+\CFEMt\mright)$&\Cref{cor:fembound}\\
+  $\CcorHo$&$\CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$&\Cref{cor:fembound}\\
+\bottomrule
+\end{tabular} \optodo{Should make $n$ dependence explicit throughout proofs}
