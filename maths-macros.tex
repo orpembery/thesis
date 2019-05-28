@@ -272,8 +272,8 @@
 \newcommand{\Cnmszfn}[1]{C_{n,#1,0}}
 \newcommand{\Cnmsz}{\Cnmszfn{-s}}
 \newcommand{\Cmso}{\Cmsofn{-s}}
-\newcommand{\Cmsz}{\Cmszfn{-s}}
-\newcommand{\Cinterpfn}[1]{C_{\mathrm{interp},#1}}
+\newcommand{\Cmsz}{\CSZs}
+\newcommand{\Cinterpfn}[1]{\CSZfn{#1}}
 \newcommand{\Cinterps}{\Cinterpfn{s}}
 \newcommand{\Cmafn}[1]{C_{#1,A}}
 \newcommand{\Cma}{\Cmafn{m}}
@@ -285,7 +285,6 @@
 \newcommand{\Cmfn}[1]{C_{#1}}
 \newcommand{\Cm}{\Cmfn{m}}
 \newcommand{\Cfn}[1]{\Cmfn{#1}}  
-\newcommand{\CAmo}{\CAfn{-1}}
 \newcommand{\CFEMLt}{\CFEMfn{L^{2}}}
 \newcommand{\CFEMfn}[1]{C_{\mathrm{FEM},#1}}
 \newcommand{\CFEMHo}{\CFEMfn{H^{1}}}
@@ -322,7 +321,8 @@
 \newcommand{\CcorLt}{\Ccorfn{L^{2}}}
 \newcommand{\CcorHo}{\Ccorfn{H^{1}}}
 \newcommand{\Coscfn}[1]{\Cfn{\mathrm{osc},#1}}
-
+\newcommand{\CSZfn}[1]{\Cfn{\mathrm{SZ},#1}}
+\newcommand{\CSZs}{\CSZfn{s}}
 
 
 
@@ -420,7 +420,8 @@
 \newcommand{\ujmt}{\ufn{j-2}}
 \newcommand{\ufn}[1]{u_{#1}}
 \newcommand{\rpmo}{\rfn{p-1}}
-\newcommand{\Pj}{P_{j}}
+\newcommand{\Pj}{\Pfn{j}}
+\newcommand{\Pfn}[1]{P_{#1}}
 \newcommand{\pfn}[1]{q_{#1}}
 \newcommand{\floor}[1]{\mleft\lfloor#1\mright\rfloor}
 \newcommand{\uzhat}{\hat{u}_{0}}
@@ -466,8 +467,8 @@
 \newcommand{\Ldd}{L_{L^{2}}}
 \newcommand{\NLiDop}[1]{\N{#1}_{\LiDop}}
 \newcommand{\LiDop}{\Li{D;\mathrm{op}}}
-\newcommand{\DeltaAmmt}{\DeltaA^{-m/2}}
-\newcommand{\DeltaAmt}{\DeltaA^{m/2}}
+\newcommand{\DeltaAmmt}{\sdres^-{m/2}}
+%\newcommand{\DeltaAmt}{\DeltaA^{m/2}}
 \newcommand{\Deltahmmt}{\Deltah^{-m/2}}
 \newcommand{\Deltahmt}{\Deltah^{m/2}}
 \newcommand{\Nmmh}[1]{\N{#1}_{-m,h}}
@@ -489,11 +490,12 @@
 \newcommand{\Noh}[1]{\N{#1}_{1,h}}
 \newcommand{\Deltahh}{\Deltah^{1/2}}
 \newcommand{\Nzh}[1]{\N{#1}_{0,h}}
-\newcommand{\DomainDeltaA}{\Domain{\DeltaA}}
+%\newcommand{\DomainDeltaA}{\Domain{\DeltaA}}
 \newcommand{\wf}{w_{f}}
 \newcommand{\zh}{z_{h}}
 \newcommand{\DeltahI}{\Deltah^{-1}}
-\newcommand{\DeltaAI}{\DeltaA^{-1}}
+\newcommand{\sdres}{\cR}
+\newcommand{\DeltaAI}{\sdres}%{\DeltaA^{-1}}
 \newcommand{\yh}{y_{h}}
 \newcommand{\NHmmmtD}[1]{\N{#1}_{\HmmmtD}}
 \newcommand{\HmmmtD}{\Hfn{}{-m-2}{D}}
@@ -515,3 +517,8 @@
 \newcommand{\uhhat}{\hat{u}_{h}}
 \newcommand{\vjh}{v_{j,h}}
 \newcommand{\vosch}{v_{\mathrm{osc},h}}
+\newcommand{\NHfn}[3]{\N{#3}_{\Hfn{}{#1}{#2}}}
+\newcommand{\vfn}[1]{v_{#1}}
+\newcommand{\wj}{w_{j}}
+\newcommand{\NLtdD}[1]{\N{#1}_{\LtdD}}
+\newcommand{\LtdD}{\Lt{\dD}}

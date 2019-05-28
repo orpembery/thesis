@@ -78,9 +78,9 @@ on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as 
   \eeqs
   \eit
   we say $u \in \HoD$ satisfies the \defn{truncated exterior Dirichlet problem} if
-  \beqs
+  \beq\label{eq:tedp}
 \grad \cdot \mleft(A \grad u\mright) + k^2 n u = -f \tin D,
-\eeqs
+\eeq
 \beqs
 \trGD u = \gD, \tand
 \eeqs
@@ -350,13 +350,13 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     The following \namecref{lem:scottzhang} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
 
     \ble[Existence of quasi-interpolant]\label{lem:scottzhang}
-    Let $p \geq 1$ and let $v \in \HmD.$ Then there exists $C>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that for all $s \leq \min\set{m,p+1}$
+    Let $p \geq 1$ and let $v \in \HsD.$ Then there exist a constant $\CSZs>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
     \beqs
-\NLtD{v - \vhptilde} \leq C h^s \NHsD{v}
+\NLtD{v - \vhptilde} \leq \CSZs h^s \NHsD{v}
     \eeqs
     and
     \beqs
-\NHoD{v - \vhptilde} \leq C h^{s-1} \NHsD{v}.
+\NHoD{v - \vhptilde} \leq \CSZs h^{s-1} \NHsD{v}.
     \eeqs
     \ele
 

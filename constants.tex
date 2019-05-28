@@ -2,36 +2,35 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
 
 \begin{tabular}{ccc}
   \toprule
-  Constant & Definition & Defined\\
+  Constant & Definition & Defined/Introduced\\
   \midrule
-  $\CintAl$ & & \cite[Theorem 4.16]{Mc:00}\\
-  $\CscatAl$ & & \cite[Theorem 4.18(i)]{Mc:00}\\
-    $\CtruncAl$ & & \cite[Theorem 4.18(ii)]{Mc:00}\\
+  $\CintAl$ & ---& \cite[Theorem 4.16]{Mc:00}\\
+  $\CscatAl$ & ---& \cite[Theorem 4.18(i)]{Mc:00}\\
+    $\CtruncAl$ & ---& \cite[Theorem 4.18(ii)]{Mc:00}\\
   $\CAl$ & $\CintAl + \CscatAl + \CtruncAl.$ & \cref{thm:shift}\\
-  $\CAnk$ && \cref{ass:htwo}\\
-  $\Cfg$ && \cref{ass:htwo}\\
-  $\CTrs$ && \cref{thm:trace}\\
+  $\CAnk$ &---& \cref{ass:htwo}\\
+  $\Cfg$ &---& \cref{ass:htwo}\\
+  $\CTrs$ &---& \cref{thm:trace}\\
   $\Pj$ & See \cref{eq:p1,eq:p2,eq:p3,eq:p4}& \cref{thm:expansion}\\
   $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
   $\Cosc$ & $\Coscfn{p-1}\CAnk$ & \cref{thm:expansion}\\
-  $\Cinterps$ && \cref{lem:bestapproxhigh}\\
+  $\CSZs$ &---& \cref{lem:scottzhang}\\
   $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2} \Pj\mleft(\NLiD{n}\mright)$ & \cref{lem:bestapprox}\\
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
-  $\Cmso$ && \cref{lem:ellprojerr} \\
-  $\Cmsz$ && \cref{lem:ltdprojerr}\\
-  $\Cnmsz$ && \cref{lem:wltdprojerr}\\
-  $\CinvVhp$ && \cref{lem:inversediscrete}\\
+  $\Cmso$ &$\frac{\NLiDop{A}^2}{\Amin}\CSZs$& \cref{lem:ellprojerr} \\
+  $\Cnmsz$ &$\frac{\NLiD{n} }{\nmin}\CSZs$& \cref{lem:wltdprojerr}\\
+  $\CinvVhp$ &---& \cref{lem:inverseinequality}\\
   $\Chinv$ & $\CinvVhp \NLiDop{A}^{1/2}$ & \cref{lem:inversediscrete}\\
   $\Cm$ & $\Cmmo \Cinterpt \CAt$ & Proof of \cref{lem:negdiscsum}\\
   $\Efn{m,t}$ & See \cref{eq:Emt1,eq:Emt2,eq:Emt3} & Proof of \cref{lem:negdiscsum}\\
   $\Etildefn{m,t}$ & See \cref{eq:Etilde1,eq:Etilde2,eq:Etilde3,eq:Etilde4} & Proof of \cref{lem:negdiscsum}\\
-  $\Csumj$ &$\Csumj = \max\set{\Efn{m,l},2\CAmo\NLiDop{A}\Etildefn{m,l} \st m \in \set{0,\ldots,l}},$ & Proof of \cref{lem:negdiscsum}\\
+  $\Csumj$ &$\Csumj = \max\set{\Efn{m,l},2\NLiDop{A}\Etildefn{m,l}/\Amin \st m \in \set{0,\ldots,l}},$ & Proof of \cref{lem:negdiscsum}\\
   $\Csecond$ &&\\
   $\CReco$&&\\
   $\Ctildemin$&&\\
   $\Chcond$ & $\frac1{\mleft(4\Csecond \CReco^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
-  $\CFEMLt$ &&\\
-  $\CFEMHo$ &&\\
+  $\CFEMLt$ &$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\\
+  $\CFEMHo$ &$\Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\\
   $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0} \Cfn{0,1} + \Cfn{-m,1}\mright)$&Proof of \cref{lem:boundarybound}\\
   $\CMT$ &&\\
   $\Cboundaryo$ & $2\Cmess^2$ & \cref{lem:boundarybound} \\
@@ -49,8 +48,8 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\CLtboundt$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright)\CFEMttilde$&Proof of \cref{thm:fembound}\\
   $\CHoboundo$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundo + \Chighfn{1,2}\mright)$&Proof of \cref{thm:fembound}\\
   $\CHoboundt$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright)$&Proof of \cref{thm:fembound}\\
-  $\CFEMLt$&$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&Proof of \cref{thm:fembound}\\
-  $\CFEMHo$&$ \Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&Proof of \cref{thm:fembound}\\
+  $\CFEMLt$&$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
+  $\CFEMHo$&$ \Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\Cref{thm:fembound}\\
   $\CcorLt$&$\CFEMLt\mleft(\CFEMo+\CFEMt\mright)$&\Cref{cor:fembound}\\
   $\CcorHo$&$\CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$&\Cref{cor:fembound}\\
 \bottomrule
