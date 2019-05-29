@@ -1,3 +1,5 @@
+The results in this \namecref{sec:fem} are a generalisation of the results of \cite{DuWu:15} to the case of hetergenenous media; we also ensure our results are (in principle) explicit in $A$ and are explicit in $n,$ $k$, and $p.$
+
 We first recap a collection of results that will be needed for the error bounds that follow. All of these results are already available elsewhere, but we name the constants explicitly, so that what follows is, in principle, explicit in $k,$ $A$, and $n.$
 
 We assume throughout this section that were are working with degree-$p$ finite elements, for some integer $p \geq 1.$ Also, we work with a general impedance boundary (satisfying certain assumptions, listed below) and so our domain is $D$ rather than $\DR$.
@@ -6,14 +8,15 @@ Throughout this section, we make the following additional \namecrefs{ass:highp}:
 \bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
 \bit
 \item $k \geq 1$
-\item $\Aij \in \CpmooDclos$
+\item $\Aij \in \CpmooDclos$ for all $i,j$
 \item $\GD$ and $\GI$ are $\Cpo$
+\item $\NLiD{n} \geq 1.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
 \eas
 
-Whilst the calculations in this \namecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}.
+Whilst the calculations in this \namecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}; that is, any constant introduced or defined in this \namecref{sec:fem} will be listed in \cref{app:constants}.
 
 \subsection{Decomposition of solution and best approximation bound}
 
@@ -25,9 +28,8 @@ Under \cref{ass:highp}, For all integers $l \in \mleft[0,p-1\mright]$ there exis
 \grad \cdot \mleft(A \grad \utilde\mright) = -\ftilde,
 \eeqs
 \beqs
-\dn \utilde = \gItilde,
+\dn \utilde = \gItilde, \tand
 \eeqs
-and
 \beqs
 \trD \utilde = 0
 \eeqs
@@ -50,7 +52,7 @@ To deal with the interior regularity and regularity near the boundary separately
     \eit
     First applying interior regularity \cite[Theorem 4.16]{Mc:00} in $\Dinttilde,$ we obtain the bound
     \beq\label{eq:shiftint}
-\NHlptDint{\utilde} \leq \CintAl \mleft(\NHoDinttilde + \NHlDinttilde{\ftilde}\mright).
+\NHlptDint{\utilde} \leq \CintAl \mleft(\NHoDinttilde{\utilde} + \NHlDinttilde{\ftilde}\mright).
 \eeq
 Applying regularity up to the boundary for Dirichlet data \cite[Theorem 4.18 (i)]{Mc:00} in $\Dscat,$ we obtain (as $\trD \utilde = 0$)
 \beq\label{eq:shiftscat}
@@ -74,7 +76,7 @@ where $\Cfg \de \NLtD{f} + \NLtGI{\gI}$.
 \eas
 Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
 
-We are now able to prove the following theorem giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts (meaning the power of $k$ in the a priori boudn is lower) and a smoother, more-oscilatory part. This result is essentially \cite[Theorem 1]{ChNi:18a}, in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of.
+We are now able to prove the following theorem giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts (meaning the power of $k$ in the a priori bound is lower) and a smoother, more-oscilatory part. This result is essentially \cite[Theorem 1]{ChNi:18a}, in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of.
 
 The following trace theorem is standard, see, e.g., \cite[Theorem 3.37]{Mc:00}.
 \bth[Trace Theorem]\label{thm:trace}
@@ -95,7 +97,7 @@ Let $\ftilde \in \HlD$ and $\gtilde \in \HlpoD,$ for $0 \leq l \leq p-1$. If $\u
 \eeqs
 and
 \beqs
-\dn u = i\gtilde,
+\dn u = \gtilde,
 \eeqs
 then
 \beqs
@@ -115,28 +117,35 @@ We can now prove our expansion of the solution of \cref{prob:vtedp} or its adjoi
 \bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
 Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
 \beq\label{eq:expansionuj}
-\NHjptD{\usj} \leq \Pj(\NLiD{n}) k^j \Cfg, \text{ for }\Cj > 0,
+\NHjptD{\usj} \leq \Cej \Pj(\NLiD{n}) k^j \Cfg, \text{ for }\Cj > 0,
 \eeq
 \beq\label{eq:expansionuosc}
-\NHppoD{\uosc} \leq \Cosc k^p \Cfg, \text{ for some } \Cosc > 0,
+\NHppoD{\uosc} \leq \Cosc \CAnk k^p \Cfg, \text{ for some } \Cosc > 0,
 \eeq
 and
 \beq\label{eq:expansionid}
 u = \uosc + \sum_{j=0}^{p-2} \usj.
 \eeq
-Where the $\Pj(x)$
-%=\sum_{m=0}^{j-2}\pfn{j,m}x^m $
-are polynomials of degree
-\beq\label{eq:polydegree}
+Where
+\beq\label{eq:p}
+\Pj(x) =
 \begin{dcases}
-\frac{j}2 & \tif  j \text{ is even}\\
-\frac{j-1}2 \tif j  \text{ is odd}.
+1 & j = 0,1\\
+x^{\floor{j/2}}& j \geq 2
 \end{dcases}
-\eeq
-(except for $j=0,1,$ where $\Pj$ is a polynomial of degree 0) given by the recurrence relation
-\beq\label{eq:pjdef}
-\Pj(x) = \CAj \mleft(1+\CTrjpo\mright)\mleft(x\Pfn{j-2}(x) + \Pfn{j-1}(x)\mright).
-\eeq
+\eeq.
+%=\sum_{m=0}^{j-2}\pfn{j,m}x^m $
+%% are polynomials of degree
+%% \beq\label{eq:polydegree}
+%% \begin{dcases}
+%% \frac{j}2 & \tif  j \text{ is even}\\
+%% \frac{j-1}2 \tif j  \text{ is odd}.
+%% \end{dcases}
+%% \eeq
+%% (except for $j=0,1,$ where $\Pj$ is a polynomial of degree 0) given by the recurrence relation
+%% \beq\label{eq:pjdef}
+%% \Pj(x) = \CAj \mleft(1+\CTrjpo\mright)\mleft(x\Pfn{j-2}(x) + \Pfn{j-1}(x)\mright).
+%% \eeq
 % No idea if this coefficient stuf is right
 %% \begin{align}
 %% \label{eq:p1}\pfn{0,0}&= \CAz\\
@@ -148,16 +157,16 @@ are polynomials of degree
 %% \end{dcases}\\
 %% \label{eq:p4}\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3},
 %% \end{align}
-and $\Cosc$ is given by the recurrence relations
-\begin{align}
-\label{eq:osc1}\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
-\label{eq:osc2}\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
-\label{eq:osc3}\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
-\end{align}
-and
-\beq\label{eq:cosc}
-\Cosc = \Coscfn{p-1}\CAnk.
-\eeq
+%% and $\Cosc$ is given by the recurrence relations
+%% \begin{align}
+%% \label{eq:osc1}\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
+%% \label{eq:osc2}\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
+%% \label{eq:osc3}\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
+%% \end{align}
+%% and
+%% \beq\label{eq:cosc}
+%% \Cosc = \frac{\Cefn{p-1}}{\max\set{1,\CAz}}.
+%% \eeq
 
 \enth
 
@@ -173,13 +182,13 @@ The idea of the proof is as follows. We write $u$ as a formal series expansion
 \beq\label{eq:formalseries}
 u = \sum_{j=0}^\infty \usj,
 \eeq
-and thens substitute this series into the PDE \cref{eq:tedp} and the boundary condition \eqref{eq:ibc}. Equating powers of $k$, we derive a recursive sequence of stationary diffusion equations for the functions $\usj,$ with right-hand sides dependent on $\ujmo$ and $\ujmt$. We use this recursive sequence and \cref{lem:domainshift} to prove the a priori bounds \cref{eq:expansionuj}. We then define the remainder from the $l$th partial sum, $\rl = u - \sum_{j=0}^{l-1} \usj,$ and by applying the operator $\grad\cdot\mleft(A\grad \cdot\mright)$ with Neumann boundary conditions to $\rl$, we obtain a recursive sequence for the remainders $\rl,$ and can similarly prove a priori bounds for the $\rl$s. The oscillatory function $\uosc$ is then just $\rpmo.$ The format of this proof is identical to that in \cite[Theorem 1]{ChNi:18a}, except we keep track of all of the constants involved.
+and then substitute this series into the PDE \cref{eq:tedp} and the boundary condition \eqref{eq:ibc}. Equating powers of $k$, we derive a recursive sequence of stationary diffusion equations for the functions $\usj,$ with right-hand sides dependent on $\ujmo$ and $\ujmt$. We use this recursive sequence and \cref{lem:domainshift} to prove the a priori bounds \cref{eq:expansionuj}. We then define the $l$th remainder $\rl = u - \sum_{j=0}^{l-1} \usj,$ and by applying the operator $\grad\cdot\mleft(A\grad \cdot\mright)$ with Neumann boundary conditions to $\rl$, we obtain a recursive sequence for the remainders $\rl,$ and can similarly prove a priori bounds for the $\rl$s. The oscillatory function $\uosc$ is then just $\rpmo.$ The format of this proof is identical to that in \cite[Theorem 1]{ChNi:18a}, except we keep track of all of the constants involved.
 
 For the purposes of the proof, it is more convenient to define $\vj = \usj/k^j,$ so that the series expansion \cref{eq:formalseries} becomes
 \beq\label{eq:formalseriesv}
-u = \sum_{j=0}^\infty k^j\vj.
+u = \sum_{j=0}^\infty k^j\vj
 \eeq
-Also, in this proof, all the boundary-value problems involved included a zero Dirichlet condition on the scatterer $\GD;$ we omit this throughout the proof for brevity.
+as in \cite{ChNi:18a}. Also, in this proof, all the boundary-value problems involved included a zero Dirichlet condition on the scatterer $\GD;$ we omit this throughout the proof for brevity.
 
 By applying the Helmholtz operator to the formal series \eqref{eq:formalseriesv} we obtain the following problems for $\vj \in \HjptD, j \geq 1$:
 \beqs
@@ -195,21 +204,23 @@ and, for $j \in \mleft[2,p-2\mright]$
 
 By \cref{thm:shift} we immediately conclude the bound
 \beq\label{eq:expuz}
-\NHtD{\vz} \leq \CAz\Cfg,
+\NHtD{\vz} \leq \CAz\Cfg \leq \Cefn{0}\Cfg,
 \eeq
 and by \cref{lem:domainshift,eq:expuz} we can conclude the bound
 \beqs
-\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \CAz \CAo \mleft(1+\CTrt\mright)\Cfg.
+\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \max\set{1,\CAo}\mleft(1+\CTrfn{2}\mright)\Cefn{0} \Cfg = \Cefn{1}\Cfg.
 \eeqs
 
-We prove the bound \cref{eq:expansionuj} and the definition \cref{eq:pjdef} by induction; suppose they hold for all $s \in [0,j-1].$ Using \cref{lem:domainshift} and the definition of $\vj$ \cref{eq:vj}, we conclude that
+We prove the bound \cref{eq:expansionuj} by induction; suppose \cref{eq:expansionuj} holds for all $s \in [0,j-1].$ Using \cref{lem:domainshift}, we conclude that (using the observation that $\Cefn{j-1} \geq \Cefn{j-2}$)
 \begin{align*}
 \NHfn{j+2}{D}{\vj} &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\NLiD{n} \NHfn{j}{D}{\vfn{j-2}} + \NHfn{j+1}{D}{\vfn{j-1}}\mright)\\
-&\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\NLiD{n} \Pfn{j-2}\mleft(\NLiD{n}\mright) + \Pfn{j-1}\mleft(\NLiD{n}\mright)\mright)\Cfg.
+&\leq \max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\mleft(\NLiD{n} \Cefn{j-2} \Pfn{j-2}\mleft(\NLiD{n}\mright) + \Cefn{j-1} \Pfn{j-1}\mleft(\NLiD{n}\mright)\mright)\Cfg\\
+&\leq 2\max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\Cefn{j-1} \Pfn{j}(\NLiD{n})\Cfg\\
+&= \Cefn{j} \Pfn{j}(\NLiD{n})\Cfg.
 \end{align*}
-Therefore the definition of the polynomials $\Pj$ \cref{eq:pjdef} holds (and it is straightforward to see that $\deg\mleft(\Pj\mright) = \deg\mleft(\Pfn{j-2}\mright)+1$, where $\deg$ denotes polynomial degree, and therefore since $\deg\mleft(\Pfn{0}\mright) = \deg\mleft(\Pfn{1}\mright)=0,$ \cref{eq:polydegree} holds. Hence, by the relationship between $\usj$ and $\vj$, we have the bound \cref{eq:expansionuj}.
+%% Therefore the definition of the polynomials $\Pj$ \cref{eq:pjdef} holds (and it is straightforward to see that $\deg\mleft(\Pj\mright) = \deg\mleft(\Pfn{j-2}\mright)+1$, where $\deg$ denotes polynomial degree, and therefore since $\deg\mleft(\Pfn{0}\mright) = \deg\mleft(\Pfn{1}\mright)=0,$ \cref{eq:polydegree} holds. Hence, by the relationship between $\usj$ and $\vj$, we have the bound \cref{eq:expansionuj}.
 
-We will now similarly define the remainders $\rl$, and proceed similarly.
+We will now define the remainders $\rl$, and proceed similarly.
 Let $\ro \in \HthD$ solve
 \beqs
 \grad \cdot \mleft(A\grad \ro\mright) = -k^2 u
@@ -220,7 +231,8 @@ Let $\ro \in \HthD$ solve
 Then by \cref{lem:domainshift}
 \begin{align*}
 \NHthD{\ro} &\leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\\
-&\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg.
+&\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\\
+&\leq \frac{\Cefn{1}}{\max\set{1,\CAo}}.
 \end{align*}
 Let $\rt \in \HfD$ solve
 \beqs
@@ -232,7 +244,8 @@ Let $\rt \in \HfD$ solve
 Then by \cref{lem:domainshift}
 \begin{align*}
 \NHfD{\rt} &\leq \CAt\mleft(1+\CTrth\mright)\mleft(k^2\NHtD{u} + k\NHthD{\ro}\mright)\\
-&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\CAnk k^3\Cfg.
+&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \frac{\Cefn{1}}{\max\set{1,\CAo}}\mright)\CAnk k^3\Cfg\\
+&\leq \frac{\Cefn{2}}{\max\set{1,\CAo}}
 \end{align*}
 Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \beqs
@@ -241,7 +254,7 @@ Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \beqs
 \dn \rj = ik\rjmo.
 \eeqs
-And by \cref{lem:domainshift} again, we have \cref{eq:osc1,eq:osc2,eq:osc3,eq:cosc}.
+And by induction and \cref{lem:domainshift} again, letting $\uosc = \rfn{p-1},$ we have \cref{eq:expansionuosc}. It is straightforward to see that $\rfn{p-1} + \sum_{j=1}^{p-2} \uj$ solves \cref{prob:tedp}, and therefore \cref{eq:expansionid} holds, as $u$ is unique.
 \epf
 %\optodo{Just a note while I think about it - could you do DtN boundary conditions in this proof by testing with a different function when wanting to bound the $L^2$ norm on the boundary? I wonder if testing with the NtD of $u$ would mean you end up with a $\LtGI{u}^2$ term, and then you could use properties of the NtD map to bound other bits. Might foil $k$-dependency though.}
 Using the expansion in \cref{thm:expansion}, we can prove the following error bound for the best approximation of $u$ in $\Vhp$:
@@ -257,32 +270,28 @@ Using the expansion in \cref{thm:expansion}, we can prove the following error bo
 \ble[Best approximation error bound]\label{lem:bestapprox}
 Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
 \beq\label{eq:bestapproxL2}
-\NLtD{u-\uhhat} \leq \mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg,
+\NLtD{u-\uhhat} \leq \mleft(\CFEMo \Pfn{p-2}\mleft(\NLiD{n}\mright) h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg,
 \eeq
-\beq\label{eq:bestapproxH1}
-\NHoD{u-\uhhat} \leq \mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg \tand
-\eeq
+%% \beq\label{eq:bestapproxH1}
+%% \NHoD{u-\uhhat} \leq \mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg \tand
+%% \eeq
 \beq\label{eq:bestapproxW}
-\NW{u-\uhhat} \leq 2\mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg.
-\eeq
-The constants are given by
-\beq\label{eq:CFEMs}
-\CFEMo = \sum_{j=0}^{p-2}\Cinterpfn{j+2} \Pj\mleft(\NLiD{n}\mright) \tand \CFEMt = \Cinterpfn{p+1}\Cosc
+\NW{u-\uhhat} \leq 2\mleft(\CFEMo \Pfn{p-2}\mleft(\NLiD{n}\mright) h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg.
 \eeq
 \ele
 
 We write bounds for the standard and weighted $H^1$ norms separately, as we will use each individual bound in differents of proofs in \cref{sec:fembound}.
 
 \bpf[Proof of \cref{lem:bestapprox}]
-We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exists $\vjh,$ $j=0,\ldots,p-2$ and $\vosch$ in $\Vhp$ such that 
+We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exists $\ujh,$ $j=0,\ldots,p-2$ and $\uosch$ in $\Vhp$ such that 
 \beqs
-\NLtD{\usj - \vjh} + h\NHoD{\usj - \vjh} \leq \Cinterpfn{j+2} \Pj\mleft(\NLiD{n}\mright) h^{j+2}k^j \Cfg
+\NLtD{\usj - \ujh} + h\NHoD{\usj - \ujh} \leq \Cinterpfn{j+2} \Cefn{j} \Pj\mleft(\NLiD{n}\mright) h^{j+2}k^j \Cfg
 \eeqs
 and
 \beqs
-\NLtD{\uosc - \vosch} + h\NHoD{\uosc - \vosch} \leq \Cinterpfn{p+1} \Cosc\CAnk h^{p+1}k^p \Cfg.
+\NLtD{\uosc - \uosch} + h\NHoD{\uosc - \uosch} \leq \Cinterpfn{p+1} \Cosc\CAnk h^{p+1}k^p \Cfg.
 \eeqs
-Therefore, by letting $\uhhat = \vosch + \sum_{j=0}^{p-2} \vjh,$ we have (using the fact that $hk \leq 1$) \cref{eq:bestapproxL2,eq:bestapproxW}, with $\CFEMo$ and $\CFEMt$ as given by \cref{eq:CFEMs}.
+Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have (using the fact that $hk \leq 1$ and, as $\NLiD{n} \geq 1$, $\Pfn{p-2}(\NLiD{n}) \geq \Pfn{j}(\NLiD{n})$ for all $j \leq p-2$) \cref{eq:bestapproxL2,eq:bestapproxW}.
 \epf
 
 \subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
@@ -293,7 +302,35 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 \beqs
 \IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp
 \eeqs
-Observe that $\Ph$ is simply the finite-element solution of a stationary diffusion problem, with a particular right-hand side in $\HozDD'.$
+Observe that $\Ph$ is simply the finite-element solution of a stationary diffusion problem with a particular right-hand side in $\HozDD'.$
+
+We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+\beqs
+\IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
+\eeqs
+
+We also need to define the $\LtD$ projection in a norm weighted by $n$
+
+For $v,w \in \LtD,$ define the $n$-weighted inner product
+\beqs
+\IPLtDn{v}{w} = \int_{D} n v \wbar,
+\eeqs
+and the corresponding $n$-weighted $\LtD$ norm
+\beqs
+\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}.
+\eeqs
+The $n$-weighted $\HsD$ norms, for $s \in \NN$, are then defined by $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms are defined by, for $s \in \NN$
+\beq\label{eq:negweightnorm}
+\NHmsDn{v} = \sup_{w \in \HsD} \frac{\IPLtDn{v}{w}}{\NHsD{w}}.
+\eeq
+We put the \emph{standard} $H^s$-norm in the denominator of \cref{eq:negweightnorm} so that we have $\NHmsDn{v} \leq \NLiD{n} \NHmsD{v}.$
+
+Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+\beqs
+\IPLtDn{\Qhn w}{\vh} = \IPLtDn{w}{\vh} \tforall \vh \in \Vhp.
+\eeqs
+
+
 The elliptic projection obeys the following error bounds:
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
 For any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
@@ -306,44 +343,20 @@ where
 \eeqs
 \ele
 
-We define the $\LtD$ projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
-\beqs
-\IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
-\eeqs
 The $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
-For any integer $s \in [0,p-1],$ there exists a constant $\Cmsz >0$ such that for all $w \in \LtD$
+For any integer $s \in [0,p-1],$ for all $w \in \LtD$
 \beqs
 \NHmsD{w-\Qh w} \leq \Cmsz h^{s} \BALtD{w}{\wh}.
 \eeqs
 \ele
 
-We also need to define the $\LtD$ projection in a norm weighted by $n$
-
-For $v,w \in \LtD,$ define the $n$-weighted inner product
-\beqs
-\IPLtDn{v}{w} = \int_{D} n v \wbar,
-\eeqs
-and the corresponding $n$-weighted $\LtD$ norm
-\beqs
-\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}.
-\eeqs
-The $n$-weighted $\HsD$ norms, for $s \in \ZZ$, are defined as normal, but replacing the appearance of an $\LtD$ norm by its weighted version, and in the definition of $n$-weighted norms for negative $s,$ replacing the appearance of the $L^2$ inner product by its $n$-weighted version.
-
-Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
-\beqs
-\IPLtDn{\Qh w}{\vh} = \IPLtDn{w}{\vh} \tforall \vh \in \Vhp.
-\eeqs
 The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
-For any integer $s \in [0,p-1],$ there exists a constant $\Cnmsz >0$ such that for all $w \in \HozDD$
+For any integer $s \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
-\NHmsnD{w-\Qhn w} \leq \Cnmsz h^{s} \BALtDn{w}{\wh},
+\NHmsnD{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^{s} \BALtDn{w}{\wh}.
 \eeq
-where
-\beqs
-\Cnmsz = \frac{\NLiD{n} }{\nmin}\CSZs.
-\eeqs
 \ele
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
@@ -351,7 +364,7 @@ In order to perform our analysis for high-order FEM, we will need to measure hig
 
 We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
 \beq\label{eq:sdeq}
-\grad \cdot \mleft(A\grad \utilde\mright) = -\ftilde
+\grad \cdot \mleft(A\grad \utilde\mright) = -\ftilde \text{ in } D
 \eeq
 \beq\label{eq:sddbc}
 \trD \utilde = 0
@@ -359,16 +372,14 @@ We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stati
 \beq\label{eq:sdnbc}
 \dn \utilde = 0.
 \eeq
-
-
 %% $A$-weighted Laplacian; that is $\DeltaA w = \grad\cdot\mleft(\grad w\mright),$ and give it domain $\DomainDeltaA = \set{w \in \HtD \st \trD w = 0, \dn w = 0};$
 %% hence $\DeltaA:\DomainDeltaA \rightarrow \LtD.$ Observe that, for any $f \in \LtD$ there exists $\wf \in \DomainDeltaA$ such that $\DeltaA \wf = -f.$
-Observe that $\sdres$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdres^{m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD.$
+Observe that $\sdres$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdres^{m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one canb place $\sdres \ftilde$ on the right-hand side. 
 Observe that for any $\ftilde \in \LtD$ and for any $v \in \HozDD,$ we have, by Green's identity,
-\beq\label{eq:deltaagreen}
-\int_D \mleft(A \grad \mleft(\DeltaAI(\ftilde)\mright)\mright)\cdot \grad \vb = \int_D \ftilde \vb
-\eeq
-
+\beqs\label{eq:deltaagreen}
+\int_D \mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D \ftilde \vb
+\eeqs
+\optodo{Chat}
 \bde[Discrete derivative operator]
 Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ for $\wh \in \Vhp$ by
 \beq\label{eq:discderdef}
@@ -381,23 +392,25 @@ For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
 \ele
 
 \bpf[Proof of \cref{lem:ddwd}]
-If one chooses an orthonormal basis $\phij$ for $\Vhp,$ writes $\Delta\wh = \sum_j \wj \phij$, and takes $\vh = \phij$ for each $j,$ then \cref{eq:discderdef} becomes the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtD{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
+If one chooses an orthonormal basis $\phij$ for $\Vhp,$ writes $\Delta\wh = \sum_j \wj \phij$, and takes $\vh = \phij$ for each $j,$ then we see \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtD{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
 %% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\optodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
 \epf
 
 %% By\optodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\optodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\optodo{Maybe define this}
 
-Since $A(\bx)$ is symmetric, it is almost-everywhere self-adjoint. Hence it follows that $\Deltah$ is self-adjoint, as
+Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint, as
 \beqs
 \IPLtD{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} = \IPLtD{\grad \wh}{A\grad \vh} = \overline{\IPLtD{\Deltah \vh}{\wh}} = \IPLtD{\wh}{\Deltah \vh}.
 \eeqs
-Therefore $\Deltah$ is diagonalisable, i.e., there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding eigenvalues $\lambdaoh, \ldots, \lambdadimVhph$ such that the $\phimh$ form an orthonormal basis of $\Vhp$ (orthonormal in the $\LtD$-norm).
+Therefore $\Deltah$ is diagonalisable, i.e., there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding real eigenvalues\ednote{Both - is it common enough knowledge that a symmetric matrix has real eigenvalues, that I don't need to reference this?} $\lambdaoh, \ldots, \lambdadimVhph$ such that the $\phimh$ form an orthonormal basis of $\Vhp$ (orthonormal in the $\LtD$-norm).
 
 \bde[Higher-order discrete derivative operators]
 For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in \RR$ define
 \beqs
 \Deltah^j \vh = \sum_{m=1}^{\dimVhp} \lambdamh^j \am \phimh.
 \eeqs
+
+In particular, one can think of $\DeltahI$ as being a `discrete resolvent', i.e., a discrete counterpart to $\sdres.$
 
 %% Similarly, for $v \in \LtD,$ if $v = \sum_{m=1}^\infty \am \phim,$ then for $j \in \RR$ define
 %% \beq\label{eq:deltaaseries}
@@ -416,14 +429,14 @@ For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in 
 %% Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\optodo{Maybe just double-check this is watertight.}\optodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
 %% \ere
 
-We can use the higher-order derivative operators to define higher-order norms:
+We can use the higher-order derivative operators to define discrete higher-order norms:
 
-%% \bde[$A$-weighted higher-order continuous norm]
-%% For $v \in \LtD$ and $m \in \RR$, if $\DeltaA^{m/2} v$ exists, define
-%% \beqs
-%% \NmA{v} = \NLtD{\DeltaA^{m/2} v}.
-%% \eeqs
-%% \ede
+\bde[Discrete higher-order norm]
+For $\vh \in \Vhp$ and $m \in \RR$, if define
+\beqs
+\Nmh{\vh} = \NLtD{\Deltah^{m/2} v}.
+\eeqs
+\ede
 
 %% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \namecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
 %% \ble[Relationship between $\DeltaA^m$ and standard higher-order derivatives]\label{lem:normrelationshiptech}
@@ -451,6 +464,8 @@ We can use the higher-order derivative operators to define higher-order norms:
 %% \end{align*}
 %% \epf
 
+\optodo{Chat about lemma}
+
 \ble[Introduction of derivatives into inner product]\label{lem:intoip}
 %% For $m \in \RR,$ $v \in \LtD$, and $w \in \LtD\cap\Domain{\DeltaA^{m/2}}$ we have
 %% \beqs
@@ -468,16 +483,17 @@ and
 and similarly for the $n$-weighted $\LtD$ inner product.
 \ele
 \bpf[Proof of \cref{lem:intoip}]
-We only prove \cref{eq:feipsplit}, as the proofs of \cref{eq:feiptrans} and the $n$-weighted variants are analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$ and $(\bsl)_{l j =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
+We only prove \cref{eq:feipsplit}, as the proofs of \cref{eq:feiptrans} and the $n$-weighted variants are analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$ and $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
 \begin{align*}
 \IPLtD{\Deltahmmt \vh}{\Deltahmt \wh} &= \int_D \mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
-&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D \phij \philbar\\
+&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D \phij \philbar \text{ as the } \lambdaj \text{ are real}\\
 & =\sum_{j}^{\dimVhp} \aj \bsj \int_D \abs{\phij}^2 \text{ as the } \phij \text{ are orthonormal}\\
-&= \IPLtD{\vh}{\wh} \text{ by repeating the above process in reverse, without the factors } \lambdaj^{-m/2} \tand \lambdal^{m/2}.
+&= \IPLtD{\vh}{\wh}
 \end{align*}
+by repeating the above process in reverse, without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
 \epf
 
-The following \namecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
+The next \namecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
 
 \bco[Inner product bounded by discrete norms]\label{cor:ipdiscbound}
 If $vh, \wh \in \Vhp,$ then for all $j \in \RR$
@@ -486,7 +502,7 @@ If $vh, \wh \in \Vhp,$ then for all $j \in \RR$
 \eeqs
 \eco
 
-We recall the standard inverse inequality for finite-element functions.
+We recall the standard inverse inequality for finite-element functions, so that we can prove an analagous inverse inequality for discrete norms.
 
 \ble[Standard inverse inequality]\label{lem:inverseinequality}
 There exists $\CinvVhp > 0$ such that for all $\vh \in \Vhp$
@@ -495,7 +511,7 @@ There exists $\CinvVhp > 0$ such that for all $\vh \in \Vhp$
 \eeqs
 \ele
 
-We can now prove an analagous inverse inequality for discrete norms.
+
 
 \ble[Inverse inequality for discrete norms]\label{lem:inversediscrete}
 For all $j \in \ZZ$, for all $\vh \in \Vhp$
@@ -509,15 +525,14 @@ where
 \ele
 
 \bpf[Proof of \cref{lem:inversediscrete}]
-by the definition of $\Njh{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^{1/2}\Deltah^{(j-1)/2},$ it suffices to prove the result for $j=1$. We have
+by the definition of $\Njh{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^{1/2}\Deltah^{(j-1)/2},$ it suffices to prove the result for $j=1$, as one can then perform induction on $j$. We have
 \begin{align*}
 \Noh{\vh}^2 &= \IPLtD{\Deltahh \vh}{\Deltahh \vh}\\
 &= \IPLtD{\Deltah \vh}{\vh} \text{ by \cref{eq:feiptrans}}\\
 &= \IPLtD{A \grad \vh}{\grad \vh} \text{ by definition of } \Deltah\\
-&\leq \NLiDop{A} \CinvVhp h^{-2} \NLtD{\vh} \text{ by the standard inverse estimate}\\
-&= \NLiDop{A} \CinvVhp h^{-2} \Nzh{\vh} \text{ as } \Nzh{\cdot} = \NLtD{\cdot},
+&\leq \NLiDop{A} \CinvVhp h^{-2} \NLtD{\vh}^2
 \end{align*}
-and the result follows.
+by the standard inverse estimate, and the result follows as $\Nzh{\cdot} = \NLtD{\cdot}$.
 \epf
 
 \ble[Relationship between standard and discrete $H^1$ norms]\label{lem:h1contdisc}
@@ -528,35 +543,26 @@ Let $\vh \in \Vhp$. Then
 \ele
 
 \bpf[Proof of \cref{lem:h1contdisc}]
-We have
-\begin{align*}
-\Noh{\vh}^2 &= \IPLtD{\Deltahh \vh}{\Deltahh \vh}\\
-&= \IPLtD{\Deltah \vh}{\vh} \text{ by \cref{eq:feiptrans}}\\
-&= \IPLtD{A \grad \vh}{\grad \vh}\\
-&\geq \Amin \NLtD{\grad \vh}^2,
-\end{align*}
-and the result follows.
+We have, using \cref{eq:feiptrans}, $\Noh{\vh}^2 = \IPLtD{\Deltahh \vh}{\Deltahh \vh} = \IPLtD{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2$, and the result follows.
 \epf
 
-The following \namecref{lem:negdiscsum} will require the following \namecref{lem:shiftnegative} giving the shift theorem in negative norms.
+To prove \cref{lem:negdiscsum} on the relationship between discete and continuous negative Sobolev normns, we require the following \namecref{lem:shiftnegative} giving the shift theorem in negative norms.
 \ble[Shift theorem in negative norms]\label{lem:shiftnegative}
 For $m \in \NN,$ and $\ftilde \in \LtD,$ we have
 \beqs
-\NHmmD{\DeltaAI\mleft(\ftilde\mright)} \leq \CAm \NHmmmtD{\ftilde}.
+\NHmmD{\DeltaAI\ftilde} \leq \CAm \NHmmmtD{\ftilde}.
 \eeqs
 \ele
 
 \bpf[Proof of \cref{lem:shiftnegative}]
-Throughout the proof we let $\utilde$ denote $\DeltaAI\mleft(\ftilde\mright).$ As $\ftilde \in \LtD,$ it follows that $\utilde \in \HtD$ by \cref{thm:shift}, and so in particular $\utilde \in \HmmD.$ We can then compute
+Throughout the proof we let $\utilde$ denote $\DeltaAI\ftilde.$ As $\ftilde \in \LtD,$ it follows that $\utilde \in \HtD$ by \cref{thm:shift}, and so in particular $\utilde \in \HmmD.$ We will use the fact that $\sdres$ is self-adjoint; this follows from the fact that the boundary-value problem \cref{eq:sdeq,eq:sddbc,eq:sdnbc} is self-adjoint\ednote{Both - do I need to show this? It's straightforward.}.% Note to self, have (Rv,w), where R is resolvent, for v in L^2, w in H^m. Have PR = Id (but not necessarily the other way round) so w = PRw. Then (Rv,w) = (Rv,PRw) = (PRv,Rw) (P self-adjoint) = (v,Rw). Denote differential operator (on the correct space) by P.
+We can then compute
 \begin{align*}
-\NHmmD{\utilde} &= \sup_{0 \neq \vtilde \in \HmD} \frac{\IPLtD{\utilde}{\vtilde}}{\NHmD{\vtilde}}\\
-&= \sup_{0 \neq \vtilde \in \HmD} \frac{\IPLtD{\ftilde}{\DeltaAI\vtilde}}{\NHmD{\vtilde}}\text{ as } \DeltaAI \text{ is self-adjoint}\\
-&\leq \sup_{0 \neq \vtilde \in \HmD} \frac{\NHmmmtD{\ftilde}\NHmptD{\DeltaAI\vtilde}}{\NHmD{\vtilde}} \text{ by \cref{thm:shift} } \DeltaAI\vtilde \in \HmptD\\
+\NHmmD{\utilde} &=  \sup_{0 \neq \vtilde \in \HmD} \frac{\IPLtD{\ftilde}{\DeltaAI\vtilde}}{\NHmD{\vtilde}}\text{ as } \DeltaAI \text{ is self-adjoint}\\
 &\leq \sup_{0 \neq \vtilde \in \HmD} \frac{\NHmmmtD{\ftilde}\CAm\NHmD{\vtilde}}{\NHmD{\vtilde}} \text{ by \cref{thm:shift}}\\
 &= \CAm \NHmmmtD{\ftilde}
 \end{align*}
-as required. The fact that $\sdres$ is self-adjoint follows from the fact that the boundary-value problem \cref{eq:sdeq,eq:sddbc,eq:sdnbc} is self-adjoint\ednote{Both - do I need to show this? It's straightforward.}.% Note to self, have (Rv,w), where R is resolvent, for v in L^2, w in H^m. Have PR = Id (but not necessarily the other way round) so w = PRw. Then (Rv,w) = (Rv,PRw) = (PRv,Rw) (P self-adjoint) = (v,Rw). Denote differential operator (on the correct space) by P.
-\epf
+as required. \epf
 
 We can now prove the following \namecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
@@ -567,9 +573,9 @@ For any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that 
 \ele
 
 \bpf[Proof of \cref{lem:negdiscsum}]
-Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh,$ $z = \DeltaAI \wh$ (observe $z$ is well-defined as $\Vhp \subseteq \LtD$). Then, for all $\yh \in \Vhp \subseteq \HozDD$, we have
+Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh,$ $z = \DeltaAI \wh$ (observe $z$ is well-defined as $\Vhp \subseteq \LtD$). Then, for all $\yh \in \Vhp$, we have
 \begin{align*}
-\IPLtD{\wh}{\yh} &= \IPLtD{A \grad z}{\grad \yh} = \IPLtD{\grad z}{A\grad \yh} = \overline{\IPLtD{A\grad \yh}{\grad z}} \\
+\IPLtD{\wh}{\yh} &= \IPLtD{A \grad z}{\grad \yh} = \IPLtD{\grad z}{A\grad \yh} = \overline{\IPLtD{A\grad \yh}{\grad z}} \text{, and}\\
 \IPLtD{\wh}{\yh} &= \IPLtD{A \grad \zh}{\grad \yh} = \IPLtD{\grad \zh}{A\grad \yh} = \overline{\IPLtD{A\grad \yh}{\grad \zh}}
 \end{align*}
 where the first equalities in each line follow from \cref{eq:deltaagreen,eq:discderdef}, respectively, and the second inequalities in each line follow from the fact that $A$ is symmetric. That is, for all $\yh \in \Vhp,$ $\IPLtD{A\grad \yh}{\grad z} = \IPLtD{A\grad \yh}{\grad \zh},$ i.e., $\zh = \Ph z.$
@@ -577,57 +583,68 @@ where the first equalities in each line follow from \cref{eq:deltaagreen,eq:disc
 We now have, for $m \in [-1,p-1]$
 \begin{align}
 \NHmmD{\DeltahI \wh} &\leq \NHmmD{z} + \NHmmD{z-\zh}\nonumber\\
-&\leq \NHmmD{z} + \Cmmo h^{m+1} \Cinterpt h \SNHtD{z} \text{ by \cref{lem:ellprojerr,lem:scottzhang}}\nonumber\\
-&\leq \NHmmD{z} + \Cmmo \Cinterpt \CAt h^{m+2} \NLtD{\wh} \text{ by \cref{thm:shift}}\nonumber\\
-&\leq \CAm \NHmmmtD{\wh} + \Cmmo \Cinterpt \CAt h^{m+2} \NLtD{\wh} \text{ by \cref{lem:shiftnegative}}\nonumber\\
+&\leq \NHmmD{z} + \Cmmo \Cinterpt \CAt h^{m+2} \NLtD{\wh}\nonumber\\
+&\quad\quad\text{ by \cref{lem:ellprojerr,lem:scottzhang,thm:shift}, as }\zh = \Ph z\nonumber\\
 &= \CAm \NHmmmtD{\wh} + \Cm h^{m+2} \NLtD{\wh}\label{eq:sumforrecursion}
 \end{align}
-where $\Cm \de \Cmmo \Cinterpt \CAt.$
+by \cref{lem:shiftnegative}, where $\Cm \de \Cmmo \Cinterpt \CAt.$
 
-Immediate from \cref{eq:sumforrecursion}, we can conclude that, for $l \in \NN$ and $\wh \in \Vhp$ (as $\Deltahml = \DeltahI \Deltahmlpo$)
+From \cref{eq:sumforrecursion}, we can conclude that, for $l \in \NN$ and $\vh \in \Vhp$, writing $\wh = \Deltahmlpo \vh$,
 \beq\label{eq:lrecursion}
-\NHmmD{\Deltahml \vh} \leq \CAm \NHmmmtD{\Deltahmlpo \vh} + \Cm h^{m+2} \NLtD{\Deltahmlpo \vh}.
+\NHmmD{\Deltahml \vh} \leq \CAm \NHmmmtD{\Deltahmlpo \vh} + \Cm h^{m+2} \NLtD{\Deltahmlpo \vh}
 \eeq
-We now use \cref{eq:lrecursion} recursively to bound $\Nmjh{\vh}$:
-If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for any integer $t \in [0,l-1]$ that
+as $\Deltahml = \DeltahI \Deltahmlpo$. We now use \cref{eq:lrecursion} recursively to bound $\Nmjh{\vh}$:
+If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for any integer $t \in [0,l]$ that
 \beq\label{eq:evenrecursivesum}
-\Nfn{-2l,h}{\vh} \leq \sum_{m=0}^t h^{2m} \NHDfn{-2(t-m)}{\Deltah^{-l+t} \vh} \Efn{m,t},
+\Nfn{-2l,h}{\vh} \leq \sum_{m=0}^l \Efn{m,l} h^{2m} \NHDfn{-2(l-m)}{\vh} ,
 \eeq
 where the $\Efn{m,t}$ are defined inductively by
 \begin{align}
-\label{eq:Emt1}\Efn{0,0} &= 1 \tif m=t=0\\
-\label{eq:Emt2}\Efn{m,t+1} &= \CAfn{2(t-m)} \Efn{m,t} \tfor 0 \leq m \leq t \tand\\
-\label{eq:Emt3}\Efn{t+1,t+1} &= \sum_{m=0}^t \Cfn{2(t-m)} \Efn{m,t}.
+\label{eq:Emt1}\Efn{0,0} &=1\\
+\label{eq:Emt2}\Efn{m,t} &= \CAfn{2(t-1-m)} \Efn{m,t-1} \tfor 0 \leq m \leq t-1 \quad\tand\\
+\label{eq:Emt3}\Efn{t,t} &= \sum_{m=0}^{t-1} \Cfn{2(t-1-m)} \Efn{m,t-1}.
 \end{align}
 
-If $j=2l+1,$ then we reduce to a point analagous to the even case, and then proceed as before. Let $\wh$ and $\zh$ be as at the beginning of the proof, and let $z$ solve the variational formulation\footnote{We use the variational formulation here, as we will need to bound the $H^1$-norm of $z$ by the $H^{-1}$-norm of $\wh$.}  of \cref{eq:sdeq,eq:sddbc,eq:sdnbc} (with $\ftilde = \wh$). Observe that $\NHoD{z} \leq \NHmoD{\wh}/\Amin$ by the Lax--Milgram Theorem. We have
+If $j=2l+1,$ then we first reduce $\Nfn{\vh}{-j,h}$ to a point analagous to the even case, and then proceed as before. Let $\wh$ and $\zh$ be as at the beginning of the proof, and let $z$ solve the variational formulation\footnote{We use the variational formulation here, as we will need to bound the $H^1$-norm of $z$ by the $H^{-1}$-norm of $\wh$, which is immediate from the Lax--Milgram theorem.}  of \cref{eq:sdeq,eq:sddbc,eq:sdnbc} (with $\ftilde = \wh$). Observe that we still have $\zh = \Ph z,$ and
+\beq\label{eq:LMHmo}
+\NHoD{z} \leq \frac{\NHmoD{\wh}}{\Amin}
+\eeq
+by the Lax--Milgram Theorem. We have
 \begin{align}
 \NLtD{\Deltah^{-1/2}\wh} &= \NLtD{\Deltah^{1/2} \zh}\nonumber\\
-&= \Noh{\zh}^2\nonumber\\
-&= \IPLtD{\Deltah \zh}{\zh}\\
-&= \IPLtD{A \grad \zh}{\grad zh}\nonumber\\
-&\leq \NLiDop{A} \SNHoD{\zh}\nonumber\\
-&\leq \NLiDop{A} \NHoD{\zh}\nonumber\\
-&= \NLiDop{A} \NHoD{\Ph z}\nonumber\\
-&\leq \NLiDop{A}\mleft(\NHoD{z} + \NHoD{\Ph z - z}\mright)\nonumber\\
-&\leq \NLiDop{A}\mleft(\NHoD{z} + \NHoD{0 - z}\mright) \text{ by \cref{lem:ellprojerr}}\nonumber\\
-&= 2\NLiDop{A}\NHoD{\DeltaAI \wh}\nonumber\\
-&\leq \frac2{\Amin} \NLiDop{A} \NHmoD{\wh}\label{eq:deltahhalf}
+&= \IPLtD{\Deltah \zh}{\zh} \text{ by \cref{eq:feiptrans}}\\
+&= \IPLtD{A \grad \zh}{\grad \zh}\nonumber\\
+&= \NLiDop{A} \NHoD{\Ph z}\nonumber\text{ by the Cauchy--Schwartz inequality and the definition of } \zh\\
+&\leq \NLiDop{A}\mleft(\NHoD{z} + \Cfn{1,1}\NHoD{0 - z}\mright) \text{ by \cref{lem:ellprojerr}}\nonumber\\
+&\leq 2\frac{\Cfn{1,1}\NLiDop{A}}{\Amin}  \NHmoD{\wh}\text{ by \cref{eq:LMHmo}}\label{eq:deltahhalf}
 \end{align}
-We now return to $\Nmjh{\vh} = \NLtD{\Deltah^{-l-1/2} \vh} = \NLtD{\Deltah^{-1/2} \Deltah^{-l} \vh} \leq 2/\Amin \NLiDop{A} \NHmoD{\Deltah^{-l} \vh}$ by \cref{eq:deltahhalf}.
+We now return to $\Nmjh{\vh} = \NLtD{\Deltah^{-l-1/2} \vh} = \NLtD{\Deltah^{-1/2} \Deltah^{-l} \vh} \leq 2\Cfn{1,1}\NLiDop{A}\NHmoD{\Deltah^{-l} \vh}/\Amin$ by \cref{eq:deltahhalf}.
 
-Similarly to \cref{eq:evenrecursivesum}, one can show that, for integers $t \in [0,l]$
-\beqs
-\NHmmD{\Deltah^{-l}} \leq \Etildefn{t,t} \NHDfn{-2t-1}{\Deltah^{-1+t}\vh} + \sum_{m=0}^t h^{2(t-m)+1} \Etildefn{m,y} \NHDfn{-2m}{\Deltah^{-l+t}},
-\eeqs
-where  the $\Etildefn{m,t}$ are given, for $t \in [0,l-1]$ by
+Similarly to \cref{eq:evenrecursivesum}, one can use \cref{eq:lrecursion} recursively to show that, for any integer $t \in [0,l]$
+\beq\label{eq:oddrecursive}
+\NHmoD{\Deltah^{-l}\vh} \leq \Etildefn{0,t} \NHDfn{-(2t+1)}{\Deltah^{-l+t}\vh} + \sum_{m=0}^t \Etildefn{m,t} h^{2m+1}  \NHDfn{-2(t-m)}{\Deltah^{-l+t}\vh},
+\eeq
+where  the $\Etildefn{m,t}$ are given, for $t \in [0,l]$ by
 \begin{align}
-\label{eq:Etilde1}\Etildefn{0,0} &= 1\\
-\label{eq:Etilde2}\Etildefn{0,t+1} &= \Etildefn{t,t}\Cfn{2t+1} + \sum_{m=0}^{t-1} \Etildefn{m,t}\Cfn{2m},\\
-\label{eq:Etilde3}\Etildefn{m,t+1} &= \Etildefn{m-1,t}\CAfn{2(m-1)}.\tfor m = 1,\ldots,t\\
-\label{eq:Etilde4}\Etildefn{t+1,t+1} &= \Etildefn{t,t}\CAfn{2t+1},\tand
+\label{eq:Etilde1}\Etildefn{0,1} &= \CAfn{1}\\
+\label{eq:Etilde2}\Etildefn{1,1} &= \Cfn{1}\\
+\label{eq:Etilde3}\Etildefn{0,t} &= \Etildefn{0,t-1}\CAfn{2t-1}\\
+\label{eq:Etilde4}\Etildefn{m,t} &= \Etildefn{m,t-1}\CAfn{2(t-1-m)}\tfor m = 1,\ldots,t-1\\
+\label{eq:Etilde5}\Etildefn{t,t} &= \Cfn{2t-1} + \sum_{m=0}^{t-1}\Etildefn{m,t-1}\CAfn{2(t-1-m)}.\\
 \end{align}
-Therefore, letting $\Csumj = \max\set{\Efn{m,l},2\NLiDop{A}\Etildefn{m,l}/\Amin \st m \in \set{0,\ldots,l}},$ the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
+To show \cref{eq:oddrecursive,eq:Etilde1,eq:Etilde2,eq:Etilde3,eq:Etilde4,eq:Etilde5}, observe that \cref{eq:Etilde1,eq:Etilde2} follow immediately from \cref{eq:lrecursion}. We now show \cref{eq:oddrecursive,eq:Etilde3,eq:Etilde4,eq:Etilde5} by induction: suppose \cref{eq:oddrecursive} holds for $t-1,$ then
+\begin{align*}
+\NHmoD{\Deltah^{-l}} &\leq \Etildefn{0,t-1} \mleft(\CAfn{2t-1} \NHfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh} +\Cfn{2t-1} h^{2t+1} \NLtD{\Deltah^{-l + t}\vh}\mright)\\
+&\quad\quad+ \sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \mleft(\CAfn{2(t-1-m)} \NHfn{-2(t-m)}{D}{\Deltah^{-l + t}\vh} + h^{2(t-m)} \Cfn{2(t-1-m)} \NLtD{\Deltah^{-l + t}\vh}\mright)\\
+&= \Etildefn{0,t-1} \CAfn{2t-1} \NHfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\\
+&\quad\quad+ \mleft(\Cfn{2t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1}\CAfn{2(t-1-m)}\mright) h^{2t+1}\NLtD{\Deltah^{-l + t}\vh}\\
+&\quad\quad+ \sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \CAfn{2(t-1-m)}\NHfn{-2(t-m)}{D}{\Deltah^{-l + t}\vh},
+\end{align*}
+which is of the form \cref{eq:oddrecursive} with the constants $\Etildefn{m,t}$ given by \cref{eq:Etilde1,eq:Etilde2,eq:Etilde3,eq:Etilde4,eq:Etilde5}. Therefore, we conclude that if $j = 2l+1$
+\beq\label{eq:oddfinal}
+\Nfn{-j,h}{\vh} \leq \frac{2\Cfn{1,1}\NLiDop{A}}{\Amin}\mleft(\Etildefn{0,l} \NHDfn{-(2l+1)}{\vh} + \sum_{m=0}^l \Etildefn{m,l} h^{2m+1}  \NHDfn{-2(l-m)}{\vh}\mright),
+\eeq
+and combinining \cref{eq:evenrecursivesum,eq:oddfinal}, and letting $\Csumj$ be as in \cref{app:constants}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
 \epf
 
 \subsection{Main finite-element-error bound}\label{sec:fembound}
@@ -649,7 +666,20 @@ then the finite-element solution $\uh$ exists, is unique, and satisfies the erro
 where $\CFEMLt$, $\CFEMHo,$ and $\Chcond$ are given in \cref{app:constants}.
 \enth
 
-Two quantiies that are of utmost importance to the proof are
+From \cref{thm:fembound,lem:scottzhang} we have the following corollary, with $\CcorLt = \CFEMLt\mleft(\CFEMo+\CFEMt\mright)$ and $\CcorHo = \CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$
+
+\bco[Completely explicit FEM bound]\label{cor:fembound}
+Under the assumptions on \cref{thm:fembound},
+\beqs
+\NLtD{u-\uh} \leq \CcorLt \mleft(h^3 + \CAnk h^2 (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
+\eeqs
+\beqs
+\NW{u-\uh} \leq \CcorHo \mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
+\eeqs
+\eco\optodo{I'm suspicious about two orders of magnitude...}
+
+
+Two quantiies that are key in the proof are
 \beqs
 \rho \de u - \Ph u, \tand
 \eeqs
@@ -668,14 +698,13 @@ a(\thetah,\vh) = k^2\IPLtDn{\Qhn\rho}{\vh} + ik \IPLtGI{\rho}{\vh}.
 \ele
 
 \bpf[Proof of \cref{lem:simpleform}]
-Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,\vh)$ by Galerkin orthogonality. By definition of $a,$ we have $-a(\rho,\vh) = -\IPLtD{A\grad\mleft(u-\Ph u\mright)}{\vh} + k^2 \IPLtD{n\mleft(u-\Ph u\mright)}{\vh} + ik\IPLtGI{u-\Ph u}{\vh}.$ By definition of the elliptic projection $\Ph$, $\IPLtD{A\grad\mleft(u-\Ph u\mright)}{\vh} = 0$, and so by the definition of the $n$-weighted $L^2$ inner product, and the $n$-weighted $L^2$-projection $\Qhn,$ the result follows.
+Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,\vh)$ by Galerkin orthogonality. By definition of $a,$ we have $-a(\rho,\vh) = -\IPLtD{A\grad\mleft(u-\Ph u\mright)}{\vh} + k^2 \IPLtD{n\rho}{\vh} + ik\IPLtGI{\rho}{\vh}.$ By Galerkin orthogonality for the elliptic projection, $\IPLtD{A\grad\mleft(u-\Ph u\mright)}{\vh} = 0$, and so by the definition of the $n$-weighted $L^2$ inner product, and the $n$-weighted $L^2$-projection $\Qhn,$ the result follows.
 \epf
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 \beq\label{eq:boundarybound}
 \NLtGI{\thetah}^2 \leq \Cboundaryo \NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
 \eeq
-where $\Cboundaryo = 2\Cmess^2$ and $\Cboundaryt = \mleft(1 + \CMT^2 \Cfn{0,1}\mright)/2.$
 \ele
 
 \bpf[Proof of \cref{lem:boundarybound}]
@@ -683,16 +712,17 @@ In \cref{eq:thetaform}, let $\vh = \thetah,$ and take the imaginary part to obta
 \beqs
 -k \NLtGI{\thetah}^2 \leq \Im k^2 \IPLtDn{\Qhn \rho}{\thetah} + \Re k \IPLtGI{\rho}{\thetah},
 \eeqs
-and therefore by \cref{lem:intoip}
-\beq\label{eq:thetaboundarypart}
-\NLtGI{\thetah}^2 \leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}\leq  k \NLiD{n}^2 \Nfn{1-p,h}{\Qhn \rho}\Nfn{p-1,h}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}.
-\eeq
-In order to bound the negative norm $\Nfn{1-p,h}{\Qhn\rho},$ we use \cref{lem:negdiscsum}; this use means we need to estimate negative Sobolev norms of $\Qhn\rho$; for integers $m \in [0,p-1]$ we have
+and therefore by \cref{lem:intoip} and the Cauchy--Schwartz inequality
+\begin{align*}
+\NLtGI{\thetah}^2 &\leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}\\
+&\leq  k \NLiD{n}^2 \Nfn{1-p,h}{\Qhn \rho}\Nfn{p-1,h}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}.\label{eq:thetaboundarypart}
+\end{align*}
+We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cref{lem:negdiscsum}; however, we therefore need to estimate negative Sobolev norms of $\Qhn\rho$; for integers $m \in [0,p-1]$ we have (observing that $\Qhn \Ph u = \Ph u$ as $\Ph u \in \Vhp.$)
 \begin{align}
 \NHmmD{\Qhn\rho} &\leq \NHmmD{\Qhn u - u} + \NHmmD{u - \Ph u}\nonumber\\
-&\leq \Cfn{n,-m,z} h^m \NLtD{u-\Ph u} + \Cmmo h^{m+1} \NHoD{u - \Ph u}\\
+&\leq \CSZfn{m} \NLiD{n} h^m \NLtD{u-\Ph u} + \Cmmo h^{m+1} \NHoD{u - \Ph u}\\
 &\quad\quad\text{ by \cref{lem:ellprojerr,lem:wltdprojerr}, taking } \wh = \Ph u \text{ in \cref{eq:ellprojerr,eq:wltdprojerr}}\nonumber\\
-&\leq \mleft(\Cfn{n,-m,0} \Cfn{0,1} + \Cfn{-m,1}\mright) h^{m+1} \NW{\rho} \text{ by \cref{lem:ellprojerr}}\label{eq:Qhnrhoneg}
+&\leq \mleft(\CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\mright) h^{m+1} \NW{\rho} \text{ by \cref{lem:ellprojerr}}\label{eq:Qhnrhoneg}
 \end{align}
 By \cref{lem:negdiscsum} we have
 \beq\label{eq:Qhnrhosum}
@@ -700,28 +730,29 @@ By \cref{lem:negdiscsum} we have
 \eeq
 where $\Cmess \de \Csumpmo \mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0} \Cfn{0,1} + \Cfn{-m,1}\mright).$ To deal with the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:ellprojerr} and the fact that $\NHoD{\cdot} \leq \NW{\cdot}$ to obtain
 \beq\label{eq:rhomtbound}
-\NLtGI{\rho} \leq \CMT \Cfn{0,1}^{\half} h^{\half} \NW{\rho}.
+\NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cfn{0,1}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cfn{0,1}^{\half} h^{\half} \NW{\rho}.
 \eeq
-Using \cref{eq:rhomtbound} and Young's inequality, we therefore obtain
+Therefore by \cref{eq:rhomtbound} and Young's inequality, we obtain
 \beq\label{eq:rhothetamt}
 \NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cfn{0,1} h \NW{\rho}^2 + \half \NLtGI{\thetah}^2.
 \eeq
 By combining \cref{eq:rhothetamt,eq:Qhnrhosum,eq:thetaboundarypart}
 \beq\label{eq:thetahboundnear}
-\NLtGI{\thetah}^2 \leq k \Cmess h^p \NLiD{n}^2\NW{\rho} \Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2.
+\NLtGI{\thetah}^2 \leq k \Cmess h^p \NLiD{n}^2\NW{\rho} \Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
 \eeq
-By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2$ terms onto the left-hand side, we obtain \cref{eq:boundarybound}.
+By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2$ term onto the left-hand side, we obtain \cref{eq:boundarybound}.
 \epf
 
 \ble[Bound on higher-order discrete norms of $\thetah$ by $\NLtD{\thetah}$]\label{lem:higherbound}
-For $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
-\beq\label{eq:chigh}
-\Nmh{\thetah} \leq \Chighmo k^m \NLtD{\thetah} + \Chighmt h^{1-m} \NW{\rho}.
-\eeq
+For integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
+\begin{align}
+\Nmh{\thetah} &\leq \Chighmo \mleft(1+\NLiD{n}\mright)^m k^m \NLtD{\thetah}\nonumber\\
+&\quad\quad+ \Chighmt h^{1-m}\mleft(1+\NLiD{n} + \frac{\NLiD{n}^3}{\nmin}\mright)\mleft(1+\NLiD{n}\mright)^{m-1} \NW{\rho}.\label{eq:chigh}
+\end{align}
 \ele
 
 \bpf[Proof of \cref{lem:higherbound}]
-By inserting the definition of $\Deltah$ in \cref{eq:thetaform} and rearranging, for any $\vh \in \Vhp$ we have
+By inserting the definition of $\Deltah$ in \cref{eq:thetaform} and rearranging, we have for any $\vh \in \Vhp$
 \beqs
 \IPLtD{\Deltah \thetah}{\vh} = k^2 \IPLtDn{\thetah}{\vh} + k^2\IPLtD{\Qhn \rho}{\vh} + ik \IPLtGI{\thetah}{\vh} + ik \IPLtGI{\rho}{\vh}.
 \eeqs
@@ -732,25 +763,19 @@ Therefore, if we take $\vh = \Deltah^{m-1}\thetah,$, by \cref{lem:intoip} we hav
 We now proceed to bound the two terms in \cref{eq:deltahm} defined on the truncation boundary $\GI.$ For the first term, we have
 \begin{align}
 \IPLtGI{\thetah}{\Deltah^{m-1}\thetah} &\leq \NLtGI{\thetah}\NLtGI{\Deltah^{m-1}\thetah}\nonumber\\
-&\leq \CMT \CinvVhp \NLtGI{\thetah} h^{-\half} \NLtD{\Deltah^{m-1} \thetah}\\
-&\quad\quad\text{ by \cref{thm:multiplicativetrace,lem:inverseinequality}.}\nonumber\\
-&= \CMT \CinvVhp h^{-\half}\NLtGI{\thetah}\Nfn{2m-2,h}{\thetah}\nonumber\\
-&\leq \CMT \CinvVhp \Chinv^{m-1} h^{-m+\half} \NLtGI{\thetah}\Nfn{m-1,h}{\thetah} \text{ by \cref{lem:inversediscrete}}\nonumber\\
-&\leq \CMT \CinvVhp \Chinv^{m-1}  \mleft(\Cboundaryo^{\half} \NLiD{n}^2 k h^{p-m} \Nfn{p-1,h}{\thetah} + \Cboundaryt^{\half} h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah}\\
+&\leq \CMT \CinvVhp^{1/2} \NLtGI{\thetah} h^{-\half} \NLtD{\Deltah^{m-1} \thetah}\\
+&\quad\quad\text{ by \cref{thm:multiplicativetrace,lem:inverseinequality} and the definition of }\Nfn{2m-2,h}{\cdot}\nonumber\\
+&= \CMT \CinvVhp^{1/2} h^{-\half}\NLtGI{\thetah}\Nfn{2m-2,h}{\thetah}\nonumber\\
+&\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1} h^{-m+\half} \NLtGI{\thetah}\Nfn{m-1,h}{\thetah} \text{ by \cref{lem:inversediscrete} applied } m-1 \text{ times}\nonumber\\
+&\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1}\nonumber\\
+&\quad\quad\mleft(\Cboundaryo^{\half} \NLiD{n}^2 k h^{p-m} \Nfn{p-1,h}{\thetah} + \Cboundaryt^{\half} h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah}\\
 &\quad\quad\text{ by \cref{lem:boundarybound} and \cref{eq:simple}}\nonumber\\
-&\leq \mleft(\CBo k \Nfn{m-1,h}{\thetah} + \CBt h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah} \text{ by \cref{lem:inversediscrete},},\label{eq:firstboundary}
+&\leq \mleft(\CBo \NLiD{n}^2k \Nfn{m-1,h}{\thetah} + \CBt h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah} \text{ by \cref{lem:inversediscrete},},\label{eq:firstboundary}.
 \end{align}
-where
-\beqs
-\CBo = \CMT \CinvVhp \Chinv^{m-1} \Cboundaryo^{\half} \NLiD{n}^2\Chinv^{p-m},\tand
-\eeqs
-\beqs
-\CBt = \CMT \CinvVhp \Chinv^{m-1} \Cboundaryt^{\half}.
-\eeqs
 
 To bound the second boundary term in \cref{eq:deltahm}, we have
 \beq\label{eq:secondboundarytemp}
-\IPLtGI{\rho}{\Deltah^{m-1} \thetah} \leq \CMT \CinvVhp \Chinv^{m-1}\Nfn{m-1,h}{\thetah}\NLtGI{\rho}
+\IPLtGI{\rho}{\Deltah^{m-1} \thetah} \leq \CMT \CinvVhp^{1/2} \Chinv^{m-1}h^{-\half-m}\Nfn{m-1,h}{\thetah}\NLtGI{\rho}
 \eeq
 using \cref{thm:multiplicativetrace,lem:inverseinequality} as above. By \cref{thm:multiplicativetrace,lem:ellprojerr} (with $\wh = \Ph u$) we have
 \beq\label{eq:secondboundarytemp2}
@@ -758,31 +783,39 @@ using \cref{thm:multiplicativetrace,lem:inverseinequality} as above. By \cref{th
 \eeq
 Inseting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obtain
 \beq\label{eq:secondboundary}
-\IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah},
+\IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}.
 \eeq
-where $\CBth = \CMT^2 \CinvVhp \Chinv^{m-1}\Cfn{0,1}^{\half}.$
 
-Therefore, from \cref{eq:deltahm,eq:firstboundary,eq:secondboundary}, using Young's inequality and \cref{eq:simple}, we have
-\begin{align}\label{eq:thetahighnearly}
-\Nfn{m,h}{\thetah} &\sqrt{\frac32 \NLiD{n}^2 + \CBo + \half} k  \Nfn{m-1,h}{\thetah} + \frac{\NLiD{n}}{\sqrt{2}} k \Nfn{m-1,h}{\Qhn \rho} + \frac{\mleft(\CBt + \CBth\mright)}{\sqrt{2}} h^{1-m} \NW{\rho}.
+Therefore, from \cref{eq:deltahm,eq:firstboundary,eq:secondboundary} and the Cauchy--Schwartz inequality, we have
+\begin{align*}
+\Nfn{m,h}{\thetah}^2 &\leq k^2 \Nfn{m-1,h}{\thetah}^2 + k^2 \NLiD{n}^2 \Nfn{m-1,h}{\Qhn \rho}\Nfn{m-1,h}{\thetah}\nonumber\\
+&\quad\quad+ k\mleft(\CBo \NLiD{n}^2 k\Nfn{m-1,h}{\thetah}+ \CBt h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah}\nonumber\\
+&\quad\quad+ k \CBth h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
+\end{align*}
+Therefore using Young's inequality and \cref{eq:simple}, we have
+\begin{align}
+\Nfn{m,h}{\thetah} &\leq\sqrt{1+\frac{\CBt^2}2 + \frac{\CBth^2}2 + \mleft(\half+\CBo\mright)\NLiD{n}^2}\Nfn{m-1,h}{\thetah}\\
+&\quad\quad+ \frac{\NLiD{n}}{\sqrt{2}} k \Nfn{m-1,h}{\Qhn \rho} +  h^{1-m} \NW{\rho}.\label{eq:thetahighnearly}
 \end{align}
 We now proceed to bound $\Nfn{m-1,h}{\Qhn \rho}$: By \cref{lem:inversediscrete} and the fact that $\Qhn \Ph u = \Ph u$ (as $\Ph u \in \Vhp$), we have
 \beq\label{eq:qhnmmo}
 \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1} h^{1-m} \mleft(\NLtD{\Qhn u - u} + \NLtD{u-\Ph u}\mright).
 \eeq
-We can bound the first of these two terms by the second: $\NLtD{\Qhn u - u} \leq \NLtDn{\Qhn u - u}/\nmin \leq \Cfn{n,0,0}/\nmin \NLtDn{u - \Ph u} \leq \NLiD{n}/\nmin \Cfn{n,0,0} \NLtD{u-\Ph u}$, using \cref{lem:wltdprojerr} and properties of the $n$-weighted $L^2$ norm. We can also bound the second term by \cref{lem:ellprojerr}: $\NLtD{u - \Ph u} \leq \Cfn{0,1} h \NW{\rho}.$ Therefore by \cref{eq:qhnmmo} we have (as $kh \leq 1$)
+We can bound the first of these terms by the second:
+\begin{align*}
+\NLtD{\Qhn u - u} &\leq \frac{\NLtDn{\Qhn u - u}}{\nmin}\\
+&\leq \frac{\CSZfn{0} \NLiD{n}}{\nmin} \NLtDn{u - \Ph u}\\
+&\leq \frac{\CSZfn{0}\NLiD{n}^2}{\nmin} \NLtD{u-\Ph u},
+\end{align*}
+using \cref{lem:wltdprojerr} and properties of the $n$-weighted $L^2$ norm. We can also bound $\NLtD{u - \Ph u} \leq \Cfn{0,1} h \NW{\rho}.$ by \cref{lem:ellprojerr}. Therefore by \cref{eq:qhnmmo} we have (as $kh \leq 1$)
 \beq\label{eq:qhnnearly}
-k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1} \mleft(\frac{\NLiD{n}}{\nmin} \Cfn{n,0,0} + 1\mright) \Cfn{0,1} h^{1-m} \NW{\rho}.
+k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1} \mleft(\frac{\CSZfn{0}\NLiD{n}^2}{\nmin} + 1\mright) \Cfn{0,1} h^{1-m} \NW{\rho}.
 \eeq
-Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} we have
+Therefore using \cref{eq:thetahighnearly,eq:qhnnearly,eq:simple} we have
 \beq\label{eq:readytorecurse}
-\Nfn{m,h}{\thetah} \leq \CReco k \Nfn{m-1,h}{\thetah} + \CRect h^{1-m} \NW{\rho},
+\Nfn{m,h}{\thetah} \leq \CReco \mleft(1+\NLiD{n}\mright)k \Nfn{m-1,h}{\thetah} + \CRect h^{1-m} \mleft(1+\NLiD{n} + \frac{\NLiD{n}^3}{\nmin}\mright)\NW{\rho}.
 \eeq
-where
-\beqs
-\CReco = \sqrt{\frac32 \NLiD{n}^2 + \CBo + 1/2} \tand \CRect = \frac{\NLiD{n}}{\sqrt{2}} \Chinv^{m-1} \mleft(\frac{\NLiD{n}}{\nmin} \Cfn{n,0,0} + 1\mright)\Cfn{0,1}.
-\eeqs
-Using \cref{eq:readytorecurse} and the fact that $hk \leq 1,$ we obtain \cref{eq:chigh}, with $\Chighmo = \CReco^m$ and $\Chighmt = \sum_{j=0}^{m-1} \CReco^j \CRect.$
+Using \cref{eq:readytorecurse} and the fact that $hk \leq 1,$ we obtain \cref{eq:chigh}.
 \epf
 
 \ble[Bound $\NLtD{\thetah}$ by $\Nfn{p-1,h}{\thetah}$]\label{lem:ltthetahbound}
@@ -790,7 +823,6 @@ There exist constants $\Cfirst, \Csecond > 0$ such that
 \beq\label{eq:ltthetahbound}
 \NLtD{\thetah} \leq \Cfirst \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NW{\rho} + \Csecond k^2h^p \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \Nfn{p-1,h}{\thetah}.
 \eeq
-where $\Cfirst, \Csecond$ are defined in \cref{app:constants}.
 \ele
 
 \bpf[Proof of \cref{lem:ltthetahbound}]
@@ -799,16 +831,15 @@ Consider the adjoint variational problem: Find $w \in \HozDD$ such that for all 
 \beq\label{eq:adjointtheta}
 a(v,w) = \IPLtD{v}{\thetah}
 \eeq
-(i.e., $w$ solves the adjoint problem with right-hand side given by $\thetah$). Let $\eh \de u -\uh$ be the finite-element error, and put $v = \thetah$ in \cref{eq:adjointtheta}. By Galerkin orthogonality for $\eh,$ we have
+(i.e., $w$ solves the adjoint problem with right-hand side given by $\thetah$). Let $\eh \de u -\uh$ be the finite-element error, and put $v = \eh$ in \cref{eq:adjointtheta}. By Galerkin orthogonality for $\eh,$ we have
 \begin{align}
-\IPLtD{\eh}{\thetah} = a(\eh,w-\Ph w) &= \IPLtD{A \grad \rho}{\grad(w-\Ph w)} + \IPLtD{A \grad \thetah}{\grad(w-\Ph w)}\\
-&\quad\quad -k^2 \IPLtDn{\eh}{w-\Ph w} -ik \IPLtGI{\eh}{w-\Ph w}\nonumber\\
-&= \IPLtD{A \grad \rho}{\grad(w-\Ph w)} + -k^2 \IPLtDn{\eh}{w-\Ph w} -ik \IPLtGI{\eh}{w-\Ph w},\label{eq:doublego}
+\IPLtD{\eh}{\thetah} = a(\eh,w-\Ph w) &= \IPLtD{A \grad \rho}{\grad(w-\Ph w)}  -k^2 \IPLtDn{\eh}{w-\Ph w} -ik \IPLtGI{\eh}{w-\Ph w},\nonumber\\
+&=a(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}\label{eq:doublego}
 \end{align}
-by Galerkin orthogonality for $w - \Ph w.$ Therefore, as $\eh = \thetah + \rho,$ we can rearrange \cref{eq:doublego} to obtain
+using the fact that $\eh = \rho + \thetah$ and Galerkin orthogonality for $w - \Ph w.$ Therefore we can rearrange \cref{eq:doublego} and use Cauchy-Schwartz to obtain
 \begin{align}
-\NLtD{\thetah}^2 &= a(\rho,w - \Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w - \Ph w} - \IPLtD{\rho,\thetah}\nonumber\\
-&\leq \Cc \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}} + k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtD{\rho}\NLtD{\thetah}\label{eq:boundingLtwo}
+\NLtD{\thetah}^2 &\leq \Cc \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
+&+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtD{\rho}\NLtD{\thetah}\label{eq:boundingLtwo}
 \end{align}
 By combining \cref{lem:bestapprox,lem:ellprojerr}, we can show (as $w$ satisfies an adjoint Helmholtz problem with right-hand side $\thetah$)
 \beq\label{eq:wlt}
@@ -822,9 +853,9 @@ We will be able to use \cref{eq:wlt,eq:who} to bound terms involving $w - \Ph w$
 \abs{\IPLtDn{\thetah}{w- \Ph w}} &= \abs{\IPLtDn{\thetah}{\Qhn w - \Ph w}}\nonumber\\
 &\leq \Nfn{p-1,h,n}{\thetah}\Nfn{1-p,h,n}{\Qhn w = \Ph w}\text{ by \cref{lem:intoip}}\nonumber\\
 & \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1} \NLiD{n} \sum_{m=0}^{p-1} h^{p-1-m}\mleft(\NHmmD{\Qhn w - w} + \NHmmD{w - \Ph w}\mright) \text{ by \cref{lem:negdiscsum}}\nonumber\\
-&\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1} \NLiD{n}^2 h^{p-1} \sum_{m=0}^{p-1} \mleft(\frac{\Cfn{n,-m,0}}{\nmin} \NLtD{w - \Ph w} + \Cfn{-m,1} h \NHoD{w - \Ph w}\mright)\\
+&\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1} \NLiD{n}^2 h^{p-1} \sum_{m=0}^{p-1} \mleft(\frac{\CSZfn{m} \NLiD{n}}{\nmin} \NLtD{w - \Ph w} + \Cfn{-m,1} h \NHoD{w - \Ph w}\mright)\\
 &\quad\quad\text{ by \cref{lem:wltdprojerr,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:wltdprojerr,eq:ellprojerr}}\nonumber\\
-&\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1}\mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0}\Cfn{0,1} + \Cfn{-m,1}\Cfn{-1,1}\mright) \frac{\NLiD{n}^2}{\nmin}\\
+&\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1}\mleft(\sum_{m=0}^{p-1} \CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\Cfn{-1,1}\mright) \frac{\NLiD{n}^2}{\nmin}\\
 &\quad\quad h^p \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \text{ by \cref{eq:wlt,eq:who}}.\nonumber\\
 &=\Nfn{p-1,h}{\thetah}  \Cfourteen \frac{\NLiD{n}^2}{\nmin} h^p \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \label{eq:innerprod1},
 \end{align}
@@ -898,17 +929,6 @@ Therefore, by \cref{lem:ellprojerr,lem:bestapprox}, and the fact that $hk \leq 1
 \eeqs
 \epf
 
-From \cref{thm:fembound,lem:scottzhang} we have the following corollary, with $\CcorLt = \CFEMLt\mleft(\CFEMo+\CFEMt\mright)$ and $\CcorHo = \CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$
-
-\bco[Completely explicit FEM bound]\label{cor:fembound}
-Under the assumptions on \cref{thm:fembound},
-\beqs
-\NLtD{u-\uh} \leq \CcorLt \mleft(h^3 + \CAnk h^2 (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
-\eeqs
-\beqs
-\NW{u-\uh} \leq \CcorHo \mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
-\eeqs
-\eco\optodo{I'm suspicious about two orders of magnitude...}
 
 Put the following somewhere:
 For $a,b > 0$\optodo{Extend to many}

@@ -104,7 +104,7 @@
 \newcommand{\gradGI}{\grad_{\GI}}
 \newcommand{\Ct}{C_{2}}
 \newcommand{\Cttilde}{\widetilde{C}_{2}}
-\newcommand{\NW}[1]{\N{#1}_{1.k}}
+\newcommand{\NW}[1]{\N{#1}_{1,k}}
 \newcommand{\NLiD}[1]{\N{#1}_{\LiD}}
 \newcommand{\LiD}{\Li{D}}
 \newcommand{\Ki}{K_{i}}
@@ -269,7 +269,7 @@
 \newcommand{\CFEMttilde}{\CFEMt}
 \newcommand{\Cmszfn}[1]{C_{#1,0}}
 \newcommand{\Cmsofn}[1]{C_{#1,1}}
-\newcommand{\Cnmszfn}[1]{C_{n,#1,0}}
+%\newcommand{\Cnmszfn}[1]{C_{n,#1,0}}
 \newcommand{\Cnmsz}{\Cnmszfn{-s}}
 \newcommand{\Cmso}{\Cmsofn{-s}}
 \newcommand{\Cmsz}{\CSZs}
@@ -323,7 +323,8 @@
 \newcommand{\Coscfn}[1]{\Cfn{\mathrm{osc},#1}}
 \newcommand{\CSZfn}[1]{\Cfn{\mathrm{SZ},#1}}
 \newcommand{\CSZs}{\CSZfn{s}}
-
+\newcommand{\Cefn}[1]{C_{\mathrm{expansion},#1}}
+\newcommand{\Cej}{\Cefn{j}}
 
 
 
@@ -498,7 +499,7 @@
 \newcommand{\DeltaAI}{\sdres}%{\DeltaA^{-1}}
 \newcommand{\yh}{y_{h}}
 \newcommand{\NHmmmtD}[1]{\N{#1}_{\HmmmtD}}
-\newcommand{\HmmmtD}{\Hfn{}{-m-2}{D}}
+\newcommand{\HmmmtD}{\Hfn{}{-(m+2)}{D}}
 \newcommand{\vtilde}{\widetilde{v}}
 \newcommand{\NHmptD}[1]{\N{#1}_{\HmptD}}
 \newcommand{\HmptD}{\Hfn{}{m+2}{D}}
@@ -515,10 +516,12 @@
 \newcommand{\Npmoh}[1]{\Nfn{p-1,h}{#1}}
 \newcommand{\eh}{e_{h}}
 \newcommand{\uhhat}{\hat{u}_{h}}
-\newcommand{\vjh}{v_{j,h}}
-\newcommand{\vosch}{v_{\mathrm{osc},h}}
+\newcommand{\ujh}{u_{j,h}}
+\newcommand{\uosch}{u_{\mathrm{osc},h}}
 \newcommand{\NHfn}[3]{\N{#3}_{\Hfn{}{#1}{#2}}}
 \newcommand{\vfn}[1]{v_{#1}}
 \newcommand{\wj}{w_{j}}
 \newcommand{\NLtdD}[1]{\N{#1}_{\LtdD}}
 \newcommand{\LtdD}{\Lt{\dD}}
+\newcommand{\NHsDn}[1]{\Nfn{\HsD,n}{#1}}
+\newcommand{\NHmsDn}[1]{\Nfn{\HmsD,n}{#1}}
