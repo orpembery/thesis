@@ -32,10 +32,10 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Chcond$ & $\frac1{\mleft(4\Csecond \CReco^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
   $\CFEMLt$ &$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\\
   $\CFEMHo$ &$\Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\\
-  $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0} \Cfn{0,1} + \Cfn{-m,1}\mright)$&Proof of \cref{lem:boundarybound}\\
+  $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \CSZfn{m} \Cfn{0,1} + \Cfn{-m,1}\mright)$&Proof of \cref{lem:boundarybound}\\
   $\CMT$ &&\\
-  $\Cboundaryo$ & $2\Cmess^2$ & \cref{lem:boundarybound} \\
-  $\Cboundaryt$ & $\mleft(1 + \CMT^2 \Cfn{0,1}\mright)/2$ & \cref{lem:boundarybound}\\
+  $\Cboundaryo$ & $\Cmess^2$ & \cref{lem:boundarybound} \\
+  $\Cboundaryt$ & $1 + \CMT^2 \Cfn{0,1}$ & \cref{lem:boundarybound}\\
   $\CBo$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryo^{\half} \Chinv^{p-m}$&Proof of \cref{lem:higherbound}\\
   $\CBt$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryt^{\half}$&Proof of \cref{lem:higherbound}\\
   $\CBth$&$\CMT^2 \CinvVhp \Chinv^{m-1}\Cfn{0,1}^{\half}$&Proof of \cref{lem:higherbound}\\

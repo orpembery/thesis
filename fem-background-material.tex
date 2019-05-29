@@ -295,7 +295,7 @@ Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have (using 
 \epf
 
 \subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
-In this \namecref{sec:errgalerkin} we state a sequence of error bounds for various projections, in various norms. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08}\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
+In this \namecref{sec:errgalerkin} we state a sequence of error bounds for various projections, in various norms. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08},  and so we only sketch \cref{lem:wltdprojerr} below; as this result uses the $n$-weighted norms and inner product.\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
 
 Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
@@ -321,9 +321,12 @@ and the corresponding $n$-weighted $\LtD$ norm
 \eeqs
 The $n$-weighted $\HsD$ norms, for $s \in \NN$, are then defined by $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms are defined by, for $s \in \NN$
 \beq\label{eq:negweightnorm}
-\NHmsDn{v} = \sup_{w \in \HsD} \frac{\IPLtDn{v}{w}}{\NHsD{w}}.
+\NHmsDn{v} = \sup_{w \in \HsD} \frac{\IPLtD{v}{w}}{\NHsDn{w}}.
 \eeq
-We put the \emph{standard} $H^s$-norm in the denominator of \cref{eq:negweightnorm} so that we have $\NHmsDn{v} \leq \NLiD{n} \NHmsD{v}.$
+We put the \emph{weighted} $H^s$-norm in the denominator of \cref{eq:negweightnorm}, but the \emph{non-weighted} inner product in the numerator so that we have
+\beq\label{eq:negativeweightbounds}
+\frac{\NHmsD{v}}{\NLiD{n}} \leq \NHmsDn{v} \leq \frac{NHmsD{v}}{\nmin}.
+\eeq
 
 Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 \beqs
@@ -358,6 +361,19 @@ For any integer $s \in [0,p-1],$ for all $w \in \HozDD$
 \NHmsnD{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^{s} \BALtDn{w}{\wh}.
 \eeq
 \ele
+
+\bpf[Sketch Proof of \cref{lem:wltdprojerr}]
+The following proof is a slight modification of the proof in \cite[Theorem 5.8.3]{BrSc:08}. Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
+\beqs
+\IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
+\eeqs
+Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
+\begin{align*}
+\IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLiD{n}\NLtD{w-\Qhn w}\NLtD{\vtilde-\vhptilde}\\
+&\leq \CSZfn{s} \NLiD{n}\NLtD{w-\Qhn w} h^s \NHsD{\vtilde}.
+\end{align*}
+Taking the supremum over $\vtilde,$ we have 
+\epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
 In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivates, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
@@ -568,7 +584,7 @@ We can now prove the following \namecref{lem:negdiscsum} on the relationship bet
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
 For any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
 \beqs
-\Nmjh{\vh} \leq \Csumj \sum_{m=0}^j h^{m-j} \NHmmD{\vh}.
+\Nmjh{\vh} \leq \Csumj \sum_{m=0}^j h^{m} \NHfn{-(j-m)}{D}{\vh}.
 \eeqs
 \ele
 
@@ -703,7 +719,7 @@ Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 \beq\label{eq:boundarybound}
-\NLtGI{\thetah}^2 \leq \Cboundaryo \NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
+\NLtGI{\thetah}^2 \leq \Cboundaryo \NLiD{n}^6 k^2 h^{2p-1} \Nfn{p-1,h}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
 \eeq
 \ele
 
@@ -713,10 +729,10 @@ In \cref{eq:thetaform}, let $\vh = \thetah,$ and take the imaginary part to obta
 -k \NLtGI{\thetah}^2 \leq \Im k^2 \IPLtDn{\Qhn \rho}{\thetah} + \Re k \IPLtGI{\rho}{\thetah},
 \eeqs
 and therefore by \cref{lem:intoip} and the Cauchy--Schwartz inequality
-\begin{align*}
-\NLtGI{\thetah}^2 &\leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}\\
+\begin{align}
+\NLtGI{\thetah}^2 &\leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}\nonumber\\
 &\leq  k \NLiD{n}^2 \Nfn{1-p,h}{\Qhn \rho}\Nfn{p-1,h}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}.\label{eq:thetaboundarypart}
-\end{align*}
+\end{align}
 We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cref{lem:negdiscsum}; however, we therefore need to estimate negative Sobolev norms of $\Qhn\rho$; for integers $m \in [0,p-1]$ we have (observing that $\Qhn \Ph u = \Ph u$ as $\Ph u \in \Vhp.$)
 \begin{align}
 \NHmmD{\Qhn\rho} &\leq \NHmmD{\Qhn u - u} + \NHmmD{u - \Ph u}\nonumber\\
@@ -724,11 +740,11 @@ We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cre
 &\quad\quad\text{ by \cref{lem:ellprojerr,lem:wltdprojerr}, taking } \wh = \Ph u \text{ in \cref{eq:ellprojerr,eq:wltdprojerr}}\nonumber\\
 &\leq \mleft(\CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\mright) h^{m+1} \NW{\rho} \text{ by \cref{lem:ellprojerr}}\label{eq:Qhnrhoneg}
 \end{align}
-By \cref{lem:negdiscsum} we have
+By \cref{lem:negdiscsum,eq:Qhnrhoneg} and the fact that $\NLiD{n} \geq 1,$ we have
 \beq\label{eq:Qhnrhosum}
-\Nfn{1-p,h}{\Qhn \rho} \leq \Cmess h^p \NW{\rho},
+\Nfn{1-p,h}{\Qhn \rho}\leq \Csumfn{p-1} \sum_{m=0}^{p-1} h^{m} \NHfn{-(p-1-m)}{D}{\vh} \leq \Cmess \NLiD{n}h^p \NW{\rho}.
 \eeq
-where $\Cmess \de \Csumpmo \mleft(\sum_{m=0}^{p-1} \Cfn{-n,m,0} \Cfn{0,1} + \Cfn{-m,1}\mright).$ To deal with the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:ellprojerr} and the fact that $\NHoD{\cdot} \leq \NW{\cdot}$ to obtain
+To deal with the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:ellprojerr} and the fact that $\NHoD{\cdot} \leq \NW{\cdot}$ to obtain
 \beq\label{eq:rhomtbound}
 \NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cfn{0,1}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cfn{0,1}^{\half} h^{\half} \NW{\rho}.
 \eeq
@@ -736,9 +752,9 @@ Therefore by \cref{eq:rhomtbound} and Young's inequality, we obtain
 \beq\label{eq:rhothetamt}
 \NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cfn{0,1} h \NW{\rho}^2 + \half \NLtGI{\thetah}^2.
 \eeq
-By combining \cref{eq:rhothetamt,eq:Qhnrhosum,eq:thetaboundarypart}
+By combining \cref{eq:thetaboundarypart,eq:Qhnrhosum,eq:rhothetamt}
 \beq\label{eq:thetahboundnear}
-\NLtGI{\thetah}^2 \leq k \Cmess h^p \NLiD{n}^2\NW{\rho} \Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
+\NLtGI{\thetah}^2 \leq k \Cmess h^p \NLiD{n}^3\NW{\rho} \Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
 \eeq
 By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2$ term onto the left-hand side, we obtain \cref{eq:boundarybound}.
 \epf
@@ -843,16 +859,16 @@ using the fact that $\eh = \rho + \thetah$ and Galerkin orthogonality for $w - \
 \end{align}
 By combining \cref{lem:bestapprox,lem:ellprojerr}, we can show (as $w$ satisfies an adjoint Helmholtz problem with right-hand side $\thetah$)
 \beq\label{eq:wlt}
-\NLtD{w - \Ph w} \leq \Cfn{0,1} h \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah} \tand
+\NLtD{w - \Ph w} \leq \Cfn{0,1} \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h^2 + \CFEMttilde \CAnk h(hk)^p\mright)\NLtD{\thetah} \tand
 \eeq
 \beq\label{eq:who}
-\NHoD{w - \Ph w} \leq \Cfn{-1,1} \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.
+\NHoD{w - \Ph w} \leq 2\Cfn{-1,1} \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.
 \eeq
 We will be able to use \cref{eq:wlt,eq:who} to bound terms involving $w - \Ph w$ in \cref{eq:boundingLtwo}. We first estimate the inner product terms in \cref{eq:boundingLtwo}:
 \begin{align}
 \abs{\IPLtDn{\thetah}{w- \Ph w}} &= \abs{\IPLtDn{\thetah}{\Qhn w - \Ph w}}\nonumber\\
-&\leq \Nfn{p-1,h,n}{\thetah}\Nfn{1-p,h,n}{\Qhn w = \Ph w}\text{ by \cref{lem:intoip}}\nonumber\\
-& \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1} \NLiD{n} \sum_{m=0}^{p-1} h^{p-1-m}\mleft(\NHmmD{\Qhn w - w} + \NHmmD{w - \Ph w}\mright) \text{ by \cref{lem:negdiscsum}}\nonumber\\
+&\leq \Nfn{p-1,h,n}{\thetah}\Nfn{1-p,h,n}{\Qhn w - \Ph w}\text{ by \cref{lem:intoip}}\nonumber\\
+&\leq \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1} \NLiD{n} \sum_{m=0}^{p-1} h^{m}\mleft(\NHfn{-(p-1-m)}{D}{\Qhn w - w} + \NHfn{-(p-1-m)}{D}{w - \Ph w}\mright) \text{ by \cref{lem:negdiscsum}}\nonumber\\
 &\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1} \NLiD{n}^2 h^{p-1} \sum_{m=0}^{p-1} \mleft(\frac{\CSZfn{m} \NLiD{n}}{\nmin} \NLtD{w - \Ph w} + \Cfn{-m,1} h \NHoD{w - \Ph w}\mright)\\
 &\quad\quad\text{ by \cref{lem:wltdprojerr,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:wltdprojerr,eq:ellprojerr}}\nonumber\\
 &\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1}\mleft(\sum_{m=0}^{p-1} \CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\Cfn{-1,1}\mright) \frac{\NLiD{n}^2}{\nmin}\\
