@@ -9,17 +9,25 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\CscatAl$ & ---& \cite[Theorem 4.18(i)]{Mc:00}\\
     $\CtruncAl$ & ---& \cite[Theorem 4.18(ii)]{Mc:00}\\
   $\CAl$ & $\CintAl + \CscatAl + \CtruncAl.$ & \cref{thm:shift}\\
+  $\Cmclean{m}$&---&\cite[Theorem 3.20]{Mc:00}\\ 
+  $\Cprod{m}$ &---& $1+\Cmclean{m}$\\
   $\CAnk$ &---& \cref{ass:htwo}\\
   $\Cfg$ &---& \cref{ass:htwo}\\
   $\CTrs$ &---& \cref{thm:trace}\\
+  $\CBanfn{s}$ & --- & \cref{thm:banachalg}\\
   $\Cej$ & $\mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1}$ ($j \geq 1$); $\max\set{1,\CAz}$ ($j=0$)& \cref{thm:expansion}\\
   $\Pj$ & See \cref{eq:p}& \cref{thm:expansion}\\
   $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
   $\Cosc$ & $\Cefn{p-1}/\max\set{1,\CAz}$ & \cref{thm:expansion}\\
   $\CSZs$ &---& \cref{lem:scottzhang}\\
+  $\Cshiftfn{m}$ &$\CAfn{m}\CBanfn{m}\CBanfn{m+2}$& \cref{lem:shiftnegativew}\\
   $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2}\Cefn{j} $ & \cref{lem:bestapprox}\\
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
-  $\Cmso$ &$\frac{\NLiDop{A}^2}{\Amin}\CSZs$& \cref{lem:ellprojerr} \\
+  $\Cmso$ &$\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (\frac{d}2,p-1]$& \cref{lem:ellprojerr} \\
+  $\Cmso$ &$\frac{4\CSZfn{s+2}\CAfn{s}\Cprod{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (1,\frac{d}2]$& \cref{lem:ellprojerr} \\
+  $\Cfn{-1,1}$ &$\frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}$& \cref{lem:ellprojerr} \\
+  $\Cfn{0,1}$ &$\frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin}$& \cref{lem:ellprojerr} \\
+  $\Cwmso$ &$\CSZfn{m+2}\CAfn{m}\CBanfn{m}\frac{\NLiDop{A}^2}{\Amin}$& \cref{lem:ellprojerr} \\
   $\CinvVhp$ &---& \cref{lem:inverseinequality}\\
   $\Chinv$ & $\CinvVhp \NLiDop{A}^{1/2}$ & \cref{lem:inversediscrete}\\
   $\Cm$ & $\Cmmo \Cinterpt \CAt$ & Proof of \cref{lem:negdiscsum}\\

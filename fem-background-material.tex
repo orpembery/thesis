@@ -86,6 +86,29 @@ If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independe
 \eeqs
 \enth
 
+Also, we will require the following result on the multiplication of functions.
+
+\bth[Multiplication in $\HmD$]\label{thm:banachalg}
+\ben
+\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HsD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{s} > 0$ independent of $\vo$ and $\vt$ such that
+\beqs
+\NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
+\eeqs
+\item\label[itempart]{it:ban2}For $m \in \ZZ, m \geq 1,$ if $\vo \in \CmD$, $\supp\mleft(\vo-1\mright) \compcont D,$ and  $\vt \in \HmD,$ then $\vo \in \WmiD,$ $\vo\vt \in \HmD$, and there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
+\beq\label{eq:ban2}
+\NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
+\eeq
+\een
+\enth
+
+\bpf[Proof of \cref{thm:banachalg}]
+\Cref{it:ban1} is given in\optodo{Find ref}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
+\beqs
+\NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
+\eeqs
+Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
+\epf
+
 We first have this simple \namecref{lem:domainshift}:
 
 \ble\label{lem:domainshift}
@@ -302,6 +325,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 \beqs
 \IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp
 \eeqs
+
 Observe that $\Ph$ is simply the finite-element solution of a stationary diffusion problem with a particular right-hand side in $\HozDD'.$
 
 We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
@@ -321,12 +345,20 @@ and the corresponding $n$-weighted $\LtD$ norm
 \eeqs
 The $n$-weighted $\HsD$ norms, for $s \in \NN$, are then defined by $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms are defined by, for $s \in \NN$
 \beq\label{eq:negweightnorm}
-\NHmsDn{v} = \sup_{w \in \HsD} \frac{\IPLtD{v}{w}}{\NHsDn{w}}.
+\NHnfn{-s}{D}{v} = \sup_{w \in \HsD} \frac{\IPLtDn{v}{w}}{\NHsDn{w}}.
 \eeq
-We put the \emph{weighted} $H^s$-norm in the denominator of \cref{eq:negweightnorm}, but the \emph{non-weighted} inner product in the numerator so that we have
-\beq\label{eq:negativeweightbounds}
-\frac{\NHmsD{v}}{\NLiD{n}} \leq \NHmsDn{v} \leq \frac{NHmsD{v}}{\nmin}.
+Observe that, for $v \in \HsD,$
+\beq\label{eq:nconv}
+\nmin\NHsD{v} \leq \NHsDn{v} \leq \NLiD{n} \NHsD{v}.
 \eeq
+%We put the \emph{non-weighted} $H^s$-norm in the denominator of \cref{eq:negweightnorm}, but the \emph{weighted} inner product in the numerator for ease of manipulation in some of the following proofs---we could place the weighted $H^s$ norm in the denominator, and this would be equivalent to the current definition, up to a factor involving $n$.
+%% so that we have, for all $v \in \LtD$
+%% \beq\label{eq:neqweightid}
+%% \NHmsD{n v} = \NHmsDn{v}.
+%% \eeq
+%% \beq\label{eq:negativeweightbounds}
+%% \frac{\NHmsD{v}}{\NLiD{n}} \leq \NHmsDn{v} \leq \frac{NHmsD{v}}{\nmin}.
+%% \eeq
 
 Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 \beqs
@@ -336,15 +368,80 @@ Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \V
 
 The elliptic projection obeys the following error bounds:
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
+\optodo{Check if this is still needed}
 For any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
 \beq\label{eq:ellprojerr}
-\NHmsD{w-\Ph w} \leq \Cmso h^{s+1} \BAHoD{w}{\wh},
+\NHmsD{w-\Ph w} \leq \Cmso h^{s+1} \BAHoD{w}{\wh}.
 \eeq
-where
+\ele
+
+We state the Poincar\'e inequality:
+\ble[Poincar\'e Inequality]\label{lem:poincare}
+There exists $\CP > 0$ such that for all $v \in \HozDD$
 \beqs
-\Cmso = \frac{\NLiDop{A}^2}{\Amin}\CSZs.
+\NLtD{v} \leq \CP \SNHoD{v}.
 \eeqs
 \ele
+
+\ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
+Let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
+\ben
+\item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ and $n \in \HsD$ then
+\beq\label{eq:wep1}%\label{eq:ellprojerr}
+\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}\NLiD{n}^2}{\nmin^3}h^{s+1} \BAHoDn{w}{\wh}.
+\eeq
+\item\label[itempart]{it:wep2} If $s \in [1,d/2]$ and $n \in \CsD$, then
+\beq\label{eq:wep2}
+\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}\NLiD{n}^2}{\nmin^3} h^{s+1} \BAHoDn{w}{\wh}.
+\eeq
+\item\label[itempart]{it:wep4} For $s = 0$
+\beq\label{eq:wep4}
+\NLtDn{w-\Ph w} \leq \Cwfn{0,1} \frac{\NLiD{n}^3}{\nmin^3}h \BAHoDn{w}{\wh}
+\eeq
+\item\label[itempart]{it:wep3} For $s = 1$
+\beq\label{eq:it:wep3}
+\NHnfn{1}{D}{w-\Ph w} \leq \Cwfn{1,1}\frac{\NLiD{n}^2}{\nmin^2} \BAHoDn{w}{\wh}.
+\eeq
+\een
+\ele
+
+\bpf[Proof of \cref{lem:ellprojerrw}]
+For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(n\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+\beqs
+\IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
+\eeqs
+If we take $v = w-\Ph w,$ then we can compute
+\begin{align}
+\IPLtDn{\phi}{v} &= \IPLtD{A\grad\mleft(\vtilde - \vh\mright)}{\grad\mleft(w-\Ph w\mright)} \text{ for } \vh \text{ as in \cref{lem:scottzhang}, by Galerkin orthogonality for } \Ph\nonumber\\
+&\leq \CSZfn{s+2}\NLiDop{A} \NHfn{s+2}{D}{\vtilde} h^{s+1} \SNHoD{w-\Ph w} \text{ by \cref{lem:scottzhang}}\nonumber\\
+&\leq \CSZfn{s+2} \CAfn{s} \NLiDop{A} \NHfn{s}{D}{n\phi} h^{s+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}}\label{eq:ellprojwpart}
+\end{align}
+
+For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalg}, \cref{eq:ellprojwpart} is bounded above by
+\beq\label{eq:wep1pt0}
+\CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w}
+\eeq
+by \cref{thm:banachalg,eq:nconv}.
+
+Therefore we have, by definition of $\NHnfn{-s}{D}{\cdot}$ and $\NHoDn{\cdot}$,
+\beq\label{eq:wep1pt1}
+\NHnfn{-s}{D}{w-\Ph w} \leq \CSZfn{s+2}\CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHmD{n}}{\nmin^2} h^{s+1} \NHoDn{w - \Ph w}.
+\eeq
+Applying C\'ea's Lemma to $\Ph$ in the weighted $H^1$ norm, we find
+\beq\label{eq:wepcea}
+\NHoDn{w-\Ph w} \leq \frac{2\NLiDop{A}\NLiD{n}^2}{\min\set{1,1/\CP^2}\Amin\nmin^2}\BAHoDn{w}{\wh},
+\eeq
+and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:wep1}.
+
+For \cref{it:wep2}, the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
+\beq\label{eq:wep2pt1}
+2\CSZfn{s+2} \CAfn{s} \Cprod{s} \NLiDop{A} \frac{\NWsiD{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w},
+\eeq
+since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1,$ and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
+
+For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:wep4}, performing a standard duality argument in \emph{non-weighted} norms (and then using \cref{eq:it:wep3}, yields \cref{eq:wep4}.
+\epf
+
 
 The $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
@@ -358,21 +455,25 @@ The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
 For any integer $s \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
-\NHmsnD{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^{s} \BALtDn{w}{\wh}.
+\NHmsDn{w-\Qhn w} \leq \CSZfn{s} \frac{\NLiD{n}}{\nmin} h^{s} \BALtDn{w}{\wh}.
 \eeq
 \ele
 
-\bpf[Sketch Proof of \cref{lem:wltdprojerr}]
+\bpf[Proof of \cref{lem:wltdprojerr}]
 The following proof is a slight modification of the proof in \cite[Theorem 5.8.3]{BrSc:08}. Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
 \beqs
 \IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
 \eeqs
 Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
 \begin{align*}
-\IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLiD{n}\NLtD{w-\Qhn w}\NLtD{\vtilde-\vhptilde}\\
-&\leq \CSZfn{s} \NLiD{n}\NLtD{w-\Qhn w} h^s \NHsD{\vtilde}.
+\IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\vhptilde}\\
+&\leq \CSZfn{s} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^s \NHsDn{\vtilde}.
 \end{align*}
-Taking the supremum over $\vtilde,$ we have 
+Taking the supremum over $\vtilde,$ we have
+\beqs
+\NHmsDn{w-\Qhn w} \leq \CSZfn{s} \frac{\NLiD{n}}{\nmin} h^s \NLtDn{w-\Qhn w},
+\eeqs
+and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
 \epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
@@ -380,7 +481,7 @@ In order to perform our analysis for high-order FEM, we will need to measure hig
 
 We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
 \beq\label{eq:sdeq}
-\grad \cdot \mleft(A\grad \utilde\mright) = -\ftilde \text{ in } D
+\grad \cdot \mleft(nA\grad \utilde\mright) = -n\ftilde \text{ in } D
 \eeq
 \beq\label{eq:sddbc}
 \trD \utilde = 0
@@ -390,16 +491,21 @@ We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stati
 \eeq
 %% $A$-weighted Laplacian; that is $\DeltaA w = \grad\cdot\mleft(\grad w\mright),$ and give it domain $\DomainDeltaA = \set{w \in \HtD \st \trD w = 0, \dn w = 0};$
 %% hence $\DeltaA:\DomainDeltaA \rightarrow \LtD.$ Observe that, for any $f \in \LtD$ there exists $\wf \in \DomainDeltaA$ such that $\DeltaA \wf = -f.$
-Observe that $\sdres$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdres^{m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one canb place $\sdres \ftilde$ on the right-hand side. 
+Observe that $\sdsol$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdsol^{m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one can place $\sdsol \ftilde$ on the right-hand side. 
 Observe that for any $\ftilde \in \LtD$ and for any $v \in \HozDD,$ we have, by Green's identity,
 \beqs\label{eq:deltaagreen}
-\int_D \mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D \ftilde \vb
+\int_D n\mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D n\ftilde \vb,
+\eeqs
+i.e.,
+\beqs
+\IPLtDn{A\grad \mleft(\sdsol \ftilde\mright)}{\grad v} = \IPLtDn{\ftilde}{v}.
 \eeqs
 \optodo{Chat}
+
 \bde[Discrete derivative operator]
 Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ for $\wh \in \Vhp$ by
 \beq\label{eq:discderdef}
-\IPLtD{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} \tforall \vh \in \Vhp.
+\IPLtDn{\Deltah \wh}{\vh} = \IPLtDn{A \grad \wh}{\grad \vh} \tforall \vh \in \Vhp.
 \eeq
 \ede
 
@@ -408,7 +514,7 @@ For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
 \ele
 
 \bpf[Proof of \cref{lem:ddwd}]
-If one chooses an orthonormal basis $\phij$ for $\Vhp,$ writes $\Delta\wh = \sum_j \wj \phij$, and takes $\vh = \phij$ for each $j,$ then we see \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtD{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
+If one chooses an orthonormal (in the $n$-weighted inner product) basis  $\phij$ for $\Vhp,$ writes $\Delta\wh = \sum_j \wj \phij$, and takes $\vh = \phij$ for each $j,$ then we see \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtDn{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
 %% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\optodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
 \epf
 
@@ -416,9 +522,9 @@ If one chooses an orthonormal basis $\phij$ for $\Vhp,$ writes $\Delta\wh = \sum
 
 Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint, as
 \beqs
-\IPLtD{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} = \IPLtD{\grad \wh}{A\grad \vh} = \overline{\IPLtD{\Deltah \vh}{\wh}} = \IPLtD{\wh}{\Deltah \vh}.
+\IPLtDn{\Deltah \wh}{\vh} = \IPLtDn{A \grad \wh}{\grad \vh} = \IPLtDn{\grad \wh}{A\grad \vh} = \overline{\IPLtDn{\Deltah \vh}{\wh}} = \IPLtDn{\wh}{\Deltah \vh}.
 \eeqs
-Therefore $\Deltah$ is diagonalisable, i.e., there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding real eigenvalues\ednote{Both - is it common enough knowledge that a symmetric matrix has real eigenvalues, that I don't need to reference this?} $\lambdaoh, \ldots, \lambdadimVhph$ such that the $\phimh$ form an orthonormal basis of $\Vhp$ (orthonormal in the $\LtD$-norm).
+Therefore $\Deltah$ is diagonalisable, i.e., there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding real eigenvalues\ednote{Both - is it common enough knowledge that a symmetric matrix has real eigenvalues, that I don't need to reference this?} $\lambdaoh, \ldots, \lambdadimVhph$ such that the $\phimh$ form an orthonormal (in the $n$-weighted inner product basis of $\Vhp$.
 
 \bde[Higher-order discrete derivative operators]
 For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in \RR$ define
@@ -426,14 +532,15 @@ For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in 
 \Deltah^j \vh = \sum_{m=1}^{\dimVhp} \lambdamh^j \am \phimh.
 \eeqs
 
-In particular, one can think of $\DeltahI$ as being a `discrete resolvent', i.e., a discrete counterpart to $\sdres.$
+\ede
+In particular, one can think of $\DeltahI$ as being a `discrete solution operator', i.e., a discrete counterpart to $\sdsol.$
 
 %% Similarly, for $v \in \LtD,$ if $v = \sum_{m=1}^\infty \am \phim,$ then for $j \in \RR$ define
 %% \beq\label{eq:deltaaseries}
 %% \DeltaA^j v = \sum_{m=1}^\infty \lambdam^j \am \phim,
 %% \eeq
 %% if this series exists in $\LtD.$
-\ede
+
 
 %We let $\Domain{\DeltaA^j}$ denote the subset of $\LtD$ on which $\DeltaA^j$ is defined.
 
@@ -450,7 +557,7 @@ We can use the higher-order derivative operators to define discrete higher-order
 \bde[Discrete higher-order norm]
 For $\vh \in \Vhp$ and $m \in \RR$, if define
 \beqs
-\Nmh{\vh} = \NLtD{\Deltah^{m/2} v}.
+\Nshn{\vh} = \NLtDn{\Deltah^{s/2} v}.
 \eeqs
 \ede
 
@@ -479,8 +586,8 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% &= \frac1{\Cma} \NmmA{v} \text{ the supremum is achieved when } \IPLtD{\DeltaA^{-m/2}v,\DeltaA^{m/2}w} = \NLtD{\DeltaA^{-m/2}v}\NLtD{\DeltaA^{m/2}w}
 %% \end{align*}
 %% \epf
-
 \optodo{Chat about lemma}
+
 
 \ble[Introduction of derivatives into inner product]\label{lem:intoip}
 %% For $m \in \RR,$ $v \in \LtD$, and $w \in \LtD\cap\Domain{\DeltaA^{m/2}}$ we have
@@ -488,23 +595,22 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% \IPLtD{\DeltaAmmt v}{\DeltaAmt w} = \IPLtD{v}{w}.
 %% \eeqs
 %% Similarly, f
-For $\vh, \wh \in \Vhp,$ we have
+For $\vh, \wh \in \Vhp,$ and $s \in \RR$ we have
 \beq\label{eq:feipsplit}
-\IPLtD{\Deltahmmt \vh}{\Deltahmt \wh} = \IPLtD{\vh}{\wh}
+\IPLtDn{\Deltahmst \vh}{\Deltahst \wh} = \IPLtDn{\vh}{\wh}
 \eeq
 and
 \beq\label{eq:feiptrans}
-\IPLtD{\Deltahmt \vh}{\Deltahmt \vh} =  \IPLtD{\Deltah^m \vh}{\vh},
+\IPLtDn{\Deltahst \vh}{\Deltahst \vh} =  \IPLtDn{\Deltah^s \vh}{\vh}.
 \eeq
-and similarly for the $n$-weighted $\LtD$ inner product.
 \ele
 \bpf[Proof of \cref{lem:intoip}]
-We only prove \cref{eq:feipsplit}, as the proofs of \cref{eq:feiptrans} and the $n$-weighted variants are analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$ and $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
+We only prove \cref{eq:feipsplit}, as the proof of \cref{eq:feiptrans} is analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$ and $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
 \begin{align*}
-\IPLtD{\Deltahmmt \vh}{\Deltahmt \wh} &= \int_D \mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
-&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D \phij \philbar \text{ as the } \lambdaj \text{ are real}\\
-& =\sum_{j}^{\dimVhp} \aj \bsj \int_D \abs{\phij}^2 \text{ as the } \phij \text{ are orthonormal}\\
-&= \IPLtD{\vh}{\wh}
+\IPLtDn{\Deltahmst \vh}{\Deltahst \wh} &= \int_D n\mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
+&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D n \phij \philbar \text{ as the } \lambdaj \text{ are real}\\
+& =\sum_{j}^{\dimVhp} \aj \bsj \int_D n\abs{\phij}^2 \text{ as the } \phij \text{ are orthonormal}\\
+&= \IPLtDn{\vh}{\wh}
 \end{align*}
 by repeating the above process in reverse, without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
 \epf
@@ -514,7 +620,7 @@ The next \namecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauch
 \bco[Inner product bounded by discrete norms]\label{cor:ipdiscbound}
 If $vh, \wh \in \Vhp,$ then for all $j \in \RR$
 \beqs
-\IPLtD{\vh}{\wh} \leq \Njh{\vh}\Nmjh{\wh}.
+\IPLtDn{\vh}{\wh} \leq \Njh{\vh}\Nmjh{\wh}.
 \eeqs
 \eco
 
@@ -532,7 +638,7 @@ There exists $\CinvVhp > 0$ such that for all $\vh \in \Vhp$
 \ble[Inverse inequality for discrete norms]\label{lem:inversediscrete}
 For all $j \in \ZZ$, for all $\vh \in \Vhp$
 \beqs
-\Njh{\vh} \leq \Chinv h^{-1} \Njmoh{\vh},
+\Njhn{\vh} \leq \Chinv \frac{\NLiD{n}}{\nmin} h^{-1} \Njmohn{\vh},
 \eeqs
 where
 \beqs
@@ -541,44 +647,66 @@ where
 \ele
 
 \bpf[Proof of \cref{lem:inversediscrete}]
-by the definition of $\Njh{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^{1/2}\Deltah^{(j-1)/2},$ it suffices to prove the result for $j=1$, as one can then perform induction on $j$. We have
+by the definition of $\Njhn{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^{1/2}\Deltah^{(j-1)/2},$ it suffices to prove the result for $j=1$, as one can then perform induction on $j$. We have
 \begin{align*}
-\Noh{\vh}^2 &= \IPLtD{\Deltahh \vh}{\Deltahh \vh}\\
-&= \IPLtD{\Deltah \vh}{\vh} \text{ by \cref{eq:feiptrans}}\\
-&= \IPLtD{A \grad \vh}{\grad \vh} \text{ by definition of } \Deltah\\
-&\leq \NLiDop{A} \CinvVhp h^{-2} \NLtD{\vh}^2
+\Nfn{1,h,n}{\vh}^2 &= \IPLtDn{\Deltahh \vh}{\Deltahh \vh}\\
+&= \IPLtDn{\Deltah \vh}{\vh} \text{ by \cref{eq:feiptrans}}\\
+&= \IPLtDn{A \grad \vh}{\grad \vh} \text{ by definition of } \Deltah\\
+&\leq \NLiDop{A} \CinvVhp h^{-2}\frac{\NLiD{n}^2}{\nmin^2} \NLtDn{\vh}^2
 \end{align*}
-by the standard inverse estimate, and the result follows as $\Nzh{\cdot} = \NLtD{\cdot}$.
+by the standard inverse estimate, and the result follows as $\Nzhn{\cdot} = \NLtDn{\cdot}$.
 \epf
-
 \ble[Relationship between standard and discrete $H^1$ norms]\label{lem:h1contdisc}
 Let $\vh \in \Vhp$. Then
 \beqs
-\SNHoD{\vh} \leq \Amin^{\half} \Noh{\vh}.
+\SNHoDn{\vh} \leq \Amin^{-\half} \Nohn{\vh}.
 \eeqs
 \ele
 
 \bpf[Proof of \cref{lem:h1contdisc}]
-We have, using \cref{eq:feiptrans}, $\Noh{\vh}^2 = \IPLtD{\Deltahh \vh}{\Deltahh \vh} = \IPLtD{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2$, and the result follows.
+We have, using \cref{eq:feiptrans},???? $\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtDn{A \grad \vh}{\grad \vh} \geq \Amin \NLtDn{\grad \vh}^2$, and the result follows.
 \epf
 
-To prove \cref{lem:negdiscsum} on the relationship between discete and continuous negative Sobolev normns, we require the following \namecref{lem:shiftnegative} giving the shift theorem in negative norms.
-\ble[Shift theorem in negative norms]\label{lem:shiftnegative}
-For $m \in \NN,$ and $\ftilde \in \LtD,$ we have
+
+
+To prove \cref{lem:negdiscsum} on the relationship between discrete and continuous negative Sobolev normns, we require the following \namecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
+
+\tohere
+\ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
+Forand $\ftilde \in \LtD,$ if $m > d/2,$ $1/n \in \Hfn{}{m+2}{D}$, and $n \in \HmD,$ then
 \beqs
-\NHmmD{\DeltaAI\ftilde} \leq \CAm \NHmmmtD{\ftilde}.
+????\NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \NHfn{m}{D}{n}\NHfn{m+2}{D}{\frac1n}\NHnfn{-(m+2)}{D}{\ftilde}.
 \eeqs
 \ele
 
-\bpf[Proof of \cref{lem:shiftnegative}]
-Throughout the proof we let $\utilde$ denote $\DeltaAI\ftilde.$ As $\ftilde \in \LtD,$ it follows that $\utilde \in \HtD$ by \cref{thm:shift}, and so in particular $\utilde \in \HmmD.$ We will use the fact that $\sdres$ is self-adjoint; this follows from the fact that the boundary-value problem \cref{eq:sdeq,eq:sddbc,eq:sdnbc} is self-adjoint\ednote{Both - do I need to show this? It's straightforward.}.% Note to self, have (Rv,w), where R is resolvent, for v in L^2, w in H^m. Have PR = Id (but not necessarily the other way round) so w = PRw. Then (Rv,w) = (Rv,PRw) = (PRv,Rw) (P self-adjoint) = (v,Rw). Denote differential operator (on the correct space) by P.
-We can then compute
+\bpf[Proof of \cref{lem:shiftnegativew}]
+Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsol(nv) \in \HmptD.$ Hence, by \cref{thm:banachalg} again, $\sdsol(nv)/n \in \HmptD.$ We these facts in place we can compute
 \begin{align*}
-\NHmmD{\utilde} &=  \sup_{0 \neq \vtilde \in \HmD} \frac{\IPLtD{\ftilde}{\DeltaAI\vtilde}}{\NHmD{\vtilde}}\text{ as } \DeltaAI \text{ is self-adjoint}\\
-&\leq \sup_{0 \neq \vtilde \in \HmD} \frac{\NHmmmtD{\ftilde}\CAm\NHmD{\vtilde}}{\NHmD{\vtilde}} \text{ by \cref{thm:shift}}\\
-&= \CAm \NHmmmtD{\ftilde}
+\NHnfn{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmD{v}}\text{ by definition of the weighted negative norm}\\
+& = \sup_{v \in \HmD} \frac{\IPLtD{ \ftilde}{\sdsol(nv)}}{\NHmD{v}}\text{ as } \sdsol \text{ is self-adjoint}\\
+&= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\frac{\sdsol(nv)}n}}{\NHmD{v}}\\
+&\leq \CBanfn{m+2}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m+2}{D}{\sdsol(nv)}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:banachalg}}\\
+&\leq \CBanfn{m+2}\CAfn{m}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m}{D}{nv}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:shift}}\\
 \end{align*}
-as required. \epf
+and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$, the result follows.
+\epf
+
+%% \ble[Shift theorem in negative norms]\label{lem:shiftnegative}
+%% For $m \in \NN,$ and $\ftilde \in \LtD,$ we have
+%% \beqs
+%% \NHmmD{\DeltaAI\ftilde} \leq \CAm \NHmmmtD{\ftilde}.
+%% \eeqs
+%% \ele
+
+%% \bpf[Proof of \cref{lem:shiftnegative}]
+%% Throughout the proof we let $\utilde$ denote $\DeltaAI\ftilde.$ As $\ftilde \in \LtD,$ it follows that $\utilde \in \HtD$ by \cref{thm:shift}, and so in particular $\utilde \in \HmmD.$ We will use the fact that $\sdsol$ is self-adjoint; this follows from the fact that the boundary-value problem \cref{eq:sdeq,eq:sddbc,eq:sdnbc} is self-adjoint\ednote{Both - do I need to show this? It's straightforward.}.% Note to self, have (Rv,w), where R is resolvent, for v in L^2, w in H^m. Have PR = Id (but not necessarily the other way round) so w = PRw. Then (Rv,w) = (Rv,PRw) = (PRv,Rw) (P self-adjoint) = (v,Rw). Denote differential operator (on the correct space) by P.
+%% We can then compute
+%% \begin{align*}
+%% \NHmmD{\utilde} &=  \sup_{0 \neq \vtilde \in \HmD} \frac{\IPLtD{\ftilde}{\DeltaAI\vtilde}}{\NHmD{\vtilde}}\text{ as } \DeltaAI \text{ is self-adjoint}\\
+%% &\leq \sup_{0 \neq \vtilde \in \HmD} \frac{\NHmmmtD{\ftilde}\CAm\NHmD{\vtilde}}{\NHmD{\vtilde}} \text{ by \cref{thm:shift}}\\
+%% &= \CAm \NHmmmtD{\ftilde}
+%% \end{align*}
+%% as required. \epf
 
 We can now prove the following \namecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
