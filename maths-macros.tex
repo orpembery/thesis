@@ -329,8 +329,10 @@
 \newcommand{\Cshiftfn}[1]{\Cfn{\mathrm{shift},-#1}}
 \newcommand{\Cwfn}[1]{\Cfn{\mathrm{weight},#1}}
 \newcommand{\Cwmso}{\Cwfn{-s,1}}
-
-
+%\newcommand{\Ccomprfn}[1]{\Cfn{\mathrm{comp},#1}}
+\newcommand{\Cprod}[1]{\Cfn{\mathrm{prod},#1}}
+\newcommand{\Cmclean}[1]{\Cfn{H^{#1},\mathrm{prod}}}
+\newcommand{\CP}{\Cfn{\mathrm{P}}}
 
 
 
@@ -379,6 +381,7 @@
 \newcommand{\HlptDtrunc}{\Hlpt{\Dtrunc}}
 \newcommand{\NHlptDtrunc}[1]{\N{#1}_{\HlptDtrunc}}
 \newcommand{\SNHoD}[1]{\SN{#1}_{\HoD}}
+\newcommand{\SNHoDn}[1]{\SN{#1}_{\HoD,n}}
 \newcommand{\SNHtD}[1]{\SN{#1}_{\HtD}}
 \newcommand{\NHhGI}[1]{\N{#1}_{\HhGI}}
 \newcommand{\NHsmhGI}[1]{\N{#1}_{\HsmhGI}}
@@ -435,6 +438,7 @@
 \newcommand{\NHmsD}[1]{\N{#1}_{\HmsD}}
 \newcommand{\HmsD}{\Hfn{}{-s}{D}}
 \newcommand{\BAHoD}[2]{\inf_{#2 \in \Vhp} \NHoD{#1-#2}}
+\newcommand{\BAHoDn}[2]{\inf_{#2 \in \Vhp} \NHnfn{1}{D}{#1-#2}}
 \newcommand{\BALtD}[2]{\inf_{#2 \in \Vhp} \NLtD{#1-#2}}
 \newcommand{\IPLtDn}[2]{\IP{#1}{#2}_{\LtD,n}}
 \newcommand{\wbar}{\overline{w}}
@@ -475,8 +479,8 @@
 \newcommand{\LiDop}{\Li{D;\mathrm{op}}}
 \newcommand{\DeltaAmmt}{\sdres^-{m/2}}
 %\newcommand{\DeltaAmt}{\DeltaA^{m/2}}
-\newcommand{\Deltahmmt}{\Deltah^{-m/2}}
-\newcommand{\Deltahmt}{\Deltah^{m/2}}
+\newcommand{\Deltahmst}{\Deltah^{-s/2}}
+\newcommand{\Deltahst}{\Deltah^{s/2}}
 \newcommand{\Nmmh}[1]{\N{#1}_{-m,h}}
 \newcommand{\Nmh}[1]{\N{#1}_{m,h}}
 \newcommand{\aj}{a_{j}}
@@ -488,20 +492,22 @@
 \newcommand{\bsl}{b_{l}}
 \newcommand{\bsj}{b_{j}}
 \newcommand{\Njh}[1]{\N{#1}_{j,h}}
+\newcommand{\Njhn}[1]{\N{#1}_{j,h,n}}
 \newcommand{\Nmjh}[1]{\N{#1}_{-j,h}}
 \newcommand{\Domain}[1]{\cD\mleft(#1\mright)}
 \newcommand{\NHmD}[1]{\N{#1}_{\HmD}}
 \newcommand{\NNz}{\NN_{0}}
-\newcommand{\Njmoh}[1]{\N{#1}_{j-1,h}}
-\newcommand{\Noh}[1]{\N{#1}_{1,h}}
+\newcommand{\Njmohn}[1]{\N{#1}_{j-1,h,n}}
+\newcommand{\Nohn}[1]{\N{#1}_{1,h,n}}
 \newcommand{\Deltahh}{\Deltah^{1/2}}
-\newcommand{\Nzh}[1]{\N{#1}_{0,h}}
+\newcommand{\Nzhn}[1]{\N{#1}_{0,h,n}}
 %\newcommand{\DomainDeltaA}{\Domain{\DeltaA}}
 \newcommand{\wf}{w_{f}}
 \newcommand{\zh}{z_{h}}
 \newcommand{\DeltahI}{\Deltah^{-1}}
-\newcommand{\sdres}{\cR}
+\newcommand{\sdres}{\sdsol}
 \newcommand{\DeltaAI}{\sdres}%{\DeltaA^{-1}}
+\newcommand{\sdsol}{\cS_{n}}
 \newcommand{\yh}{y_{h}}
 \newcommand{\NHmmmtD}[1]{\N{#1}_{\HmmmtD}}
 \newcommand{\HmmmtD}{\Hfn{}{-(m+2)}{D}}
@@ -531,3 +537,17 @@
 \newcommand{\NHsDn}[1]{\Nfn{\HsD,n}{#1}}
 \newcommand{\NHmsDn}[1]{\Nfn{\HmsD,n}{#1}}
 \newcommand{\NHnfn}[3]{\N{#3}_{\Hfn{}{#1}{#2},n}}
+\newcommand{\CrcompD}{\Crcompfn{r}{D}}
+\newcommand{\Crcompfn}[2]{C^{#1}_{\mathrm{comp}}\mleft(#1\mright)}
+\newcommand{\NWfn}[3]{\N{#3}_{\Wfn{#1}{#2}}}
+\newcommand{\Wfn}[2]{W^{#1}\mleft(#2\mright)}
+\newcommand{\NWoiD}[1]{\N{#1}_{\WoiD}}
+\newcommand{\CmD}{C^{m}\mleft(D\mright)}
+\newcommand{\CsD}{C^{s}\mleft(D\mright)}
+\newcommand{\CmcompD}{C^{m}_{\mathrm{comp}}\mleft(D\mright)}
+\newcommand{\WmiD}{\Wfn{m,\infty}{D}}
+\newcommand{\WsiD}{\Wfn{s,\infty}{D}}
+\newcommand{\NWmiD}[1]{\N{#1}_{\WmiD}}
+\newcommand{\NWsiD}[1]{\N{#1}_{\WsiD}}
+\newcommand{\NHoDn}[1]{\N{#1}_{\HoD,n}}
+\newcommand{\Nshn}[1]{\Nfn{s,h,n}{#1}}
