@@ -682,7 +682,7 @@ Forand $\ftilde \in \LtD,$ if $m > d/2,$ $1/n \in \Hfn{}{m+2}{D}$, and $n \in \H
 \bpf[Proof of \cref{lem:shiftnegativew}]
 Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsol(nv) \in \HmptD.$ Hence, by \cref{thm:banachalg} again, $\sdsol(nv)/n \in \HmptD.$ We these facts in place we can compute
 \begin{align*}
-\NHfn{n}{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmD{v}}\text{ by definition of the weighted negative norm}\\
+\NHnfn{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmD{v}}\text{ by definition of the weighted negative norm}\\
 & = \sup_{v \in \HmD} \frac{\IPLtD{ \ftilde}{\sdsol(nv)}}{\NHmD{v}}\text{ as } \sdsol \text{ is self-adjoint}\\
 &= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\frac{\sdsol(nv)}n}}{\NHmD{v}}\\
 &\leq \CBanfn{m+2}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m+2}{D}{\sdsol(nv)}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:banachalg}}\\
