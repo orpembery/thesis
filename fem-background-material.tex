@@ -399,30 +399,30 @@ For any integer $s \in [0,p-1],$ for all $w \in \LtD$
 \eeqs
 \ele
 
-%% The $n$-weighted $\LtD$ projection satisfies the following error bound:
-%% \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
-%% For any integer $s \in [0,p-1],$ for all $w \in \HozDD$
-%% \beq\label{eq:wltdprojerr}
-%% \NHmsnD{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^{s} \BALtDn{w}{\wh}.
-%% \eeq
-%% \ele
+The $n$-weighted $\LtD$ projection satisfies the following error bound:
+\ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
+For any integer $s \in [0,p-1],$ for all $w \in \HozDD$
+\beq\label{eq:wltdprojerr}
+\NHmsnD{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^{s} \BALtDn{w}{\wh}.
+\eeq
+\ele
 
-%% \bpf[Sketch Proof of \cref{lem:wltdprojerr}]
-%% The following proof is a slight modification of the proof in \cite[Theorem 5.8.3]{BrSc:08}. Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
-%% \beqs
-%% \IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
-%% \eeqs
-%% Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
-%% \begin{align*}
-%% \IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLiD{n}\NLtDn{w-\Qhn w}\NLtD{\vtilde-\vhptilde}\\
-%% &\leq \CSZfn{s} \NLiD{n}\NLtDn{w-\Qhn w} h^s \NHsD{\vtilde}.
-%% \end{align*}
-%% Taking the supremum over $\vtilde,$ we have
-%% \beqs
-%% \NHmsDn{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^s \NLtDn{w-\Qhn w},
-%% \eeqs
-%% and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
-%% \epf
+\bpf[Sketch Proof of \cref{lem:wltdprojerr}]
+The following proof is a slight modification of the proof in \cite[Theorem 5.8.3]{BrSc:08}. Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
+\beqs
+\IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
+\eeqs
+Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
+\begin{align*}
+\IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLiD{n}\NLtDn{w-\Qhn w}\NLtD{\vtilde-\vhptilde}\\
+&\leq \CSZfn{s} \NLiD{n}\NLtDn{w-\Qhn w} h^s \NHsD{\vtilde}.
+\end{align*}
+Taking the supremum over $\vtilde,$ we have
+\beqs
+\NHmsDn{w-\Qhn w} \leq \CSZfn{s} \NLiD{n} h^s \NLtDn{w-\Qhn w},
+\eeqs
+and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
+\epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
 In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivates, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
