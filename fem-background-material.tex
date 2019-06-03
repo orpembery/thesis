@@ -325,6 +325,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 \beqs
 \IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp
 \eeqs
+
 Observe that $\Ph$ is simply the finite-element solution of a stationary diffusion problem with a particular right-hand side in $\HozDD'.$
 
 We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
@@ -530,6 +531,7 @@ For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in 
 \beqs
 \Deltah^j \vh = \sum_{m=1}^{\dimVhp} \lambdamh^j \am \phimh.
 \eeqs
+
 \ede
 In particular, one can think of $\DeltahI$ as being a `discrete solution operator', i.e., a discrete counterpart to $\sdsol.$
 
@@ -558,6 +560,7 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 \Nshn{\vh} = \NLtDn{\Deltah^{s/2} v}.
 \eeqs
 \ede
+
 %% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \namecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
 %% \ble[Relationship between $\DeltaA^m$ and standard higher-order derivatives]\label{lem:normrelationshiptech}
 %% For $m \in \NN,$ $\Domain{\DeltaA^{m/2}} \subseteq \HmD,$ and there exists a constant $\Cma > 0$ such that for all $v \in \Domain{\DeltaA^{m}}$
@@ -583,8 +586,8 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% &= \frac1{\Cma} \NmmA{v} \text{ the supremum is achieved when } \IPLtD{\DeltaA^{-m/2}v,\DeltaA^{m/2}w} = \NLtD{\DeltaA^{-m/2}v}\NLtD{\DeltaA^{m/2}w}
 %% \end{align*}
 %% \epf
-
 \optodo{Chat about lemma}
+
 
 \ble[Introduction of derivatives into inner product]\label{lem:intoip}
 %% For $m \in \RR,$ $v \in \LtD$, and $w \in \LtD\cap\Domain{\DeltaA^{m/2}}$ we have
