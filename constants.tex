@@ -43,7 +43,7 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Chcond$ & $\frac1{\mleft(4\Csecond \CReco^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
   $\CFEMLt$ &$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\\
   $\CFEMHo$ &$\Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\\
-  $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \CSZfn{m} \Cfn{0,1} + \Cfn{-m,1}\mright)$&Proof of \cref{lem:boundarybound}\\
+  $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \CSZfn{(p-1-m)} \Cwfn{0} + \Cwfn{-(p-1-m)}\mright)$&Proof of \cref{lem:boundarybound}\\
   $\CMT$ &&\\
   $\Cboundaryo$ & $\Cmess^2$ & \cref{lem:boundarybound} \\
   $\Cboundaryt$ & $1 + \CMT^2 \Cfn{0,1}$ & \cref{lem:boundarybound}\\

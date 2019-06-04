@@ -908,11 +908,11 @@ and rearranging, and using the facts that $\shiftn{m} \leq \errn{m}$ for all $m$
 \end{align}
 and combinining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, and letting $\Csumj$ be as in \cref{app:constants}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
 \epf
-\tohere
+
 \subsection{Main finite-element-error bound}\label{sec:fembound}
 
 Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound} below, which we do via a series of lemmas.
-
+\comeback{
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
 Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
 \beq\label{eq:hfemcond}
@@ -939,9 +939,9 @@ Under the assumptions on \cref{thm:fembound},
 \NW{u-\uh} \leq \CcorHo \mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
 \eeqs
 \eco\optodo{I'm suspicious about two orders of magnitude...}
+}
 
-
-Two quantiies that are key in the proof are
+Two quantities that are key in the proof are
 \beqs
 \rho \de u - \Ph u, \tand
 \eeqs
@@ -965,7 +965,7 @@ Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 \beq\label{eq:boundarybound}
-\NLtGI{\thetah}^2 \leq \Cboundaryo \NLiD{n}^6 k^2 h^{2p-1} \Nfn{p-1,h}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
+\NLtGI{\thetah}^2 \leq \Cboundaryo \mleft(\En\nvar\mright)^{2\mleft(\floor{\frac{j}2}+1\mright)}\NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
 \eeq
 \ele
 
@@ -974,22 +974,24 @@ In \cref{eq:thetaform}, let $\vh = \thetah,$ and take the imaginary part to obta
 \beqs
 -k \NLtGI{\thetah}^2 \leq \Im k^2 \IPLtDn{\Qhn \rho}{\thetah} + \Re k \IPLtGI{\rho}{\thetah},
 \eeqs
-and therefore by \cref{lem:intoip} and the Cauchy--Schwartz inequality
-\begin{align}
-\NLtGI{\thetah}^2 &\leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}\nonumber\\
-&\leq  k \NLiD{n}^2 \Nfn{1-p,h}{\Qhn \rho}\Nfn{p-1,h}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}.\label{eq:thetaboundarypart}
-\end{align}
-We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cref{lem:negdiscsum}; however, we therefore need to estimate negative Sobolev norms of $\Qhn\rho$; for integers $m \in [0,p-1]$ we have (observing that $\Qhn \Ph u = \Ph u$ as $\Ph u \in \Vhp.$)
-\begin{align}
-\NHmmD{\Qhn\rho} &\leq \NHmmD{\Qhn u - u} + \NHmmD{u - \Ph u}\nonumber\\
-&\leq \CSZfn{m} \NLiD{n} h^m \NLtD{u-\Ph u} + \Cmmo h^{m+1} \NHoD{u - \Ph u}\\
-&\quad\quad\text{ by \cref{lem:ellprojerr,lem:wltdprojerr}, taking } \wh = \Ph u \text{ in \cref{eq:ellprojerr,eq:wltdprojerr}}\nonumber\\
-&\leq \mleft(\CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\mright) h^{m+1} \NW{\rho} \text{ by \cref{lem:ellprojerr}}\label{eq:Qhnrhoneg}
-\end{align}
-By \cref{lem:negdiscsum,eq:Qhnrhoneg} and the fact that $\NLiD{n} \geq 1,$ we have
-\beq\label{eq:Qhnrhosum}
-\Nfn{1-p,h}{\Qhn \rho}\leq \Csumfn{p-1} \sum_{m=0}^{p-1} h^{m} \NHfn{-(p-1-m)}{D}{\vh} \leq \Cmess \NLiD{n}h^p \NW{\rho}.
+and therefore by \cref{cor:ipdiscbound}
+\beq
+\NLtGI{\thetah}^2 \leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}.\label{eq:thetaboundarypart}
+%% \nonumber\\
+%% &\leq  k \NLiD{n}^2 \Nfn{1-p,h}{\Qhn \rho}\Nfn{p-1,h}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}
 \eeq
+We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cref{lem:negdiscsum}; however, we therefore need to estimate negative Sobolev norms of $\Qhn\rho$; for integers $m \in [0,p-1]$ we have (observing that $\Qhn \Ph u = \Ph u$ as $\Ph u \in \Vhp.$
+\begin{align}
+\NHnfn{-(p-1-m)}{D}{\Qhn\rho} &\leq \NHnfn{-(p-1-m)}{D}{\Qhn u - u} + \NHnfn{-(p-1-m)}{D}{u - \Ph u}\nonumber\\
+&\leq \CSZfn{(p-1-m)} \nvar h^{(p-1-m)} \NLtDn{u-\Ph u} + \Cwfn{-(p-1-m)}\errn{(p-1-m)} h^{p-m} \NHoDn{u - \Ph u}\\
+&\quad\quad\text{ by \cref{lem:ellprojerrw,lem:wltdprojerr}, taking } \wh = \Ph u \text{ in \cref{lem:ellprojerrw,eq:wltdprojerr}}\nonumber\\
+&\leq \mleft(\CSZfn{(p-1-m)} \Cwfn{0} + \Cwfn{-(p-1-m)}\mright)\En\nvar\NLiD{n} h^{p-m} \NW{\rho} \text{ by \cref{lem:ellprojerrw}}\label{eq:Qhnrhoneg}
+\end{align}
+By \cref{lem:negdiscsum,eq:Qhnrhoneg} we have
+\begin{align}
+\Nfn{1-p,h,n}{\Qhn \rho}&\leq \mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n} \Csumfn{p-1} \sum_{m=0}^{p-1} h^{m} \NHfn{-(p-1-m)}{D}{\Qhn \rho} \nonumber\\
+&\leq \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{j}2}+1}\NLiD{n}^2 h^p \NW{\rho}.\label{eq:Qhnrhosum}
+\end{align}
 To deal with the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:ellprojerr} and the fact that $\NHoD{\cdot} \leq \NW{\cdot}$ to obtain
 \beq\label{eq:rhomtbound}
 \NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cfn{0,1}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cfn{0,1}^{\half} h^{\half} \NW{\rho}.
@@ -998,13 +1000,13 @@ Therefore by \cref{eq:rhomtbound} and Young's inequality, we obtain
 \beq\label{eq:rhothetamt}
 \NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cfn{0,1} h \NW{\rho}^2 + \half \NLtGI{\thetah}^2.
 \eeq
-By combining \cref{eq:thetaboundarypart,eq:Qhnrhosum,eq:rhothetamt}
+By combining \cref{eq:thetaboundarypart,eq:Qhnrhosum,eq:rhothetamt} we have
 \beq\label{eq:thetahboundnear}
-\NLtGI{\thetah}^2 \leq k \Cmess h^p \NLiD{n}^3\NW{\rho} \Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
+\NLtGI{\thetah}^2 \leq k \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{j}2}+1}\NLiD{n}^2 h^p \NW{\rho}\Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
 \eeq
 By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2$ term onto the left-hand side, we obtain \cref{eq:boundarybound}.
 \epf
-
+\tohere
 \ble[Bound on higher-order discrete norms of $\thetah$ by $\NLtD{\thetah}$]\label{lem:higherbound}
 For integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
 \begin{align}
