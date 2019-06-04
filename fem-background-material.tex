@@ -11,6 +11,7 @@ Throughout this section, we make the following additional \namecrefs{ass:highp}:
 \item $\Aij \in \CpmooDclos$ for all $i,j$
 \item $\GD$ and $\GI$ are $\Cpo$
 \item $\NLiD{n} \geq 1.$
+\item $n \in \LiD \cap \HmD \cap \CfloordtD.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
@@ -323,10 +324,14 @@ We first define the projections we use.
 
 Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
 \beqs
-\IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp
+\IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp,
+\eeqs
+and define the weighted elliptic projection $\Phn:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
+\beqs
+\IPLtD{A\grad\vh}{\grad\Phn w} = \IPLtDn{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
 \eeqs
 
-Observe that $\Ph$ is simply the finite-element solution of a stationary diffusion problem with a particular right-hand side in $\HozDD'.$
+Observe that $\Ph w$ and $\Phn w$ are the finite-element solutions of stationary diffusion problems with `diffusion coefficient' A and particular right-hand sides in $\HozDD'.$
 
 We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 \beqs
@@ -406,7 +411,7 @@ Let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \H
 \ele
 
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(n\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
 \beqs
 \IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
 \eeqs
@@ -436,6 +441,67 @@ and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:wep1}.
 For \cref{it:wep2}, the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 \beq\label{eq:wep2pt1}
 2\CSZfn{s+2} \CAfn{s} \Cprod{s} \NLiDop{A} \frac{\NWsiD{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w},
+\eeq
+since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1,$ and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
+
+For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:wep4}, performing a standard duality argument in \emph{non-weighted} norms (and then using \cref{eq:it:wep3}, yields \cref{eq:wep4}.
+\epf
+
+We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\optodo{Check the original one is still needed.}
+
+\ble[Error bounds for weighted elliptic projection in $n$-weighted norms]\label{lem:wellprojerrw}
+Let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
+\ben
+\item\label[itempart]{it:wwep1} If $s \in (d/2,p-1],$ and $n \in \HsD$ then
+\beq\label{eq:wwep1}%\label{eq:ellprojerr}
+\NHnfn{-s}{D}{w-\Phn w} \leq \Cwmso \frac{\NHsD{n}\NLiD{n}^2}{\nmin^3}h^{s+1} \BAHoDn{w}{\wh}.
+\eeq
+\item\label[itempart]{it:wwep2} If $s \in [1,d/2]$ and $n \in \CsD$, then
+\beq\label{eq:wwep2}
+\NHnfn{-s}{D}{w-\Phn w} \leq \Cwmso \frac{\NWsiD{n}\NLiD{n}^2}{\nmin^3} h^{s+1} \BAHoDn{w}{\wh}.
+\eeq
+\item\label[itempart]{it:wwep4} For $s = 0$
+\beq\label{eq:wwep4}
+\NLtDn{w-\Phn w} \leq \Cwfn{0,1} \frac{\NLiD{n}^3}{\nmin^3}h \BAHoDn{w}{\wh}
+\eeq
+\item\label[itempart]{it:wwep3} For $s = 1$
+\beq\label{eq:it:wwep3}
+\NHnfn{1}{D}{w-\Phn w} \leq \Cwfn{1,1}\frac{\NLiD{n}^2}{\nmin^2} \BAHoDn{w}{\wh}.
+\eeq
+\een
+\ele
+
+\bpf[Proof of \cref{lem:wellprojerrw}]
+For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+\beqs
+\IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
+\eeqs
+If we take $v = w-\Phn w,$ then we can compute
+\begin{align}
+\IPLtDn{\phi}{v} &= \IPLtD{A\grad\mleft(\vtilde - \vh\mright)}{\grad\mleft(w-\Phn w\mright)} \text{ for } \vh \text{ as in \cref{lem:scottzhang}, by Galerkin orthogonality for } \Phn\nonumber\\
+&\leq \CSZfn{s+2}\NLiDop{A} \NHfn{s+2}{D}{\vtilde} h^{s+1} \SNHoD{w-\Phn w} \text{ by \cref{lem:scottzhang}}\nonumber\\
+&\leq \CSZfn{s+2} \CAfn{s} \NLiDop{A} \NHfn{s}{D}{n\phi} h^{s+1}\SNHoD{w-\Phn w}\text{ by \cref{thm:shift}}\label{eq:ellprojwpart}
+\end{align}
+
+For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalg}, \cref{eq:ellprojwpart} is bounded above by
+\beq\label{eq:wep1pt0}
+\CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Phn w}
+\eeq
+by \cref{thm:banachalg,eq:nconv}.
+
+Therefore we have, by definition of $\NHnfn{-s}{D}{\cdot}$ and $\NHoDn{\cdot}$,
+\beq\label{eq:wep1pt1}
+\NHnfn{-s}{D}{w-\Phn w} \leq \CSZfn{s+2}\CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHmD{n}}{\nmin^2} h^{s+1} \NHoDn{w - \Phn w}.
+\eeq
+Applying C\'ea's Lemma to $\Phn$ in the weighted $H^1$ norm, we find
+\beq\label{eq:wepcea}
+\NHoDn{w-\Phn w} \leq \frac{2\NLiDop{A}\NLiD{n}^2}{\min\set{1,1/\CP^2}\Amin\nmin^2}\BAHoDn{w}{\wh},
+\eeq
+and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:wep1}.
+
+For \cref{it:wep2}, the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
+\beq\label{eq:wep2pt1}
+2\CSZfn{s+2} \CAfn{s} \Cprod{s} \NLiDop{A} \frac{\NWsiD{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Phn w},
 \eeq
 since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1,$ and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
 
@@ -481,7 +547,7 @@ In order to perform our analysis for high-order FEM, we will need to measure hig
 
 We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
 \beq\label{eq:sdeq}
-\grad \cdot \mleft(nA\grad \utilde\mright) = -n\ftilde \text{ in } D
+\grad \cdot \mleft(A\grad \utilde\mright) = -n\ftilde \text{ in } D
 \eeq
 \beq\label{eq:sddbc}
 \trD \utilde = 0
@@ -494,14 +560,14 @@ We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stati
 Observe that $\sdsol$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdsol^{m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one can place $\sdsol \ftilde$ on the right-hand side. 
 Observe that for any $\ftilde \in \LtD$ and for any $v \in \HozDD,$ we have, by Green's identity,
 \beqs\label{eq:deltaagreen}
-\int_D n\mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D n\ftilde \vb,
+\int_D \mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D n\ftilde \vb,
 \eeqs
 i.e.,
 \beqs
-\IPLtDn{A\grad \mleft(\sdsol \ftilde\mright)}{\grad v} = \IPLtDn{\ftilde}{v}.
+\IPLtD{A\grad \mleft(\sdsol \ftilde\mright)}{\grad v} = \IPLtDn{\ftilde}{v}.
 \eeqs
 \optodo{Chat}
-
+\tohere
 \bde[Discrete derivative operator]
 Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ for $\wh \in \Vhp$ by
 \beq\label{eq:discderdef}
@@ -672,33 +738,47 @@ Let $\vh \in \Vhp$. Then
 \ele
 
 \bpf[Proof of \cref{lem:h1contdisc}]
-We have, using \cref{eq:feiptrans},???? $\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtDn{A \grad \vh}{\grad \vh} \geq \Amin \NLtDn{\grad \vh}^2$, and the result follows.
+We have, using \cref{eq:feiptrans}, $\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtDn{A \grad \vh}{\grad \vh} \geq \Amin \NLtDn{\grad \vh}^2$, and the result follows.
 \epf
 
 
 
 To prove \cref{lem:negdiscsum} on the relationship between discrete and continuous negative Sobolev normns, we require the following \namecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
 
-\tohere
 \ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
-Forand $\ftilde \in \LtD,$ if $m > d/2,$ $1/n \in \Hfn{}{m+2}{D}$, and $n \in \HmD,$ then
+Let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
 \beqs
-????\NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \NHfn{m}{D}{n}\NHfn{m+2}{D}{\frac1n}\NHnfn{-(m+2)}{D}{\ftilde}.
+\NHnfn{-m}{D}{\sdsol\ftilde} \leq
+\begin{dcases}
+\Cshiftfn{m} \frac{\NHmD{n}\NLiD{n}}{\nmin} \NHnfn{-(m+2)}{D}{\ftilde} &\tif m > \frac{d}2\\
+\Cshiftfn{m} \frac{\NWmiD{n}\NLiD{n}}{\nmin} \NHnfn{-(m+2)}{D}{\ftilde} &\tif m \in \mleft[1,\frac{d}2\mright]\\
+\Cshiftfn{m} \frac{\NLiD{n}^2}{\nmin} \NHnfn{-(m+2)}{D}{\ftilde} &\tif m = 0.
+\end{dcases}
 \eeqs
 \ele
 
 \bpf[Proof of \cref{lem:shiftnegativew}]
-Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsol(nv) \in \HmptD.$ Hence, by \cref{thm:banachalg} again, $\sdsol(nv)/n \in \HmptD.$ We these facts in place we can compute
-\begin{align*}
-\NHnfn{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmD{v}}\text{ by definition of the weighted negative norm}\\
-& = \sup_{v \in \HmD} \frac{\IPLtD{ \ftilde}{\sdsol(nv)}}{\NHmD{v}}\text{ as } \sdsol \text{ is self-adjoint}\\
-&= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\frac{\sdsol(nv)}n}}{\NHmD{v}}\\
-&\leq \CBanfn{m+2}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m+2}{D}{\sdsol(nv)}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:banachalg}}\\
-&\leq \CBanfn{m+2}\CAfn{m}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m}{D}{nv}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:shift}}\\
-\end{align*}
-and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$, the result follows.
-\epf
+We first observe that the operator $\sdsolo$ is self-adjoint on $\LtD$: Let $\DeltaA:\HtD\rightarrow\LtD$ denote the stationary diffusion operator $\grad\cdot\mleft(nA\grad\cdot\mright).$ Then for any $\vo \in \LtD,$ $\DeltaA \circ \sdsolo \vo = \vo.$ Moreover, by Green's Theorem, $\DeltaA$ is self-adjoint on the set $\set{v \in \HtD \st v \text{ satisfies }\cref{eq:sddbc,eq:sdnbc}},$ this set is contained in the image of $\sdsolo.$ Therefore, for any $\vo,\vt \in \LtD,$ we have
+\beqs
+\IPLtD{\sdsolo \vo}{\vt} =\IPLtD{\sdsolo \vo}{\DeltaA \circ \sdsolo \vt} = \IPLtD{\DeltaA \circ \sdsolo \vo}{\sdsolo \vt} = \IPLtD{\vo}{\sdsolo \vt},
+\eeqs\optodo{Check conditions to apply Green's theorem}
+i.e., $\sdsolo$ is self-adjoint on $\LtD.$
 
+Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsol(nv) \in \HmptD.$ With these facts in place we can compute
+\begin{align*}
+\NHnfn{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmDn{v}}\\
+&= \sup_{v \in \HmD} \frac{\IPLtD{\sdsolo\mleft(n \ftilde\mright)}{nv}}{\NHmDn{v}}\\
+&= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\sdsolo\mleft(n v\mright)}}{\NHmDn{v}}\tas \sdsolo \text{ is self-adjoint}\\
+&\leq \sup_{v \in \HmD} \frac{\NHnfn{-(m+2)}{D}{\ftilde}\NHnfn{m+2}{D}{\sdsolo\mleft(nv\mright)} }{\NHmDn{v}}\\
+&\leq \sup_{v \in \HmD}  \frac{\CAfn{m} \NLiD{n} \NHmD{nv} \NHnfn{-(m+2)}{D}{\ftilde}}{\NHmDn{v}}
+%% & = \sup_{v \in \HmD} \frac{\IPLtD{ n\ftilde}{\sdsol(v)}}{\NHmD{v}}\text{ by definition of } \sdsol, \text{ and as } \sdsolo \text{ is self-adjoint}\\
+%% &= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\frac{\sdsol(nv)}n}}{\NHmD{v}}\\
+%% &\leq \CBanfn{m+2}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m+2}{D}{\sdsol(nv)}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:banachalg}}\\
+%% &\leq \CBanfn{m+2}\CAfn{m}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m}{D}{nv}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:shift}}\\
+\end{align*}
+and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$ (or observing that $\NLtD{nv} \leq \NLiD{n}\NLtD{v}$, in the case $m=0$), the result follows.
+\epf
+\tohere
 %% \ble[Shift theorem in negative norms]\label{lem:shiftnegative}
 %% For $m \in \NN,$ and $\ftilde \in \LtD,$ we have
 %% \beqs
@@ -727,8 +807,7 @@ For any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that 
 \bpf[Proof of \cref{lem:negdiscsum}]
 Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh,$ $z = \DeltaAI \wh$ (observe $z$ is well-defined as $\Vhp \subseteq \LtD$). Then, for all $\yh \in \Vhp$, we have
 \begin{align*}
-\IPLtD{\wh}{\yh} &= \IPLtD{A \grad z}{\grad \yh} = \IPLtD{\grad z}{A\grad \yh} = \overline{\IPLtD{A\grad \yh}{\grad z}} \text{, and}\\
-\IPLtD{\wh}{\yh} &= \IPLtD{A \grad \zh}{\grad \yh} = \IPLtD{\grad \zh}{A\grad \yh} = \overline{\IPLtD{A\grad \yh}{\grad \zh}}
+\IPLtD{A \grad z}{\grad \vh} = \IPLtD{A \grad \mleft(\sdsol \wh\mright)}{\grad \vh} = \IPLtDn{\wh}{\vh} \text{, and}\\
 \end{align*}
 where the first equalities in each line follow from \cref{eq:deltaagreen,eq:discderdef}, respectively, and the second inequalities in each line follow from the fact that $A$ is symmetric. That is, for all $\yh \in \Vhp,$ $\IPLtD{A\grad \yh}{\grad z} = \IPLtD{A\grad \yh}{\grad \zh},$ i.e., $\zh = \Ph z.$
 

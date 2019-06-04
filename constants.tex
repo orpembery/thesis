@@ -20,7 +20,9 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
   $\Cosc$ & $\Cefn{p-1}/\max\set{1,\CAz}$ & \cref{thm:expansion}\\
   $\CSZs$ &---& \cref{lem:scottzhang}\\
-  $\Cshiftfn{m}$ &$\CAfn{m}\CBanfn{m}\CBanfn{m+2}$& \cref{lem:shiftnegativew}\\
+  $\Cshiftfn{m}$ &$\CAfn{m}\CBanfn{m}$ if $ m \in (d/2,p-1]$& \cref{lem:shiftnegativew}\\
+    $\Cshiftfn{m}$ &$2\CAfn{m}\Cprod{m}$ if $m \in [1,d/2]$& \cref{lem:shiftnegativew}\\
+      $\Cshiftfn{0}$ &$\CAfn{m}$& \cref{lem:shiftnegativew}\\
   $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2}\Cefn{j} $ & \cref{lem:bestapprox}\\
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
   $\Cmso$ &$\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (\frac{d}2,p-1]$& \cref{lem:ellprojerr} \\

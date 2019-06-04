@@ -163,6 +163,7 @@
 \newcommand{\Npi}[1]{\N{#1}_{\epsymb}}
 \newcommand{\quarter}{\frac{1}{4}}
 \newcommand{\Ph}{\cP_{h}}
+\newcommand{\Phn}{\cP_{h,n}}
 \newcommand{\Ih}{\cI_{h}}
 \newcommand{\wh}{w_{h}}
 \newcommand{\whtilde}{\widetilde{w}_{h}}
@@ -504,7 +505,8 @@
 \newcommand{\DeltahI}{\Deltah^{-1}}
 \newcommand{\sdres}{\sdsol}
 \newcommand{\DeltaAI}{\sdres}%{\DeltaA^{-1}}
-\newcommand{\sdsol}{\cS_{n}}
+\newcommand{\sdsolfn}[1]{\cS_{#1}}
+\newcommand{\sdsol}{\sdsolfn{n}}
 \newcommand{\yh}{y_{h}}
 \newcommand{\NHmmmtD}[1]{\N{#1}_{\HmmmtD}}
 \newcommand{\HmmmtD}{\Hfn{}{-(m+2)}{D}}
@@ -533,7 +535,8 @@
 \newcommand{\LtdD}{\Lt{\dD}}
 \newcommand{\NHsDn}[1]{\Nfn{\HsD,n}{#1}}
 \newcommand{\NHmsDn}[1]{\Nfn{\HmsD,n}{#1}}
-\newcommand{\NHnfn}[3]{\N{#3}_{\Hfn{}{#1}{#2}}}
+\newcommand{\NHmDn}[1]{\Nfn{\HmD,n}{#1}}
+\newcommand{\NHnfn}[3]{\N{#3}_{\Hfn{}{#1}{#2},n}}
 \newcommand{\CrcompD}{\Crcompfn{r}{D}}
 \newcommand{\Crcompfn}[2]{C^{#1}_{\mathrm{comp}}\mleft(#1\mright)}
 \newcommand{\NWfn}[3]{\N{#3}_{\Wfn{#1}{#2}}}
@@ -548,3 +551,5 @@
 \newcommand{\NWsiD}[1]{\N{#1}_{\WsiD}}
 \newcommand{\NHoDn}[1]{\N{#1}_{\HoD,n}}
 \newcommand{\Nshn}[1]{\Nfn{s,h,n}{#1}}
+\newcommand{\sdsolo}{\sdsolfn{1}}
+\newcommand{\CfloordtD}{C^{\floor{d/2}}\mleft(D\mright)}
