@@ -912,7 +912,7 @@ Having established the need results on discrete Sobolev spaces, we are now in a 
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
 Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
 \beq\label{eq:hfemcond}
-h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}},
+h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
 \beq\label{eq:femltbound}
@@ -1005,7 +1005,7 @@ By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and 
 \ble[Bound on higher-order discrete norms of $\thetah$ by $\NLtD{\thetah}$]\label{lem:higherbound}
 For integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
 \begin{align}
-\Nmh{\thetah} &\leq \Chighmo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
+\Nfn{m,h,n}{\thetah} &\leq \Chighmo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
 &\quad\quad+ \Chighmt \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.\label{eq:chigh}
 \end{align}
 \ele
@@ -1080,9 +1080,9 @@ Using \cref{eq:readytorecurse} recursively, and the facts that $\nmin^{-1} \geq 
 
 \ble[Bound $\NLtDn{\thetah}$ by $\Nfn{p-1,h,n}{\thetah}$]\label{lem:ltthetahbound}
 There exist constants $\Cfirst, \Csecond > 0$ such that
-\begin{align}\label{eq:ltthetahbound}
-\NLtD{\thetah}&\leq \mleft(\Cfirst\NW{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\\
-&\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)
+\begin{align}
+\NLtD{\thetah}&\leq \mleft(\Cfirst\NW{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
+&\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\label{eq:ltthetahbound}
 \end{align}
 \ele
 
@@ -1163,35 +1163,38 @@ and therefore using Young's inequality to separate out the $\NLtD{\thetah}$ term
 and on rearranging \cref{eq:part3penultimate} we obtain \cref{eq:ltthetahbound}.
 
 \epf
-\tohere
 With all our technical lemmas proved, we can now prove our main \namecref{thm:fembound}.
 
 \bpf[Proof of \cref{thm:fembound}]
 By using \cref{lem:higherbound} (with $m=p-1$) in \cref{eq:ltthetahbound}, we have
-\begin{align}\label{eq:doublehkdep}
-\NLtD{\thetah} &\leq \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho}\nonumber\\
-&\quad\quad+ \Csecond \CRecofn{????}^{p-1} \NLtD{\thetah}\mleft(\CFEMotilde (hk)^{p+1} + \CFEMttilde \CAnk k(hk)^{2p}\mright).
+\begin{align}
+\NLtD{\thetah}&\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^3\NLiD{n}\nmin^{2-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
+&\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho}\nonumber\\
+&+\Csecond  \Chighfn{p-1,1} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{p-1}\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
+&\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)(hk )^{p+1}+ \CFEMttilde \CAnk h^{2p}k^{2p+1}\mright)\NLtD{\thetah}\label{eq:doublehkdep}
 \end{align}
 Choosing $h$ according to \cref{eq:hfemcond}, \cref{eq:doublehkdep} simplifies to
-\beqs
-\NLtD{\thetah} \leq \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho} + \half \NLtD{\thetah},
-\eeqs
+\begin{align*}
+\NLtD{\thetah} &\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^3\NLiD{n}\nmin^{2-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\\
+&\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho} + \half \NLtD{\thetah},
+\end{align*}
+
 and therefore it follows that
 \beq\label{eq:ltboundwithrho}
-\NLtD{\thetah} \leq \mleft(\CLtboundo h + \CLtboundt \CAnk (hk)^p\mright)\NW{\rho},
+\NLtD{\thetah} \leq \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \mleft(\CLtboundo \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CLtboundt  \CAnk (hk)^p\mright)\NW{\rho}.
 \eeq
-where
-\beqs
-\CLtboundo = \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \CFEMotilde \tand
-\eeqs
-\beqs
-\CLtboundt = \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright)\CFEMttilde.
-\eeqs
+
 It only now remains to bound the weighted $H^1$ norm of the error. By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
-\beq\label{eq:sntheta}
-\SNHoD{\thetah} \leq \Amin^{\half} \mleft(\Chighfn{1,1} k \NLtD{\thetah} + \Chighfn{1,2} \NW{\rho}\mright),
-\eeq
+\begin{align}
+\SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
+&\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NW{\rho}\mright],\label{eq:sntheta}
+\end{align}
+\tohere
+THERE'S A BUG IN HERE SOMEWHERE, I'M MISSING A POWER OF $H$ IN THE SECOND TERM
 and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$)
+\begin{align*}
+\SNHoD{\thetah} &\leq \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \mleft(\CLtboundo \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CLtboundt  \CAnk (hk)^p\mright)
+\end{align*}
 \beqs
 \SNHoD{\thetah} \leq \mleft(\CHoboundo + \CHoboundt \CAnk k(hk)^p\mright)\NW{\rho},
 \eeqs

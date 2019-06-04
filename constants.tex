@@ -40,7 +40,7 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Csecond$ &&\\
   $\CRecofn{????}$&&\\
   $\Ctildemin$&&\\
-  $\Chcond$ & $\frac1{\mleft(4\Csecond \CRecofn{????}^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
+  $\Chcond$ & $\frac1{4^{2p}} \mleft(\Csecond\Chighfn{p-1,1}\mright)^{-\frac1{2p}} \min\set{\CFEMo^{-\frac1{2p}},\CFEMt^{-\frac1{p+1}}}$ & \cref{thm:fembound}\\
   $\CFEMLt$ &$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\\
   $\CFEMHo$ &$\Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\\
   $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \CSZfn{(p-1-m)} \Cwfn{0} + \Cwfn{-(p-1-m)}\mright)$&Proof of \cref{lem:boundarybound}\\
@@ -57,8 +57,8 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Cfourteen$ &$\Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cfn{0,1} + \Cwfn{p-1-m} \Cfn{-1,1}\mright)$&Proof of \cref{lem:ltthetabound}\\
   $\Cfirst$ &$\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}$&Proof of \cref{lem:ltthetahbound}\\
     $\Csecond$ &$\Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half}$&Proof of \cref{lem:ltthetahbound}\\
-  $\CLtboundo$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \CFEMotilde$&Proof of \cref{thm:fembound}\\
-  $\CLtboundt$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright)\CFEMttilde$&Proof of \cref{thm:fembound}\\
+  $\CLtboundo$&$ 2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMo$&Proof of \cref{thm:fembound}\\
+  $\CLtboundt$&$2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMt$&Proof of \cref{thm:fembound}\\
   $\CHoboundo$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundo + \Chighfn{1,2}\mright)$&Proof of \cref{thm:fembound}\\
   $\CHoboundt$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright)$&Proof of \cref{thm:fembound}\\
   $\CFEMLt$&$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
