@@ -712,11 +712,7 @@ There exists $\CinvVhp > 0$ such that for all $\vh \in \Vhp$
 \ble[Inverse inequality for discrete norms]\label{lem:inversediscrete}
 For all $j \in \ZZ$, for all $\vh \in \Vhp$
 \beqs
-\Njhn{\vh} \leq \Chinv \frac{1}{\nmin} h^{-1} \Njmohn{\vh},
-\eeqs
-where
-\beqs
-\Chinv = \CinvVhp \NLiDop{A}^{1/2}.
+\Njhn{\vh} \leq \Chinv \frac{1}{\nmin} h^{-1} \Njmohn{\vh}.
 \eeqs
 \ele
 
@@ -965,7 +961,7 @@ Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 \beq\label{eq:boundarybound}
-\NLtGI{\thetah}^2 \leq \Cboundaryo \mleft(\En\nvar\mright)^{2\mleft(\floor{\frac{j}2}+1\mright)}\NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
+\NLtGI{\thetah}^2 \leq \Cboundaryo \mleft(\En\nvar\mright)^{2\mleft(\floor{\frac{p-1}2}+1\mright)}\NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h,n}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
 \eeq
 \ele
 
@@ -983,14 +979,14 @@ and therefore by \cref{cor:ipdiscbound}
 We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cref{lem:negdiscsum}; however, we therefore need to estimate negative Sobolev norms of $\Qhn\rho$; for integers $m \in [0,p-1]$ we have (observing that $\Qhn \Ph u = \Ph u$ as $\Ph u \in \Vhp.$
 \begin{align}
 \NHnfn{-(p-1-m)}{D}{\Qhn\rho} &\leq \NHnfn{-(p-1-m)}{D}{\Qhn u - u} + \NHnfn{-(p-1-m)}{D}{u - \Ph u}\nonumber\\
-&\leq \CSZfn{(p-1-m)} \nvar h^{(p-1-m)} \NLtDn{u-\Ph u} + \Cwfn{-(p-1-m)}\errn{(p-1-m)} h^{p-m} \NHoDn{u - \Ph u}\\
+&\leq \CSZfn{(p-1-m)} \nvar h^{(p-1-m)} \NLtDn{u-\Ph u} + \Cwfn{-(p-1-m)}\errn{(p-1-m)} h^{p-m} \NHoDn{u - \Ph u}\nonumber\\
 &\quad\quad\text{ by \cref{lem:ellprojerrw,lem:wltdprojerr}, taking } \wh = \Ph u \text{ in \cref{lem:ellprojerrw,eq:wltdprojerr}}\nonumber\\
 &\leq \mleft(\CSZfn{(p-1-m)} \Cwfn{0} + \Cwfn{-(p-1-m)}\mright)\En\nvar\NLiD{n} h^{p-m} \NW{\rho} \text{ by \cref{lem:ellprojerrw}}\label{eq:Qhnrhoneg}
 \end{align}
 By \cref{lem:negdiscsum,eq:Qhnrhoneg} we have
 \begin{align}
-\Nfn{1-p,h,n}{\Qhn \rho}&\leq \mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n} \Csumfn{p-1} \sum_{m=0}^{p-1} h^{m} \NHfn{-(p-1-m)}{D}{\Qhn \rho} \nonumber\\
-&\leq \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{j}2}+1}\NLiD{n}^2 h^p \NW{\rho}.\label{eq:Qhnrhosum}
+\Nfn{1-p,h,n}{\Qhn \rho}&\leq \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}}\NLiD{n} \Csumfn{p-1} \sum_{m=0}^{p-1} h^{m} \NHfn{-(p-1-m)}{D}{\Qhn \rho} \nonumber\\
+&\leq \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \NW{\rho}.\label{eq:Qhnrhosum}
 \end{align}
 To deal with the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:ellprojerr} and the fact that $\NHoD{\cdot} \leq \NW{\cdot}$ to obtain
 \beq\label{eq:rhomtbound}
@@ -1002,109 +998,113 @@ Therefore by \cref{eq:rhomtbound} and Young's inequality, we obtain
 \eeq
 By combining \cref{eq:thetaboundarypart,eq:Qhnrhosum,eq:rhothetamt} we have
 \beq\label{eq:thetahboundnear}
-\NLtGI{\thetah}^2 \leq k \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{j}2}+1}\NLiD{n}^2 h^p \NW{\rho}\Nfn{p-1,h}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
+\NLtGI{\thetah}^2 \leq k \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \NW{\rho}\Nfn{p-1,h,n}{\thetah} + \half \CMT^2 \Cfn{0,1} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2
 \eeq
 By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2$ term onto the left-hand side, we obtain \cref{eq:boundarybound}.
 \epf
-\tohere
 \ble[Bound on higher-order discrete norms of $\thetah$ by $\NLtD{\thetah}$]\label{lem:higherbound}
 For integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
 \begin{align}
-\Nmh{\thetah} &\leq \Chighmo \mleft(1+\NLiD{n}\mright)^m k^m \NLtD{\thetah}\nonumber\\
-&\quad\quad+ \Chighmt h^{1-m}\mleft(1+\NLiD{n} + \frac{\NLiD{n}^3}{\nmin}\mright)\mleft(1+\NLiD{n}\mright)^{m-1} \NW{\rho}.\label{eq:chigh}
+\Nmh{\thetah} &\leq \Chighmo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
+&\quad\quad+ \Chighmt \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.\label{eq:chigh}
 \end{align}
 \ele
-
 \bpf[Proof of \cref{lem:higherbound}]
-By inserting the definition of $\Deltah$ in \cref{eq:thetaform} and rearranging, we have for any $\vh \in \Vhp$
+By inserting the definitions of $a$ and $\Deltah$ in \cref{eq:thetaform} and rearranging, we have for any $\vh \in \Vhp$
 \beqs
-\IPLtD{\Deltah \thetah}{\vh} = k^2 \IPLtDn{\thetah}{\vh} + k^2\IPLtD{\Qhn \rho}{\vh} + ik \IPLtGI{\thetah}{\vh} + ik \IPLtGI{\rho}{\vh}.
+\IPLtDn{\Deltah \thetah}{\vh} = k^2 \IPLtDn{\thetah}{\vh} + k^2\IPLtDn{\Qhn \rho}{\vh} + ik \IPLtGI{\thetah}{\vh} + ik \IPLtGI{\rho}{\vh}.
 \eeqs
-Therefore, if we take $\vh = \Deltah^{m-1}\thetah,$, by \cref{lem:intoip} we have
+Therefore, if we take $\vh = \Deltah^{m-1}\thetah$, by \cref{lem:intoip} we have
 \beq\label{eq:deltahm}
-\Nmh{\thetah}^2 = k^2 \Nfn{m-1,h,n}{\thetah}^2 + k^2 \IPLtDn{\Deltah^{\frac{m-1}2} \Qhn \rho}{\Deltah^{\frac{m-1}2}\thetah} + ik\IPLtGI{\thetah}{\Deltah^{m-1} \thetah} + ik \IPLtGI{\rho}{\Deltah^{m-1} \thetah}.
+\Nfn{m,h,n}{\thetah}^2 = k^2 \Nfn{m-1,h,n}{\thetah}^2 + k^2 \IPLtDn{\Deltah^{\frac{m-1}2} \Qhn \rho}{\Deltah^{\frac{m-1}2}\thetah} + ik\IPLtGI{\thetah}{\Deltah^{m-1} \thetah} + ik \IPLtGI{\rho}{\Deltah^{m-1} \thetah}.
 \eeq
 We now proceed to bound the two terms in \cref{eq:deltahm} defined on the truncation boundary $\GI.$ For the first term, we have
 \begin{align}
 \IPLtGI{\thetah}{\Deltah^{m-1}\thetah} &\leq \NLtGI{\thetah}\NLtGI{\Deltah^{m-1}\thetah}\nonumber\\
-&\leq \CMT \CinvVhp^{1/2} \NLtGI{\thetah} h^{-\half} \NLtD{\Deltah^{m-1} \thetah}\\
-&\quad\quad\text{ by \cref{thm:multiplicativetrace,lem:inverseinequality} and the definition of }\Nfn{2m-2,h}{\cdot}\nonumber\\
-&= \CMT \CinvVhp^{1/2} h^{-\half}\NLtGI{\thetah}\Nfn{2m-2,h}{\thetah}\nonumber\\
-&\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1} h^{-m+\half} \NLtGI{\thetah}\Nfn{m-1,h}{\thetah} \text{ by \cref{lem:inversediscrete} applied } m-1 \text{ times}\nonumber\\
-&\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1}\nonumber\\
-&\quad\quad\mleft(\Cboundaryo^{\half} \NLiD{n}^2 k h^{p-m} \Nfn{p-1,h}{\thetah} + \Cboundaryt^{\half} h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah}\\
+&\leq \CMT \CinvVhp^{1/2} \NLtGI{\thetah} h^{-\half} \NLtD{\Deltah^{m-1} \thetah}\nonumber\\
+&\quad\quad\text{ by \cref{thm:multiplicativetrace,lem:inverseinequality}}\nonumber\\
+&= \CMT \CinvVhp^{1/2} h^{-\half}\NLtGI{\thetah}\nmin^{-1}\Nfn{2m-2,h,n}{\thetah}\text{ by the definition of }\Nfn{2m-2,h,n}{\cdot}\nonumber\\
+&\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1} h^{-m+\half} \nmin^{-m} \NLtGI{\thetah}\Nfn{m-1,h,n}{\thetah} \text{ by \cref{lem:inversediscrete} applied } m-1 \text{ times}\label{eq:useitagain}\\
+&\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1} h^{-m+\half} \nmin^{-m}\nonumber\\
+&\quad\quad\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 k h^{p-\half} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h^{\half} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\quad\text{ by \cref{lem:boundarybound} and \cref{eq:simple}}\nonumber\\
-&\leq \mleft(\CBo \NLiD{n}^2k \Nfn{m-1,h}{\thetah} + \CBt h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah} \text{ by \cref{lem:inversediscrete},},\label{eq:firstboundary}.
+&\leq \mleft(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah} + \CBt \nmin^{-m}h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\label{eq:firstboundary}
 \end{align}
-
+by \cref{lem:inversediscrete} applied $p-m$ times.
 To bound the second boundary term in \cref{eq:deltahm}, we have
 \beq\label{eq:secondboundarytemp}
-\IPLtGI{\rho}{\Deltah^{m-1} \thetah} \leq \CMT \CinvVhp^{1/2} \Chinv^{m-1}h^{-\half-m}\Nfn{m-1,h}{\thetah}\NLtGI{\rho}
+\IPLtGI{\rho}{\Deltah^{m-1} \thetah} \leq \CMT \CinvVhp^{1/2} \Chinv^{m-1}\nmin^{-m}h^{\half-m}\Nfn{m-1,h}{\thetah}\NLtGI{\rho}
 \eeq
-using \cref{thm:multiplicativetrace,lem:inverseinequality} as above. By \cref{thm:multiplicativetrace,lem:ellprojerr} (with $\wh = \Ph u$) we have
+using the same reasoning as we used to obtain \cref{eq:useitagain} above. By \cref{thm:multiplicativetrace,lem:ellprojerr} (with $\wh = \Ph u$) we have
 \beq\label{eq:secondboundarytemp2}
 \NLtGI{\rho} \leq \CMT \Cfn{0,1}^{\half} h^{\half} \NW{\rho}.
 \eeq
-Inseting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obtain
+
+Inserting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obtain
 \beq\label{eq:secondboundary}
-\IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}.
+\IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}.
 \eeq
 
 Therefore, from \cref{eq:deltahm,eq:firstboundary,eq:secondboundary} and the Cauchy--Schwartz inequality, we have
 \begin{align*}
-\Nfn{m,h}{\thetah}^2 &\leq k^2 \Nfn{m-1,h}{\thetah}^2 + k^2 \NLiD{n}^2 \Nfn{m-1,h}{\Qhn \rho}\Nfn{m-1,h}{\thetah}\nonumber\\
-&\quad\quad+ k\mleft(\CBo \NLiD{n}^2 k\Nfn{m-1,h}{\thetah}+ \CBt h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h}{\thetah}\nonumber\\
-&\quad\quad+ k \CBth h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
+\Nfn{m,h}{\thetah}^2 &\leq k^2 \Nfn{m-1,h}{\thetah}^2 + k^2 \Nfn{m-1,h,n}{\Qhn \rho}\Nfn{m-1,h,n}{\thetah}\nonumber\\
+&\quad\quad+ k\mleft(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah} + \CBt \nmin^{-m}h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
+&\quad\quad+ k\CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
 \end{align*}
-Therefore using Young's inequality and \cref{eq:simple}, we have
-\begin{align}
-\Nfn{m,h}{\thetah} &\leq\sqrt{1+\frac{\CBt^2}2 + \frac{\CBth^2}2 + \mleft(\half+\CBo\mright)\NLiD{n}^2}\Nfn{m-1,h}{\thetah}\\
-&\quad\quad+ \frac{\NLiD{n}}{\sqrt{2}} k \Nfn{m-1,h}{\Qhn \rho} +  h^{1-m} \NW{\rho}.\label{eq:thetahighnearly}
-\end{align}
-We now proceed to bound $\Nfn{m-1,h}{\Qhn \rho}$: By \cref{lem:inversediscrete} and the fact that $\Qhn \Ph u = \Ph u$ (as $\Ph u \in \Vhp$), we have
-\beq\label{eq:qhnmmo}
-\Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1} h^{1-m} \mleft(\NLtD{\Qhn u - u} + \NLtD{u-\Ph u}\mright).
-\eeq
-We can bound the first of these terms by the second:
+Therefore using Young's inequality we have
 \begin{align*}
-\NLtD{\Qhn u - u} &\leq \frac{\NLtDn{\Qhn u - u}}{\nmin}\\
-&\leq \frac{\CSZfn{0} \NLiD{n}}{\nmin} \NLtDn{u - \Ph u}\\
-&\leq \frac{\CSZfn{0}\NLiD{n}^2}{\nmin} \NLtD{u-\Ph u},
+\Nfn{m,h}{\thetah}^2 &\leq k^2\mleft(\frac32 + \CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p} + \half \CBt \nmin^{-m} + \half\CBth \nmin^{-m}\mright)\Nfn{m-1,h,n}{\thetah}^2\\
+&\quad\quad+ \frac{k^2}2 \Nfn{m-1,h,n}{\Qhn \rho}^2 +  h^{2(1-m)} \NW{\rho}^2,
 \end{align*}
-using \cref{lem:wltdprojerr} and properties of the $n$-weighted $L^2$ norm. We can also bound $\NLtD{u - \Ph u} \leq \Cfn{0,1} h \NW{\rho}.$ by \cref{lem:ellprojerr}. Therefore by \cref{eq:qhnmmo} we have (as $kh \leq 1$)
+and therefore by \cref{eq:simple}
+\begin{align}
+\Nfn{m,h}{\thetah} &\leq k\mleft(\sqrt{\frac32} + \CBo^{\half} \mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2} + \frac1{\sqrt{2}} \CBt^{\half} \nmin^{-\frac{m}2} + \frac1{\sqrt{2}}\CBth^{\half} \nmin^{-\frac{m}2}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
+&\quad\quad+ \frac{k}{\sqrt{2}} \Nfn{m-1,h,n}{\Qhn \rho} +  h^{1-m} \NW{\rho},\label{eq:thetahighnearly}
+\end{align}
+
+We now proceed to bound $\Nfn{m-1,h,n}{\Qhn \rho}$: By \cref{lem:inversediscrete} and the fact that $\Qhn \Ph u = \Ph u$ (as $\Ph u \in \Vhp$), we have
+\beq\label{eq:qhnmmo}
+\Nfn{m-1,h,n}{\Qhn \rho} \leq \Chinv^{m-1} \nmin^{1-m}h^{1-m} \mleft(\NLtDn{\Qhn u - u} + \NLtDn{u-\Ph u}\mright).
+\eeq
+
+Using \cref{lem:wltdprojerr} we can bound the first of these terms by the second, $\NLtDn{\Qhn u - u} \leq \CSZfn{0} \nvar \NLtDn{u-\Ph u}.$ We can also bound $\NLtDn{u - \Ph u} \leq \Cwfn{0} \nvar^3h \NHnfn{1}{D}{\rho} \leq \Cwfn{0} \nvar^3\NLiD{n} h \NW{\rho}$ by \cref{lem:ellprojerrw}. Therefore by \cref{eq:qhnmmo} we have (as $kh \leq 1$ and $\nvar \geq 1$)
 \beq\label{eq:qhnnearly}
-k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1} \mleft(\frac{\CSZfn{0}\NLiD{n}^2}{\nmin} + 1\mright) \Cfn{0,1} h^{1-m} \NW{\rho}.
+k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1}\Cwfn{0} \mleft(1+\CSZfn{0}\mright)\nvar^3\NLiD{n}\nmin^{1-m} h^{1-m}\NW{\rho}.
 \eeq
-Therefore using \cref{eq:thetahighnearly,eq:qhnnearly,eq:simple} we have
+Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\NLiD{n}, \nmin^{-1} \geq 1,$ and so $\En, \nvar \geq1$)  we have
 \beq\label{eq:readytorecurse}
-\Nfn{m,h}{\thetah} \leq \CReco \mleft(1+\NLiD{n}\mright)k \Nfn{m-1,h}{\thetah} + \CRect h^{1-m} \mleft(1+\NLiD{n} + \frac{\NLiD{n}^3}{\nmin}\mright)\NW{\rho}.
+\Nfn{m,h}{\thetah} \leq \CRecofn{m} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \Nfn{m-1,h}{\thetah} + \CRect \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.
 \eeq
-Using \cref{eq:readytorecurse} and the fact that $hk \leq 1,$ we obtain \cref{eq:chigh}.
+Using \cref{eq:readytorecurse} recursively, and the facts that $\nmin^{-1} \geq 1$ and $hk \leq 1,$ we obtain \cref{eq:chigh}.
 \epf
 
-\ble[Bound $\NLtD{\thetah}$ by $\Nfn{p-1,h}{\thetah}$]\label{lem:ltthetahbound}
+\ble[Bound $\NLtDn{\thetah}$ by $\Nfn{p-1,h,n}{\thetah}$]\label{lem:ltthetahbound}
 There exist constants $\Cfirst, \Csecond > 0$ such that
-\beq\label{eq:ltthetahbound}
-\NLtD{\thetah} \leq \Cfirst \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NW{\rho} + \Csecond k^2h^p \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \Nfn{p-1,h}{\thetah}.
-\eeq
+\begin{align}\label{eq:ltthetahbound}
+\NLtD{\thetah}&\leq \mleft(\Cfirst\NW{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\\
+&\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)
+\end{align}
 \ele
 
 \bpf[Proof of \cref{lem:ltthetahbound}]
 The proof initially uses a standard duality technique, but then becomes more complex than standard proofs, as we are bounding $\thetah$ by its higher-order discrete norms, rather than the error $\eh$ by its $H^1$ norm.
+
 Consider the adjoint variational problem: Find $w \in \HozDD$ such that for all $v \in \HozDD$
 \beq\label{eq:adjointtheta}
-a(v,w) = \IPLtD{v}{\thetah}
+a(v,w) = \IPLtDn{v}{\thetah}
 \eeq
-(i.e., $w$ solves the adjoint problem with right-hand side given by $\thetah$). Let $\eh \de u -\uh$ be the finite-element error, and put $v = \eh$ in \cref{eq:adjointtheta}. By Galerkin orthogonality for $\eh,$ we have
+(i.e., $w$ solves the adjoint problem with right-hand side given by $n\thetah$). Let $\eh \de u -\uh$ be the finite-element error, and put $v = \eh$ in \cref{eq:adjointtheta}. By Galerkin orthogonality for $\eh$ and $u-\Ph u,$ we have (recalling $\eh = \rho + \thetah$)
 \begin{align}
-\IPLtD{\eh}{\thetah} = a(\eh,w-\Ph w) &= \IPLtD{A \grad \rho}{\grad(w-\Ph w)}  -k^2 \IPLtDn{\eh}{w-\Ph w} -ik \IPLtGI{\eh}{w-\Ph w},\nonumber\\
+\IPLtDn{\eh}{\thetah} = a(\eh,w-\Ph w) &= \IPLtD{A \grad \rho}{\grad(w-\Ph w)}  -k^2 \IPLtDn{\eh}{w-\Ph w} -ik \IPLtGI{\eh}{w-\Ph w},\nonumber\\
 &=a(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}\label{eq:doublego}
 \end{align}
-using the fact that $\eh = \rho + \thetah$ and Galerkin orthogonality for $w - \Ph w.$ Therefore we can rearrange \cref{eq:doublego} and use Cauchy-Schwartz to obtain
+
+Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use Cauchy-Schwartz to obtain
 \begin{align}
-\NLtD{\thetah}^2 &\leq \Cc \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
-&+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtD{\rho}\NLtD{\thetah}\label{eq:boundingLtwo}
+\NLtDn{\thetah}^2 &\leq \Cc \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
+&+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtDn{\rho}\NLtDn{\thetah}\label{eq:boundingLtwo}
 \end{align}
+\optodo{Part 3 of weighted $\Ph$ bound can surely be improved by doing the standard argument and then just dropping in and out. Possibly part 4 too}
 By combining \cref{lem:bestapprox,lem:ellprojerr}, we can show (as $w$ satisfies an adjoint Helmholtz problem with right-hand side $\thetah$)
 \beq\label{eq:wlt}
 \NLtD{w - \Ph w} \leq \Cfn{0,1} \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h^2 + \CFEMttilde \CAnk h(hk)^p\mright)\NLtD{\thetah} \tand
@@ -1116,47 +1116,65 @@ We will be able to use \cref{eq:wlt,eq:who} to bound terms involving $w - \Ph w$
 \begin{align}
 \abs{\IPLtDn{\thetah}{w- \Ph w}} &= \abs{\IPLtDn{\thetah}{\Qhn w - \Ph w}}\nonumber\\
 &\leq \Nfn{p-1,h,n}{\thetah}\Nfn{1-p,h,n}{\Qhn w - \Ph w}\text{ by \cref{lem:intoip}}\nonumber\\
-&\leq \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1} \NLiD{n} \sum_{m=0}^{p-1} h^{m}\mleft(\NHfn{-(p-1-m)}{D}{\Qhn w - w} + \NHfn{-(p-1-m)}{D}{w - \Ph w}\mright) \text{ by \cref{lem:negdiscsum}}\nonumber\\
-&\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1} \NLiD{n}^2 h^{p-1} \sum_{m=0}^{p-1} \mleft(\frac{\CSZfn{m} \NLiD{n}}{\nmin} \NLtD{w - \Ph w} + \Cfn{-m,1} h \NHoD{w - \Ph w}\mright)\\
-&\quad\quad\text{ by \cref{lem:wltdprojerr,lem:ellprojerr}, taking $\wh = \Ph u$ in \cref{eq:wltdprojerr,eq:ellprojerr}}\nonumber\\
-&\leq \Nfn{p-1,h}{\thetah} \Csumfn{p-1}\mleft(\sum_{m=0}^{p-1} \CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\Cfn{-1,1}\mright) \frac{\NLiD{n}^2}{\nmin}\\
+&\leq \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}}\NLiD{n}\nonumber\\
+&\quad\quad\sum_{m=0}^{p-1} h^{m}\mleft(\NHnfn{-(p-1-m)}{D}{\Qhn w - w}+ \NHnfn{-(p-1-m)}{D}{w - \Ph w}\mright) \text{ by \cref{lem:negdiscsum}}\nonumber\\
+&\leq \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1}\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}}\NLiD{n} h^{p-1}\nonumber\\
+&\quad\quad\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\nvar \NLtDn{w - \Ph w} + \Cwfn{p-1-m} \errn{p-1-m} h \NHoDn{w - \Ph w}\mright)\nonumber\\
+&\quad\quad\text{ by \cref{lem:wltdprojerr,lem:ellprojerrw}, taking $\wh = \Ph u$ in \cref{eq:wltdprojerr,lem:ellprojerrw}}\nonumber\\
+&\leq \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cfn{0,1} + \Cwfn{p-1-m} \Cfn{-1,1}\mright)                         \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 \nonumber\\
 &\quad\quad h^p \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \text{ by \cref{eq:wlt,eq:who}}.\nonumber\\
-&=\Nfn{p-1,h}{\thetah}  \Cfourteen \frac{\NLiD{n}^2}{\nmin} h^p \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \label{eq:innerprod1},
+&=\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \label{eq:innerprod1}.
 \end{align}
-where $\Cfourteen$ is defined in \cref{app:constants}. We now estimate the other inner product term
+\optodo{Derive $\Cc$}
+We now estimate the other inner product term
 \begin{align}
-\abs{\IPLtGI{\thetah}{w - \Ph w}} &\leq \mleft(\sqrt{2} \Cmess\NLiD{n}^2 k h^{p-\half} \Nfn{p-1,h}{\thetah} + \sqrt{\half + \half \CMT^2 \Cfn{0,1}} h^{\half} \NW{\rho}\mright) \NLtGI{w - \Ph w}\\
-&\quad\quad\text{ by \cref{lem:boundarybound,eq:simple}}\nonumber\\
-&\leq \CMT \Cfn{-1,}^{\half}\Cfn{-1,1}^{\half} \mleft(\sqrt{2} \Cmess \NLiD{n}^2 kh^p \Nfn{p-1,h}{\thetah} + \sqrt{\half + \half \CMT^2 \Cfn{0,1}} h \NW{\rho}\mright)\nonumber\\
-&\quad\quad\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah}\label{eq:innerprod2}
+\abs{\IPLtGI{\thetah}{w - \Ph w}} &\leq \CMT\CinvVhp\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p-\half} \Nfn{p-1,h,n}{\thetah}\mright.\nonumber\\
+&\mleft.\quad\quad+ \Cboundaryt^{\half} h^{\half} \NW{\rho}\mright) h^{-\half}\NLtD{w - \Ph w}\nonumber\\
+&\quad\quad\text{ by \cref{lem:boundarybound,eq:simple,thm:multiplicativetrace,lem:inverseinequality}}\nonumber\\
+&\leq \CMT \CinvVhp \Cfn{0,1}\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NW{\rho}\mright)\nonumber\\
+&\quad\quad \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\label{eq:innerprod2}
 \end{align}
- by the \cref{thm:multiplicativetrace,eq:wlt,eq:who}.
+ by \cref{eq:wlt}.
 
 Now insert \cref{eq:wlt,eq:who,eq:innerprod1,eq:innerprod2} into \cref{eq:boundingLtwo}:
 \begin{align*}
-\NLtD{\thetah}^2 &\leq \Big(\Cc \NW{\rho} \mleft(\Cfn{0,1} + \Cfn{1,1}\mright) + k^2 \Cfourteen \Nfn{p-1,h} h^p +\\
-&k\mleft(\sqrt{2} \Cmess \NLiD{n}^2 kh^p \Nfn{p-1,h}{\thetah} + \sqrt{\half + \half\CMT^2 \Cfn{0,1}}h \NW{\rho}\mright)\CMT\Cfn{0,1}^{\half}\Cfn{-1,1}^{\half}\Big)\\
-&\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah}
+\NLtD{\thetah}^2 &\leq \Bigg[\Cc \NW{\rho} \mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright)\\
+&+k^2\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \\
+&+k\CMT \CinvVhp \Cfn{0,1} \mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NW{\rho}\mright)\Bigg]\nonumber\\
+&\quad\quad \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\\
+&+\NLtDn{\rho}\NLtDn{\thetah}\nonumber\\
+%newline
+&\leq \Bigg[\mleft(\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright)\NLiD{n} + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}\nvar  \mright)\NW{\rho} \\
+&+\mleft(  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}\mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
+&\quad\quad \mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\nonumber\\
+&\text{ rearranging and using \cref{lem:ellprojerr} and the fact that $hk \leq 1$}\nonumber\\
+&\leq \Bigg[\mleft(\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho} \nonumber\\
+&+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
+&\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\nonumber\\
 \end{align*}
-and therefore using Young's inequality to separate out the $\NLtD{\thetah}$ term on the right-hand side, and then move it to the left hand side, followed by \cref{eq:simple}, we obtain
-\begin{align}\label{eq:part3penultimate}
-\NLtD{\thetah} &\leq \mleft(\Cc \NW{\rho} \mleft(\Cfn{0,1} + \Cfn{1,1}\mright) + k^2 \Cfourteen \Nfn{p-1,h} h^p\mright.\\
-&\quad\quad\mleft.+ k\mleft(\sqrt{2} \Cmess \NLiD{n}^2 kh^p \Nfn{p-1,h}{\thetah} + \sqrt{\half + \half\CMT^2 \Cfn{0,1}}h \NW{\rho}\mright)\CMT\Cfn{0,1}^{\half}\Cfn{-1,1}^{\half}\mright)\\& \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright).
-\end{align}
-As $hk \leq 1,$ we simplify \cref{eq:part3penultimate} to obtain \cref{eq:ltthetahbound}.
-\epf
 
+
+and therefore using Young's inequality to separate out the $\NLtD{\thetah}$ term on the right-hand side, and then move it to the left hand side, followed by \cref{eq:simple}, we obtain
+\begin{align}
+\NLtD{\thetah}&\leq \Bigg[\mleft(\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho}\nonumber \\
+&+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
+&\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\label{eq:part3penultimate},
+\end{align}
+and on rearranging \cref{eq:part3penultimate} we obtain \cref{eq:ltthetahbound}.
+
+\epf
+\tohere
 With all our technical lemmas proved, we can now prove our main \namecref{thm:fembound}.
 
 \bpf[Proof of \cref{thm:fembound}]
 By using \cref{lem:higherbound} (with $m=p-1$) in \cref{eq:ltthetahbound}, we have
 \begin{align}\label{eq:doublehkdep}
-\NLtD{\thetah} &\leq \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright) \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho}\nonumber\\
-&\quad\quad+ \Csecond \CReco^{p-1} \NLtD{\thetah}\mleft(\CFEMotilde (hk)^{p+1} + \CFEMttilde \CAnk k(hk)^{2p}\mright).
+\NLtD{\thetah} &\leq \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho}\nonumber\\
+&\quad\quad+ \Csecond \CRecofn{????}^{p-1} \NLtD{\thetah}\mleft(\CFEMotilde (hk)^{p+1} + \CFEMttilde \CAnk k(hk)^{2p}\mright).
 \end{align}
 Choosing $h$ according to \cref{eq:hfemcond}, \cref{eq:doublehkdep} simplifies to
 \beqs
-\NLtD{\thetah} \leq \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright) \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho} + \half \NLtD{\thetah},
+\NLtD{\thetah} \leq \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho} + \half \NLtD{\thetah},
 \eeqs
 and therefore it follows that
 \beq\label{eq:ltboundwithrho}
@@ -1164,10 +1182,10 @@ and therefore it follows that
 \eeq
 where
 \beqs
-\CLtboundo = \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright) \CFEMotilde \tand
+\CLtboundo = \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \CFEMotilde \tand
 \eeqs
 \beqs
-\CLtboundt = \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright)\CFEMttilde.
+\CLtboundt = \mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright)\CFEMttilde.
 \eeqs
 It only now remains to bound the weighted $H^1$ norm of the error. By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \beq\label{eq:sntheta}

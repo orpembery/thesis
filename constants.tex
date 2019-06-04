@@ -38,9 +38,9 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Etildefn{m,t}$ & See \cref{eq:Etilde1,eq:Etilde3,eq:Etilde4} & Proof of \cref{lem:negdiscsum}\\
   $\Csumj$ &$\max_{m \in \set{0,\ldots,l}}\set{\Efn{m,l},\frac{\mleft(1+\Cfn{1,1}\mright)\NLiDop{A}}{\Amin}\Etildefn{m,l}}$ & Proof of \cref{lem:negdiscsum}\\
   $\Csecond$ &&\\
-  $\CReco$&&\\
+  $\CRecofn{????}$&&\\
   $\Ctildemin$&&\\
-  $\Chcond$ & $\frac1{\mleft(4\Csecond \CReco^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
+  $\Chcond$ & $\frac1{\mleft(4\Csecond \CRecofn{????}^{p-1}\mright)^{2p}} \min\set{\frac1{\CFEMttilde^{\frac1{2p}}},\frac{\Ctildemin^{\frac1{2p}}}{\CFEMotilde^{\frac1{p+1}}}}$ & \cref{thm:fembound}\\
   $\CFEMLt$ &$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\\
   $\CFEMHo$ &$\Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\\
   $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \CSZfn{(p-1-m)} \Cwfn{0} + \Cwfn{-(p-1-m)}\mright)$&Proof of \cref{lem:boundarybound}\\
@@ -49,15 +49,16 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
   $\Cboundaryt$ & $1 + \CMT^2 \Cfn{0,1}$ & \cref{lem:boundarybound}\\
   $\CBo$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryo^{\half} \Chinv^{p-m}$&Proof of \cref{lem:higherbound}\\
   $\CBt$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryt^{\half}$&Proof of \cref{lem:higherbound}\\
-  $\CBth$&$\CMT^2 \CinvVhp \Chinv^{m-1}\Cfn{0,1}^{\half}$&Proof of \cref{lem:higherbound}\\
-  $\CReco$&$\max\set{\sqrt{1 + \CBt^2/2 + \CBth^2/2},\sqrt{\CBo + 1/2}}$&Proof of \cref{lem:higherbound}\\
-  $\CRect$&$\max\set{1,\Chinv^{m-1}\Cfn{0,1}/\sqrt{2},\Chinv^{m-1}\Cfn{0,1}\CSZfn{0}/\sqrt{2}}$&Proof of \cref{lem:higherbound}\\
-  $\Chighmo$ & $\CReco^m$&Proof of \cref{lem:higherbound}\\
-  $\Chighmt$ &$\sum_{j=0}^{m-1} \CReco^j \CRect$&Proof of \cref{lem:higherbound}\\
-  $\Cfourteen$ &$\Csumfn{p-1}\mleft(\sum_{m=0}^{p-1} \CSZfn{m} \NLiD{n}\Cfn{0,1} + \Cfn{-m,1}\Cfn{-1,1}\mright)$&Proof of \cref{lem:ltthetabound}\\
-  $\Cfirst$ &&\\
-  $\CLtboundo$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright) \CFEMotilde$&Proof of \cref{thm:fembound}\\
-  $\CLtboundt$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CReco^j \CRect^j\mright)\mright)\CFEMttilde$&Proof of \cref{thm:fembound}\\
+  $\CBth$&$\CMT^2 \CinvVhp^{\half} \Chinv^{m-1}\Cfn{0,1}^{\half}$&Proof of \cref{lem:higherbound}\\
+  $\CRecofn{????}fn{m}$&$\sqrt{\frac32} + \CBo^{\half} + \frac{\CBt^{\half}}{\sqrt{2}}+ \frac{\CBth^{\half}}{\sqrt{2}}$&Proof of \cref{lem:higherbound}\\
+  $\CRect$&$\frac1{\sqrt{2}}\Chinv^{m-1}\Cwfn{0}\mleft(1+\CSZfn{0}\mright)+1$&Proof of \cref{lem:higherbound}\\
+  $\Chighmo$ & $\prod_{j=1}^m\CRecofn{j}$&Proof of \cref{lem:higherbound}\\
+  $\Chighmt$ &$\sum_{j=1}^{m} \mleft(\prod_{l=j+1}^m \CRecofn{l}\mright) \CRect$&Proof of \cref{lem:higherbound}\\
+  $\Cfourteen$ &$\Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cfn{0,1} + \Cwfn{p-1-m} \Cfn{-1,1}\mright)$&Proof of \cref{lem:ltthetabound}\\
+  $\Cfirst$ &$\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}$&Proof of \cref{lem:ltthetahbound}\\
+    $\Csecond$ &$\Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half}$&Proof of \cref{lem:ltthetahbound}\\
+  $\CLtboundo$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright) \CFEMotilde$&Proof of \cref{thm:fembound}\\
+  $\CLtboundt$&$\mleft(\Cfirst+ \Csecond \mleft(\sum_{j=0}^{p-1} \CRecofn{????}^j \CRect^j\mright)\mright)\CFEMttilde$&Proof of \cref{thm:fembound}\\
   $\CHoboundo$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundo + \Chighfn{1,2}\mright)$&Proof of \cref{thm:fembound}\\
   $\CHoboundt$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright)$&Proof of \cref{thm:fembound}\\
   $\CFEMLt$&$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
