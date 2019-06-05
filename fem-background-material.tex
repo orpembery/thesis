@@ -327,7 +327,7 @@ Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have (using 
 \epf
 
 \subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
-In this \namecref{sec:errgalerkin} we state a sequence of error bounds for various projections, in various norms. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08},  and so we only sketch \cref{lem:wltdprojerr} below; as this result uses the $n$-weighted norms and inner product.\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
+In this \namecref{sec:errgalerkin} we state a sequence of error bounds for various projections, in various norms. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08},  and so we only sketch \cref{lem:wltdprojerr} below; as this result uses the $n$-weighted norms and inner product.%\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
 
 Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
@@ -387,7 +387,20 @@ Under \cref{ass:highp}, for any integer $s \in [-1,p-1],$ there exists a constan
 \eeq
 \ele
 
-We state the Poincar\'e inequality:
+We will use the following three results numerous times.
+For $N \in \NN$ and $a_1,\ldots,a_N > 0$
+\beq\label{eq:simple}
+\sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
+\eeq
+
+
+\bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
+There exists $\CMT > 0$ such that for all $v \in \HoD$
+\beqs
+\NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{D}^\half.
+\eeqs
+\enth
+
 \ble[Poincar\'e Inequality]\label{lem:poincare}
 There exists $\CP > 0$ such that for all $v \in \HozDD$
 \beqs
@@ -408,7 +421,7 @@ Under \cref{ass:highp}, let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ suc
 \eeq
 \item\label[itempart]{it:wep4} For $s = 0$
 \beq\label{eq:wep4}
-\NLtDn{w-\Ph w} \leq \Cwfn{0,1} \frac{\NLiD{n}^3}{\nmin^3}h \BAHoDn{w}{\wh}
+\NLtDn{w-\Ph w} \leq \Cwfn{0,1} \nvar h \BAHoDn{w}{\wh}
 \eeq
 \item\label[itempart]{it:wep3} For $s = 1$
 \beq\label{eq:wep3}
@@ -451,7 +464,7 @@ For \cref{it:wep2}, the application of \cref{thm:banachalg} yields, instead of \
 \eeq
 since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1,$ and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
 
-For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:wep4}, performing a standard duality argument in \emph{non-weighted} norms (and then using \cref{eq:wep3}, yields \cref{eq:wep4}.
+For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:wep4}, using \cref{lem:ellprojerr}, and then converting to the weighted $H^1$ norm yields \cref{eq:wep4}.
 \epf
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
@@ -573,7 +586,7 @@ i.e.,
 \beq\label{eq:deltaagreen}
 \IPLtD{A\grad \mleft(\sdsol \ftilde\mright)}{\grad v} = \IPLtDn{\ftilde}{v}.
 \eeq
-\optodo{Chat}
+
 
 \bde[Discrete derivative operator]
 Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ for $\wh \in \Vhp$ by
@@ -581,6 +594,14 @@ Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp
 \IPLtDn{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} \tforall \vh \in \Vhp.
 \eeq
 \ede
+
+\bre[Why the factor $n$ on the right-hand side of \cref{eq:sdeq}?]
+The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
+
+All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because we can only prove bounds on the weighted $L^2$ projection $\Qhn$ in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), not in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the weighted inner product, which necessitates that we use the weighted inner product on the left-hand side of \cref{eq:discderdef}. This final use of the weighted inner product means we must have the weighted inner product on the right-hand side of \cref{eq:deltaagreen} so that we can show (at the beginning of the proof of \cref{lem:negdiscsum}) that if $\wh \in \Vhp,$ $\zh = \Deltah^{-1} \wh$, and $z = \Sn \wh,$ then $\zh = \Ph z;$ this fact is needed in the remainder of the proof of \cref{lem:negdiscsum}.
+
+We do not, however, put a factor $n$ on the left-hand side of \cref{eq:sdeq}. If we did, when we apply \cref{thm:shift} to $\Sn \ftilde$ (as we do in \cref{lem:shiftnegativew}), the resulting bounds would not be fully explicit in $n$ (because in \cref{thm:shift} we do not know explicitly how the constants depend on the `diffusion coefficient'). Not putting a factor $n$ on the left-hand side of \cref{eq:sdeq} is the reason why there is a \emph{non-weighted} inner product on the right-hand side of \cref{eq:discderdef} (so that the beginning of the proof of \cref{lem:negdiscsum}, as mentioned above, works).
+\ere
 
 \ble[Discrete derivative operator is well-defined]\label{lem:ddwd}
 For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
@@ -668,7 +689,7 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% \end{align*}
 %% \epf
 
-\optodo{Chat about lemma}
+The following \namecref{lem:intoip} will be used numerous times to bound the inner product of two discrete functions by their negative- and positive-higher-order discrete norms, or to transfer discrete derivatives from one argument of the inner product to the other.
 
 \ble[Introduction of derivatives into inner product]\label{lem:intoip}
 %% For $m \in \RR,$ $v \in \LtD$, and $w \in \LtD\cap\Domain{\DeltaA^{m/2}}$ we have
@@ -953,7 +974,6 @@ Two quantities that are key in the proof are
 The main idea of the proof is to decompose the error $u - \uh = \rho + \thetah,$ use bounds on the elliptic projection operator to bound $\rho,$ and the bound $\thetah$ (in higher-order discrete norms) in terms of $\rho.$
 
 The following simple \namecref{lem:simpleform} sets up the argument in the lemmas that follow.
-\optodo{Either just put the assumptions of the main theorem everywhere, or work through which ones are actually needed at each point. Not sure what to do....}
 \ble[Expression for $a(\thetah,\vh)$]\label{lem:simpleform}
 For any $\vh \in \Vhp,$
 \beq\label{eq:thetaform}
@@ -1086,6 +1106,14 @@ Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\NLiD
 Using \cref{eq:readytorecurse} recursively, and the facts that $\nmin^{-1} \geq 1$ and $hk \leq 1,$ we obtain \cref{eq:chigh}.
 \epf
 
+The following \namecref{lem:continuity} is straightforward to prove.
+\ble[Continuity of $a$]\label{lem:continuity}
+For any $\vo, \vt \in \HozDD,$
+\beqs
+\abs{a(\vo,\vt)} \leq \Cc \NLiD{n} \NW{\vo}\NW{\vt}.
+\eeqs
+\ele
+
 \ble[Bound $\NLtDn{\thetah}$ by $\Nfn{p-1,h,n}{\thetah}$]\label{lem:ltthetahbound}
 Under the assumptions of \cref{thm:fembound}, there exist constants $\Cfirst, \Csecond > 0$ such that
 \begin{align}
@@ -1109,10 +1137,9 @@ a(v,w) = \IPLtDn{v}{\thetah}
 
 Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use Cauchy-Schwartz to obtain
 \begin{align}
-\NLtDn{\thetah}^2 &\leq \Cc \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
+\NLtDn{\thetah}^2 &\leq \Cc\NLiD{n} \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
 &+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtDn{\rho}\NLtDn{\thetah}\label{eq:boundingLtwo}
 \end{align}
-\optodo{Part 3 of weighted $\Ph$ bound can surely be improved by doing the standard argument and then just dropping in and out. Possibly part 4 too}
 By combining \cref{lem:bestapprox,lem:ellprojerr}, we can show (as $w$ satisfies an adjoint Helmholtz problem with right-hand side $\thetah$)
 \beq\label{eq:wlt}
 \NLtD{w - \Ph w} \leq \Cfn{0,1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h^2 + \CFEMttilde \CAnk h(hk)^p\mright)\NLtD{\thetah} \tand
@@ -1133,7 +1160,7 @@ We will be able to use \cref{eq:wlt,eq:who} to bound terms involving $w - \Ph w$
 &\quad\quad h^p \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \text{ by \cref{eq:wlt,eq:who}}.\nonumber\\
 &=\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \label{eq:innerprod1}.
 \end{align}
-\optodo{Derive $\Cc$}
+
 We now estimate the other inner product term
 \begin{align}
 \abs{\IPLtGI{\thetah}{w - \Ph w}} &\leq \CMT\CinvVhp\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p-\half} \Nfn{p-1,h,n}{\thetah}\mright.\nonumber\\
@@ -1146,17 +1173,17 @@ We now estimate the other inner product term
 
 Now insert \cref{eq:wlt,eq:who,eq:innerprod1,eq:innerprod2} into \cref{eq:boundingLtwo}:
 \begin{align*}
-\NLtD{\thetah}^2 &\leq \Bigg[\Cc \NW{\rho} \mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright)\\
+\NLtD{\thetah}^2 &\leq \Bigg[\Cc\NLiD{n} \NW{\rho} \mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright)\\
 &+k^2\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \\
 &+k\CMT \CinvVhp \Cfn{0,1} \mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NW{\rho}\mright)\Bigg]\nonumber\\
 &\quad\quad \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\\
 &+\NLtDn{\rho}\NLtDn{\thetah}\nonumber\\
 %newline
-&\leq \Bigg[\mleft(\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright)\NLiD{n} + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}\nvar  \mright)\NW{\rho} \\
+&\leq \Bigg[\mleft(\Cc\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright)\NLiD{n} + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}\nvar  \mright)\NW{\rho} \\
 &+\mleft(  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}\mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\nonumber\\
 &\text{ rearranging and using \cref{lem:ellprojerr} and the fact that $hk \leq 1$}\nonumber\\
-&\leq \Bigg[\mleft(\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho} \nonumber\\
+&\leq \Bigg[\mleft(\Cc\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho} \nonumber\\
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\nonumber\\
 \end{align*}
@@ -1164,7 +1191,7 @@ Now insert \cref{eq:wlt,eq:who,eq:innerprod1,eq:innerprod2} into \cref{eq:boundi
 
 and therefore using Young's inequality to separate out the $\NLtD{\thetah}$ term on the right-hand side, and then move it to the left hand side, followed by \cref{eq:simple}, we obtain
 \begin{align}
-\NLtD{\thetah}&\leq \Bigg[\mleft(\sqrt{2}\max\set{\NLiDop{A},1,\CMT}\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho}\nonumber \\
+\NLtD{\thetah}&\leq \Bigg[\mleft(\Cc\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho}\nonumber \\
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\label{eq:part3penultimate},
 \end{align}
@@ -1208,16 +1235,3 @@ Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{e
 \epf
 
 
-Put the following somewhere:
-For $a,b > 0$\optodo{Extend to many}
-\beq\label{eq:simple}
-\sqrt{a^2 + b^2} \leq a + b.
-\eeq
-
-And this:
-\bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
-There exists $\CMT > 0$ such that for all $v \in \HoD$
-\beqs
-\NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{D}^\half.
-\eeqs
-\enth
