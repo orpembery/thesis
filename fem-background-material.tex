@@ -914,27 +914,30 @@ Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, i
 h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
-\beq\label{eq:femltbound}
-\NLtD{u-\uh} \leq \CFEMLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \mleft(\Pfn{p-2}\mleft(\NLiD{n}\mright)h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh}, \tand
-\eeq
-\beq
-\NW{u-\uh} \leq \CFEMHo \CHoboundo  \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},
-\eeq\label{eq:femhobound}
+\begin{align}
+\NLtD{u-\uh} &\leq \CFEMLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+&\quad\quad\mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
+\end{align}
+and
+\begin{align}
+\NW{u-\uh} &\leq \CFEMHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+&\quad\quad\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femhobound}
+\end{align}
 where $\CFEMLt$, $\CFEMHo,$ and $\Chcond$ are given in \cref{app:constants}.
 \enth
-\comeback{
-From \cref{thm:fembound,lem:scottzhang} we have the following corollary, with $\CcorLt = \CFEMLt\mleft(\CFEMo+\CFEMt\mright)$ and $\CcorHo = \CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$
 
+From \cref{thm:fembound,lem:bestapprox} we have the following \namecref{cor:fembound}.
+\optodo{Propagate through $\Pfn{}$ coming out, it's done in the Coloolary below and theorem above.}
 \bco[Completely explicit FEM bound]\label{cor:fembound}
 Under the assumptions on \cref{thm:fembound},
 \beqs
-\NLtD{u-\uh} \leq \CcorLt \mleft(h^3 + \CAnk h^2 (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
+\NLtD{u-\uh} \leq \CcorLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
 \eeqs
-\beqs
-\NW{u-\uh} \leq \CcorHo \mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
-\eeqs
-\eco\optodo{I'm suspicious about two orders of magnitude...}
-}
+\begin{align*}
+\NW{u-\uh} &\leq \CcorHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\\
+&\quad\quad\mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
+\end{align*}
+\eco
 
 Two quantities that are key in the proof are
 \beqs
