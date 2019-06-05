@@ -1,4 +1,4 @@
-We now prove our new error bounds for the higher-order finite-element approximation of the solution of the Helmholtz equation in heterogeneous media. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the differences that: (i) we modify some of the proofs to cater for the heterogeneity of the coefficients, and (ii) the dependence of our results on all of the constants involved is completely explicit. In particular our results are (in principle) explicit in $A$  and $p$ and are explicit in $n$ and $k$.
+We now prove our new error bounds for the higher-order finite-element approximation of the solution of the Helmholtz equation in heterogeneous media. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the differences that: (i) we modify the proofs to cater for the heterogeneity of the coefficients, and (ii) the dependence of our results on all of the constants involved is explicit. In particular our results are (in principle) explicit in $A$  and $p$ and are explicit in $n$ and $k$.
 
 The proofs of our results have many parts, and appear technical, largely due to the burden of explicitly keeping track of all of the constants involved. However, in essence, the proof consists of two ideas:
 \ben
@@ -22,14 +22,67 @@ $k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1.$, and
   \eit
 \eas
 
-ALso, throughout this \namecref{sec:fem} we assume we are working with the finite-element space defined in \cref{def:fespace}, and that consequently \cref{lem:scottzhang} holds.
+Also, throughout this \lcnamecref{sec:fem} we assume we are working with the finite-element space defined in \cref{def:fespace}, and that consequently \cref{lem:scottzhang} holds.
+
+We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}, and adopt notation for an a priori bound on its solution:
+
+\bas\label{ass:htwo}
+\Cref{prob:vtedp} (or its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
+\beq\label{eq:generalhtwo}
+k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \Cfg,
+\eeq
+where $\Cfg \de \NLtD{f} + \NLtGI{\gI}$.
+\eas
+%Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
+
+We define the following quantities, that we use to simplify the expressions involving $n$:
+
+\beqs
+\nvar = \frac{\NLiD{n}}{\nmin},
+\eeqs
+and
+\beqs
+\En = \max\set{\frac{\NHsD{n}}{\nmin} \st s \in (d/2,p-1],\frac{\NWsiD{n}}{\nmin}\st s \in [2,d/2],1}\nvar^2.
+\eeqs
+The quantity $\En$ arises from bounds on the `elliptic projection' mentioned above in weighted norms, see \cref{lem:ellprojerrw} below.
+
+Our main \lcnamecref{thm:fembound} and \lcnamecref{cor:fembound} are the following:
+
+\bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
+Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
+\beq\label{eq:hfemcond}
+h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
+\eeq
+then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
+\begin{align}
+\NLtD{u-\uh} &\leq \CFEMLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+&\quad\quad\mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
+\end{align}
+and
+\begin{align}
+\NW{u-\uh} &\leq \CFEMHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+&\quad\quad\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh}.\label{eq:femhobound}
+\end{align}
+\enth
+
+\bco[Higher-order-finite-element bound]\label{cor:fembound}
+Under the assumptions of \cref{thm:fembound},
+\beqs
+\NLtD{u-\uh} \leq \CcorLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
+\eeqs
+\begin{align*}
+\NW{u-\uh} &\leq \CcorHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\\
+&\quad\quad\mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
+\end{align*}
+\eco
 
 
-Whilst the calculations in this \namecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}; that is, any constant introduced or defined in this \namecref{sec:fem} will be listed in \cref{app:constants}.
+
+Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}; that is, any constant introduced or defined in this \lcnamecref{sec:fem} will be listed in \cref{app:constants}.
 
 \subsection{Decomposition of solution and best approximation bound}
 
-We first prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:18a} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for higher $p$, we require the following shift \namecref{thm:shift}:
+We first prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:18a} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for higher $p$, we require the following shift \lcnamecref{thm:shift}:
 
 \bth[Shift theorem]\label{thm:shift}
 Under \cref{ass:highp}, For all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that, if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique $\utilde \in \HlptD$ such that $\utilde$ solves
@@ -74,53 +127,15 @@ and similarly\optodo{Spell checker} for Neumann data \cite[Theorem 4.18 (ii)]{Mc
 Combining \cref{eq:shiftint,eq:shiftscat,eq:shifttrunc}, we obtain \cref{eq:shift}.
 \epf
 
-We make the following \namecref{ass:htwo} on the solution of \cref{prob:vtedp}, and adopt notation for an a priori bound on its solution:
 
-\bas\label{ass:htwo}
-\Cref{prob:vtedp} (or its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
-\beq\label{eq:generalhtwo}
-k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \Cfg,
-\eeq
-where $\Cfg \de \NLtD{f} + \NLtGI{\gI}$.
-\eas
-Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
 
-We are now able to prove the following theorem giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts (meaning the power of $k$ in the a priori bound is lower) and a smoother, more-oscilatory part. This result is essentially \cite[Theorem 1]{ChNi:18a}, in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of.
 
-The following trace theorem is standard, see, e.g., \cite[Theorem 3.37]{Mc:00}.
-\bth[Trace Theorem]\label{thm:trace}
-If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independent of $v$ such that
-\beqs
-\NHsmhGI{\trI v} \leq \CTrs \NHsD{v}.
-\eeqs
-\enth
+%% The following trace theorem is standard, see, e.g., \cite[Theorem 3.37]{Mc:00}.
 
-Also, we will require the following result on the multiplication of functions.
 
-\bth[Multiplication in $\HmD$]\label{thm:banachalg}
-\ben
-\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HsD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{s} > 0$ independent of $\vo$ and $\vt$ such that
-\beqs
-\NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
-\eeqs
-\item\label[itempart]{it:ban2}For $m \in \ZZ, m \geq 1,$ if $\vo \in \CmD$, $\supp\mleft(\vo-1\mright) \compcont D,$ and  $\vt \in \HmD,$ then $\vo \in \WmiD,$ $\vo\vt \in \HmD$, and there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
-\beq\label{eq:ban2}
-\NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
-\eeq
-\een
-\enth
+The following \lcnamecref{lem:domainshift} follows from \cref{thm:shift}.
 
-\bpf[Proof of \cref{thm:banachalg}]
-\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
-\beqs
-\NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
-\eeqs
-Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
-\epf
-
-We first have this simple \namecref{lem:domainshift}:
-
-\ble\label{lem:domainshift}
+\bco\label{lem:domainshift}
 Under \cref{ass:highp}, let $\ftilde \in \HlD$ and $\gtilde \in \HlpoD,$ for $0 \leq l \leq p-1$. If $\utilde \in \HlptD$ solves
 \beqs
 \grad \cdot \mleft(A\grad \utilde\mright) = -\ftilde,
@@ -135,7 +150,8 @@ then
 \beqs
 \NHlptD{\utilde} \leq \CAl\mleft(1+\CTrlpo\mright)\mleft(\NHlD{\ftilde} + \NHlpoD{\gtilde}\mright).
 \eeqs
-\ele
+\eco
+
 \bpf[Proof of \cref{lem:domainshift}]
 By \cref{thm:shift,lem:domainshift}
 \beqs
@@ -144,10 +160,12 @@ By \cref{thm:shift,lem:domainshift}
 and the result follows.
 \epf
 
-We can now prove our expansion of the solution of \cref{prob:vtedp} or its adjoint.
+We are now able to prove the following \lcnamecref{thm:expansion} giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts and a smoother, more-oscillatory part. Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj,eq:expansionuosc} below, the $j+2$th-order norm of $\uj$ is of order $k^j$ (i.e., the power of $k$ is two orders of magnitude less than the order of the norm) whereas the $p+1$st-order norm of $\uosc$ is of order $k^p$ (the powre of $k$ is one order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\uj.$ \Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:18a} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of (the results in \cite{ChNi:18a} are stated for a much wider class of problems, but the dependence on all of the constants is not made explicit).
+
+We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD,$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$) and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHsD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.} This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. We note that the results in this \cref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
 
 \bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
-Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
+Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that if $u$ is the solution of \cref{prob:tedp} or its adjoint, then
 \beq\label{eq:expansionuj}
 \NHjptD{\usj} \leq \Cej \Pj(\NLiD{n}) k^j \Cfg, \text{ for }\Cj > 0,
 \eeq
@@ -199,15 +217,7 @@ x^{\floor{j/2}}& j \geq 2
 %% \beq\label{eq:cosc}
 %% \Cosc = \frac{\Cefn{p-1}}{\max\set{1,\CAz}}.
 %% \eeq
-
 \enth
-
-\bit
-\item Powers of $k$ in non-oscillatory parts one smaller
-\item Just copying Theo and Serge
-\item Make contact with Melenk and Sauter
-\item In principle exponential growth of constant with $p$
-\eit
 
 \bpf[Proof of \cref{thm:expansion}]
 The idea of the proof is as follows. We write $u$ as a formal series expansion
@@ -326,8 +336,52 @@ and
 Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have (using the fact that $hk \leq 1$ and, as $\NLiD{n} \geq 1$, $\Pfn{p-2}(\NLiD{n}) \geq \Pfn{j}(\NLiD{n}) \geq 1$ for all $j \leq p-2$) \cref{eq:bestapproxL2,eq:bestapproxW}.
 \epf
 
+\subsection{Routine analysis results}\label{sec:anbackground}
+In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout \cref{sec:fem}.
+
+For $N \in \NN$ and $a_1,\ldots,a_N > 0$
+\beq\label{eq:simple}
+\sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
+\eeq
+
+\bth[Trace Theorem]\label{thm:trace}
+If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independent of $v$ such that
+\beqs
+\NHsmhGI{\trI v} \leq \CTrs \NHsD{v}.
+\eeqs
+\enth
+
+
+\bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
+There exists $\CMT > 0$ such that for all $v \in \HoD$
+\beqs
+\NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{D}^\half.
+\eeqs
+\enth
+
+\ble[Poincar\'e Inequality]\label{lem:poincare}
+There exists $\CP > 0$ such that for all $v \in \HozDD$
+\beqs
+\NLtD{v} \leq \CP \SNHoD{v}.
+\eeqs
+\ele
+
+\bth[Multiplication in $\HmD$]\label{thm:banachalg}
+\ben
+\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HsD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{s} > 0$ independent of $\vo$ and $\vt$ such that
+\beqs
+\NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
+\eeqs
+\item\label[itempart]{it:ban2}For $m \in \ZZ, m \geq 1,$ if $\vo \in \CmD$, $\supp\mleft(\vo-1\mright) \compcont D,$ and  $\vt \in \HmD,$ then $\vo \in \WmiD,$ $\vo\vt \in \HmD$, and there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
+\beq\label{eq:ban2}
+\NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
+\eeq
+\een
+\enth
+
+
 \subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
-In this \namecref{sec:errgalerkin} we state a sequence of error bounds for various projections, in various norms. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08},  and so we only sketch \cref{lem:wltdprojerr} below; as this result uses the $n$-weighted norms and inner product.%\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
+In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds for three different projections. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08},  and so we only prove \cref{lem:wltdprojerr,lem:ellprojerrw} below, as these are the proofs that deviate most from the standard proof.%\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
 
 Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
@@ -356,7 +410,7 @@ and the corresponding $n$-weighted $\LtD$ norm
 \beqs
 \NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}.
 \eeqs
-The $n$-weighted $\HsD$ norms, for $s \in \NN$, are then defined by $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms are defined by, for $s \in \NN$
+For $s \in \NN$, we define the $n$-weighted $\HsD$ norms $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms by
 \beq\label{eq:negweightnorm}
 \NHnfn{-s}{D}{v} = \sup_{w \in \HsD} \frac{\IPLtDn{v}{w}}{\NHsDn{w}}.
 \eeq
@@ -387,37 +441,26 @@ Under \cref{ass:highp}, for any integer $s \in [-1,p-1],$ there exists a constan
 \eeq
 \ele
 
-We will use the following three results numerous times.
-For $N \in \NN$ and $a_1,\ldots,a_N > 0$
-\beq\label{eq:simple}
-\sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
-\eeq
 
-
-\bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
-There exists $\CMT > 0$ such that for all $v \in \HoD$
+\bpf[Proof of \cref{thm:banachalg}]
+\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
 \beqs
-\NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{D}^\half.
+\NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
 \eeqs
-\enth
+Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
+\epf
 
-\ble[Poincar\'e Inequality]\label{lem:poincare}
-There exists $\CP > 0$ such that for all $v \in \HozDD$
-\beqs
-\NLtD{v} \leq \CP \SNHoD{v}.
-\eeqs
-\ele
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
 Under \cref{ass:highp}, let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
 \ben
-\item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ and $n \in \HsD$ then
+\item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
 \beq\label{eq:wep1}%\label{eq:ellprojerr}
-\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}\NLiD{n}^2}{\nmin^3}h^{s+1} \BAHoDn{w}{\wh}.
+\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}}{\nmin}\nvar^2h^{s+1} \BAHoDn{w}{\wh}.
 \eeq
-\item\label[itempart]{it:wep2} If $s \in [1,d/2]$ and $n \in \CsD$, then
+\item\label[itempart]{it:wep2} If $s \in [2,d/2]$ then
 \beq\label{eq:wep2}
-\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}\NLiD{n}^2}{\nmin^3} h^{s+1} \BAHoDn{w}{\wh}.
+\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}}{\nmin}\nvar^2 h^{s+1} \BAHoDn{w}{\wh}.
 \eeq
 \item\label[itempart]{it:wep4} For $s = 0$
 \beq\label{eq:wep4}
@@ -425,7 +468,7 @@ Under \cref{ass:highp}, let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ suc
 \eeq
 \item\label[itempart]{it:wep3} For $s = 1$
 \beq\label{eq:wep3}
-\NHnfn{1}{D}{w-\Ph w} \leq \Cwfn{1,1}\frac{\NLiD{n}^2}{\nmin^2} \BAHoDn{w}{\wh}.
+\NHnfn{1}{D}{w-\Ph w} \leq \Cwfn{1,1}\nvar^2 \BAHoDn{w}{\wh}.
 \eeq
 \een
 \ele
@@ -529,7 +572,7 @@ For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:
 %% \epf
 
 
-The $\LtD$ projection satisfies the following error bound:
+The $\LtD$ projection satisfies the following error bound.
 \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
 Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \LtD$
 \beqs
@@ -537,6 +580,7 @@ Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \LtD$
 \eeqs
 \ele
 
+Similarly, the weighted $\LtD$ projection satisfies the following error bound.
 The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
 Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \HozDD$
@@ -598,7 +642,7 @@ Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp
 \bre[Why the factor $n$ on the right-hand side of \cref{eq:sdeq}?]
 The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
 
-All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because we can only prove bounds on the weighted $L^2$ projection $\Qhn$ in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), not in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the weighted inner product, which necessitates that we use the weighted inner product on the left-hand side of \cref{eq:discderdef}. This final use of the weighted inner product means we must have the weighted inner product on the right-hand side of \cref{eq:deltaagreen} so that we can show (at the beginning of the proof of \cref{lem:negdiscsum}) that if $\wh \in \Vhp,$ $\zh = \Deltah^{-1} \wh$, and $z = \Sn \wh,$ then $\zh = \Ph z;$ this fact is needed in the remainder of the proof of \cref{lem:negdiscsum}.
+All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because we can only prove bounds on the weighted $L^2$ projection $\Qhn$ in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), not in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the weighted inner product, which necessitates that we use the weighted inner product on the left-hand side of \cref{eq:discderdef}. This final use of the weighted inner product means we must have the weighted inner product on the right-hand side of \cref{eq:deltaagreen} so that we can show (at the beginning of the proof of \cref{lem:negdiscsum}) that if $\wh \in \Vhp,$ $\zh = \Deltah^{-1} \wh$, and $z = \Sn \wh,$ then $\zh = \Ph z;$ we need this fact in the remainder of the proof of \cref{lem:negdiscsum}.
 
 We do not, however, put a factor $n$ on the left-hand side of \cref{eq:sdeq}. If we did, when we apply \cref{thm:shift} to $\Sn \ftilde$ (as we do in \cref{lem:shiftnegativew}), the resulting bounds would not be fully explicit in $n$ (because in \cref{thm:shift} we do not know explicitly how the constants depend on the `diffusion coefficient'). Not putting a factor $n$ on the left-hand side of \cref{eq:sdeq} is the reason why there is a \emph{non-weighted} inner product on the right-hand side of \cref{eq:discderdef} (so that the beginning of the proof of \cref{lem:negdiscsum}, as mentioned above, works).
 \ere
@@ -628,25 +672,19 @@ For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in 
 
 
 \ede
-In particular, one can think of $\DeltahI$ as being a `discrete solution operator', i.e., a discrete counterpart to $\sdsol.$
-
+One can think of $\DeltahI$ as being a `discrete solution operator', i.e., a discrete counterpart to $\sdsol.$
 %% Similarly, for $v \in \LtD,$ if $v = \sum_{m=1}^\infty \am \phim,$ then for $j \in \RR$ define
 %% \beq\label{eq:deltaaseries}
 %% \DeltaA^j v = \sum_{m=1}^\infty \lambdam^j \am \phim,
 %% \eeq
 %% if this series exists in $\LtD.$
-
-
 %We let $\Domain{\DeltaA^j}$ denote the subset of $\LtD$ on which $\DeltaA^j$ is defined.
-
 %% \bre[Negative powers of $\DeltaA$]
 %% Observe that for \emph{every} $j \leq 0$, $\DeltaA^j v$ is defined for \emph{any} $v \in \LtD$ (i.e., $\Domain{\DeltaA^{j}} = \LtD$ for $j \leq 0$). For $\lambdam \geq 1,$ $\lambdam^j < \lambdam$, and only finitely many $\lambdam$ are in the interval $(0,1)$; therefore the series \cref{eq:deltaaseries} can be decomposed as a finite sum (for $\lambdam < 1$) and a convergent series (for $\lambdam \geq 1$).
 %% \ere
-
 %% \bre[Consistent Notation]
 %% Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\optodo{Maybe just double-check this is watertight.}\optodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
 %% \ere
-
 We can use the higher-order derivative operators to define discrete higher-order norms:
 
 \bde[Discrete higher-order norm]
@@ -663,7 +701,7 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% \eeqs
 %% \ede
 
-%% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \namecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
+%% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \lcnamecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
 %% \ble[Relationship between $\DeltaA^m$ and standard higher-order derivatives]\label{lem:normrelationshiptech}
 %% For $m \in \NN,$ $\Domain{\DeltaA^{m/2}} \subseteq \HmD,$ and there exists a constant $\Cma > 0$ such that for all $v \in \Domain{\DeltaA^{m}}$
 %% \beqs
@@ -689,7 +727,7 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% \end{align*}
 %% \epf
 
-The following \namecref{lem:intoip} will be used numerous times to bound the inner product of two discrete functions by their negative- and positive-higher-order discrete norms, or to transfer discrete derivatives from one argument of the inner product to the other.
+We will use the following \lcnamecref{lem:intoip} to bound the inner product of two discrete functions by their negative- and positive-higher-order discrete norms, or to transfer discrete derivatives from one argument of the inner product to the other.
 
 \ble[Introduction of derivatives into inner product]\label{lem:intoip}
 %% For $m \in \RR,$ $v \in \LtD$, and $w \in \LtD\cap\Domain{\DeltaA^{m/2}}$ we have
@@ -716,7 +754,7 @@ We only prove \cref{eq:feipsplit}, as the proof of \cref{eq:feiptrans} is analag
 \end{align*}
 by repeating the above process in reverse, without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
 \epf
-The next \namecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
+The next \lcnamecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
 
 \bco[Inner product bounded by discrete norms]\label{cor:ipdiscbound}
 If $\vh, \wh \in \Vhp,$ then for all $j \in \RR$
@@ -766,7 +804,7 @@ Let $\vh \in \Vhp$. Then
 We have, using \cref{eq:feiptrans}, $\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2$, and the result follows.
 \epf
 
-To prove \cref{lem:negdiscsum} on the relationship between discrete and continuous negative Sobolev normns, we require the following \namecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
+To prove \cref{lem:negdiscsum} below on the relationship between discrete and continuous negative Sobolev normns, we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
 
 \ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
 Under \cref{ass:highp}, let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
@@ -822,7 +860,7 @@ For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms, $\NHoD{\
 %% \end{align*}
 %% as required. \epf
 
-We can now prove the following \namecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
+We can now prove the following \lcnamecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
 Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
 \beqs
@@ -857,7 +895,7 @@ If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for a
 \beq\label{eq:evenrecursivesum}
 \Nfn{-2l,h,n}{\vh} \leq \mleft(\En\nvar\mright)^t\sum_{m=0}^t \Efn{m,t} h^{2m} \NHDfn{-2(t-m)}{\vh} ,
 \eeq
-where the $\Efn{m,t}$ are defined inductively by
+where we define the $\Efn{m,t}$ inductively by
 \begin{align}
 \label{eq:Emt1}\Efn{0,0} &=1\\
 \label{eq:Emt2}\Efn{m,t} &= \Cshiftfn{2(t-1-m)} \Efn{m,t-1} \tfor 0 \leq m \leq t-1 \quad\tand\\
@@ -900,7 +938,7 @@ Similarly to \cref{eq:evenrecursivesum}, one can use \cref{eq:lrecursion} recurs
 \beq\label{eq:oddrecursive}
 \NHnfn{-1}{D}{\Deltah^{-l}\vh} \leq \mleft(\En \nvar\mright)^t\mleft(\Etildefn{0,t} \NHnfn{-(2t+1)}{D}{\Deltah^{-l+t}\vh} + \sum_{m=0}^t \Etildefn{m,t} h^{2m+1}  \NHnfn{-2(t-m)}{D}{\Deltah^{-l+t}\vh}\mright),
 \eeq
-where  the $\Etildefn{m,t}$ are given, for $t \in [0,l]$ by
+where  we define the $\Etildefn{m,t}$ inductively, for $t \in [0,l]$ by
 \begin{align}
 \label{eq:Etilde1}\Etildefn{0,0} &= 1\\
 %\label{eq:Etilde2}\Etildefn{1,1} &= \Cfn{1}\\
@@ -933,36 +971,7 @@ and combinining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, 
 
 \subsection{Main finite-element-error bound}\label{sec:fembound}
 
-Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound} below, which we do via a series of lemmas.
-\bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
-Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
-\beq\label{eq:hfemcond}
-h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
-\eeq
-then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
-\begin{align}
-\NLtD{u-\uh} &\leq \CFEMLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
-&\quad\quad\mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
-\end{align}
-and
-\begin{align}
-\NW{u-\uh} &\leq \CFEMHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
-&\quad\quad\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femhobound}
-\end{align}
-where $\CFEMLt$, $\CFEMHo,$ and $\Chcond$ are given in \cref{app:constants}.
-\enth
-
-From \cref{thm:fembound,lem:bestapprox} we have the following \namecref{cor:fembound}.
-\bco[Completely explicit FEM bound]\label{cor:fembound}
-Under the assumptions of \cref{thm:fembound},
-\beqs
-\NLtD{u-\uh} \leq \CcorLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
-\eeqs
-\begin{align*}
-\NW{u-\uh} &\leq \CcorHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\\
-&\quad\quad\mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
-\end{align*}
-\eco
+Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound}, which we do via a series of lemmas.
 
 Two quantities that are key in the proof are
 \beqs
@@ -971,9 +980,9 @@ Two quantities that are key in the proof are
 \beqs
 \thetah \de \Ph u - \uh.
 \eeqs
-The main idea of the proof is to decompose the error $u - \uh = \rho + \thetah,$ use bounds on the elliptic projection operator to bound $\rho,$ and the bound $\thetah$ (in higher-order discrete norms) in terms of $\rho.$
+The main idea of the proof is to decompose the error $u - \uh = \rho + \thetah,$ use bounds on the elliptic projection operator to bound $\rho,$ and then bound $\thetah$ (in higher-order discrete norms) in terms of $\rho.$
 
-The following simple \namecref{lem:simpleform} sets up the argument in the lemmas that follow.
+The following \lcnamecref{lem:simpleform} sets up the argument in the lemmas that follow.
 \ble[Expression for $a(\thetah,\vh)$]\label{lem:simpleform}
 For any $\vh \in \Vhp,$
 \beq\label{eq:thetaform}
@@ -1106,7 +1115,7 @@ Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\NLiD
 Using \cref{eq:readytorecurse} recursively, and the facts that $\nmin^{-1} \geq 1$ and $hk \leq 1,$ we obtain \cref{eq:chigh}.
 \epf
 
-The following \namecref{lem:continuity} is straightforward to prove.
+The following \lcnamecref{lem:continuity} is straightforward to prove, and used in the proof of \cref{lem:ltthetahbound} below
 \ble[Continuity of $a$]\label{lem:continuity}
 For any $\vo, \vt \in \HozDD,$
 \beqs
@@ -1198,7 +1207,7 @@ and therefore using Young's inequality to separate out the $\NLtD{\thetah}$ term
 and on rearranging \cref{eq:part3penultimate} we obtain \cref{eq:ltthetahbound}.
 
 \epf
-With all our technical lemmas proved, we can now prove our main \namecref{thm:fembound}.
+With all our technical lemmas proved, we can now prove our main \lcnamecref{thm:fembound}.
 
 \bpf[Proof of \cref{thm:fembound}]
 By using \cref{lem:higherbound} (with $m=p-1$) in \cref{eq:ltthetahbound}, we have
