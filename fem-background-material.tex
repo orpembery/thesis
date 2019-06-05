@@ -12,7 +12,7 @@ As we are using higher-order finite elements (which we assume are of degree $p$)
 \optodo{Correct notation in variational formulation of TEDP}
 
 \bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
-$k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1.$, and
+Assume $k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1.$, and
 \bit
 \item $\GD$ and $\GI$ are $\Cpo$
 \item $\Aij \in \CpmooDclos$ for all $i,j$
@@ -24,7 +24,7 @@ $k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1.$, and
 
 Also, throughout this \lcnamecref{sec:fem} we assume we are working with the finite-element space defined in \cref{def:fespace}, and that consequently \cref{lem:scottzhang} holds.
 
-We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}, and adopt notation for an a priori bound on its solution:
+We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}.
 
 \bas\label{ass:htwo}
 \Cref{prob:vtedp} (or its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
@@ -42,25 +42,25 @@ We define the following quantities, that we use to simplify the expressions invo
 \eeqs
 and
 \beqs
-\En = \max\set{\frac{\NHsD{n}}{\nmin} \st s \in (d/2,p-1],\frac{\NWsiD{n}}{\nmin}\st s \in [2,d/2],1}\nvar^2.
+\En = \max\set{\frac{\NHsD{n}}{\nmin^2} \st s \in (d/2,p-1];\frac{\NWsiD{n}}{\nmin^2}\st s \in [2,d/2];1}\nvar.
 \eeqs
 The quantity $\En$ arises from bounds on the `elliptic projection' mentioned above in weighted norms, see \cref{lem:ellprojerrw} below.
 
 Our main \lcnamecref{thm:fembound} and \lcnamecref{cor:fembound} are the following:
 
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
-Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
+Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $\Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
 \beq\label{eq:hfemcond}
-h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
+h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
 \begin{align}
-\NLtD{u-\uh} &\leq \CFEMLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+\NLtD{u-\uh} &\leq \CFEMLt \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
 &\quad\quad\mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
 \end{align}
 and
 \begin{align}
-\NW{u-\uh} &\leq \CFEMHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+\NW{u-\uh} &\leq \CFEMHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
 &\quad\quad\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh}.\label{eq:femhobound}
 \end{align}
 \enth
@@ -68,10 +68,10 @@ and
 \bco[Higher-order-finite-element bound]\label{cor:fembound}
 Under the assumptions of \cref{thm:fembound},
 \beqs
-\NLtD{u-\uh} \leq \CcorLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
+\NLtD{u-\uh} \leq \CcorLt \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
 \eeqs
 \begin{align*}
-\NW{u-\uh} &\leq \CcorHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\\
+\NW{u-\uh} &\leq \CcorHo \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\\
 &\quad\quad\mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
 \end{align*}
 \eco
@@ -82,19 +82,19 @@ Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the con
 
 \subsection{Decomposition of solution and best approximation bound}
 
-We first prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:18a} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for higher $p$, we require the following shift \lcnamecref{thm:shift}:
+For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:18a} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for high $p$, we require the following shift \lcnamecref{thm:shift}:
 
 \bth[Shift theorem]\label{thm:shift}
-Under \cref{ass:highp}, For all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that, if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique $\utilde \in \HlptD$ such that $\utilde$ solves
-\beqs
+Under \cref{ass:highp}, for all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique $\utilde \in \HlptD$ such that $\utilde$ solves
+\beq\label{eq:shifteq}
 \grad \cdot \mleft(A \grad \utilde\mright) = -\ftilde,
-\eeqs
-\beqs
+\eeq
+\beq\label{eq:shiftdbc}
 \dn \utilde = \gItilde, \tand
-\eeqs
-\beqs
+\eeq
+\beq\label{eq:shiftnbc}
 \trD \utilde = 0
-\eeqs
+\eeq
 and $\utilde$ satisfies the bound
 \beq\label{eq:shift}
 \NHlptD{\utilde} \leq \CAl \mleft(\NHlD{\ftilde} + \NHlphGI{\gItilde}\mright).
@@ -102,7 +102,7 @@ and $\utilde$ satisfies the bound
 \enth
 
 \bpf[Proof of \cref{thm:shift}]
-The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior, and near the boundaries $\GD$ and $\GI$, as a reference for these we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these results.
+The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of \cref{eq:shifteq,eq:shiftdbc,eq:shiftnbc} is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior and near the boundaries $\GD$ and $\GI$, and the work of the proof is combining these estimates. As a reference for these estimates we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these results, as we have higher regularity of the boundaries $\GD$ and $\GI$ and the coefficient $A$.
 
 To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
 \bit
@@ -152,17 +152,25 @@ then
 \eeqs
 \eco
 
+The proof of \cref{lem:domainshift} requires the Trace theorem.
+
+\bth[Trace Theorem]\label{thm:trace}
+If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independent of $v$ such that
+\beqs
+\NHsmhGI{\trI v} \leq \CTrs \NHsD{v}.
+\eeqs
+\enth
+
+
 \bpf[Proof of \cref{lem:domainshift}]
-By \cref{thm:shift,lem:domainshift}
+By \cref{thm:shift,thm:trace}
 \beqs
 \NHlptD{\utilde} \leq \CAl \mleft(\NHlD{\ftilde} + \NHlphGI{\gtilde}\mright) \leq \CAl \mleft(\NHlD{\ftilde} + \CTrs\NHlpoD{\gtilde}\mright),
 \eeqs
 and the result follows.
 \epf
 
-We are now able to prove the following \lcnamecref{thm:expansion} giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts and a smoother, more-oscillatory part. Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj,eq:expansionuosc} below, the $j+2$th-order norm of $\uj$ is of order $k^j$ (i.e., the power of $k$ is two orders of magnitude less than the order of the norm) whereas the $p+1$st-order norm of $\uosc$ is of order $k^p$ (the powre of $k$ is one order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\uj.$ \Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:18a} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of (the results in \cite{ChNi:18a} are stated for a much wider class of problems, but the dependence on all of the constants is not made explicit).
-
-We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD,$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$) and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHsD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.} This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. We note that the results in this \cref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+We are now able to prove the following \lcnamecref{thm:expansion} giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts and a smoother, more-oscillatory part. 
 
 \bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
 Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that if $u$ is the solution of \cref{prob:tedp} or its adjoint, then
@@ -219,6 +227,12 @@ x^{\floor{j/2}}& j \geq 2
 %% \eeq
 \enth
 
+Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is two orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is one order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
+
+\Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:18a} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:18a} are stated for a much wider class of problems, but the dependence on all of the constants is not made explicit.
+
+We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHsD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+
 \bpf[Proof of \cref{thm:expansion}]
 The idea of the proof is as follows. We write $u$ as a formal series expansion
 \beq\label{eq:formalseries}
@@ -271,11 +285,9 @@ Let $\ro \in \HthD$ solve
 \dn \ro = iku.
 \eeqs
 Then by \cref{lem:domainshift}
-\begin{align*}
-\NHthD{\ro} &\leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\\
-&\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\\
-&\leq \frac{\Cefn{1}}{\max\set{1,\CAo}}.
-\end{align*}
+\beqs%gin{align*}
+\NHthD{\ro} \leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\leq \frac{\Cefn{1}}{\max\set{1,\CAo}}.
+\eeqs%nd{align*}
 Let $\rt \in \HfD$ solve
 \beqs
 \grad \cdot \mleft(A\grad \rt\mright) = -k^2 u
@@ -286,8 +298,7 @@ Let $\rt \in \HfD$ solve
 Then by \cref{lem:domainshift}
 \begin{align*}
 \NHfD{\rt} &\leq \CAt\mleft(1+\CTrth\mright)\mleft(k^2\NHtD{u} + k\NHthD{\ro}\mright)\\
-&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \frac{\Cefn{1}}{\max\set{1,\CAo}}\mright)\CAnk k^3\Cfg\\
-&\leq \frac{\Cefn{2}}{\max\set{1,\CAo}}
+&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \frac{\Cefn{1}}{\max\set{1,\CAo}}\mright)\CAnk k^3\Cfg\leq \frac{\Cefn{2}}{\max\set{1,\CAo}}.
 \end{align*}
 Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \beqs
@@ -310,7 +321,7 @@ Using the expansion in \cref{thm:expansion}, we can prove the following error bo
 %% \ele
 
 \ble[Best approximation error bound]\label{lem:bestapprox}
-Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt > 0$ and independent of $k$ (although dependent on $A$ and $n$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
+Under \cref{ass:highp,ass:htwo}, there exist constants $\CFEMo, \CFEMt > 0$ independent of $k$ and $n$ (although dependent on $A$ and $p$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
 \beq\label{eq:bestapproxL2}
 \NLtD{u-\uhhat} \leq \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMo  h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg,
 \eeq
@@ -325,7 +336,7 @@ Under \cref{ass:highp,ass:htwo}, There exist constants $\CFEMo, \CFEMt > 0$ and 
 We write bounds for the standard and weighted $H^1$ norms separately, as we will use each individual bound in differents of proofs in \cref{sec:fembound}.
 
 \bpf[Proof of \cref{lem:bestapprox}]
-We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exists $\ujh,$ $j=0,\ldots,p-2$ and $\uosch$ in $\Vhp$ such that 
+We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exist $\ujh,$ $j=0,\ldots,p-2$ and $\uosch$ in $\Vhp$ such that 
 \beqs
 \NLtD{\usj - \ujh} + h\NHoD{\usj - \ujh} \leq \Cinterpfn{j+2} \Cefn{j} \Pj\mleft(\NLiD{n}\mright) h^{j+2}k^j \Cfg
 \eeqs
@@ -333,23 +344,17 @@ and
 \beqs
 \NLtD{\uosc - \uosch} + h\NHoD{\uosc - \uosch} \leq \Cinterpfn{p+1} \Cosc\CAnk h^{p+1}k^p \Cfg.
 \eeqs
-Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have (using the fact that $hk \leq 1$ and, as $\NLiD{n} \geq 1$, $\Pfn{p-2}(\NLiD{n}) \geq \Pfn{j}(\NLiD{n}) \geq 1$ for all $j \leq p-2$) \cref{eq:bestapproxL2,eq:bestapproxW}.
+Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{eq:bestapproxL2,eq:bestapproxW} (using the fact that $hk \leq 1$ and, as $\NLiD{n} \geq 1$, $\Pfn{p-2}(\NLiD{n}) \geq \Pfn{j}(\NLiD{n}) \geq 1$ for all $j \leq p-2$).
 \epf
 
 \subsection{Routine analysis results}\label{sec:anbackground}
 In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout \cref{sec:fem}.
 
-For $N \in \NN$ and $a_1,\ldots,a_N > 0$
+We first note the following inequality: for $N \in \NN$ and $a_1,\ldots,a_N > 0$
 \beq\label{eq:simple}
 \sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
 \eeq
 
-\bth[Trace Theorem]\label{thm:trace}
-If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independent of $v$ such that
-\beqs
-\NHsmhGI{\trI v} \leq \CTrs \NHsD{v}.
-\eeqs
-\enth
 
 
 \bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
@@ -372,16 +377,26 @@ There exists $\CP > 0$ such that for all $v \in \HozDD$
 \beqs
 \NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
 \eeqs
-\item\label[itempart]{it:ban2}For $m \in \ZZ, m \geq 1,$ if $\vo \in \CmD$, $\supp\mleft(\vo-1\mright) \compcont D,$ and  $\vt \in \HmD,$ then $\vo \in \WmiD,$ $\vo\vt \in \HmD$, and there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
+\item\label[itempart]{it:ban2}For $m \in \NN,$ if $\vo \in \CmD$, $\supp\mleft(\vo-1\mright) \compcont D,$ and  $\vt \in \HmD,$ then $\vo \in \WmiD,$ $\vo\vt \in \HmD$, and there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
 \beq\label{eq:ban2}
 \NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
 \eeq
 \een
 \enth
 
+\bpf[Proof of \cref{thm:banachalg}]
+\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
+\beqs
+\NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
+\eeqs
+Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
+\epf
+
+
 
 \subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
-In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds for three different projections. The proofs of these error bounds are all simple modifications of the proofs of \cite[Theorem 5.8.3]{BrSc:08},  and so we only prove \cref{lem:wltdprojerr,lem:ellprojerrw} below, as these are the proofs that deviate most from the standard proof.%\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
+In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds in negative Sobolev norms for three different projection operators. The proofs of these error bounds are all simple modifications of the standard proofs of finite-element errors in negative Sobolev norms, as in, e.g., \cite[Theorem 5.8.3]{BrSc:08},  and so we only prove \cref{lem:wltdprojerr,lem:ellprojerrw} below, as these are the proofs that deviate most from the standard proof.
+%\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
 
 Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
@@ -393,7 +408,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 %% \IPLtD{A\grad\vh}{\grad\Phn w} = \IPLtDn{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
 %% \eeqs
 
-Observe that $\Ph w$ is the finite-element solution of a stationary diffusion problem with `diffusion coefficient' A and a right-hand side in $\HozDD'.$
+Observe that $\Ph w$ is the finite-element solution of a stationary diffusion problem with `diffusion coefficient' $A$ and a right-hand side in $\HozDD'.$
 
 We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 \beqs
@@ -406,10 +421,8 @@ For $v,w \in \LtD,$ define the $n$-weighted inner product
 \beqs
 \IPLtDn{v}{w} = \int_{D} n v \wbar,
 \eeqs
-and the corresponding $n$-weighted $\LtD$ norm
-\beqs
-\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}.
-\eeqs
+and the corresponding $n$-weighted $\LtD$ norm $\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}$.
+
 For $s \in \NN$, we define the $n$-weighted $\HsD$ norms $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms by
 \beq\label{eq:negweightnorm}
 \NHnfn{-s}{D}{v} = \sup_{w \in \HsD} \frac{\IPLtDn{v}{w}}{\NHsDn{w}}.
@@ -432,6 +445,7 @@ Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \V
 \IPLtDn{\Qhn w}{\vh} = \IPLtDn{w}{\vh} \tforall \vh \in \Vhp.
 \eeqs
 
+We now state and prove our error bounds. These can all be obtained by modifications of the proof in \cite[Theorem 5.8.3]{BrSc:08} because all the projections defined above are Galerkin projections given by coercive and bounded sesquilinear forms on $\HoD$ (for $\Ph$) or $\LtD$ (for $\Qh$ and $\Qhn$).\optodo{Check if $\Qh$ is used.}
 
 The elliptic projection obeys the following error bounds:
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
@@ -440,74 +454,67 @@ Under \cref{ass:highp}, for any integer $s \in [-1,p-1],$ there exists a constan
 \NHmsD{w-\Ph w} \leq \Cmso h^{s+1} \BAHoD{w}{\wh}.
 \eeq
 \ele
-
-
-\bpf[Proof of \cref{thm:banachalg}]
-\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
-\beqs
-\NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
-\eeqs
-Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
-\epf
+\optodo{Correct language to talk about $n$-weighted}
 
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
-Under \cref{ass:highp}, let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
+Let $s \in \NNz.$ Under \cref{ass:highp}, there exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
 \ben
 \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
 \beq\label{eq:wep1}%\label{eq:ellprojerr}
-\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}}{\nmin}\nvar^2h^{s+1} \BAHoDn{w}{\wh}.
+\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
 \eeq
 \item\label[itempart]{it:wep2} If $s \in [2,d/2]$ then
 \beq\label{eq:wep2}
-\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}}{\nmin}\nvar^2 h^{s+1} \BAHoDn{w}{\wh}.
+\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
 \eeq
 \item\label[itempart]{it:wep4} For $s = 0$
 \beq\label{eq:wep4}
-\NLtDn{w-\Ph w} \leq \Cwfn{0,1} \nvar h \BAHoDn{w}{\wh}
+\NLtDn{w-\Ph w} \leq \Cwfn{0,1} \nvar h \BAHoDn{w}{\wh}.
 \eeq
-\item\label[itempart]{it:wep3} For $s = 1$
+\item\label[itempart]{it:wep3}Also, we have
 \beq\label{eq:wep3}
-\NHnfn{1}{D}{w-\Ph w} \leq \Cwfn{1,1}\nvar^2 \BAHoDn{w}{\wh}.
+\NHnfn{1}{D}{w-\Ph w} \leq \Cwfn{1,1}\nvar \BAHoDn{w}{\wh}.
 \eeq
 \een
 \ele
 
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+For \cref{it:wep1,it:wep2}, let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discretesob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
 \beqs
 \IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
 \eeqs
 If we take $v = w-\Ph w,$ then we can compute
 \begin{align}
-\IPLtDn{\phi}{v} &= \IPLtD{A\grad\mleft(\vtilde - \vh\mright)}{\grad\mleft(w-\Ph w\mright)} \text{ for } \vh \text{ as in \cref{lem:scottzhang}, by Galerkin orthogonality for } \Ph\nonumber\\
+\IPLtDn{\phi}{v} &= \IPLtD{A\grad\mleft(\vtilde - \vh\mright)}{\grad\mleft(w-\Ph w\mright)} \text{ for } \vh \text{ the quasi-interpolant of } v\text{, by Galerkin orthogonality for } \Ph\nonumber\\
 &\leq \CSZfn{s+2}\NLiDop{A} \NHfn{s+2}{D}{\vtilde} h^{s+1} \SNHoD{w-\Ph w} \text{ by \cref{lem:scottzhang}}\nonumber\\
 &\leq \CSZfn{s+2} \CAfn{s} \NLiDop{A} \NHfn{s}{D}{n\phi} h^{s+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}}\label{eq:ellprojwpart}
 \end{align}
 
-For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalg}, \cref{eq:ellprojwpart} is bounded above by
+For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalgeq:nconv}, \cref{eq:ellprojwpart} is bounded above by
 \beq\label{eq:wep1pt0}
-\CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w}
+\CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w}.
 \eeq
-by \cref{thm:banachalg,eq:nconv}.
+
 
 Therefore we have, by definition of $\NHnfn{-s}{D}{\cdot}$ and $\NHoDn{\cdot}$,
 \beq\label{eq:wep1pt1}
 \NHnfn{-s}{D}{w-\Ph w} \leq \CSZfn{s+2}\CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHmD{n}}{\nmin^2} h^{s+1} \NHoDn{w - \Ph w}.
 \eeq
-Applying C\'ea's Lemma to $\Ph$ in the weighted $H^1$ norm, we find
+Applying C\'ea's Lemma to $\Ph$ in the $n$-weighted $H^1$ norm, we find
 \beq\label{eq:wepcea}
-\NHoDn{w-\Ph w} \leq \frac{2\NLiDop{A}\NLiD{n}^2}{\min\set{1,1/\CP^2}\Amin\nmin^2}\BAHoDn{w}{\wh},
+\NHoDn{w-\Ph w} \leq \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}\nvar\BAHoDn{w}{\wh},
 \eeq
+as $\Ph$ corresponds to a sesquilinear form that is bounded with constant $\NLiDop{A}/\nmin$ and coercive with constant $\mleft(\Amin\min\set{1,1/\CP}\mright)/\mleft(2\NLiD{n}\mright)$ in the $n$-weighted $H^1$ norm.
 and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:wep1}.
 
 For \cref{it:wep2}, the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 \beq\label{eq:wep2pt1}
 2\CSZfn{s+2} \CAfn{s} \Cprod{s} \NLiDop{A} \frac{\NWsiD{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w},
 \eeq
-since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1,$ and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
+(since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
 
-For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:wep4}, using \cref{lem:ellprojerr}, and then converting to the weighted $H^1$ norm yields \cref{eq:wep4}.
+For \cref{it:wep4}, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:wep4}. For \cref{it:wep3}, \cref{eq:wepcea} immediately gives \cref{eq:wep3}. 
 \epf
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
@@ -590,15 +597,14 @@ Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \HozDD$
 \ele
 
 \bpf[Proof of \cref{lem:wltdprojerr}]
-The following proof is a slight modification of the proof in \cite[Theorem 5.8.3]{BrSc:08}. Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
+Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
 \beqs
 \IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
 \eeqs
 Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
-\begin{align*}
-\IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\vhptilde}\\
-&\leq \CSZfn{s} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^s \NHsDn{\vtilde}.
-\end{align*}
+\beqs%gin{align*}
+\IPLtDn{w-\Qhn w}{\vtilde} \leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\vhptilde}\leq \CSZfn{s} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^s \NHsDn{\vtilde}.
+\eeqs%nd{align*}
 Taking the supremum over $\vtilde,$ we have
 \beqs
 \NHmsDn{w-\Qhn w} \leq \CSZfn{s} \frac{\NLiD{n}}{\nmin} h^s \NLtDn{w-\Qhn w},
@@ -607,7 +613,7 @@ and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clea
 \epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
-In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivates, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
+In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
 
 We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
 \beq\label{eq:sdeq}
@@ -1042,7 +1048,7 @@ By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and 
 \ble[Bound on higher-order discrete norms of $\thetah$ by $\NLtD{\thetah}$]\label{lem:higherbound}
 Under the assumptions of \cref{thm:fembound}, for integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
 \begin{align}
-\Nfn{m,h,n}{\thetah} &\leq \Chighmo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
+\Nfn{m,h,n}{\thetah} &\leq \Chighmo \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
 &\quad\quad+ \Chighmt \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.\label{eq:chigh}
 \end{align}
 \ele
@@ -1109,6 +1115,7 @@ Using \cref{lem:wltdprojerr} we can bound the first of these terms by the second
 k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1}\Cwfn{0} \mleft(1+\CSZfn{0}\mright)\nvar^3\NLiD{n}\nmin^{1-m} h^{1-m}\NW{\rho}.
 \eeq
 Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\NLiD{n}, \nmin^{-1} \geq 1,$ and so $\En, \nvar \geq1$)  we have
+\tohere
 \beq\label{eq:readytorecurse}
 \Nfn{m,h}{\thetah} \leq \CRecofn{m} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \Nfn{m-1,h}{\thetah} + \CRect \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.
 \eeq
@@ -1167,7 +1174,8 @@ We will be able to use \cref{eq:wlt,eq:who} to bound terms involving $w - \Ph w$
 &\quad\quad\text{ by \cref{lem:wltdprojerr,lem:ellprojerrw}, taking $\wh = \Ph u$ in \cref{eq:wltdprojerr,lem:ellprojerrw}}\nonumber\\
 &\leq \Nfn{p-1,h,n}{\thetah} \Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cfn{0,1} + \Cwfn{p-1-m} \Cfn{-1,1}\mright)                         \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 \nonumber\\
 &\quad\quad h^p \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \text{ by \cref{eq:wlt,eq:who}}.\nonumber\\
-&=\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \label{eq:innerprod1}.
+&=\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+&\quad\quad\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright) \NLtD{\thetah} \label{eq:innerprod1}.
 \end{align}
 
 We now estimate the other inner product term
@@ -1196,8 +1204,6 @@ Now insert \cref{eq:wlt,eq:who,eq:innerprod1,eq:innerprod2} into \cref{eq:boundi
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\nonumber\\
 \end{align*}
-
-
 and therefore using Young's inequality to separate out the $\NLtD{\thetah}$ term on the right-hand side, and then move it to the left hand side, followed by \cref{eq:simple}, we obtain
 \begin{align}
 \NLtD{\thetah}&\leq \Bigg[\mleft(\Cc\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}  \mright)\NW{\rho}\nonumber \\
@@ -1210,35 +1216,35 @@ and on rearranging \cref{eq:part3penultimate} we obtain \cref{eq:ltthetahbound}.
 With all our technical lemmas proved, we can now prove our main \lcnamecref{thm:fembound}.
 
 \bpf[Proof of \cref{thm:fembound}]
-By using \cref{lem:higherbound} (with $m=p-1$) in \cref{eq:ltthetahbound}, we have
+By using \cref{lem:higherbound} (with $m=p-1$) in \cref{eq:ltthetahbound} and the fact that $\NLiD{n}, \En, \nvar \geq 1$, we have
 \begin{align}
 \NLtD{\thetah}&\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^3\NLiD{n}\nmin^{2-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
 &\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho}\nonumber\\
-&+\Csecond  \Chighfn{p-1,1} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{p-1}\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
+&+\Csecond  \Chighfn{p-1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{p-1}\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
 &\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde (hk )^{p+1}+ \CFEMttilde \CAnk h^{2p}k^{2p+1}\mright)\NLtD{\thetah}\label{eq:doublehkdep}
 \end{align}
 Choosing $h$ according to \cref{eq:hfemcond}, \cref{eq:doublehkdep} simplifies to
 \begin{align*}
-\NLtD{\thetah} &\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^3\NLiD{n}\nmin^{2-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\\
+\NLtD{\thetah} &\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^4\nmin^{1-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\\
 &\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho} + \half \NLtD{\thetah},
 \end{align*}
 
 and therefore it follows that
 \beq\label{eq:ltboundwithrho}
-\NLtD{\thetah} \leq \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NW{\rho}.
+\NLtD{\thetah} \leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NW{\rho}.
 \eeq
 
 It only now remains to bound the weighted $H^1$ norm of the error. By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \begin{align}
-\SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
+\SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
 &\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NW{\rho}\mright],\label{eq:sntheta}
 \end{align}
 
 and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ and $\nvar,\NLiD{n} \geq 1$)
 \begin{align}
 \SNHoD{\thetah} &\leq
-\mleft[\CHoboundo  \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mright.\nonumber\\
-&\mleft.+\CHoboundt \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\CAnk k(hk)^p\mright]\NW{\rho}.\label{eq:hoboundwithrho}
+\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
+&\quad\quad\mleft(\CHoboundo  +\CHoboundt \CAnk k(hk)^p\mright)\NW{\rho}.\label{eq:hoboundwithrho}
 \end{align}
 Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{eq:ellprojerr} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
 \epf
