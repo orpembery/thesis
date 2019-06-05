@@ -59,10 +59,10 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
     $\Csecond$ &$\Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half}$&Proof of \cref{lem:ltthetahbound}\\
   $\CLtboundo$&$ 2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMo$&Proof of \cref{thm:fembound}\\
   $\CLtboundt$&$2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMt$&Proof of \cref{thm:fembound}\\
-  $\CHoboundo$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundo + \Chighfn{1,2}\mright)$&Proof of \cref{thm:fembound}\\
-  $\CHoboundt$&$\Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright)$&Proof of \cref{thm:fembound}\\
-  $\CFEMLt$&$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
-  $\CFEMHo$&$ \Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\Cref{thm:fembound}\\
+  $\CHoboundo$&$\Amin^{\half}\Chighfn{1,1}\CLtboundo+\Chighmt$&Proof of \cref{thm:fembound}\\
+  $\CHoboundt$&$\Amin^{\half}\Chighfn{1,1}\CLtboundt$&Proof of \cref{thm:fembound}\\
+  $\CFEMLt$&$\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright) \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
+  $\CFEMHo$&$\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright)\max\set{\CHoboundo+\CLtboundo,\CHoboundt+\CLtboundt}$&\Cref{thm:fembound}\\
   $\CcorLt$&$\CFEMLt\mleft(\CFEMo+\CFEMt\mright)$&\Cref{cor:fembound}\\
   $\CcorHo$&$\CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$&\Cref{cor:fembound}\\
 \bottomrule

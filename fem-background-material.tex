@@ -908,7 +908,6 @@ and combinining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, 
 \subsection{Main finite-element-error bound}\label{sec:fembound}
 
 Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound} below, which we do via a series of lemmas.
-\comeback{
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
 Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
 \beq\label{eq:hfemcond}
@@ -916,14 +915,14 @@ h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mri
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
 \beq\label{eq:femltbound}
-\NLtD{u-\uh} \leq \CFEMLt \mleft(h \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh}, \tand
+\NLtD{u-\uh} \leq \CFEMLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \mleft(\Pfn{p-2}\mleft(\NLiD{n}\mright)h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh}, \tand
 \eeq
 \beq
-\NW{u-\uh} \leq \CFEMHo \mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},
+\NW{u-\uh} \leq \CFEMHo \CHoboundo  \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh},
 \eeq\label{eq:femhobound}
 where $\CFEMLt$, $\CFEMHo,$ and $\Chcond$ are given in \cref{app:constants}.
 \enth
-
+\comeback{
 From \cref{thm:fembound,lem:scottzhang} we have the following corollary, with $\CcorLt = \CFEMLt\mleft(\CFEMo+\CFEMt\mright)$ and $\CcorHo = \CFEMHo\mleft(\CFEMotilde+\CFEMttilde\mright)$
 
 \bco[Completely explicit FEM bound]\label{cor:fembound}
@@ -1189,29 +1188,14 @@ It only now remains to bound the weighted $H^1$ norm of the error. By \cref{lem:
 \SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
 &\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NW{\rho}\mright],\label{eq:sntheta}
 \end{align}
-\tohere
-THERE'S A BUG IN HERE SOMEWHERE, I'M MISSING A POWER OF $H$ IN THE SECOND TERM
-and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$)
-\begin{align*}
-\SNHoD{\thetah} &\leq \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \mleft(\CLtboundo \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CLtboundt  \CAnk (hk)^p\mright)
-\end{align*}
-\beqs
-\SNHoD{\thetah} \leq \mleft(\CHoboundo + \CHoboundt \CAnk k(hk)^p\mright)\NW{\rho},
-\eeqs
-where
-\beqs
-\CHoboundo = \Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundo + \Chighfn{1,2}\mright)\tand
-\eeqs
-\beqs
-\CHoboundt = \Amin^{\half} \mleft(\Chighfn{1,1}\CLtboundt\mright).
-\eeqs
-Therefore, by \cref{lem:ellprojerr,lem:bestapprox}, and the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}, where
-\beqs
-\CFEMLt = \Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}\tand
-\eeqs
-\beqs
-\CFEMHo = \Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}.
-\eeqs
+
+and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ and $\nvar,\NLiD{n} \geq 1$)
+\begin{align}
+\SNHoD{\thetah} &\leq
+\mleft[\CHoboundo  \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mright.\nonumber\\
+&\mleft.+\CHoboundt \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \CAnk k(hk)^p\mright]\NW{\rho}.\label{eq:hoboundwithrho}
+\end{align}
+Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{eq:ellprojerr} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
 \epf
 
 
