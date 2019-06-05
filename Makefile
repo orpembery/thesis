@@ -19,10 +19,10 @@ clean:
 
 supervisor:
 # Based on https://tex.stackexchange.com/a/1495
-	pdflatex  "\def\supervisorversion{1} \input{thesis.tex}" 
+	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 	bibtex thesis.aux
-	pdflatex  "\def\supervisorversion{1} \input{thesis.tex}"
-	pdflatex  "\def\supervisorversion{1} \input{thesis.tex}" 
+	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}"
+	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 
 	touch thesis.tex # This means next time I try and make the thesis, make runs
 

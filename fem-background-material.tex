@@ -480,7 +480,7 @@ Let $s \in \NNz.$ Under \cref{ass:highp}, there exists a constant $\Cwmso >0$ su
 \ele
 
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For \cref{it:wep1,it:wep2}, let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discretesob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+For \cref{it:wep1,it:wep2}, let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discsob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
 \beqs
 \IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
 \eeqs
@@ -491,7 +491,7 @@ If we take $v = w-\Ph w,$ then we can compute
 &\leq \CSZfn{s+2} \CAfn{s} \NLiDop{A} \NHfn{s}{D}{n\phi} h^{s+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}}\label{eq:ellprojwpart}
 \end{align}
 
-For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalgeq:nconv}, \cref{eq:ellprojwpart} is bounded above by
+For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalg,eq:nconv}, \cref{eq:ellprojwpart} is bounded above by
 \beq\label{eq:wep1pt0}
 \CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w}.
 \eeq
@@ -1115,7 +1115,7 @@ Using \cref{lem:wltdprojerr} we can bound the first of these terms by the second
 k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1}\Cwfn{0} \mleft(1+\CSZfn{0}\mright)\nvar^3\NLiD{n}\nmin^{1-m} h^{1-m}\NW{\rho}.
 \eeq
 Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\NLiD{n}, \nmin^{-1} \geq 1,$ and so $\En, \nvar \geq1$)  we have
-\tohere
+
 \beq\label{eq:readytorecurse}
 \Nfn{m,h}{\thetah} \leq \CRecofn{m} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \Nfn{m-1,h}{\thetah} + \CRect \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.
 \eeq
