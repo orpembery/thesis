@@ -1,22 +1,29 @@
-The results in this \namecref{sec:fem} are a generalisation of the results of \cite{DuWu:15} to the case of hetergenenous media; we also ensure our results are (in principle) explicit in $A$ and are explicit in $n,$ $k$, and $p.$
+We now prove our new error bounds for the higher-order finite-element approximation of the solution of the Helmholtz equation in heterogeneous media. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the differences that: (i) we modify some of the proofs to cater for the heterogeneity of the coefficients, and (ii) the dependence of our results on all of the constants involved is completely explicit. In particular our results are (in principle) explicit in $A$  and $p$ and are explicit in $n$ and $k$.
 
-We first recap a collection of results that will be needed for the error bounds that follow. All of these results are already available elsewhere, but we name the constants explicitly, so that what follows is, in principle, explicit in $k,$ $A$, and $n.$
+The proofs of our results have many parts, and appear technical, largely due to the burden of explicitly keeping track of all of the constants involved. However, in essence, the proof consists of two ideas:
+\ben
+\item Decompose the error $u-\uh = (u - \Ph u) + (\Ph u - \uh)$, where $\Ph u$ is an `elliptic projection' of $u$, and
+\item Bound the error $\Ph u - \uh$ in higher-order `discrete' norms.
+\een
 
-We assume throughout this section that were are working with degree-$p$ finite elements, for some integer $p \geq 1.$ Also, we work with a general impedance boundary (satisfying certain assumptions, listed below) and so our domain is $D$ rather than $\DR$.
+In order to use this notion of discrete norms, we develop a notion of discrete derivatives. Also, a number of different Galerkin projections (including the `elliptic projection' mentioned above) play a key role in the proofs, and so we prove error bounds for these projections. Our results also use best approximation results for the Helmholtz equation, and we prove these, following the techniques in \cite{ChNi:18a}, but ensuring that these results are explicit in all of the constants involved.
+\optodo{Put in structure summary once it's settled down.}
+As we are using higher-order finite elements (which we assume are of degree $p$), we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiD{n}$ in order to simplify our calculations.
+\optodo{Correct notation in variational formulation of TEDP}
 
-Throughout this section, we make the following additional \namecrefs{ass:highp}:
 \bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
+$k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1.$, and
 \bit
-\item $k \geq 1$
-\item $\Aij \in \CpmooDclos$ for all $i,j$
 \item $\GD$ and $\GI$ are $\Cpo$
-\item $\NLiD{n} \geq 1.$
-\item $\nmin \leq 1.$
+\item $\Aij \in \CpmooDclos$ for all $i,j$
 \item $n \in \LiD \cap \HmD \cap \CfloordtD.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
 \eas
+
+ALso, throughout this \namecref{sec:fem} we assume we are working with the finite-element space defined in \cref{def:fespace}, and that consequently \cref{lem:scottzhang} holds.
+
 
 Whilst the calculations in this \namecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}; that is, any constant introduced or defined in this \namecref{sec:fem} will be listed in \cref{app:constants}.
 
@@ -104,7 +111,7 @@ Also, we will require the following result on the multiplication of functions.
 \enth
 
 \bpf[Proof of \cref{thm:banachalg}]
-\Cref{it:ban1} is given in\optodo{Find ref}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
+\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
 \beqs
 \NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
 \eeqs
@@ -114,7 +121,7 @@ Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
 We first have this simple \namecref{lem:domainshift}:
 
 \ble\label{lem:domainshift}
-Let $\ftilde \in \HlD$ and $\gtilde \in \HlpoD,$ for $0 \leq l \leq p-1$. If $\utilde \in \HlptD$ solves
+Under \cref{ass:highp}, let $\ftilde \in \HlD$ and $\gtilde \in \HlpoD,$ for $0 \leq l \leq p-1$. If $\utilde \in \HlptD$ solves
 \beqs
 \grad \cdot \mleft(A\grad \utilde\mright) = -\ftilde,
 \eeqs
@@ -281,7 +288,7 @@ Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \eeqs
 And by induction and \cref{lem:domainshift} again, letting $\uosc = \rfn{p-1},$ we have \cref{eq:expansionuosc}. It is straightforward to see that $\rfn{p-1} + \sum_{j=1}^{p-2} \uj$ solves \cref{prob:tedp}, and therefore \cref{eq:expansionid} holds, as $u$ is unique.
 \epf
-%\optodo{Just a note while I think about it - could you do DtN boundary conditions in this proof by testing with a different function when wanting to bound the $L^2$ norm on the boundary? I wonder if testing with the NtD of $u$ would mean you end up with a $\LtGI{u}^2$ term, and then you could use properties of the NtD map to bound other bits. Might foil $k$-dependency though.}
+%\{Just a note while I think about it - could you do DtN boundary conditions in this proof by testing with a different function when wanting to bound the $L^2$ norm on the boundary? I wonder if testing with the NtD of $u$ would mean you end up with a $\LtGI{u}^2$ term, and then you could use properties of the NtD map to bound other bits. Might foil $k$-dependency though.}
 Using the expansion in \cref{thm:expansion}, we can prove the following error bound for the best approximation of $u$ in $\Vhp$:
 
 %% We also have the following best-approximation error in higer-order Sobolev spaces:
@@ -374,8 +381,7 @@ Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \V
 
 The elliptic projection obeys the following error bounds:
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
-\optodo{Check if this is still needed}
-For any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
+Under \cref{ass:highp}, for any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
 \beq\label{eq:ellprojerr}
 \NHmsD{w-\Ph w} \leq \Cmso h^{s+1} \BAHoD{w}{\wh}.
 \eeq
@@ -390,7 +396,7 @@ There exists $\CP > 0$ such that for all $v \in \HozDD$
 \ele
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
-Let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
+Under \cref{ass:highp}, let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
 \ben
 \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ and $n \in \HsD$ then
 \beq\label{eq:wep1}%\label{eq:ellprojerr}
@@ -448,7 +454,7 @@ since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1,$ and by a similar re
 For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:wep4}, performing a standard duality argument in \emph{non-weighted} norms (and then using \cref{eq:wep3}, yields \cref{eq:wep4}.
 \epf
 
-%% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\optodo{Check the original one is still needed.}
+%% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
 
 %% \ble[Error bounds for weighted elliptic projection in $n$-weighted norms]\label{lem:wellprojerrw}
 %% Let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
@@ -512,7 +518,7 @@ For \cref{it:wep3}, \cref{eq:wepcea} immediately gives the result. For \cref{it:
 
 The $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
-For any integer $s \in [0,p-1],$ for all $w \in \LtD$
+Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \LtD$
 \beqs
 \NHmsD{w-\Qh w} \leq \Cmsz h^{s} \BALtD{w}{\wh}.
 \eeqs
@@ -520,7 +526,7 @@ For any integer $s \in [0,p-1],$ for all $w \in \LtD$
 
 The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
-For any integer $s \in [0,p-1],$ for all $w \in \HozDD$
+Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
 \NHmsDn{w-\Qhn w} \leq \CSZfn{s} \frac{\NLiD{n}}{\nmin} h^{s} \BALtDn{w}{\wh}.
 \eeq
@@ -742,7 +748,7 @@ We have, using \cref{eq:feiptrans}, $\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Delta
 To prove \cref{lem:negdiscsum} on the relationship between discrete and continuous negative Sobolev normns, we require the following \namecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
 
 \ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
-Let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
+Under \cref{ass:highp}, let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
 \beq\label{eq:shiftnegativew}
 \NHnfn{-m}{D}{\sdsol\ftilde} \leq
 \begin{dcases}
@@ -758,7 +764,7 @@ Let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
 We first observe that the operator $\sdsolo$ is self-adjoint on $\LtD$: Let $\DeltaA:\HtD\rightarrow\LtD$ denote the stationary diffusion operator $\grad\cdot\mleft(A\grad\cdot\mright).$ Then for any $\vo \in \LtD,$ $\DeltaA \circ \sdsolo \vo = \vo.$ Moreover, by Green's Theorem, $\DeltaA$ is self-adjoint on the set $\set{v \in \HtD \st v \text{ satisfies }\cref{eq:sddbc,eq:sdnbc}},$ this set is contained in the image of $\sdsolo.$ Therefore, for any $\vo,\vt \in \LtD,$ we have
 \beqs
 \IPLtD{\sdsolo \vo}{\vt} =\IPLtD{\sdsolo \vo}{\DeltaA \circ \sdsolo \vt} = \IPLtD{\DeltaA \circ \sdsolo \vo}{\sdsolo \vt} = \IPLtD{\vo}{\sdsolo \vt},
-\eeqs\optodo{Check conditions to apply Green's theorem}
+\eeqs
 i.e., $\sdsolo$ is self-adjoint on $\LtD.$
 
 Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsol(nv) \in \HmptD.$ With these facts in place we can compute
@@ -797,11 +803,10 @@ For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms, $\NHoD{\
 
 We can now prove the following \namecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
-For any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
+Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
 \beqs
 \Nfn{j,h,n}{\vh} \leq \mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n}\Csumj \sum_{m=0}^j h^{m} \NHnfn{-(j-m)}{D}{\vh}.
 \eeqs
-\optodo{Update constants}
 \ele
 
 \bpf[Proof of \cref{lem:negdiscsum}]
@@ -909,7 +914,7 @@ and combinining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, 
 
 Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound} below, which we do via a series of lemmas.
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
-Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
+Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
 \beq\label{eq:hfemcond}
 h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
 \eeq
@@ -927,9 +932,8 @@ where $\CFEMLt$, $\CFEMHo,$ and $\Chcond$ are given in \cref{app:constants}.
 \enth
 
 From \cref{thm:fembound,lem:bestapprox} we have the following \namecref{cor:fembound}.
-\optodo{Propagate through $\Pfn{}$ coming out, it's done in the Coloolary below and theorem above.}
 \bco[Completely explicit FEM bound]\label{cor:fembound}
-Under the assumptions on \cref{thm:fembound},
+Under the assumptions of \cref{thm:fembound},
 \beqs
 \NLtD{u-\uh} \leq \CcorLt \nvar^3\NLiD{n}^3\nmin^{2-p} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
 \eeqs
@@ -962,6 +966,7 @@ Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,
 \epf
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
+Under the assumptions of \cref{thm:fembound}, we have
 \beq\label{eq:boundarybound}
 \NLtGI{\thetah}^2 \leq \Cboundaryo \mleft(\En\nvar\mright)^{2\mleft(\floor{\frac{p-1}2}+1\mright)}\NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h,n}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
 \eeq
@@ -1004,8 +1009,9 @@ By combining \cref{eq:thetaboundarypart,eq:Qhnrhosum,eq:rhothetamt} we have
 \eeq
 By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2$ term onto the left-hand side, we obtain \cref{eq:boundarybound}.
 \epf
+
 \ble[Bound on higher-order discrete norms of $\thetah$ by $\NLtD{\thetah}$]\label{lem:higherbound}
-For integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
+Under the assumptions of \cref{thm:fembound}, for integer $m \in [1,p]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
 \begin{align}
 \Nfn{m,h,n}{\thetah} &\leq \Chighmo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
 &\quad\quad+ \Chighmt \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.\label{eq:chigh}
@@ -1081,7 +1087,7 @@ Using \cref{eq:readytorecurse} recursively, and the facts that $\nmin^{-1} \geq 
 \epf
 
 \ble[Bound $\NLtDn{\thetah}$ by $\Nfn{p-1,h,n}{\thetah}$]\label{lem:ltthetahbound}
-There exist constants $\Cfirst, \Csecond > 0$ such that
+Under the assumptions of \cref{thm:fembound}, there exist constants $\Cfirst, \Csecond > 0$ such that
 \begin{align}
 \NLtD{\thetah}&\leq \mleft(\Cfirst\NW{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
 &\quad\quad\mleft(\CFEMotilde \Pfn{p-2}\mleft(\NLiD{n}\mright)h + \CFEMttilde \CAnk (hk)^p\mright)\label{eq:ltthetahbound}

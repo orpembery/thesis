@@ -338,7 +338,7 @@ h = \max_{\Ki} \diam{\Ki}.
 \bde[Set of polynomials]
 For $K \subseteq \RRd,$ $\polyp{K}$ is the set of polynomials defined on $K$ with total degree at most $p.$
 \ede
-    \bde[Finite element space of degree $p$]
+    \bde[Finite element space of degree $p$]\label{def:fespace}
     Given a triangulation $\set{\Ki}$ with mesh size $h$ of a domain $D$, the \defn{(continuous) piecewise-polynomial finite-element space of degree $p$} associated with $\set{\Ki}$ is
     \beqs
 \Vhp \de \set{\vh : D \rightarrow \CC \st \vh \in \CzD \tand \vh\restrict_{\Ki} \in \polyp{\Kiclos} \tforall \Ki }.
@@ -350,7 +350,7 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     The following \namecref{lem:scottzhang} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
 
     \ble[Existence of quasi-interpolant]\label{lem:scottzhang}
-    Let $p \geq 1$ and let $v \in \HsD.$ Then there exist a constant $\CSZs>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
+    Let $v \in \HsD$ and $p \in \set{1,\ldots,s}$. Then there exist a constant $\CSZs>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
     \beqs
 \NLtD{v - \vhptilde} \leq \CSZs h^s \NHsD{v}
     \eeqs
