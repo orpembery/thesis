@@ -1,0 +1,8 @@
+Using bounds on layer potentials
+
+Should list both f and gI bits
+
+Euan has decent overview - p2994ff
+Feng and Sheen - square/cube - Thm 3.6, 4.7
+Esterhazy Melenk - Thm 2.4
+Spence - Thm 1.6
