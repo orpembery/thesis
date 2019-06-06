@@ -1,0 +1,7 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+For Shift Theorem in negative norms:
+Mazya 11 - Section 1.8.1 Theorem - about L^\infty Banach Algebra stuff
+McLean Theorem 3.20 - will do for the case H^1 (Would need n \in C^1, but if n is in a high enough Sobolev space, then it'll probably be in C^1)
