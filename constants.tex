@@ -1,0 +1,68 @@
+To summarise the constants used in \cref{sec:fem}, we use the following table, where the constants are given in logical order (i.e., constants lower in the table will only depend on constants higher in the table\ednote{This isn't the case yet.}). As well as giving the definitions of the constants, we also state the place (Theorem, Lemma, etc.) where they are defined. If a constant is not defined in terms of other constants, but rather is given in the statement of a Theorem or Lemma, then the `Definition' column is left blank.
+
+\begin{longtabu}{ccc}
+  \toprule
+  Constant & Definition & Defined/Introduced\\
+  \midrule
+  \endhead
+  $\CintAl$ & ---& \cite[Theorem 4.16]{Mc:00}\\
+  $\CscatAl$ & ---& \cite[Theorem 4.18(i)]{Mc:00}\\
+    $\CtruncAl$ & ---& \cite[Theorem 4.18(ii)]{Mc:00}\\
+  $\CAl$ & $\CintAl + \CscatAl + \CtruncAl.$ & \cref{thm:shift}\\
+  $\Cmclean{m}$&---&\cite[Theorem 3.20]{Mc:00}\\ 
+  $\Cprod{m}$ &$1+\Cmclean{m}$&\cref{thm:banachalg} \\
+  $\CAnk$ &---& \cref{ass:htwo}\\
+  $\Cfg$ &---& \cref{ass:htwo}\\
+  $\CTrs$ &---& \cref{thm:trace}\\
+  $\CBanfn{s}$ & --- & \cref{thm:banachalg}\\
+  $\Cej$ & $\mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1}$ ($j \geq 1$); $\max\set{1,\CAz}$ ($j=0$)& \cref{thm:expansion}\\
+  $\Pj$ & See \cref{eq:p}& \cref{thm:expansion}\\
+%  $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
+  $\Cosc$ & $\Cefn{p-1}/\max\set{1,\CAz}$ & \cref{thm:expansion}\\
+  $\CSZs$ &---& \cref{lem:scottzhang}\\
+  $\Cshiftfn{m}$ &$\CAfn{m}\CBanfn{m}$ if $ m \in (d/2,p-1]$& \cref{lem:shiftnegativew}\\
+    $\Cshiftfn{m}$ &$2\CAfn{m}\Cprod{m}$ if $m \in [1,d/2]$& \cref{lem:shiftnegativew}\\
+      $\Cshiftfn{0}$ &$\CAfn{m}$& \cref{lem:shiftnegativew}\\
+            $\Cshiftfn{-1}$ &$1/\Amin$& \cref{lem:shiftnegativew}\\
+  $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2}\Cefn{j} $ & \cref{lem:bestapprox}\\
+  $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
+  $\Cmso$ &$\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (\frac{d}2,p-1]$& \cref{lem:ellprojerr} \\
+  $\Cmso$ &$\frac{4\CSZfn{s+2}\CAfn{s}\Cprod{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (1,\frac{d}2]$& \cref{lem:ellprojerr} \\
+  $\Cfn{-1,1}$ &$\frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}$& \cref{lem:ellprojerr} \\
+  $\Cfn{0,1}$ &$\frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin}$& \cref{lem:ellprojerr} \\
+  $\Cwmso$ &$\CSZfn{m+2}\CAfn{m}\CBanfn{m}\frac{\NLiDop{A}^2}{\Amin}$& \cref{lem:ellprojerr} \\
+  $\CinvVhp$ &---& \cref{lem:inverseinequality}\\
+  $\Chinv$ & $\CinvVhp \NLiDop{A}^{1/2}$ & \cref{lem:inversediscrete}\\
+  $\Cm$ & $\Cwfn{-m,1}  \CAfn{0} \CSZfn{2}$ & Proof of \cref{lem:negdiscsum}\\
+  $\Efn{m,t}$ & See \cref{eq:Emt1,eq:Emt2,eq:Emt3} & Proof of \cref{lem:negdiscsum}\\
+  $\Etildefn{m,t}$ & See \cref{eq:Etilde1,eq:Etilde3,eq:Etilde4} & Proof of \cref{lem:negdiscsum}\\
+  $\Csumj$ &$\max_{m \in \set{0,\ldots,l}}\set{\Efn{m,l},\frac{\mleft(1+\Cfn{1,1}\mright)\NLiDop{A}}{\Amin}\Etildefn{m,l}}$ & Proof of \cref{lem:negdiscsum}\\
+  $\Ctildemin$&---&\cref{thm:fembound}\\
+  $\Chcond$ & $\frac1{4^{2p}} \mleft(\Csecond\Chighfn{p-1,1}\mright)^{-\frac1{2p}} \min\set{\CFEMo^{-\frac1{2p}},\CFEMt^{-\frac1{p+1}}}$ & \cref{thm:fembound}\\
+  $\CFEMLt$ &$\Cfn{-1,1} \max\set{\CLtboundo,\CLtboundt}$&\cref{thm:fembound}\\
+  $\CFEMHo$ &$\Cfn{-1,1}\max\set{\CHoboundo,\CHoboundt}$&\cref{thm:fembound}\\
+  $\Cmess$ &$\Csumpmo \mleft(\sum_{m=0}^{p-1} \CSZfn{(p-1-m)} \Cwfn{0} + \Cwfn{-(p-1-m)}\mright)$&Proof of \cref{lem:boundarybound}\\
+  $\CMT$ &---&\cref{thm:multiplicativetrace}\\
+  $\Cboundaryo$ & $\Cmess^2$ & \cref{lem:boundarybound} \\
+  $\Cboundaryt$ & $1 + \CMT^2 \Cfn{0,1}$ & \cref{lem:boundarybound}\\
+  $\CBo$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryo^{\half} \Chinv^{p-m}$&Proof of \cref{lem:higherbound}\\
+  $\CBt$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryt^{\half}$&Proof of \cref{lem:higherbound}\\
+  $\CBth$&$\CMT^2 \CinvVhp^{\half} \Chinv^{m-1}\Cfn{0,1}^{\half}$&Proof of \cref{lem:higherbound}\\
+  $\CRecofn{m}$&$\sqrt{\frac32} + \CBo^{\half} + \frac{\CBt^{\half}}{\sqrt{2}}+ \frac{\CBth^{\half}}{\sqrt{2}}$&Proof of \cref{lem:higherbound}\\
+  $\CRect$&$\frac1{\sqrt{2}}\Chinv^{m-1}\Cwfn{0}\mleft(1+\CSZfn{0}\mright)+1$&Proof of \cref{lem:higherbound}\\
+  $\Chighmo$ & 2$\prod_{j=1}^m\CRecofn{j}$&Proof of \cref{lem:higherbound}\\
+  $\Chighmt$ &$\sum_{j=1}^{m} \mleft(\prod_{l=j+1}^m \CRecofn{l}\mright) \CRect$&Proof of \cref{lem:higherbound}\\
+  $\Cfourteen$ &$\Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cfn{0,1} + \Cwfn{p-1-m} \Cfn{-1,1}\mright)$&Proof of \cref{lem:ltthetahbound}\\
+  $\Cfirst$ &$\Cc\mleft(\Cfn{0,1} + 2\Cfn{1,1}\mright) + \CMT \CinvVhp \Cfn{0,1} \Cboundaryt^{\half} + \Cfn{0,1}$&Proof of \cref{lem:ltthetahbound}\\
+    $\Csecond$ &$\Cfourteen  + \CMT \CinvVhp \Cfn{0,1}\Cboundaryo^{\half}$&Proof of \cref{lem:ltthetahbound}\\
+  $\CLtboundo$&$ 2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMo$&Proof of \cref{thm:fembound}\\
+  $\CLtboundt$&$2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMt$&Proof of \cref{thm:fembound}\\
+  $\CHoboundo$&$\Amin^{\half}\Chighfn{1,1}\CLtboundo+\Chighmt$&Proof of \cref{thm:fembound}\\
+  $\CHoboundt$&$\Amin^{\half}\Chighfn{1,1}\CLtboundt$&Proof of \cref{thm:fembound}\\
+  $\CFEMLt$&$\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright) \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
+  $\CFEMHo$&$\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright)\max\set{\CHoboundo+\CLtboundo,\CHoboundt+\CLtboundt}$&\Cref{thm:fembound}\\
+  $\CcorLt$&$4\CFEMLt\max\set{\CFEMo.\CFEMt}$&\Cref{cor:fembound}\\
+  $\CcorHo$&$8\CFEMHo\max\set{\CFEMo.\CFEMt}$&\Cref{cor:fembound}\\
+  $\Cc$&$2\max\set{\NLiDop{A},1,\frac{\CMT^2}2}$&\cref{lem:continuity}\\
+\bottomrule
+\end{longtabu}
