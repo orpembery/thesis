@@ -296,7 +296,7 @@
 \newcommand{\Cboundaryfn}[1]{\Cfn{\mathrm{boundary},#1}}
 \newcommand{\Cboundaryo}{\Cboundaryfn{1}}
 \newcommand{\Cboundaryt}{\Cboundaryfn{2}}
-\newcommand{\Cmess}{\Cfn{\mathrm{mess}}}
+\newcommand{\Cmess}{\Cfn{\labelcref{lem:boundarybound}}}
 \newcommand{\CMT}{\Cfn{\mathrm{MT}}}
 \newcommand{\Csumpmo}{\Cfn{\mathrm{sum},p-1}}
 \newcommand{\Chighfn}[1]{C_{\mathrm{high},#1}}
@@ -307,7 +307,9 @@
 \newcommand{\CBth}{\Cfn{B,3}}
 \newcommand{\CRecfn}[1]{\Cfn{\mathrm{Rec},#1}}
 \newcommand{\CRecofn}[1]{\CRecfn{1,#1}}
+\newcommand{\CRectfn}[1]{\CRecfn{2,#1}}
 \newcommand{\CRect}{\CRecfn{2}}
+\newcommand{\CReco}{\CRecfn{1}}
 \newcommand{\Cfirst}{\Cfn{\mathrm{first}}}
 \newcommand{\Csecond}{\Cfn{\mathrm{second}}}
 \newcommand{\Cc}{\Cfn{\mathrm{C}}}
@@ -329,12 +331,14 @@
 \newcommand{\CSZs}{\CSZfn{s}}
 \newcommand{\Cefn}[1]{C_{\mathrm{expansion},#1}}
 \newcommand{\Cej}{\Cefn{j}}
-\newcommand{\CBanfn}[1]{\Cfn{\mathrm{Banach},#1}}
+\newcommand{\CBanfn}[1]{\Cfn{\mathrm{mult},1,#1}}
 \newcommand{\Cshiftfn}[1]{\Cfn{\mathrm{shift},-#1}}
+\newcommand{\Cshiftz}{\Cfn{\mathrm{shift},0}}
+\newcommand{\Cshiftmo}{\Cfn{\mathrm{shift},1}}
 \newcommand{\Cwfn}[1]{\Cfn{\mathrm{weight},#1}}
 \newcommand{\Cwmso}{\Cwfn{-s,1}}
 %\newcommand{\Ccomprfn}[1]{\Cfn{\mathrm{comp},#1}}
-\newcommand{\Cprod}[1]{\Cfn{\mathrm{prod},#1}}
+\newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
 \newcommand{\Cmclean}[1]{\Cfn{H^{#1},\mathrm{prod}}}
 \newcommand{\CP}{\Cfn{\mathrm{P}}}
 \newcommand{\errn}[1]{\cE_{n,#1}}
