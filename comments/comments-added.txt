@@ -1,2 +1,2 @@
-2019-05-10-ivan - added comments up to start of major lit review section, and comments on FEM stuff. I.e., all his comments apart from stuff on major lit review.
-2019-05-13-euan - added up to eqn 2.4
+2019-05-10-ivan - done.
+2019-05-13-euan - added up to end of lit review on bounds
