@@ -383,16 +383,15 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
 
     The following \namecref{lem:scottzhang} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
 \optodo{Figure out exactly why you need a simplical mesh (is it to ensure you get $C^0$ elements?) and then put this assumption in.}
-    \ble[Existence of quasi-interpolant]\label{lem:scottzhang}
+    \ble[Existence of best approximation]\label{lem:scottzhang}
     Let $v \in \HsD$, $s \geq 1,$ and $p \in \set{1,\ldots,s}$. Then there exist a constant $\CSZs>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
 
     \beqs
 \NLtD{v - \vhptilde} \leq \CSZs h^s \NHsD{v}
     \eeqs
-    and
+     and
     \beqs
 \NHoD{v - \vhptilde} \leq C h^{s-1} \NHsD{v} \tfor s \geq 1.
-
     \eeqs
     \ele
 
@@ -476,7 +475,7 @@ We first contrast the Helmholtz equation with the stationary diffusion equation 
 
 However, proving quasi-optimality for the Helmholtz equation is more tricky; C\'ea's Lemma relies on the coercivity of the sesquilinear form, and the sesquilinear forms arising from standard discretisations of the Helmholtz equation are not coercive for large $k$. Therefore, to prove quasi-optimality, one instead uses the Aubin--Nitsche duality argument. It was first introduced by Aubin \cite{Au:67} and Nitsche \cite{Ni:68} for coercive problems, and applied to problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74}.
 
-The Aubin--Nitsche arument was first used for Helmholtz problems by Melenk in his PhD thesis \cite[Proposition 8.2.7]{Me:95}, he proved that the finite-element method for the Helmholtz equation is quasi-optimal under the very restrictive mesh condition\footnote{Observe that for large values of $k,$ the mesh condition $hk^2$ is sufficiently small is prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-D.} $hk^2$ is sufficiently small. Graham and Sauter \cite[Remark 4.4 b.]{GrSa:18} and Galkowski, Spence, and Wunsch \cite[Theorem 3]{GaSpWu:18} have obtained analogous conditions for first-order finite elements for the IIP \cite{GrSa:18} and the EDP \cite{GaSpWu:18} respectively.
+The Aubin--Nitsche arument was first used for Helmholtz problems by Melenk in his PhD thesis \cite[Proposition 8.2.7]{Me:95}, he proved that the finite-element method for the Helmholtz equation is quasi-optimal under the very restrictive mesh condition\footnote{Observe that for large values of $k,$ the mesh condition $hk^2$ is sufficiently small is prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-D.} $hk^2$ is sufficiently small. Graham and Sauter \cite[Remark 4.4 b.]{GrSa:18} and Galkowski, Spence, and Wunsch \cite[Theorem 3]{GaSpWu:18} have obtained analogous conditions for first-order finite elements for the IIP \cite{GrSa:18} and the EDP \cite{GaSpWu:18} respectively. A modification of the Aubin--Nitsche argument is used by Chaumont-Frelet and Nicaise \cite[Lemmas 1 and 2]{ChNi:18a} to obtain quasi-optimality results for higher-order finite elements for general wave propagation problems in heterogeneous and homogeneous media.
 
 In conclusion, the error for the finite-element method for Helmholtz problems is bounded if $h^{2p}k^{2p+1}$ is sufficiently small, and the finite-element method is quasi-optimal if $hk^2$ is sufficiently small (for first-order finite elements). We  now prove analagous results on the boundedness of the error for heterogeneous Helmholtz problems.\optodo{Check what Theo did, and whether anyone has done qo for higher-order elements.}
 

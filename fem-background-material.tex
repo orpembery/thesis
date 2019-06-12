@@ -12,10 +12,10 @@ As we are using higher-order finite elements (which we assume are of degree $p$)
 \optodo{Correct notation in variational formulation of TEDP}
 
 \bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
-Assume $k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1.$, and
+Assume
 \bit
 \item $\GD$ and $\GI$ are $\Cpo$
-\item $\Aij \in \CpmooDclos$ for all $i,j$
+\item $\Aij \in \CpmooDclos$ for all $i,j$, and
 \item $n \in \LiD \cap \HmD \cap \CfloordtD.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
@@ -33,6 +33,12 @@ k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \Cfg,
 \eeq
 where $\Cfg \de \NLtD{f} + \NLtGI{\gI}$.
 \eas
+
+Finally, we make the following \lcnamecref{ass:convenient} to simplify the proofs in this section. \Cref{ass:convenient} is by no means necessary, but greatly simplifies the proofs.
+
+\bas[Assumptions for convenience of proofs]\label{ass:convenient}
+Assume: $k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1$, $hk \leq 1$, and there exists $\Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin.$
+\eas
 %Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
 
 We define the following quantities, that we use to simplify the expressions involving $n$:
@@ -47,33 +53,32 @@ and
 The quantity $\En$ arises from bounds on the `elliptic projection' mentioned above in weighted norms, see \cref{lem:ellprojerrw} below.
 
 Our main \lcnamecref{thm:fembound} and \lcnamecref{cor:fembound} are the following:
-
+\optodo{Put somewhere that $\Condn(n) = \Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}}$.}
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
-Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo}, if $hk \leq 1,$ and if there exists $\Ctildemin > 0$ independent of $k$ such that $\CAnk k \geq \Ctildemin,$ then there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$ and $k$ such that if
+Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo,ass:convenient}, there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$, $k$ and $n$, and a function $\Condn(n) >0$ (independent of $h$ and $k$) such that if
 \beq\label{eq:hfemcond}
-h \leq \Chcond k^{-1-\frac1{2p}} \CAnk^{-\frac1{2p}}\Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
+h \leq \Chcond \Condn(n) \CAnk^{-\frac1{2p}}k^{-1-\frac1{2p}},
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
-\begin{align}
-\NLtD{u-\uh} &\leq \CFEMLt \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
-&\quad\quad\mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
-\end{align}
+\beq
+\NLtD{u-\uh} \leq \CFEMLt\CLtn(n) \mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
+\eeq
 and
-\begin{align}
-\NW{u-\uh} &\leq \CFEMHo \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
-&\quad\quad\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh}.\label{eq:femhobound}
-\end{align}
+\beq
+\NW{u-\uh} \leq \CFEMHo \CHon(n)\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh}.\label{eq:femhobound}
+\eeq
 \enth
-
+\optodo{Make a Corollary about QO, and say this is just what Theo and Serge have, but with explicitness in the coefficients.}
+\optodo{$\CLtn = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)$}
+\optodo{$\CHon = \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\CLtn$}
 \bco[Higher-order-finite-element bound]\label{cor:fembound}
 Under the assumptions of \cref{thm:fembound},
 \beqs
-\NLtD{u-\uh} \leq \CcorLt \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
+\NLtD{u-\uh} \leq \CcorLt \CLtn(n)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
 \eeqs
-\begin{align*}
-\NW{u-\uh} &\leq \CcorHo \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\\
-&\quad\quad\mleft(h + \CAnk (hk)^p + \CAnk^2 (hk)^{2p}\mright)\Cfg.
-\end{align*}
+\beqs
+\NW{u-\uh} \leq \CcorHo \CHon(n)\mleft(h + \CAnk (hk)^p + \CAnk^2k (hk)^{2p}\mright)\Cfg.
+\eeqs
 \eco
 
 
