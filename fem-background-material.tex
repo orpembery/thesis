@@ -468,14 +468,14 @@ Let $m \in \NNz.$ Under \cref{ass:highp}, there exists a constant $\Cwmm >0$ suc
 \NHnfn{-m}{D}{w-\Ph w} \leq \Cwmm \errn{m} h^{m+1} \BAHoDn{w}{\wh},
 \eeqs
 where
-\beqs
+\beq\label{eq:errn}
 \errn{m} =
 \begin{dcases}
 \frac{\NHsD{n}}{\nmin^2}\nvar &\tif m \in \mleft(\frac{d}2,p-1\mright)\\
 \frac{\NWsiD{n}}{\nmin^2}\nvar &\tif m \in \mleft[1,\frac{d}2\mright]\\
 \nvar &\tif m = -1,0.
 \end{dcases}
-\eeqs
+\eeq
 %% \ben
 %% \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
 %% \beq\label{eq:wep1}%\label{eq:ellprojerr}
@@ -497,7 +497,7 @@ where
 \ele
 
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For \cref{it:wep1,it:wep2}, let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discsob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+For the case $m \geq 1$, let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discsob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
 \beqs
 \IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
 \eeqs
@@ -508,7 +508,7 @@ If we take $v = w-\Ph w,$ then we can compute
 &\leq \CSZfn{s+2} \CAfn{s} \NLiDop{A} \NHfn{s}{D}{n\phi} h^{s+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}}\label{eq:ellprojwpart}
 \end{align}
 
-For \cref{it:wep1}, $s > d/2,$ and so by \cref{thm:banachalg,eq:nconv}, \cref{eq:ellprojwpart} is bounded above by
+For $m > d/2,$ and so by \cref{thm:banachalg,eq:nconv}, \cref{eq:ellprojwpart} is bounded above by
 \beq\label{eq:wep1pt0}
 \CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w}.
 \eeq
@@ -523,15 +523,15 @@ Applying C\'ea's Lemma to $\Ph$ in the $n$-weighted $H^1$ norm, we find
 \NHoDn{w-\Ph w} \leq \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}\nvar\BAHoDn{w}{\wh},
 \eeq
 as $\Ph$ corresponds to a sesquilinear form that is bounded with constant $\NLiDop{A}/\nmin$ and coercive with constant $\mleft(\Amin\min\set{1,1/\CP}\mright)/\mleft(2\NLiD{n}\mright)$ in the $n$-weighted $H^1$ norm.
-and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:wep1}.
+and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn} in the case $m > d/2$.
 
-For \cref{it:wep2}, the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
+For $s \in [1,d/2],$ the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 \beq\label{eq:wep2pt1}
 2\CSZfn{s+2} \CAfn{s} \Cprod{s} \NLiDop{A} \frac{\NWsiD{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w},
 \eeq
-(since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:wep2}.
+(since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:errn}, in the case $m \in [1,d/2]$.
 
-For \cref{it:wep4}, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:wep4}. For \cref{it:wep3}, \cref{eq:wepcea} immediately gives \cref{eq:wep3}. 
+For the case $m=0,$, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:errn}. For $m=-1,$, \cref{eq:wepcea} immediately gives \cref{eq:errn}. 
 \epf
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
