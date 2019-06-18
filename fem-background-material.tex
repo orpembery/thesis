@@ -463,25 +463,37 @@ Under \cref{ass:highp}, for any integer $s \in [-1,p-1],$ there exists a constan
 
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
-Let $s \in \NNz.$ Under \cref{ass:highp}, there exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
-\ben
-\item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
-\beq\label{eq:wep1}%\label{eq:ellprojerr}
-\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
-\eeq
-\item\label[itempart]{it:wep2} If $s \in [2,d/2]$ then
-\beq\label{eq:wep2}
-\NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
-\eeq
-\item\label[itempart]{it:wep4} For $s = 0$
-\beq\label{eq:wep4}
-\NLtDn{w-\Ph w} \leq \Cwz \nvar h \BAHoDn{w}{\wh}.
-\eeq
-\item\label[itempart]{it:wep3}Also, we have
-\beq\label{eq:wep3}
-\NHnfn{1}{D}{w-\Ph w} \leq \Cwo\nvar \BAHoDn{w}{\wh}.
-\eeq
-\een
+Let $m \in \NNz.$ Under \cref{ass:highp}, there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
+\beqs
+\NHnfn{-m}{D}{w-\Ph w} \leq \Cwmm \errn{m} h^{m+1} \BAHoDn{w}{\wh},
+\eeqs
+where
+\beqs
+\errn{m} =
+\begin{dcases}
+\frac{\NHsD{n}}{\nmin^2}\nvar &\tif m \in \mleft(\frac{d}2,p-1\mright)\\
+\frac{\NWsiD{n}}{\nmin^2}\nvar &\tif m \in \mleft[1,\frac{d}2\mright]\\
+\nvar &\tif m = -1,0.
+\end{dcases}
+\eeqs
+%% \ben
+%% \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
+%% \beq\label{eq:wep1}%\label{eq:ellprojerr}
+%% \NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
+%% \eeq
+%% \item\label[itempart]{it:wep2} If $s \in [2,d/2]$ then
+%% \beq\label{eq:wep2}
+%% \NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NWsiD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
+%% \eeq
+%% \item\label[itempart]{it:wep4} For $s = 0$
+%% \beq\label{eq:wep4}
+%% \NLtDn{w-\Ph w} \leq \Cwz \nvar h \BAHoDn{w}{\wh}.
+%% \eeq
+%% \item\label[itempart]{it:wep3}Also, we have
+%% \beq\label{eq:wep3}
+%% \NHnfn{1}{D}{w-\Ph w} \leq \Cwo\nvar \BAHoDn{w}{\wh}.
+%% \eeq
+%% \een
 \ele
 
 \bpf[Proof of \cref{lem:ellprojerrw}]
@@ -915,7 +927,7 @@ where we define the $\Efn{m,t}$ inductively by
 \begin{align}
 \label{eq:Emt1}\Efn{0,0} &=1\\
 \label{eq:Emt2}\Efn{m,t} &= \Cshiftfn{2(t-1-m)} \Efn{m,t-1} \tfor 0 \leq m \leq t-1 \quad\tand\\
-\label{eq:Emt3}\Efn{t,t} &= \sum_{m=0}^{t-1} \Cfn{2(t-1-m)} \Efn{m,t-1}.
+\label{eq:Emt3}\Efn{t,t} &= \sum_{m=0}^{t-1} \Csumrecfn{2(t-1-m)} \Efn{m,t-1}.
 \end{align}
 To see this recurrence, we prove the inductive step: suppose
 \beqs
@@ -924,7 +936,7 @@ To see this recurrence, we prove the inductive step: suppose
 Then using \cref{eq:lrecursion}, we have
 \begin{align*}
 \Nfn{-2l,h,n}{\vh} &\leq \mleft(\En\nvar\mright)^{t-1}\sum_{m=0}^{t-1} \Efn{m,t-1} h^{2m} \mleft(\Cshiftfn{2(t-1-m)}\shiftn{2(t-1-m)} \NHnfn{-(2(t-1-m)+2}{D}{\Deltah^{-l+t} \vh}\mright.\\
-&\quad\quad\mleft.+ \Cfn{2(t-1-m)} \errn{2(t-1-m)} \nvar h^{2(t-1-m)+2} \NLtDn{\Deltah^{-l+t} \vh}\mright),
+&\quad\quad\mleft.+ \Csumrecfn{2(t-1-m)} \errn{2(t-1-m)} \nvar h^{2(t-1-m)+2} \NLtDn{\Deltah^{-l+t} \vh}\mright),
 \end{align*}
 which upon rearranging, and using the fact that $\shiftn{2(t-1-m)} \leq \errn{2(t-1-m)}$ and $\nvar \geq 1,$ yields \cref{eq:evenrecursivesum}, with the recurrence \cref{eq:Emt1,eq:Emt2,eq:Emt3}.
 
@@ -957,10 +969,10 @@ Similarly to \cref{eq:evenrecursivesum}, one can use \cref{eq:lrecursion} recurs
 where  we define the $\Etildefn{m,t}$ inductively, for $t \in [0,l]$ by
 \begin{align}
 \label{eq:Etilde1}\Etildefn{0,0} &= 1\\
-%\label{eq:Etilde2}\Etildefn{1,1} &= \Cfn{1}\\
+%\label{eq:Etilde2}\Etildefn{1,1} &= \Csumrecfn{1}\\
 \label{eq:Etilde3}\Etildefn{0,t} &= \Etildefn{0,t-1}\Cshiftfn{2(t-1)+1)}\\
 \label{eq:Etilde4}\Etildefn{m,t} &= \Etildefn{m,t-1}\Cshiftfn{2(t-1-m)}\tfor m = 1,\ldots,t-1\\
-\label{eq:Etilde5}\Etildefn{t,t} &= \Cfn{2(t-1)+1} + \sum_{m=0}^{t-1}\Etildefn{m,t-1}\Cfn{2(t-1-m)}.\\
+\label{eq:Etilde5}\Etildefn{t,t} &= \Csumrecfn{2(t-1)+1} + \sum_{m=0}^{t-1}\Etildefn{m,t-1}\Csumrecfn{2(t-1-m)}.\\
 \end{align}
 To show \cref{eq:oddrecursive,eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}, observe that \cref{eq:Etilde1} is immediate; we now show \cref{eq:oddrecursive,eq:Etilde3,eq:Etilde4,eq:Etilde5} by induction: suppose %\cref{eq:oddrecursive} holds for $t-1,$ then
 \beqs
@@ -969,11 +981,11 @@ To show \cref{eq:oddrecursive,eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}, obse
 Then
 \begin{align*}
 \NHnfn{m}{D}{\Deltah^{-l}\vh} \leq& \mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1} \mleft(\Cshiftfn{2(t-1)+1} \shiftn{2(t-1)+1}\NHnfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\mright.\\
-&\hphantom{\mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1}}\quad\quad\mleft.+\Cfn{2(t-1)t+1} \errn{2(t-1)+1}\nvar h^{2t+1} \NLtDn{\Deltah^{-l + t}\vh}\mright)\\
-&\quad\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \mleft(\Cshiftfn{2(t-1-m)} \shiftn{2(2-1-m)}\NHnfn{-2(t-1-m)}{D}{\Deltah^{-l + t}\vh}\mright.\\
-&\mleft.\hphantom{\quad\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1}}\quad\quad+ h^{2(t-m)} \Cfn{2(t-1-m)}\errn{2(t-1-m)}\nvar \NLtDn{\Deltah^{-l + t}\vh}\mright)\\
+&\hphantom{\mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1}}\quad\quad\mleft.+\Csumrecfn{2(t-1)t+1} \errn{2(t-1)+1}\nvar h^{2t+1} \NLtDn{\Deltah^{-l + t}\vh}\mright)\\
+&\quad\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \mleft(\Cshiftfn{2(t-1-m)} \shiftn{2(t-1-m)}\NHnfn{-2(t-1-m)}{D}{\Deltah^{-l + t}\vh}\mright.\\
+&\mleft.\hphantom{\quad\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1}}\quad\quad+ h^{2(t-m)} \Csumrecfn{2(t-1-m)}\errn{2(t-1-m)}\nvar \NLtDn{\Deltah^{-l + t}\vh}\mright)\\
 %% &= \Etildefn{0,t-1} \CAfn{2t-1} \NHfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\\
-%% &\quad\quad+ \mleft(\Cfn{2t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1}\CAfn{2(t-1-m)}\mright) h^{2t+1}\NLtD{\Deltah^{-l + t}\vh}\\
+%% &\quad\quad+ \mleft(\Csumrecfn{2t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1}\CAfn{2(t-1-m)}\mright) h^{2t+1}\NLtD{\Deltah^{-l + t}\vh}\\
 %% &\quad\quad+ \sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \CAfn{2(t-1-m)}\NHfn{-2(t-m)}{D}{\Deltah^{-l + t}\vh},
 \end{align*}
 and rearranging, and using the facts that $\shiftn{m} \leq \errn{m}$ for all $m$ and $\nvar \geq 1,$ we obtain \cref{eq:oddrecursive} with the constants $\Etildefn{m,t}$ given by \cref{eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}. Therefore, we conclude that if $j = 2l+1$

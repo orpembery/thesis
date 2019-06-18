@@ -287,9 +287,9 @@
 \newcommand{\Chinv}{C_{\mathrm{disc},\mathrm{inv}}}
 \newcommand{\Cmmo}{\Cmsofn{-m}}
 \newcommand{\Cinterpt}{\Cinterpfn{2}}
-\newcommand{\Cmfn}[1]{C_{#1}}
-\newcommand{\Cm}{\Cmfn{m}}
-\newcommand{\Cfn}[1]{\Cmfn{#1}}  
+%\newcommand{\Cmfn}[1]{C_{#1}}
+\newcommand{\Cm}{\Csumrecfn{m}}
+\newcommand{\Cfn}[1]{C_{#1}}  
 \newcommand{\CFEMLt}{\CFEMfn{L^{2}}}
 \newcommand{\CFEMfn}[1]{C_{\mathrm{FEM},#1}}
 \newcommand{\CFEMHo}{\CFEMfn{H^{1}}}
@@ -337,6 +337,7 @@
 \newcommand{\Cshiftz}{\Cfn{\mathrm{shift},0}}
 \newcommand{\Cshiftmo}{\Cfn{\mathrm{shift},1}}
 \newcommand{\Cwfn}[1]{\Cfn{\mathrm{weight},#1}}
+\newcommand{\Cwmm}{\Cwfn{-m}}%,1}}
 \newcommand{\Cwmso}{\Cwfn{-s}}%,1}}
 \newcommand{\Cwz}{\Cwfn{0}}
 \newcommand{\Cwo}{\Cwfn{1}}
@@ -344,16 +345,18 @@
 \newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
 \newcommand{\Cmclean}[1]{\Cfn{H^{#1},\mathrm{prod}}}
 \newcommand{\CP}{\Cfn{\mathrm{P}}}
-\newcommand{\errn}[1]{\cCfn{\mathrm{shift},#1}\mleft(n\mright)}
-\newcommand{\En}{\cCfn{\mathrm{shift}}\mleft(n\mright)}
+% Why is this defined like this?
+\newcommand{\errn}[1]{\cCfn{\mathrm{err},#1}\mleft(n\mright)}
+\newcommand{\En}{\cCfn{\mathrm{err}}\mleft(n\mright)}
 \newcommand{\cCfn}[1]{\cC_{#1}}
-\newcommand{\shiftn}[1]{\cR_{n,#1}}
-\newcommand{\Rn}{\cR_{n}}
+\newcommand{\shiftn}[1]{\cCfn{\mathrm{shift},#1}\mleft(n\mright)}
+\newcommand{\Rn}{\cCfn{\mathrm{shift}}\mleft(n\mright)}
 \newcommand{\nvar}{n_{\mathrm{var}}}
 \newcommand{\Condn}{\cC}
 \newcommand{\CLtn}{\Condn_{L^{2}}}
 \newcommand{\CHon}{\Condn_{H^{1}}}
-
+%\newcommand{\Cerrfn}[1]{\cCfn{\mathrm{err},#1}}
+\newcommand{\Csumrecfn}[1]{\Cfn{\labelcref{eq:sumforrecursion},#1}}
 
 
 
