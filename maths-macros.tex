@@ -283,7 +283,7 @@
 \newcommand{\Cmafn}[1]{C_{#1,A}}
 \newcommand{\Cma}{\Cmafn{m}}
 \newcommand{\CinvVhp}{C_{\mathrm{inv},\Vhp}}
-\newcommand{\Csumj}{C_{\mathrm{sum},j}}
+\newcommand{\Csumj}{\Csumfn{j}}
 \newcommand{\Chinv}{C_{\mathrm{disc},\mathrm{inv}}}
 \newcommand{\Cmmo}{\Cmsofn{-m}}
 \newcommand{\Cinterpt}{\Cinterpfn{2}}
@@ -297,9 +297,9 @@
 \newcommand{\Cboundaryfn}[1]{\Cfn{\mathrm{boundary},#1}}
 \newcommand{\Cboundaryo}{\Cboundaryfn{1}}
 \newcommand{\Cboundaryt}{\Cboundaryfn{2}}
-\newcommand{\Cmess}{\Cfn{\labelcref{lem:boundarybound}}}
+\newcommand{\Cmess}{\Cfn{\labelcref{eq:Qhnrhosum}}}
 \newcommand{\CMT}{\Cfn{\mathrm{MT}}}
-\newcommand{\Csumpmo}{\Cfn{\mathrm{sum},p-1}}
+\newcommand{\Csumpmo}{\Csumfn{p-1}}
 \newcommand{\Chighfn}[1]{C_{\mathrm{high},#1}}
 \newcommand{\Chighmo}{\Chighfn{m,1}}
 \newcommand{\Chighmt}{\Chighfn{m,2}}
@@ -314,7 +314,7 @@
 \newcommand{\Cfirst}{\Cfn{\mathrm{first}}}
 \newcommand{\Csecond}{\Cfn{\mathrm{second}}}
 \newcommand{\Cc}{\Cfn{\mathrm{C}}}
-\newcommand{\Csumfn}[1]{\Cfn{\mathrm{sum},#1}}
+\newcommand{\Csumfn}[1]{\Cfn{\mathrm{disc/con},#1}}
 \newcommand{\Cfourteen}{\Cfn{\mathrm{bd}}}
 \newcommand{\Ctildemin}{\widetilde{C}_{\min}}
 \newcommand{\Cboundfn}[2]{C_{#1,\mathrm{bound},#2}}
@@ -344,10 +344,11 @@
 \newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
 \newcommand{\Cmclean}[1]{\Cfn{H^{#1},\mathrm{prod}}}
 \newcommand{\CP}{\Cfn{\mathrm{P}}}
-\newcommand{\errn}[1]{\cE_{n,#1}}
+\newcommand{\errn}[1]{\cCfn{\mathrm{shift},#1}\mleft(n\mright)}
+\newcommand{\En}{\cCfn{\mathrm{shift}}\mleft(n\mright)}
+\newcommand{\cCfn}[1]{\cC_{#1}}
 \newcommand{\shiftn}[1]{\cR_{n,#1}}
 \newcommand{\Rn}{\cR_{n}}
-\newcommand{\En}{\cE_{n}}
 \newcommand{\nvar}{n_{\mathrm{var}}}
 \newcommand{\Condn}{\cC}
 \newcommand{\CLtn}{\Condn_{L^{2}}}
@@ -539,11 +540,11 @@
 \newcommand{\Deltahml}{\Deltah^{-l}}
 \newcommand{\Deltahmlpo}{\Deltah^{-l+1}}
 \newcommand{\NHDfn}[2]{\N{#2}_{\Hfn{}{#1}{D}}}
-\newcommand{\Efn}[1]{E_{#1}}
+\newcommand{\Efn}[1]{C_{\labelcref{eq:evenrecursivesum},#1}}
 \newcommand{\Nfn}[2]{\N{#2}_{#1}}
 \newcommand{\NHmoD}[1]{\N{#1}_{\HmoD}}
 \newcommand{\HmoD}{\Hfn{}{-1}{D}}
-\newcommand{\Etildefn}[1]{\widetilde{E}_{#1}}
+\newcommand{\Etildefn}[1]{\widetilde{C}_{\labelcref{eq:oddrecursive},#1}}
 \newcommand{\thetah}{\theta_{h}}
 \newcommand{\IPLtGI}[2]{\IP{#1}{#2}_{\LtGI}}
 \newcommand{\Npmoh}[1]{\Nfn{p-1,h}{#1}}

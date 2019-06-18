@@ -820,14 +820,18 @@ To prove \cref{lem:negdiscsum} below on the relationship between discrete and co
 \ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
 Under \cref{ass:highp}, let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
 \beq\label{eq:shiftnegativew}
-\NHnfn{-m}{D}{\sdsol\ftilde} \leq
-\begin{dcases}
-\Cshiftfn{m} \frac{\NHmD{n}\NLiD{n}}{\nmin} \NHnfn{-(m+2)}{D}{\ftilde} &\tif m > \frac{d}2\\
-\Cshiftfn{m} \frac{\NWmiD{n}\NLiD{n}}{\nmin} \NHnfn{-(m+2)}{D}{\ftilde} &\tif m \in \mleft[1,\frac{d}2\mright]\\
-\Cshiftfn{m} \frac{\NLiD{n}^2}{\nmin} \NHnfn{-(m+2)}{D}{\ftilde} &\tif m = 0\\
-\Cshiftfn{m} \NLiD{n}^2 \NHnfn{-1}{D}{\ftilde} &\tif m = -1.
-\end{dcases}
+\NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \errn{m} \NHnfn{-(m+2)}{D}{\ftilde},
 \eeq
+where
+\beqs
+\errn{m} \de 
+\begin{dcases}
+ \NHmD{n}\nvar &\tif m > \frac{d}2\\
+\NWmiD{n}\nvar  &\tif m \in \mleft[1,\frac{d}2\mright]\\
+\NLiD{n}\nvar &\tif m = 0\\
+\NLiD{n}^2 &\tif m = -1.
+\end{dcases}
+\eeqs
 \ele
 
 \bpf[Proof of \cref{lem:shiftnegativew}]
@@ -837,7 +841,7 @@ We first observe that the operator $\sdsolo$ is self-adjoint on $\LtD$: Let $\De
 \eeqs
 i.e., $\sdsolo$ is self-adjoint on $\LtD.$
 
-Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsol(nv) \in \HmptD.$ With these facts in place we can compute
+Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsolo(nv) \in \HmptD.$ With these facts in place we can compute
 \begin{align*}
 \NHnfn{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmDn{v}}\\
 &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsolo\mleft(n \ftilde\mright)}{nv}}{\NHmDn{v}}\\
@@ -875,7 +879,7 @@ We can now prove the following \lcnamecref{lem:negdiscsum} on the relationship b
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
 Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
 \beqs
-\Nfn{j,h,n}{\vh} \leq \mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n}\Csumj \sum_{m=0}^j h^{m} \NHnfn{-(j-m)}{D}{\vh}.
+\Nfn{-j,h,n}{\vh} \leq \mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n}\Csumj \sum_{m=0}^j h^{m} \NHnfn{-(j-m)}{D}{\vh}.
 \eeqs
 \ele
 
@@ -906,6 +910,7 @@ If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for a
 \beq\label{eq:evenrecursivesum}
 \Nfn{-2l,h,n}{\vh} \leq \mleft(\En\nvar\mright)^t\sum_{m=0}^t \Efn{m,t} h^{2m} \NHDfn{-2(t-m)}{\vh} ,
 \eeq
+\optodo{Fix creflabelformat for equations in subscripts}
 where we define the $\Efn{m,t}$ inductively by
 \begin{align}
 \label{eq:Emt1}\Efn{0,0} &=1\\
