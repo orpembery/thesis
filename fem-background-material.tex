@@ -476,6 +476,7 @@ where
 \nvar &\tif m = -1,0.
 \end{dcases}
 \eeq
+We use the notation $\En\max\set{\errn{m}\st m = -1,\ldots,p-1}.$
 %% \ben
 %% \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
 %% \beq\label{eq:wep1}%\label{eq:ellprojerr}
@@ -832,11 +833,11 @@ To prove \cref{lem:negdiscsum} below on the relationship between discrete and co
 \ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
 Under \cref{ass:highp}, let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
 \beq\label{eq:shiftnegativew}
-\NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \errn{m} \NHnfn{-(m+2)}{D}{\ftilde},
+\NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\ftilde},
 \eeq
 where
 \beqs
-\errn{m} \de 
+\shiftn{m} \de 
 \begin{dcases}
  \NHmD{n}\nvar &\tif m > \frac{d}2\\
 \NWmiD{n}\nvar  &\tif m \in \mleft[1,\frac{d}2\mright]\\
@@ -844,6 +845,7 @@ where
 \NLiD{n}^2 &\tif m = -1.
 \end{dcases}
 \eeqs
+We use the notation $\Rn = \max\set{\shiftn{m}\st m = -1,\ldots,p-1}.$
 \ele
 
 \bpf[Proof of \cref{lem:shiftnegativew}]
@@ -890,9 +892,9 @@ For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms, $\NHoD{\
 We can now prove the following \lcnamecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
 Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
-\beqs
-\Nfn{-j,h,n}{\vh} \leq \mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n}\Csumj \sum_{m=0}^j h^{m} \NHnfn{-(j-m)}{D}{\vh}.
-\eeqs
+\beq\label{eq:negdiscsum}
+\Nfn{-j,h,n}{\vh} \leq \Csumj\mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\NLiD{n} \sum_{m=0}^j h^{m} \NHnfn{-(j-m)}{D}{\vh}.
+\eeq
 \ele
 
 \bpf[Proof of \cref{lem:negdiscsum}]
@@ -904,7 +906,7 @@ Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh,$ $z = \DeltaAI \wh$ (observe
 \end{align*}
 where the equalities in the first line follow from the definition of $z$ and \cref{eq:deltaagreen}, and the equalities in the second line follows from \cref{eq:discderdef} and the definition of $\zh.$  Therefore (using the fact that $A$ is symmetric), for all $\vh \in \Vhp,$ $\IPLtD{A\grad \vh}{\grad z} = \IPLtD{A\grad \vh}{\grad \zh},$ i.e., $\zh = \Ph z.$
 
-We now have, for $m \in [-1,p-1]$ (using $\errn{m}$ to denote the terms depending on $n$ in \cref{eq:wep1,eq:wep2,eq:wep3,eq:wep4})
+We now have, for $m \in [-1,p-1]$
 \begin{align}
 \NHnfn{-m}{D}{\DeltahI \wh} &\leq \NHnfn{-m}{D}{z} + \NHnfn{-m}{D}{z-\zh}\nonumber\\
 &\leq \NHnfn{-m}{D}{z} + \Cwfn{-m}  \CAfn{0} \CSZfn{2} \errn{m} \NLiD{n} h^{m+2} \NLtD{\wh}\nonumber\\
@@ -916,7 +918,7 @@ From \cref{eq:sumforrecursion}, we can conclude that, for $l \in \NN$ and $\vh \
 \beq\label{eq:lrecursion}
 \NHnfn{-m}{D}{\Deltahml \vh} \leq \Cshiftfn{m}\shiftn{m} \NHnfn{-(m+2)}{D}{\Deltahmlpo \vh} + \Cm \errn{m} \frac{\NLiD{n}}{\nmin} h^{m+2} \NLtDn{\Deltahmlpo \vh}
 \eeq
-as $\Deltahml = \DeltahI \Deltahmlpo$. We now use \cref{eq:lrecursion} recursively to bound $\Nfn{j,h,n}{\vh}$, and adopt the notation $\Rn = \max\set{\shiftn{m}\st m = -1,\ldots,p-1},$ $\En\max\set{\errn{m}\st m = -1,\ldots,p-1},$ and $\nvar = \NLiD{n}/\nmin.$
+as $\Deltahml = \DeltahI \Deltahmlpo$. We now use \cref{eq:lrecursion} recursively to bound $\Nfn{j,h,n}{\vh}$.
 
 If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for any integer $t \in [0,l]$ that
 \beq\label{eq:evenrecursivesum}
@@ -972,7 +974,7 @@ where  we define the $\Etildefn{m,t}$ inductively, for $t \in [0,l]$ by
 %\label{eq:Etilde2}\Etildefn{1,1} &= \Csumrecfn{1}\\
 \label{eq:Etilde3}\Etildefn{0,t} &= \Etildefn{0,t-1}\Cshiftfn{2(t-1)+1)}\\
 \label{eq:Etilde4}\Etildefn{m,t} &= \Etildefn{m,t-1}\Cshiftfn{2(t-1-m)}\tfor m = 1,\ldots,t-1\\
-\label{eq:Etilde5}\Etildefn{t,t} &= \Csumrecfn{2(t-1)+1} + \sum_{m=0}^{t-1}\Etildefn{m,t-1}\Csumrecfn{2(t-1-m)}.\\
+\label{eq:Etilde5}\Etildefn{t,t} &= \Csumrecfn{2(t-1)+1} + \sum_{m=0}^{t-1}\Etildefn{m,t-1}\Csumrecfn{2(t-1-m)}.
 \end{align}
 To show \cref{eq:oddrecursive,eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}, observe that \cref{eq:Etilde1} is immediate; we now show \cref{eq:oddrecursive,eq:Etilde3,eq:Etilde4,eq:Etilde5} by induction: suppose %\cref{eq:oddrecursive} holds for $t-1,$ then
 \beqs
@@ -1153,7 +1155,7 @@ For any $\vo, \vt \in \HozDD,$
 \ele
 
 \ble[Bound $\NLtDn{\thetah}$ by $\Nfn{p-1,h,n}{\thetah}$]\label{lem:ltthetahbound}
-Under the assumptions of \cref{thm:fembound}, there exist constants $\Cfirst, \Csecond > 0$ such that
+Under the assumptions of \cref{thm:fembound},%there exist constants $\Cfirst, \Csecond > 0$ such that
 \begin{align}
 \NLtD{\thetah}&\leq \mleft(\Cfirst\NW{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
 &\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\label{eq:ltthetahbound}

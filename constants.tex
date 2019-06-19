@@ -17,22 +17,34 @@ Where a constant is only used inside a proof (and not in the statement of a theo
   $\Cfg$ &---& \cref{ass:htwo}\\
   $\CTrs$ &---& \cref{thm:trace}\\
   $\CBanfn{s}$ & --- & \cref{thm:banachalg}\\
-  $\Cej$ & $\mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1}$ ($j \geq 1$); $\max\set{1,\CAz}$ ($j=0$)& \cref{thm:expansion}\\
-  $\Pj$ & See \cref{eq:p}& \cref{thm:expansion}\\
+  $\Cej$ & $\displaystyle \begin{dcases}
+  \max\set{1,\CAz} & j=0\\
+  \mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1} &j \geq 1
+  \end{dcases}$& \cref{thm:expansion}\\
+%  $\Pj$ & See \cref{eq:p}& \cref{thm:expansion}\\
 %  $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
   $\Cosc$ & $\Cefn{p-1}/\max\set{1,\CAz}$ & \cref{thm:expansion}\\
   $\CSZs$ &---& \cref{lem:scottzhang}\\
-  $\Cshiftfn{m}$ &$\CAfn{m}\CBanfn{m}$ if $ m \in (d/2,p-1]$& \cref{lem:shiftnegativew}\\
-    $\Cshiftfn{m}$ &$2\CAfn{m}\Cprod{m}$ if $m \in [1,d/2]$& \cref{lem:shiftnegativew}\\
-      $\Cshiftz$ &$\CAfn{m}$& \cref{lem:shiftnegativew}\\
-            $\Cshiftmo$ &$1/\Amin$& \cref{lem:shiftnegativew}\\
+  $\Cshiftfn{m}$ &$\displaystyle
+  \begin{dcases}
+  1/\Amin & m=-1\\
+  \CAz & m = 0\\
+  2\CAfn{m}\Cprod{m} & m \in [1,d/2]\\
+\CAfn{m}\CBanfn{m} & m \in (d/2,p-1]
+\end{dcases}
+$
+& \cref{lem:shiftnegativew}\\
   $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2}\Cefn{j} $ & \cref{lem:bestapprox}\\
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
-  $\Cmso$ &$\displaystyle\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (\frac{d}2,p-1]$& \cref{lem:ellprojerr} \\
-  $\Cmso$ &$\displaystyle\frac{4\CSZfn{s+2}\CAfn{s}\Cprod{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}$ if $s \in (1,\frac{d}2]$& \cref{lem:ellprojerr} \\
-  $\Cfn{0,1}$ &$\displaystyle\frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin}$& \cref{lem:ellprojerr} \\
-    $\Cfn{1,1}$ &$\displaystyle\frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}$& \cref{lem:ellprojerr} \\
-  $\Cwmso$ &$\displaystyle\CSZfn{m+2}\CAfn{m}\CBanfn{m}\frac{\NLiDop{A}^2}{\Amin}$& \cref{lem:ellprojerr} \\
+  $\Cmso$ &$\displaystyle
+  \begin{dcases}
+    \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin} & s = -1\\
+      \frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin} & s = 0\\
+  \frac{4\CSZfn{s+2}\CAfn{s}\Cprod{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin} & s \in (1,\frac{d}2]\\
+\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin} & s \in (\frac{d}2,p-1]
+  \end{dcases}
+  $
+& \cref{lem:ellprojerr} \\
   $\CinvVhp$ &---& \cref{lem:inverseinequality}\\
   $\Chinv$ & $\CinvVhp \NLiDop{A}^{1/2}$ & \cref{lem:inversediscrete}\\
   $\Cm$ & $\Cwfn{-m,1}  \CAfn{0} \CSZfn{2}$ & Proof of \cref{lem:negdiscsum}\\
