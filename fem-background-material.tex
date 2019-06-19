@@ -41,19 +41,17 @@ Assume: $k \geq 1$, $\NLiD{n} \geq 1,$ $\nmin \leq 1$, $hk \leq 1$, and there ex
 \eas
 %Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
 
-We define the following quantities, that we use to simplify the expressions involving $n$:
-
+Throughout this \lcnamecref{sec:fem}, we adopt the following piece of notation.
 \beqs
 \nvar = \frac{\NLiD{n}}{\nmin},
 \eeqs
-and
-\beqs
-\En = \max\set{\frac{\NHsD{n}}{\nmin^2} \st s \in (d/2,p-1];\frac{\NWsiD{n}}{\nmin^2}\st s \in [2,d/2];1}\nvar.
-\eeqs
-The quantity $\En$ arises from bounds on the `elliptic projection' mentioned above in weighted norms, see \cref{lem:ellprojerrw} below.
+%% and
+%% \beqs
+%% \En = \max\set{\frac{\NHsD{n}}{\nmin^2} \st s \in (d/2,p-1];\frac{\NWsiD{n}}{\nmin^2}\st s \in [2,d/2];1}\nvar.
+%% \eeqs
+%The quantity $\En$ arises from bounds on the `elliptic projection' mentioned above in weighted norms, see \cref{lem:ellprojerrw} below.
 
-Our main \lcnamecref{thm:fembound} and \lcnamecref{cor:fembound} are the following:
-\optodo{Put somewhere that $\Condn(n) = \Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}}$.}
+Our main \lcnamecref{thm:fembound} is the following \lcnamecref{thm:fembound}.
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
 Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo,ass:convenient}, there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$, $k$ and $n$, and a function $\Condn(n) >0$ (independent of $h$ and $k$) such that if
 \beq\label{eq:hfemcond}
@@ -61,25 +59,26 @@ h \leq \Chcond \Condn(n) \CAnk^{-\frac1{2p}}k^{-1-\frac1{2p}},
 \eeq
 then the finite-element solution $\uh$ exists, is unique, and satisfies the error bounds
 \beq
-\NLtD{u-\uh} \leq \CFEMLt\CLtn(n) \mleft(h +  \CAnk (hk)^{p}\mright)\inf_{\vh \in \Vhp} \NW{u-\vh},\label{eq:femltbound}
+\NLtD{u-\uh} \leq \CcorLt \CLtn(n)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand\label{eq:femltbound}
 \eeq
-and
 \beq
-\NW{u-\uh} \leq \CFEMHo \CHon(n)\mleft(1 + \CAnk k(kh)^p\mright) \inf_{\vh \in \Vhp} \NW{u-\vh}.\label{eq:femhobound}
+\NW{u-\uh} \leq \CcorHo \CHon(n)\mleft(h + \CAnk (hk)^p + \CAnk^2k (hk)^{2p}\mright)\Cfg,\label{eq:femhobound}
 \eeq
+where
+\beqs
+\Condn(n) = \Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
+\eeqs
+\beqs
+\CLtn(n) = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)m\tand
+\eeqs
+\beqs
+\CHon(n) = \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\CLtn,
+\eeqs
+where the polynomial $\Pfn(x)$ is defined in \cref{eq:p} below, and the $n$-dependent constant $\En$ is defined in \cref{eq:en} below.
 \enth
-\optodo{Make a Corollary about QO, and say this is just what Theo and Serge have, but with explicitness in the coefficients.}
-\optodo{$\CLtn = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)$}
-\optodo{$\CHon = \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\CLtn$}
-\bco[Higher-order-finite-element bound]\label{cor:fembound}
-Under the assumptions of \cref{thm:fembound},
-\beqs
-\NLtD{u-\uh} \leq \CcorLt \CLtn(n)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand
-\eeqs
-\beqs
-\NW{u-\uh} \leq \CcorHo \CHon(n)\mleft(h + \CAnk (hk)^p + \CAnk^2k (hk)^{2p}\mright)\Cfg.
-\eeqs
-\eco
+%\bco[Higher-order-finite-element bound]\label{cor:fembound}
+%Under the assumptions of \cref{thm:fembound},
+%\eco
 
 
 
@@ -476,7 +475,10 @@ where
 \nvar &\tif m = -1,0.
 \end{dcases}
 \eeq
-We use the notation $\En\max\set{\errn{m}\st m = -1,\ldots,p-1}.$
+We use the notation
+\beq\label{eq:en}
+\En=\max\set{\errn{m}\st m = -1,\ldots,p-1}.
+\eeq
 %% \ben
 %% \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
 %% \beq\label{eq:wep1}%\label{eq:ellprojerr}
@@ -1270,7 +1272,7 @@ and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ a
 \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
 &\quad\quad\mleft(\CHoboundo  +\CHoboundt \CAnk k(hk)^p\mright)\NW{\rho}.\label{eq:hoboundwithrho}
 \end{align}
-Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{eq:ellprojerr} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
+Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{eq:ellprojerr,lem:scottzhang} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
 \epf
 
 

@@ -2,6 +2,9 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
 
 Where a constant is only used inside a proof (and not in the statement of a theorem, or similar) then it will typically be numbered using the equation number of its first appearance.
 
+% Give rows more spacing
+\renewcommand{\arraystretch}{2.0}
+
 \begin{longtabu}{ccc}
   \toprule
   Constant & Definition & Defined/Introduced\\
@@ -73,10 +76,8 @@ $
   $\CLtboundt$&$2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMt$&Proof of \cref{thm:fembound}\\
   $\CHoboundo$&$\Amin^{\half}\Chighfn{1,1}\CLtboundo+\Chighmt$&Proof of \cref{thm:fembound}\\
   $\CHoboundt$&$\Amin^{\half}\Chighfn{1,1}\CLtboundt$&Proof of \cref{thm:fembound}\\
-  $\CFEMLt$&$\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright) \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
-  $\CFEMHo$&$\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright)\max\set{\CHoboundo+\CLtboundo,\CHoboundt+\CLtboundt}$&\Cref{thm:fembound}\\
-  $\CcorLt$&$4\CFEMLt\max\set{\CFEMo,\CFEMt}$&\Cref{cor:fembound}\\
-  $\CcorHo$&$8\CFEMHo\max\set{\CFEMo,\CFEMt}$&\Cref{cor:fembound}\\
+  $\CcorLt$&$4\max\set{\CFEMo,\CFEMt}\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright) \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
+  $\CcorHo$&$8\max\set{\CFEMo,\CFEMt}\mleft(\Cfn{0,1} + \Cfn{-1,1}\mright)\max\set{\CHoboundo+\CLtboundo,\CHoboundt+\CLtboundt}$&\Cref{thm:fembound}\\
   $\Cc$&$\displaystyle2\max\set{\NLiDop{A},1,\frac{\CMT^2}2}$&\cref{lem:continuity}\\
 \bottomrule
 \end{longtabu}
