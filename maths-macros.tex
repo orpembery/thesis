@@ -123,9 +123,9 @@
 \newcommand{\vhptilde}{\widetilde{v}_{h,p}}
 \newcommand{\HmD}{\Hm{D}}
 \newcommand{\Hm}[1]{H^{m}\mleft(#1\mright)}
-\newcommand{\NHsD}[1]{\N{#1}_{\HsD}}
-\newcommand{\HsD}{\Hs{D}}
-\newcommand{\Hs}[1]{H^{s}\mleft(#1\mright)}
+%\newcommand{\NHsD}[1]{\N{#1}_{\HsD}}
+%\newcommand{\HsD}{\Hs{D}}
+%\newcommand{\Hs}[1]{H^{s}\mleft(#1\mright)}
 \newcommand{\NHoD}[1]{\N{#1}_{\HoD}}
 \newcommand{\uh}{u_{h}}
 \newcommand{\uz}{u_{0}}
@@ -254,7 +254,7 @@
 \newcommand{\CtruncAl}{C_{\mathrm{trunc},A,l}}
 \newcommand{\CAnk}{\Cfn{\mathrm{stab}}}%{C\mleft(A,n,k\mright)}
 \newcommand{\CTrfn}[1]{C_{\mathrm{Tr},#1}}
-\newcommand{\CTrs}{\CTrfn{s}}
+\newcommand{\CTrm}{\CTrfn{m}}
 \newcommand{\Cosc}{C_{\mathrm{osc}}}
 \newcommand{\CTrlpo}{\CTrfn{l+1}}
 \newcommand{\CAz}{\CAfn{0}}
@@ -272,20 +272,20 @@
 \newcommand{\CFEMotilde}{\CFEMo}
 \newcommand{\CFEMttilde}{\CFEMt}
 %\newcommand{\Cmszfn}[1]{C_{#1,0}}
-\newcommand{\Cmsofn}[1]{\Cfn{\mathrm{proj},#1}}%{C_{#1,1}}
-\newcommand{\Cprojfn}[1]{\Cmsofn{#1}}
+\newcommand{\Cmmofn}[1]{\Cfn{\mathrm{proj},#1}}%{C_{#1,1}}
+\newcommand{\Cprojfn}[1]{\Cmmofn{#1}}
 %\newcommand{\Cnmszfn}[1]{C_{n,#1,0}}
 %\newcommand{\Cnmsz}{\Cnmszfn{-s}}
-\newcommand{\Cmso}{\Cmsofn{-s}}
-\newcommand{\Cmsz}{\CSZs}
+%\newcommand{\Cmmo}{\Cmmofn{-m}}
+\newcommand{\Cmmz}{\CSZm}
 \newcommand{\Cinterpfn}[1]{\CSZfn{#1}}
-\newcommand{\Cinterps}{\Cinterpfn{s}}
+\newcommand{\Cinterpm}{\Cinterpfn{m}}
 \newcommand{\Cmafn}[1]{C_{#1,A}}
 \newcommand{\Cma}{\Cmafn{m}}
 \newcommand{\CinvVhp}{C_{\mathrm{inv},\Vhp}}
 \newcommand{\Csumj}{\Csumfn{j}}
 \newcommand{\Chinv}{C_{\mathrm{disc},\mathrm{inv}}}
-\newcommand{\Cmmo}{\Cmsofn{-m}}
+\newcommand{\Cmmo}{\Cmmofn{-m}}
 \newcommand{\Cinterpt}{\Cinterpfn{2}}
 %\newcommand{\Cmfn}[1]{C_{#1}}
 \newcommand{\Cm}{\Csumrecfn{m}}
@@ -331,7 +331,7 @@
 \newcommand{\CcorHo}{\CFEMHo}%{\Ccorfn{H^{1}}}
 \newcommand{\Coscfn}[1]{\Cfn{\mathrm{osc},#1}}
 \newcommand{\CSZfn}[1]{\Cfn{\mathrm{BA},#1}}
-\newcommand{\CSZs}{\CSZfn{s}}
+\newcommand{\CSZm}{\CSZfn{m}}
 \newcommand{\Cefn}[1]{\Cfn{\mathrm{expansion},#1}}
 \newcommand{\Cej}{\Cefn{j}}
 \newcommand{\CBanfn}[1]{\Cfn{\mathrm{mult},1,#1}}
@@ -340,7 +340,7 @@
 \newcommand{\Cshiftmo}{\Cfn{\mathrm{shift},1}}
 \newcommand{\Cwfn}[1]{\Cfn{\mathrm{weight},#1}}
 \newcommand{\Cwmm}{\Cwfn{-m}}%,1}}
-\newcommand{\Cwmso}{\Cwfn{-s}}%,1}}
+\newcommand{\Cwmmo}{\Cwfn{-m}}%,1}}
 \newcommand{\Cwz}{\Cwfn{0}}
 \newcommand{\Cwo}{\Cwfn{1}}
 %\newcommand{\Ccomprfn}[1]{\Cfn{\mathrm{comp},#1}}
@@ -411,9 +411,9 @@
 \newcommand{\SNHoDn}[1]{\SN{#1}_{\HoD,n}}
 \newcommand{\SNHtD}[1]{\SN{#1}_{\HtD}}
 \newcommand{\NHhGI}[1]{\N{#1}_{\HhGI}}
-\newcommand{\NHsmhGI}[1]{\N{#1}_{\HsmhGI}}
-\newcommand{\HsmhGI}{\Hsmh{\GI}}
-\newcommand{\Hsmh}[1]{H^{s-1/2}\mleft(#1\mright)}
+\newcommand{\NHmmhGI}[1]{\N{#1}_{\HmmhGI}}
+\newcommand{\HmmhGI}{\Hmmh{\GI}}
+\newcommand{\Hmmh}[1]{H^{m-1/2}\mleft(#1\mright)}
 \newcommand{\gtilde}{\widetilde{g}}
 \newcommand{\HlpoD}{\Hlpo{D}}
 \newcommand{\Hlpo}[1]{H^{l+1}\mleft(#1\mright)}
@@ -462,8 +462,8 @@
 \newcommand{\floor}[1]{\mleft\lfloor#1\mright\rfloor}
 \newcommand{\uzhat}{\hat{u}_{0}}
 \newcommand{\HozDD}{\HozD{D}}
-\newcommand{\NHmsD}[1]{\N{#1}_{\HmsD}}
-\newcommand{\HmsD}{\Hfn{}{-s}{D}}
+%\newcommand{\NHmsD}[1]{\N{#1}_{\HmsD}}
+%\newcommand{\HmsD}{\Hfn{}{-s}{D}}
 \newcommand{\BAHoD}[2]{\inf_{#2 \in \Vhp} \NHoD{#1-#2}}
 \newcommand{\BAHoDn}[2]{\inf_{#2 \in \Vhp} \NHnfn{1}{D}{#1-#2}}
 \newcommand{\BALtD}[2]{\inf_{#2 \in \Vhp} \NLtD{#1-#2}}
@@ -471,11 +471,11 @@
 \newcommand{\wbar}{\overline{w}}
 \newcommand{\NLtDn}[1]{\N{#1}_{\LtD,n}}
 \newcommand{\Qhn}{Q_{h,n}}
-\newcommand{\NHmsnD}[1]{\N{#1}_{\HmsnD}}
-\newcommand{\HmsnD}{\Hfn{n}{-s}{D}}
+\newcommand{\NHmmnD}[1]{\N{#1}_{\HmmnD}}
+\newcommand{\HmmnD}{\Hfn{n}{-m}{D}}
 \newcommand{\BALtDn}[2]{\inf_{#2 \in \Vhp} \NLtDn{#1-#2}}
 \newcommand{\vhhat}{\hat{v}_{h}}
-\newcommand{\SNHsD}[1]{\SN{#1}_{\HsD}}
+%\newcommand{\SNHsD}[1]{\SN{#1}_{\HsD}}
 \newcommand{\DeltaA}{\Delta_{A}}
 \newcommand{\Deltah}{\Delta_{h}}
 \newcommand{\dD}{\partial D}
@@ -563,7 +563,7 @@
 \newcommand{\NLtdD}[1]{\N{#1}_{\LtdD}}
 \newcommand{\LtdD}{\Lt{\dD}}
 \newcommand{\NHsDn}[1]{\Nfn{\HsD,n}{#1}}
-\newcommand{\NHmsDn}[1]{\Nfn{\HmsD,n}{#1}}
+\newcommand{\NHmmDn}[1]{\Nfn{\HmmD,n}{#1}}
 \newcommand{\NHmDn}[1]{\Nfn{\HmD,n}{#1}}
 \newcommand{\NHnfn}[3]{\N{#3}_{\Hfn{}{#1}{#2},n}}
 \newcommand{\CrcompD}{\Crcompfn{r}{D}}

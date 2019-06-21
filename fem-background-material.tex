@@ -159,9 +159,9 @@ then
 The proof of \cref{lem:domainshift} requires the Trace theorem.
 
 \bth[Trace Theorem]\label{thm:trace}
-If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independent of $v$ such that
+If $v \in \HmD,$ for $1/2 < m \leq p+1$, then there exists $\CTrm > 0$ independent of $v$ such that
 \beqs
-\NHsmhGI{\trI v} \leq \CTrs \NHsD{v}.
+\NHmmhGI{\trI v} \leq \CTrm \NHmD{v}.
 \eeqs
 \enth
 
@@ -169,7 +169,7 @@ If $v \in \HsD,$ for $1/2 < s \leq p+1$, then there exists $\CTrs > 0$ independe
 \bpf[Proof of \cref{lem:domainshift}]
 By \cref{thm:shift,thm:trace}
 \beqs
-\NHlptD{\utilde} \leq \CAl \mleft(\NHlD{\ftilde} + \NHlphGI{\gtilde}\mright) \leq \CAl \mleft(\NHlD{\ftilde} + \CTrs\NHlpoD{\gtilde}\mright),
+\NHlptD{\utilde} \leq \CAl \mleft(\NHlD{\ftilde} + \NHlphGI{\gtilde}\mright) \leq \CAl \mleft(\NHlD{\ftilde} + \CTrfn{l}\NHlpoD{\gtilde}\mright),
 \eeqs
 and the result follows.
 \epf
@@ -235,7 +235,7 @@ Recall that a higher power of $k$ appearing in an a priori bound indicates that 
 
 \Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:18a} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:18a} are stated for a much wider class of problems, but the dependence on all of the constants is not made explicit.
 
-We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHsD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
 
 \bpf[Proof of \cref{thm:expansion}]
 The idea of the proof is as follows. We write $u$ as a formal series expansion
@@ -317,10 +317,10 @@ And by induction and \cref{lem:domainshift} again, letting $\uosc = \rfn{p-1},$ 
 Using the expansion in \cref{thm:expansion}, we can prove the following error bound for the best approximation of $u$ in $\Vhp$:
 
 %% We also have the following best-approximation error in higer-order Sobolev spaces:
-%% \ble[Best approximation in $\HsD$]\label{lem:bestapproxhigh}
-%% For integer $s$ in $[1,p+1]$, there exists $\Cinterps>0$ such that for every $v \in \HsD$ there exists $\vhhat \in \Vhp$ such that
+%% \ble[Best approximation in $\HmD$]\label{lem:bestapproxhigh}
+%% For integer $s$ in $[1,p+1]$, there exists $\Cinterps>0$ such that for every $v \in \HmD$ there exists $\vhhat \in \Vhp$ such that
 %% \beqs
-%% \NLtD{v - \vhhat} + h\NHoD{v-\vhhat} \leq \Cinterps h^s \SNHsD{v}.
+%% \NLtD{v - \vhhat} + h\NHoD{v-\vhhat} \leq \Cinterps h^s \SNHmD{v}.
 %% \eeqs
 %% \ele
 
@@ -377,7 +377,7 @@ There exists $\CP > 0$ such that for all $v \in \HozDD$
 
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 \ben
-\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HsD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{s} > 0$ independent of $\vo$ and $\vt$ such that
+\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HmD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
 \beqs
 \NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
 \eeqs
@@ -427,13 +427,13 @@ For $v,w \in \LtD,$ define the $n$-weighted inner product
 \eeqs
 and the corresponding $n$-weighted $\LtD$ norm $\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}$.
 
-For $s \in \NN$, we define the $n$-weighted $\HsD$ norms $\NHsDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms by
+For $s \in \NN$, we define the $n$-weighted $\HmD$ norms $\NHmDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms by
 \beq\label{eq:negweightnorm}
-\NHnfn{-s}{D}{v} = \sup_{w \in \HsD} \frac{\IPLtDn{v}{w}}{\NHsDn{w}}.
+\NHnfn{-m}{D}{v} = \sup_{w \in \HmD} \frac{\IPLtDn{v}{w}}{\NHmDn{w}}.
 \eeq
-Observe that, for $v \in \HsD,$
+Observe that, for $v \in \HmD,$
 \beq\label{eq:nconv}
-\nmin\NHsD{v} \leq \NHsDn{v} \leq \NLiD{n} \NHsD{v}.
+\nmin\NHmD{v} \leq \NHmDn{v} \leq \NLiD{n} \NHmD{v}.
 \eeq
 %We put the \emph{non-weighted} $H^s$-norm in the denominator of \cref{eq:negweightnorm}, but the \emph{weighted} inner product in the numerator for ease of manipulation in some of the following proofs---we could place the weighted $H^s$ norm in the denominator, and this would be equivalent to the current definition, up to a factor involving $n$.
 %% so that we have, for all $v \in \LtD$
@@ -453,9 +453,9 @@ We now state and prove our error bounds. These can all be obtained by modificati
 
 The elliptic projection obeys the following error bounds:
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
-Under \cref{ass:highp}, for any integer $s \in [-1,p-1],$ there exists a constant $\Cmso >0$ such that for all $w \in \HozDD$
+Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cmmo >0$ such that for all $w \in \HozDD$
 \beq\label{eq:ellprojerr}
-\NHmsD{w-\Ph w} \leq \Cmso h^{s+1} \BAHoD{w}{\wh}.
+\NHmmD{w-\Ph w} \leq \Cmmo h^{s+1} \BAHoD{w}{\wh}.
 \eeq
 \ele
 \optodo{Correct language to talk about $n$-weighted}
@@ -470,7 +470,7 @@ where
 \beq\label{eq:errn}
 \errn{m} =
 \begin{dcases}
-\frac{\NHsD{n}}{\nmin^2}\nvar &\tif m \in \mleft(\frac{d}2,p-1\mright)\\
+\frac{\NHmD{n}}{\nmin^2}\nvar &\tif m \in \mleft(\frac{d}2,p-1\mright)\\
 \frac{\NWsiD{n}}{\nmin^2}\nvar &\tif m \in \mleft[1,\frac{d}2\mright]\\
 \nvar &\tif m = -1,0.
 \end{dcases}
@@ -482,7 +482,7 @@ We use the notation
 %% \ben
 %% \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
 %% \beq\label{eq:wep1}%\label{eq:ellprojerr}
-%% \NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHsD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
+%% \NHnfn{-s}{D}{w-\Ph w} \leq \Cwmso \frac{\NHmD{n}}{\nmin^2}\nvar h^{s+1} \BAHoDn{w}{\wh}.
 %% \eeq
 %% \item\label[itempart]{it:wep2} If $s \in [2,d/2]$ then
 %% \beq\label{eq:wep2}
@@ -500,7 +500,7 @@ We use the notation
 \ele
 
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For the case $m \geq 1$, let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discsob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HmD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discsob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
 \beqs
 \IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
 \eeqs
@@ -542,9 +542,9 @@ For the case $m=0,$, using \cref{lem:ellprojerr} and then converting to the $n$-
 %% \ble[Error bounds for weighted elliptic projection in $n$-weighted norms]\label{lem:wellprojerrw}
 %% Let $s \in \ZZ.$ There exists a constant $\Cwmso >0$ such that for all $w \in \HozDD$
 %% \ben
-%% \item\label[itempart]{it:wwep1} If $s \in (d/2,p-1],$ and $n \in \HsD$ then
+%% \item\label[itempart]{it:wwep1} If $s \in (d/2,p-1],$ and $n \in \HmD$ then
 %% \beq\label{eq:wwep1}%\label{eq:ellprojerr}
-%% \NHnfn{-s}{D}{w-\Phn w} \leq \Cwmso \frac{\NHsD{n}\NLiD{n}^2}{\nmin^3}h^{s+1} \BAHoDn{w}{\wh}.
+%% \NHnfn{-s}{D}{w-\Phn w} \leq \Cwmso \frac{\NHmD{n}\NLiD{n}^2}{\nmin^3}h^{s+1} \BAHoDn{w}{\wh}.
 %% \eeq
 %% \item\label[itempart]{it:wwep2} If $s \in [1,d/2]$ and $n \in \CsD$, then
 %% \beq\label{eq:wwep2}
@@ -562,7 +562,7 @@ For the case $m=0,$, using \cref{lem:ellprojerr} and then converting to the $n$-
 %% \ele
 
 %% \bpf[Proof of \cref{lem:wellprojerrw}]
-%% For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HsD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HsD$ also. Let $ \vtilde = \sdsol(\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
+%% For \cref{it:wep1,it:wep2}, the proof follows the proof in \cite[Theorem 5.8.3]{BrSc:08}. Let $\phi \in \HmD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HmD$ also. Let $ \vtilde = \sdsol(\phi),$ observe that by \cref{thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
 %% \beqs
 %% \IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
 %% \eeqs
@@ -601,33 +601,33 @@ For the case $m=0,$, using \cref{lem:ellprojerr} and then converting to the $n$-
 
 The $\LtD$ projection satisfies the following error bound.
 \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
-Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \LtD$
+Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \LtD$
 \beqs
-\NHmsD{w-\Qh w} \leq \Cmsz h^{s} \BALtD{w}{\wh}.
+\NHmmD{w-\Qh w} \leq \Cmmz h^{m} \BALtD{w}{\wh}.
 \eeqs
 \ele
 
 Similarly, the weighted $\LtD$ projection satisfies the following error bound.
 The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
-Under \cref{ass:highp}, for any integer $s \in [0,p-1],$ for all $w \in \HozDD$
+Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
-\NHmsDn{w-\Qhn w} \leq \CSZfn{s} \frac{\NLiD{n}}{\nmin} h^{s} \BALtDn{w}{\wh}.
+\NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^{m} \BALtDn{w}{\wh}.
 \eeq
 \ele
 
 \bpf[Proof of \cref{lem:wltdprojerr}]
-Fix $\vtilde \in \HsD$, trivially $\vtilde$ solves the adjoint problem
+Fix $\vtilde \in \HmD$, trivially $\vtilde$ solves the adjoint problem
 \beqs
 \IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
 \eeqs
 Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
 \beqs%gin{align*}
-\IPLtDn{w-\Qhn w}{\vtilde} \leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\vhptilde}\leq \CSZfn{s} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^s \NHsDn{\vtilde}.
+\IPLtDn{w-\Qhn w}{\vtilde} \leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\vhptilde}\leq \CSZfn{m} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^m \NHmDn{\vtilde}.
 \eeqs%nd{align*}
 Taking the supremum over $\vtilde,$ we have
 \beqs
-\NHmsDn{w-\Qhn w} \leq \CSZfn{s} \frac{\NLiD{n}}{\nmin} h^s \NLtDn{w-\Qhn w},
+\NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^m \NLtDn{w-\Qhn w},
 \eeqs
 and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
 \epf
