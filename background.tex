@@ -60,7 +60,7 @@ The Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the soluti
 \beq\label{eq:imptext}
 \dn u - iku = \gI
 \eeq
-on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as a first-order approximation to \eqref{eq:sommerfeld} (see, e.g., \cite[p. 353]{GaMuSp:19}\optodo{Try to track down a better ref in, e.g., Ihlenburg}, where it is shown that in certain asymptotic limits, the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation is equal to $ik$). Truncating with an impedance boundary condition gives rise to the following deterministic Helmholtz problem\optodo{Make a picture explaining EDP and TEDP on one pic}
+on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as a first-order approximation to \eqref{eq:sommerfeld} (see, e.g., \cite[p. 353]{GaMuSp:19}\optodo{Try to track down a better ref in, e.g., Ihlenburg}, where it is shown that in certain asymptotic limits, the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation is equal to $ik$). Truncating with an impedance boundary condition gives rise to the following deterministic Helmholtz problem
 \bprob[Truncated Exterior Dirichlet Problem]\label{prob:tedp}
  Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Let $\trI \HoD\rightarrow\HhGI$ denote the Dirichlet trace operator on $\GI$, and $\dn:\HoD\rightarrow\HmhGI$ the Neumann trace operator. Given
   \bit
@@ -83,6 +83,14 @@ on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as 
 \eeq
 \eprob
 Observe that, by construction, $\partial D = \GI \cup \GI$ and $\GD \cap \GI = \emptyset.$
+
+\begin{figure}
+\begin{centering}
+\input{domain-diagram}
+\caption{}
+\end{centering}
+\end{figure}
+\optodo{Caption}
 
 Whilst the impedance boundary condition \eqref{eq:ibc} is only an approximation to the Sommerfeld radiation condition \eqref{eq:sommerfeld}, the solutions of \cref{prob:tedp} are still `wave-like', and we  see below that solutions of \cref{prob:tedp} posses many of the same properties as solutions of \cref{prob:edp}. We also note that a common Helmholtz model problem in the numerical-analysis community is the \defn{interior impedance problem}, which is simply \cref{prob:tedp} in the case $\Dm = \emptyset.$
 
