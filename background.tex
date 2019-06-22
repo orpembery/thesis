@@ -384,14 +384,14 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     The following \namecref{lem:scottzhang} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
 \optodo{Figure out exactly why you need a simplical mesh (is it to ensure you get $C^0$ elements?) and then put this assumption in.}
     \ble[Existence of best approximation]\label{lem:scottzhang}
-    Let $v \in \HsD$, $s \geq 1,$ and $p \in \set{1,\ldots,s}$. Then there exist a constant $\CSZs>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
+    Let $v \in \HmD$, $s \geq 1,$ and $p \in \set{1,\ldots,s}$. Then there exist a constant $\CSZm>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
 
     \beqs
-\NLtD{v - \vhptilde} \leq \CSZs h^s \NHsD{v}
+\NLtD{v - \vhptilde} \leq \CSZm h^m \NHmD{v}
     \eeqs
      and
     \beqs
-\NHoD{v - \vhptilde} \leq C h^{s-1} \NHsD{v} \tfor s \geq 1.
+\NHoD{v - \vhptilde} \leq \CSZm h^{m-1} \NHmD{v} \tfor m \geq 1.
     \eeqs
     \ele
 
