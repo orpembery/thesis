@@ -13,17 +13,23 @@
 
 \maketitle
 
+\input{settings}
+
+\tableofcontents
+
+
+
 \chapter{Introduction}\label{chap:intro}
 \input{introduction}
 
-\chapter{PDE Theory of the Deterministic Helmholtz Equation and Theory of its Discretisation}\label{chap:background}
+\chapter{PDE Theory of the Deterministic Helmholtz Equation and Theory of its Finite-Element Discretisation}\label{chap:background}
 \input{background}
 
 \section{New Finite-Element-Error bounds for the Heterogeneous Helmholtz Equation}\label{sec:fem}
 
 \input{fem-background-material}
 
-\section{Constants from \cref{sec:fem}}\label{app:constants}
+\subsection{Constants from \cref{sec:fem}}\label{app:constants}
 \input{constants}
 
 %\input{discrete-sobolev-spaces}
@@ -53,11 +59,11 @@
 
 \chapter{Multi-Level Monte Carlo for the Helmholtz Equation}\label{chap:mlmc}
 
-\section{MLMC Complexity Theorem}\label{sec:comp}
+\section{The Multi-Level Monte Carlo Complexity Theorem for the Helmholtz equation}\label{sec:comp}
 
 \input{complexity-theorem}
 
-\section{The lemma in generality}
+\subsection{The lemma in generality}
 
 \input{lemma-general}
 
