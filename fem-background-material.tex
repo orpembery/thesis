@@ -11,6 +11,8 @@ In order to use this notion of discrete norms, we develop a notion of discrete d
 As we are using higher-order finite elements (which we assume are of degree $p$), we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiD{n}$ in order to simplify our calculations.
 \optodo{Correct notation in variational formulation of TEDP}
 
+\subsection{Finite-element-error bounds}
+
 \bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
 Assume
 \bit
@@ -82,7 +84,57 @@ where the polynomial $\Pfn(x)$ is defined in \cref{eq:p} below, and the $n$-depe
 
 
 
-Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a certain extent, unnecessary to understand the arguments. Therefore, the definition of all the constants (which are many-layered and interdependent) are relegated to \cref{app:constants}; that is, any constant introduced or defined in this \lcnamecref{sec:fem} will be listed in \cref{app:constants}.
+Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a large extent, unnecessary to understand the arguments. Therefore, for ease of reference, the definition of all the constants (which are many-layered and interdependent) are given in \cref{app:constants}; i.e., any constant introduced or defined in this \lcnamecref{sec:fem} will be listed in \cref{app:constants}.
+
+\subsubsection{Discussion of new finite-element-error bounds}
+
+\bre[Relationship of new bounds to the work of Du and Wu]
+In \cite{DuWu:15} Du and Wu proved that the error for high-order finite-element methods for the \emph{homogeneous} Helmholtz interior impedance problem is bounded provided $h^{2p}k^{2p+1}$ is sufficiently small. Our proof follows theirs, and achieves analagous results---observe that the condition \cref{eq:hfemcond} requires $h^{2p}k^{2p+1}$ to be sufficiently small, where the `sufficient smallness' condition depends on $A$ and $n$. We note that our results and proof have the following modifications to those of Du and Wu (the modifications listed in order of their impact upon the proof).
+\ben
+\item We prove bounds for \emph{heterogeneous} $A$ and $n$; in particular, in several places in the proof we must work with $n$-weighted inner products and norms; see \cref{rem:why} for more details on why $n$-weighted inner products and norms are required.
+\item We explicitly track all of the constants involved in the proof---out results are completely explicit in $n$, and are, in theory, explicit in $A$ (see \cref{rem:explicita} below for information on the explicitness in $A$.
+\item We allow the possibility that the Helmholtz problem is trapping---the constant $\CAnk$ appearing in \cref{eq:hfemcond} may depend on $k$ (as well as $A$ and $n$). If the Helmholtz problem was nontrapping, $\CAnk$ would be independent of $k$.
+  \item We assume the existence of a Dirichlet scatterer $\Dm,$ as opposed to only considering the interior impedance problem, where $\Dm=\emptyset.$
+\een
+\ere
+
+\bre[Why are the results not fully explicit in $A$?]\label{rem:explicita}
+The condition \cref{eq:hfemcond} and the bounds \cref{eq:femlt,femho} are not fully explicit in $A$, i.e. the constants $\Ccond, \CcorLt,$ and $\CcorHo$ may depend on $A$. This dependence is because the constants in the shift theorem for the stationary diffusion equation (\cref{thm:shift}) below are not explicit in their $A$-dependence.\optodo{Check there's no other places this comes up.} In principle one can determine this dependence (it is determined for a right-hand side in $\LtD$ and a solution in $\HtD$ in \cite[Appendix A]{ChScTe:13}).
+\ere
+
+\bre[Why the appearance of $\nvar$?]\label{rem:nvar}
+The quantity $\nvar = \NLiD{n}/\nmin$ appears in multiple places in the definition of the $n$-dependent constants $\Condn(n), \CLtn(n),$ and $\CHon(n).$ This appearance is mainly due to the fact that in multiple places in the proof of \cref{thm:fembound}, we must convert from working in an $n$-weighted norm to a standard norm, and then later convert back to an $n$-weighted norm again. The necessity for this conversion is frequently because certain results (such as \cref{thm:shift,lem:poincare,thm:trace,thm:multiplicativetrace}) are only available in the literature in standard (non-$n$-weighted) norms, and so to apply these results we must first transfer to non-$n$-weighted norms, apply the results, and then tranfer back. If one could prove these results for $n$-weighted norms (under sufficient smoothness conditions on $n$) with constants that were completely explicit in $n$, then many of the instances of $\nvar$ could be removed.
+\ere
+
+\bre[Bounds not sharp in $n$]\label{rem:nsharp}
+The $n$-dependence of the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ is almost certainly not sharp, because
+\ben
+\item The proof of \cref{thm:fembound} is complex, and involves recursively applying bounds on finite-element functions (as in, e.g., the proof of \cref{lem:negdiscsum}, see \cref{eq:evenrecursivesum,eq:oddrecursive}). These arguments may well result in non-sharp $n$-dependence.
+  \item As described in \cref{rem:nvar} above, many of the appearances of $\nvar$ in the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ is purely due to changing norms, then changing back, and so it is possible that the dependence of these constants on $\nvar$ (and therefore $n$) is not sharp.
+\een
+\ere
+
+\bre[$p$-dependence]
+if one wants to prove error bounds for $hp$-finite-element methods, then one must know explicitly how the error bounds \cref{eq:femltbound,eq:femhobound} depend on $p$ as well as $h$ and $k$; such an analysis was carried out for the Helmholtz equation in homogeneous media by Melenk and Sauter in \cite{MeSa:10,MeSa:11} and for the related time-harmonic Maxwell's equation in homogeneous media in \cite{MeSa:18}. In principle (as our results are explicit in all of the constants involved) one could calculate the $p$-dependence, however, such dependence is likely to be highly complicated, and may very well not be sharp, for similar reasons that the $n$-dependence of our results may not be sharp, as outlined in \cref{rem:nsharp} above.
+\ere
+
+\bre[Special cases of $n$]
+In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it may be instructive to note their behaviour in the following three cases:
+\bit
+\item If $n=1,$ then $\Condn(n)=1, \CLtn(n)=1,$ and $\CHon(n)=2$.
+\item If $\nmin$ is fixed, and $\NLiD{n} \rightarrow \infty,$ then $\Condn(n)\rightarrow 0,$ (i.e., the condition \cref{eq:hfemcond} becomes more restrictive), $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$.
+\item If $\NLiD{n}$ is fixed, and $\nmin \rightarrow 0,$ then $\Condn(n)\rightarrow 0,$ $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$.
+  \eit
+  One can easily check each of these behaviours using the definition of $\nvar$, the definition of the constants $\Condn(n),$ $\CLtn(n)$, and $\CHon(n)$, and the definition of the polynomial $\Pfn(x)$ in \cref{eq:p} below, and the defintion of $\En$ in \cref{eq:en} below.
+  \ere
+
+  \bre[Extension to different boundary conditions on $\GI$]
+  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:thetahbound} one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, which bounds $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and the weighted $H^1$-norm of $\rho.$ However, a crucial part of the proof of \cref{lem:boundarybound} is the fact that one has the bound $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtNapprox \thetah}{\thetah}$, where $\DtNapprox$ is the impedance approximation to the DtN map $\DtN,$ i.e. $\DtNapprox = ik.$
+
+  To replicate the proof of \cref{lem:boundarybound} for an exact DtN boundary condition, one would need to show that $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtN \thetah}{\theta}$ for the \emph{exact} DtN map $\DtN.$ As mentioned in \cite[Remark 5.4(e)]{DuWu:15}, whether such a bound holds in general is an open question.\optodo{Melenk and Sauter '10 equation 3.4b, unlikely, but not that interesting numerically.}
+
+\optodo{Understand PML papers, then maybe write: However, there may be more promise in extending the results in this \namecref{sec:fem} to \cref{prob:edp} truncated with a PML. The formulation of the PML problem (as in, e.g., \cite[Equations (2.5)--(2.7)]{LiWu:19}) involves ...}
+  \ere
 
 \subsection{Decomposition of solution and best approximation bound}
 
@@ -665,7 +717,7 @@ Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp
 \eeq
 \ede
 
-\bre[Why the factor $n$ on the right-hand side of \cref{eq:sdeq}?]
+\bre[Why the factor $n$ on the right-hand side of \cref{eq:sdeq}?]\label{rem:why}
 The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
 
 All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because we can only prove bounds on the weighted $L^2$ projection $\Qhn$ in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), not in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the weighted inner product, which necessitates that we use the weighted inner product on the left-hand side of \cref{eq:discderdef}. This final use of the weighted inner product means we must have the weighted inner product on the right-hand side of \cref{eq:deltaagreen} so that we can show (at the beginning of the proof of \cref{lem:negdiscsum}) that if $\wh \in \Vhp,$ $\zh = \Deltah^{-1} \wh$, and $z = \Sn \wh,$ then $\zh = \Ph z;$ we need this fact in the remainder of the proof of \cref{lem:negdiscsum}.
@@ -1035,9 +1087,9 @@ Under the assumptions of \cref{thm:fembound}, we have
 
 \bpf[Proof of \cref{lem:boundarybound}]
 In \cref{eq:thetaform}, let $\vh = \thetah,$ and take the imaginary part to obtain
-\beqs
+\beq\label{eq:boundboundarybelow}
 -k \NLtGI{\thetah}^2 \leq \Im k^2 \IPLtDn{\Qhn \rho}{\thetah} + \Re k \IPLtGI{\rho}{\thetah},
-\eeqs
+\eeq
 and therefore by \cref{cor:ipdiscbound}
 \beq
 \NLtGI{\thetah}^2 \leq  k \Nfn{1-p,h,n}{\Qhn \rho}\Nfn{p-1,h,n}{\thetah} + \NLtGI{\rho}\NLtGI{\thetah}.\label{eq:thetaboundarypart}
