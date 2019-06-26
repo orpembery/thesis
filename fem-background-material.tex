@@ -3,6 +3,7 @@ We now prove our new error bounds for the higher-order finite-element approximat
 The proofs of our results have many parts, and appear technical, largely due to the burden of explicitly keeping track of all of the constants involved. However, in essence, the proof consists of two ideas:
 \ben
 \item Decompose the error $u-\uh = (u - \Ph u) + (\Ph u - \uh)$, where $\Ph u$ is an `elliptic projection' of $u$, and
+\item Bound the error $u - \Ph u$ using the fact that $\Ph u$ is a Galerkin projection.
 \item Bound the error $\Ph u - \uh$ in higher-order `discrete' norms.
 \een
 
@@ -29,7 +30,7 @@ Also, throughout this \lcnamecref{sec:fem} we assume we are working with the fin
 We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}.
 
 \bas\label{ass:htwo}
-\Cref{prob:vtedp} (or its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
+\Cref{prob:vtedp} (and its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
 \beq\label{eq:generalhtwo}
 k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \Cfg,
 \eeq
@@ -230,17 +231,18 @@ We are now able to prove the following \lcnamecref{thm:expansion} giving a decom
 
 \bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
 Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that if $u$ is the solution of \cref{prob:tedp} or its adjoint, then
-\beq\label{eq:expansionuj}
-\NHjptD{\usj} \leq \Cej \Pj(\NLiD{n}) k^j \Cfg, \text{ for }\Cj > 0,
-\eeq
-\beq\label{eq:expansionuosc}
-\NHppoD{\uosc} \leq \Cosc \CAnk k^p \Cfg, \text{ for some } \Cosc > 0,
-\eeq
-and
 \beq\label{eq:expansionid}
 u = \uosc + \sum_{j=0}^{p-2} \usj.
 \eeq
-Where
+Furthermore,
+\beq\label{eq:expansionuj}
+\NHjptD{\usj} \leq \Cej \Pj(\NLiD{n}) k^j \Cfg,
+\eeq
+and
+\beq\label{eq:expansionuosc}
+\NHppoD{\uosc} \leq \Cosc \CAnk k^p \Cfg,
+\eeq
+where
 \beq\label{eq:p}
 \Pj(x) =
 \begin{dcases}
@@ -283,11 +285,13 @@ x^{\floor{j/2}}& j \geq 2
 %% \eeq
 \enth
 
+\bre[How oscillatory are the functions in \cref{thm:expansion}?]
 Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is two orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is one order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
 
 \Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:18a} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:18a} are stated for a much wider class of problems, but the dependence on all of the constants is not made explicit.
 
-We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. %We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+\ere
 
 \bpf[Proof of \cref{thm:expansion}]
 The idea of the proof is as follows. We write $u$ as a formal series expansion
@@ -389,7 +393,7 @@ Under \cref{ass:highp,ass:htwo}, there exist constants $\CFEMo, \CFEMt > 0$ inde
 \eeq
 \ele
 
-We write bounds for the standard and weighted $H^1$ norms separately, as we will use each individual bound in differents of proofs in \cref{sec:fembound}.
+%We write bounds for the standard and weighted $H^1$ norms separately, as we will use each individual bound in differents of proofs in \cref{sec:fembound}.
 
 \bpf[Proof of \cref{lem:bestapprox}]
 We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exist $\ujh,$ $j=0,\ldots,p-2$ and $\uosch$ in $\Vhp$ such that 
@@ -699,7 +703,7 @@ We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stati
 \eeq
 %% $A$-weighted Laplacian; that is $\DeltaA w = \grad\cdot\mleft(\grad w\mright),$ and give it domain $\DomainDeltaA = \set{w \in \HtD \st \trD w = 0, \dn w = 0};$
 %% hence $\DeltaA:\DomainDeltaA \rightarrow \LtD.$ Observe that, for any $f \in \LtD$ there exists $\wf \in \DomainDeltaA$ such that $\DeltaA \wf = -f.$
-Observe that $\sdsol$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdsol^{m}$ is defined for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one can place $\sdsol \ftilde$ on the right-hand side. 
+Observe that $\sdsol$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdsol^{m}$ is defined\optodo{more here} for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one can place $\sdsol \ftilde$ on the right-hand side. 
 Observe that for any $\ftilde \in \LtD$ and for any $v \in \HozDD,$ we have, by Green's identity,
 \beqs
 \int_D \mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D n\ftilde \vb,

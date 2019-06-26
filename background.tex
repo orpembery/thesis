@@ -347,35 +347,36 @@ For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
 We now give a brief summary of elementary concepts in finite-element theory. We focus only on those concepts that we be needed to
 prove the new error bound for finite-element discretisations of the Helmholtz equation in \cref{sec:errbound} below.
 
-    A crucial quantity in our analysis of finite-element methods is the mesh size of a triangulation of the domain. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
+Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to a triangulation of simplices in the sense of Ciarlet \cite[(FEM1) p. 61, ($\cT_{h}$5) p. 71]{Ci:93}. Similarly, we use $h$ to denote the mesh size of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
+  %%   triangulation of the domain. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
 
-    \bde[Triangulation]
-    A triangulation of a polygonal domain $D$ is a finite collection of sets $\Ki \subseteq \Dclos$ such that
-    \ben
-  \item $\interior{\Ki} \cap \interior{\Kj} = \emptyset$ for $ i \neq j,$
-  \item $\bigcup_i \Ki = \Dclos,$ and
-    \item Something about triangles that works in 3-D too\optodo{Find ref - Brezzi/Johnson? Make sure to use simplical meshes.}.
-    \een
-    \ede\optodo{Change to definition in Ciarlet, Handbook of numerical analysis}
+  %%   \bde[Triangulation]
+  %%   A triangulation of a polygonal domain $D$ is a finite collection of sets $\Ki \subseteq \Dclos$ such that
+  %%   \ben
+  %% \item $\interior{\Ki} \cap \interior{\Kj} = \emptyset$ for $ i \neq j,$
+  %% \item $\bigcup_i \Ki = \Dclos,$ and
+  %%   \item Something about triangles that works in 3-D too\optodo{Find ref - Brezzi/Johnson? Make sure to use simplical meshes.}.
+  %%   \een
+  %%   \ede\optodo{Change to definition in Ciarlet, Handbook of numerical analysis}
 
-\bde[Mesh Size]
-Given a triangulation $\cT = \set{\Ki}$ of a domain $D$, the \defn{mesh size} of $\cT$ is defined to be
-\beqs
-h = \max_{\Ki} \diam{\Ki}.
-\eeqs
-\ede
+%% \bde[Mesh Size]
+%% Given a mesh $\cT = \set{\Ki}$ on a domain $D$, the \defn{mesh size} of $\cT$ is defined to be
+%% \beqs
+%% h = \max_{\Ki} \diam{\Ki}.
+%% \eeqs
+%% \ede
 
-    We can now define finite-element spaces associated with a triangulation; we first define the space of polynomials on a set.
+%%     We can now define finite-element spaces associated with a triangulation; we first define the space of polynomials on a set.
 
-\bde[Set of polynomials]
-For $K \subseteq \RRd,$ $\polyp{K}$ is the set of polynomials defined on $K$ with total degree at most $p.$
-\ede
-    \bde[Finite element space of degree $p$]\label{def:fespace}
-    Given a triangulation $\set{\Ki}$ with mesh size $h$ of a domain $D$, the \defn{(continuous) piecewise-polynomial finite-element space of degree $p$} associated with $\set{\Ki}$ is
-    \beqs
-\Vhp \de \set{\vh : D \rightarrow \CC \st \vh \in \CzD \tand \vh\restrict_{\Ki} \in \polyp{\Kiclos} \tforall \Ki }.
-    \eeqs
-    \ede
+%% \bde[Set of polynomials]
+%% For $K \subseteq \RRd,$ $\polyp{K}$ is the set of polynomials defined on $K$ with total degree at most $p.$
+%% \ede
+%%     \bde[Finite element space of degree $p$]\label{def:fespace}
+%%     Given a triangulation $\set{\Ki}$ with mesh size $h$ of a domain $D$, the \defn{(continuous) piecewise-polynomial finite-element space of degree $p$} associated with $\set{\Ki}$ is
+%%     \beqs
+%% \Vhp \de \set{\vh : D \rightarrow \CC \st \vh \in \CzD \tand \vh\restrict_{\Ki} \in \polyp{\Kiclos} \tforall \Ki }.
+%%     \eeqs
+%%     \ede
 
 Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$ This is in contrast to the $p$-FEM, where $h$ is fixed and $p$ is increased, and the $hp$-FEM, where both $h$ and $p$ are increased according to some rule. $hp$-FEM methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}; however, their analysis relies on a splitting of the solution of the Helmholtz equation that is, to our knowledge, not possible for the heterogeneous problem.
 %\ednote{I couldn't immediately see in these results that one obtains exponential convergence with respect to the number of DOFs---have I missed something, or is this result contained somewhere else?}, where they showed one can obtain an exponential rate of convergence with respect to the number of degrees of freedom.
@@ -398,7 +399,7 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     We adopt the terminology that $\vhptilde$ is the \defn{quasi-interpolant} of $v.$ For a proof of \cref{lem:scottzhang} see, e.g., \cite[Corollary 4.4.24, Remark 4.4.27]{BrSc:08}.
 
     \bre[The function $\vhptilde$]
-The function $\vhptilde$ in \cref{lem:scottzhang} is constructed using `averaged Taylor polynomials', see, e.g., \cite{ScZh:90},\cite[Section 4.4]{BrSc:08} for details\footnote{Observe that in \cite{BrSc:08}, the authors use different notation to us; they use $m$ to denote the regularity of $v$ and $p$ to denote the integrability of $v,$ i.e., in \cite{BrSc:08}, $v \in \WmpD.$}.
+The function $\vhptilde$ in \cref{lem:scottzhang} can be constructed using `averaged Taylor polynomials', see, e.g., \cite{ScZh:90},\cite[Section 4.4]{BrSc:08} for details\footnote{Observe that in \cite{BrSc:08}, the authors use different notation to us; they use $m$ to denote the regularity of $v$ and $p$ to denote the integrability of $v,$ i.e., in \cite{BrSc:08}, $v \in \WmpD.$}.
     \ere
 
     With the concept of a finite-element space in place, we can now define the finite-element approximation to the variational problems \cref{prob:vedp,prob:vtedp}.
@@ -412,7 +413,7 @@ We say that $\uh \in \Vhp$ is the finite-element approximation of $u$ (the solut
     \eprob
 
     \bre[Not considering variational crimes]
-    Observe that \cref{prob:fevtedp} requires $\Vhp \subset \HozDDR.$ This inclusion is true if $\DR$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevtedp} and commit a variational crime by approximating the boundary of $\DR$ by a polygon, or introducing mesh elements with curved boundaries using interpolated boundary conditions or isoparametric finite elements. See, e.g., \cite[Chapter 10]{BrSc:08} for an overview of the additional errors introduced by variational crimes (although not in the context of the Helmholtz equation). In this thesis we  ignore such variational crimes, and the additional errors they induce; such analysis is standard.
+    Observe that \cref{prob:fevtedp} requires $\Vhp \subset \HozDDR.$ This inclusion is true if $\DR$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevtedp} and commit a variational crime by approximating the boundary of $\DR$ by a polygon, or introducing mesh elements with curved boundaries using interpolated boundary conditions or isoparametric finite elements. See, e.g., \cite[Chapter 10]{BrSc:08} for an overview of the additional errors introduced by variational crimes (although not in the context of the Helmholtz equation). In this thesis we  ignore such variational crimes, and the additional errors they induce; such analysis is standard. Therefore we assume that \cref{lem:scottzhang} holds, even if we have not triangulated the domain $D$ exactly.
     \ere
     
 
