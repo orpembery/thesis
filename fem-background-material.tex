@@ -196,8 +196,7 @@ We now discuss in some detail proof techniques used to show that the finite-elem
 
 In all of the cases we discuss below, extra restrictions on the mesh size $h$ will be required to ensure that the pollution error in the finite element method is suppressed.
 
-For simplicity's sake, our exposition below will assume that we are treating the homogeneous Helmholz TEDP (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\optodo{Look up ref}. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, as defined in\optodo{Find where defined, or define here.} The new results we present in \cref{sec:fem} below relax all of these assumptions, and the price of being more technical to state.
-\optodo{Maybe rework bounded interpolation error/best approx error and put it in here.}
+For simplicity's sake, our exposition below will assume that we are treating the homogeneous Helmholz TEDP (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if we have a $k$-independent a priori bound.}. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k,$ $h$, and $p.$ The new results we present in \cref{sec:fem} below relax all of these assumptions, and the price of being more technical to state.
 
 \subsubsection{Duality arguments}
 The first class of arguments we consider are (modified) duality arguments. In these arguments, one uses a G\r{a}rding inequality satisfied by the Helmholtz equation to show that the error in the weighted $H^1$ norm is bounded by the error in the $L^2$ norm. One then uses a modification of the standard Aubin--Nitsche duality argument to bound the $L^2$ norm. To show the error in the weighted $H^1$ norm is bounded by the error in the $L^2$ norm, observe
@@ -226,7 +225,7 @@ and then combining \cref{eq:gardingerror,eq:epbound} to show
 \NW{u-\uh}^2 &\lesssim \NW{u-\uh}\NW{u-\vh} + h^2k^3 \NLtD{f}\nonumber\\
 &\leq \eps \NW{u-\uh}^2 + \frac1\eps \NW{u-\vh}^2 +\mleft(h^2 k^3 \NLtD{f}\mright)^2\label{eq:epboundpart1}
 \end{align}
-Taking $\eps$ sufficiently small, and moving the first term in \cref{eq:epboundpart1} to the left-hand side, taking $\vh$ to be the best approximation of $u$ in $\Vhp,$ and using \cref{lem:scottzhang} and\optodo{$H^2$ bound anywhere?} we can show
+Taking $\eps$ sufficiently small, and moving the first term in \cref{eq:epboundpart1} to the left-hand side, taking $\vh$ to be the best approximation of $u$ in $\Vhp,$ and using \cref{lem:scottzhang} and the fact that\footnote{For sufficiently smooth $\GD$ and $\GI$---see \cite[Remark 2.14]{GrPeSp:19}} we can show $\NHtD{u} \lesssim k\NLtD{f}$
 \beqs
 \NW{u-\uh} \lesssim \mleft(hk + h^2k^3\mright)\NLtD{f}.
 \eeqs
@@ -241,7 +240,7 @@ and
 \beqs
 a(v,\solfems(f) = \IPLtD{v}{f}.
 \eeqs
-There exist obvious generalisations of these operators to the case with non-zero impedance boundary conditions. We next define the `worst best approximation' constants:
+There exist obvious generalisations of these operators to the case with non-zero impedance boundary conditions. We next define the approximability constants:
 \beqs
 \wba \de \sup_{f \in \LtD}\inf_{\vh \in \Vhp} \frac{\NW{\solfem(f) - \vh}}{\NLtD{f}}
 \eeqs
@@ -249,7 +248,7 @@ and
 \beqs
 \wbaadj \de \sup_{f \in \LtD}\inf_{\vh \in \Vhp} \frac{\NW{\solfems(f) - \vh}}{\NLtD{f}}.
 \eeqs
-We note that we are changing notation slightly from that normally prevelant in the literature; notation for $\wbaadj$ was first introduced by Sauter in \cite{Sa:06}, but $\wbaadj$ was instead denoted $\eta.$ When dealing purely with the Schatz argument for quasi-optimality (as in \cite{Sa:06}\optodo{Check}) one only needs consider `worst best approximations' adjoint problems in the duality-argument step, and hence one only needs notation for $\wbaadj$. However, in our exposition of elliptic-projection-based arguments below, we will also need to consider `worst best approximations' of non-adjoint\ednote{Both---Is there a word for this? `Standard'?} Helmholtz problems, and hence we adopt the notation above.
+We note that we are changing notation slightly from that normally prevelant in the literature; notation for $\wbaadj$ was first introduced by Sauter in \cite[Section 2.2]{Sa:06}, but $\wbaadj$ was instead denoted $\tilde{\eta}$ in \cite{Sa:06} and denoted $\eta$ in \cite[Equation (4.5)]{MeSa:10}.  When dealing purely with the Schatz argument for quasi-optimality (as in \cite{Sa:06}\optodo{Check}) one only needs consider the approximation of adjoint problems in the duality-argument step, and hence one only needs notation for $\wbaadj$. However, in our exposition of elliptic-projection-based arguments below, we will also need to consider approximation of non-adjoint\ednote{Both---Is there a word for this? `Standard'?} Helmholtz problems, and hence we adopt the notation above.
 
 \paragraph{The Schatz argument} We now recap the (generalisation) of the Aubin--Nitsche duality argument for bounding the $L^2$-norm of the finite-element error by the $H^1$ norm of the error.\optodo{Check if this was done by Schatz, and add in here.} This recapitulation will allow us to see where $\wbaadj$ enters the argument, and will also allow us to compare and contrast this argument with the arguments used to obtain a bounded finite-element error using an elliptic projection.
 
@@ -322,7 +321,11 @@ Therefore if $hk^2\wba$ is sufficiently small, the second term in \cref{eq:schat
 \beq\label{eq:ep1}
 k \NLtD{u-\uh} \lesssim k \wba^2 \NLtD{f} \tif hk^2\wba \text{ is sufficiently small}.
 \eeq
-To obtain a bound on the error in the $H^1$ norm, we take $\vh = \Ih u$ in \cref{eq:gardingerror}, and analagous to \cref{eq:epboundpart1}, obtain for any $\eps > 0$
+To obtain a bound on the error in the weighted $H^1$ norm, we take $\vh = \Ih u$ in \cref{eq:gardingerror}, where $\Ih$ denotes the interpolant or quasi-interpolant, so that
+\beqs
+\NW{u - \Ih u} \lesssim \inf_{\vh \in \Vhp} \NW{u - \vh}.
+\eeqs
+Analagous to \cref{eq:epboundpart1}, we obtain for any $\eps > 0$
 \beq\label{eq:ep2}
 \NW{u-\uh}^2 \lesssim \eps \NW{u-\uh}^2 + \frac1\eps\NW{u-\Ih u}^2 + \mleft(k\wba^2\mright)^2 \NLtD{f}^2.
 \eeq
@@ -349,15 +352,29 @@ Proving an error bound for $u-\uh$ therefore reduces to proving an error bound f
 
 To bound the difference $\Ph u - \uh,$ one first shows that it solves a deterministic Helmholtz problem:
 By Galerkin orthogonality for $u-\uh,$ for any $\vh \in \Vhp$ we have $a(u-\uh,\vh) = 0$, and by Galerkin orthogonality\optodo{Need to define EP in first argument here} for $u-\Ph u,$ $\aep(u-\Ph u,\vh) = 0$. Therefore
-\beqs
-a(\Ph u - \uh,\vh) = a(\Ph u - u,\vh) + a(u-\uh,\vh) = a(\Ph u - u,\vh) = \aep(\Ph u - u,\vh) - k^2\IPLtD{\Ph u - u}{\vh} = - k^2\IPLtD{\Ph u - u}{\vh},
-\eeqs
+\begin{align*}
+  a(\Ph u - \uh,\vh) &= a(\Ph u - u,\vh) + a(u-\uh,\vh)\\
+  &= a(\Ph u - u,\vh)\\
+  &= \aep(\Ph u - u,\vh) - k^2\IPLtD{\Ph u - u}{\vh}\\
+  &= - k^2\IPLtD{\Ph u - u}{\vh},
+\end{align*}
 that is, $\Ph u - \uh$ solves the discrete Helmholtz problem
 \beqs
 a(\Ph u - \uh,\vh) = \IPLtD{\ftilde}{\vh} \tforall \vh \in \Vhp,
 \eeqs
-where $\ftilde = k^2\mleft(u-\Ph u\mright).$ One then uses the fact that the difference satisfies a discrete Helmholtz problem to prove a bound on the difference directly. In \cite{FeWu:09,FeWu:11,Wu:14}\optodo{Check these} a discrete multiplier argument is used, reminiscent of the multiplier arguments used to prove a priori bounds on Helmholtz problems in \cref{sec:pdetheory}. In \cite{DuWu:15} an argument using higher-order (discrete) norms of are used in an argument conceptually similar to the modified duality arguments above. The $L^2$-norm of $\Ph u - \uh$ is bounded by $\NW{u-\uh}$ and a higher-order norm of $\Ph u - \uh$ (with both terms multiplied by powers of $k$ and $h$) using a modified duality argument. Also, the higher-order norm of $\Ph u - \uh$ is bounded by terms involvinh $k,$ $h$, $\NW{u-\uh}$ and the $L^2$ norm of $\Ph u - \uh$. These two norm bounds are then combined to produce a bound on the $L^2$ norm of $\Ph u - \uh$, provided $h^{2p}k^{2p+1}$ is sufficiently small.
+where $\ftilde = k^2\mleft(u-\Ph u\mright).$ One then uses the fact that the difference satisfies a discrete Helmholtz problem to prove a bound on the difference directly.
+
+In \cite{FeWu:09,FeWu:11,Wu:14}\optodo{Check these} a discrete multiplier argument is used, reminiscent of the multiplier arguments used to prove a priori bounds on Helmholtz problems in \cref{sec:pdetheory}. In \cite{DuWu:15} an argument using higher-order (discrete) norms of are used in an argument conceptually similar to the modified duality arguments above. The $L^2$-norm of $\Ph u - \uh$ is bounded by $\NW{u-\uh}$ and a higher-order norm of $\Ph u - \uh$ (with both terms multiplied by powers of $k$ and $h$) using a modified duality argument. Also, the higher-order norm of $\Ph u - \uh$ is bounded by terms involvinh $k,$ $h$, $\NW{u-\uh}$ and the $L^2$ norm of $\Ph u - \uh$. These two norm bounds are then combined to produce a bound on the $L^2$ norm of $\Ph u - \uh$, provided $h^{2p}k^{2p+1}$ is sufficiently small.
 \optodo{For this section; for the first set you only need a bound on the elliptic projection error (with the right powers of $h$ and $k$). For the second one, We use quasi-optimality in $H^1$, the lower-order bounds in terms of the higher-order one, and a bound on the best approximation error. Maybe you could combine the first and third and get away with a bound on the elliptic projection error with the correct powers?}
+
+Observe that when using the ellptic projection in such a splitting argument, there are two differences compared to the use of an elliptic projection in modified duality arguments:
+\ben
+\item One does not need the elliptic projection to be quasi-optimal \cref{eq:epho}, rather, one only need to bound the error $\NW{u-\Ph u}$, where $u$ solves a Helmholtz problem, in terms of $\NLtD{f}$.
+\item The elliptic projection should be defined in the first argument, not the second, i.e.
+  \beqs
+a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
+  \eeqs
+\een
 
 \subsubsection{Merits and drawbacks of each argument}
 We now briefly discuss the positive and negative points for each of the two classes of argument we have outlined above; duality arguments and splitting arguments.
