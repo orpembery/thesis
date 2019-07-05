@@ -1,5 +1,3 @@
-
-
 \section{Theory of the Finite-Element Discretisation of the Helmholtz Equation}\label{sec:helmfe}
 
 We now shift our attention to the numerical analysis of the Helmholtz equation in heterogeneous media; we  study the finite-element method for the Helmholtz equation. We first provide the variational formulations of the Helmholtz equation, define the finite element method, and recall results on the approximation properties of finite-element spaces, before proving our main result, a new error bound for the finite-element method for the Helmholtz equation in heterogeneous media.
@@ -248,9 +246,9 @@ and
 \beqs
 \wbaadj \de \sup_{f \in \LtD}\inf_{\vh \in \Vhp} \frac{\NW{\solfems(f) - \vh}}{\NLtD{f}}.
 \eeqs
-We note that we are changing notation slightly from that normally prevelant in the literature; notation for $\wbaadj$ was first introduced by Sauter in \cite[Section 2.2]{Sa:06}, but $\wbaadj$ was instead denoted $\tilde{\eta}$ in \cite{Sa:06} and denoted $\eta$ in \cite[Equation (4.5)]{MeSa:10}.  When dealing purely with the Schatz argument for quasi-optimality (as in \cite{Sa:06}\optodo{Check}) one only needs consider the approximation of adjoint problems in the duality-argument step, and hence one only needs notation for $\wbaadj$. However, in our exposition of elliptic-projection-based arguments below, we will also need to consider approximation of non-adjoint\ednote{Both---Is there a word for this? `Standard'?} Helmholtz problems, and hence we adopt the notation above.
+We note that we are changing notation slightly from that normally prevelant in the literature; notation for $\wbaadj$ was first introduced by Sauter in \cite[Section 2.2]{Sa:06}, but $\wbaadj$ was instead denoted $\tilde{\eta}$ in \cite{Sa:06} and denoted $\eta$ in \cite[Equation (4.5)]{MeSa:10}.  When dealing purely with the Schatz argument for quasi-optimality (as in \cite[Section 2.2]{Sa:06}) one only needs consider the approximation of adjoint problems in the duality-argument step, and hence one only needs notation for $\wbaadj$. However, in our exposition of elliptic-projection-based arguments below, we will also need to consider approximation of non-adjoint\ednote{Both---Is there a word for this? `Standard'?} Helmholtz problems, and hence we adopt the notation above.
 
-\paragraph{The Schatz argument} We now recap the (generalisation) of the Aubin--Nitsche duality argument for bounding the $L^2$-norm of the finite-element error by the $H^1$ norm of the error.\optodo{Check if this was done by Schatz, and add in here.} This recapitulation will allow us to see where $\wbaadj$ enters the argument, and will also allow us to compare and contrast this argument with the arguments used to obtain a bounded finite-element error using an elliptic projection.
+\paragraph{The Schatz argument} We now recap the so-called Schatz argument for proving quasi-optimality for an indefinite sesquilinear form (first introduced by Schatz in \cite{Sc:74}. This recapitulation will allow us to see where $\wbaadj$ enters the argument, and will also allow us to compare and contrast this argument with the arguments used to obtain a bounded finite-element error using an elliptic projection.
 
 We let $\xi \in \HozDD$ solve the adjoint Helmholtz problem
 \beqs
@@ -394,20 +392,52 @@ We now give a brief overview of the literature on quasi-optimality/error bounds 
 %% Mesh condition
 %% Error bound
 %% Notes
-\paragraph{Quasi-optimality}
+%\paragraph{Quasi-optimality}
+\begin{table}[h]
 \begin{tabu}{ccc}
   \toprule
-   & Mesh Condition & Notes\\
+& Mesh Condition & Notes\\
   \midrule
   \cite{Me:95} & $hk^2$ & $d=2,$ Interior Impedance Problem (IIP)\\
-  \cite{MeSa:10,MeSa:11} & $h^{p}k^{p+1}$ or $\log(k)/p$ and $kh/p$ & Full-space problem, IIP, and EDP\\
-  \cite{ChNi:19} & $h^pk^{p+\alpha+1}$ & Arbitrary problem, with assumption that priori bound grows at rate $k^\alpha$\\
+  \cite{MeSa:10,MeSa:11} & $h^{p}k^{p+1}$ or $\log(k)/p$ and $kh/p$ ($hp$) & Full-space problem, IIP, and EDP\\
+  \cite{ChNi:19} & $h^pk^{p+\alpha+1}$ ($p$ fixed) & Arbitrary problem, a priori bound grows at rate $k^\alpha$\\
   \cite{ChNi:18} & $hk^2$ & TEDP with re-entrant corners\\
-  \cite{ChGaNiTo:19} & $h^{p}k^{p+1}$ & Truncated perfectly matched layer\\
+  \cite{ChGaNiTo:19} & $h^{p}k^{p+1}$ ($p$ fixed) & Truncated PML\\
 \bottomrule
 \end{tabu}
-\optodo{Would it be better to put bounds on $\eta$ here?}
-\optodo{Give more detailed lit review.}
+\caption{Summary of the literature on quasi-optimality}
+\end{table}
+
+\begin{table}[h]
+\begin{tabu}{cccc}
+  \toprule
+  & Mesh Condition & Error bound & Notes\\
+      \midrule
+  \cite{ZhWu:13} & $\displaystyle \frac{kh}p \mleft(\frac{k}p\mright)^{\frac1{p+1}}$ ($hp$) or $h^{p+1}k^{p+2}$ ($p$ fixed) & $\displaystyle \frac{h}p + \frac1{p}\mleft(\frac{kh}{\sigma p}\mright)^p + \frac{k}{p^2} \mleft(\frac{kh}{\sigma p}\mright)^{2p}$ & IIP\\
+  \cite{LiWu:18} & $h^2k^3$ & $h^2k^3$ & Truncated PML\\
+  \cite{ChGaNiTo:18} & $h^{p+1}k^{p+2}$ & $h^{2p}k^{2p+1}$ & Truncated PML\\
+    \cite{ChNi:18} & $h^{1+\alpha}k^3$ &$hk + h^2 k^3 + h^\alpha k^{\alpha-1/2}$ & TEDP with re-entrant corners, $\alpha$ corresponds to strength of singularities\\
+\bottomrule
+\end{tabu}
+\caption{Summary of the literature on error bounds using a modified duality argument}
+\end{table}
+
+\begin{table}[h]
+\begin{tabu}{cccc}
+  \toprule
+  & Mesh Condition & Error bound & Notes\\
+  \midrule
+  \cite{FeWu:09} & $kh$ & $h^{4/3} k^{8/3}$ & TEDP, Interior-Penalty Discontinuous Galerkin (IPDG) method\\
+  \cite{FeWu:11} & $\displaystyle \frac{h^2 k^3}{p^2}$ & $\displaystyle \mleft(\frac{h}p+ \frac{h^2 k^2}{p^2}\mright)$ & TEDP, $hp$-IPDG method\\
+  \cite{Wu:14} & $h^2 k^3$ & $hk + h^2 k^3$ & IIP\\
+  \cite{DuWu:15} &  $h^{2p}k^{2p+1}$ & $\mleft(hk\mright)^p + h^{2p} k^{2p+1}$ &  IIP\\
+\bottomrule
+\end{tabu}
+\caption{Summary of the literature on error bounds using a splitting argument}
+\end{table}
+
+%\optodo{Would it be better to put bounds on $\eta$ here?}
+
 
 %%5 Can put the below somewhere %%
 
