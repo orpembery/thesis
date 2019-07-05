@@ -190,7 +190,7 @@ The Aubin--Nitsche arument was first used for Helmholtz problems by Melenk in hi
 In conclusion, the error for the finite-element method for Helmholtz problems is bounded if $h^{2p}k^{2p+1}$ is sufficiently small, and the finite-element method is quasi-optimal if $hk^2$ is sufficiently small (for first-order finite elements). We  now prove analagous results on the boundedness of the error for heterogeneous Helmholtz problems.\optodo{Check what Theo did, and whether anyone has done qo for higher-order elements.}
 
 \subsection{Extended discussion of proof techniques for finite-element errors for the Helmholtz equation}
-We now discuss in some detail proof techniques used to show that the finite-element method applied to the Helmholtz equation (i) is quasi-optimal in the weighted $H^1$ norm, or (ii) has bounded error in the weighted $H^1$ norm. We discuss these techniques (and the places where they appear in the literature) because the proof techniques are related but different, and we hope that discussing the details, and comparing and contrasting these techniques will prove helpful to the research community, and will increase understanding of proofs that are, at times, a little technical. However, we also discuss these results to set the coefficient-explicit bounds in \cref{sec:fem} below in context.
+We now discuss in some detail proof techniques used to show that the finite-element method applied to the Helmholtz equation (i) is quasi-optimal in the weighted $H^1$ norm, or (ii) has bounded error in the weighted $H^1$ norm\footnote{Frequently quasi-optimality results are refereed to as \defn{asymptotic} error estimates, and bounded-error results (when they are proved under weaker mesh constraints than asymptotic result) are referred to as \defn{pre-asymptotic} error estimates.}. We discuss these techniques (and the places where they appear in the literature) because the proof techniques are related but different, and we hope that discussing the details, and comparing and contrasting these techniques will prove helpful to the research community, and will increase understanding of proofs that are, at times, a little technical. However, we also discuss these results to set the coefficient-explicit bounds in \cref{sec:fem} below in context.
 
 In all of the cases we discuss below, extra restrictions on the mesh size $h$ will be required to ensure that the pollution error in the finite element method is suppressed.
 
@@ -273,11 +273,11 @@ and hence
 \beqs
 \NW{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NW{u-\vh} \tif k\wbaadj \text{ is sufficiently small}.
 \eeqs
-All results showing quasi-optimality for the Helmholtz equation (for different finite-element spaces and different domains) can then be seen as simply obtaining estimates on $\eta$ in these different scenarios; this literature is summarised in\optodo{Insert ref} below.
+All results showing quasi-optimality for the Helmholtz equation (for different finite-element spaces and different domains) can then be seen as simply obtaining estimates on $\eta$ in these different scenarios; this literature is summarised in \cref{tab:qo,tab:moddual,tab:split} below.
 
-\paragraph{Elliptic-projection arguments} We now move on to compare and contrast the Schatz argument given above with so-called elliptic-projection arguments.\optodo{Put defn here, briefly?} The main difference in the result of these arguments, compared to the Schatz argument given above, is that elliptic projection arguments only produce a \emph{bound} on the finite-element error, rather than quasi-optimality. However, these bounds are obtained under mesh restrictions that are less restrictive than those required for quasi-optimality.
+\paragraph{Elliptic-projection arguments} We now move on to compare and contrast the Schatz argument given above with so-called elliptic-projection arguments. The main difference in the result of these arguments, compared to the Schatz argument given above, is that elliptic projection arguments only produce a \emph{bound} on the finite-element error, rather than quasi-optimality. However, these bounds are obtained under mesh restrictions that are less restrictive than those required for quasi-optimality.
 
-The elliptic projection of a function $ w \in \HozDD$ is the finite-element function $\Ph w$ that has the same action as $w$ on the finite-element space $\Vhp$ under some elliptic operator; i.e., $\Ph w$ is defined by
+The elliptic projection of a function $ w \in \HozDD$ is the finite-element function $\Ph w$ that has the same action as $w$ on the finite-element space $\Vhp$ under some elliptic operator\footnote{The definition of the elliptic projection is dependent on the exact sesquilinear form used in ones discretisation of the Helmholtz equation, and in the norms one is using to measure the error. For example, elliptic projection arguments originated in the study of discontinuous Galerkin methods for the Helmholtz equation (in \cite{FeWu:09,FeWu:11}); therefore the sesquilinear forms associated with the discretisation included penalty terms---these penalty terms were incorporated into the sesquilinear form (and thus the elliptic projection) and the norms used also included these penalty terms. In the following exposition, we will work with stabndard finite-element discretisations of the Helmholtz equation and standard Sobolev norms, and so the elliptic projections we used will be based on this standard setting.}; i.e., $\Ph w$ is defined by
 \beqs
 \aep(\Ph w,\vh) = \aep(w,\vh) \tforall \vh \in \Vhp
 \eeqs
@@ -336,20 +336,17 @@ and thus
 \NW{u-\uh} \lesssim \mleft(\wba + k\wba^2\mright) \NLtD{f} \tif hk^2\wba\text{ is sufficiently small}.
 \eeq
 
-The term $\wba$ on the right-hand side of \cref{eq:ep3} is the best-approximation error (see\optodo{ref} above), and the term $k\wba^2$ is the \defn{pollution} term resulting from the numerical method.\optodo{Somewhere, not necessarily here, discuss all the pollution stuff.} As for the quasi-optimality results above, we remark that different bounds on the finite-element error (for different finite-element space $\Vhp$ and different domains) can be thought of as proving bounds on $\eta$ in these different situations.
+The term $\wba$ on the right-hand side of \cref{eq:ep3} is the best-approximation error (see \cref{sec:helmfedisc,lem:scottzhang} above), and the term $k\wba^2$ is the \defn{pollution} term resulting from the numerical method. As for the quasi-optimality results above, we remark that different bounds on the finite-element error (for different finite-element space $\Vhp$ and different domains) can be thought of as proving bounds on $\eta$ in these different situations.
 \ednote{Both---I don't yet have a clear explanation of \emph{why} this works. Currently, it seems just like a trick to me.}
-\optodo{Need to put in above this a definition of the elliptic projection, and the properties it needs. Will record properties here for now. (For now) Quasi-optimality in weighted norm with $k$-independent constant. Aubin-Nitsche bound showing $L^2$ error converges like $h$ times $H^1$ error. Need to define $\Ih$/acknowledge that it achieves best approx error}\optodo{Put, perhaps in a footnote, that the definition of the elliptic projection is slightly problem-dependent, and the norms one works in are also problem-dependent, but the structure I'll present is constant.}
-\optodo{Put more detailed literature review somewhere}
-\optodo{Put somewhere that literature is a bit dense, because arguments first used in DG context, where there's lots of extra notation, and forms are discretisation dependent to control jumps. Here we will try and give essence of arguments, but in a non-DG setting, so all forms arestandard.}
 \subsubsection{Error-splitting arguments}.
 The second class of argument used in the literature is an error-splitting argument, where the finite-element error is split using the elliptic projection of the solution $u$. To begin, we make the trivial observation that
 \beqs\label{eq:split1}
 u-\uh = \mleft(u-\Ph u\mright) + \mleft(\Ph u - \uh\mright).
 \eeqs
-Proving an error bound for $u-\uh$ therefore reduces to proving an error bound for the elliptic projection error $u- \Ph u$ and proving a bound on the difference $\Ph u - \uh.$ The former can either be accomplished by showing quasi-optimality of the elliptic projection (as in \optodo{Insert ref once done} above) or by proving such an error bound directly. The former approach is taken in \cite{DuWu:15}, where the authors do not include an impedance boundary term in their elliptic projection. The latter approach is taken in \cite[Lemma 5.2]{FeWu:09} (althought the proof is only contained in \cite[Lemma 5.2]{FeWu:08}), \cite[Lemma 4.3]{FeWu:11}, and \cite[Lemma 4.2]{Wu:14}, where an impedance boundary term is included in the elliptic projection. In \cite{FeWu:09,FeWu:11,DuWu:15} the bound on the elliptic projection error is proved by observing that the sesquilinear form $\IPLtD{\grad \vo}{\grad \vt}$ is coercive on $\HozDD$, and then also controlling the additional term arising from the impedance boundary condition.
+Proving an error bound for $u-\uh$ therefore reduces to proving an error bound for the elliptic projection error $u- \Ph u$ and proving a bound on the difference $\Ph u - \uh.$ The former can either be accomplished by showing quasi-optimality of the elliptic projection (as above) or by proving such an error bound directly. The former approach is taken in \cite{DuWu:15}, where the authors do not include an impedance boundary term in their elliptic projection. The latter approach is taken in \cite[Lemma 5.2]{FeWu:09} (althought the proof is only contained in \cite[Lemma 5.2]{FeWu:08}), \cite[Lemma 4.3]{FeWu:11}, and \cite[Lemma 4.2]{Wu:14}, where an impedance boundary term is included in the elliptic projection. In \cite{FeWu:09,FeWu:11,DuWu:15} the bound on the elliptic projection error is proved by observing that the sesquilinear form $\IPLtD{\grad \vo}{\grad \vt}$ is coercive on $\HozDD$, and then also controlling the additional term arising from the impedance boundary condition.
 
 To bound the difference $\Ph u - \uh,$ one first shows that it solves a deterministic Helmholtz problem:
-By Galerkin orthogonality for $u-\uh,$ for any $\vh \in \Vhp$ we have $a(u-\uh,\vh) = 0$, and by Galerkin orthogonality\optodo{Need to define EP in first argument here} for $u-\Ph u,$ $\aep(u-\Ph u,\vh) = 0$. Therefore
+By Galerkin orthogonality for $u-\uh,$ for any $\vh \in \Vhp$ we have $a(u-\uh,\vh) = 0$, and by Galerkin orthogonality for $u-\Ph u,$ $\aep(u-\Ph u,\vh) = 0$. Therefore
 \begin{align*}
   a(\Ph u - \uh,\vh) &= a(\Ph u - u,\vh) + a(u-\uh,\vh)\\
   &= a(\Ph u - u,\vh)\\
@@ -362,8 +359,8 @@ a(\Ph u - \uh,\vh) = \IPLtD{\ftilde}{\vh} \tforall \vh \in \Vhp,
 \eeqs
 where $\ftilde = k^2\mleft(u-\Ph u\mright).$ One then uses the fact that the difference satisfies a discrete Helmholtz problem to prove a bound on the difference directly.
 
-In \cite{FeWu:09,FeWu:11,Wu:14}\optodo{Check these} a discrete multiplier argument is used, reminiscent of the multiplier arguments used to prove a priori bounds on Helmholtz problems in \cref{sec:pdetheory}. In \cite{DuWu:15} an argument using higher-order (discrete) norms of are used in an argument conceptually similar to the modified duality arguments above. The $L^2$-norm of $\Ph u - \uh$ is bounded by $\NW{u-\uh}$ and a higher-order norm of $\Ph u - \uh$ (with both terms multiplied by powers of $k$ and $h$) using a modified duality argument. Also, the higher-order norm of $\Ph u - \uh$ is bounded by terms involvinh $k,$ $h$, $\NW{u-\uh}$ and the $L^2$ norm of $\Ph u - \uh$. These two norm bounds are then combined to produce a bound on the $L^2$ norm of $\Ph u - \uh$, provided $h^{2p}k^{2p+1}$ is sufficiently small.
-\optodo{For this section; for the first set you only need a bound on the elliptic projection error (with the right powers of $h$ and $k$). For the second one, We use quasi-optimality in $H^1$, the lower-order bounds in terms of the higher-order one, and a bound on the best approximation error. Maybe you could combine the first and third and get away with a bound on the elliptic projection error with the correct powers?}
+In \cite{FeWu:09,FeWu:11,Wu:14} a discrete multiplier argument is used, reminiscent of the multiplier arguments used to prove a priori bounds on Helmholtz problems in \cref{sec:pdetheory}. In \cite{DuWu:15} an argument using higher-order (discrete) norms of are used in an argument conceptually similar to the modified duality arguments above. The $L^2$-norm of $\Ph u - \uh$ is bounded by $\NW{u-\uh}$ and a higher-order norm of $\Ph u - \uh$ (with both terms multiplied by powers of $k$ and $h$) using a modified duality argument. Also, the higher-order norm of $\Ph u - \uh$ is bounded by terms involvinh $k,$ $h$, $\NW{u-\uh}$ and the $L^2$ norm of $\Ph u - \uh$. These two norm bounds are then combined to produce a bound on the $L^2$ norm of $\Ph u - \uh$, provided $h^{2p}k^{2p+1}$ is sufficiently small.
+%\optodo{For this section; for the first set you only need a bound on the elliptic projection error (with the right powers of $h$ and $k$). For the second one, We use quasi-optimality in $H^1$, the lower-order bounds in terms of the higher-order one, and a bound on the best approximation error. Maybe you could combine the first and third and get away with a bound on the elliptic projection error with the correct powers?}
 
 Observe that when using the ellptic projection in such a splitting argument, there are two differences compared to the use of an elliptic projection in modified duality arguments:
 \ben
@@ -379,14 +376,13 @@ We now briefly discuss the positive and negative points for each of the two clas
 
 The positive points for duality arguments are their simplicity---we have stated the arguments almost in their entirety above (the only part left unstated is how to bound $\wba$ and $\wbaadj$), and they are closely related with familiar duality arguments used in the finite-element-error analysis for more familiar problems, such as the stationary diffusion equation. In addition, it is straightforward to see that for higher-order finite elements (or $hp$-finite-elements) if one knows the dependence of $\wba$ and $\wbaadj$ on $h$, $p$, and $k$, then one can easily conclude bounds under conditions, both of which are completely $h$-, $p$-, and $k$-explicit. Such an analysis was performed for quasi-optimality of $hp$-finite-element methods for the Helmholtz equation in homogeneous media by Melenk and Sauter \cite{MeSa:10,MeSa:11}, where $\wbaadj$ was bounded using a profound splitting of the solution of the Helmholtz equation.
 
-However, the main drawback of duality arguments is their lack of sharpness in the conditions imposed on $h$. For example, if we assume $p$ is fixed and $\wba = h + \mleft(hk\mright)^p$ (as is shown, for example, by Chaumont-Frelet and Nicaise in \cite[Lemma 1]{ChNi:18a}), then the condition $hk^2\eta$ is sufficiently small in \cref{eq:ep3} above translates to requiring\optodo{This isn't sharp...} $h^2k^2 + h^{p+1}k^{p+2}$ sufficiently small; this final condition is ensured if $h^{p+1}k^{p+2}$ is sufficiently small. However, the pollution term in \cref{eq:ep3} is of the form $k\wba^2 \lesssim h^2k + h^{2p}k^{2p+1} \lesssim h + h^{2p}k^{2p+1}$ (as $hk \lesssim 1$). That is, the mesh restriction under which we can prove a finite-element error bound is more restrictive than the mesh restriction needed to bound the pollution error uniformly in $k.$
-\optodo{Mention somewhere the asymptotic/preasymptotic terminology}
+However, the main drawback of duality arguments is their lack of sharpness in the conditions imposed on $h$. For example, if we assume $p$ is fixed and $\wba = h + \mleft(hk\mright)^p$ (as is shown, for example, by Chaumont-Frelet and Nicaise in \cite[Lemma 1]{ChNi:18a}), then the condition $hk^2\eta$ is sufficiently small in \cref{eq:ep3} above translates to requiring $h^2k^2 + h^{p+1}k^{p+2}$ sufficiently small; this final condition is ensured if $h^{p+1}k^{p+2}$ is sufficiently small. However, the pollution term in \cref{eq:ep3} is of the form $k\wba^2 \lesssim h^2k + h^{2p}k^{2p+1} \lesssim h + h^{2p}k^{2p+1}$ (as $hk \lesssim 1$). That is, the mesh restriction under which we can prove a finite-element error bound is more restrictive than the mesh restriction needed to bound the pollution error uniformly in $k.$
 
 In contrast, the positive point for splitting arguments is that they can give mesh conditions that are sharp in their $p$-dependence; in \cite{DuWu:15}, Du and Wu prove that the pollution term in the finite-element error is of the order $h^{2p}k^{2p+1},$ and they do so under the restriction that $h^{2p}k^{2p+1}$ is sufficiently small, i.e., the mesh restriction under which we can prove a finite-element error bound is `the same' as the mesh restriction needed to bound the pollution error uniformly in $k.$
 
 However, the drawback of splitting arguments is their complexity---obtaining a priori bounds on the difference $\Ph u - \uh$ involves proving bounds on the solution of discrete Helmholtz problems; such bounds are complicated to prove (especially in the higher-order cases, as in \cite{DuWu:15} and in \cref{sec:fem} below), and the constants involved depend on the polynomial degree $p$ in highly complicated ways.
 
-\subsubsection{Complete technical overview of the literature}
+\subsubsection{Complete technical overview of the literature}\label{sec:litsum}
 We now give a brief overview of the literature on quasi-optimality/error bounds for finite-element discretisations of the Helmholtz equation. We record this information tersely, having given more insight into the various techniques above. In what follows, if a quantity $p$ is mentioned, with no restriction on $p,$ then one can assume the results hold for any \emph{fixed} polynomial degree $p$. If no quantity $p$ is mentioned, then the results only hold for first-order finite elements. In the columns marked `mesh condition' the quantity listed must be sufficiently small, e.g., if `mesh condition' reads `$hk^2$' then the condition is `$hk^2$ sufficiently small'.
 %% Work
 %% Mesh condition
@@ -405,7 +401,7 @@ We now give a brief overview of the literature on quasi-optimality/error bounds 
   \cite{ChGaNiTo:19} & $h^{p}k^{p+1}$ ($p$ fixed) & Truncated PML\\
 \bottomrule
 \end{tabu}
-\caption{Summary of the literature on quasi-optimality}
+\caption{Summary of the literature on quasi-optimality}\label{tab:qo}
 \end{table}
 
 \begin{table}[h]
@@ -419,7 +415,7 @@ We now give a brief overview of the literature on quasi-optimality/error bounds 
     \cite{ChNi:18} & $h^{1+\alpha}k^3$ &$hk + h^2 k^3 + h^\alpha k^{\alpha-1/2}$ & TEDP with re-entrant corners, $\alpha$ corresponds to strength of singularities\\
 \bottomrule
 \end{tabu}
-\caption{Summary of the literature on error bounds using a modified duality argument}
+\caption{Summary of the literature on error bounds using a modified duality argument}\label{tab:moddual}
 \end{table}
 
 \begin{table}[h]
@@ -433,7 +429,7 @@ We now give a brief overview of the literature on quasi-optimality/error bounds 
   \cite{DuWu:15} &  $h^{2p}k^{2p+1}$ & $\mleft(hk\mright)^p + h^{2p} k^{2p+1}$ &  IIP\\
 \bottomrule
 \end{tabu}
-\caption{Summary of the literature on error bounds using a splitting argument}
+\caption{Summary of the literature on error bounds using a splitting argument}\label{tab:split}
 \end{table}
 
 %\optodo{Would it be better to put bounds on $\eta$ here?}
