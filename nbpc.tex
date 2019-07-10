@@ -122,7 +122,7 @@ and
 for all $k\geq k_0$. 
 \end{theorem}
 
-Two notes regarding Theorem \ref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \eqref{eq:C1} and \eqref{eq:C2} below in terms of constants appearing in Conditions \ref{cond:1nbpc} and \ref{cond:2}, and (ii) the $L^\infty(\Omega_R)$ norm on a matrix-valued functions appearing on the right-hand sides of \eqref{eq:main1} and \eqref{eq:main1a} is defined by
+Two notes regarding Theorem \ref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \eqref{eq:C1nbpc} and \eqref{eq:C2} below in terms of constants appearing in Conditions \ref{cond:1nbpc} and \ref{cond:2}, and (ii) the $L^\infty(\Omega_R)$ norm on a matrix-valued functions appearing on the right-hand sides of \eqref{eq:main1} and \eqref{eq:main1a} is defined by
 \beqs
 \N{A}_{L^\infty(\Omega_R)}:= \esssup_{\bx\in\Omega_R}\N{A(\bx)}_2.
 \eeqs
@@ -822,7 +822,7 @@ and
 %% + C_{\rm bound}^{(1)}\right) \frac{\N{n}_{L^\infty(\DR)}}{k}.
 %\end{align}
 for all $k\geq k_0$, where
-\beq\label{eq:C1}
+\beq\label{eq:C1nbpc}
 C_1:=%\frac{s_+}{s_-} 
 \left[ C_{\rm FEM2}^{(1)} + 
  \frac{1}{\min\big\{\Aomin,\nomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nomax  \right) \right]
@@ -842,7 +842,7 @@ and similarly
 The bound  \eqref{eq:main1} on $\|\Imat - (\Amato)^{-1}\Amatt\|_2$ and  $\|\Imat - \Amatt(\Amato)^{-1}\|_2$ then follows from using the bounds \eqref{eq:keybound1} and \eqref{eq:keybound2} in \eqref{eq:idea1} and \eqref{eq:idea2}.
 %
 %, and $C_1$, $C_2$ in \eqref{eq:main1} are given explicitly by
-%\beq\label{eq:C1}
+%\beq\label{eq:C1nbpc}
 %C_1:=%\frac{s_+}{s_-} 
 %\left[ C_{\rm FEM2}^{(1)} + 
 % \frac{1}{\min\big\{\Aomin,\nomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nomax  \right) \right] \,\,\tand\,\,
@@ -961,7 +961,7 @@ a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \cV_h,
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \eqref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\bff$. 
 
 Similar to in the proof of Lemma \ref{lem:keylemma1},
-using the triangle inequality, the bound \eqref{eq:bound4} from Condition \ref{cond:2}, the bound \eqref{eq:bound2} from Lemma \ref{lem:H1}, the bound \eqref{eq:Fbound}, and the definition of $C_1$ \eqref{eq:C1},
+using the triangle inequality, the bound \eqref{eq:bound4} from Condition \ref{cond:2}, the bound \eqref{eq:bound2} from Lemma \ref{lem:H1}, the bound \eqref{eq:Fbound}, and the definition of $C_1$ \eqref{eq:C1nbpc},
 we find
 %Note that the hypotheses imply that the bound on the solution operator 
 %\eqref{eq:bound_unif} holds (by Corollary \ref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \eqref{eq:qoeps_lemma} holds (by Lemma \ref{lem:qo}).
