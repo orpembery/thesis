@@ -35,7 +35,7 @@ Observe that the norm on $\LiDRRR$ induces a metric on $\LiRminDRRR,$ and simila
 %for $\vo,\vt \in \HozDDR.$
 \ede
 
-\bprob[Helmholtz EDP]\label{prob:edp}
+\bprob[Helmholtz EDP]\label{prob:edpstoch}
 For $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRDRRR \times \LtRDR$ find 
 $\uz \in \HozDDR$ such that $\aGm(\uz,v) = \Lh(v) \tforall v \in \HozDDR.$
 \eprob
@@ -112,11 +112,11 @@ Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\rhs((\Am,\nm
 \bde[The solution operator $\sol$]
 Define $\sol:\cC\rightarrow \HozDDR$ by letting 
 
-\noindent $\sol\mleft(\Az,\nz,\fz\mright) \in \HozDDR$ be the solution of the Helmholtz EDP (\cref{prob:edp}).
+\noindent $\sol\mleft(\Az,\nz,\fz\mright) \in \HozDDR$ be the solution of the Helmholtz EDP (\cref{prob:edpstoch}).
 \ede
 
 \bth[$\sol$ is well defined]\label{thm:deteu}
-For $\mleft(\Az,\nz,\fz\mright) \in \cC$ the solution $\sol\mleft(\mleft(\Az,\nz,\fz\mright)\mright)$ of the Helmholtz EDP (\cref{prob:edp}) exists, is unique, and depends continuously on $\fz.$
+For $\mleft(\Az,\nz,\fz\mright) \in \cC$ the solution $\sol\mleft(\mleft(\Az,\nz,\fz\mright)\mright)$ of the Helmholtz EDP (\cref{prob:edpstoch}) exists, is unique, and depends continuously on $\fz.$
 \enth
 
 \bpf[Proof of \cref{thm:deteu}] Since $\Real{-\langle \TrR \gamma v,\gamma v\rangle_{\GR}} \geq 0$ for all $v \in \HozDDR$ (see, e.g.~\cite[Theorem 2.6.4]{Ne:01}), $\aGm$ satisfies a G\r{a}rding inequality. Since the inclusion $\HozDDR \hookrightarrow \LtDR$ is compact, Fredholm theory shows that uniqueness implies well-posedness (see, e.g.~\cite[Theorem 2.34]{Mc:00}). Since $A$ is Lipschitz and $n$ is $L^\infty$, uniqueness follows from the unique continuation results in  \cite{JeKe:85,GaLi:87};
@@ -182,7 +182,7 @@ for almost every $\bx\in \Dp$,
 \econ
 
 \bth[Well-posedness of the Helmholtz EDP under \cref{cond:1} {\cite[Theorem 2.5]{GrPeSp:19}}]\label{thm:eubedp}
-Let $(\Az,\nz,\fz) \in \cC$ and suppose $\Az$ and $\nz$ satisfy \cref{cond:1}. Then the solution of the Helmholtz EDP (\cref{prob:edp}) exists and is unique. Furthermore, given $\kz > 0$ for all $k \geq \kz,$ the solution $\uz$ of the Helmholtz EDP satisfies the bound 
+Let $(\Az,\nz,\fz) \in \cC$ and suppose $\Az$ and $\nz$ satisfy \cref{cond:1}. Then the solution of the Helmholtz EDP (\cref{prob:edpstoch}) exists and is unique. Furthermore, given $\kz > 0$ for all $k \geq \kz,$ the solution $\uz$ of the Helmholtz EDP satisfies the bound 
 \beq\label{eq:heterobound1}
 \consto \NLtDR{\grad \uz}^2 + \constt k^2 \NLtDR{\uz}^2\leq \Co \NLtDR{\fz}^2,\,\, \text{where} \,\, \Co := 4\mleft[\frac{R^2}{\consto} + \frac{1}{\constt}\mleft(R+ \frac{d-1}{2\kz}\mright)^2\mright].
 \eeq
