@@ -13,7 +13,7 @@ the heterogeneous Helmholtz equation
 \nabla\cdot(\Aj \nabla\uj ) + k^2 \nj \uj =-f \quad \tin \Dp,
 \eeq
 the Dirichlet boundary condition $\uj=0$ on $\Gamma:= \partial \Dm$, and the Sommerfeld radiation condition 
-\beq\label{eq:src}
+\beq\label{eq:srcnbpc}
 \pdiff{\uj}{r}(\bx) - \ri k \uj(\bx) = o \left( \frac{1}{r^{(d-1)/2}}\right)
 \eeq
 as $r:= |\bx|\tendi$ (uniformly in $\xhat:= \bx/r$),
@@ -258,7 +258,7 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 
 \subsection{Investigating the sharpness of Theorem \ref{thm:1} and Corollary \ref{cor:1}}
 
-Theorem \ref{thm:1} and Corollary \ref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \S\ref{sec:problem} and shown in \S\ref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \eqref{eq:src} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see Definition \ref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of Theorem \ref{thm:1} and Corollary \ref{cor:1} for the TEDP.
+Theorem \ref{thm:1} and Corollary \ref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \S\ref{sec:problem} and shown in \S\ref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \eqref{eq:srcnbpc} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see Definition \ref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of Theorem \ref{thm:1} and Corollary \ref{cor:1} for the TEDP.
 
 \subsection{Fancy experiments Owen is doing where \eqref{eq:cond} only holds ``on average"}
 
@@ -283,7 +283,7 @@ Let $\DR:= \Dp\cap B_R$ and let %$H_{0,D}^1(\DR)$ be the completion of
 H_{0,D}^1(\DR):= \big\{ v\in H^1(\DR) : \gamma v=0 \ton \Gamma\big\},
 \eeq
 where $\gamma$ denotes the trace operator on $\Gamma$.
-Define $T_R: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ to be the Dirichlet-to-Neumann (DtN) map for the equation $\Delta u+k^2 u=0$ posed in the exterior of $B_R$ with the Sommerfeld radiation condition \eqref{eq:src}; the definition of $T_R$ in terms of Hankel functions and polar coordinates (when $d=2$)/spherical polar coordinates (when $d=3$) is given in, e.g., \cite[Equations 3.5 and 3.6]{ChMo:08} \cite[\S2.6.3]{Ne:01}, \cite[Equations 3.7 and 3.10]{MeSa:10}.
+Define $T_R: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ to be the Dirichlet-to-Neumann (DtN) map for the equation $\Delta u+k^2 u=0$ posed in the exterior of $B_R$ with the Sommerfeld radiation condition \eqref{eq:srcnbpc}; the definition of $T_R$ in terms of Hankel functions and polar coordinates (when $d=2$)/spherical polar coordinates (when $d=3$) is given in, e.g., \cite[Equations 3.5 and 3.6]{ChMo:08} \cite[\S2.6.3]{Ne:01}, \cite[Equations 3.7 and 3.10]{MeSa:10}.
 
 Given 
 %\bit
@@ -328,7 +328,7 @@ In this latter situation, we recall that $\|\cdot\|_{\HokDR}$ is defined by \eqr
 \ere
 
 \bre[Relationship to the scattering problem posed on $\Dp$]
-For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \eqref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \eqref{eq:src} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
+For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \eqref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \eqref{eq:srcnbpc} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
 \ere
 
 \bre[Existence and uniqueness]
@@ -351,7 +351,7 @@ Unique continuation results then imply that, under the additional assumption tha
 %\N{F}_{(\HokDR)'}:= \sup_{v\in \HozDDR} \frac{|F(v)|}{\N{v}_{\HokDR}},
 %\eeq
 %where $\|\cdot\|_{\HokDR}$ is defined by \eqref{eq:1knorm}.
-%\item For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \eqref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \eqref{eq:src} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
+%\item For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \eqref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \eqref{eq:srcnbpc} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
 %\item Since $a(\cdot,\cdot)$ satisfies the G\aa rding inequality 
 %\beq\label{eq:Garding}
 %\Re a(v,v) \geq \min\big\{ A_{\min}, n_{\min}\big\} \N{v}^2_{\HokDR} - 2k^2 \N{v}^2_{L^2(\Omega_R)},
@@ -483,7 +483,7 @@ For the proof of Lemma \ref{lem:adjoint} we need the following property of the D
 \beq\label{eq:DtN}
 \big\langle T_R\psi, \overline{\phi} \big\rangle_\Gamma = \big\langle T_R \phi, \overline{\psi}\big\rangle_\Gamma \quad\tfa \phi,\psi \in H^{1/2}(\GR).
 \eeq
-This property follows from the fact that, if $u$ and $v$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{B_R}$, both satisfying the Sommerfeld radiation condition \eqref{eq:src}, then
+This property follows from the fact that, if $u$ and $v$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{B_R}$, both satisfying the Sommerfeld radiation condition \eqref{eq:srcnbpc}, then
 \beqs
 \int_{\GR} (\gamma u)\, \pdiff{v}{n} = \int_{\GR} (\gamma v)\,\pdiff{u}{n};
 \eeqs
@@ -932,7 +932,7 @@ m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{\LtDR} \leq \N{\widetilde{u
 on either side of the inequality \eqref{eq:mainevent1}, with these bounds coming from \eqref{eq:normequiv1}. The proof of the bound on 
 $\|\Mmat_n((\Amato)^*)^{-1}\|_{2}$ in \eqref{eq:keybound1a} follows in a similar way to above, using the fact that 
 $\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \eqref{eq:A380}).
-%, namely the variational problem \eqref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \eqref{eq:src} being changed to $+\ri k$).
+%, namely the variational problem \eqref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \eqref{eq:srcnbpc} being changed to $+\ri k$).
 %
 %Now, if $u$ is the solution of the adjoint problem with data $F(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{F(\overline{v})}$; 
 %
