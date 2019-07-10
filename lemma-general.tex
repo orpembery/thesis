@@ -4,7 +4,7 @@ If $L$ is given by
 L = \ceil{\Lconst\log_{s}\mleft( \func \eps^{-1}\mright)},
 \eeq
 for some $\func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the bound
-\beq\label{eq:sumbound}
+\beq\label{eq:sumboundgen}
 \sum_{l=0}^{L} s^{\delta l} \leq
 \begin{cases}
 L+1 & \tif \delta = 0,\\
@@ -46,7 +46,7 @@ We now observe that, for $\delta \neq 0,$
 &= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
 &\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumbound}
 \end{align}
-since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumbound} with \eqref{eq:sdLpos} and \eqref{eq:sdLneg}, we obtain \eqref{eq:sumbound} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
+since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumbound} with \eqref{eq:sdLpos} and \eqref{eq:sdLneg}, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
 
 
 
