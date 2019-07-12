@@ -15,14 +15,20 @@ all: thesis.pdf
 	#touch $<
 
 clean:
-	rm *pdf *log *bbl *blg *dvi *out *aux
+	rm *pdf
+	rm *log
+	rm *bbl
+	rm *blg
+	rm *dvi
+	rm *out
+	rm *aux
 
 supervisor:
 # Based on https://tex.stackexchange.com/a/1495
-	pdflatex  "\def\supervisorversion{1} \input{thesis.tex}" 
+	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 	bibtex thesis.aux
-	pdflatex  "\def\supervisorversion{1} \input{thesis.tex}"
-	pdflatex  "\def\supervisorversion{1} \input{thesis.tex}" 
+	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}"
+	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 
 	touch thesis.tex # This means next time I try and make the thesis, make runs
 
@@ -50,3 +56,9 @@ proof:
 	echo
 	echo "duplicates: "
 	perl bin/dups *.tex
+
+spell:
+	# Next bit of code inspired by syntax in from https://stackoverflow.com/a/1490961 - no idea why this works and what I was trying doesn't
+	for file in $(shell ls *tex); do \
+	aspell --mode=tex -c $$file ; \
+	done

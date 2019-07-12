@@ -6,18 +6,33 @@
 
 \input{macros}
 
-\title{Waves in Heterogeneous and Random Media}
+\title{The Helmholtz Equation in Heterogeneous and Random Media: Analysis and Numerics}
 \author{Owen Pembery}
 
 \begin{document}
 
 \maketitle
 
+\input{settings}
+
+\tableofcontents
+
+
+
 \chapter{Introduction}\label{chap:intro}
 \input{introduction}
 
-\chapter{PDE Theory of the Deterministic Helmholtz Equation and Theory of its Discretisation}\label{chap:background}
+\chapter{PDE Theory of the Deterministic Helmholtz Equation and Theory of its Finite-Element Discretisation}\label{chap:background}
 \input{background}
+
+\input{fem-background-material}
+
+\subsection{Constants from \cref{sec:fem}}\label{app:constants}
+\input{constants}
+
+%\input{discrete-sobolev-spaces}
+
+%\input{new-fem-bounds}
 
 \chapter{Well-posedness of Formulations of the Stochastic Helmholtz Equation}\label{chap:stochastic}
 \input{new-introduction} 
@@ -42,11 +57,11 @@
 
 \chapter{Multi-Level Monte Carlo for the Helmholtz Equation}\label{chap:mlmc}
 
-\section{MLMC Complexity Theorem}\label{sec:comp}
+\section{The Multi-Level Monte Carlo Complexity Theorem for the Helmholtz equation}\label{sec:comp}
 
 \input{complexity-theorem}
 
-\section{The lemma in generality}
+\subsection{The lemma in generality}
 
 \input{lemma-general}
 
