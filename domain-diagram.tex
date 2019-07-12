@@ -1,13 +1,45 @@
 \def\domainscale{2}
 
-\def\obstacle{    (1.0, 0.0) .. controls (1.0,0.3) and (1.0071067811865476, 0.7071067811865475) ..
-    (0.7071067811865476, 0.7071067811865475) .. controls (0.4071067811865476, 0.7071067811865475) and (0.2, 0.8) ..
-    (0.0, 1.0) .. controls (-0.2,1.2) and (-0.5071067811865475, 0.9071067811865476) ..
-    (-0.7071067811865475, 0.7071067811865476) .. controls (-0.9071067811865475, 0.5071067811865476) and (-1.2,0.2) ..
-    (-1.0, 0.0) .. controls (-0.8,-0.2) and (-0.7071067811865477, -0.5071067811865475) ..
-    (-0.7071067811865477, -0.7071067811865475) .. controls (-0.7071067811865477, -0.9071067811865475) and (-0.2,-0.8) ..
-    (0.0, -1.0) .. controls (0.2,-0.6) and (0.4071067811865474, -0.6071067811865477) .. % The corner at the start of this line is the one where there's a 'proper' corner
-    (0.7071067811865474, -0.7071067811865477) .. controls (1.0071067811865474, -0.8071067811865477) and (1.0,-0.2) ..
+\def\obsptone{(1.0, 0.0)}
+
+\def\obspttwo{(0.7071067811865476, 0.7071067811865475)}
+
+\def\obsptthree{(0.0, 1.0)}
+
+\def\obsptfour{(-0.7071067811865475, 0.7071067811865476)}
+
+\def\obsptfive{(-1.0, 0.0)}
+
+\def\obsptsix{(-0.7071067811865477, -0.7071067811865475)}
+
+\def\obsptseven{(0.0, -1.0)}
+
+\def\obspteight{(0.7071067811865474, -0.7071067811865477)}
+
+\def\obslineone{\obsptone .. controls (1.0,0.3) and (1.0071067811865476, 0.7071067811865475) ..}
+
+\def\obslinetwo{\obspttwo .. controls (0.4071067811865476, 0.7071067811865475) and (0.2, 0.8) ..}
+
+\def\obslinethree{\obsptthree .. controls (-0.2,1.2) and (-0.5071067811865475, 0.9071067811865476) ..}
+
+\def\obslinefour{\obsptfour .. controls (-0.9071067811865475, 0.5071067811865476) and (-1.2,0.2) ..}
+
+\def\obslinefive{\obsptfive .. controls (-0.8,-0.2) and (-0.7071067811865477, -0.5071067811865475) ..}
+
+\def\obslinesix{\obsptsix.. controls (-0.7071067811865477, -0.9071067811865475) and (-0.2,-0.8) ..}
+
+\def\obslineseven{\obsptseven .. controls (0.2,-0.6) and (0.4071067811865474, -0.6071067811865477) .. }% The corner at the start of this line is the one where there's a 'proper' corner
+
+\def\obslineeight{\obspteight .. controls (1.0071067811865474, -0.8071067811865477) and (1.0,-0.2) ..}
+
+\def\obstacle{    \obslineone
+     \obslinetwo
+    \obslinethree
+    \obslinefour
+    \obslinefive
+     \obslinesix
+    \obslineseven
+    \obslineeight
     cycle
 }
 
@@ -19,6 +51,15 @@
     (1.0815594803123152, -3.3286978070330377) --
     cycle
     }
+
+\def\suppf{
+(1.5,-1.0) -- (1.0,1.5) -- (-1.8,1.0) --
+\obslinefive
+\obslinesix
+\obslineseven
+\obspteight --
+cycle
+}
 
     % Patterns for filling
     \pgfdeclarepatternformonly{owennortheast}
@@ -42,6 +83,27 @@
     \pgfusepath{stroke}
     }
 
+\pgfdeclarepatternformonly{owennorthwestsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+   \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+    
+       \pgfdeclarepatternformonly{owennortheastsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpointorigin}
+    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+
+
 \begin{tikzpicture}[even odd rule]   
 \filldraw[pattern=owennorthwest,scale=\domainscale] % Truncation
 \truncation
@@ -55,11 +117,14 @@
 
 \draw[scale=\domainscale,dashed] (0,0) circle [radius=2.25]; % The ball
 
-% Support of A
 
+\filldraw[pattern=owennorthwestsmall,scale=\domainscale] % Support of f
+\suppf
+\obstacle
+;
 % support of n
 
-% support of f
+% support of A
 
 % The labels
 \draw (-0.1,0) node[fill=white] {$\Dm$};
