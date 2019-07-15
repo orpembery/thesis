@@ -136,10 +136,29 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
 %% The proof of these results uses a so-called `elliptic projection' technique, introduced by Feng and Wu in \cite{FeWu:09} for Discontinuous Galerkin methods for the Helmholtz equation and modified by Du and Wu \cite{DuWu:15}, where the variational formulation of a PDE related to \cref{prob:vtedp} is used as part of the proof. We  only prove results for \cref{prob:fevtedp}, and not for the finite-element approximation of \cref{prob:vedp}, as our proof uses properties of the related PDE and these properties have only been proven with impedance boundary conditions (in the recent preprint \cite{ChNiTo:18}) and not with an exact Dirichlet-to-Neumann map on the truncation boundary. However, we imagine the results proven for the related PDE with an impedance boundary condition also hold for an exact Dirichlet-to-Neumann boundary condition, and so we anticipate that the results we prove here also hold for finite-element approximations of \cref{prob:vedp}.\optodo{This paragraph needs rewriting---acknowledge Du \& Wu}
 
 \subsection{Discussion of FEM for the Helmholtz equation}\label{sec:helmfedisc}
-\optodo{This section needs a major rewrite, I think, to incorporate the overview of different proof techniques.}
-We now discuss error bounds for finite-element methods for the Helmholtz equation. We  give some intuition behind these bounds, provide a brief history of their development, and briefly constrast them with error bounds for the stationary diffusion equation before a more in-depth discussion of the techniques used to prove quasi-optimality and error bounds for the Helmholtz equation.
 
-\paragraph{Intuition for fixed number of points per wavelength} Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$ (for first-order finite elements), then one expects the interpolation (or best approximation) error is bounded uniformly in $k$. More rigorously, as solutions of the Helmholtz equation typically\footnote{If $f$ and $\gD$ are independent of $k$,  combining \cref{thm:edp} and standard elliptic regularity results, e.g., \cite[Theorems 4.16 and 4.18]{Mc:00} gives the fact that $\NHtD{u} \lesssim k$.} have $\NHtD{u} \sim k,$ one can bound the $H^1$-norm of the interpolation error if $h \sim 1/k$ using \cref{lem:scottzhang}.  As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solution, since the wavelength $\lambda = 2\pi/k.$
+We now discuss three properties of the $h$-FEM for the Helmholtz equation:
+\bit
+\item The relative error $\displaystyle \frac{\NW{u-\uh}}{\NW{u}}$ is bounded,
+\item The error $\NW{u-\uh}$ is bounded in terms of norms of the data $f$ (and $g$ for the IIP), and
+  \item The FEM is quasi-optimal, $\displaystyle \NW{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NW{u-\vh}.$
+    \eit
+
+    The key question we ask is: What mesh conditions lead to each of the three properties above? (I.e., how must one refine $h$ as $k$ increases in order for the FEM to satisfy each of the three properties above?)
+
+    We will now summarise the state of the literature regarding each of the three properties above. We will:
+    \ben
+  \item Define each of the three properties formally,
+  \item\label{it:sum2} State the sharpest results known in the literature,
+  \item\label{it:sum3} Give a complete overview of all results in the literature concerning the three properties,and
+    \item\label{it:sum4} Give a detailed discussion of proof techniques for each of the three properties.
+      \een
+
+We do \cref{it:sum2,it:sum3} because to our knowledge there is not a complete overview of all of these three properties anywhere in the literature. Moreover, research interest in these three properties has recently increased (e.g., the recent papers \cite{ChNi:18,LiWu:18,ChGaNiTo:18,ChNi:19} are all concerned with one or more of these properties, and have all been completed within the last two years), and so we believe it will be helpful and timely to provide a complete overview of the state of the literature. We do \cref{it:sum4} because collection of the proof techniques used for each of these properties are different to those used for standard finite-element proofs for, e.g., the stationary diffusion equation. Moreover, the different proof techniques are different but related, and we do not know of anywhere in the literature where these techniques are expounded, compared, and constrasted. In view of the resurgence in interest in the properties above, we hope that such a review will be valuable for the research community.
+
+      
+
+\paragraph{Intuition for fixed number of points per wavelength}\optodo{Move this somewhere else} Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$ (for first-order finite elements), then one expects the interpolation (or best approximation) error is bounded uniformly in $k$. More rigorously, as solutions of the Helmholtz equation typically\footnote{If $f$ and $\gD$ are independent of $k$,  combining \cref{thm:edp} and standard elliptic regularity results, e.g., \cite[Theorems 4.16 and 4.18]{Mc:00} gives the fact that $\NHtD{u} \lesssim k$.} have $\NHtD{u} \sim k,$ one can bound the $H^1$-norm of the interpolation error if $h \sim 1/k$ using \cref{lem:scottzhang}.  As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solution, since the wavelength $\lambda = 2\pi/k.$
 
 An alternative motivation for taking $h \sim 1/k$ (for first-order elements) is the Nyquist--Shannon sampling theorem\footnote{Proved by Shannon in his seminal paper in information theory \cite[Theorem 1]{Sh:49}.} (see, e.g., \cite[\S 5.21]{BaNaBe:00}) which states that any function $v$ (in 1-d) whose Fourier transform lies inside $[-k,k]$ (for some $k >0$)\footnote{Therefore the highest frequency present in $v$ is $k$.} is completely determined (via its Fourier series) by the point values $v(0)$, $v(\pm \mu),$ $v(\pm2\mu),  \ldots$, for any $\mu < 1/\mleft(2k\mright).$ That is, if we interpolate $v$ at points spaced less than $ \lambda/(4\pi)=1/(2k)$ apart\footnote{Where $\lambda = 2\pi/k$ is the wavelength associated with oscillations of frequency $k$, as above.}, we can reconstruct $v$ from its Fourier transform. Therefore in this case we may reasonably expect that the interpolation of $v$ will also be a good approximation of $v$, as such a spacing of points `captures' all of the oscillations in $v.$
 
@@ -154,7 +173,7 @@ An alternative motivation for taking $h \sim 1/k$ (for first-order elements) is 
 %% \optodo{Find reference}
 %% Therefore, if $u$ is sampled at regularly-spaced points that are strictly closer together than $\pi/k = 1/(2\lambda)$, then $u$ can be reconstructed perfectly from these samples.\optodo{Consider writing something about mutliple dimensions} In conclusion, one expects the be able to interpolate the solution of the Helmholtz equation with uniform error in $k$ if $h \sim 1/k.$
 
-However, as was stated in \cref{sec:numsolve}, the finite-element method for the Helmholtz equation suffers from pollution; and $h \sim 1/k$ is not sufficient to keep the finite-element error bounded as $k\rightarrow \infty.$ Therefore we  now provide an overview of previous work giving mesh conditions under which the finite-element error $\NW{u-\uh}$ is bounded as $k\rightarrow \infty$, as well as mesh conditions under which the finite-element method is quasi-optimal. Concerning errors, it would be more natural to consider the relative error $\NW{u-\uh}/\NW{u};$ and to investigate the conditions on $h$ which enable the relative error to be bounded as $k\rightarrow \infty.$ However, current technology typically only allows us to prove results for the error, not the relative error, and so we investigate the error instead.
+%% However, as was stated in \cref{sec:numsolve}, the finite-element method for the Helmholtz equation suffers from pollution; and $h \sim 1/k$ is not sufficient to keep the finite-element error bounded as $k\rightarrow \infty.$ Therefore we  now provide an overview of previous work giving mesh conditions under which the finite-element error $\NW{u-\uh}$ is bounded as $k\rightarrow \infty$, as well as mesh conditions under which the finite-element method is quasi-optimal. Concerning errors, it would be more natural to consider the relative error $\NW{u-\uh}/\NW{u};$ and to investigate the conditions on $h$ which enable the relative error to be bounded as $k\rightarrow \infty.$ However, current technology typically only allows us to prove results for the error, not the relative error, and so we investigate the error instead.
 
 %We will now briefly review the literature that seeks to answer the question `What mesh condition will keep the relative error bounded as $k \rightarrow \infty$?'
 
@@ -169,6 +188,82 @@ However, as was stated in \cref{sec:numsolve}, the finite-element method for the
 
 
  %% In $d=2$ or $3$ with $D$ a convex polygon or polyhedron,  \cite[Theorem 6.1]{Wu:14} showed that the error (but not the relative error) in both the $H^1$ seminorm and the $L^2$ norm is bounded uniformly in $k$ if $h \lesssim k^{-3/2}$. The proof of \cite[Theorem 6.1]{Wu:14} showed an analagous result for a continuous interior-penalty method, and then took the limit as the penalty parameter tends to 0 to obtain the result for the continuous piecewise-linear finite-element method. In summary, the mesh condition $h \lesssim k^{-3/2}$ seems to be sufficient for the (relative) error to be bounded uniformly in $k.$
+
+\subsubsection{Formal definition of properties of the finite-element method}\label{sec:femprops}
+
+We now formally define the three properties mentioned above. These definitions may seem overly technical, however we believe their technical definition is necessary to capture the, at times, complex behaviour of finite-element methods for the Helmholtz equation. After stating the definitions, we give some examples of what they mean for finite-element discretisations of the Helmholtz equation. These definitions are based on \cite[Definition 2.3]{DiMoSp:19}.
+
+In the following definitions, we consider the Helmholtz problems \cref{prob:vtedp}, and their discretisations \cref{prob:fevtedp} as parameterised by the wavenumber $k,$ that is, we write $u(k)$ for the solution of \cref{prob:vtedp} with wavenumber $k$, and $\uh(k)$ for its finite-element approximation.
+
+\bde[$\hk{a}{b}$-accurate]\label{def:hkacc}
+Given $a,b>0$, we that an $h$-FEM for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
+\beqs
+hk^a \leq \Co
+\eeqs
+and
+\beqs
+hk^b \leq \Ct,
+\eeqs
+then the Galerkin solutions $\uh(k)$ satisfy
+\beq\label{eq:hkacc}
+\frac{\NW{u(k)-\uh(k)}}{\NW{u(k)}} \leq \eps
+\eeq
+for all $k \geq \kz.$
+
+If $a=b$ we say the $h$-FEM is $\hka{a}$-accurate.
+\ede
+
+\bde[$\hk{a}{b}$-data-accurate]\label{def:hkdataacc}
+Given $a,b>0$, we that an $h$-FEM for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
+\beqs
+hk^a \leq \Co
+\eeqs
+and
+\beqs
+hk^b \leq \Ct,
+\eeqs
+then the Galerkin solutions $\uh(k)$ satisfy
+\beq\label{eq:hkdataacc}
+\frac{\NW{u(k)-\uh(k)}}{\NLtD{f} + \NLtGI{\gI}} \leq \eps
+\eeq
+for all $k \geq \kz.$
+
+If $a=b$ we say the $h$-FEM is $\hka{a}$-data-accurate.
+\ede
+
+Observe that the only difference between the definitions of $\hk{a}{b}$-accurate and $\hk{a}{b}$-data-accurate is that in \cref{eq:hkacc} the error is measure relative to the solution $u$, whereas in \cref{eq:hkdataacc} the error is measure relative to the `data' $f$ and $\gI$.
+
+\bde[$\hka{a}$-quasi-optimal]\label{def:hkqo}
+Given $a > 0,$ we say that an $h$-FEM for the Helmholtz equation is \defn{$\hka{a}$-quasi-optimal} if, given $\kz > 0$, there exist $\Co(\kz), \Cqo(\kz) > 0$ such that if
+\beqs
+hk^{a} \leq \Co
+\eeqs
+then the Galerkin solutions $\uh(k)$ satisfy
+\beqs
+\NW{u(k) - \uh(k)} \leq \Cqo \inf_{\vh \in \Vhp} \NW{u(k) - \vh},
+\eeqs
+for all $k \geq \kz.$
+\ede
+
+\bre[Generalisations of $\hk{a}{b}$-data-accurate]
+For distcretisations of other Helmholtz problems (e.g., full-space problems with no truncation boundary $\GI$, or problems truncated with a PML), then the denominator in \cref{eq:hkdataacc} should be adapted appropriately, e.g., the denominator should equation $\NLtD{f}$ for full-space problems and PML problems.\optodo{Truncation of PML?} In our discussion of the literature below (which includes such problems), we will make such an adaption without comment.
+\ere
+
+\bre[The above conditions for heterogeneous problems]
+Observe that for heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in our original work in \cref{sec:fem} below we prove that the $h$-FEM with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ (and, in principle, $A$) is completely known.
+\ere
+
+To aid understanding of the above definitions, we give the following example.
+
+\bre[Example achieving $\hk{a}{b}$-data-accuracy]
+In \cite[Theorem 5.4]{ChGaNiTo:18}, Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk prove\footnote{The result proved in \cite[Theorem 5.4]{ChGaNiTo:18} is slightly more complicated than that stated here; the right-hand side of \cref{eq:hkaccceq} should be $\Cth \mleft(hk + h^{2p}k^{2p+1}\mright)\NLtD{f}.$ However, an analagous proof to the one presented here in the more complicated case.} that if $k \geq \kz$ and $h^{p+1}k^{p+2} \leq \Co$, then
+\beq\label{eq:hkacceg}
+\NW{u(k) - \uh(k)} \leq \Cth h^{2p}k^{2p+1}\NLtD{f}
+\eeq
+for some $\kz, \Co, \Cth > 0.$
+
+For $0 < \eps < 1,$ if we take $\Ct = \eps/\Cth$ then one can see that \cite[Theorem 5.4]{ChGaNiTo:18} shows the $h$-FEM is $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$-accurate.
+\ere
 
 \paragraph{Previous results on the finite-element error} Unless otherwise stated, all of the results we review are for a Helmholtz problem with an impedance (or impedance-like) boundary condition on some part of the domain. Recall such a boundary condition models physically outgoing waves.
 
