@@ -295,8 +295,78 @@ A \cos(kx) + B \sin(kx)
 
 The best results known to date are the same (in terms of $a$ and $b$) as those for $\hk{a}b$-accuracy, except results for $\hk{a}b$-data-accuracy hold in higher dimensions. In \cite[Theorem 5.1, Corollary 5.2]{DuWu:15} Du and Wu proved that the $h$-FEM for the Interior Impedance Problem (IIP) is $\hka{(2p+1)/(2p)}$-data-accurate for arbitrary (fixed) polynomial degree $p$ and $d = 2$ or $3$, provided $u \in \HppoD$ (although this result can be shown for lower-regularity solutions by combining \cite[Theorem 5.1]{DuWu:15} with \cite[Lemma 3.5]{DuWu:15}).\optodo{Mention somewhere that our results hold even if soln not smooth using Theo and Serge results.} This result was proved for the IIP in $d = 2$ or $3$ for $p=1$ by Wu in \cite{Wu:14}. Whilst there is no computational evidence to confirm the sharpness of this result, given it coincides with the (sharp) best case for $\hk{a}b$-accuracy, we expect the result for $\hk{a}b$-data-accuracy is also sharp.
 
-\paragraph{$\hka{a}$-quasi-optimality} Finally, the best known result for $\hka{a}$-quasi-optimality for the Helmholtz equation is that the $h$-FEM is $\hka{(p+1)/p}$-quasi-optimal. This was first proved for $p=1$ in 1-d by Aziz, Kellog, and Stevens in \cite[Theorem 3.1]{AzKeSt:88} and Ihlenburg and Babu\v{s}ka in \cite[Theorem 3]{IhBa:95a} and \cite[Theorems 4.9 and 4.13]{Ih:98}, with \cite[Figures 7-9]{IhBa:95a} and \cite[Section 4.5.4 and Figures 4.11-4.12]{Ih:98} showing this result is sharp in 1-d (although Ihlenburg and Babu\v{s}ka only work in the $H^1$-semi norm). The result was proved for $p=1$ and $d=2$ for the IIP by Melenk \cite[Proposition 8.2.7]{Me:95}, and for higher-order finite elements (for the full-space problem, IIP, and EDP) by Melenk and Sauter in \cite[Corollary 5.6]{MeSa:10} and \cite[Corollary 5.10, second bullet points in parts (I) and (III)]{MeSa:11} respectively. This result was shown for a PML problem by Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk in \cite[Theorem 5.1]{ChGaNiTo:18}, and extended to arbitrary time-harmonic wave propagation problems by Chaumont-Frelet and Nicaise in \cite[Theorem 2.15]{ChNi:19}, who showed that if the constant in the a priori bound \cref{eq:bgbound} grows like $k^\alpha,$ then the $h$-FEM is $\hka{(p+\alpha+1)/p}$-accurate. They give numerical experiments in \cite[Figure 8]{ChNi:19} showing the sharpness of $\hka{(p+1)/p}$-quasi-optimality for $p=1, 2$ for a heterogeneous IIP. 
+\paragraph{$\hka{a}$-quasi-optimality} Finally, the best known result for $\hka{a}$-quasi-optimality for the Helmholtz equation is that the $h$-FEM is $\hka{(p+1)/p}$-quasi-optimal. This was first proved for $p=1$ in 1-d by Aziz, Kellog, and Stevens in \cite[Theorem 3.1]{AzKeSt:88} and Ihlenburg and Babu\v{s}ka in \cite[Theorem 3]{IhBa:95a} and \cite[Theorems 4.9 and 4.13]{Ih:98}, with \cite[Figures 7-9]{IhBa:95a} and \cite[Section 4.5.4 and Figures 4.11-4.12]{Ih:98} showing this result is sharp in 1-d (although Ihlenburg and Babu\v{s}ka only work in the $H^1$-semi norm). The result was proved for $p=1$ and $d=2$ for the IIP by Melenk \cite[Proposition 8.2.7]{Me:95}, and for higher-order finite elements (for the full-space problem, IIP, and EDP) by Melenk and Sauter in \cite[Corollary 5.6]{MeSa:10} and \cite[Theorem 5.8]{MeSa:11} respectively. This result was shown for a PML problem by Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk in \cite[Theorem 5.1]{ChGaNiTo:18}, and extended to arbitrary time-harmonic wave propagation problems by Chaumont-Frelet and Nicaise in \cite[Theorem 2.15]{ChNi:19}, who showed that if the constant in the a priori bound \cref{eq:bgbound} grows like $k^\alpha,$ then the $h$-FEM is $\hka{(p+\alpha+1)/p}$-accurate. They give numerical experiments in \cite[Figure 8]{ChNi:19} showing the sharpness of $\hka{(p+1)/p}$-quasi-optimality for $p=1, 2$ for a heterogeneous IIP. 
 \optodo{Check somewhere I've said before this we're assuming and impedance-like problem and nontrapping}
+
+\paragraph{Complete summary of results in the literature} In \cref{tab:acc,tab:dataacc,tab:qo} all the proofs in the literature of $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, and $\hka{a}$-quasi-optimality. We list these in chronological order, with any relevant comments in the `Notes' column. The `Proof technique' column details the method used in the proof---see \cref{sec:prooftechniques} below for an extended discussion of these techniques.
+\optodo{Make arraystretch play nicely with makecell.}
+%\renewcommand{\arraystretch}{1.0} % From https://en.wikibooks.org/wiki/LaTeX/Tables#Space_between_rows
+\begin{landscape} % Heard about from https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t/19021#19021 and https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table
+  \begin{table}[h]
+    \centering
+\begin{tabular}{cccc}
+  \toprule
+& $\hka{a}$-quasi-optimality & Notes & Proof technique\\
+  \midrule
+  \cite[Theorem 3.1]{AzKeSt:88} & $\hka{2}$ & $d=1$ & Schatz\\
+  %?  \cite{DoSaShSc:93}\\
+  \cite[Theorem 3]{IhBa:95a} & $\hka{2}$ & $d=1,$ $H^1$ seminorm & Schatz\\
+  %? \cite{IhBa:95b}
+  \cite[Theorems 4.9 and 4.13]{Ih:98} & $\hka{2}$ & \makecell{$d=1,$ $H^1$ seminorm,\\\cite[Theorem 4.9]{Ih:98} is \cite[Theorem 3]{IhBa:95a}} & \makecell{(Respectively)\\Schatz and error splitting\\using interpolant\\respectively}\\
+  \cite[Proposition 8.2.7]{Me:95} & $\hka{2}$ & \makecell{$d=2,$\\Interior Impedance Problem (IIP),\\$D$ smooth and star-shaped or convex} & Schatz\\
+  \cite[Corollary 5.6]{MeSa:10} & $\hka{(p+1)/p}$ & Full-space problem & Schatz\\
+  \cite[Theorem 5.8]{MeSa:11} & $\hka{(p+1)/p}$ & \makecell{$d = 2,3$,\\polynomial growth of constant in a priori bound,\\IIP ($\Dm$ analytic or Lipschitz convex polygon)\\and EDP ($\Dm$ analytic)} & Schatz\\
+  \cite[Theorem 5.1]{ChNi:18} & $\hka{2}$ & $d=2$, TEDP with re-entrant corners & Schatz\\
+  \cite[Theorem 5.1]{ChGaNiTo:18} & $\hka{(p+1)/p}$&$d=2$, EDP truncated with PML, posed in a ball  &Schatz\\
+    \cite{ChNi:19} & $\hka{(p+\alpha+1)/p}$ & \makecell{Arbitrary time-harmonic wave problem,\\a priori bound grows at rate $k^\alpha$} & Schatz\\
+    \cite[Theorems 4.2 and 4.5, Remark 4.6(ii)]{GrSa:18} &$\hka{2}$ & IIP,\makecell{$D$ Lipschitz, star-shaped w.r.t. a ball,\\$n$ heterogenenous\\constants fully explicit in $n$}& Schatz\\
+    \cite[Theorem 3]{GaSpWu:18} & $\hka{2}$ & \makecell{EDP,\\$A$ and $n$ heterogeneous,\\$\Dm,$ $A$, and $n$ $C^\infty$,\\constants fully explicit in $A$ and $n$} & Schatz\\
+\bottomrule
+\end{tabular}
+\caption{$\hka{a}$-quasi-optimality for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:qo}
+\end{table}
+
+\begin{table}[h]
+  \centering
+\begin{tabu}{cccc}
+  \toprule
+ & $\hk{a}b$-data-accuracy  & Notes & Proof technique\\
+      \midrule
+      \cite{ZhWu:13}& $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$   &\makecell{$d=2,3$, IIP,\\$D$ smooth,\\bounds obtained for $hp$-FEM, so fully $p$-explicit}& Modified Schatz\\
+  \cite{LiWu:18}& $\hka{3/2}$   & $d = 1,2,3$, full-space problem truncated with PML, posed in a ball& Modified Schatz\\
+  \cite{ChGaNiTo:18}&$\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$  & $d=2$, EDP truncated with PML, posed in a ball& Modified Schatz\\
+  \cite{ChNi:18}& $\hk{3/(1+\alpha)}{3/2}$   &\makecell{$d=2$, TEDP with re-entrant corners,\\$\alpha \in (1/2,1)$ related to strength of corner singularities}& Modified Schatz\\
+   \cite{Wu:14} & $\hka{3/2}$  & $d=2,3$, IIP, $D$ a star-shaped polygon/polyhedron & Error splitting\\
+  \cite{DuWu:15} & $\hka{(2p+1)/(2p)}$ &  $d=2,3$, IIP, $D$ smooth, star-shaped& Error splitting\\
+\bottomrule
+\end{tabu}
+\caption{$\hk{a}b$-data-accuracy for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:dataacc}
+\end{table}
+\end{landscape}
+\optodo{Why does Chaumont-Nicaise see the magnitude of the a priori bound, but Melenk--Sauter doesn't?}
+\begin{table}[h]
+\begin{tabu}{ccccc}
+  \toprule
+  & Mesh Condition & Error bound & Notes & Proof technique\\
+  \midrule
+ 
+\bottomrule
+\end{tabu}
+\caption{$\hk{a}b$-data-accuracy for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:dasaasc}
+\end{table}
+\optodo{Put a note somewhere that one can get accuracy/dta-accuracy from QO, but we won't do that here.}
+% QO
+% Melenk Sauter hp
+% &  or $\log(k)/p$ and $kh/p$ ($hp$) & \\
+%   \cite{IhBa:97} & hk^2/p suff small - THeorem 3.5 & \\
+%  \cite{FeWu:09} & $kh$ & $h^{4/3} k^{8/3}$ & TEDP, Interior-Penalty Discontinuous Galerkin (IPDG) method\\
+%  \cite{FeWu:11} & $\displaystyle \frac{h^2 k^3}{p^2}$ & $\displaystyle \mleft(\frac{h}p+ \frac{h^2 k^2}{p^2}\mright)$ & TEDP, $hp$-IPDG method\\
+
+% data-acc
+% Zhu and WU $\displaystyle \frac{kh}p \mleft(\frac{k}p\mright)^{\frac1{p+1}}$ ($hp$) - mesh cond - mod schatz
+
+% accurate
+%\cite{IhBa:97} Cor 3.2 (and result used in this) - error splitting using interpolant
 
 \paragraph{Previous results on the finite-element error} Unless otherwise stated, all of the results we review are for a Helmholtz problem with an impedance (or impedance-like) boundary condition on some part of the domain. Recall such a boundary condition models physically outgoing waves.
 
@@ -317,7 +387,7 @@ We first contrast the Helmholtz equation with the stationary diffusion equation 
 
 However, proving quasi-optimality for the Helmholtz equation is more tricky; C\'ea's Lemma relies on the coercivity of the sesquilinear form, and the sesquilinear forms arising from standard discretisations of the Helmholtz equation are not coercive for large $k$. Therefore, to prove quasi-optimality, one instead uses the Schatz argument, a modification of the Aubin--Nitsche duality argument. The Aubin--Nitsche argument was first introduced by Aubin \cite{Au:67} and Nitsche \cite{Ni:68} for coercive problems, and first adapted for problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74}.
 
-The Schatz argument was first used for Helmholtz problems by Melenk in his PhD thesis \cite[Proposition 8.2.7]{Me:95}, he proved that the finite-element method for the Helmholtz equation is quasi-optimal under the very restrictive mesh condition $hk^2$ is sufficiently small\footnote{Observe that for large values of $k,$ the mesh condition $hk^2$ is sufficiently small is prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-D.}. Graham and Sauter \cite[Remark 4.4 b.]{GrSa:18} and Galkowski, Spence, and Wunsch \cite[Theorem 3]{GaSpWu:18} have obtained analogous conditions for first-order finite elements for the IIP \cite{GrSa:18} and the EDP \cite{GaSpWu:18} respectively. A modification of the Aubin--Nitsche argument is used by Chaumont-Frelet and Nicaise \cite[Lemmas 1 and 2]{ChNi:19} to obtain quasi-optimality results for higher-order finite elements for general wave propagation problems in heterogeneous and homogeneous media under the mesh condition $h^p k^{p+1}$ is sufficiently small. Chaumont-Frelet, Gallistl, Nicaise, Tomezyk used the Schatz argument for higher-order finite elements for a Helmholtz problem truncated with a PML in \cite{ChGaNiTo:18}, and obtain quasi-optimality if $h^p k^{p+1}$ is sufficiently small.
+The Schatz argument was first used for Helmholtz problems\optodo{No - Aziz, Kellogg, Stephens use it} by Melenk in his PhD thesis \cite[Proposition 8.2.7]{Me:95}, he proved that the finite-element method for the Helmholtz equation is quasi-optimal under the very restrictive mesh condition $hk^2$ is sufficiently small\footnote{Observe that for large values of $k,$ the mesh condition $hk^2$ is sufficiently small is prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-D.}. Graham and Sauter \cite[Remark 4.4 b.]{GrSa:18} and Galkowski, Spence, and Wunsch \cite[Theorem 3]{GaSpWu:18} have obtained analogous conditions for first-order finite elements for the IIP \cite{GrSa:18} and the EDP \cite{GaSpWu:18} respectively. A modification of the Aubin--Nitsche argument is used by Chaumont-Frelet and Nicaise \cite[Lemmas 1 and 2]{ChNi:19} to obtain quasi-optimality results for higher-order finite elements for general wave propagation problems in heterogeneous and homogeneous media under the mesh condition $h^p k^{p+1}$ is sufficiently small. Chaumont-Frelet, Gallistl, Nicaise, Tomezyk used the Schatz argument for higher-order finite elements for a Helmholtz problem truncated with a PML in \cite{ChGaNiTo:18}, and obtain quasi-optimality if $h^p k^{p+1}$ is sufficiently small.
 
 In conclusion, the error for the finite-element method for Helmholtz problems is bounded if $h^{2p}k^{2p+1}$ is sufficiently small, and the finite-element method is quasi-optimal if $hk^2$ is sufficiently small (for first-order finite elements). We  now prove analagous results on the boundedness of the error for heterogeneous Helmholtz problems.\optodo{Check what Theo did, and whether anyone has done qo for higher-order elements.}
 
@@ -541,52 +611,6 @@ We now give a brief overview of the literature on rigorous quasi-optimality/erro
 %% Error bound
 %% Notes
 %\paragraph{Quasi-optimality}
-\begin{table}[h]
-\begin{tabu}{ccc}
-  \toprule
-& Mesh Condition & Notes\\
-  \midrule
-  \cite{Me:95} & $hk^2$ & $d=2,$ Interior Impedance Problem (IIP)\\
-  \cite{MeSa:10,MeSa:11} & $h^{p}k^{p+1}$ ($p$ fixed)&Full-space problem, IIP, and EDP\\
-&  or $\log(k)/p$ and $kh/p$ ($hp$) & \\
-  \cite{ChNi:19} & $h^pk^{p+\alpha+1}$ ($p$ fixed) & Arbitrary time-harmonic wave problem,\\
-&&  when a priori bound grows at rate $k^\alpha$\\
-  \cite{ChNi:18} & $hk^2$ & TEDP with re-entrant corners\\
-  \cite{ChGaNiTo:18} & $h^{p}k^{p+1}$ ($p$ fixed) & Truncated PML\\
-\bottomrule
-\end{tabu}
-\caption{Summary of the literature on quasi-optimality}\label{tab:qo}
-\end{table}
-
-\begin{table}[h]
-\begin{tabu}{cccc}
-  \toprule
-  & Mesh Condition & Error bound & Notes\\
-      \midrule
-      \cite{ZhWu:13} & $\displaystyle \frac{kh}p \mleft(\frac{k}p\mright)^{\frac1{p+1}}$ ($hp$)  & $\displaystyle \frac{h}p + \frac1{p}\mleft(\frac{kh}{\sigma p}\mright)^p + \frac{k}{p^2} \mleft(\frac{kh}{\sigma p}\mright)^{2p}$ & IIP\\
-&      or $h^{p+1}k^{p+2}$ ($p$ fixed)&&\\
-  \cite{LiWu:18} & $h^2k^3$ & $h^2k^3$ & Truncated PML\\
-  \cite{ChGaNiTo:18} & $h^{p+1}k^{p+2}$ ($p$ fixed) & $h^{2p}k^{2p+1}$ & Truncated PML\\
-  \cite{ChNi:18} & $h^{1+\alpha}k^3$ &$hk + h^2 k^3 + h^\alpha k^{\alpha-1/2}$ & TEDP with re-entrant corners,\\
-  &&&$\alpha$ corresponds to strength of singularities\\
-\bottomrule
-\end{tabu}
-\caption{Summary of the literature on error bounds using a modified duality argument}\label{tab:moddual}
-\end{table}
-
-\begin{table}[h]
-\begin{tabu}{cccc}
-  \toprule
-  & Mesh Condition & Error bound & Notes\\
-  \midrule
-  \cite{FeWu:09} & $kh$ & $h^{4/3} k^{8/3}$ & TEDP, Interior-Penalty Discontinuous Galerkin (IPDG) method\\
-  \cite{FeWu:11} & $\displaystyle \frac{h^2 k^3}{p^2}$ & $\displaystyle \mleft(\frac{h}p+ \frac{h^2 k^2}{p^2}\mright)$ & TEDP, $hp$-IPDG method\\
-  \cite{Wu:14} & $h^2 k^3$ & $hk + h^2 k^3$ & IIP\\
-  \cite{DuWu:15} &  $h^{2p}k^{2p+1}$ ($p$ fixed) & $\mleft(hk\mright)^p + h^{2p} k^{2p+1}$ &  IIP\\
-\bottomrule
-\end{tabu}
-\caption{Summary of the literature on error bounds using a splitting argument}\label{tab:split}
-\end{table}
 
 %\optodo{Would it be better to put bounds on $\eta$ here?}
 
