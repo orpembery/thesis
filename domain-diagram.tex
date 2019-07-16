@@ -83,6 +83,13 @@ cycle
 \obslinetwo
 \obsptthree
 }
+\def\ncontone{(-1.2,0)}
+\def\suppn{
+(-1.8,0.5) .. controls \ncontone and (-0.9,0) ..
+(-0.9,-1.2)
+-- (-1.8,-0.5)
+-- cycle
+}
 
     % Patterns for filling
     \pgfdeclarepatternformonly{owennortheast}
@@ -145,12 +152,14 @@ cycle
 \suppf
 \obstacle
 ;
-% support of n
+% support of 1-n
+\filldraw[pattern=owennortheastsmall,scale=\domainscale]
+\suppn
+;
 
-% support of A
-\filldraw[pattern=owennortheastsmall,scale=\domainscale] % Support of f
+% support of I-A
+\filldraw[pattern=owennortheastsmall,scale=\domainscale]
 \suppA
-%\obstacle
 ;
 
 % The labels
