@@ -33,9 +33,9 @@ For a proof of \cref{lem:edpform}, see \cite[Lemma 3.3]{GrPeSp:19}.
 
 \bprob[Variational formulation of TEDP when $\gD = 0$]\label{prob:vtedp}
 Let $D, A, n, f,$ and $\gI$ be as in \cref{prob:tedp}. We say $u \in \HozDDR$ satisfies the \defn{variational formulation of the truncated exterior Dirichlet problem} with $\gD = 0$ if
-\beqs
+\beq\label{eq:vtedp}
 \aT(u,v) = \FT(v) \tfa v \in \HozDDR,
-\eeqs
+\eeq
 where
 \beq\label{eq:aT}
 \aT(w,v) \de \int_{\DR} \big(\IPRRd{A \grad w}{\grad v} - k^2 n\minispace w \vbar\big) - ik\int_{\GI} \trGI w\minispace\trGI \vbar
@@ -1131,36 +1131,42 @@ We now give a brief overview of the literature on rigorous quasi-optimality/erro
 
 \section{New Finite-Element-Error bounds for the Heterogeneous Helmholtz Equation}\label{sec:fem}
 
-We now prove our new error bounds for the higher-order finite-element approximation of the solution of the Helmholtz equation in heterogeneous media. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the differences that: (i) we modify the proofs to cater for the heterogeneity of the coefficients, and (ii) the dependence of our results on all of the constants involved is explicit. In particular our results are (in principle) explicit in $A$  and $p$ and are explicit in $n$ and $k$.
+We now prove our new error bounds for higher-order finite-element approximations of the solution of the Helmholtz equation in heterogeneous media. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the main differences that:
+\ben
+\item We modify the proofs to cater for the heterogeneity of the coefficients, and
+\item The dependence of our results on all of the constants involved is explicit.
+\een
+  In particular our results are explicit in $n$ and $k$ and are (in principle) explicit in $A$.
 
 The proofs of our results have many parts, and appear technical, largely due to the burden of explicitly keeping track of all of the constants involved. However, in essence, the proof consists of two ideas:
 \ben
 \item Decompose the error $u-\uh = (u - \Ph u) + (\Ph u - \uh)$, where $\Ph u$ is an `elliptic projection' of $u$, and
 \item Bound the error $u - \Ph u$ using the fact that $\Ph u$ is a Galerkin projection.
-\item Bound the error $\Ph u - \uh$ in higher-order `discrete' norms.
+\item Bound the error $\Ph u - \uh$ in higher-order `discrete' norms, using the fact that $\Ph u - \uh$ solves a discrete Helmholtz problem.
 \een
 
-In order to use this notion of discrete norms, we develop a notion of discrete derivatives. Also, a number of different Galerkin projections (including the `elliptic projection' mentioned above) play a key role in the proofs, and so we prove error bounds for these projections. Our results also use best approximation results for the Helmholtz equation, and we prove these, following the techniques in \cite{ChNi:19}, but ensuring that these results are explicit in all of the constants involved.
-\optodo{Put in structure summary once it's settled down.}
+The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \cref{sec:errbounds} we state our new finite-element-error bounds. In \cref{sec:decomp} we prove a decomposition of the solution that allows us to prove a higher-order best approximation bound. In \cref{sec:anbackground} we collect together some routine analysis results needed for our proofs. In \cref{sec:errgalerkin} we prove error bounds for a number of different Galerkin projections (including the `elliptic projection' mentioned above) that we use in subsequent proofs. In \cref{sec:discsob} we develop a notion of discrete derivatives and discrete norms, and prove properties of these norms. These norms will allow us to define higher-order discrete norms of functions in our finite-element space. Finally in \cref{sec:fembound} we prove our main finite-element error bounds.
+
+
+
+\subsection{Main result: new finite-element-error bounds}\label{sec:errbounds}
 As we are using higher-order finite elements (which we assume are of degree $p$), we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiD{n}$ in order to simplify our calculations.
 \optodo{Correct notation in variational formulation of TEDP}
-
-\subsection{Finite-element-error bounds}
-
 \bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
 Assume
 \bit
 \item $\GD$ and $\GI$ are $\Cpo$
 \item $\Aij \in \CpmooDclos$ for all $i,j$, and
-\item $n \in \LiD \cap \HmD \cap \CfloordtD.$
+\item $n \in \LiD \cap \HpmoD \cap \CfloordtD.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
 \eas
 
-Also, throughout this \lcnamecref{sec:fem} we assume we are working with the finite-element space defined in \cref{def:fespace}, and that consequently \cref{lem:scottzhang} holds.
-
-We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}.
+We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}. Recall that the adjoint of \cref{prob:vtedp} is the same as \cref{prob:vtedp}, except \cref{eq:vtedp} is replaced by
+\beqs
+\aT(v,u) = \overline{\FT(v)} \tforall v \in \HozDDR.
+\eeqs
 
 \bas\label{ass:htwo}
 \Cref{prob:vtedp} (and its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
@@ -1189,7 +1195,7 @@ Throughout this \lcnamecref{sec:fem}, we adopt the following piece of notation.
 
 Our main \lcnamecref{thm:fembound} is the following \lcnamecref{thm:fembound}.
 \bth[Higher-order error bound for the heterogeneous Helmholtz equation]\label{thm:fembound}
-Under \cref{ass:highp,ass:htwo}, let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo,ass:convenient}, there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$, $k$ and $n$, and a function $\Condn(n) >0$ (independent of $h$ and $k$) such that if
+Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo,ass:convenient}, there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$, $k$ and $n$, such that if
 \beq\label{eq:hfemcond}
 h \leq \Chcond \Condn(n) \CAnk^{-\frac1{2p}}k^{-1-\frac1{2p}},
 \eeq
@@ -1205,7 +1211,7 @@ where
 \Condn(n) = \Pfn{p-2}\mleft(\NLiD{n}\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
 \eeqs
 \beqs
-\CLtn(n) = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)m\tand
+\CLtn(n) = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\tand
 \eeqs
 \beqs
 \CHon(n) = \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\CLtn,
@@ -1218,26 +1224,28 @@ where the polynomial $\Pfn(x)$ is defined in \cref{eq:p} below, and the $n$-depe
 
 
 
-Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a large extent, unnecessary to understand the arguments. Therefore, for ease of reference, the definition of all the constants (which are many-layered and interdependent) are given in \cref{app:constants}; i.e., any constant introduced or defined in this \lcnamecref{sec:fem} will be listed in \cref{app:constants}.
+Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a large extent, unnecessary to understand the flow of the arguments. Therefore, for ease of reference, the definition of all the constants in this \lcnamecref{sec:fem} (which are many-layered and interdependent) are given in \cref{app:constants}; i.e., any constant introduced or defined in this \lcnamecref{sec:fem} will be listed in \cref{app:constants}.
 
 \subsubsection{Discussion of new finite-element-error bounds}
 
 \bre[Relationship of new bounds to the work of Du and Wu]
-In \cite{DuWu:15} Du and Wu proved that the error for high-order finite-element methods for the \emph{homogeneous} Helmholtz interior impedance problem is bounded provided $h^{2p}k^{2p+1}$ is sufficiently small. Our proof follows theirs, and achieves analagous results---observe that the condition \cref{eq:hfemcond} requires $h^{2p}k^{2p+1}$ to be sufficiently small, where the `sufficient smallness' condition depends on $A$ and $n$. We note that our results and proof have the following modifications to those of Du and Wu (the modifications listed in order of their impact upon the proof).
+In \cite{DuWu:15} Du and Wu proved that the error for high-order finite-element methods for the \emph{homogeneous} Helmholtz interior impedance problem is bounded provided $h^{2p}k^{2p+1}$ is sufficiently small. Our proof follows theirs, and achieves analagous results---observe that the condition \cref{eq:hfemcond} requires $h^{2p}k^{2p+1}$ to be sufficiently small, where the `sufficient smallness' condition depends on $A$ and $n$. We note as above that our results and proof have the following modifications to those of Du and Wu (the modifications listed in order of their impact upon the proof).
 \ben
 \item We prove bounds for \emph{heterogeneous} $A$ and $n$; in particular, in several places in the proof we must work with $n$-weighted inner products and norms; see \cref{rem:why} for more details on why $n$-weighted inner products and norms are required.
-\item We explicitly track all of the constants involved in the proof---out results are completely explicit in $n$, and are, in theory, explicit in $A$ (see \cref{rem:explicita} below for information on the explicitness in $A$.
-\item We allow the possibility that the Helmholtz problem is trapping---the constant $\CAnk$ appearing in \cref{eq:hfemcond} may depend on $k$ (as well as $A$ and $n$). If the Helmholtz problem was nontrapping, $\CAnk$ would be independent of $k$.
+\item We explicitly track all of the constants involved in the proof---our results are completely explicit in $n$, and are in theory explicit in $A$ (see \cref{rem:explicita} below for information on the explicitness in $A$).
+\item We allow for the possibility that the Helmholtz problem is trapping---the constant $\CAnk$ appearing in \cref{eq:hfemcond} may depend on $k$ (as well as $A$ and $n$). If the Helmholtz problem was nontrapping, $\CAnk$ would be independent of $k$.
   \item We assume the existence of a Dirichlet scatterer $\Dm,$ as opposed to only considering the interior impedance problem, where $\Dm=\emptyset.$
 \een
 \ere
 
 \bre[Why are the results not fully explicit in $A$?]\label{rem:explicita}
-The condition \cref{eq:hfemcond} and the bounds \cref{eq:femlt,femho} are not fully explicit in $A$, i.e. the constants $\Ccond, \CcorLt,$ and $\CcorHo$ may depend on $A$. This dependence is because the constants in the shift theorem for the stationary diffusion equation (\cref{thm:shift}) below are not explicit in their $A$-dependence.\optodo{Check there's no other places this comes up.} In principle one can determine this dependence (it is determined for a right-hand side in $\LtD$ and a solution in $\HtD$ in \cite[Appendix A]{ChScTe:13}).
+The condition \cref{eq:hfemcond} and the bounds \cref{eq:femltbound,eq:femhobound} are not fully explicit in $A$, i.e. the constants $\Ccond, \CcorLt,$ and $\CcorHo$ may depend on $A$. This dependence is because the constants in the shift theorem for the stationary diffusion equation (\cref{thm:shift} below) are not explicit in their $A$-dependence.\optodo{Check there's no other places this comes up.} In principle one can determine this dependence (it is determined for a right-hand side in $\LtD$ and a solution in $\HtD$ in \cite[Appendix A]{ChScTe:13}).
 \ere
 
 \bre[Why the appearance of $\nvar$?]\label{rem:nvar}
-The quantity $\nvar = \NLiD{n}/\nmin$ appears in multiple places in the definition of the $n$-dependent constants $\Condn(n), \CLtn(n),$ and $\CHon(n).$ This appearance is mainly due to the fact that in multiple places in the proof of \cref{thm:fembound}, we must convert from working in an $n$-weighted norm to a standard norm, and then later convert back to an $n$-weighted norm again. The necessity for this conversion is frequently because certain results (such as \cref{thm:shift,lem:poincare,thm:trace,thm:multiplicativetrace}) are only available in the literature in standard (non-$n$-weighted) norms, and so to apply these results we must first transfer to non-$n$-weighted norms, apply the results, and then tranfer back. If one could prove these results for $n$-weighted norms (under sufficient smoothness conditions on $n$) with constants that were completely explicit in $n$, then many of the instances of $\nvar$ could be removed.
+The quantity $\nvar = \NLiD{n}/\nmin$ appears in multiple places in the definition of the $n$-dependent constants $\Condn(n), \CLtn(n),$ and $\CHon(n).$ This appearance is mainly due to the fact that in multiple places in the proof of \cref{thm:fembound}, we must convert from working in an $n$-weighted norm to a standard norm, and then later convert back to an $n$-weighted norm again.
+
+This conversion is usually necessary because certain results (such as \cref{thm:shift,lem:poincare,thm:trace,thm:multiplicativetrace}) are only available in the literature in standard (non-$n$-weighted) norms, and so to apply these results we must first transfer to non-$n$-weighted norms, apply the results, and then tranfer back. If one could prove these results for $n$-weighted norms (under sufficient smoothness conditions on $n$) with constants that were completely explicit in $n$, then many of the instances of $\nvar$ could be removed.
 \ere
 
 \bre[Bounds not sharp in $n$]\label{rem:nsharp}
@@ -1249,30 +1257,28 @@ The $n$-dependence of the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ is alm
 \ere
 
 \bre[$p$-dependence]
-if one wants to prove error bounds for $hp$-finite-element methods, then one must know explicitly how the error bounds \cref{eq:femltbound,eq:femhobound} depend on $p$ as well as $h$ and $k$; such an analysis was carried out for the Helmholtz equation in homogeneous media by Melenk and Sauter in \cite{MeSa:10,MeSa:11} and for the related time-harmonic Maxwell's equation in homogeneous media in \cite{MeSa:18}. In principle (as our results are explicit in all of the constants involved) one could calculate the $p$-dependence, however, such dependence is likely to be highly complicated, and may very well not be sharp, for similar reasons that the $n$-dependence of our results may not be sharp, as outlined in \cref{rem:nsharp} above.
+To prove error bounds for $hp$-finite-element methods, one must know explicitly how the error bounds \cref{eq:femltbound,eq:femhobound} depend on $p$ as well as $h$ and $k$. Such an analysis was carried out for the Helmholtz equation in homogeneous media by Melenk and Sauter in \cite{MeSa:10,MeSa:11} and for the related time-harmonic Maxwell's equations in homogeneous media in \cite{MeSa:18}. In principle (as our results are explicit in all of the constants involved) one could calculate the $p$-dependence, however, such dependence is likely to be highly complicated, and may very well not be sharp, for similar reasons that the $n$-dependence of our results may not be sharp, as outlined in \cref{rem:nsharp} above.
 \ere
 
 \bre[Special cases of $n$]
 In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it may be instructive to note their behaviour in the following three cases:
 \bit
 \item If $n=1,$ then $\Condn(n)=1, \CLtn(n)=1,$ and $\CHon(n)=2$.
-\item If $\nmin$ is fixed, and $\NLiD{n} \rightarrow \infty,$ then $\Condn(n)\rightarrow 0,$ (i.e., the condition \cref{eq:hfemcond} becomes more restrictive), $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$.
-\item If $\NLiD{n}$ is fixed, and $\nmin \rightarrow 0,$ then $\Condn(n)\rightarrow 0,$ $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$.
+\item If $\nmin$ is fixed, and $\NLiD{n} \rightarrow \infty,$ then $\Condn(n)\rightarrow 0,$ (i.e., the condition \cref{eq:hfemcond} becomes more restrictive), $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$ (i.e., the right-hand side of the error bounds \cref{eq:femltbound,eq:femhobound} become larger).
+\item If $\NLiD{n}$ is fixed, and $\nmin \rightarrow 0,$ then $\Condn(n)\rightarrow 0,$ $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$ (i.e., the right-hand side of the error bounds \cref{eq:femltbound,eq:femhobound} become larger).
   \eit
-  One can easily check each of these behaviours using the definition of $\nvar$, the definition of the constants $\Condn(n),$ $\CLtn(n)$, and $\CHon(n)$, and the definition of the polynomial $\Pfn(x)$ in \cref{eq:p} below, and the defintion of $\En$ in \cref{eq:en} below.
+  One can easily check each of these behaviours using the definition of $\nvar$, the definition of the constants $\Condn(n),$ $\CLtn(n)$, and $\CHon(n)$, and the definition of the polynomial $\Pfn{j}(x)$ in \cref{eq:p} below, and the definition of $\En$ in \cref{eq:en} below.
   \ere
 
   \bre[Extension to different boundary conditions on $\GI$]
-  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:thetahbound} one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, which bounds $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and the weighted $H^1$-norm of $\rho.$ However, a crucial part of the proof of \cref{lem:boundarybound} is the fact that one has the bound $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtNapprox \thetah}{\thetah}$, where $\DtNapprox$ is the impedance approximation to the DtN map $\DtN,$ i.e. $\DtNapprox = ik.$
+  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:ltthetahbound} below one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, where we bound $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and by the weighted $H^1$-norm of $\rho.$
 
-  To replicate the proof of \cref{lem:boundarybound} for an exact DtN boundary condition, one would need to show that $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtN \thetah}{\theta}$ for the \emph{exact} DtN map $\DtN.$ As mentioned in \cite[Remark 5.4(e)]{DuWu:15}, whether such a bound holds in general is an open question.\optodo{Melenk and Sauter '10 equation 3.4b, unlikely, but not that interesting numerically.}
-
-\optodo{Understand PML papers, then maybe write: However, there may be more promise in extending the results in this \namecref{sec:fem} to \cref{prob:edp} truncated with a PML. The formulation of the PML problem (as in, e.g., \cite[Equations (2.5)--(2.7)]{LiWu:19}) involves ...}
+  However, a crucial part of the proof of \cref{lem:boundarybound} is the fact that one has the bound $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtNapprox \thetah}{\thetah}$, where $\DtNapprox$ is the impedance approximation to the DtN map $\DtN,$ i.e., $\DtNapprox = ik.$ To replicate the proof of \cref{lem:boundarybound} for an exact DtN boundary condition, one would need to show $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtN \thetah}{\theta}$ for the \emph{exact} DtN map $\DtN.$ As mentioned in \cite[Remark 5.4(e)]{DuWu:15}, whether such a bound holds in general is an open question.\optodo{Melenk and Sauter '10 equation 3.4b, unlikely, but not that interesting numerically.}
   \ere
 
-\subsection{Decomposition of solution and best approximation bound}
+\subsection{Decomposition of solution and best approximation bound}\label{sec:decomp}
 
-For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation; following the presentation in \cite{ChNi:19} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for high $p$, we require the following shift \lcnamecref{thm:shift}:
+For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound in $\Vhp$ for the solution of the Helmholtz equation following the presentation in \cite{ChNi:19} (although we explicitly keep track of the constants involved at each point). In order to obtain bounds for high $p$, we require the following shift \lcnamecref{thm:shift}:
 
 \bth[Shift theorem]\label{thm:shift}
 Under \cref{ass:highp}, for all integers $l \in \mleft[0,p-1\mright]$ there exists a constant $\CAl>0$ (depending on $A$) such that if $\ftilde \in \HlD$ and $\gItilde \in \HlphGI$, then there exists a unique $\utilde \in \HlptD$ such that $\utilde$ solves
@@ -1292,7 +1298,7 @@ and $\utilde$ satisfies the bound
 \enth
 
 \bpf[Proof of \cref{thm:shift}]
-The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of \cref{eq:shifteq,eq:shiftdbc,eq:shiftnbc} is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior and near the boundaries $\GD$ and $\GI$, and the work of the proof is combining these estimates. As a reference for these estimates we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these results, as we have higher regularity of the boundaries $\GD$ and $\GI$ and the coefficient $A$.
+The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of \cref{eq:shifteq,eq:shiftdbc,eq:shiftnbc} is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior and near the boundaries $\GD$ and $\GI$, and the work of the proof is combining these estimates. As a reference for these estimates we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these estimates, as we have the necessary higher regularity of the coefficients and the boundaries $\GD$ and $\GI$.
 
 To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
 \bit
@@ -1334,11 +1340,11 @@ Under \cref{ass:highp}, let $\ftilde \in \HlD$ and $\gtilde \in \HlpoD,$ for $0 
 \eeqs
 and
 \beqs
-\dn u = \gtilde,
+\dn u = \trGI \gtilde,
 \eeqs
 then
 \beqs
-\NHlptD{\utilde} \leq \CAl\mleft(1+\CTrlpo\mright)\mleft(\NHlD{\ftilde} + \NHlpoD{\gtilde}\mright).
+\NHlptD{\utilde} \leq \CAl\mleft(1+\CTrlpo\mright)\mleft(\NHlD{\ftilde} + \NHlpoD{\trGI \gtilde}\mright).
 \eeqs
 \eco
 
@@ -1351,6 +1357,7 @@ If $v \in \HmD,$ for $1/2 < m \leq p+1$, then there exists $\CTrm > 0$ independe
 \eeqs
 \enth
 
+For a proof of \cref{thm:trace}, see \cite[Theorem 3.37]{Mc:00}
 
 \bpf[Proof of \cref{lem:domainshift}]
 By \cref{thm:shift,thm:trace}
@@ -1360,10 +1367,10 @@ By \cref{thm:shift,thm:trace}
 and the result follows.
 \epf
 
-We are now able to prove the following \lcnamecref{thm:expansion} giving a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts and a smoother, more-oscillatory part. 
+We are now able to prove the following \lcnamecref{thm:expansion} that gives a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts $\uj$ and a smoother, more-oscillatory part $\uosc$. 
 
 \bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
-Under \cref{ass:highp,ass:htwo} there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that if $u$ is the solution of \cref{prob:tedp} or its adjoint, then
+Under \cref{ass:highp,ass:htwo} if $u$ is the solution of \cref{prob:tedp} or its adjoint then there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
 \beq\label{eq:expansionid}
 u = \uosc + \sum_{j=0}^{p-2} \usj.
 \eeq
@@ -1419,48 +1426,51 @@ x^{\floor{j/2}}& j \geq 2
 \enth
 
 \bre[How oscillatory are the functions in \cref{thm:expansion}?]
-Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is two orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is one order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
-
-\Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:19} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:19} are stated for a much wider class of problems, but the dependence on all of the constants is not made explicit.
-
-We also point out that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA \in C^\infty(D),$ but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{s-2}$ for all $s$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively, under an assumption of a polynomial growth of the a priori bound---i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. %We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is \emph{two} orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is \emph{one} order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
 \ere
+
+\Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:19} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:19} are stated for a wider class of time-harmonic wave propagation problems, but the dependence on all of the constants is not made explicit.
+
+We also point out (as in \cite[Section 7]{ChNi:19}) that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA$ is analytic but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{m-2}$ for all $m$)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-D polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively. In the former case the proof is under an assumption of a polynomial growth of the a priori bound \cite[Assumption 4.8]{MeSa:11}, i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. %We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
 
 \bpf[Proof of \cref{thm:expansion}]
 The idea of the proof is as follows. We write $u$ as a formal series expansion
 \beq\label{eq:formalseries}
 u = \sum_{j=0}^\infty \usj,
 \eeq
-and then substitute this series into the PDE \cref{eq:tedp} and the boundary condition \eqref{eq:ibc}. Equating powers of $k$, we derive a recursive sequence of stationary diffusion equations for the functions $\usj,$ with right-hand sides dependent on $\ujmo$ and $\ujmt$. We use this recursive sequence and \cref{lem:domainshift} to prove the a priori bounds \cref{eq:expansionuj}. We then define the $l$th remainder $\rl = u - \sum_{j=0}^{l-1} \usj,$ and by applying the operator $\grad\cdot\mleft(A\grad \cdot\mright)$ with Neumann boundary conditions to $\rl$, we obtain a recursive sequence for the remainders $\rl,$ and can similarly prove a priori bounds for the $\rl$s. The oscillatory function $\uosc$ is then just $\rpmo.$ The format of this proof is identical to that in \cite[Theorem 1]{ChNi:19}, except we keep track of all of the constants involved.
+and then substitute this series into the PDE \cref{eq:tedp} and the boundary condition \eqref{eq:ibc}. Equating powers of $k$, we derive a recursive sequence of stationary diffusion equations for the functions $\usj,$ with right-hand sides dependent on $\ujmo$ and $\ujmt$. We use this recursive sequence and \cref{lem:domainshift} to prove the a priori bounds \cref{eq:expansionuj}.
 
-For the purposes of the proof, it is more convenient to define $\vj = \usj/k^j,$ so that the series expansion \cref{eq:formalseries} becomes
+We then define the $l$th remainder $\rl = u - \sum_{j=0}^{l-1} \usj,$ and by applying the operator $\grad\cdot\mleft(A\grad \cdot\mright)$ with Neumann boundary conditions to $\rl$, we obtain a recursive sequence for the remainders $\rl,$ and can similarly prove a priori bounds for the functions $\rl$. The oscillatory function $\uosc$ is then just $\rpmo.$ The format of this proof is identical to that in \cite[Theorem 1]{ChNi:19}, except we keep track of all of the constants involved.
+
+For the purposes of the proof, it is more convenient to define $\vj = \usj/k^j,$ so that the series expansion \cref{eq:formalseries} becomes\footnote{In \cite{ChNi:19} the notation is changed slighty, and the series expansion is defined as $u = \sum_{j=0}^\infty k^j \uj,$ i.e., the functions $\vj$ in our proof are denoted $\uj$ in \cite{ChNi:19}.}
 \beq\label{eq:formalseriesv}
 u = \sum_{j=0}^\infty k^j\vj
 \eeq
-as in \cite{ChNi:19}. Also, in this proof, all the boundary-value problems involved included a zero Dirichlet condition on the scatterer $\GD;$ we omit this throughout the proof for brevity.
+as in \cite{ChNi:19}. Also, in this proof, all the boundary-value problems involve included a zero Dirichlet condition on the scatterer $\GD;$ we omit this boundary condition throughout the proof for brevity.
 
-By applying the Helmholtz operator to the formal series \eqref{eq:formalseriesv} we obtain the following problems for $\vj \in \HjptD, j \geq 1$:
+By applying the Helmholtz operator to the formal series \eqref{eq:formalseriesv} we obtain the following equations for $\vj \in \HjptD, j \geq 1$:
 \beqs
 \grad \cdot \mleft(A\grad \vz\mright) = -f \quad\tand\quad \dn \vz = \gI,
 \eeqs
 \beqs
 \grad \cdot \mleft(A\grad \vo\mright) = 0\quad\tand\quad\dn \vo = i\vz,
 \eeqs
-and, for $j \in \mleft[2,p-2\mright]$
+and
 \beq\label{eq:vj}
-\grad \cdot \mleft(A\grad \vj\mright) = - n\vjmt\quad\tand\quad\dn \vz = i\vjmo.
+\grad \cdot \mleft(A\grad \vj\mright) = - n\vjmt\quad\tand\quad\dn \vz = i\vjmo \quad\tfor j \in \mleft[2,p-2\mright].
 \eeq
 
 By \cref{thm:shift} we immediately conclude the bound
 \beq\label{eq:expuz}
 \NHtD{\vz} \leq \CAz\Cfg \leq \Cefn{0}\Cfg,
 \eeq
-and by \cref{lem:domainshift,eq:expuz} we can conclude the bound
+i.e., \cref{eq:expansionuj} for $j=0.$ By \cref{lem:domainshift,eq:expuz} we can conclude the bound
 \beqs
-\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \max\set{1,\CAo}\mleft(1+\CTrfn{2}\mright)\Cefn{0} \Cfg = \Cefn{1}\Cfg.
+\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \max\set{1,\CAo}\mleft(1+\CTrfn{2}\mright)\Cefn{0} \Cfg = \Cefn{1}\Cfg,
 \eeqs
+i.e., \cref{eq:expansionuj} for $j=1$.
 
-We prove the bound \cref{eq:expansionuj} by induction; suppose \cref{eq:expansionuj} holds for all $s \in [0,j-1].$ Using \cref{lem:domainshift}, we conclude that (using the observation that $\Cefn{j-1} \geq \Cefn{j-2}$)
+We prove the bound \cref{eq:expansionuj} for higher $j$ by induction. Let $j \in \mleft[2,p-2\mright]$ and suppose \cref{eq:expansionuj} holds for all $s \in [0,j-1].$ Using \cref{lem:domainshift}, we conclude that (using the observation that $\Cefn{j-1} = 2\max\set{1,\CAjmo}\mleft(1+\CTrj\mright)\Cefn{j-2}\geq \Cefn{j-2}$)
 \begin{align*}
 \NHfn{j+2}{D}{\vj} &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\NLiD{n} \NHfn{j}{D}{\vfn{j-2}} + \NHfn{j+1}{D}{\vfn{j-1}}\mright)\\
 &\leq \max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\mleft(\NLiD{n} \Cefn{j-2} \Pfn{j-2}\mleft(\NLiD{n}\mright) + \Cefn{j-1} \Pfn{j-1}\mleft(\NLiD{n}\mright)\mright)\Cfg\\
@@ -1472,33 +1482,27 @@ We prove the bound \cref{eq:expansionuj} by induction; suppose \cref{eq:expansio
 We will now define the remainders $\rl$, and proceed similarly.
 Let $\ro \in \HthD$ solve
 \beqs
-\grad \cdot \mleft(A\grad \ro\mright) = -k^2 u
-\eeqs
-\beqs
-\dn \ro = iku.
+\grad \cdot \mleft(A\grad \ro\mright) = -k^2 u \tand \dn \ro = ik\trGI u.
 \eeqs
 Then by \cref{lem:domainshift}
 \beqs%gin{align*}
-\NHthD{\ro} \leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\leq \frac{\Cefn{1}}{\max\set{1,\CAo}}.
+\NHthD{\ro} \leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\leq \frac{\Cefn{1}}{\max\set{1,\CAz}}k^2\CAnk \Cfg
 \eeqs%nd{align*}
+by definition of $\Cefn{1}$.
 Let $\rt \in \HfD$ solve
 \beqs
-\grad \cdot \mleft(A\grad \rt\mright) = -k^2 u
-\eeqs
-\beqs
-\dn \rt = ik\ro.
+\grad \cdot \mleft(A\grad \rt\mright) = -k^2 u \tand \dn \rt = ik\trGI \ro.
 \eeqs
 Then by \cref{lem:domainshift}
 \begin{align*}
 \NHfD{\rt} &\leq \CAt\mleft(1+\CTrth\mright)\mleft(k^2\NHtD{u} + k\NHthD{\ro}\mright)\\
-&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \frac{\Cefn{1}}{\max\set{1,\CAo}}\mright)\CAnk k^3\Cfg\leq \frac{\Cefn{2}}{\max\set{1,\CAo}}.
+&\leq \CAt\mleft(1+\CTrth\mright)\mleft(1 + \frac{\Cefn{1}}{\max\set{1,\CAz}}\mright)\CAnk k^3\Cfg\\
+&\leq 2\CAt\mleft(1+\CTrth\mright)\frac{\Cefn{1}}{\max\set{1,\CAz}}\CAnk k^3 \Cfg\text{ as } \Cefn{1} \geq 1,\\
+&\leq \frac{\Cefn{2}}{\max\set{1,\CAz}}\CAnk k^3\Cfg.
 \end{align*}
 Then for $j \geq 3,$ let $\rj \in \HjptD$ solve
 \beqs
-\grad \cdot \mleft(A\grad \rt\mright) = -k^2 \rjmt
-\eeqs
-\beqs
-\dn \rj = ik\rjmo.
+\grad \cdot \mleft(A\grad \rt\mright) = -k^2 \rjmt \tand \dn \rj = ik\trGI\rjmo.
 \eeqs
 And by induction and \cref{lem:domainshift} again, letting $\uosc = \rfn{p-1},$ we have \cref{eq:expansionuosc}. It is straightforward to see that $\rfn{p-1} + \sum_{j=1}^{p-2} \uj$ solves \cref{prob:tedp}, and therefore \cref{eq:expansionid} holds, as $u$ is unique.
 \epf
@@ -1587,7 +1591,7 @@ Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
 
 
 
-\subsection{Error bounds for simple Galerkin projections}\label{sec:errgalerkin}
+\subsection{Error bounds for Galerkin projections}\label{sec:errgalerkin}
 In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds in negative Sobolev norms for three different projection operators. The proofs of these error bounds are all simple modifications of the standard proofs of finite-element errors in negative Sobolev norms, as in, e.g., \cite[Theorem 5.8.3]{BrSc:08},  and so we only prove \cref{lem:wltdprojerr,lem:ellprojerrw} below, as these are the proofs that deviate most from the standard proof.
 %\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
@@ -2190,7 +2194,7 @@ and rearranging, and using the facts that $\shiftn{m} \leq \errn{m}$ for all $m$
 and combinining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, and letting $\Csumj$ be as in \cref{app:constants}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
 \epf
 
-\subsection{Main finite-element-error bound}\label{sec:fembound}
+\subsection{Proof of \cref{thm:fembound}}\label{sec:fembound}
 
 Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound}, which we do via a series of lemmas.
 
