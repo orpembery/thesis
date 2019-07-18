@@ -136,6 +136,20 @@ cycle
     \pgfusepath{stroke}
     }
 
+       \pgfdeclarepatternformonly{owengridsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{0.5cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0.5cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    \pgfpathmoveto{\pgfpoint{0cm}{0.5cm}}
+    \pgfpathlineto{\pgfpoint{1cm}{0.5cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+
 
 \begin{tikzpicture}[even odd rule]   
 \draw[scale=\domainscale] % Truncation
@@ -151,7 +165,7 @@ cycle
 \draw[scale=\domainscale,dashed] (0,0) circle [radius=2.25]; % The ball
 
 
-\filldraw[pattern=owennorthwestsmall,scale=\domainscale] % Support of f
+\filldraw[pattern=owengridsmall,scale=\domainscale] % Support of f
 \suppf
 \obstacle
 ;
@@ -161,7 +175,7 @@ cycle
 ;
 
 % support of I-A
-\filldraw[pattern=owennortheastsmall,scale=\domainscale]
+\filldraw[pattern=owennorthwestsmall,scale=\domainscale]
 \suppA
 ;
 
