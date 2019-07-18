@@ -1,0 +1,21 @@
+\input{diagram-defs}
+\draw[scale=\shiftscale] % Truncation
+\truncation
+\obstacle
+;
+    
+
+\draw[scale=\shiftscale] % The obstacle
+\obstacle
+;
+
+
+
+
+% The labels
+\draw ($\shiftscale/\domainscale*(-0.1,0)$) node[fill=white] {$\Dm$};
+%\draw (-3.5,-4.75) node[fill=white] {$D:=\Dtilde\setminus \clos{\Dm}$};
+
+\draw ($\shiftscale/\domainscale*(2.0,-0.5)$) node[fill=white] {$\GD$};
+%\draw[scale=\shiftscale] (2.418221983093764, 0.6211657082460498) node[fill=white] {$\BR$};
+\draw ($\shiftscale/\domainscale*(5.1,3.1)$) node[fill=white] {$\GI$};

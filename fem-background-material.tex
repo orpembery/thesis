@@ -1295,14 +1295,34 @@ and $\utilde$ satisfies the bound
 \bpf[Proof of \cref{thm:shift}]
 The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of \cref{eq:shifteq,eq:shiftdbc,eq:shiftnbc} is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior and near the boundaries $\GD$ and $\GI$, and the work of the proof is combining these estimates. As a reference for these estimates we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these estimates, as we have the necessary higher regularity of the coefficients and the boundaries $\GD$ and $\GI$.
 
-To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
+To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$ (see \cref{fig:shift-int,fig:shift-scat,fig:shift-trunc} for a schematic)\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
 \bit
 \item $\Dint \compcont \Dinttilde \compcont D$,
 \item $\GD \subset \Dscatclos$
 \item $\dist(\Dscat,\GI) > 0 $
   \item $\GI \subset \Dtruncclos$
 \item $\dist(\Dtrunc,\GD) > 0 $
-    \eit
+  \eit
+\def\shiftscale{1.0}
+  \begin{figure}
+\begin{centering}
+\input{shift-diagram-int}
+\caption{A schematic of the sets $\Dint$ and $\Dinttilde$ from the proof of \cref{thm:shift}.}\label{fig:shift-int}
+\end{centering}
+  \end{figure}
+    \begin{figure}
+\begin{centering}
+\input{shift-diagram-scat}
+\caption{A schematic of the set $\Dscat$ from the proof of \cref{thm:shift}.}\label{fig:shift-scat}
+\end{centering}
+    \end{figure}
+      \begin{figure}
+\begin{centering}
+\input{shift-diagram-trunc}
+\caption{A schematic of the set $\Dtrunc$ from the proof of \cref{thm:shift}.}\label{fig:shift-trunc}
+\end{centering}
+\end{figure}
+
     First applying interior regularity \cite[Theorem 4.16]{Mc:00} in $\Dinttilde,$ we obtain the bound
     \beq\label{eq:shiftint}
 \NHlptDint{\utilde} \leq \CintAl \mleft(\NHoDinttilde{\utilde} + \NHlDinttilde{\ftilde}\mright).
