@@ -544,7 +544,7 @@ or
   \dn w -ikw &= 0 \ton \GI,
 \end{align*}
 where $F$ is an appropriately chosen function. In the following exposition, we will assume $\aep$ is given by \cref{eq:aepused}.
-Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the mutliplicative trace inequality and the generalisation of the Poincar\'e inequality in \cite[Equation (6.16)]{Sp:15}) $\aep$ is coercive and continuous, and hence is quasi-optimal:
+Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the mutliplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous, and hence is quasi-optimal:
 \beq\label{eq:epho}
 \Nep{w-\Ph w} \lesssim \inf_{\vh \in \Vhp} \Nep{w-\vh}.
 \eeq
@@ -1161,7 +1161,8 @@ Assume
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
-\eas
+  \eas
+  The assumptions on $\GD,$ $\GI$, and $A$ ensure that we can apply a shift theorem for a related stationary diffusion equation up to order $p-1$. The assumption on $n$ ensures that for all $m \in [0,p-1]$ and for all $v \in \HmD,$ $nv \in \HmD$ (see \cref{thm:banachalg} below).
 
 We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}. Recall that the adjoint of \cref{prob:vtedp} is the same as \cref{prob:vtedp}, except \cref{eq:vtedp} is replaced by
 \beqs
@@ -1533,7 +1534,7 @@ Under \cref{ass:highp,ass:htwo}, there exist constants $\CFEMo, \CFEMt > 0$ inde
 %We write bounds for the standard and weighted $H^1$ norms separately, as we will use each individual bound in differents of proofs in \cref{sec:fembound}.
 
 \bpf[Proof of \cref{lem:bestapprox}]
-We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exist $\ujh,$ $j=0,\ldots,p-2$ and $\uosch$ in $\Vhp$ such that 
+We apply \cref{lem:scottzhang} to all the $\usj$ and $\uosc$ in \cref{thm:expansion}, and obtain that there exist $\ujh \in \Vhp$ $j=0,\ldots,p-2$ and $\uosch \in\Vhp$ such that 
 \beqs
 \NLtD{\usj - \ujh} + h\NHoD{\usj - \ujh} \leq \Cinterpfn{j+2} \Cefn{j} \Pj\mleft(\NLiD{n}\mright) h^{j+2}k^j \Cfg
 \eeqs
@@ -1541,13 +1542,13 @@ and
 \beqs
 \NLtD{\uosc - \uosch} + h\NHoD{\uosc - \uosch} \leq \Cinterpfn{p+1} \Cosc\CAnk h^{p+1}k^p \Cfg.
 \eeqs
-Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{eq:bestapproxL2,eq:bestapproxW} (using the fact that $hk \leq 1$ and, as $\NLiD{n} \geq 1$, $\Pfn{p-2}(\NLiD{n}) \geq \Pfn{j}(\NLiD{n}) \geq 1$ for all $j \leq p-2$).
+Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{eq:bestapproxL2,eq:bestapproxW} (using the facts that $hk \leq 1$ and $\Pfn{p-2}(\NLiD{n}) \geq \Pfn{j}(\NLiD{n}) \geq 1$ for all $j \leq p-2$ since $\NLiD{n} \geq 1$).
 \epf
 
 \subsection{Routine analysis results}\label{sec:anbackground}
-In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout \cref{sec:fem}.
+In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout the following proofs.
 
-We first note the following inequality: for $N \in \NN$ and $a_1,\ldots,a_N > 0$
+The following inequality is straightforward to prove: for $N \in \NN$ and $a_1,\ldots,a_N > 0$
 \beq\label{eq:simple}
 \sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
 \eeq
@@ -1557,73 +1558,87 @@ We first note the following inequality: for $N \in \NN$ and $a_1,\ldots,a_N > 0$
 \bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
 There exists $\CMT > 0$ such that for all $v \in \HoD$
 \beqs
-\NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{D}^\half.
+\NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{v}^\half.
 \eeqs
 \enth
 
-\ble[Poincar\'e Inequality]\label{lem:poincare}
+\ble[Poincar\'e--Friedrichs Inequality]\label{lem:poincare}
 There exists $\CP > 0$ such that for all $v \in \HozDD$
 \beqs
 \NLtD{v} \leq \CP \SNHoD{v}.
 \eeqs
 \ele
 
+For a proof of \cref{lem:poincare} in our particular setting (where $v$ only vanishes on a subset of the boundary, rather than on the whole boundary), see \cite[Lemma A.14]{ToWi:05}.
+\optodo{Maybe adjust this to include boundary term.}
+\optodo{Think carefully about what this means for IIP---I think it means you need to include the impedance part in the elliptic projection, because otherwise the Poisson problem doesn't have a unique solution, so you're not going to be able to use Lax--Milgram. But then we don't have the higher-order shift Theorems. Write a remark to this effect, and say that we're going to assume the scatterer is non-empty---put this in an assumption. Scrap all of the above - Du and Wu add a lower--order term into their elliptic projection, which means it's always coercive (because the energy norm is the $H^1$ norm. Write a remark explaining this instead, and say that we're not going to do it, but you could. I think that's best.}
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 \ben
 \item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HmD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
 \beqs
 \NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
 \eeqs
-\item\label[itempart]{it:ban2}For $m \in \NN,$ if $\vo \in \CmD$, $\supp\mleft(\vo-1\mright) \compcont D,$ and  $\vt \in \HmD,$ then $\vo \in \WmiD,$ $\vo\vt \in \HmD$, and there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
+\item\label[itempart]{it:ban2}For any $m \in \NN,$ if $\vo \in \CmD$, $\supp\mleft(1-\vo\mright) \compcont D,$ and  $\vt \in \HmD,$ then
+  \bit
+\item$\vo \in \WmiD,$
+\item$\vo\vt \in \HmD$, and
+  \item there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
 \beq\label{eq:ban2}
 \NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
 \eeq
+\eit
 \een
 \enth
 
 \bpf[Proof of \cref{thm:banachalg}]
-\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $\vo-1$ has compact support, $\vo \in \WmiD,$ and $\vo-1 \in \CmcompD$. By \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
+\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $1-\vo$ has compact support, $\vo \in \WmiD,$ and $1-\vo \in \CmcompD$. Therefore, by \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
 \beqs
-\NHmD{(\vo-1)\vt} \leq \Cmclean{m} \NWmiD{\vo-1}\NHmD{\vt}.
+\NHmD{(1-\vo)\vt} \leq \Cmclean{m} \NWmiD{1-\vo}\NHmD{\vt}.
 \eeqs
-Therefore as $\vo = \vo -1 + 1,$ we have \cref{eq:ban2}.
+Therefore as $\NHmD{\vo\vt} \leq \NHmD{\mleft(\vo-1\mright)\vt} + \NHmD{\vt} = \NHmD{(1-\vo)\vt} + \NHmD{\vt}$, we have \cref{eq:ban2}.
 \epf
 
 
 
 \subsection{Error bounds for Galerkin projections}\label{sec:errgalerkin}
-In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds in negative Sobolev norms for three different projection operators. The proofs of these error bounds are all simple modifications of the standard proofs of finite-element errors in negative Sobolev norms, as in, e.g., \cite[Theorem 5.8.3]{BrSc:08},  and so we only prove \cref{lem:wltdprojerr,lem:ellprojerrw} below, as these are the proofs that deviate most from the standard proof.
+In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds in negative Sobolev norms for two different projection operators. The proofs of these error bounds are all simple modifications of the standard duality-argument proofs of finite-element errors in negative Sobolev norms, as in, e.g., \cite[Theorem 5.8.3]{BrSc:08}.
 %\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
 
 Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
 \beqs
-\IPLtD{A\grad\vh}{\grad\Ph w} = \IPLtD{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
-\eeqs
+\aep(\Ph w,\vh) = \aep(w,\vh) \tforall \vh \in \Vhp,
+  \eeqs
+  where $\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt}.$
 %% and define the weighted elliptic projection $\Phn:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
 %% \beqs
 %% \IPLtD{A\grad\vh}{\grad\Phn w} = \IPLtDn{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
 %% \eeqs
+  Observe that $\Ph w$ is the finite-element approximation of the solution of the stationary diffusion problem with `diffusion coefficient' $A$ and right-hand side in $\HozDD'$ given by $\aep(w,\cdot).$
 
-Observe that $\Ph w$ is the finite-element solution of a stationary diffusion problem with `diffusion coefficient' $A$ and a right-hand side in $\HozDD'.$
-
-We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+%% We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+%% \beqs
+%% \IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
+%% \eeqs
+Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 \beqs
-\IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
+\IPLtDn{\Qhn w}{\vh} = \IPLtDn{w}{\vh} \tforall \vh \in \Vhp,
 \eeqs
 
-We also need to define the $\LtD$ projection in a norm weighted by $n$
-
-For $v,w \in \LtD,$ define the $n$-weighted inner product
+where, for $v,w \in \LtD,$ $\IPLtDn{v}{w}$ is the $n$-weighted inner product
 \beqs
-\IPLtDn{v}{w} = \int_{D} n v \wbar,
+\IPLtDn{v}{w} \de \int_{D} n v \wbar.
 \eeqs
-and the corresponding $n$-weighted $\LtD$ norm $\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}$.
 
-For $s \in \NN$, we define the $n$-weighted $\HmD$ norms $\NHmDn{v}^2 = \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v}$, and the negative weighted Sobolev norms by
+We also define the corresponding $n$-weighted $\LtD$ norm $\NLtDn{v} = \sqrt{\int_{D} n \abs{v}^2}$ and for $m \in \NN$, the $n$-weighted $\HmD$ norms
+\beqs
+\NHmDn{v}^2 \de \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v},
+\eeqs
+and the negative weighted Sobolev norms
 \beq\label{eq:negweightnorm}
-\NHnfn{-m}{D}{v} = \sup_{w \in \HmD} \frac{\IPLtDn{v}{w}}{\NHmDn{w}}.
+\NHnfn{-m}{D}{v} \de \sup_{w \in \HmD} \frac{\IPLtDn{v}{w}}{\NHmDn{w}}.
 \eeq
+
 Observe that, for $v \in \HmD,$
 \beq\label{eq:nconv}
 \nmin\NHmD{v} \leq \NHmDn{v} \leq \NLiD{n} \NHmD{v}.
@@ -1637,14 +1652,33 @@ Observe that, for $v \in \HmD,$
 %% \frac{\NHmsD{v}}{\NLiD{n}} \leq \NHmsDn{v} \leq \frac{NHmsD{v}}{\nmin}.
 %% \eeq
 
-Define the $\LtD$ projection in the $n$-weighted norm $\Qhn:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
+The proofs of the error bounds for the Galerkin projctions will use the following notation for the solution operator of a particular stationary diffusion problem. We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the following stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
+\beq\label{eq:sdeq}
+\grad \cdot \mleft(A\grad \utilde\mright) = -n\ftilde \text{ in } D
+\eeq
+\beq\label{eq:sddbc}
+\trD \utilde = 0
+\eeq
+\beq\label{eq:sdnbc}
+\dn \utilde = 0.
+\eeq
+%% $A$-weighted Laplacian; that is $\DeltaA w = \grad\cdot\mleft(\grad w\mright),$ and give it domain $\DomainDeltaA = \set{w \in \HtD \st \trD w = 0, \dn w = 0};$
+%% hence $\DeltaA:\DomainDeltaA \rightarrow \LtD.$ Observe that, for any $f \in \LtD$ there exists $\wf \in \DomainDeltaA$ such that $\DeltaA \wf = -f.$
+For the reason there is a factor $n$ on the right-hand side of \cref{eq:sdeq}, see \cref{rem:why} below. Observe that $\sdsol$ is well-defined by \cref{thm:shift} as $n \ftilde \in \LtD$. Also, observe that $\sdsol^{m}$ is well-defined for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one can place $\sdsol \ftilde$ on the right-hand side. 
+For any $\ftilde \in \LtD$ and for any $v \in \HozDD,$ we have, by Green's identity,
 \beqs
-\IPLtDn{\Qhn w}{\vh} = \IPLtDn{w}{\vh} \tforall \vh \in \Vhp.
+\int_D \mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D n\ftilde \vb,
 \eeqs
+i.e.,
+\beq\label{eq:deltaagreen}
+\IPLtD{A\grad \mleft(\sdsol \ftilde\mright)}{\grad v} = \IPLtDn{\ftilde}{v}.
+\eeq
 
-We now state and prove our error bounds. These can all be obtained by modifications of the proof in \cite[Theorem 5.8.3]{BrSc:08} because all the projections defined above are Galerkin projections given by coercive and bounded sesquilinear forms on $\HoD$ (for $\Ph$) or $\LtD$ (for $\Qh$ and $\Qhn$).\optodo{Check if $\Qh$ is used.}
 
-The elliptic projection obeys the following error bounds:
+
+
+We now state and prove error bounds for the two projections given above. As stated above, the proofs below are all modifications of the standard proof (in, e.g., \cite[Theorem 5.8.3]{BrSc:08}). We can, in essence, use the standard proof because all the projections defined above are Galerkin projections given by coercive and bounded sesquilinear forms on $\HoD$ (for $\Ph$) or $\LtD$ (for $\Qhn$).
+
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
 Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cmmo >0$ such that for all $w \in \HozDD$
 \beq\label{eq:ellprojerr}
@@ -1655,7 +1689,7 @@ Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constan
 
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
-Let $m \in \NNz.$ Under \cref{ass:highp}, there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
+Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
 \beqs
 \NHnfn{-m}{D}{w-\Ph w} \leq \Cwmm \errn{m} h^{m+1} \BAHoDn{w}{\wh},
 \eeqs
@@ -1663,14 +1697,10 @@ where
 \beq\label{eq:errn}
 \errn{m} =
 \begin{dcases}
-\frac{\NHmD{n}}{\nmin^2}\nvar &\tif m \in \mleft(\frac{d}2,p-1\mright)\\
-\frac{\NWsiD{n}}{\nmin^2}\nvar &\tif m \in \mleft[1,\frac{d}2\mright]\\
+\frac{\NHmD{n}}{\nmin^2}\nvar &\tif m \in \mleft(\frac{d}2,p-1\mright]\\
+\frac{\NWmiD{n}}{\nmin^2}\nvar &\tif m \in \mleft[1,\frac{d}2\mright]\\
 \nvar &\tif m = -1,0.
 \end{dcases}
-\eeq
-We use the notation
-\beq\label{eq:en}
-\En=\max\set{\errn{m}\st m = -1,\ldots,p-1}.
 \eeq
 %% \ben
 %% \item\label[itempart]{it:wep1} If $s \in (d/2,p-1],$ then
@@ -1691,43 +1721,50 @@ We use the notation
 %% \eeq
 %% \een
 \ele
-
+We define
+\beq\label{eq:en}
+\En\de\max_{m = -1,\ldots,p-1}\set{\errn{m}}.
+\eeq
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{thm:banachalg} $n\phi\in \HmD$ also. Let $ \vtilde = \sdsol(\phi),$ observe\ednote{$\Sn$ is defined in \cref{sec:discsob}---I haven't yet decided where to put the definition.} that by \cref{ass:highp,thm:shift} $\vtilde \in \Hfn{}{s+2}{D}$. For all $v \in \HozDD,$ we have
-\beqs
-\IPLtD{A \grad \vtilde}{\grad v} = \IPLtD{n\phi}{v} = \IPLtDn{\phi}{v}.
-\eeqs
-If we take $v = w-\Ph w,$ then we can compute
+For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{ass:highp,thm:banachalg} $n\phi\in \HmD$. Let $ \vtilde = \sdsol(\phi)$ and observe $\vtilde \in \Hfn{}{m+2}{D}$. Observe that for all $v \in \HozDD,$ by definition of $\vtilde$ and the $n$-weighted inner product $\IPLtDn{\cdot}{\cdot}$, we have
+\beq\label{eq:vtilde}
+\IPLtD{A \grad v}{\grad \vtilde} = \IPLtD{nv}{\phi} = \IPLtDn{v}{\phi}
+\eeq
+(where we multiply the complex conjugate of \cref{eq:sdeq} by $v$, and integrate by parts).
+Taking $v = w-\Ph w$ in \cref{eq:vtilde}, we have
 \begin{align}
-\IPLtDn{\phi}{v} &= \IPLtD{A\grad\mleft(\vtilde - \vh\mright)}{\grad\mleft(w-\Ph w\mright)} \text{ for } \vh \text{ the quasi-interpolant of } v\text{, by Galerkin orthogonality for } \Ph\nonumber\\
-&\leq \CSZfn{s+2}\NLiDop{A} \NHfn{s+2}{D}{\vtilde} h^{s+1} \SNHoD{w-\Ph w} \text{ by \cref{lem:scottzhang}}\nonumber\\
-&\leq \CSZfn{s+2} \CAfn{s} \NLiDop{A} \NHfn{s}{D}{n\phi} h^{s+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}}\label{eq:ellprojwpart}
+\IPLtDn{v}{\phi} &= \IPLtD{A\grad\mleft(w-\Ph w\mright)}{\grad\mleft(v - \Ih v\mright)} \text{by Galerkin orthogonality for } \Ph\nonumber\\
+&\leq \CSZfn{m+2}\NLiDop{A} \NHfn{m+2}{D}{\vtilde} h^{m+1} \SNHoD{w-\Ph w} \text{ by \cref{lem:scottzhang}}\nonumber\\
+&\leq \CSZfn{m+2} \CAfn{m} \NLiDop{A} \NHfn{m}{D}{n\phi} h^{m+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}.}\label{eq:ellprojwpart}
 \end{align}
 
-For $m > d/2,$ and so by \cref{thm:banachalg,eq:nconv}, \cref{eq:ellprojwpart} is bounded above by
+For $m > d/2$ by \cref{thm:banachalg,eq:nconv} \cref{eq:ellprojwpart} is bounded above by
 \beq\label{eq:wep1pt0}
-\CSZfn{s+2} \CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHfn{s}{D}{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w}.
+\CSZfn{m+2} \CAfn{m} \CBanfn{m} \NLiDop{A} \frac{\NHfn{m}{D}{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w}.
 \eeq
 
 
-Therefore we have, by definition of $\NHnfn{-s}{D}{\cdot}$ and $\NHoDn{\cdot}$,
+Therefore we have, by definition of $\NHnfn{-m}{D}{\cdot}$ and $\NHoDn{\cdot}$,
 \beq\label{eq:wep1pt1}
-\NHnfn{-s}{D}{w-\Ph w} \leq \CSZfn{s+2}\CAfn{s} \CBanfn{s} \NLiDop{A} \frac{\NHmD{n}}{\nmin^2} h^{s+1} \NHoDn{w - \Ph w}.
+\NHnfn{-m}{D}{w-\Ph w} \leq \CSZfn{m+2}\CAfn{m} \CBanfn{m} \NLiDop{A} \frac{\NHmD{n}}{\nmin^2} h^{m+1} \NHoDn{w - \Ph w}.
 \eeq
 Applying C\'ea's Lemma to $\Ph$ in the $n$-weighted $H^1$ norm, we find
 \beq\label{eq:wepcea}
 \NHoDn{w-\Ph w} \leq \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}\nvar\BAHoDn{w}{\wh},
 \eeq
-as $\Ph$ corresponds to a sesquilinear form that is bounded with constant $\NLiDop{A}/\nmin$ and coercive with constant $\mleft(\Amin\min\set{1,1/\CP}\mright)/\mleft(2\NLiD{n}\mright)$ in the $n$-weighted $H^1$ norm.
-and then combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn} in the case $m > d/2$.
+as $\Ph$ corresponds to a sesquilinear form with continuity constant $\NLiDop{A}/\nmin$ and coercivety constant
+\beqs
+\mleft(\Amin\min\set{1,1/\CP}\mright)/\mleft(2\NLiD{n}\mright).
+\eeqs
+Combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn} in the case $m > d/2$.
 
-For $s \in [1,d/2],$ the application of \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
+For $s \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 \beq\label{eq:wep2pt1}
-2\CSZfn{s+2} \CAfn{s} \Cprod{s} \NLiDop{A} \frac{\NWsiD{n}}{\nmin}\NHnfn{s}{D}{\phi} h^{s+1}\SNHoD{w-\Ph w},
+2\CSZfn{m+2} \CAfn{m} \Cprod{m} \NLiDop{A} \frac{\NWmiD{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w},
 \eeq
-(since $1 + \NWsiD{n} \leq 2\NWsiD{n},$ as $\NLiD{n} \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:errn}, in the case $m \in [1,d/2]$.
+(since $1 + \NWmiD{n} \leq 2\NWmiD{n},$ as $\NLiD{n} \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:errn}, in the case $m \in [1,d/2]$.
 
-For the case $m=0,$, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:errn}. For $m=-1,$, \cref{eq:wepcea} immediately gives \cref{eq:errn}. 
+For the case $m=0$, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:errn}. For $m=-1$, \cref{eq:wepcea} immediately gives \cref{eq:errn}. 
 \epf
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
@@ -1792,13 +1829,13 @@ For the case $m=0,$, using \cref{lem:ellprojerr} and then converting to the $n$-
 %% \epf
 
 
-The $\LtD$ projection satisfies the following error bound.
-\ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
-Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \LtD$
-\beqs
-\NHmmD{w-\Qh w} \leq \Cmmz h^{m} \BALtD{w}{\wh}.
-\eeqs
-\ele
+%% The $\LtD$ projection satisfies the following error bound.
+%% \ble[Error bounds for $\LtD$ projection]\label{lem:ltdprojerr}
+%% Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \LtD$
+%% \beqs
+%% \NHmmD{w-\Qh w} \leq \Cmmz h^{m} \BALtD{w}{\wh}.
+%% \eeqs
+%% \ele
 
 Similarly, the weighted $\LtD$ projection satisfies the following error bound.
 The $n$-weighted $\LtD$ projection satisfies the following error bound:
@@ -1810,80 +1847,49 @@ Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \HozDD$
 \ele
 
 \bpf[Proof of \cref{lem:wltdprojerr}]
-Fix $\vtilde \in \HmD$, trivially $\vtilde$ solves the adjoint problem
-\beqs
+Fix $\vtilde \in \HmD$. Trivially $\vtilde$ solves
+\beq\label{eq:trivial}
 \IPLtDn{v}{\vtilde} = \IPLtDn{v}{\vtilde} \tforall v \in \LtD.
-\eeqs
-Then letting $v=w-\Qhn w$ and using Galerkin orthogonality, for $\vhptilde$ as in \cref{lem:scottzhang} we have
+\eeq
+Then letting $v=w-\Qhn w$ in \cref{eq:trivial} and using Galerkin orthogonality we have
 \beqs%gin{align*}
-\IPLtDn{w-\Qhn w}{\vtilde} \leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\vhptilde}\leq \CSZfn{m} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^m \NHmDn{\vtilde}.
+\IPLtDn{w-\Qhn w}{\vtilde} \leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\Ih\vtilde}\leq \CSZfn{m} \frac{\NLiD{n}}{\nmin}\NLtDn{w-\Qhn w} h^m \NHmDn{\vtilde}.
 \eeqs%nd{align*}
 Taking the supremum over $\vtilde,$ we have
 \beqs
 \NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^m \NLtDn{w-\Qhn w},
 \eeqs
-and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
+and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive (with continuity and coercivity constants equal to 1) in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
 \epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
-In order to perform our analysis for high-order FEM, we will need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first develop some theory of so-called discrete Sobolev spaces; we follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation.
-
-We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
-\beq\label{eq:sdeq}
-\grad \cdot \mleft(A\grad \utilde\mright) = -n\ftilde \text{ in } D
-\eeq
-\beq\label{eq:sddbc}
-\trD \utilde = 0
-\eeq
-\beq\label{eq:sdnbc}
-\dn \utilde = 0.
-\eeq
-%% $A$-weighted Laplacian; that is $\DeltaA w = \grad\cdot\mleft(\grad w\mright),$ and give it domain $\DomainDeltaA = \set{w \in \HtD \st \trD w = 0, \dn w = 0};$
-%% hence $\DeltaA:\DomainDeltaA \rightarrow \LtD.$ Observe that, for any $f \in \LtD$ there exists $\wf \in \DomainDeltaA$ such that $\DeltaA \wf = -f.$
-Observe that $\sdsol$ is well-defined by \cref{lem:domainshift}. Also, observe that $\sdsol^{m}$ is defined\optodo{more here} for any $m \in \NN,$ as $\HtD \subseteq \LtD,$ and so one can place $\sdsol \ftilde$ on the right-hand side. 
-Observe that for any $\ftilde \in \LtD$ and for any $v \in \HozDD,$ we have, by Green's identity,
-\beqs
-\int_D \mleft(A \grad \mleft(\DeltaAI\ftilde\mright)\mright)\cdot \grad \vb = \int_D n\ftilde \vb,
-\eeqs
-i.e.,
-\beq\label{eq:deltaagreen}
-\IPLtD{A\grad \mleft(\sdsol \ftilde\mright)}{\grad v} = \IPLtDn{\ftilde}{v}.
-\eeq
-
+When we analyse the high-order FEM, we need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first define a notion of higher-order discrete derivatives, and then develop some theory of so-called discrete Sobolev spaces. We follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation. The main result of this \lcnamecref{sec:discsob} is \cref{lem:negdiscsum} below giving the relationship between negative-order discrete Sobolev norms and negative-order continuous Sobolev norms.
 
 \bde[Discrete derivative operator]
-Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ for $\wh \in \Vhp$ by
+Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ by, for $\wh \in \Vhp$,
 \beq\label{eq:discderdef}
 \IPLtDn{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} \tforall \vh \in \Vhp.
 \eeq
 \ede
-
-\bre[Why the factor $n$ on the right-hand side of \cref{eq:sdeq}?]\label{rem:why}
-The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
-
-All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because we can only prove bounds on the weighted $L^2$ projection $\Qhn$ in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), not in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the weighted inner product, which necessitates that we use the weighted inner product on the left-hand side of \cref{eq:discderdef}. This final use of the weighted inner product means we must have the weighted inner product on the right-hand side of \cref{eq:deltaagreen} so that we can show (at the beginning of the proof of \cref{lem:negdiscsum}) that if $\wh \in \Vhp,$ $\zh = \Deltah^{-1} \wh$, and $z = \Sn \wh,$ then $\zh = \Ph z;$ we need this fact in the remainder of the proof of \cref{lem:negdiscsum}.
-
-We do not, however, put a factor $n$ on the left-hand side of \cref{eq:sdeq}. If we did, when we apply \cref{thm:shift} to $\Sn \ftilde$ (as we do in \cref{lem:shiftnegativew}), the resulting bounds would not be fully explicit in $n$ (because in \cref{thm:shift} we do not know explicitly how the constants depend on the `diffusion coefficient'). Not putting a factor $n$ on the left-hand side of \cref{eq:sdeq} is the reason why there is a \emph{non-weighted} inner product on the right-hand side of \cref{eq:discderdef} (so that the beginning of the proof of \cref{lem:negdiscsum}, as mentioned above, works).
-\ere
 
 \ble[Discrete derivative operator is well-defined]\label{lem:ddwd}
 For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
 \ele
 
 \bpf[Proof of \cref{lem:ddwd}]
-If one chooses an orthonormal (in the $n$-weighted inner product) basis  $\phij$ for $\Vhp,$ writes $\Delta\wh = \sum_j \wj \phij$, and takes $\vh = \phij$ for each $j,$ then we see \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtDn{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
+Choose an orthonormal (in the $n$-weighted inner product) basis  $(\phij)_j$ for $\Vhp.$ Write $\Delta\wh = \sum_j \wj \phij$, and take in turn $\vh = \phij$ for each $j;$ then \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtDn{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
 %% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\optodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
 \epf
 
 %% By\optodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\optodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\optodo{Maybe define this}
 
-Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint, as
+Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint in the $n$-weighted inner product, as
 \beqs
 \IPLtDn{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} = \IPLtD{\grad \wh}{A\grad \vh} = \overline{\IPLtDn{\Deltah \vh}{\wh}} = \IPLtDn{\wh}{\Deltah \vh}.
 \eeqs
 Therefore $\Deltah$ is diagonalisable, i.e., there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding real eigenvalues\ednote{Both - is it common enough knowledge that a symmetric matrix has real eigenvalues, that I don't need to reference this?} $\lambdaoh, \ldots, \lambdadimVhph$ such that the $\phimh$ form an orthonormal (in the $n$-weighted inner product) basis of $\Vhp$.
 
-\bde[Higher-order discrete derivative operators]
+\bde[Higher-order discrete derivative operators]\label{def:hodd}
 For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in \RR$ define
 \beqs
 \Deltah^j \vh = \sum_{m=1}^{\dimVhp} \lambdamh^j \am \phimh.
@@ -1891,7 +1897,7 @@ For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in 
 
 
 \ede
-One can think of $\DeltahI$ as being a `discrete solution operator', i.e., a discrete counterpart to $\sdsol.$
+Observe that for $\wh \in \Vhp,$ $\DeltahI\mleft(\Deltah\wh\mright) = \wh,$ i.e., one can think of $\DeltahI$ as being a `discrete solution operator' for the stationary diffusion equation \cref{eq:sdeq,eq:sddbc,eq:sdnbc}. I.e., $\DeltahI$ is a discrete counterpart to $\sdsol.$
 %% Similarly, for $v \in \LtD,$ if $v = \sum_{m=1}^\infty \am \phim,$ then for $j \in \RR$ define
 %% \beq\label{eq:deltaaseries}
 %% \DeltaA^j v = \sum_{m=1}^\infty \lambdam^j \am \phim,
@@ -1907,9 +1913,9 @@ One can think of $\DeltahI$ as being a `discrete solution operator', i.e., a dis
 We can use the higher-order derivative operators to define discrete higher-order norms:
 
 \bde[Discrete higher-order norm]
-For $\vh \in \Vhp$ and $m \in \RR$, if define
+For $\vh \in \Vhp$ and $m \in \RR$, define
 \beqs
-\Nshn{\vh} = \NLtDn{\Deltah^{s/2} v}.
+\Nmhn{\vh} = \NLtDn{\Deltah^{m/2} v}.
 \eeqs
 \ede
 
@@ -1946,6 +1952,12 @@ For $\vh \in \Vhp$ and $m \in \RR$, if define
 %% \end{align*}
 %% \epf
 
+\bre[Related literature for higher-order discrete norms]
+To our knowledge, \cite{DuWu:15} is the only place in the literature where the above construction of higher-order discrete norms appears, although Thom\'{e}e defines these norms for negative integers $m$ in \cite[Equation above Lemma 1]{Th:80}. However, the idea of using a self-adjoint, coercive operator to define a norm can be found in, e.g., \cite[Section 2.1]{LiMa:72}, and the authors also observe \cite[Text at the bottom of page 9]{LiMa:72} that one can use a spectral decomposition to define arbitrary powers of such operators (analagous to \cref{def:hodd}). See \cite[Section 2.1]{BaKuMa:19} for a simpler exposition of defining a (fractional-order) Sobolev norm via an operator.
+
+We observe in passing that \cref{def:hodd} is analagous to the spectral definition of the fractional Laplacian $\mleft(-\Delta\mright)^m$; see the recent review article \cite[Section 2.5.1]{LiPaGuSoGlZhMaCaMeAiKa:18} for an overview of this idea.
+\ere
+
 We will use the following \lcnamecref{lem:intoip} to bound the inner product of two discrete functions by their negative- and positive-higher-order discrete norms, or to transfer discrete derivatives from one argument of the inner product to the other.
 
 \ble[Introduction of derivatives into inner product]\label{lem:intoip}
@@ -1954,24 +1966,24 @@ We will use the following \lcnamecref{lem:intoip} to bound the inner product of 
 %% \IPLtD{\DeltaAmmt v}{\DeltaAmt w} = \IPLtD{v}{w}.
 %% \eeqs
 %% Similarly, f
-For $\vh, \wh \in \Vhp,$ and $s \in \RR$ we have
+For $\vh, \wh \in \Vhp,$ and $m \in \RR$ we have
 \beq\label{eq:feipsplit}
-\IPLtDn{\Deltahmst \vh}{\Deltahst \wh} = \IPLtDn{\vh}{\wh}
+\IPLtDn{\vh}{\wh} = \IPLtDn{\Deltahmmt \vh}{\Deltahmt \wh} 
 \eeq
 and
 \beq\label{eq:feiptrans}
-\IPLtDn{\Deltahst \vh}{\Deltahst \vh} =  \IPLtDn{\Deltah^s \vh}{\vh}.
+\IPLtDn{\Deltah^m \vh}{\vh} = \IPLtDn{\Deltahmt \vh}{\Deltahmt \vh}.
 \eeq
 \ele
 \bpf[Proof of \cref{lem:intoip}]
 We only prove \cref{eq:feipsplit}, as the proof of \cref{eq:feiptrans} is analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$ and $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
 \begin{align*}
-\IPLtDn{\Deltahmst \vh}{\Deltahst \wh} &= \int_D n\mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
-&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D n \phij \philbar \text{ as the } \lambdaj \text{ are real}\\
-& =\sum_{j}^{\dimVhp} \aj \bsj \int_D n\abs{\phij}^2 \text{ as the } \phij \text{ are orthonormal}\\
-&= \IPLtDn{\vh}{\wh}
+\IPLtDn{\Deltahmmt \vh}{\Deltahmt \wh} &= \int_D n\mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
+&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D n \phij \philbar\quad \text{ as the } \lambdaj \text{ are real}\\
+& =\sum_{j}^{\dimVhp} \aj \bsj \int_D n\abs{\phij}^2\quad \text{ as the } \phij \text{ are orthonormal}\\
+&= \IPLtDn{\vh}{\wh},
 \end{align*}
-by repeating the above process in reverse, without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
+where the final line follows by repeating the above process in reverse without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
 \epf
 The next \lcnamecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
 
@@ -1994,14 +2006,14 @@ There exists $\CinvVhp > 0$ such that for all $\vh \in \Vhp$
 
 
 \ble[Inverse inequality for discrete norms]\label{lem:inversediscrete}
-For all $j \in \ZZ$, for all $\vh \in \Vhp$
+For all $m \in \RR$, for all $\vh \in \Vhp$
 \beqs
-\Njhn{\vh} \leq \Chinv \frac{1}{\nmin} h^{-1} \Njmohn{\vh}.
+\Nmhn{\vh} \leq \Chinv \frac{1}{\nmin} h^{-1} \Nmmohn{\vh}.
 \eeqs
 \ele
 
 \bpf[Proof of \cref{lem:inversediscrete}]
-by the definition of $\Njhn{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^{1/2}\Deltah^{(j-1)/2},$ it suffices to prove the result for $j=1$, as one can then perform induction on $j$. We have
+We only prove the case $m=1,$ as the other cases will follow immediately. We have
 \begin{align*}
 \Nfn{1,h,n}{\vh}^2 &= \IPLtDn{\Deltahh \vh}{\Deltahh \vh}\\
 &= \IPLtDn{\Deltah \vh}{\vh} \text{ by \cref{eq:feiptrans}}\\
@@ -2009,6 +2021,15 @@ by the definition of $\Njhn{\cdot}$, and the fact that $\Deltah^{j/2} = \Deltah^
 &\leq \NLiDop{A} \CinvVhp h^{-2}\frac{1}{\nmin^2} \NLtDn{\vh}^2
 \end{align*}
 by the standard inverse estimate, and the result follows as $\Nzhn{\cdot} = \NLtDn{\cdot}$.
+
+For $m \neq 1$ we have
+\begin{align*}
+  \Nmhn{\vh} &= \NLtDn{\Deltah^{\frac{m}2}\vh}\\
+  &= \NLtDn{\Deltah^{\half}\mleft(\Deltah^{\frac{m-1}2}\vh\mright)}\\
+  &= \Nohn{\Deltah^{\frac{m-1}2}\vh}\\
+  &\leq \Chinv \frac{1}{\nmin} h^{-1} \Nzhn{\Deltah^{\frac{m-1}2}\vh}\\
+\end{align*}
+by the result for $m=1,$ and the result for $m\neq 1$ follows.
 \epf
 
 
@@ -2020,13 +2041,17 @@ Let $\vh \in \Vhp$. Then
 \ele
 
 \bpf[Proof of \cref{lem:h1contdisc}]
-We have, using \cref{eq:feiptrans}, $\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2$, and the result follows.
+We have, using \cref{eq:feiptrans},
+\beqs
+\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2,
+\eeqs
+and the result follows.
 \epf
 
-To prove \cref{lem:negdiscsum} below on the relationship between discrete and continuous negative Sobolev normns, we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
+To prove \cref{lem:negdiscsum} below we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
 
 \ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
-Under \cref{ass:highp}, let $\ftilde \in \LtD.$ For integer $m \in [0,p-1],$ we have
+Let $\ftilde \in \LtD$ a d $m \in [0,p-1]$ be an integer. Under \cref{ass:highp} we have
 \beq\label{eq:shiftnegativew}
 \NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\ftilde},
 \eeq
@@ -2040,21 +2065,28 @@ where
 \NLiD{n}^2 &\tif m = -1.
 \end{dcases}
 \eeqs
-We use the notation $\Rn = \max\set{\shiftn{m}\st m = -1,\ldots,p-1}.$
 \ele
+We define
+\beqs
+\Rn = \max_{m = -1,\ldots,p-1}\set{\shiftn{m}}.
+\eeqs
 
 \bpf[Proof of \cref{lem:shiftnegativew}]
-We first observe that the operator $\sdsolo$ is self-adjoint on $\LtD$: Let $\DeltaA:\HtD\rightarrow\LtD$ denote the stationary diffusion operator $\grad\cdot\mleft(A\grad\cdot\mright).$ Then for any $\vo \in \LtD,$ $\DeltaA \circ \sdsolo \vo = \vo.$ Moreover, by Green's Theorem, $\DeltaA$ is self-adjoint on the set $\set{v \in \HtD \st v \text{ satisfies }\cref{eq:sddbc,eq:sdnbc}},$ this set is contained in the image of $\sdsolo.$ Therefore, for any $\vo,\vt \in \LtD,$ we have
-\beqs
+We first observe that the operator $\sdsolo$ is self-adjoint on $\LtD$. Let $\DeltaA:\HtD\rightarrow\LtD$ denote the stationary diffusion operator $\grad\cdot\mleft(A\grad\cdot\mright)$ with no boundary conditions applied. Then for any $\vo \in \LtD,$
+\beq\label{eq:scomp}
+\DeltaA \circ \sdsolo \vo = \vo.
+\eeq
+Moreover, by Green's Theorem, $\DeltaA$ is self-adjoint on the set $\set{v \in \HtD \st v \text{ satisfies \cref{eq:sddbc,eq:sdnbc}}},$ this set contains the image of $\sdsolo.$ Therefore, for any $\vo,\vt \in \LtD,$ we have
+\beq\label{eq:solosa}
 \IPLtD{\sdsolo \vo}{\vt} =\IPLtD{\sdsolo \vo}{\DeltaA \circ \sdsolo \vt} = \IPLtD{\DeltaA \circ \sdsolo \vo}{\sdsolo \vt} = \IPLtD{\vo}{\sdsolo \vt},
-\eeqs
-i.e., $\sdsolo$ is self-adjoint on $\LtD.$
+\eeq
+using \cref{eq:scomp} and the fact that $\DeltaA$ is self adjoint. I.e., \cref{eq:solosa} shows $\sdsolo$ is self-adjoint on $\LtD.$
 
 Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and therefore by \cref{thm:shift} $\sdsolo(nv) \in \HmptD.$ With these facts in place we can compute
 \begin{align*}
 \NHnfn{-m}{D}{\sdsol \ftilde} &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsol \ftilde}{nv}}{\NHmDn{v}}\\
 &= \sup_{v \in \HmD} \frac{\IPLtD{\sdsolo\mleft(n \ftilde\mright)}{nv}}{\NHmDn{v}}\\
-&= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\sdsolo\mleft(n v\mright)}}{\NHmDn{v}}\tas \sdsolo \text{ is self-adjoint}\\
+&= \sup_{v \in \HmD} \frac{\IPLtDn{\ftilde}{\sdsolo\mleft(n v\mright)}}{\NHmDn{v}}\quad\tas \sdsolo \text{ is self-adjoint}\\
 &\leq \sup_{v \in \HmD} \frac{\NHnfn{-(m+2)}{D}{\ftilde}\NHnfn{m+2}{D}{\sdsolo\mleft(nv\mright)} }{\NHmDn{v}}\\
 &\leq \sup_{v \in \HmD}  \frac{\CAfn{m} \NLiD{n} \NHmD{nv} \NHnfn{-(m+2)}{D}{\ftilde}}{\NHmDn{v}}
 %% & = \sup_{v \in \HmD} \frac{\IPLtD{ n\ftilde}{\sdsol(v)}}{\NHmD{v}}\text{ by definition of } \sdsol, \text{ and as } \sdsolo \text{ is self-adjoint}\\
@@ -2062,9 +2094,21 @@ Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and th
 %% &\leq \CBanfn{m+2}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m+2}{D}{\sdsol(nv)}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:banachalg}}\\
 %% &\leq \CBanfn{m+2}\CAfn{m}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m}{D}{nv}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:shift}}\\
 \end{align*}
-and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$ (or observing that $\NLtD{nv} \leq \NLiD{n}\NLtD{v}$, in the case $m=0$), the result follows, except for $m=-1.$
+and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$ (or observing that $\NLtD{nv} \leq \NLiD{n}\NLtD{v}$ in the case $m=0$), the result follows, except for $m=-1.$
 
-For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms, $\NHoD{\Sn \ftilde} \leq \NHmoD{n\ftilde}/\Amin.$ One can straightforwardly show that $\NHnfn{1}{D}{\Sn \ftilde} \leq \NLiD{n} \NHoD{\Sn \ftilde}$ and $\NHmoD{n\ftilde} \leq \NLiD{n} \NHnfn{-1}{D}{\ftilde},$ and so the result follows.
+For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms,
+\beqs
+\NHoD{\Sn \ftilde} \leq \NHmoD{n\ftilde}/\Amin.
+\eeqs
+One can straightforwardly show that
+\beqs
+\NHnfn{1}{D}{\Sn \ftilde} \leq \NLiD{n} \NHoD{\Sn \ftilde}
+\eeqs
+and
+\beqs
+\NHmoD{n\ftilde} \leq \NLiD{n} \NHnfn{-1}{D}{\ftilde},
+\eeqs
+and so the result follows.
 \epf
 
 %% \ble[Shift theorem in negative norms]\label{lem:shiftnegative}
@@ -2084,7 +2128,8 @@ For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms, $\NHoD{\
 %% \end{align*}
 %% as required. \epf
 
-We can now prove the following \lcnamecref{lem:negdiscsum} on the relationship between the negative-order discrete norms and the negative-order continuous norms.
+We can now prove the main result of this \lcnamecref{sec:discsob}.
+
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
 Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
 \beq\label{eq:negdiscsum}
@@ -2093,13 +2138,13 @@ Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant
 \ele
 
 \bpf[Proof of \cref{lem:negdiscsum}]
-Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh,$ $z = \DeltaAI \wh$ (observe $z$ is well-defined as $\Vhp \subseteq \LtD$). Then, for all $\vh \in \Vhp$, we have
+Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh$ and $z = \DeltaAI \wh$ (observe $z$ is well-defined as $\Vhp \subseteq \LtD$). Then, for all $\vh \in \Vhp$, we have
 
 \begin{align*}
-\IPLtD{A \grad z}{\grad \vh} = \IPLtD{A \grad \mleft(\sdsol \wh\mright)}{\grad \vh} = \IPLtDn{\wh}{\vh} \text{, and}\\
+\IPLtD{A \grad z}{\grad \vh} = \IPLtD{A \grad \mleft(\sdsol \wh\mright)}{\grad \vh} = \IPLtDn{\wh}{\vh},\quad \text{and}\\
 \IPLtD{A \grad \zh}{\grad \vh} = \IPLtDn{\Deltah \zh}{\vh} = \IPLtDn{\wh}{\vh},
 \end{align*}
-where the equalities in the first line follow from the definition of $z$ and \cref{eq:deltaagreen}, and the equalities in the second line follows from \cref{eq:discderdef} and the definition of $\zh.$  Therefore (using the fact that $A$ is symmetric), for all $\vh \in \Vhp,$ $\IPLtD{A\grad \vh}{\grad z} = \IPLtD{A\grad \vh}{\grad \zh},$ i.e., $\zh = \Ph z.$
+where the equalities in the first line follow from the definition of $z$ and \cref{eq:deltaagreen}, and the equalities in the second line follows from \cref{eq:discderdef} and the definition of $\zh.$  Therefore (using the fact that $A$ is symmetric), for all $\vh \in \Vhp,$ $\IPLtD{A\grad z}{\grad \vh} = \IPLtD{A\grad \zh}{\grad \vh},$ i.e., $\zh = \Ph z.$
 
 We now have, for $m \in [-1,p-1]$
 \begin{align}
@@ -2108,22 +2153,22 @@ We now have, for $m \in [-1,p-1]$
 &\quad\quad\text{ by \cref{lem:ellprojerrw,lem:scottzhang,thm:shift}, as }\zh = \Ph z\nonumber\\
 &= \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\wh} + \Cm \errn{m} \frac{\NLiD{n}}{\nmin} h^{m+2} \NLtDn{\wh}\label{eq:sumforrecursion}
 \end{align}
-by \cref{lem:shiftnegativew}, where we use $\shiftn{m}$ to denote the terms depending on $n$ in \cref{eq:shiftnegativew}.
+by \cref{lem:shiftnegativew}.
 From \cref{eq:sumforrecursion}, we can conclude that, for $l \in \NN$ and $\vh \in \Vhp$, writing $\wh = \Deltahmlpo \vh$,
 \beq\label{eq:lrecursion}
 \NHnfn{-m}{D}{\Deltahml \vh} \leq \Cshiftfn{m}\shiftn{m} \NHnfn{-(m+2)}{D}{\Deltahmlpo \vh} + \Cm \errn{m} \frac{\NLiD{n}}{\nmin} h^{m+2} \NLtDn{\Deltahmlpo \vh}
 \eeq
 as $\Deltahml = \DeltahI \Deltahmlpo$. We now use \cref{eq:lrecursion} recursively to bound $\Nfn{j,h,n}{\vh}$.
 
-If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for any integer $t \in [0,l]$ that
+If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for any integer $t \in [0,l]$
 \beq\label{eq:evenrecursivesum}
 \Nfn{-2l,h,n}{\vh} \leq \mleft(\En\nvar\mright)^t\sum_{m=0}^t \Efn{m,t} h^{2m} \NHDfn{-2(t-m)}{\vh} ,
 \eeq
 \optodo{Fix creflabelformat for equations in subscripts}
-where we define the $\Efn{m,t}$ inductively by
+where we define the constants $\Efn{m,t}$ inductively by
 \begin{align}
-\label{eq:Emt1}\Efn{0,0} &=1\\
-\label{eq:Emt2}\Efn{m,t} &= \Cshiftfn{2(t-1-m)} \Efn{m,t-1} \tfor 0 \leq m \leq t-1 \quad\tand\\
+\label{eq:Emt1}\Efn{0,0} &=1,\\
+\label{eq:Emt2}\Efn{m,t} &= \Cshiftfn{2(t-1-m)} \Efn{m,t-1} \tfor 0 \leq m \leq t-1, \quad\tand\\
 \label{eq:Emt3}\Efn{t,t} &= \sum_{m=0}^{t-1} \Csumrecfn{2(t-1-m)} \Efn{m,t-1}.
 \end{align}
 To see this recurrence, we prove the inductive step: suppose
@@ -2137,12 +2182,12 @@ Then using \cref{eq:lrecursion}, we have
 \end{align*}
 which upon rearranging, and using the fact that $\shiftn{2(t-1-m)} \leq \errn{2(t-1-m)}$ and $\nvar \geq 1,$ yields \cref{eq:evenrecursivesum}, with the recurrence \cref{eq:Emt1,eq:Emt2,eq:Emt3}.
 
-If $j=2l+1,$ then we first reduce $\Nfn{-j,h}{\vh}$ to a point analagous to the even case, and then proceed as before. Let $\wh$ and $\zh$ be as at the beginning of the proof, and let $z$ solve the variational formulation\footnote{We use the variational formulation here, as we will need to bound the $H^1$-norm of $z$ by the $H^{-1}$-norm of $\wh$, which is immediate from the Lax--Milgram theorem.}  of \cref{eq:sdeq,eq:sddbc,eq:sdnbc} (with $\ftilde = \wh$). Observe that we still have $\zh = \Ph z,$ and
+If $j=2l+1,$ then we first reduce $\Nfn{-j,h}{\vh}$ to a point analagous to the even case, and then proceed as before. Let $\wh$ and $\zh$ be as at the beginning of the proof, and let $z$ solve the variational formulation\footnote{We use the variational formulation here, as we will need to bound the $H^1$-norm of $z$ by the $H^{-1}$-norm of $\wh$, which is immediate from the Lax--Milgram theorem.}  of \cref{eq:sdeq,eq:sddbc,eq:sdnbc} with $\ftilde = \wh$. Observe that we still have $\zh = \Ph z,$ and
 
 \beq\label{eq:LMHmo}
 \NHfn{1}{D}{z} \leq \frac1{\Amin} \NHfn{-1}{D}{n\wh}
 \eeq
-by the Lax--Milgram Theorem. We have
+by the Lax--Milgram Theorem. Then
 \begin{align}
 \NLtDn{\Deltah^{-1/2}\wh} &= \NLtDn{\Deltah^{1/2} \zh}\nonumber\\
 &= \IPLtDn{\Deltah \zh}{\zh} \text{ by \cref{eq:feiptrans}}\\
@@ -2152,9 +2197,10 @@ by the Lax--Milgram Theorem. We have
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}  \NHmoD{n\wh}\text{ by \cref{eq:LMHmo}}\label{eq:deltahhalf}\\
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\NLiD{n}  \NHnfn{-1}{D}{\wh}\text{ as in the proof of \cref{lem:shiftnegativew}}\nonumber
 \end{align}
-We now return to
+We now return to $\Njhn{\vh}$:
 \begin{align*}
-\Nfn{j,h,n}{\vh} &= \NLtDn{\Deltah^{-l-1/2} \vh} = \NLtDn{\Deltah^{-1/2} \Deltah^{-l} \vh}\\
+  \Nfn{j,h,n}{\vh} &= \NLtDn{\Deltah^{-l-1/2} \vh}\\
+  &= \NLtDn{\Deltah^{-1/2} \Deltah^{-l} \vh}\\
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\NLiD{n}\NHnfn{-1}{D}{\Deltah^{-l}\vh}
 \end{align*}
 by \cref{eq:deltahhalf}.
@@ -2163,40 +2209,50 @@ Similarly to \cref{eq:evenrecursivesum}, one can use \cref{eq:lrecursion} recurs
 \beq\label{eq:oddrecursive}
 \NHnfn{-1}{D}{\Deltah^{-l}\vh} \leq \mleft(\En \nvar\mright)^t\mleft(\Etildefn{0,t} \NHnfn{-(2t+1)}{D}{\Deltah^{-l+t}\vh} + \sum_{m=0}^t \Etildefn{m,t} h^{2m+1}  \NHnfn{-2(t-m)}{D}{\Deltah^{-l+t}\vh}\mright),
 \eeq
-where  we define the $\Etildefn{m,t}$ inductively, for $t \in [0,l]$ by
+where  we define the $\Etildefn{m,t}$ inductively for $t \in [0,l]$ by
 \begin{align}
-\label{eq:Etilde1}\Etildefn{0,0} &= 1\\
+\label{eq:Etilde1}\Etildefn{0,0} &= 1,\\
 %\label{eq:Etilde2}\Etildefn{1,1} &= \Csumrecfn{1}\\
-\label{eq:Etilde3}\Etildefn{0,t} &= \Etildefn{0,t-1}\Cshiftfn{2(t-1)+1)}\\
-\label{eq:Etilde4}\Etildefn{m,t} &= \Etildefn{m,t-1}\Cshiftfn{2(t-1-m)}\tfor m = 1,\ldots,t-1\\
+\label{eq:Etilde3}\Etildefn{0,t} &= \Etildefn{0,t-1}\Cshiftfn{2(t-1)+1)},\\
+\label{eq:Etilde4}\Etildefn{m,t} &= \Etildefn{m,t-1}\Cshiftfn{2(t-1-m)}\tfor m = 1,\ldots,t-1,\quad\text{and}\\
 \label{eq:Etilde5}\Etildefn{t,t} &= \Csumrecfn{2(t-1)+1} + \sum_{m=0}^{t-1}\Etildefn{m,t-1}\Csumrecfn{2(t-1-m)}.
 \end{align}
-To show \cref{eq:oddrecursive,eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}, observe that \cref{eq:Etilde1} is immediate; we now show \cref{eq:oddrecursive,eq:Etilde3,eq:Etilde4,eq:Etilde5} by induction: suppose %\cref{eq:oddrecursive} holds for $t-1,$ then
-\beqs
-\NHnfn{-1}{D}{\Deltah^{-l}\vh} \leq \mleft(\En \nvar\mright)^{t-1}\mleft(\Etildefn{0,t-1} \NHnfn{-(2(t-1)+1)}{D}{\Deltah^{-l+t-1}\vh} + \sum_{m=0}^{t-1} \Etildefn{m,t-1} h^{2m+1}  \NHnfn{-2(t-1-m)}{D}{\Deltah^{-l+t-1}\vh}\mright).
-\eeqs
-Then
+To show \cref{eq:oddrecursive,eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}, observe that \cref{eq:Etilde1} is immediate. We show \cref{eq:oddrecursive,eq:Etilde3,eq:Etilde4,eq:Etilde5} by induction. Suppose %\cref{eq:oddrecursive} holds for $t-1,$ then
 \begin{align*}
-\NHnfn{m}{D}{\Deltah^{-l}\vh} \leq& \mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1} \mleft(\Cshiftfn{2(t-1)+1} \shiftn{2(t-1)+1}\NHnfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\mright.\\
-&\hphantom{\mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1}}\quad\quad\mleft.+\Csumrecfn{2(t-1)t+1} \errn{2(t-1)+1}\nvar h^{2t+1} \NLtDn{\Deltah^{-l + t}\vh}\mright)\\
-&\quad\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \mleft(\Cshiftfn{2(t-1-m)} \shiftn{2(t-1-m)}\NHnfn{-2(t-1-m)}{D}{\Deltah^{-l + t}\vh}\mright.\\
-&\mleft.\hphantom{\quad\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1}}\quad\quad+ h^{2(t-m)} \Csumrecfn{2(t-1-m)}\errn{2(t-1-m)}\nvar \NLtDn{\Deltah^{-l + t}\vh}\mright)\\
+  \NHnfn{-1}{D}{\Deltah^{-l}\vh} \leq \mleft(\En \nvar\mright)^{t-1}&\Bigg(\Etildefn{0,t-1} \NHnfn{-(2(t-1)+1)}{D}{\Deltah^{-l+t-1}\vh}\\
+& \quad + \sum_{m=0}^{t-1} \Etildefn{m,t-1} h^{2m+1}  \NHnfn{-2(t-1-m)}{D}{\Deltah^{-l+t-1}\vh}\Bigg).
+\end{align*}
+Then
+\begin{align}
+  &\NHnfn{m}{D}{\Deltah^{-l}\vh} \leq\nonumber\\
+  &\quad\mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1}\bigg(\Cshiftfn{2(t-1)+1} \shiftn{2(t-1)+1}\NHnfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\nonumber\\
+    &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+\Csumrecfn{2(t-1)t+1} \errn{2(t-1)+1}\nvar h^{2t+1} \NLtDn{\Deltah^{-l + t}\vh}\bigg)\nonumber\\
+  &\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1}\Big(\Cshiftfn{2(t-1-m)} \shiftn{2(t-1-m)}\NHnfn{-2(t-1-m)}{D}{\Deltah^{-l + t}\vh}\nonumber\\
+  &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+ h^{2(t-m)} \Csumrecfn{2(t-1-m)}\errn{2(t-1-m)}\nvar \NLtDn{\Deltah^{-l + t}\vh}\Big)\label{eq:verylongeq}
 %% &= \Etildefn{0,t-1} \CAfn{2t-1} \NHfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\\
 %% &\quad\quad+ \mleft(\Csumrecfn{2t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1}\CAfn{2(t-1-m)}\mright) h^{2t+1}\NLtD{\Deltah^{-l + t}\vh}\\
 %% &\quad\quad+ \sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \CAfn{2(t-1-m)}\NHfn{-2(t-m)}{D}{\Deltah^{-l + t}\vh},
-\end{align*}
-and rearranging, and using the facts that $\shiftn{m} \leq \errn{m}$ for all $m$ and $\nvar \geq 1,$ we obtain \cref{eq:oddrecursive} with the constants $\Etildefn{m,t}$ given by \cref{eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}. Therefore, we conclude that if $j = 2l+1$
+\end{align}
+and rearranging \cref{eq:verylongeq}, and using the facts that $\shiftn{m} \leq \errn{m}$ for all $m$ and $\nvar \geq 1,$ we obtain \cref{eq:oddrecursive} with the constants $\Etildefn{m,t}$ given by \cref{eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}. Therefore, we conclude that if $j = 2l+1$
 \begin{align}
 \Nfn{-j,h,n}{\vh} \leq& \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\NLiD{n}\mleft(\En \nvar\mright)^{l}\mleft(\Etildefn{0,l} \NHnfn{-(2l+1)}{D}{\vh}\mright.\nonumber\\
 &\mleft.\hphantom{\frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\NLiD{n}\mleft(\En \nvar\mright)^{l}}
 \quad\quad+ \sum_{m=0}^{l} \Etildefn{m,l} h^{2m+1}  \NHnfn{-2(l-m)}{D}{\vh}\mright)\label{eq:oddfinal}
 \end{align}
-and combinining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, and letting $\Csumj$ be as in \cref{app:constants}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
+and combining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
 \epf
+
+\bre[Why is the factor $n$ only on the right-hand side of \cref{eq:sdeq}?]\label{rem:why}
+The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} but not on the left-hand side is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
+
+All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because to prove bounds on the weighted $L^2$ projection $\Qhn$ we work in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), rather than in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the \emph{weighted} inner product. To prove \cref{lem:intoip} in the $n$-weighted inner product, we therefore use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, where the $\Deltah$ operator appears. Because we use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, we must then use the $n$-weighted inner product on the right-hand side of \cref{eq:deltaagreen}. Using this inner product in \cref{eq:deltaagreen} ensures the beginning of the proof of \cref{lem:negdiscsum} works---see the proof for more details.
+
+We do not, however, put a factor $n$ on the left-hand side of \cref{eq:sdeq,eq:deltaagreen}. If we did, when we apply \cref{thm:shift} to $\Sn \ftilde$ (as we do in \cref{lem:shiftnegativew}), the resulting bounds would not be fully explicit in $n$ (because in \cref{thm:shift} we do not know explicitly how the constants depend on the `diffusion coefficient'). Not putting a factor $n$ on the left-hand side of \cref{eq:sdeq} is the reason why there is a \emph{non-weighted} inner product on the right-hand side of \cref{eq:discderdef} (so that the beginning of the proof of \cref{lem:negdiscsum}, as mentioned above, works).
+\ere
 
 \subsection{Proof of \cref{thm:fembound}}\label{sec:fembound}
 
-Having established the need results on discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound}, which we do via a series of lemmas.
+Having established the necessary preliminary results about discrete Sobolev spaces, we are now in a position to prove our main theorem, \cref{thm:fembound}, which we do via a series of lemmas. The proof proceeds via a splitting argument, as discussed in \cref{sec:errorsplit}.
 
 Two quantities that are key in the proof are
 \beqs
