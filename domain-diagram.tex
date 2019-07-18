@@ -83,12 +83,15 @@ cycle
 \obslinetwo
 \obsptthree
 }
-\def\ncontone{(-1.2,0)}
+
+\def\ncontone{(-1.2,0.5)}
+
 \def\suppn{
-(-1.8,0.5) .. controls \ncontone and (-0.9,0) ..
-(-0.9,-1.2)
--- (-1.8,-0.5)
--- cycle
+(-1.45,-0.6) ellipse [x radius = 1.0,y radius=0.6,rotate=-65]
+%% (-1.8,0.5) .. controls \ncontone and (-0.9,0) ..
+%% (-1.0,-1.5) .. controls (-1.5,-1.0) and (-1.5,-1.0) ..
+%% (-1.4,-0.5) .. controls (-1.3,0.0) and () ..
+%% cycle
 }
 
     % Patterns for filling
@@ -172,5 +175,7 @@ cycle
 
 \draw (-1.8,2.3) node[fill=white] {$\supp f$};
 
-\draw (-0.5,-2.8) node[fill=white] {$\supp(I-A)$};
+\draw (0,-2.8) node[fill=white] {$\supp(I-A)$};
+
+\draw (-2.9,-1.2) node[fill=white] {$\supp(1-n$};
 \end{tikzpicture}
