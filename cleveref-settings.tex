@@ -36,7 +36,8 @@
 \newcommand{\crefrangeconjunction}{--}
 
 % Add a serial/Oxford comma by default.
-\newcommand{\creflastconjunction}{, and~}
+\def\lastconj{, and~}
+\newcommand{\creflastconjunction}{\lastconj}
 
 % Making it do equations like eqref
 \crefname{equation}{}{}

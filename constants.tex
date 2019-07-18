@@ -1,4 +1,4 @@
-To summarise the constants used in \cref{sec:fem}, we use the following table, where the constants are given in logical order (i.e., constants lower in the table will only depend on constants higher in the table\ednote{This isn't the case yet.}). As well as giving the definitions of the constants, we also state the place (Theorem, Lemma, etc.) where they are defined. If a constant is not defined in terms of other constants, but rather is given in the statement of a Theorem or Lemma, then the `Definition' column is left blank.
+, etc.) where they are defined. If a constant is not defined in terms of other constants, but rather is given in the statement of a Theorem or Lemma (as for, e.g., the definition of $\CMT$ in \cref{thm:multiplicativetrace}), then the `Definition' column is left blank.
 
 Where a constant is only used inside a proof (and not in the statement of a theorem, or similar) then it will typically be numbered using the equation number of its first appearance.
 
@@ -21,8 +21,8 @@ Where a constant is only used inside a proof (and not in the statement of a theo
   $\CTrm$ &---& \cref{thm:trace}\\
   $\CBanfn{s}$ & --- & \cref{thm:banachalg}\\
   $\Cej$ & $\displaystyle \begin{dcases}
-  \max\set{1,\CAz} & j=0\\
-  \mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1} &j \geq 1
+  \max\set{1,\CAz}, & j=0\\
+  \mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1}, &j \geq 1
   \end{dcases}$& \cref{thm:expansion}\\
 %  $\Pj$ & See \cref{eq:p}& \cref{thm:expansion}\\
 %  $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
@@ -30,10 +30,10 @@ Where a constant is only used inside a proof (and not in the statement of a theo
   $\CSZm$ &---& \cref{lem:scottzhang}\\
   $\Cshiftfn{m}$ &$\displaystyle
   \begin{dcases}
-  1/\Amin & m=-1\\
-  \CAz & m = 0\\
-  2\CAfn{m}\Cprod{m} & m \in [1,d/2]\\
-\CAfn{m}\CBanfn{m} & m \in (d/2,p-1]
+  1/\Amin, & m=-1\\
+  \CAz, & m = 0\\
+  2\CAfn{m}\Cprod{m}, & m \in [1,d/2]\\
+\CAfn{m}\CBanfn{m}, & m \in (d/2,p-1]
 \end{dcases}
 $
 & \cref{lem:shiftnegativew}\\
@@ -41,10 +41,10 @@ $
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
   $\Cmmo$ &$\displaystyle
   \begin{dcases}
-    \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin} & m = -1\\
-      \frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin} & m = 0\\
-  \frac{4\CSZfn{s+2}\CAfn{s}\Cprod{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin} & m \in (1,\frac{d}2]\\
-\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin} & m \in (\frac{d}2,p-1]
+    \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}, & m = -1\\
+      \frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin}, & m = 0\\
+  \frac{4\CSZfn{s+2}\CAfn{s}\Cprod{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}, & m \in (1,\frac{d}2]\\
+\frac{2\CSZfn{s+2}\CAfn{s}\CBanfn{s}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}, & m \in (\frac{d}2,p-1]
   \end{dcases}
   $
 & \cref{lem:ellprojerr} \\
