@@ -27,7 +27,7 @@ We first state our problems of interest, largely following the presentation in \
 We first introduce some function space. For $D \subseteq \RRd,$ let $\LiDRRdtd$ be the set of all matrix-valued functions $A:\D\rightarrow\RRdtd$ such that $A_{i,j} \in \LiDRR$ for all $i,j =   1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~writing $\LtD$ for $\LtDCC.$
 
   \bprob[Exterior Dirichlet Problem]\label{prob:edp}
-  Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected and let $\GD \de \partial \Dm.$ Let $\trD\HoD\rightarrow\HhGD$ denote the Dirichlet trace operator on $\GD$. Given
+  Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected and let $\GD \de \partial \Dm.$ Let $\trD:\HoD\rightarrow\HhGD$ denote the Dirichlet trace operator on $\GD$. Given
   \bit
   \item $k > 0,$
 \item $f \in \LtDp$ with compact support,
@@ -150,9 +150,9 @@ If $\Dm, A, n, f,$ and $\gI$ satisfy the requirements in \cref{prob:tedp}, $\gD 
 \item $a\LI$ be the radius of the ball with respect to which $\Dtilde$ is star-shaped.
     \eit
 Then
-\beqs
+\beq\label{eq:tedpbound}
   \muo \NLtD{u}^2 + \mut k^2 \NLtD{\grad u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2 + 2\LI k^2 \NLtGI{\trGI u}^2\leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2
-\eeqs
+\eeq
 for all $k>0,$ where $\gradGI$ is the surface gradient on $\GI,$
 \beqs
 \Ct \de 4\mleft(\frac{\LI^2}{\muo} + \frac1{\mut}\mleft(\beta + \frac{d-1}{2k}\mright)^2\mright),

@@ -261,12 +261,14 @@
 \newcommand{\CAz}{\CAfn{0}}
 \newcommand{\CAo}{\CAfn{1}}
 \newcommand{\CTrt}{\CTrfn{2}}
+\newcommand{\CTrj}{\CTrfn{j}}
 \newcommand{\CAm}{\CAfn{m}}
 \newcommand{\CTrmpo}{\CTrfn{m+1}}
 \newcommand{\CTrth}{\CTrfn{3}}
 \newcommand{\CAt}{\CAfn{2}}
 \newcommand{\Czero}{C_{0}}
 \newcommand{\CAj}{\CAfn{j}}
+\newcommand{\CAjmo}{\CAfn{j-1}}
 \newcommand{\Cfg}{C_{f,\gI}}
 \newcommand{\CFEMo}{C_{\mathrm{FEM},1}}
 \newcommand{\CFEMt}{C_{\mathrm{FEM},2}}
@@ -508,8 +510,8 @@
 \newcommand{\LiDop}{\Li{D;\mathrm{op}}}
 \newcommand{\DeltaAmmt}{\sdres^-{m/2}}
 %\newcommand{\DeltaAmt}{\DeltaA^{m/2}}
-\newcommand{\Deltahmst}{\Deltah^{-s/2}}
-\newcommand{\Deltahst}{\Deltah^{s/2}}
+\newcommand{\Deltahmmt}{\Deltah^{-m/2}}
+\newcommand{\Deltahmt}{\Deltah^{m/2}}
 \newcommand{\Nmmh}[1]{\N{#1}_{-m,h}}
 \newcommand{\Nmh}[1]{\N{#1}_{m,h}}
 \newcommand{\aj}{a_{j}}
@@ -527,6 +529,8 @@
 \newcommand{\NHmD}[1]{\N{#1}_{\HmD}}
 \newcommand{\NNz}{\NN_{0}}
 \newcommand{\Njmohn}[1]{\N{#1}_{j-1,h,n}}
+\newcommand{\Nmmohn}[1]{\N{#1}_{m-1,h,n}}
+\newcommand{\Npmohn}[1]{\N{#1}_{p-1,h,n}}
 \newcommand{\Nohn}[1]{\N{#1}_{1,h,n}}
 \newcommand{\Deltahh}{\Deltah^{1/2}}
 \newcommand{\Nzhn}[1]{\N{#1}_{0,h,n}}
@@ -581,7 +585,7 @@
 \newcommand{\NWmiD}[1]{\N{#1}_{\WmiD}}
 \newcommand{\NWsiD}[1]{\N{#1}_{\WsiD}}
 \newcommand{\NHoDn}[1]{\N{#1}_{\HoD,n}}
-\newcommand{\Nshn}[1]{\Nfn{s,h,n}{#1}}
+\newcommand{\Nmhn}[1]{\Nfn{m,h,n}{#1}}
 \newcommand{\sdsolo}{\sdsolfn{1}}
 \newcommand{\CfloordtD}{C^{\floor{d/2}}\mleft(D\mright)}
 \newcommand{\Sn}{\sdsol}
@@ -594,3 +598,11 @@
 \newcommand{\wbaadj}{\wba^{*}}
 \newcommand{\aep}{\api}
 \newcommand{\Nep}[1]{\Npi{#1}}
+\newcommand{\hk}[2]{\mleft(hk^{#1},hk^{#2}\mright)}
+\newcommand{\hka}[1]{hk^{#1}}
+\newcommand{\Cqo}{C_{\mathrm{qo}}}
+\newcommand{\Cohat}{\hat{\Co}}
+\newcommand{\SNHppoD}[1]{\SNfn{\HppoD}{#1}}
+\newcommand{\SNfn}[2]{\SN{#2}_{#1}}
+\newcommand{\ao}{a_{1}}
+\newcommand{\at}{a_{2}}
