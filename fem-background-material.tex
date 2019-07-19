@@ -499,27 +499,35 @@ The elliptic projection of a function $ w \in \HozDD$ is the finite-element func
 \aep(\vh,\Ph w) = \aep(\vh,w) \tforall \vh \in \Vhp,
 \eeqs
 for some sesquilinear form $\aep$, such that $\Ph$ is well-defined. For Helmholtz problems\footnote{Recall we are considering discretisations of \cref{prob:vtedp}, and therefore the sesquilinear form we use is given by \cref{eq:aT}.}, choices for $\aep(\vo,\vt)$ used in the literature are either
-\beqs
-\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt}
-\eeqs
+\beq\label{eq:aepho}
+\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt},
+\eeq
+\beq\label{eq:aeplower}
+\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt} + \IPLtD{\vo}{\vt},
+\eeq
 or
 \beq\label{eq:aepused}
 \aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt} - ik\IPLtGI{\vo}{\vt}.
 \eeq
 These elliptic projections correspond to finding finite-element approximations of the solution of the PDEs
-\begin{align*}
-  \Delta w &= F \tin D\\
-  w &= 0 \ton \GD\\
-  \dn w &= 0 \ton \GI
-\end{align*}
+\begin{align}
+  \Delta w &= F \tin D,\label{eq:sd1}\\
+  w &= 0 \ton \GD,\tand\label{eq:sd2}\\
+  \dn w &= 0 \ton \GI\label{eq:sd3};
+\end{align}
+\begin{align}
+  \Delta w + w&= F \tin D,\label{eq:sd4}\\
+  w &= 0 \ton \GD,\tand\label{eq:sd5}\\
+  \dn w &= 0 \ton \GI;\label{eq:sd6}
+\end{align}
 or
-\begin{align*}
-  \Delta w &= F \tin D\\
-  w &= 0 \ton \GD\\
-  \dn w -ikw &= 0 \ton \GI,
-\end{align*}
+\begin{align}
+  \Delta w &= F \tin D,\label{eq:sd7}\\
+  w &= 0 \ton \GD,\tand\label{eq:sd8}\\
+  \dn w -ikw &= 0 \ton \GI\label{eq:sd9}
+\end{align}
 respectively, where $F$ is an appropriately chosen function. In the following exposition, we will assume $\aep$ is given by \cref{eq:aepused}.
-Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the mutliplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous, and hence is quasi-optimal:
+Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the multiplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous\footnote{For comment on showing coercivity and continuity for the other definitions of $\aep$, see \cref{rem:epdef} below.}, and hence is quasi-optimal:
 \beq\label{eq:epho}
 \Nep{w-\Ph w} \lesssim \inf_{\vh \in \Vhp} \Nep{w-\vh}.
 \eeq
@@ -1128,14 +1136,15 @@ As we are using higher-order finite elements (which we assume are of degree $p$)
 \bas[Assumptions for higher-$p$ finite-element method bounds]\label{ass:highp}
 Assume
 \bit
-\item $\GD$ and $\GI$ are $\Cpo$
+\item $\GD \neq \emptyset,$
+\item $\GD$ and $\GI$ are $\Cpo$,
 \item $\Aij \in \CpmooDclos$ for all $i,j$, and
 \item $n \in \LiD \cap \HpmoD \cap \CfloordtD.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
   \eas
-  The assumptions on $\GD,$ $\GI$, and $A$ ensure that we can apply a shift theorem for a related stationary diffusion equation up to order $p-1$. The assumption on $n$ ensures that for all $m \in [0,p-1]$ and for all $v \in \HmD,$ $nv \in \HmD$ (see \cref{thm:banachalg} below). However, observe that we make no additional assumptions on the data $f$ and $\gI,$ and so the solution $u$ may not be smoother than $H^2.$
+  The assumption $\GD \neq \emptyset$ allows us to show the elliptic projection operator defined in \cref{eq:epdef} below is well-defined. The regularity assumptions on $\GD,$ $\GI$, and $A$ ensure that we can apply a shift theorem for a related stationary diffusion equation up to order $p-1$. The assumption on $n$ ensures that for all $m \in [0,p-1]$ and for all $v \in \HmD,$ $nv \in \HmD$ (see \cref{thm:banachalg} below). However, observe that we make no additional assumptions on the data $f$ and $\gI,$ and so the solution $u$ may not be smoother than $H^2.$
 
 We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}. Recall that the adjoint of \cref{prob:vtedp} is the same as \cref{prob:vtedp}, except \cref{eq:vtedp} is replaced by
 \beq\label{eq:adjoint}
@@ -1273,7 +1282,7 @@ and $\utilde$ satisfies the bound
 \bpf[Proof of \cref{thm:shift}]
 The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of \cref{eq:shifteq,eq:shiftdbc,eq:shiftnbc} is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior and near the boundaries $\GD$ and $\GI$, and the work of the proof is combining these estimates. As a reference for these estimates we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these estimates, as we have the necessary higher regularity of the coefficients and the boundaries $\GD$ and $\GI$.
 
-To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$ (see \cref{fig:shift-int,fig:shift-scat,fig:shift-trunc} for a schematic)\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
+To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$ (see \cref{fig:shift-int,fig:shift-scat,fig:shift-trunc} for a schematic) with the following properties:
 \bit
 \item $\Dint \compcont \Dinttilde \compcont D$,
 \item $\GD \subset \Dscatclos$
@@ -1309,7 +1318,7 @@ Applying regularity up to the boundary for Dirichlet data \cite[Theorem 4.18 (i)
 \beq\label{eq:shiftscat}
 \NHlptDscat{\utilde} \leq \CscatAl \mleft(\NHoD{\utilde} + \NHlD{\ftilde}\mright)
 \eeq
-and similarly\optodo{Spell checker} for Neumann data \cite[Theorem 4.18 (ii)]{Mc:00} in $\Dtrunc,$ we obtain
+and similarly for Neumann data \cite[Theorem 4.18 (ii)]{Mc:00} in $\Dtrunc,$ we obtain
 \beq\label{eq:shifttrunc}
 \NHlptDtrunc{\utilde} \leq \CtruncAl \mleft(\NHoD{\utilde} + \NHlphGI{\dn \utilde} + \NHlD{\ftilde}\mright).
 \eeq
@@ -1554,15 +1563,20 @@ There exists $\CMT > 0$ such that for all $v \in \HoD$
 \eeqs
 \enth
 
-\ble[Poincar\'e--Friedrichs Inequality]\label{lem:poincare}
-There exists $\CP > 0$ such that for all $v \in \HozDD$
-\beqs
-\NLtD{v} \leq \CP \SNHoD{v}.
-\eeqs
-\ele
+\ble[Poincar\'{e}--Friedrichs Inequality]\label{lem:poincare}
+Let $\Gamma \subseteq D$ have nonvanishing $d-1$-dimensional measure. There exist constants $\CP,\Ctilde > 0$ depending only on $D$ and $\Gamma$ such that for all $v \in \HoD$
 
-For a proof of \cref{lem:poincare} in our particular setting (where $v$ only vanishes on a subset of the boundary, rather than on the whole boundary), see \cite[Lemma A.14]{ToWi:05}.
-\optodo{Maybe adjust this to include boundary term.}
+\beqs
+\NLtD{v}^2 \leq \CP \SNHoD{v}^2 + \Ctilde \NLtGI{v}^2.
+\eeqs
+
+In particular, taking $\Gamma = \GD,$ for all $v \in \HozDD$
+\beq\label{eq:poincare}
+\NLtD{v} \leq \CP \SNHoD{v}.
+\eeq
+\ele
+For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
+
 \optodo{Think carefully about what this means for IIP---I think it means you need to include the impedance part in the elliptic projection, because otherwise the Poisson problem doesn't have a unique solution, so you're not going to be able to use Lax--Milgram. But then we don't have the higher-order shift Theorems. Write a remark to this effect, and say that we're going to assume the scatterer is non-empty---put this in an assumption. Scrap all of the above - Du and Wu add a lower--order term into their elliptic projection, which means it's always coercive (because the energy norm is the $H^1$ norm. Write a remark explaining this instead, and say that we're not going to do it, but you could. I think that's best.}
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 \ben
@@ -1610,7 +1624,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 %% \IPLtD{A\grad\vh}{\grad\Phn w} = \IPLtDn{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
 %% \eeqs
   Observe that $\Ph w$ is the finite-element approximation of the solution of the stationary diffusion problem with `diffusion coefficient' $A$ and right-hand side in $\HozDD'$ given by $\aep(w,\cdot).$
-
+  
 %% We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 %% \beqs
 %% \IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
@@ -1647,7 +1661,7 @@ Observe that, for $v \in \HmD,$
 %% \frac{\NHmsD{v}}{\NLiD{n}} \leq \NHmsDn{v} \leq \frac{NHmsD{v}}{\nmin}.
 %% \eeq
 
-The proofs of the error bounds for the Galerkin projctions will use the following notation for the solution operator of a particular stationary diffusion problem. We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the following stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
+The proofs of the error bounds for the Galerkin projections will use the following notation for the solution operator of a particular stationary diffusion problem. We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the following stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
 \beq\label{eq:sdeq}
 \grad \cdot \mleft(A\grad \utilde\mright) = -n\ftilde \text{ in } D
 \eeq
@@ -1673,6 +1687,16 @@ i.e.,
 
 
 We now state and prove error bounds for the two projections given above. As stated above, the proofs below are all modifications of the standard proof (in, e.g., \cite[Theorem 5.8.3]{BrSc:08}). We can, in essence, use the standard proof because all the projections defined above are Galerkin projections given by coercive and bounded sesquilinear forms on $\HoD$ (for $\Ph$) or $\LtD$ (for $\Qhn$).
+
+\ble[Existence and uniqueness of Galerkin projections]\label{lem:eugp}
+For any $w \in \HozDD$ the elliptic projection $\Ph w$ and the $n$-weighted $L^2$ projection $\Qhn w$ exist and are unique.
+\ele
+
+\bpf[Proof of \cref{lem:eugp}]
+The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgram Theorem (see, e.g., \cite[Theorem 2.7.7]{BrSc:08}) applied in $\Vhp$ (as in, e.g., \cite[Corollary 2.7.13]{BrSc:08}), because $\Ph w$ and $\Qhn w$ are defined by sesquilinear forms that are continuous and coercive on $\HozDD$ (equipped with the weighted $H^1$ norm $\NW{\cdot}$) and $\LtD$ respectively.
+
+Continuity and coercivity are immediate in the case of the $n$-weighted $L^2$ projection $\Qhn.$ For the elliptic projection $\Ph,$ continuity is immediate, and coercivity follows from the Poincar\'e inequality \cref{eq:poincare}, because we work in $\HozDD,$ and so all the functions we consider vanish on $\GD.$
+\epf
 
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
 Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cmmo >0$ such that for all $w \in \HozDD$
@@ -1721,7 +1745,7 @@ We define
 \En\de\max_{m = -1,\ldots,p-1}\set{\errn{m}}.
 \eeq
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{ass:highp,thm:banachalg} $n\phi\in \HmD$. Let $ \vtilde = \sdsol(\phi)$ and observe $\vtilde \in \Hfn{}{m+2}{D}$. Observe that for all $v \in \HozDD,$ by definition of $\vtilde$ and the $n$-weighted inner product $\IPLtDn{\cdot}{\cdot}$, we have
+For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{ass:highp,thm:banachalg} $n\phi\in \HmD$. Let $ \vtilde = \sdsol(\phi)$ and observe $\vtilde \in \Hfn{}{m+2}{D}$ by \cref{thm:shift}. Observe that for all $v \in \HozDD,$ by definition of $\vtilde$ and the $n$-weighted inner product $\IPLtDn{\cdot}{\cdot}$, we have
 \beq\label{eq:vtilde}
 \IPLtD{A \grad v}{\grad \vtilde} = \IPLtD{nv}{\phi} = \IPLtDn{v}{\phi}
 \eeq
@@ -1761,6 +1785,25 @@ For $s \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 
 For the case $m=0$, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:errn}. For $m=-1$, \cref{eq:wepcea} immediately gives \cref{eq:errn}. 
 \epf
+
+\bre[Subtleties regarding $\Ph$ for the IIP]\label{rem:epdef}
+If we consider the IIP (i.e., we remove the assumption $\GD \neq \emptyset$ in \cref{ass:highp}), then we can no longer prove \nameCrefs{lem:eugp} \ref{lem:eugp}, \ref{lem:ellprojerr}, or \ref{lem:ellprojerrw}, because the sesquilinear form $\aep$ is no longer coercive on $\HozDD$ (note $\HozDD = \HoD$ in this case).
+
+This lack of coercivity stems from the fact that we can no longer apply the Poincar\'e inequality \cref{eq:poincare} to functions in $\HozDD,$ because such functions are no longer zero on a portion of $\d D$ with non-zero $d-1$-dimensional measure (see the statement of \cref{lem:poincare}). One can alternatively view this problem as the fact that the stationary diffusion equation with Neumann boundary conditions does not have a unique solution (as one can simply add a constant to any solution), and, in the case $\GD=\emptyset,$ the PDE corresponding to the elliptic projection is precisely such a stationary diffusion equation: \cref{eq:sd1,eq:sd3} (\cref{eq:sd2} does not apply, as $\GD = \emptyset$).
+
+The remedy for this lack of coercivity is to change the sesquilinear form $\aep$ from \cref{eq:aepho} to either \cref{eq:aeplower} or \cref{eq:aepused} (this change corresponds to changing the PDE underlying the elliptic projection from \cref{eq:sd1,eq:sd3} to either \cref{eq:sd4,eq:sd6} or \cref{eq:sd7,eq:sd9} respectively). Either of these alternatives for $\aep$ is coercive in the weighted $H^1$ norm, and so the proofs of \cref{lem:eugp,lem:ellprojerr,lem:ellprojerrw} go through as before.
+
+However, if one chooses to use \cref{eq:aepused} to define $\aep$, then one encounters the additional problem that one does not have a shift theorem, analagous to \cref{thm:shift} for the underlying PDE \cref{eq:sd7,eq:sd9}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw}. Whilst one could rewrite \cref{eq:sd7,eq:sd9} as
+\beqs
+\Delta w = F  \tin D \tand
+\eeqs
+\beqs
+\dn w = ikw \ton \GI
+\eeqs
+and then use \cref{thm:shift} to obtain bounds analagous to \cref{eq:shift}, the constants in these bounds would be \emph{$k$-dependent}. This $k$-dependence means the resulting proof of $\hka{(2p+1)/(wp)}$-data-accuracy would not work. Whilst a shift theorem for \cref{eq:sd7,eq:sd9} that \emph{is} $k$-independent has been proved by Chaumont-Frelet, Nicaise, and Tomezyk \cite[Theorems 3.1, 4.3, and 5.1]{ChNiTo:18}, this is a lowest-order shift theorem (i.e., the analogue of \cref{thm:shift} for $l=0$) and no mention is made in \cref{ChNiTo:18} of an extension to higher order.
+
+Therefore, in our case, the only reasonable course of action when considering the IIP is to use \cref{eq:aeplower} to define $\aep$, as one can then repeat the proof of \cref{thm:shift} almost verbatim (as the results from \cite{Mc:00} used in the proof of \cref{thm:shift} also hold for the PDE \cref{eq:sd4,eq:sd6}), and the proof of \cref{thm:fembound} proceeds as before. However, we observe that this course of action works in our case because our proof technique allows us to bound terms arising on the truncation boundary $\GI$ (see \cref{lem:boundarybound} below). However, if one uses a modified Schatz technique, it is not clear to us how one would bound terms arising on the impedance boundary. Therefore, these terms must be incorporated into the elliptic projection, and so one must use \cref{eq:aepused} to define the elliptic projection, with the proviso that, with current technology, one will be limited to proving bounds for first-order methods, due to the lack of a shift theorem for the underlying PDE, as outlined above. (We note in passing that it was precisely this usage of an elliptic projection given by \cref{eq:aepused} by Chaumont-Frelet and Nicaise in \cite{ChNi:18} that led to the work \cref{ChNiTo:18}.)
+\ere
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
 
@@ -1832,8 +1875,6 @@ For the case $m=0$, using \cref{lem:ellprojerr} and then converting to the $n$-w
 %% \eeqs
 %% \ele
 
-Similarly, the weighted $\LtD$ projection satisfies the following error bound.
-The $n$-weighted $\LtD$ projection satisfies the following error bound:
 \ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
 Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
