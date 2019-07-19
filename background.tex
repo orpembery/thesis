@@ -26,7 +26,7 @@ We first state our problems of interest, largely following the presentation in \
 
 We first introduce some function space. For $D \subseteq \RRd,$ let $\LiDRRdtd$ be the set of all matrix-valued functions $A:\D\rightarrow\RRdtd$ such that $A_{i,j} \in \LiDRR$ for all $i,j =   1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~writing $\LtD$ for $\LtDCC.$
 
-  \bprob[Exterior Dirichlet Problem]\label{prob:edp}
+  \bprob[Exterior Dirichlet Problem (EDP)]\label{prob:edp}
   Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected and let $\GD \de \partial \Dm.$ Let $\trD:\HoD\rightarrow\HhGD$ denote the Dirichlet trace operator on $\GD$. Given
   \bit
   \item $k > 0,$
@@ -61,7 +61,7 @@ The Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the soluti
 \dn u - iku = \gI
 \eeq
 on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as a first-order approximation to \eqref{eq:sommerfeld} (see, e.g., \cite[p. 353]{GaMuSp:19}\optodo{Try to track down a better ref in, e.g., Ihlenburg}, where it is shown that in certain asymptotic limits, the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation is equal to $ik$). Truncating with an impedance boundary condition gives rise to the following deterministic Helmholtz problem
-\bprob[Truncated Exterior Dirichlet Problem]\label{prob:tedp}
+\bprob[Truncated Exterior Dirichlet Problem (TEDP)]\label{prob:tedp}
  Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Let $\trI \HoD\rightarrow\HhGI$ denote the Dirichlet trace operator on $\GI$, and $\dn:\HoD\rightarrow\HmhGI$ the Neumann trace operator. Given
   \bit
   \item $k > 0,$
@@ -92,7 +92,7 @@ Observe that, by construction, $\partial D = \GI \cup \GI$ and $\GD \cap \GI = \
 \end{figure}
 \optodo{Caption}
 
-Whilst the impedance boundary condition \eqref{eq:ibc} is only an approximation to the Sommerfeld radiation condition \eqref{eq:sommerfeld}, the solutions of \cref{prob:tedp} are still `wave-like', and we  see below that solutions of \cref{prob:tedp} posses many of the same properties as solutions of \cref{prob:edp}. We also note that a common Helmholtz model problem in the numerical-analysis community is the \defn{interior impedance problem}, which is simply \cref{prob:tedp} in the case $\Dm = \emptyset.$
+Whilst the impedance boundary condition \eqref{eq:ibc} is only an approximation to the Sommerfeld radiation condition \eqref{eq:sommerfeld}, the solutions of \cref{prob:tedp} are still `wave-like', and we  see below that solutions of \cref{prob:tedp} posses many of the same properties as solutions of \cref{prob:edp}. We also note that a common Helmholtz model problem in the numerical-analysis community is the \defn{interior impedance problem (IIP)}, which is simply \cref{prob:tedp} in the case $\Dm = \emptyset.$
 
 
   \subsection{Well-posedness and a priori bounds}\label{sec:wpbounds}
@@ -136,7 +136,7 @@ We can now state well-posedness results and a priori bounds for the Helmholtz eq
 
 
 
-\bth[Well-posedness and bound for the \cref{prob:edp}]\label{thm:edp}
+\bth[Well-posedness and bound for \cref{prob:edp}]\label{thm:edp}
 If $\Dm, A, n,$ and $f$ satisfy the requirements in \cref{prob:edp}, $\gD = 0,$ $\Dm$ is star-shaped with respect to the origin, and there exists $\muo, \mut > 0$ such that $A \in \NTADp{\muo}$ and $n \in \NTnDp{\mut}$ then the solution of \cref{prob:edp} exists and is unique. Furthermore, given $R>0$ such that $\supp\mleft(I-A\mright),$ $\supp(1-n),$ and $\supp f$ are compactly contained in $\DR, = D \cap \BR$, then
 \beqs
 \muo \NLtDR{\grad u}^2 + \mut k^2 \NLtDR{u}^2 \leq \Co \NLtDR{f}^2,
@@ -221,8 +221,8 @@ For homogeneous problems (with $A=I$ and $n=1$) uniqueness follows from the Somm
 \subsubsection{$k$-, $A$-, and $n$-explicit a priori bounds}
  All the bounds we now discuss will, unless otherwise stated, be for the weighted $H^1$ norm $\NW{\cdot}$ defined in \cref{eq:weightednorm}. We  only consider the case where the scatterer $\Dm$ is compact, and the inhomogeneities in $A$ and $n$ are compactly supported, as in \cref{prob:edp}. Research into so-called rough surface scattering, where either $\Dm$ or the inhomogeneities in $A$ and $n$ are not compactly supported, is itself a rich area of research (see, e.g., the literature reviews in \cite{Th:06}), but this area is not the concern of this thesis. Throughout this section we use $\lesssim$ notation--- we say $a \lesssim b$ if $a \leq C b,$ where $C$ is independent of $k$. We define $\gtrsim$ similarly, and say $a \sim b$ is $a \lesssim b$ and $a \gtrsim b.$
 
-
-\paragraph{Techniques for proving a priori bounds} There are two main classes of techniques for proving a priori bounds on the Helmholtz equation. The first class uses techniques from semiclassical analysis (a branch of microlocal analysis), and studies the behaviour of rays through the medium. In order for this approach to be used $\Dm,$ $A$, and $n$ must all be smooth, so that rays and the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is difficult to define rigorously if the scatterer has a corner).\ednote{Euan---I want to add some chat here about when these methods were first introduced, but I'm struggling to figure it out? Is it with Lax \& Phillips?} 
+\def\techtitle{Techniques for proving a priori bounds}
+\paragraph{\techtitle} There are two main classes of techniques for proving a priori bounds on the Helmholtz equation. The first class uses techniques from semiclassical analysis (a branch of microlocal analysis), and studies the behaviour of rays through the medium. In order for this approach to be used $\Dm,$ $A$, and $n$ must all be smooth, so that rays and the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is difficult to define rigorously if the scatterer has a corner).\ednote{Euan---I want to add some chat here about when these methods were first introduced, but I'm struggling to figure it out? Is it with Lax \& Phillips?} 
 
 When one uses microlocal analysis tools, one first shows that the problem is nontrapping. The problem is \defn{nontrapping} if, for any bounded set $S \subseteq D$ there exists a time $t(S)$ such that any ray starting in $S$ and evolving according to the laws of geometrical optics leaves $S$ by time $t(S)$. The rigorous definition is more technical; see \cite[Section 6]{GrPeSp:19} for an overview. The problem is called \defn{trapping} if it is not nontrapping. Once one has proved the problem is nontrapping, one uses further technical tools to conclude a $k$-independent bound.
 
@@ -264,7 +264,7 @@ Morawetz and her collaborators in the 1960s and 1970s obtained bounds with $C \s
 
 For variable $A$ and/or $n$ and $\Dm = \emptyset$, it was proved that $C \sim 1$ for \cref{prob:edp} by Cardoso, Popov, and Vodev \cite{CaPoVo:99,PoVo:99b}\optodo{Check \cite{PoVo:99b} with Euan} using semiclassical analysis techniques when $A=I$ and $n$ jumps up across a strictly convex, smooth boundary; and by Moiola and Spence \cite{MoSp:19} using multiplier techniques when both $A$ and $n$ jump, under assumptions on the jumps. Also, \cref{thm:edp} and its related extensions discussed in \cref{rem:heteroextensions} prove $C \sim 1$ for \cref{prob:edp} in a variety of situations.
 
-For \cref{prob:tedp} or the interior impedance problem (IIP) (\cref{prob:tedp} with $\Dm=\emptyset$) there are many situations where $C \sim 1.$  All of these results are (unsurprisingly) associated with the numerical-analysis community, and most (but not all) of them are proved using, in essence, the multiplier techniques introduced by Morawetz.
+For \cref{prob:tedp} or the IIP (\cref{prob:tedp} with $\Dm=\emptyset$) there are many situations where $C \sim 1.$  All of these results are (unsurprisingly) associated with the numerical-analysis community, and most (but not all) of them are proved using, in essence, the multiplier techniques introduced by Morawetz.
 
 In the constant-medium ($A=I$ and $n=1$) case, Melenk \cite{Me:95} proved $C\sim 1$ for the IIP in 2-d in a domain that is either (i) convex or (ii) star-shaped and smooth and this was generalised by Cummings and Feng \cite{CuFe:06} to \cref{prob:tedp} in 3-d with a star-shaped scatterer\ednote{Euan---can you show me Cummings and Feng at some point? Just so I've seen it with my own eyes. (Alternatively, if you don't have a copy, I'll get it through an Inter-Library Loan.}. This result was further generalised to a mixture of impedance, Dirichlet, and Neumann boundary conditions on $\GI$ with $\Dm=\emptyset$ by Hetmaniuk \cite{He:07}. A bound with $C \sim 1$ for the IIP with no restrictions on the geometry of the impedance boundary $\GI$ was obtained when $\GI$ is $C^\infty$ by Baskin, Spence, and Wunsch \cite{BaSpWu:16} using semiclassical analysis.
 

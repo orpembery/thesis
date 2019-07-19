@@ -16,7 +16,7 @@ We say $u \in \HozDDR$ satisfies the \defn{variational formulation of the exteri
 \eeqs
 where
 \beqs
-\aE(w,v) \de \int_{\DR} \mleft(\IPRRd{A \grad w}{\grad v} - k^2 n\minispace w \vbar\mright) - \DPGR{\DtN \trGR w}{\trGR v}
+\aE(w,v) \de \int_{\DR} \mleft(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\mright) - \DPGR{\DtN \trGR w}{\trGR v}
 \eeqs
 and
 \beqs
@@ -38,7 +38,7 @@ Let $D, A, n, f,$ and $\gI$ be as in \cref{prob:tedp}. We say $u \in \HozDDR$ sa
 \eeq
 where
 \beq\label{eq:aT}
-\aT(w,v) \de \int_{\DR} \big(\IPRRd{A \grad w}{\grad v} - k^2 n\minispace w \vbar\big) - ik\int_{\GI} \trGI w\minispace\trGI \vbar
+\aT(w,v) \de \int_{\DR} \big(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\big) - ik\int_{\GI} \trGI w\minispace\trGI \vbar
 \eeq
 and
 \beqs
@@ -88,7 +88,7 @@ Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to 
 %%     \eeqs
 %%     \ede
 
-Throughout this thesis, we only consider the $h$-finite-element method (FEM), i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$ This is in contrast to the $p$-FEM, where $h$ is fixed and $p$ is increased, and the $hp$-FEM, where both $h$ and $p$ are increased according to some rule. $hp$-FEM methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}; however, their analysis relies on a fully $p$-explicit analysis of the best approximation error of the Helmholtz equation in $hp$-finite-element spaces; such analysis is currently not possible for the heterogeneous problem. Throughout this \lcnamecref{sec:fetheory} we use finite-element method (or FEM) to refer to the $h$-finite-element method.
+Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$ This is in contrast to the $p$-finite-element method, where $h$ is fixed and $p$ is increased, and the $hp$-finite-element method, where both $h$ and $p$ are increased according to some rule. $hp$-finite-element methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}; however, their analysis relies on a fully $p$-explicit analysis of the best approximation error of the Helmholtz equation in $hp$-finite-element spaces; such analysis is currently not possible for the heterogeneous problem. Throughout this \lcnamecref{sec:fetheory} we use finite-element method to refer to the $h$-finite-element method.
 %\ednote{I couldn't immediately see in these results that one obtains exponential convergence with respect to the number of DOFs---have I missed something, or is this result contained somewhere else?}, where they showed one can obtain an exponential rate of convergence with respect to the number of degrees of freedom.
 %\opntodo{Get Schwab's hp book and look this up}
 
@@ -103,7 +103,7 @@ Throughout this thesis, we only consider the $h$-finite-element method (FEM), i.
     \bprob[Finite-element approximation of \cref{prob:vtedp}]\label{prob:fevtedp}
     We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vtedp}) if
     \beqs
-    a(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
+    \aT(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
     \eeqs
     The finite-element approximation of \cref{prob:vedp} is defined analagously.
     \eprob
@@ -133,16 +133,16 @@ Throughout this thesis, we only consider the $h$-finite-element method (FEM), i.
 
 %% The proof of these results uses a so-called `elliptic projection' technique, introduced by Feng and Wu in \cite{FeWu:09} for Discontinuous Galerkin methods for the Helmholtz equation and modified by Du and Wu \cite{DuWu:15}, where the variational formulation of a PDE related to \cref{prob:vtedp} is used as part of the proof. We  only prove results for \cref{prob:fevtedp}, and not for the finite-element approximation of \cref{prob:vedp}, as our proof uses properties of the related PDE and these properties have only been proven with impedance boundary conditions (in the recent preprint \cite{ChNiTo:18}) and not with an exact Dirichlet-to-Neumann map on the truncation boundary. However, we imagine the results proven for the related PDE with an impedance boundary condition also hold for an exact Dirichlet-to-Neumann boundary condition, and so we anticipate that the results we prove here also hold for finite-element approximations of \cref{prob:vedp}.\opntodo{This paragraph needs rewriting---acknowledge Du \& Wu}
 
-\subsection{Discussion of FEM for the Helmholtz equation}\label{sec:helmfedisc}
+\subsection{Discussion of the finite-element method for the Helmholtz equation}\label{sec:helmfedisc}
 
-We now discuss three properties of the $h$-FEM for the Helmholtz equation:
+We now discuss three properties of the $h$-finite-element method for the Helmholtz equation:
 \bit
 \item The relative error $\displaystyle \frac{\NW{u-\uh}}{\NW{u}}$ is bounded,
 \item The error $\NW{u-\uh}$ is bounded in terms of norms of the data $f$ and $\gI$, and
-  \item The FEM is quasi-optimal, $\displaystyle \NW{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NW{u-\vh}.$
+  \item The finite-element method is quasi-optimal, $\displaystyle \NW{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NW{u-\vh}.$
     \eit
 
-    The key question we ask is: What mesh conditions lead to each of the three properties above? (I.e., how must one refine $h$ as $k$ increases in order for the FEM to satisfy each of the three properties above?)
+    The key question we ask is: What mesh conditions lead to each of the three properties above? (I.e., how must one refine $h$ as $k$ increases in order for the finite-element method to satisfy each of the three properties above?)
 
     We will now summarise the state of the literature regarding each of the three properties above. We will:
     \ben
@@ -193,7 +193,7 @@ We now formally define the three properties mentioned above. These definitions m
 In the following definitions, we consider the Helmholtz problems \cref{prob:vtedp}, and their discretisations \cref{prob:fevtedp} as parameterised by the wavenumber $k,$ that is, we write $u(k)$ for the solution of \cref{prob:vtedp} with wavenumber $k$, and $\uh(k)$ for its finite-element approximation.
 
 \bde[$\hk{a}{b}$-accurate]\label{def:hkacc}
-Given $a,b>0$, we that an $h$-FEM for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
+Given $a,b>0$, we that an $h$-finite-element method for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
 \beqs
 hk^a \leq \Co
 \eeqs
@@ -207,11 +207,11 @@ then the Galerkin solutions $\uh(k)$ satisfy
 \eeq
 for all $k \geq \kz.$
 
-If $a=b$ we say the $h$-FEM is $\hka{a}$-accurate.
+If $a=b$ we say the $h$-finite-element method is $\hka{a}$-accurate.
 \ede
 
 \bde[$\hk{a}{b}$-data-accurate]\label{def:hkdataacc}
-Given $a,b>0$, we that an $h$-FEM for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
+Given $a,b>0$, we that an $h$-finite-element method for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
 \beqs
 hk^a \leq \Co
 \eeqs
@@ -225,13 +225,13 @@ then the Galerkin solutions $\uh(k)$ satisfy
 \eeq
 for all $k \geq \kz.$
 
-If $a=b$ we say the $h$-FEM is $\hka{a}$-data-accurate.
+If $a=b$ we say the $h$-finite-element method is $\hka{a}$-data-accurate.
 \ede
 
 Observe that the only difference between the definitions of $\hk{a}{b}$-accurate and $\hk{a}{b}$-data-accurate is that in \cref{eq:hkacc} the error is measured relative to the solution $u$, whereas in \cref{eq:hkdataacc} the error is measure relative to the `data' $f$ and $\gI$.
 
 \bde[$\hka{a}$-quasi-optimal]\label{def:hkqo}
-Given $a > 0,$ we say that an $h$-FEM for the Helmholtz equation is \defn{$\hka{a}$-quasi-optimal} if, given $\kz > 0$, there exist $\Co(\kz), \Cqo(\kz) > 0$ such that if
+Given $a > 0,$ we say that an $h$-finite-element method for the Helmholtz equation is \defn{$\hka{a}$-quasi-optimal} if, given $\kz > 0$, there exist $\Co(\kz), \Cqo(\kz) > 0$ such that if
 \beqs
 hk^{a} \leq \Co,
 \eeqs
@@ -257,7 +257,7 @@ However, in general \cref{eq:reversebound} does not hold\ednote{Euan---can one w
 \ere
 
 \bre[The above conditions for heterogeneous problems]
-Observe that for heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in our original work in \cref{sec:fem} below we prove that the $h$-FEM with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ (and, in principle, $A$) is completely known.
+Observe that for heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in our original work in \cref{sec:fem} below we prove that the $h$-finite-element method with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ (and, in principle, $A$) is completely known.
 \ere
 
 To aid understanding of the above definitions, and to see how they connect with the usual presentation of finite-element results for the Helmholtz equation, we give the following illustrative example.
@@ -269,7 +269,7 @@ In \cite[Theorem 5.4]{ChGaNiTo:18}, Chaumont-Frelet, Gallistl, Nicaise, and Tome
 \eeq
 for some $\kz, \Co, \Cth > 0.$
 
-For $0 < \eps < 1,$ if we take $\Ct = \eps/\Cth$ then it follows that the $h$-FEM is $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$-accurate.
+For $0 < \eps < 1,$ if we take $\Ct = \eps/\Cth$ then it follows that the $h$-finite-element method is $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$-accurate.
 
 We choose this example to illustrate:
 \bit
@@ -280,9 +280,11 @@ We choose this example to illustrate:
 
 \subsubsection{Optimal mesh conditions for the finite-element method}
 
-We now provide a brief overview of the optimal values of $a$ and $b$ for $\hk{a}{b}$-accuracy, $\hk{a}{b}$-data-accuracy, and $\hka{a}$-quasi-optimality. By `optimal', we mean the values of $a$ and $b$ that are smallest; these will correspond to the least restrictive conditions on the mesh size $h$. We will also, where possible, comment on whether these optimal conditions have been shown to be sharp. The literature reviews in this, and the next, section draw heavily on the literature reviews in \cite[pp. 182--182]{GrLoMeSp:14} and \cite[p. 112]{DiMoSp:19}.
+We now provide a brief overview of the optimal values of $a$ and $b$ for $\hk{a}{b}$-accuracy, $\hk{a}{b}$-data-accuracy, and $\hka{a}$-quasi-optimality. By `optimal', we mean the values of $a$ and $b$ that are smallest; these will correspond to the least restrictive conditions on the mesh size $h$. We will also, where possible, comment on whether these optimal conditions have been shown to be sharp. The literature reviews in this, and the next, section draw heavily on the literature reviews in \cite[pp. 182--183]{GrLoMeSp:14} and \cite[p. 112]{DiMoSp:19}. Unless otherwise stated, all the problems treated in this literature review are nontrapping (in the wider sense discussed under `\techtitle' in \cref{sec:wpdisc}), have constant coefficients, and and have a impedance boundary condition on at least part of the boundary.
 
-\paragraph{$\hk{a}b$-accuracy} In 1-d the $h$-FEM has been proved to be $\hka{3/2}$-accurate for first-order finite elements by Ihlenburg and Babu\v{s}ka in \cite[Theorem 5 and Equation (3.25)]{IhBa:95a} and \cite[Equation (4.5.15)]{Ih:98}. For higher-order finite-elements (still in 1-d) they proved the $h$-FEM is $\hka{(2p+1)/(2p)}$-accurate in \cite[Corollary 3.2]{IhBa:97} and \cite[Theorem 4.27 and Equation 4.7.41]{Ih:98}. However, all the above results were only measured in the $H^1$ seminorm (and so we are slightly abusing the notation of $\hka{a}$-accuracy here), and the higher-order results were proved under the assumptions that $f \in \HpmoD,$ $u \in \HppoD,$ and $\SNHppoD{u} \sim k^p \SNHoD{u}.$ These $\hk{a}b$-accuracy results were confirmed numerically (for $p=1$) by \cite[Figure 11]{IhBa:95a} and \cite[Figure 4.13]{Ih:98}, which showed that the relative error is bounded if $h \sim k^{-3/2}$ and by \cite[Figure 4.10]{Ih:98}, which showed that the relative error is not bounded if $h \sim k^{-1}.$ We note that the proofs in \cite{IhBa:95a,Ih:98} showed the finite-element error was bounded by $\SNHppoD{u}$, and then used the fact that
+\paragraph{$\hk{a}b$-accuracy} In 1-d the $h$-finite-element method has been proved to be $\hka{3/2}$-accurate for first-order finite elements by Ihlenburg and Babu\v{s}ka in \cite[Theorem 5 and Equation (3.25)]{IhBa:95a} and \cite[Equation (4.5.15)]{Ih:98}. For higher-order finite-elements (still in 1-d) they proved the $h$-finite-element method is $\hka{(2p+1)/(2p)}$-accurate in \cite[Corollary 3.2]{IhBa:97} and \cite[Theorem 4.27 and Equation 4.7.41]{Ih:98}. However, all the above results were only measured in the $H^1$ seminorm (and so we are slightly abusing the notation of $\hka{a}$-accuracy here), and the higher-order results were proved under the assumptions that $f \in \HpmoD,$ $u \in \HppoD,$ and $\SNHppoD{u} \sim k^p \SNHoD{u}.$ In addition, these results were proved using the properties of the `discrete Green's function' for the Helmholtz equation. This function was used to first prove an a priori bound on the finite-element approximation of the solution, and the error bounds were then concluded from this a priori bound. As the discrete Green's function is only known explicitly in 1-d, these results have not been generalised to higher dimensions.
+
+These $\hk{a}b$-accuracy results were confirmed numerically (for $p=1$) by \cite[Figure 11]{IhBa:95a} and \cite[Figure 4.13]{Ih:98}, which showed that the relative error is bounded if $h \sim k^{-3/2}$ and by \cite[Figure 4.10]{Ih:98}, which showed that the relative error is not bounded if $h \sim k^{-1}.$ We note that the proofs in \cite{IhBa:95a,Ih:98} showed the finite-element error was bounded by $\SNHppoD{u}$, and then used the fact that
 \beq\label{eq:ratio1d}
 \frac{\SNHppoD{u}}{\SNHoD{u}} \sim k^p
 \eeq
@@ -296,72 +298,78 @@ A \cos(kx) + B \sin(kx)
 
 \paragraph{$\hk{a}b$-data-accuracy} In contrast to $\hk{a}b$-accuracy, there are many proofs (for different polynomial degrees and for different Helmholtz problems) of $\hk{a}b$-data-accuracy. The reason for far more proofs in this case is that one can usually show that the interpolation error $u -\Ih u$ is bounded by the data, and one can use this bound when bounding the finite-element error to conclude the finite-element error is bounded by the data.
 
-The best results known to date are the same (in terms of $a$ and $b$) as those for $\hk{a}b$-accuracy, except results for $\hk{a}b$-data-accuracy hold in higher dimensions. In \cite[Theorem 5.1, Corollary 5.2]{DuWu:15} Du and Wu proved that the $h$-FEM for the Interior Impedance Problem (IIP) is $\hka{(2p+1)/(2p)}$-data-accurate for arbitrary (fixed) polynomial degree $p$ and $d = 2$ or $3$, provided $u \in \HppoD$ (although this result can be shown for lower-regularity solutions by combining \cite[Theorem 5.1]{DuWu:15} with \cite[Lemma 3.5]{DuWu:15}). This result was proved for the IIP in $d = 2$ or $3$ for $p=1$ by Wu in \cite{Wu:14}. Whilst there is no computational evidence to confirm the sharpness of this result, given it coincides with the (sharp) best case for $\hk{a}b$-accuracy, we expect the result for $\hk{a}b$-data-accuracy is also sharp.
+The best results known to date are the same (in terms of $a$ and $b$) as those for $\hk{a}b$-accuracy, except results for $\hk{a}b$-data-accuracy hold in higher dimensions. In \cite[Theorem 5.1, Corollary 5.2]{DuWu:15} Du and Wu proved that the $h$-finite-element method for the IIP is $\hka{(2p+1)/(2p)}$-data-accurate for arbitrary (fixed) polynomial degree $p$ and $d = 2$ or $3$, provided $u \in \HppoD$ (although this result can be shown for lower-regularity solutions by combining \cite[Theorem 5.1]{DuWu:15} with \cite[Lemma 3.5]{DuWu:15}). This result was proved for the IIP in $d = 2$ or $3$ for $p=1$ by Wu in \cite{Wu:14}. Whilst there is no computational evidence to confirm the sharpness of this result, given it coincides with the (sharp) best case for $\hk{a}b$-accuracy, we expect the result for $\hk{a}b$-data-accuracy is also sharp.
 
-\paragraph{$\hka{a}$-quasi-optimality} Finally, the best known result for $\hka{a}$-quasi-optimality for the Helmholtz equation is that the $h$-FEM is $\hka{(p+1)/p}$-quasi-optimal. This was first proved for $p=1$ in 1-d by Aziz, Kellog, and Stevens in \cite[Theorem 3.1]{AzKeSt:88} and Ihlenburg and Babu\v{s}ka in \cite[Theorem 3]{IhBa:95a} and \cite[Theorems 4.9 and 4.13]{Ih:98}, with \cite[Figures 7-9]{IhBa:95a} and \cite[Section 4.5.4 and Figures 4.11-4.12]{Ih:98} showing this result is sharp in 1-d (although Ihlenburg and Babu\v{s}ka only work in the $H^1$-semi norm). The result was proved for $p=1$ and $d=2$ for the IIP by Melenk \cite[Proposition 8.2.7]{Me:95}, and for higher-order finite elements (for the full-space problem, IIP, and EDP) by Melenk and Sauter in \cite[Corollary 5.6]{MeSa:10} and \cite[Theorem 5.8]{MeSa:11} respectively. This result was shown for a PML problem by Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk in \cite[Theorem 5.1]{ChGaNiTo:18}, and extended to arbitrary time-harmonic wave propagation problems by Chaumont-Frelet and Nicaise in \cite[Theorem 2.15]{ChNi:19}, who showed that if the constant in the a priori bound \cref{eq:bgbound} grows like $k^\alpha,$ then the $h$-FEM is $\hka{(p+\alpha+1)/p}$-accurate. They give numerical experiments in \cite[Figure 8]{ChNi:19} showing the sharpness of $\hka{(p+1)/p}$-quasi-optimality for $p=1, 2$ for a heterogeneous IIP.
+\paragraph{$\hka{a}$-quasi-optimality} Finally, the best known result for $\hka{a}$-quasi-optimality for the Helmholtz equation is that the $h$-finite-element method is $\hka{(p+1)/p}$-quasi-optimal. This was first proved for $p=1$ in 1-d by Aziz, Kellog, and Stevens in \cite[Theorem 3.1]{AzKeSt:88} and Ihlenburg and Babu\v{s}ka in \cite[Theorem 3]{IhBa:95a} and \cite[Theorems 4.9 and 4.13]{Ih:98}, with \cite[Figures 7-9]{IhBa:95a} and \cite[Section 4.5.4 and Figures 4.11-4.12]{Ih:98} showing this result is sharp in 1-d (although Ihlenburg and Babu\v{s}ka only work in the $H^1$-semi norm). The result was proved for $p=1$ and $d=2$ for the IIP by Melenk \cite[Proposition 8.2.7]{Me:95}, and for higher-order finite elements (for the full-space problem, IIP, and EDP) by Melenk and Sauter in \cite[Corollary 5.6]{MeSa:10} and \cite[Theorem 5.8]{MeSa:11} respectively. This result was shown for a PML problem by Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk in \cite[Theorem 5.1]{ChGaNiTo:18}, and extended to arbitrary time-harmonic wave propagation problems by Chaumont-Frelet and Nicaise in \cite[Theorem 2.15]{ChNi:19}, who showed that if the constant in the a priori bound \cref{eq:bgbound} grows like $k^\alpha,$ then the $h$-finite-element method is $\hka{(p+\alpha+1)/p}$-accurate. They give numerical experiments in \cite[Figure 8]{ChNi:19} showing the sharpness of $\hka{(p+1)/p}$-quasi-optimality for $p=1, 2$ for a heterogeneous IIP.
 
-\paragraph{Observations} Observe that, in general, the mesh conditions required for quasi-optimality are more restrictive than those required for the error to be bounded. I.e., in general, if the finite-element method is $\hka{\ao}$-quasi-optimal and $\hka{\at}$-data-accurate, then $\ao > \at.$ Therefore, whilst one can show the finite-element method is $\hka{a}$-data-accurate (for some $a$) by first showing quasi-optimality, this method will result in a more restrictive mesh condition than proving $\hka{a}$-data-accuracy directly. Also observe that the results for higher-order finite elements become less stringent as $p$ increases, i.e., the finite-element method is $\hka{(2p+1)/(2p)}$-data-accurate, and $(2p+1)/(2p) \downarrow 1$ as $p \rightarrow \infty.$
+\paragraph{Link with dispersion error} When computing on regular grids, one can mathemtically analyse the `dispersion error' of the finite-element method for the Helmholtz equation; i.e., the difference between the wavenumber of the true solution $u$ (i.e., $k$) and the wavenumber of the approximation $\uh.$ We mention briefly that Ainsworth  analysed the dispersion error for the $hp$-finite-element method for the Helmholtz equation and proved the dispersion error is of the order $h^{2p}k^{2p+1}$ \cite[Equation (3.5)]{Ai:04}. Observe that this is the same order as the best-available results for $\hka{a}$-accuracy and $\hka{a}$-data-accuracy discussed above. Therefore, results from finite-element error analysis and dispersion analysis both suggest that the error (measured in a suitable sense in each case) is bounded if $h^{2p}k^{2p+1}$ is sufficiently small. See, e.g., \cite[Remark 5.3(a)]{DuWu:15} for more references on dispersion error analysis for the Helmholtz equation.
 
-\optodo{Check somewhere I've said before this we're assuming and impedance-like problem and nontrapping}
-\optodo{Put note that Discrete Green's gives a priori bounf on fe}
-\optodo{Put somewhere that can get error bound via qo or directly}
+\paragraph{Observations} Observe that, in general, the mesh conditions required for quasi-optimality are more restrictive than those required for the error to be bounded. I.e., in general, if the finite-element method is $\hka{\ao}$-quasi-optimal and $\hka{\at}$-data-accurate, then $\ao > \at.$ Therefore, whilst one can show the finite-element method is $\hka{a}$-data-accurate (for some $a$) by first showing quasi-optimality, this approach will result in a more restrictive mesh condition than proving $\hka{a}$-data-accuracy directly. Also observe that the results for higher-order finite elements become less stringent as $p$ increases, i.e., the finite-element method is $\hka{(2p+1)/(2p)}$-data-accurate, and $(2p+1)/(2p) \downarrow 1$ as $p \rightarrow \infty.$
+
 \paragraph{Complete summary of results in the literature} In \cref{tab:acc,tab:dataacc,tab:qo} we list all of the mathematical (as opposed to computational) results in the literature for $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, and $\hka{a}$-quasi-optimality. We list these in chronological order, with any relevant comments in the `Notes' column. The `Proof technique' column details the method used in the proof; see \cref{sec:prooftechniques} below for an extended discussion of these techniques. However, we now make a few general comments on the history of these results.
 
 Recall that proving quasi-optimality (or an error bound) for the finite-element method for the Helmholtz equation is more tricky than for the stationary diffusion equation \cref{eq:stdiff}. For the stationary diffusion equation, one immediately obtains quasi-optimality for \emph{any} mesh by C\'ea's Lemma (and one then obtains that the relative error is bounded by \cref{lem:scottzhang}). We emphasise again that this result holds for any mesh, with no restriction on $h.$
 
 However, C\'ea's Lemma relies on the coercivity of the sesquilinear form, and the sesquilinear forms arising from standard discretisations of the Helmholtz equation are not coercive for large $k$. Therefore, to prove quasi-optimality, one instead uses the so-called Schatz argument, a modification of the standard Aubin--Nitsche duality argument\footnote{First introduced by Aubin \cite{Au:67} and Nitsche \cite{Ni:68} for coercive problems.} However, using the Schatz argument, one only obtains quasi-optimality under some $k$-dependent restriction on the mresh size $h.$
 
-The Schatz argument was first used for problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74} and first used for Helmholtz problems by Aziz, Kellogg, and Stephens \cite{AzKeSt:88}. In \cite{AzKeSt:88} they proved that in 1-d the finite-element method for the Helmholtz equation is $\hka{2}$-quasi-optimal, and this result was extended to $d=2$ by Melenk \cite{Me:95} in his PhD thesis. Observe that for large values of $k,$ $\hka{2}$-quasi-optimality and the related mesh restriction `$hk^2$ is sufficiently small' is computationally prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-d.
+The Schatz argument was first used for problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74} and first used for Helmholtz problems by Aziz, Kellogg, and Stephens \cite{AzKeSt:88}. In \cite{AzKeSt:88} they proved that in 1-d the finite-element method for the Helmholtz equation is $\hka{2}$-quasi-optimal, and this result was extended to $d=2$ by Melenk \cite{Me:95} in his PhD thesis. However, the Schatz argument was first presented in the framework we use below by Sauter \cite[Section 2]{Sa:06}. Observe that for large values of $k,$ $\hka{2}$-quasi-optimality and the related mesh restriction `$hk^2$ is sufficiently small' is computationally prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-d.
 
-Because of the severe mesh restrictions required for quasi-optimality for Helmholtz problems, recent research efforts have been focused on directly proving error bounds for the finite-element method. The key proof technique has been so-called elliptic projection ideas; these ideas are at the heart of our results in \cref{sec:fem} below, and are discussed in more detail in \cref{sec:prooftechniques} below. To our knowledge, the first use of elliptic projections to prove error estimates for Galerkin approximations was by Wheeler\footnote{Mentioned in \cite{MaNo:03}.} \cite{Wh:73}, who proved bounds on the error for a nonlinear parabolic problem by splitting the error into the error from an elliptic projection and the remaining error between the elliptic projection and the Galerkin approximation. The idea of using elliptic projections for Helmholtz problems was first introduced to prove error bounds for discontinuous Galerkin methods for \cref{prob:tedp} by Feng and Wu \cite{FeWu:09,FeWu:11}, and then used for standard finite-element methods (or closely-related continuous-interior-penalty methods) beginning with the work of Wu and Zhu \cite{ZhWu:13,Wu:14}.
-\optodo{Mention $hp$ stuff somewhere and Sauter 06}
-\optodo{Decide on modified Schatz terminology and propagate}
+Because of the severe mesh restrictions required for quasi-optimality for Helmholtz problems, recent research efforts have been focused on directly proving error bounds for the finite-element method. The key proof technique has been so-called elliptic projection ideas; these ideas are at the heart of our results in \cref{sec:fem} below, and are discussed in more detail in \cref{sec:prooftechniques} below. To our knowledge, the first use of elliptic projections to prove error estimates for Galerkin approximations was by Wheeler\footnote{Mentioned in \cite{MaNo:03}.} \cite[Theorem 3.1 ff.]{Wh:73}, who proved bounds on the error for a nonlinear parabolic problem by splitting the error into the error from an elliptic projection and the remaining error between the elliptic projection and the Galerkin approximation. The idea of using elliptic projections for Helmholtz problems was first introduced to prove error bounds for discontinuous Galerkin methods for \cref{prob:tedp} by Feng and Wu \cite{FeWu:09,FeWu:11}, and then used for standard finite-element methods (or closely-related continuous-interior-penalty methods) beginning with the work of Wu and Zhu \cite{ZhWu:13,Wu:14}.
 
+In this review we do not address $hp$-finite-element methods for the Helmholtz equation, that is, finite-element methods where one refines both $h$ and $p$. Such methods can be very effective; the error for such methods can converge exponentially with respect to the number of degrees of freedom (see, e.g., \cite[Theorem 4.51]{Sc:98}). However, rigorous error analysis for these methods requires finite-element-error bounds that are completely explicit in both $h$ and $p$.
 
-\optodo{Understand exactly what's going on in Lu and Wu when they boun the $H^1$ bit - after eqn (4.15)}
+The landmark results on $hp$-finite-element methods for the Helmholtz equation were achieved by Melenk and Sauter \cite{MeSa:10,MeSa:11} who used a novel splitting of the solution of the Helmholtz equation (see the comments underneath \cref{rem:osc} below) to show that the $hp$-finite-element method is quasi-optimal if $hk/p \leq \co$ and $p \geq \ct \ln k$ (for some constants $\co,\ct>0$). Melenk and Sauter proved this result for the full-space problem in \cite{MeSa:10} and for: (i) the exterior Dirichlet problem, and (ii) the interior impedance problem in an analytic domain or a 2-d convex polygon in \cite{MeSa:11}. These results were generalised to an arbitrary 2-d Lipschitz domain by Esterhazy and Melenk in \cite[Theorem 4.2]{EsMe:12}. Other results in the literature for $hp$-finite-element methods are those of Zhu and Wu \cite[Equation (1.7)]{ZhWu:13} who showed the $hp$-finite-element method for the Helmholtz equation is data-accurate\footnote{We do not use the $\hk{a}b$-accurate, etc., terminology for $hp$-methods, as it does not represent the interplay between the polynomial degree $p$ and the wavenumber $k$.} provided
+\beqs
+\frac{kh}p \leq C_0\mleft(\frac{p}k\mright)^{\frac1{p+1}},
+\eeqs
+where $C_0>0$ is some constant. Finally, in \cite[Corollary 3.2]{IhBa:97} Ihlenburg and Babu\v{s}ka proved a bound on the error for the finite-element method in 1-d that is explicit in $k,$ $h$, and $p$, although the bound is probably not sharp in $p,$ and therefore could not be used to prove results on $hp$-finite-element methods.
 
-\optodo{Make arraystretch play nicely with makecell.}
-\optodo{Make footnote play nicely with makecell}
-%\renewcommand{\arraystretch}{1.0} % From https://en.wikibooks.org/wiki/LaTeX/Tables#Space_between_rows
-\optodo{Fix table placement}
-
-\begin{landscape} % Heard about from https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t/19021#19021 and https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table
+\afterpage{% Heard about from https://tex.stackexchange.com/questions/11471/how-to-wrap-text-around-landscape-page
+\begin{landscape} % Heard about from https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t/19021#19021 and https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table 
 \begin{table}[h]
   \centering
-\begin{tabu}{cccc}
+  \begin{threeparttable}[c]
+    \begin{tabular}{Sc Sc Sc Sc}
   \toprule
   & $\hk{a}b$-accuracy & Notes & Proof technique\\
-    \midrule
+   \midrule
     \cite[Equation (3.25)]{IhBa:95a} & $\hk{1}{3/2}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$\\$H^1$ seminorm}&\makecell{Discrete Green's function\\(specific to $d=1$)}\\
-    \cite[Theorem 4]{IhBa:95b} & $\hk{1}{3/2}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$\\$L^2$ norm\footnote{Actually, \cite[Theorem 4]{IhBa:95b} only proves a bound on the $L^2$-norm of the error in terms of the $H^2$-seminorm of the solution. However, when $d=1$ $\SNHtD{u} \sim k^2\NLtD{u}$ and so one can conclude $\hk{a}b$-accuracy.}}&\makecell{Discrete Green's function\\error splitting using interpolant}\\
+    \cite[Theorem 4]{IhBa:95b} & $\hk{1}{3/2}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$\\$L^2$ norm\tnote{1}}&\makecell{Discrete Green's function\\error splitting using interpolant}\\
       \cite[Corollary 3.2]{IhBa:97}&$\hk{1}{(2p+1)/(2p)}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$\\$H^1$ seminorm}&\makecell{Discrete Green's function,\\error splitting using interpolant}\\
   \cite[Theorem 4.13 and equation (4.5.15)]{Ih:98}& $\hk{1}{3/2}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$\\$H^1$ seminorm}& Discrete Green's function\\
   \cite[Theorem 4.27 and equation (4.7.41)]{Ih:98}& $\hk{1}{(2p+1)/(2p)}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$\\$H^1$ seminorm}&\makecell{Discrete Green's function,\\error splitting using interpolant}\\ 
-\bottomrule
-\end{tabu}
-\caption{$\hk{a}b$-accuracy for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:acc}
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+\item [1] Actually, \cite[Theorem 4]{IhBa:95b} only proves a bound on the $L^2$-norm of the error in terms of the $H^2$-seminorm of the solution. However, when $d=1$, $\SNHtD{u} \sim k^2\NLtD{u}$ and so one can conclude $\hk{a}b$-accuracy.
+  \end{tablenotes}
+    \caption{$\hk{a}b$-accuracy for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:acc}
+\end{threeparttable}
 \end{table}
+
 \begin{table}[h]
   \centering
-\begin{tabu}{cccc}
+\begin{tabular}{Sc Sc Sc Sc}
   \toprule
  & $\hk{a}b$-data-accuracy  & Notes & Proof technique\\
   \midrule
   \cite[Theorem 5]{IhBa:95a} & $\hk{1}{3/2}$ & \makecell{$d=1$, unit interval,\\$u(0)=0,$\\impedance boundary condition at $1$}&\makecell{Discrete Green's function\\error splitting using interpolant}\\
-      \cite[Corollary 4.2]{ZhWu:13}& $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$   &\makecell{$d=2,3$, IIP,\\$D$ smooth,\\bounds obtained for $hp$-FEM, so fully $p$-explicit}& Modified Schatz\\
-      \cite[Theorem 5.1]{Wu:14} & $\hka{3/2}$  & $d=2,3$, IIP, $D$ a star-shaped polygon/polyhedron & Error splitting\\
+      \cite[Corollary 4.2]{ZhWu:13}& $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$   &\makecell{$d=2,3$, IIP,\\$D$ smooth,\\bounds obtained for $hp$-finite-element method,\\so fully $p$-explicit}& Modified Schatz\\
+      \cite[Theorem 5.1]{Wu:14} & $\hka{3/2}$  &\makecell{$d=2,3$, IIP,\\$D$ a star-shaped polygon/polyhedron}& Error splitting\\
       \cite[Corollary 5.2]{DuWu:15} & $\hka{(2p+1)/(2p)}$ &  $d=2,3$, IIP, $D$ smooth, star-shaped& Error splitting\\
-        \cite[Theorem 5.2]{ChNi:18}& $\hk{3/(1+\alpha)}{3/2}$   &\makecell{$d=2$, TEDP with re-entrant corners,\\$\alpha \in (1/2,1)$ related to strength of corner singularities}& Modified Schatz\\
-        \cite[Theorem 4.3 and Remark 4.2(iv)]{LiWu:18}& $\hka{3/2}$   &\makecell{$d = 1,2,3$, full-space problem truncated with PML,\\posed in a ball}& Modified Schatz\\
-        \cite[Lemma 3.3]{WuZo:18}&$\hka{3/2}$&\makecell{IIP, $D$ convex,\\$n$ heterogeneous with $\NLiD{n-1} \lesssim 1/k$,\\part of an argument for a heterogeneous Helmholtz problem}&Error splitting\\
+        \cite[Theorem 5.2]{ChNi:18}& $\hk{3/(1+\alpha)}{3/2}$   &\makecell{$d=2$, TEDP with re-entrant corners,\\$\alpha \in (1/2,1)$ related to\\strength of corner singularities}& Modified Schatz\\
+        \cite[Theorem 4.3 and Remark 4.2(iv)]{LiWu:18}& $\hka{3/2}$   &\makecell{$d = 1,2,3$,\\full-space problem truncated with PML,\\posed in a ball}& Modified Schatz\\
+        \cite[Lemma 3.3]{WuZo:18}&$\hka{3/2}$&\makecell{IIP, $D$ convex,\\$n$ heterogeneous with $\NLiD{n-1} \lesssim 1/k$,\\part of an argument for\\a nonlinear heterogeneous Helmholtz problem}&Error splitting\\
   \cite[Theorem 5.4]{ChGaNiTo:18}&$\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$  & $d=2$, EDP truncated with PML, posed in a ball& Modified Schatz\\
 \bottomrule
-\end{tabu}
+\end{tabular}
 \caption{$\hk{a}b$-data-accuracy for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:dataacc}
 \end{table}
+
+
   \begin{table}[h]
     \centering
-\begin{tabular}{cccc}
+\begin{tabular}{Sc Sc Sc Sc}
   \toprule
 & $\hka{a}$-quasi-optimality & Notes & Proof technique\\
   \midrule
@@ -370,10 +378,10 @@ Because of the severe mesh restrictions required for quasi-optimality for Helmho
   \cite[Theorem 3]{IhBa:95a} & $\hka{2}$ & $d=1,$ $H^1$ seminorm & Schatz\\
   \cite[Corollary 2]{IhBa:95a} & $\hka{0}$ & $d=1,$ $H^1$ seminorm &\makecell{Discrete Green's function\\error splitting using interpolant}\\
   %? \cite{IhBa:95b}
-  \cite[Theorems 4.9 and 4.13]{Ih:98} & $\hka{2}$ & \makecell{$d=1,$ $H^1$ seminorm,\\\cite[Theorem 4.9]{Ih:98} is \cite[Theorem 3]{IhBa:95a}} & \makecell{(Respectively)\\Schatz, and error splitting\\using interpolant,\\respectively}\\
-  \cite[Proposition 8.2.7]{Me:95} & $\hka{2}$ & \makecell{$d=2,$\\Interior Impedance Problem (IIP),\\$D$ smooth and star-shaped or convex} & Schatz\\
+  \cite[Theorems 4.9 and 4.13]{Ih:98} & $\hka{2}$ & \makecell{$d=1,$ $H^1$ seminorm,\\\cite[Theorem 4.9]{Ih:98} is \cite[Theorem 3]{IhBa:95a}} & \makecell{Schatz, and error splitting\\using interpolant,\\respectively}\\
+  \cite[Proposition 8.2.7]{Me:95} & $\hka{2}$ & \makecell{$d=2,$\\IIP,\\$D$ smooth and star-shaped or convex} & Schatz\\
   \cite[Corollary 5.6]{MeSa:10} & $\hka{(p+1)/p}$ & Full-space problem & Schatz\\
-  \cite[Theorem 5.8]{MeSa:11} & $\hka{(p+1)/p}$ & \makecell{$d = 2,3$,\\polynomial growth of constant in a priori bound,\\IIP ($\Dm$ analytic or Lipschitz convex polygon)\\and EDP ($\Dm$ analytic)} & Schatz\\
+%  \cite[Theorem 5.8]{MeSa:11} & $\hka{(p+1)/p}$ & \makecell{$d = 2,3$,\\polynomial growth of constant in a priori bound,\\IIP ($\Dm$ analytic or Lipschitz convex polygon)\\and EDP ($\Dm$ analytic)} & Schatz\\
   \cite[Theorem 5.1]{ChNi:18} & $\hka{2}$ & $d=2$, TEDP with re-entrant corners & Schatz\\
   \cite[Theorem 5.1]{ChGaNiTo:18} & $\hka{(p+1)/p}$&$d=2$, EDP truncated with PML, posed in a ball  &Schatz\\
     \cite{ChNi:19} & $\hka{(p+\alpha+1)/p}$ & \makecell{Arbitrary time-harmonic wave problem,\\a priori bound grows at rate $k^\alpha$} & Schatz\\
@@ -384,31 +392,7 @@ Because of the severe mesh restrictions required for quasi-optimality for Helmho
 \caption{$\hka{a}$-quasi-optimality for $h$-finite-element discretisations of the Helmholtz equation}\label{tab:qo}
 \end{table}
 \end{landscape}
-\optodo{Mention borrowing from Euan's lit reviews}
-\optodo{Make point about not recording $a<b$ QO. Or change things}
-\optodo{Why does Chaumont-Nicaise see the magnitude of the a priori bound, but Melenk--Sauter doesn't?}
-\optodo{Put a note somewhere that one can get accuracy/dta-accuracy from QO, but we won't do that here.}
-\optodo{Mention $hp$ results somewhere?}
-% hp-stuff
-
-% QO
-% Melenk Sauter hp
-% &  or $\log(k)/p$ and $kh/p$ ($hp$) & \\
-%   \cite{IhBa:97} & hk^2/p suff small - THeorem 3.5 & \\
-%  \cite{FeWu:09} & $kh$ & $h^{4/3} k^{8/3}$ & TEDP, Interior-Penalty Discontinuous Galerkin (IPDG) method\\
-%  \cite{FeWu:11} & $\displaystyle \frac{h^2 k^3}{p^2}$ & $\displaystyle \mleft(\frac{h}p+ \frac{h^2 k^2}{p^2}\mright)$ & TEDP, $hp$-IPDG method\\
-% Esterhazy--Melenk - hp in polygons
-
-% data-acc
-% Zhu and WU $\displaystyle \frac{kh}p \mleft(\frac{k}p\mright)^{\frac1{p+1}}$ ($hp$) - mesh cond - mod schatz
-
-% accurate
-%\cite{IhBa:97} Cor 3.2 (and result used in this) - error splitting using interpolant
-
-\optodo{Dispersion - Ainsworth eqn (3.5),  Du WU Remark 5.3(a) for references}
-
-
-
+}
 \subsection{Extended discussion of proof techniques for finite-element errors for the Helmholtz equation}\label{sec:prooftechniques}
 We now discuss in some detail the proof techniques used to obtain conditions under which the finite-element method applied to the Helmholtz equation either (i) is quasi-optimal in the weighted $H^1$ norm, or (ii) has bounded error in the weighted $H^1$ norm. We discuss these techniques because they are related, but different, and we hope that discussing the details, and comparing and contrasting these techniques will prove helpful to the research community, and will increase understanding of proofs that are, at times, a little technical. However, we also discuss these results to set the coefficient-explicit bounds in \cref{sec:fem} below in context.
 
@@ -417,7 +401,7 @@ We note that frequently quasi-optimality results are refereed to as \defn{asympt
 For simplicity's sake, our exposition below will assume that we are treating the homogeneous Helmholtz TEDP (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if we have a $k$-independent a priori bound, i.e., $C$ in \cref{eq:bgbound} is independent of $k.$}. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k$ and $h$. The new results we present in \cref{sec:fem} consider heterogeneous problems that may be trapping, and state all of the constants involved explicitly, at the price of being more technical to state.
 
 \subsubsection{Merits and drawbacks of each argument}
-We first briefly discuss the positive and negative points for each of the two classes of argument we will outline below: duality arguments and splitting arguments.
+We first briefly discuss the positive and negative points for each of the two classes of argument we will outline below: (modified) duality arguments and splitting arguments.
 
 The merits of duality arguments are their simplicity---we will state the arguments almost in their entirety below, and they are closely related with familiar duality arguments used in finite-element-error analysis for more familiar problems, such as the stationary diffusion equation. In addition, using these arguments for higher-order finite elements (or $hp$-finite-elements) one can easily conclude error bounds under certain mesh conditions, where both the bounds and the conditions are completely $h$-, $p$-, and $k$-explicit.% Such an analysis was performed for quasi-optimality of $hp$-finite-element methods for the Helmholtz equation in homogeneous media by Melenk and Sauter \cite{MeSa:10,MeSa:11}.
 
@@ -428,13 +412,13 @@ In contrast, the merit of splitting arguments is that they can give mesh conditi
 However, the drawback of splitting arguments is their complexity. They involve proving bounds on the solution of discrete Helmholtz problems; such bounds are complicated to prove, especially in the higher-order cases, and the constants involved depend on the polynomial degree $p$ in highly complicated ways. These drawbacks limit the likelihood that such bounds can be used for $hp$-finite-element methods, where the dependence on the polynomial degree must be known explicitly.
 
 
-\subsubsection{Duality arguments}
+\subsubsection{(Modified) Duality arguments}
 The first class of arguments we consider are (modified) duality arguments. In these arguments, one uses a G\r{a}rding inequality satisfied by the Helmholtz equation to show that the error in the weighted $H^1$ norm is bounded by the best approximation error, plus error in the $L^2$ norm\footnote{Recall that for the stationary diffusion equation, one can show the finite-element error is bounded by the approximation error simply using coercivity and boundedness of the bilinear form---this is Cea's Lemma.}. One then uses a modification of the standard Aubin--Nitsche duality argument to bound the $L^2$ norm.
 
 To show the error in the weighted $H^1$ norm is bounded by the error in the $L^2$ norm, observe
 \begin{align}
-\NW{u-\uh}^2 &\leq \Re{a(u-\uh,u-\uh)} + k^2 \NLtD{u-\uh}^2\nonumber\\
-&= \Re{a(u-\uh,u-\vh)} + k^2 \NLtD{u-\uh}^2\text{ by Galerkin orthogonality}\nonumber\\
+\NW{u-\uh}^2 &\leq \Re{\aT(u-\uh,u-\uh)} + k^2 \NLtD{u-\uh}^2\nonumber\\
+&= \Re{\aT(u-\uh,u-\vh)} + k^2 \NLtD{u-\uh}^2\text{ by Galerkin orthogonality}\nonumber\\
 &\lesssim \NW{u-\uh}\NW{u-\vh} + k^2 \NLtD{u-\uh}^2,\label{eq:gardingerror}
 \end{align}
 for any $\vh \in \Vhp.$
@@ -449,11 +433,11 @@ and combining \cref{eq:gardingerror,eq:schatzbound}, one has
 \eeqs
 cancelling a factor $\NW{u-\uh}$ from each side, and moving the final term onto the left-hand side. one obtains quasi-optimality if $hk^2$ is sufficiently small.
 
-In contrast, so-called \defn{elliptic projection} arguments to prove a finite-element error bound, also outlined below, show (for $p=1$)
+In contrast, so-called \defn{elliptic-projection-modified Schatz} (`modified Schatz' for short) arguments used to prove a finite-element error bound, also outlined below, show (for $p=1$)
 \beq\label{eq:epbound}
 k\NLtD{u-\uh} \lesssim h^2k^3 \NLtD{f},
 \eeq
-and then combining \cref{eq:gardingerror,eq:epbound} to show the finite-element error is bounded if $h^2k^3$ is sufficiently small---observe this is less restrictive than the requirement $hk^2$ is sufficiently small.
+and then combine \cref{eq:gardingerror,eq:epbound} to show the finite-element error is bounded if $h^2k^3$ is sufficiently small---observe this is less restrictive than the requirement $hk^2$ is sufficiently small.
 %% \begin{align}
 %% \NW{u-\uh}^2 &\lesssim \NW{u-\uh}\NW{u-\vh} + h^2k^3 \NLtD{f}\nonumber\\
 %% &\leq \eps \NW{u-\uh}^2 + \frac1\eps \NW{u-\vh}^2 +\mleft(h^2 k^3 \NLtD{f}\mright)^2\label{eq:epboundpart1}
@@ -463,15 +447,13 @@ and then combining \cref{eq:gardingerror,eq:epbound} to show the finite-element 
 %% \NW{u-\uh} \lesssim \mleft(hk + h^2k^3\mright)\NLtD{f}.
 %% \eeqs
 
-We will now look over the Schatz argument in more detail. We will see presently that the elliptic projection arguments mentioned above further modify the Schatz argument, and so understanding it to begin with is instructive.
-
-We first establish some notation that will enable us to discuss best approximation errors for solutions of Helmholtz problems. We let $\solfem:\LtD\rightarrow \HoD$ denote the solution operator for \cref{prob:vtedp} with zero impedance boundary condition, and we let $\solfems$ denote the solution operator for the corresponding adjoint problem. That is, for any $\ftilde \in \LtD$ and for all $v \in \HozDD,$
+We will now look over the Schatz argument in more detail, before considering modified Schatz arguments. We first establish some notation that will enable us to discuss best approximation errors for solutions of Helmholtz problems. We let $\solfem:\LtD\rightarrow \HoD$ denote the solution operator for \cref{prob:vtedp} with zero impedance boundary condition, and we let $\solfems$ denote the solution operator for the corresponding adjoint problem. That is, for any $\ftilde \in \LtD$ and for all $v \in \HozDD,$
 \beqs
-a(\solfem(\ftilde),v) = \IPLtD{\ftilde}{v}
+\aT(\solfem(\ftilde),v) = \IPLtD{\ftilde}{v}
 \eeqs
 and
 \beqs
-a(v,\solfems(\ftilde)) = \IPLtD{v}{\ftilde}.
+\aT(v,\solfems(\ftilde)) = \IPLtD{v}{\ftilde}.
 \eeqs
 One can, of course, define the corresponding solution operators in the case of non-zero impedance boundary conditions. We next define the approximability constants:
 \beqs
@@ -487,12 +469,12 @@ We are changing notation slightly from that normally prevelant in the literature
 
 We let $\xi \in \HozDD$ solve the adjoint Helmholtz problem
 \beqs
-a(v,\xi) = \IPLtD{v}{u-\uh} \tforall v \in \HozDD.
+\aT(v,\xi) = \IPLtD{v}{u-\uh} \tforall v \in \HozDD.
 \eeqs
 Then, taking $v = u-\uh,$ we have
 \begin{align}
-  \NLtD{u-\uh}^2 &= a(u-\uh,\xi)\label{eq:schatz0}\\
-  &=a(u-\uh,\xi - \vh) \text{ by Galerkin orthogonality for } u-\uh, \text{ for any } \vh \in \Vhp\nonumber\\
+  \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi)\label{eq:schatz0}\\
+  &=\aT(u-\uh,\xi - \vh) \text{ by Galerkin orthogonality for } u-\uh, \text{ for any } \vh \in \Vhp\nonumber\\
   &\lesssim \NW{u-\uh}\NW{\xi-\vh}\nonumber\\
   &\lesssim \NW{u-\uh} \wbaadj \NLtD{u-\uh}\nonumber.
 \end{align}
@@ -510,34 +492,42 @@ and hence by cancelling a factor $\NW{u-\uh}$ and taking the final term on to th
 \eeqs
 All results showing quasi-optimality for the Helmholtz equation (for different finite-element spaces and different domains) can then be seen as simply obtaining estimates on $\eta$ in these different scenarios; this literature is summarised in \cref{tab:qo,tab:acc,tab:dataacc} below.
 
-\paragraph{Elliptic-projection arguments} We now move on to compare and contrast the Schatz argument given above with so-called elliptic-projection arguments. The main difference in the result of these arguments, compared to the Schatz argument given above, is that elliptic projection arguments only prove a \emph{bound} on the finite-element error, rather than proving quasi-optimality. However, these bounds are obtained under mesh restrictions that are \emph{less restrictive} than those required for quasi-optimality.
+\paragraph{Modified Schatz arguments} We now move on to compare and contrast the Schatz argument given above with elliptic-projection-modified-Schatz arguments. The main difference in the result of these arguments, compared to the Schatz argument given above, is that modified Schatz arguments only prove a \emph{bound} on the finite-element error, rather than proving quasi-optimality. However, these bounds are obtained under mesh restrictions that are \emph{less restrictive} than those required for quasi-optimality.
 
 The elliptic projection of a function $ w \in \HozDD$ is the finite-element function $\Ph w$ that has the same action as $w$ on the finite-element space $\Vhp$ under some elliptic operator\footnote{The definition of the elliptic projection is dependent on the exact sesquilinear form used in the discretisation of the Helmholtz equation, and on the norm one is using to measure the error. For example, elliptic projection arguments originated in the study of discontinuous Galerkin methods for the Helmholtz equation (in \cite{FeWu:09,FeWu:11}); therefore the sesquilinear forms associated with the discretisation included penalty terms. These penalty terms were incorporated into the sesquilinear form $\aep$ and the norms used to measure the error also included these penalty terms. In the following exposition, we will work with standard finite-element discretisations of the Helmholtz equation and standard Sobolev norms, and so the elliptic projections we used will be based on this setting.}; i.e., $\Ph w$ is defined by
 \beqs
 \aep(\vh,\Ph w) = \aep(\vh,w) \tforall \vh \in \Vhp,
 \eeqs
 for some sesquilinear form $\aep$, such that $\Ph$ is well-defined. For Helmholtz problems\footnote{Recall we are considering discretisations of \cref{prob:vtedp}, and therefore the sesquilinear form we use is given by \cref{eq:aT}.}, choices for $\aep(\vo,\vt)$ used in the literature are either
-\beqs
-\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt}
-\eeqs
+\beq\label{eq:aepho}
+\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt},
+\eeq
+\beq\label{eq:aeplower}
+\aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt} + \IPLtD{\vo}{\vt},
+\eeq
 or
 \beq\label{eq:aepused}
 \aep(\vo,\vt) = \IPLtD{\grad \vo}{\grad \vt} - ik\IPLtGI{\vo}{\vt}.
 \eeq
 These elliptic projections correspond to finding finite-element approximations of the solution of the PDEs
-\begin{align*}
-  \Delta w &= F \tin D\\
-  w &= 0 \ton \GD\\
-  \dn w &= 0 \ton \GI
-\end{align*}
+\begin{align}
+  \Delta w &= F \tin D,\label{eq:sd1}\\
+  w &= 0 \ton \GD,\tand\label{eq:sd2}\\
+  \dn w &= 0 \ton \GI\label{eq:sd3};
+\end{align}
+\begin{align}
+  \Delta w + w&= F \tin D,\label{eq:sd4}\\
+  w &= 0 \ton \GD,\tand\label{eq:sd5}\\
+  \dn w &= 0 \ton \GI;\label{eq:sd6}
+\end{align}
 or
-\begin{align*}
-  \Delta w &= F \tin D\\
-  w &= 0 \ton \GD\\
-  \dn w -ikw &= 0 \ton \GI,
-\end{align*}
-where $F$ is an appropriately chosen function. In the following exposition, we will assume $\aep$ is given by \cref{eq:aepused}.
-Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the mutliplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous, and hence is quasi-optimal:
+\begin{align}
+  \Delta w &= F \tin D,\label{eq:sd7}\\
+  w &= 0 \ton \GD,\tand\label{eq:sd8}\\
+  \dn w -ikw &= 0 \ton \GI\label{eq:sd9}
+\end{align}
+respectively, where $F$ is an appropriately chosen function. In the following exposition, we will assume $\aep$ is given by \cref{eq:aepused}.
+Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the multiplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous\footnote{For comment on showing coercivity and continuity for the other definitions of $\aep$, see \cref{rem:epdef} below.}, and hence is quasi-optimal:
 \beq\label{eq:epho}
 \Nep{w-\Ph w} \lesssim \inf_{\vh \in \Vhp} \Nep{w-\vh}.
 \eeq
@@ -547,9 +537,9 @@ Also, by the Aubin--Nitsche duality argument (as $\aep$ is coercive),
 \eeq
 \ednote{Euan---you said you wanted to have a discussion about what properties exactly are required for the elliptic projection---hopefully the exposition below is a starting point. I've gone with quasi-optimality for the time being, as it means one can see the analogues with the Schatz argument more clearly. But lets chat about this!}
 
-Combining \cref{eq:epho,eq:eplt} in an elliptic projection arguments is a modification of the Schatz argument above: We start from \cref{eq:schatz0}, but instead of introducing an arbitrary $\vh \in \Vhp$ into the second argument, we instead introduce the elliptic projection $\Ph \xi$ by Galerkin orthogonality for $u-\uh$:
+Combining \cref{eq:epho,eq:eplt} is a modification of the Schatz argument above: We start from \cref{eq:schatz0}, but instead of introducing an arbitrary $\vh \in \Vhp$ into the second argument, we instead introduce the elliptic projection $\Ph \xi$ by Galerkin orthogonality for $u-\uh$:
 \begin{align}
-  \NLtD{u-\uh}^2 &= a(u-\uh,\xi-\Ph\xi)\nonumber\\
+  \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi-\Ph\xi)\nonumber\\
   &= \aep(u-\uh,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi}\nonumber\\
   &= \aep(u-\Ih u,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi} \text{ by Galerkin orthogonality for }\xi-\Ph\xi\nonumber\\
   &\lesssim \wbaadj \NLtD{f} \wba \NLtD{u-\uh} + k^2 \NLtD{u-\uh} \NLtD{\xi-\Ph\xi}\text{ by \cref{eq:epho}}\nonumber\\
@@ -561,7 +551,7 @@ k \NLtD{u-\uh} \lesssim k \wba\wbaadj \NLtD{f} \tif hk^2\wba \text{ is sufficien
 \eeq
 this is \cref{eq:epbound}. (We consider $k\NLtD{u-\uh}$ so as to compare with the quasi-optimality results above, as the $L^2$ term in $\NW{\cdot}$ is also multiplied by a factor $k$.)
 
-To obtain a bound on the error in the weighted $H^1$ norm, we put \cref{eq:ep1} into \cref{eq:gardingerror} to get
+To obtain a bound on the error in the weighted $H^1$ norm\ednote{Both, Li and Wu \cite[Text after equation 4.15]{LiWu:18} use an error-spliiting-type technique to bound the $H^1$ error in terms of the $L^2$ error, but this only works because they're doing a PML problem, and so don't have a term defined on $\GI$. Would you mention this?}, we put \cref{eq:ep1} into \cref{eq:gardingerror} to get
 \beqs
 \NW{u-\uh}^2 \lesssim \NW{u-\uh}\NW{u-\vh} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
 \eeqs
@@ -569,7 +559,7 @@ and taking $\vh = \Ih v,$ by \cref{lem:scottzhang} we have
 \beqs
 \NW{u-\uh}^2 \lesssim \NW{u-\uh}\wba\NLtD{f} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
 \eeqs
-We then obtain for any $\eps > 0$ by Cauchy's inequality
+We then obtain for any $\eps > 0$ by Cauchy's inequality \cref{eq:cauchy}
 \beq\label{eq:ep2}
 \NW{u-\uh}^2 \lesssim \eps \NW{u-\uh}^2 + \frac1\eps\wba^2 \NLtD{f}^2 + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2.
 \eeq
@@ -579,7 +569,6 @@ Taking $\eps$ sufficiently small, moving the first term on the right-hand side o
 \eeq
 
 The term $\wba\NLtD{f}$ on the right-hand side of \cref{eq:ep3} is, up to a constant, the best-approximation error for $u$ (i.e., the error when one interpolates/quasi-interpolates $u$---see \cref{sec:helmfedisc,lem:scottzhang} above), and the term $k\wba^2$ is the \defn{pollution} term arising from the numerical method. As for the quasi-optimality results above, we remark that different bounds on the finite-element error (for different finite-element space $\Vhp$ and different domains) can be thought of as proving bounds on $\eta$ in these different situations.
-\optodo{Put somewhere the stuff they write about dispersion error.}
 \ednote{Both---I don't yet have a clear explanation of \emph{why} this works. Currently, it seems just like a trick to me. I don't know if that's an issue!}
 \subsubsection{Error-splitting arguments}\label{sec:errorsplit}
 The second class of arguments used in the literature are error-splitting arguments, used to prove a bound on the finite-element error. In these arguments the finite-element error is split using the elliptic projection of the solution $u$. To begin, we make the trivial observation that
@@ -589,16 +578,16 @@ u-\uh = \mleft(u-\Ph u\mright) + \mleft(\Ph u - \uh\mright).
 Proving an error bound for $u-\uh$ therefore reduces to proving an error bound for the elliptic projection error $u- \Ph u$ and proving a bound on the difference $\Ph u - \uh.$ The former can either be accomplished by showing quasi-optimality of the elliptic projection (as above) or by proving such an error bound directly. The former approach is taken in \cite{DuWu:15,LiWu:18,ChGaNiTo:18}, and the latter approach is taken in \cite[Lemma 5.2]{FeWu:09} (althought the proof is only contained in \cite[Lemma 5.2]{FeWu:08}), \cite[Lemma 4.3]{FeWu:11}, and \cite[Lemma 4.2]{Wu:14}. In \cite{FeWu:09,FeWu:11,Wu:14} the bound on the elliptic projection error is proved by observing that the sesquilinear form $\IPLtD{\grad \vo}{\grad \vt}$ is coercive on $\HozDD$, and then also controlling the additional term arising from the impedance boundary condition.
 
 To bound the difference $\Ph u - \uh,$ one first shows that it solves a deterministic Helmholtz problem:
-For $u-\uh,$ for any $\vh \in \Vhp$ we have $a(u-\uh,\vh) = 0$ and $\aep(u-\Ph u,\vh) = 0$ by Galerkin orthogonality for $u-\uh$ and $u-\Ph u$ respectively\footnote{For the arguments in this \namecref{sec:errorsplit}, we define the elliptic projection in the first argument, see \cref{eq:ellprojfirst} below.}. Therefore
+For $u-\uh,$ for any $\vh \in \Vhp$ we have $\aT(u-\uh,\vh) = 0$ and $\aep(u-\Ph u,\vh) = 0$ by Galerkin orthogonality for $u-\uh$ and $u-\Ph u$ respectively\footnote{For the arguments in this \namecref{sec:errorsplit}, we define the elliptic projection in the first argument, see \cref{eq:ellprojfirst} below.}. Therefore
 \begin{align*}
-  a(\Ph u - \uh,\vh) &= a(\Ph u - u,\vh) + a(u-\uh,\vh)\\
-  &= a(\Ph u - u,\vh)\\
+  \aT(\Ph u - \uh,\vh) &= \aT(\Ph u - u,\vh) + \aT(u-\uh,\vh)\\
+  &= \aT(\Ph u - u,\vh)\\
   &= \aep(\Ph u - u,\vh) - k^2\IPLtD{\Ph u - u}{\vh}\\
   &= - k^2\IPLtD{\Ph u - u}{\vh},
 \end{align*}
 that is, $\Ph u - \uh$ solves the \emph{discrete} Helmholtz problem
 \beqs
-a(\Ph u - \uh,\vh) = \IPLtD{\ftilde}{\vh} \tforall \vh \in \Vhp,
+\aT(\Ph u - \uh,\vh) = \IPLtD{\ftilde}{\vh} \tforall \vh \in \Vhp,
 \eeqs
 where $\ftilde = k^2\mleft(u-\Ph u\mright).$ One then uses the fact that $\Ph u - \uh$ satisfies a discrete Helmholtz problem to prove a bound on the difference directly.
 
@@ -616,14 +605,14 @@ where $\Nfn{p-1,h}{\cdot}$ is a discrete norm analagous to the Sobolev norm of o
 \eeqs
 and the final term can be absorbed into the left-hand side if $h^{2p}k^{2p+1}$ is sufficiently small.
 
-%\optodo{For this section; for the first set you only need a bound on the elliptic projection error (with the right powers of $h$ and $k$). For the second one, We use quasi-optimality in $H^1$, the lower-order bounds in terms of the higher-order one, and a bound on the best approximation error. Maybe you could combine the first and third and get away with a bound on the elliptic projection error with the correct powers?}
+%\opntodo{For this section; for the first set you only need a bound on the elliptic projection error (with the right powers of $h$ and $k$). For the second one, We use quasi-optimality in $H^1$, the lower-order bounds in terms of the higher-order one, and a bound on the best approximation error. Maybe you could combine the first and third and get away with a bound on the elliptic projection error with the correct powers?}
 
 Observe that when using the elliptic projection in such a splitting argument, there are two differences compared to the use of an elliptic projection in modified duality arguments:
 \ben
 \item One does not need the elliptic projection to be quasi-optimal \cref{eq:epho}, rather, one only need to bound the error $\NW{u-\Ph u}$, where $u$ solves a Helmholtz problem, in terms of $\NLtD{f}$.
 \item The elliptic projection should be defined in the first argument, not the second, i.e.
   \beq\label{eq:ellprojfirst}
-a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
+\aT(\Ph u,\vh) = \aT(u,\vh) \tforall \vh \in \Vhp.
   \eeq
 \een
 
@@ -636,14 +625,14 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% Notes
 %\paragraph{Quasi-optimality}
 
-%\optodo{Would it be better to put bounds on $\eta$ here?}
+%\opntodo{Would it be better to put bounds on $\eta$ here?}
 
 
 %%5 Can put the below somewhere %%
 
 %% To keep the finite-element error bounded when solving \eqref{eq:introdet}, one must over-refine the numerical grid. That is, rather than using a fixed number of points per wavelength, one must increase the number of points per wavelength as $k$ increases. To achieve bounded finite-element error, one must refine the finite-element mesh size $h$ like $k^{-3/2}$. Whilst this result has been known numerically for some time, it was proven for \eqref{eq:introdet} only with constant coefficients (on various domains and for various finite-element spaces) in \cite{IhBa:95a,Wu:14,DuWu:15,ChNi:18}, and the first proof (to our knowledge) for \eqref{eq:introdet} with heterogeneous coefficients  is contained in \cref{chap:background}. Choosing $h \sim k^{-3/2}$ means \eqref{eq:intromat} is a linear system of size $k^{3d/2}$, larger than if one merely wants the interpolation error to be bounded. Hence, requiring a bounded finite-element error gives rise to very large linear systems.
 
-%% More briefly, if one wants the finite-element solution to be quasi-optimal (that is, up to a constant, the finite-element solution is the best approximation in the finite-element space), then one must over-refine even more, and take $h \sim k^{-2}$. This mesh condition will give rise to linear systems with $k^{2d}$ degres of freedom. See \cref{chap:background} for further details on the necessity of this mesh condition, and further discussion of all the mesh conditions discussed above.\optodo{EDIT THE ABOVE TO REMOVE `OVER-REFINE'}
+%% More briefly, if one wants the finite-element solution to be quasi-optimal (that is, up to a constant, the finite-element solution is the best approximation in the finite-element space), then one must over-refine even more, and take $h \sim k^{-2}$. This mesh condition will give rise to linear systems with $k^{2d}$ degres of freedom. See \cref{chap:background} for further details on the necessity of this mesh condition, and further discussion of all the mesh conditions discussed above.\opntodo{EDIT THE ABOVE TO REMOVE `OVER-REFINE'}
 
 
 %% \subsection{New error bounds for the Helmholtz equation in heterogeneous media}\label{sec:heterr}
@@ -690,7 +679,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% %% \HozDD \de \set{v \in \HoD \st \trGD u = 0}.
 %% %% \eeqs
 %% %and the sesquilinear form and antilinear functional
-%% %The variational formulation of the TEDP with $\gD = 0$ is%\optodo{Check exactly what's needed in hetero}
+%% %The variational formulation of the TEDP with $\gD = 0$ is%\opntodo{Check exactly what's needed in hetero}
 %% %
 %% %\beq\label{eq:tedpz}
 %% %\text{Find } u \in \HozDD\quad \tst\quad a(u,v) = F(v)\quad \tfa v \in \HozDD,
@@ -730,7 +719,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% %% The assumption that $\gD \in \HthtGD$ is made so that the lifting $\ud$ of $\gD$ is in $\HtD$ (see \cref{app:ud}). As $\ud \in \HtD,$ the antilinear functional $F$ defined above is well-defined. We could reduce the smoothness of $\gD$ to $\HoGD$ (meaning $\ud \in \HthtD$) but this reduction in smoothness would then require us to reformulate the functional $F$ as
 %% %% \beqs
 %% %% F(v) = \int_D \mleft(A \grad \ud\mright)\cdot \grad \vb - k^2 n \ud \vb + f \vb + \int_{\GI} \mleft(\gI - \dn \ud\mright)\vb.
-%% %% \eeqs\optodo{Put a proof of this somewhere, in 28/2/19 notes}
+%% %% \eeqs\opntodo{Put a proof of this somewhere, in 28/2/19 notes}
 %% %% With this reformulation, $F \in \HozDDprime,$ but does not have a representative function in $\LtD$. Our proofs below will use results from \cite{ChNiTo:18}, which are stated for the TEDP with zero Dirichlet boundary condition and $L^2$ right-hand side. To avoid the complications stated above, and to allow us to use the results in \cite{ChNiTo:18}, we therefore impose the additional smoothness on $\gD.$ Also, in the case with $F$ only in $\HozDDprime$, proving a priori bounds on the solution of the TEDP is more complicated (c.f., e.g., \cite[Theorem 2.5]{GrPeSp:19} and \cite[Corollary 2.16]{GrPeSp:19} which consider the analogous EDP). For the same reason, we assume $A \in \WoiDRRdtd;$ if we only had $A \in \LiDRRdtd,$ we could reformulate $F$ as outlined above, but we would have the same complications as just described.
 
 %% We  restrict our meshes to the following class:
@@ -804,7 +793,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% %% \bde[Finite-element approximation] 
 %% %%  The finite-element approximation to \eqref{eq:tedp} is the following:
 %% %% \beq\label{eq:tedpfe}
-%% %% \text{Find } \uh \in \Vh\quad \tst\quad a(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
+%% %% \text{Find } \uh \in \Vh\quad \tst\quad \aT(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
 %% %% \eeq
 %% %% \ede
 
@@ -906,7 +895,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% % \ele
 
 %% % \bpf[Proof of \cref{lem:ltbound}]
-%% % \optodo{Look at proof in IbyPs article}
+%% % \opntodo{Look at proof in IbyPs article}
 %% % If $v \in \HozDD,$ then by the Poincar\'e inequality, we have that $\NLtD{v} \lesssim \NLtD{\grad v}.$ Alternatively, if $\GD = \emptyset$ and $\trGI v$ is constant, then $v - \trGI v \in \HozDD,$ and thus (abusing notation, and letting $\trGI v$ denote the value of the constant, and also a constant function defined on $D$ taking that value everywhere)
 %% % \begin{align*}
 %% %   \NLtD{v} &\leq \NLtD{\trGI v} + \NLtD{v-\trGI v}\\
@@ -956,7 +945,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% % \beqs
 %% % \NW{\psi} \lesssim \frac{\max\set{\Amin^{-1},1}}{k}\NLtD{f}.
 %% % \eeqs
-%% % Use Grisvard Magic to get $H^2.$\optodo{this}
+%% % Use Grisvard Magic to get $H^2.$\opntodo{this}
 %% % \epf
 
 %% \ble[Properties of elliptic projection]\label{lem:ellprojbounds}
@@ -1040,7 +1029,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% \ble[G\r{a}rding inequality]
 %% If $v \in \HozDDR,$ then
 %% \beq\label{eq:garding}
-%% \Re\mleft(a(v,v)\mright) \geq \Amin \NW{v}^2 - k^2\mleft(\Amin + \NLiDRRR{n}\mright)\NLtDR{v}^2,
+%% \Re\mleft(\aT(v,v)\mright) \geq \Amin \NW{v}^2 - k^2\mleft(\Amin + \NLiDRRR{n}\mright)\NLtDR{v}^2,
 %% \eeq
 %% where $\Re$ denotes the real part.
 %% \ele
@@ -1066,7 +1055,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% \eeqs
 %% By \cref{ass:bound} the solution $u$ of the TEDP exists and is unique. Assume the finite-element solution $\uh$ exists. Let $\xi \in \HoD$ satisfy the adjoint TEDP \eqref{eq:tedpadj} with $f=u-\uh,$ $\gD=0,$ and $\gI=0.$ Taking complex conjugates, it follows that
 %% \beq\label{eq:errordual}
-%% a(v,\xi) = \IPLtDR{v}{u-\uh} \tfa v \in \HoDR.
+%% \aT(v,\xi) = \IPLtDR{v}{u-\uh} \tfa v \in \HoDR.
 %% \eeq
 %% By \cref{ass:bound} $\xi$ exists, is unique and is in $\HtDR.$. Setting $v = u-\uh$ in \eqref{eq:errordual} we obtain
 %% \begin{align*}
@@ -1133,29 +1122,29 @@ We now prove our new error bounds for higher-order finite-element approximations
 
 The proofs of our results have many parts, and appear technical, largely due to the burden of explicitly keeping track of all of the constants involved. However, in essence, the proof consists of two ideas:
 \ben
-\item Decompose the error $u-\uh = (u - \Ph u) + (\Ph u - \uh)$, where $\Ph u$ is an `elliptic projection' of $u$, and
+\item Decompose the error $u-\uh = (u - \Ph u) + (\Ph u - \uh)$, where $\Ph u$ is an elliptic projection of $u$, and
 \item Bound the error $u - \Ph u$ using the fact that $\Ph u$ is a Galerkin projection.
 \item Bound the error $\Ph u - \uh$ in higher-order `discrete' norms, using the fact that $\Ph u - \uh$ solves a discrete Helmholtz problem.
 \een
 
-The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \cref{sec:errbounds} we state our new finite-element-error bounds. In \cref{sec:decomp} we prove a decomposition of the solution that allows us to prove a higher-order best approximation bound. In \cref{sec:anbackground} we collect together some routine analysis results needed for our proofs. In \cref{sec:errgalerkin} we prove error bounds for a number of different Galerkin projections (including the `elliptic projection' mentioned above) that we use in subsequent proofs. In \cref{sec:discsob} we develop a notion of discrete derivatives and discrete norms, and prove properties of these norms. These norms will allow us to define higher-order discrete norms of functions in our finite-element space. Finally in \cref{sec:fembound} we prove our main finite-element error bounds.
+The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \cref{sec:errbounds} we state our new finite-element-error bounds. In \cref{sec:decomp} we prove a decomposition of the solution that allows us to prove a higher-order best approximation bound. In \cref{sec:anbackground} we collect together some routine analysis results needed for our proofs. In \cref{sec:errgalerkin} we prove error bounds for a number of different Galerkin projections (including the elliptic projection) that we use in subsequent proofs. In \cref{sec:discsob} we develop a notion of discrete derivatives and discrete norms, and prove properties of these norms. These norms will allow us to define higher-order discrete norms of functions in our finite-element space. Finally in \cref{sec:fembound} we prove our main finite-element error bounds.
 
 
 
 \subsection{Main result: new finite-element-error bounds}\label{sec:errbounds}
 As we are using higher-order finite elements (which we assume are of degree $p$), we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiD{n}$ in order to simplify our calculations.
-\optodo{Correct notation in variational formulation of TEDP}
-\bas[Assumptions for higher-$p$ FEM bounds]\label{ass:highp}
+\bas[Assumptions for higher-$p$ finite-element method bounds]\label{ass:highp}
 Assume
 \bit
-\item $\GD$ and $\GI$ are $\Cpo$
+\item $\GD \neq \emptyset,$
+\item $\GD$ and $\GI$ are $\Cpo$,
 \item $\Aij \in \CpmooDclos$ for all $i,j$, and
 \item $n \in \LiD \cap \HpmoD \cap \CfloordtD.$
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
   \eit
   \eas
-  The assumptions on $\GD,$ $\GI$, and $A$ ensure that we can apply a shift theorem for a related stationary diffusion equation up to order $p-1$. The assumption on $n$ ensures that for all $m \in [0,p-1]$ and for all $v \in \HmD,$ $nv \in \HmD$ (see \cref{thm:banachalg} below). However, observe that we make no additional assumptions on the data $f$ and $\gI,$ and so the solution $u$ may not be smoother than $H^2.$
+  The assumption $\GD \neq \emptyset$ allows us to show the elliptic projection operator defined in \cref{eq:epdef} below is well-defined. The regularity assumptions on $\GD,$ $\GI$, and $A$ ensure that we can apply a shift theorem for a related stationary diffusion equation up to order $p-1$. The assumption on $n$ ensures that for all $m \in [0,p-1]$ and for all $v \in \HmD,$ $nv \in \HmD$ (see \cref{thm:banachalg} below). However, observe that we make no additional assumptions on the data $f$ and $\gI,$ and so the solution $u$ may not be smoother than $H^2.$
 
 We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}. Recall that the adjoint of \cref{prob:vtedp} is the same as \cref{prob:vtedp}, except \cref{eq:vtedp} is replaced by
 \beq\label{eq:adjoint}
@@ -1217,7 +1206,6 @@ where the polynomial $\Pfn(x)$ is defined in \cref{eq:p} below, and the $n$-depe
 %\eco
 
 The proof of \cref{thm:fembound} is on \cpageref{page:thmfembound} below.
-\optodo{Change hyperref settings}
 
 Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the constants involved, these dependencies are complex and, to a large extent, unnecessary to understand the flow of the arguments. Therefore, for ease of reference, the definition of all the constants in this \lcnamecref{sec:fem} (which are many-layered and interdependent) are given in \cref{app:constants}; i.e., any constant introduced or defined in this \lcnamecref{sec:fem} will be listed in \cref{app:constants}.
 
@@ -1234,9 +1222,8 @@ In \cite{DuWu:15} Du and Wu proved that the error for high-order finite-element 
 \ere
 
 \bre[Why are the results not fully explicit in $A$?]\label{rem:explicita}
-The condition \cref{eq:hfemcond} and the bounds \cref{eq:femltbound,eq:femhobound} are not fully explicit in $A$, i.e. the constants $\Ccond, \CcorLt,$ and $\CcorHo$ may depend on $A$. This dependence is because the constants in the shift theorem for the stationary diffusion equation (\cref{thm:shift} below) are not explicit in their $A$-dependence.\optodo{Check there's no other places this comes up.} In principle one can determine this dependence (it is determined for a right-hand side in $\LtD$ and a solution in $\HtD$ in \cite[Appendix A]{ChScTe:13}).
+The condition \cref{eq:hfemcond} and the bounds \cref{eq:femltbound,eq:femhobound} are not fully explicit in $A$, i.e. the constants $\Ccond, \CcorLt,$ and $\CcorHo$ may depend on $A$. This dependence is because the constants in the shift theorem for the stationary diffusion equation (\cref{thm:shift} below) are not explicit in their $A$-dependence. In principle one can determine this dependence (it is determined for a right-hand side in $\LtD$ and a solution in $\HtD$ in \cite[Appendix A]{ChScTe:13}).
 \ere
-
 \bre[Why the appearance of $\nvar$?]\label{rem:nvar}
 The quantity $\nvar = \NLiD{n}/\nmin$ appears in multiple places in the definition of the $n$-dependent constants $\Condn(n), \CLtn(n),$ and $\CHon(n).$ This appearance is mainly due to the fact that in multiple places in the proof of \cref{thm:fembound}, we must convert from working in an $n$-weighted norm to a standard norm, and then later convert back to an $n$-weighted norm again.
 
@@ -1266,9 +1253,9 @@ In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it ma
   \ere
 
   \bre[Extension to different boundary conditions on $\GI$]
-  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:ltthetahbound} below one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, where we bound $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and by the weighted $H^1$-norm of $\rho.$
+  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:ltthetahbound} below one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, where we bound $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and by the $k$-weighted $H^1$-norm of $\rho.$
 
-  However, a crucial part of the proof of \cref{lem:boundarybound} is the fact that one has the bound $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtNapprox \thetah}{\thetah}$, where $\DtNapprox$ is the impedance approximation to the DtN map $\DtN,$ i.e., $\DtNapprox = ik.$ To replicate the proof of \cref{lem:boundarybound} for an exact DtN boundary condition, one would need to show $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtN \thetah}{\theta}$ for the \emph{exact} DtN map $\DtN.$ As mentioned in \cite[Remark 5.4(e)]{DuWu:15}, whether such a bound holds in general is an open question.\optodo{Melenk and Sauter '10 equation 3.4b, unlikely, but not that interesting numerically.}
+  However, a crucial part of the proof of \cref{lem:boundarybound} is the fact that one has the bound $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtNapprox \thetah}{\thetah}$, where $\DtNapprox$ is the impedance approximation to the DtN map $\DtN,$ i.e., $\DtNapprox = ik.$ To replicate the proof of \cref{lem:boundarybound} for an exact DtN boundary condition, one would need to show $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtN \thetah}{\theta}$ for the \emph{exact} DtN map $\DtN.$ As mentioned in \cite[Remark 5.4(e)]{DuWu:15}, whether such a bound holds in general is an open question; such as bound has only been shown in \cite[Equation (3.4b)]{MeSa:10} for the case $\GI$ is a circle (in 2-d) or a sphere (in 3-d).
   \ere
 
 \subsection{Decomposition of solution and best approximation bound}\label{sec:decomp}
@@ -1295,7 +1282,7 @@ and $\utilde$ satisfies the bound
 \bpf[Proof of \cref{thm:shift}]
 The uniqueness and existence of $\utilde$ (in $\HozDD$) follows from the Lax--Milgram theorem, as the variational formulation of \cref{eq:shifteq,eq:shiftdbc,eq:shiftnbc} is bounded and coercive. The proof for the higher regularity bounds uses standard elliptic regularity estimates in the interior and near the boundaries $\GD$ and $\GI$, and the work of the proof is combining these estimates. As a reference for these estimates we use \cite[pp. 137-138]{Mc:00}; \cref{ass:highp} means we can apply these estimates, as we have the necessary higher regularity of the coefficients and the boundaries $\GD$ and $\GI$.
 
-To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$ (see \cref{fig:shift-int,fig:shift-scat,fig:shift-trunc} for a schematic)\optodo{Put this in a picture - sketch is in Research 17, notes for 17th May} with the following properties:
+To deal with the interior regularity and regularity near the boundary separately, we define the following subsets of $D$: $\Dint,\Dinttilde,\Dscat,$ and $\Dtrunc$ (see \cref{fig:shift-int,fig:shift-scat,fig:shift-trunc} for a schematic) with the following properties:
 \bit
 \item $\Dint \compcont \Dinttilde \compcont D$,
 \item $\GD \subset \Dscatclos$
@@ -1331,7 +1318,7 @@ Applying regularity up to the boundary for Dirichlet data \cite[Theorem 4.18 (i)
 \beq\label{eq:shiftscat}
 \NHlptDscat{\utilde} \leq \CscatAl \mleft(\NHoD{\utilde} + \NHlD{\ftilde}\mright)
 \eeq
-and similarly\optodo{Spell checker} for Neumann data \cite[Theorem 4.18 (ii)]{Mc:00} in $\Dtrunc,$ we obtain
+and similarly for Neumann data \cite[Theorem 4.18 (ii)]{Mc:00} in $\Dtrunc,$ we obtain
 \beq\label{eq:shifttrunc}
 \NHlptDtrunc{\utilde} \leq \CtruncAl \mleft(\NHoD{\utilde} + \NHlphGI{\dn \utilde} + \NHlD{\ftilde}\mright).
 \eeq
@@ -1440,7 +1427,7 @@ x^{\floor{j/2}}& j \geq 2
 %% \eeq
 \enth
 
-\bre[How oscillatory are the functions in \cref{thm:expansion}?]
+\bre[How oscillatory are the functions in \cref{thm:expansion}?]\label{rem:osc}
 Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is \emph{two} orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is \emph{one} order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
 \ere
 
@@ -1562,10 +1549,23 @@ Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{e
 \subsection{Routine analysis results}\label{sec:anbackground}
 In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout the following proofs.
 
-The following inequality is straightforward to prove: for $N \in \NN$ and $a_1,\ldots,a_N > 0$
+The following inequalities are straightforward to prove
+\bit
+\item For $N \in \NN$ and $a_1,\ldots,a_N > 0$
 \beq\label{eq:simple}
 \sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
 \eeq
+\item (Young's inequality) If $p,q \in (1,\infty)$ and $1/p + 1/q = 1$ then for all $a,b > 0$
+  \beq
+ab \leq \frac{a^p}p + \frac{b^q}q.
+\eeq\label{eq:young}
+\item (Cauchy's inequality) For all $\eps,a,b > 0$
+  \beq\label{eq:cauchy}
+  ab \leq \frac{a^2}{2\eps} + \frac{\eps b^2}2.
+\eeq
+  \eit
+  
+
 
 
 
@@ -1576,16 +1576,20 @@ There exists $\CMT > 0$ such that for all $v \in \HoD$
 \eeqs
 \enth
 
-\ble[Poincar\'e--Friedrichs Inequality]\label{lem:poincare}
-There exists $\CP > 0$ such that for all $v \in \HozDD$
-\beqs
-\NLtD{v} \leq \CP \SNHoD{v}.
-\eeqs
-\ele
+\ble[Poincar\'{e}--Friedrichs Inequality]\label{lem:poincare}
+Let $\Gamma \subseteq D$ have nonvanishing $d-1$-dimensional measure. There exist constants $\CP,\Ctilde > 0$ depending only on $D$ and $\Gamma$ such that for all $v \in \HoD$
 
-For a proof of \cref{lem:poincare} in our particular setting (where $v$ only vanishes on a subset of the boundary, rather than on the whole boundary), see \cite[Lemma A.14]{ToWi:05}.
-\optodo{Maybe adjust this to include boundary term.}
-\optodo{Think carefully about what this means for IIP---I think it means you need to include the impedance part in the elliptic projection, because otherwise the Poisson problem doesn't have a unique solution, so you're not going to be able to use Lax--Milgram. But then we don't have the higher-order shift Theorems. Write a remark to this effect, and say that we're going to assume the scatterer is non-empty---put this in an assumption. Scrap all of the above - Du and Wu add a lower--order term into their elliptic projection, which means it's always coercive (because the energy norm is the $H^1$ norm. Write a remark explaining this instead, and say that we're not going to do it, but you could. I think that's best.}
+\beqs
+\NLtD{v}^2 \leq \CP \SNHoD{v}^2 + \Ctilde \NLtGI{v}^2.
+\eeqs
+
+In particular, taking $\Gamma = \GD,$ for all $v \in \HozDD$
+\beq\label{eq:poincare}
+\NLtD{v} \leq \CP \SNHoD{v}.
+\eeq
+\ele
+For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
+
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 \ben
 \item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HmD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
@@ -1632,7 +1636,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 %% \IPLtD{A\grad\vh}{\grad\Phn w} = \IPLtDn{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
 %% \eeqs
   Observe that $\Ph w$ is the finite-element approximation of the solution of the stationary diffusion problem with `diffusion coefficient' $A$ and right-hand side in $\HozDD'$ given by $\aep(w,\cdot).$
-
+  
 %% We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 %% \beqs
 %% \IPLtD{\Qh w}{\vh} = \IPLtD{w}{\vh} \tforall \vh \in \Vhp.
@@ -1651,7 +1655,7 @@ We also define the corresponding $n$-weighted $\LtD$ norm $\NLtDn{v} = \sqrt{\in
 \beqs
 \NHmDn{v}^2 \de \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v},
 \eeqs
-and the negative weighted Sobolev norms
+and the negative $n$-weighted Sobolev norms
 \beq\label{eq:negweightnorm}
 \NHnfn{-m}{D}{v} \de \sup_{w \in \HmD} \frac{\IPLtDn{v}{w}}{\NHmDn{w}}.
 \eeq
@@ -1669,7 +1673,7 @@ Observe that, for $v \in \HmD,$
 %% \frac{\NHmsD{v}}{\NLiD{n}} \leq \NHmsDn{v} \leq \frac{NHmsD{v}}{\nmin}.
 %% \eeq
 
-The proofs of the error bounds for the Galerkin projctions will use the following notation for the solution operator of a particular stationary diffusion problem. We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the following stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
+The proofs of the error bounds for the Galerkin projections will use the following notation for the solution operator of a particular stationary diffusion problem. We let $\DeltaAI:\LtD\rightarrow\HtD$ denote the solution operator for the following stationary diffusion equation: given $\ftilde \in \LtD$ find $\utilde \in \HtD$ such that
 \beq\label{eq:sdeq}
 \grad \cdot \mleft(A\grad \utilde\mright) = -n\ftilde \text{ in } D
 \eeq
@@ -1696,14 +1700,22 @@ i.e.,
 
 We now state and prove error bounds for the two projections given above. As stated above, the proofs below are all modifications of the standard proof (in, e.g., \cite[Theorem 5.8.3]{BrSc:08}). We can, in essence, use the standard proof because all the projections defined above are Galerkin projections given by coercive and bounded sesquilinear forms on $\HoD$ (for $\Ph$) or $\LtD$ (for $\Qhn$).
 
+\ble[Existence and uniqueness of Galerkin projections]\label{lem:eugp}
+For any $w \in \HozDD$ the elliptic projection $\Ph w$ and the $n$-weighted $L^2$ projection $\Qhn w$ exist and are unique.
+\ele
+
+\bpf[Proof of \cref{lem:eugp}]
+The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgram Theorem (see, e.g., \cite[Theorem 2.7.7]{BrSc:08}) applied in $\Vhp$ (as in, e.g., \cite[Corollary 2.7.13]{BrSc:08}), because $\Ph w$ and $\Qhn w$ are defined by sesquilinear forms that are continuous and coercive on $\HozDD$ (equipped with the $k$-weighted $H^1$ norm $\NW{\cdot}$) and $\LtD$ respectively.
+
+Continuity and coercivity are immediate in the case of the $n$-weighted $L^2$ projection $\Qhn.$ For the elliptic projection $\Ph,$ continuity is immediate, and coercivity follows from the Poincar\'e inequality \cref{eq:poincare}, because we work in $\HozDD,$ and so all the functions we consider vanish on $\GD.$
+\epf
+
 \ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
 Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cmmo >0$ such that for all $w \in \HozDD$
 \beq\label{eq:ellprojerr}
 \NHmmD{w-\Ph w} \leq \Cmmo h^{s+1} \BAHoD{w}{\wh}.
 \eeq
 \ele
-\optodo{Correct language to talk about $n$-weighted}
-
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
 Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
@@ -1743,7 +1755,7 @@ We define
 \En\de\max_{m = -1,\ldots,p-1}\set{\errn{m}}.
 \eeq
 \bpf[Proof of \cref{lem:ellprojerrw}]
-For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{ass:highp,thm:banachalg} $n\phi\in \HmD$. Let $ \vtilde = \sdsol(\phi)$ and observe $\vtilde \in \Hfn{}{m+2}{D}$. Observe that for all $v \in \HozDD,$ by definition of $\vtilde$ and the $n$-weighted inner product $\IPLtDn{\cdot}{\cdot}$, we have
+For the case $m \geq 1$, let $\phi \in \HmD,$ and observe that by \cref{ass:highp,thm:banachalg} $n\phi\in \HmD$. Let $ \vtilde = \sdsol(\phi)$ and observe $\vtilde \in \Hfn{}{m+2}{D}$ by \cref{thm:shift}. Observe that for all $v \in \HozDD,$ by definition of $\vtilde$ and the $n$-weighted inner product $\IPLtDn{\cdot}{\cdot}$, we have
 \beq\label{eq:vtilde}
 \IPLtD{A \grad v}{\grad \vtilde} = \IPLtD{nv}{\phi} = \IPLtDn{v}{\phi}
 \eeq
@@ -1783,6 +1795,25 @@ For $s \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 
 For the case $m=0$, using \cref{lem:ellprojerr} and then converting to the $n$-weighted $L^2$ norm yields \cref{eq:errn}. For $m=-1$, \cref{eq:wepcea} immediately gives \cref{eq:errn}. 
 \epf
+
+\bre[Subtleties regarding $\Ph$ for the IIP]\label{rem:epdef}
+If we consider the IIP (i.e., we remove the assumption $\GD \neq \emptyset$ in \cref{ass:highp}), then we can no longer prove \nameCrefs{lem:eugp} \ref{lem:eugp}, \ref{lem:ellprojerr}, or \ref{lem:ellprojerrw}, because the sesquilinear form $\aep$ is no longer coercive on $\HozDD$. (Note $\HozDD = \HoD$ in this case.)
+
+This lack of coercivity stems from the fact that we cannot apply the Poincar\'e inequality \cref{eq:poincare} to functions in $\HoD,$ because such functions are no longer zero on a portion of $\d D$ with non-zero $d-1$-dimensional measure. (Recall \cref{lem:poincare} requires such a property.) One can alternatively view this problem as arising from the fact that the stationary diffusion equation with Neumann boundary conditions does not have a unique solution (as one can simply add a constant to any solution). In the case $\GD=\emptyset,$ the PDE corresponding to the elliptic projection is precisely such a stationary diffusion equation: \cref{eq:sd1,eq:sd3} (\cref{eq:sd2} does not apply, as $\GD = \emptyset$).
+
+The remedy for this lack of coercivity/lack of uniqueness is to change the sesquilinear form $\aep$ from \cref{eq:aepho} to either \cref{eq:aeplower} or \cref{eq:aepused}. This change corresponds to changing the PDE underlying the elliptic projection from \cref{eq:sd1,eq:sd3} to either \cref{eq:sd4,eq:sd6} or \cref{eq:sd7,eq:sd9} respectively. Either of these alternatives for $\aep$ is coercive in the $k$-weighted $H^1$ norm, and so the proof of \cref{lem:eugp} goes through as before.
+
+However, if one defines $\aep$ using \cref{eq:aepused}, then one encounters the additional problem that one does not have a shift theorem (analagous to \cref{thm:shift}) for the underlying PDE \cref{eq:sd7,eq:sd9}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. Whilst one could rewrite \cref{eq:sd7,eq:sd9} as
+\beqs
+\Delta w = F  \tin D \tand
+\eeqs
+\beqs
+\dn w = ikw \ton \GI
+\eeqs
+and then use \cref{thm:shift} to obtain results analagous to \cref{thm:shift}, the constants in the resulting bounds \cref{eq:shift} would be \emph{$k$-dependent}. This $k$-dependence would mean the resulting proof of $\hka{(2p+1)/(wp)}$-data-accuracy would not work. Whilst a shift theorem for \cref{eq:sd7,eq:sd9} that \emph{is} $k$-independent has been proved by Chaumont-Frelet, Nicaise, and Tomezyk \cite[Theorems 3.1, 4.3, and 5.1]{ChNiTo:18}, this is a lowest-order shift theorem (i.e., the analogue of \cref{thm:shift} for $l=0$) and no mention is made in \cite{ChNiTo:18} of an extension to higher order.
+
+Therefore, if one wishes to prove results for higher-order finite elements, the only reasonable course of action when considering the IIP is to use \cref{eq:aeplower} to define $\aep$. In this case one can then repeat the proof of \cref{thm:shift} almost verbatim (as the results from \cite{Mc:00} used in the proof of \cref{thm:shift} also hold for the PDE \cref{eq:sd4,eq:sd6}), and the proofs of \cref{lem:ellprojerr,lem:ellprojerrw} proceed as before. However, observe that this course of action works fr our proof because our proof technique (error splitting) allows us to bound terms arising on the truncation boundary $\GI$ (see \cref{lem:boundarybound} below). However, if one uses a modified Schatz technique, it is not clear to us how one would bound terms arising on the truncation boundary. Therefore, these terms on the tunrcation boundary must be incorporated into the elliptic projection, and so one must use \cref{eq:aepused} to define the elliptic projection. One must then accept that, with current technology, one will be limited to proving bounds for first-order methods, due to the lack of a shift theorem for the underlying PDE, as outlined above. (We note in passing that it was precisely this usage of an elliptic projection given by \cref{eq:aepused} by Chaumont-Frelet and Nicaise in \cite{ChNi:18} that led to the work \cref{ChNiTo:18}.)
+\ere
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
 
@@ -1854,9 +1885,7 @@ For the case $m=0$, using \cref{lem:ellprojerr} and then converting to the $n$-w
 %% \eeqs
 %% \ele
 
-Similarly, the weighted $\LtD$ projection satisfies the following error bound.
-The $n$-weighted $\LtD$ projection satisfies the following error bound:
-\ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
+\ble[Error bounds for $n$-weighted $\LtD$ projection]\label{lem:wltdprojerr}
 Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
 \NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^{m} \BALtDn{w}{\wh}.
@@ -1876,11 +1905,11 @@ Taking the supremum over $\vtilde,$ we have
 \beqs
 \NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^m \NLtDn{w-\Qhn w},
 \eeqs
-and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive (with continuity and coercivity constants equal to 1) in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
+and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive (with continuity and coercivity constants equal to 1) in the $n$-weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
 \epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
-When we analyse the high-order FEM, we need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first define a notion of higher-order discrete derivatives, and then develop some theory of so-called discrete Sobolev spaces. We follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation. The main result of this \lcnamecref{sec:discsob} is \cref{lem:negdiscsum} below giving the relationship between negative-order discrete Sobolev norms and negative-order continuous Sobolev norms.
+When we analyse the high-order finite-element method, we need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first define a notion of higher-order discrete derivatives, and then develop some theory of so-called discrete Sobolev spaces. We follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation. The main result of this \lcnamecref{sec:discsob} is \cref{lem:negdiscsum} below giving the relationship between negative-order discrete Sobolev norms and negative-order continuous Sobolev norms.
 
 \bde[Discrete derivative operator]
 Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ by, for $\wh \in \Vhp$,
@@ -1895,10 +1924,10 @@ For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
 
 \bpf[Proof of \cref{lem:ddwd}]
 Choose an orthonormal (in the $n$-weighted inner product) basis  $(\phij)_j$ for $\Vhp.$ Write $\Delta\wh = \sum_j \wj \phij$, and take in turn $\vh = \phij$ for each $j;$ then \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtDn{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
-%% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\optodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
+%% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\opntodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
 \epf
 
-%% By\optodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\optodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\optodo{Maybe define this}
+%% By\opntodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\opntodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\opntodo{Maybe define this}
 
 Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint in the $n$-weighted inner product, as
 \beqs
@@ -1925,7 +1954,7 @@ Observe that for $\wh \in \Vhp,$ $\DeltahI\mleft(\Deltah\wh\mright) = \wh,$ i.e.
 %% Observe that for \emph{every} $j \leq 0$, $\DeltaA^j v$ is defined for \emph{any} $v \in \LtD$ (i.e., $\Domain{\DeltaA^{j}} = \LtD$ for $j \leq 0$). For $\lambdam \geq 1,$ $\lambdam^j < \lambdam$, and only finitely many $\lambdam$ are in the interval $(0,1)$; therefore the series \cref{eq:deltaaseries} can be decomposed as a finite sum (for $\lambdam < 1$) and a convergent series (for $\lambdam \geq 1$).
 %% \ere
 %% \bre[Consistent Notation]
-%% Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\optodo{Maybe just double-check this is watertight.}\optodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
+%% Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\opntodo{Maybe just double-check this is watertight.}\opntodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
 %% \ere
 We can use the higher-order derivative operators to define discrete higher-order norms:
 
@@ -1943,12 +1972,12 @@ For $\vh \in \Vhp$ and $m \in \RR$, define
 %% \eeqs
 %% \ede
 
-%% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \lcnamecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
+%% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \lcnamecref{lem:normrelationshiptech}\opntodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
 %% \ble[Relationship between $\DeltaA^m$ and standard higher-order derivatives]\label{lem:normrelationshiptech}
 %% For $m \in \NN,$ $\Domain{\DeltaA^{m/2}} \subseteq \HmD,$ and there exists a constant $\Cma > 0$ such that for all $v \in \Domain{\DeltaA^{m}}$
 %% \beqs
 %% \NHmD{v} \leq \Cma \NLtD{\DeltaA^{m/2}v}.
-%% \eeqs\optodo{The latter bit will probably use something shift-theorem-like, but you need to be careful because powers of the differential operator aren't defined standardly.}
+%% \eeqs\opntodo{The latter bit will probably use something shift-theorem-like, but you need to be careful because powers of the differential operator aren't defined standardly.}
 %% \ele
 
 
@@ -2065,9 +2094,9 @@ We have, using \cref{eq:feiptrans},
 and the result follows.
 \epf
 
-To prove \cref{lem:negdiscsum} below we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
+To prove \cref{lem:negdiscsum} below we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative $n$-weighted norms.
 
-\ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
+\ble[Shift theorem in negative $n$-weighted norms]\label{lem:shiftnegativew}
 Let $\ftilde \in \LtD$ a d $m \in [0,p-1]$ be an integer. Under \cref{ass:highp} we have
 \beq\label{eq:shiftnegativew}
 \NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\ftilde},
@@ -2181,7 +2210,6 @@ If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for a
 \beq\label{eq:evenrecursivesum}
 \Nfn{-2l,h,n}{\vh} \leq \mleft(\En\nvar\mright)^t\sum_{m=0}^t \Efn{m,t} h^{2m} \NHDfn{-2(t-m)}{\vh} ,
 \eeq
-\optodo{Fix creflabelformat for equations in subscripts}
 where we define the constants $\Efn{m,t}$ inductively by
 \begin{align}
 \label{eq:Emt1}\Efn{0,0} &=1,\\
@@ -2256,13 +2284,13 @@ and rearranging \cref{eq:verylongeq}, and using the facts that $\shiftn{m} \leq 
 &\mleft.\hphantom{\frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\NLiD{n}\mleft(\En \nvar\mright)^{l}}
 \quad\quad+ \sum_{m=0}^{l} \Etildefn{m,l} h^{2m+1}  \NHnfn{-2(l-m)}{D}{\vh}\mright)\label{eq:oddfinal}
 \end{align}
-and combining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
+and combining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, the result follows.%\opntodo{Maybe put recursion in, but it's all in notes.}
 \epf
 
 \bre[Why is the factor $n$ only on the right-hand side of \cref{eq:sdeq}?]\label{rem:why}
 The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} but not on the left-hand side is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
 
-All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because to prove bounds on the weighted $L^2$ projection $\Qhn$ we work in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), rather than in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the \emph{weighted} inner product. To prove \cref{lem:intoip} in the $n$-weighted inner product, we therefore use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, where the $\Deltah$ operator appears. Because we use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, we must then use the $n$-weighted inner product on the right-hand side of \cref{eq:deltaagreen}. Using this inner product in \cref{eq:deltaagreen} ensures the beginning of the proof of \cref{lem:negdiscsum} works---see the proof for more details.
+All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in $n$-weighted discrete norms, because to prove bounds on the $n$-weighted $L^2$ projection $\Qhn$ we work in $n$-weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), rather than in non-weighted norms. Because we only work in $n$-weighted norms, we need \cref{lem:intoip} below to hold in the \emph{$n$-weighted} inner product. To prove \cref{lem:intoip} in the $n$-weighted inner product, we therefore use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, where the $\Deltah$ operator appears. Because we use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, we must then use the $n$-weighted inner product on the right-hand side of \cref{eq:deltaagreen}. Using this inner product in \cref{eq:deltaagreen} ensures the beginning of the proof of \cref{lem:negdiscsum} works---see the proof for more details.
 
 We do not, however, put a factor $n$ on the left-hand side of \cref{eq:sdeq,eq:deltaagreen}. If we did, when we apply \cref{thm:shift} to $\Sn \ftilde$ (as we do in \cref{lem:shiftnegativew}), the resulting bounds would not be fully explicit in $n$ (because in \cref{thm:shift} we do not know explicitly how the constants depend on the `diffusion coefficient'). Not putting a factor $n$ on the left-hand side of \cref{eq:sdeq} is the reason why there is a \emph{non-weighted} inner product on the right-hand side of \cref{eq:discderdef} (so that the beginning of the proof of \cref{lem:negdiscsum}, as mentioned above, works).
 \ere
@@ -2284,15 +2312,15 @@ The following \lcnamecref{lem:simpleform} shows that $\thetah$ solves a discrete
 \ble[$\thetah$ solves a discrete Helmholtz problem]\label{lem:simpleform}
 For any $\vh \in \Vhp,$
 \beq\label{eq:thetaform}
-a(\thetah,\vh) = k^2\IPLtDn{\Qhn\rho}{\vh} + ik \IPLtGI{\rho}{\vh}.
+\aT(\thetah,\vh) = k^2\IPLtDn{\Qhn\rho}{\vh} + ik \IPLtGI{\rho}{\vh}.
 \eeq
 \ele
 
 \bpf[Proof of \cref{lem:simpleform}]
-Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,\vh)$ by Galerkin orthogonality. By definition of $a,$ we have $-a(\rho,\vh) = -\IPLtD{A\grad\rho}{\vh} + k^2 \IPLtD{n\rho}{\vh} + ik\IPLtGI{\rho}{\vh}.$ By Galerkin orthogonality for $\rho = u - \Ph u$, $\IPLtD{A\grad\rho}{\vh} = 0$, and so by the definition of the $n$-weighted $L^2$ inner product, and the $n$-weighted $L^2$-projection $\Qhn,$ the result follows.
+Let $\vh \in \Vhp.$ Then $\aT(\thetah,\vh) = \aT(u-\uh,\vh) - \aT(\rho,\vh) = -\aT(\rho,\vh)$ by Galerkin orthogonality. By definition of $a,$ we have $-\aT(\rho,\vh) = -\IPLtD{A\grad\rho}{\vh} + k^2 \IPLtD{n\rho}{\vh} + ik\IPLtGI{\rho}{\vh}.$ By Galerkin orthogonality for $\rho = u - \Ph u$, $\IPLtD{A\grad\rho}{\vh} = 0$, and so by the definition of the $n$-weighted $L^2$ inner product, and the $n$-weighted $L^2$-projection $\Qhn,$ the result follows.
 \epf
 
-As the definition of the elliptic projection $\Ph$ (\cref{eq:epdef,eq:aepdef} above) uses a Neumann boundary condition on $\GI$, rather than an impedance boundary condition, (see\optodo{Insert ref or write it} above for this rationale) the right-hand side of \cref{eq:thetaform} includes a term defined on the truncation boundary $\GI.$\optodo{search for impedance boundary and replace with truncation boundary} If the definition of the elliptic projection used an imepdance boundary condition, this term would disappear. The presence of this term means that when we bound $\NLtDn{\thetah}$ and $\Npmohn{\thetah}$ in the proofs of \cref{lem:higherbound,lem:ltthetahbound} below, we will encounter terms involving $\NLtGI{\thetah}$. Therefore, we first prove a bound on $\NLtGI{\thetah}.$
+As mentioned in \cref{rem:epdef}, the definition of the elliptic projection $\Ph$ (\cref{eq:epdef,eq:aepdef} above) uses a Neumann boundary condition on $\GI$, rather than an impedance boundary condition, and therefore the right-hand side of \cref{eq:thetaform} includes a term defined on the truncation boundary $\GI.$ If the definition of the elliptic projection used an imepdance boundary condition, this term would disappear. The presence of this term means that when we bound $\NLtDn{\thetah}$ and $\Npmohn{\thetah}$ in the proofs of \cref{lem:higherbound,lem:ltthetahbound} below, we will encounter terms involving $\NLtGI{\thetah}$. Therefore, we first prove a bound on $\NLtGI{\thetah}.$
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 Under the assumptions of \cref{thm:fembound}, we have
@@ -2329,7 +2357,7 @@ To bound $\NLtGI{\rho}$appearing in  the second term on the right-hand side of \
 \beq\label{eq:rhomtbound}
 \NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cprojfn{0}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cprojfn{0}^{\half} h^{\half} \NW{\rho}.
 \eeq
-Therefore by \cref{eq:rhomtbound} and Young's inequality, we obtain
+Therefore by \cref{eq:rhomtbound} and Young's inequality \cref{eq:young}, we obtain
 \beq\label{eq:rhothetamt}
 \NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cprojfn{0} h \NW{\rho}^2 + \half \NLtGI{\thetah}^2.
 \eeq
@@ -2389,13 +2417,13 @@ Inserting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obt
 \IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}.
 \eeq
 
-Therefore, from\renewcommand{\creflastconjunction}{,~} \cref{eq:deltahm,eq:firstboundary,eq:secondboundary},\renewcommand{\creflastconjunction}{\lastconj} and the Cauchy--Schwartz inequality, we have\optodo{Write Young's and Cauchy's ineqlauities somewhere}
+Therefore, from\renewcommand{\creflastconjunction}{,~} \cref{eq:deltahm,eq:firstboundary,eq:secondboundary},\renewcommand{\creflastconjunction}{\lastconj} and the Cauchy--Schwartz inequality, we have
 \begin{align*}
 \Nfn{m,h}{\thetah}^2 &\leq k^2 \Nfn{m-1,h}{\thetah}^2 + k^2 \Nfn{m-1,h,n}{\Qhn \rho}\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\quad+ k\mleft(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah} + \CBt \nmin^{-m}h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\quad+ k\CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
 \end{align*}
-Therefore using Young's inequality we have
+Therefore using Young's inequality \cref{eq:young} we have
 \begin{align*}
 \Nfn{m,h}{\thetah}^2 &\leq k^2\mleft(\frac32 + \CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p} + \half \CBt \nmin^{-m} + \half\CBth \nmin^{-m}\mright)\Nfn{m-1,h,n}{\thetah}^2\\
 &\quad\quad+ \frac{k^2}2 \Nfn{m-1,h,n}{\Qhn \rho}^2 +  h^{2(1-m)} \NW{\rho}^2,
@@ -2438,7 +2466,7 @@ The following \lcnamecref{lem:continuity} is straightforward to prove, and used 
 \ble[Continuity of $a$]\label{lem:continuity}
 For any $\vo, \vt \in \HozDD,$
 \beqs
-\abs{a(\vo,\vt)} \leq \Cc \NLiD{n} \NW{\vo}\NW{\vt}.
+\abs{\aT(\vo,\vt)} \leq \Cc \NLiD{n} \NW{\vo}\NW{\vt}.
 \eeqs
 \ele
 
@@ -2452,23 +2480,23 @@ Under the assumptions of \cref{thm:fembound},%there exist constants $\Cfirst, \C
 
 \bpf[Proof of \cref{lem:ltthetahbound}]
 The proof initially uses the standard duality technique, but then becomes more complex than standard proofs. This complexity is due to the fact that (i) we are bounding $\thetah$, not the finite-element error $u-\uh$, and (ii) we are bounding $\thetah$ by its higher-order-discrete norms, rather than by its $H^1$-norm as in the Aubin--Nitsche argument.
-\optodo{$a$ should be $\aT$ throughout.}
+
 Consider the adjoint variational problem: Find $w \in \HozDD$ such that for all $v \in \HozDD$
 \beq\label{eq:adjointtheta}
-a(v,w) = \IPLtD{v}{\thetah}.
+\aT(v,w) = \IPLtD{v}{\thetah}.
 \eeq
-(I.e., $w$ solves the adjoint problem \cref{eq:adjoint} with right-hand side given by $n\thetah$.) Let $\eh \de u -\uh$ be the finite-element error, put $v = \eh$ in \cref{eq:adjointtheta} and take the complex conjugate\footnote{The reason we take the complex conjugate is that to apply Galerkin orthogonality for $w-\Ph w$, the term $w-\Ph w$ must be the first argument of $\aT$. Alternatively, one could define $\widetilde{\Ph}$ to be the analagoue of the elliptic projection but defined in the second argument, show analogies of the error bounds \cref{lem:ellprojerr} and proceed with the proof of this \lcnamecref{lem:ltthetahbound}. However, for simplicity, we instead take the complex ocnjufate of \cref{eq:adjointtheta}.} to obtain
+(I.e., $w$ solves the adjoint problem \cref{eq:adjoint} with right-hand side given by $n\thetah$.) Let $\eh \de u -\uh$ be the finite-element error, put $v = \eh$ in \cref{eq:adjointtheta} and take the complex conjugate\footnote{The reason we take the complex conjugate is that to apply Galerkin orthogonality for $w-\Ph w$, the term $w-\Ph w$ must be the first argument of $\aT$. Alternatively, one could define $\widetilde{\Ph}$ to be the analogue of the elliptic projection but defined in the second argument, show analogues of the error bounds \cref{lem:ellprojerr} and proceed with the proof of this \lcnamecref{lem:ltthetahbound}. However, for simplicity, we instead take the complex conjugate of \cref{eq:adjointtheta}.} to obtain
 \beqs
 \IPLtD{\thetah}{\eh} = \overline{\aT(\eh,w-\Ph w)} = \aep(w-\Ph w,\eh) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \NLtGI{w - \Ph w}{\eh}.
 \eeqs
 By Galerkin orthogonality for $w-\Ph w,$ we have (recalling $\eh = \rho + \thetah$)
 \begin{align}
   \IPLtD{\thetah}{\eh} &= \aep(w-\Ph w,\rho) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \NLtGI{w - \Ph w}{\eh}\nonumber\\
-&= \overline{a(\rho,w-\Ph w)}  -k^2 \IPLtDn{w-\Ph w}{\thetah} -ik \IPLtGI{w-\Ph w}{\thetah}.\label{eq:doublego}
-%&=a(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}
+&= \overline{\aT(\rho,w-\Ph w)}  -k^2 \IPLtDn{w-\Ph w}{\thetah} -ik \IPLtGI{w-\Ph w}{\thetah}.\label{eq:doublego}
+%&=\aT(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}
 \end{align}
 
-Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use Cauchy-Schwartz to obtain
+Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use the Cauchy-Schwartz inequality to obtain
 \begin{align}
 \NLtD{\thetah}^2 &\leq \Cc\NLiD{n} \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
 &+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtDn{\rho}\NLtDn{\thetah}\label{eq:boundingLtwo}
@@ -2525,7 +2553,7 @@ Rearranging \cref{eq:nearlythere} and using \cref{lem:ellprojerr} and the fact t
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.
 \end{align*}
-  Using Young's inequality to separate out the $\NLtD{\thetah}$ term on the right-hand side and then moving the resulting $\NLtD{\thetah}^2$ term to the left hand side, followed by \cref{eq:simple}, we obtain
+  Using Young's inequality \cref{eq:young} to separate out the $\NLtD{\thetah}$ term on the right-hand side and then moving the resulting $\NLtD{\thetah}^2$ term to the left hand side, followed by \cref{eq:simple}, we obtain
 \begin{align}
 \NLtD{\thetah}&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright) + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}  \mright)\NW{\rho}\nonumber \\
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
@@ -2556,7 +2584,7 @@ and therefore it follows that
 \NLtD{\thetah} \leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NW{\rho}.
 \eeq
 
-It only now remains to bound the weighted $H^1$ norm of $\thetah.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
+It only now remains to bound the $k$-weighted $H^1$ norm of $\thetah.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \begin{align}
 \SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
 &\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NW{\rho}\mright],\label{eq:sntheta}
@@ -2570,5 +2598,4 @@ and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ a
 \end{align}
 Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{lem:ellprojerr} with $m=1$ and \cref{lem:scottzhang} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
 \epf
-\optodo{sort table width}
 
