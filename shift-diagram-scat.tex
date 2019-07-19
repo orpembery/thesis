@@ -1,5 +1,8 @@
 \begin{tikzpicture}[even odd rule]
   \input{shift-diagram}
 % D_scat
-\draw[scale=\shiftscale] (0,0) circle [radius=2.4];
+  \filldraw[pattern=owennorthwest,scale=\shiftscale] (0,0) circle [radius=2.4]
+  \obstacle;
+
+  \draw ($\shiftscale*(1.27,1.27)$) node[fill=white] {$\Dscat$};
 \end{tikzpicture}
