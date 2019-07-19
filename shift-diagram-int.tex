@@ -1,0 +1,16 @@
+\begin{tikzpicture}[even odd rule]
+  \input{shift-diagram}
+% D_int
+\draw[scale=\shiftscale] 
+(0,0) circle [radius=1.44]
+(0,0) circle [radius=2.16];
+
+%D_int_tilde
+\filldraw[pattern=owennorthwest,scale=\shiftscale,dashed]
+(0,0) circle [radius=1.2]
+(0,0) circle [radius=2.4];
+
+\draw ($\shiftscale*(1.27,1.27)$) node[fill=white] {$\Dint$};
+\draw ($\shiftscale*(-2.06,1.51)$) node[fill=white] {$\Dinttilde$};
+
+\end{tikzpicture}

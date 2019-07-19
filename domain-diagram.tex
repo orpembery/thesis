@@ -1,156 +1,5 @@
-\def\domainscale{2}
-
-\def\obsptone{(1.0, 0.0)}
-
-\def\obspttwo{(0.7071067811865476, 0.7071067811865475)}
-
-\def\obsptthree{(0.0, 1.0)}
-
-\def\obsptfour{(-0.7071067811865475, 0.7071067811865476)}
-
-\def\obsptfivey{0.0}
-
-\def\obsptfive{(-1.0,\obsptfivey)}
-
-\def\obsptsixx{-0.7071067811865477}
-
-\def\obsptsix{(\obsptsixx, -0.7071067811865475)}
-
-\def\obsptsevenx{0.0}
-
-\def\obsptseveny{-1.0}
-
-\def\obsptseven{(\obsptsevenx,\obsptseveny)}
-
-\def\obseightptx{0.7071067811865474}
-
-\def\obspteighty{-0.7071067811865477}
-
-\def\obspteight{(\obseightptx,\obspteighty )}
-
-\def\obslineone{\obsptone .. controls (1.0,0.3) and (1.0071067811865476, 0.7071067811865475) ..}
-
-\def\obslinetwo{\obspttwo .. controls (0.4071067811865476, 0.7071067811865475) and (0.2, 0.8) ..}
-
-\def\obslinethree{\obsptthree .. controls (-0.2,1.2) and (-0.5071067811865475, 0.9071067811865476) ..}
-
-\def\obslinefour{\obsptfour .. controls (-0.9071067811865475, 0.5071067811865476) and (-1.2,0.2) ..}
-
-\def\obslinefive{\obsptfive .. controls (-0.8,-0.2) and (-0.7071067811865477, -0.5071067811865475) ..}
-
-\def\obslinesix{\obsptsix.. controls (-0.7071067811865477, -0.9071067811865475) and (-0.2,-0.8) ..}
-
-\def\obslineseven{\obsptseven .. controls (0.2,-0.6) and (0.4071067811865474, -0.6071067811865477) .. }% The corner at the start of this line is the one where there's a 'proper' corner
-
-\def\obslineeight{\obspteight .. controls (1.0071067811865474, -0.8071067811865477) and (1.0,-0.2) ..}
-
-\def\obstacle{    \obslineone
-     \obslinetwo
-    \obslinethree
-    \obslinefour
-    \obslinefive
-     \obslinesix
-    \obslineseven
-    \obslineeight
-    cycle
-}
-
-\def\truncation{
-    (3.5, 0.0) --
-    (1.081559480312316, 3.3286978070330373) .. controls (-0.581559480312316, 2.3) ..
-    (-2.8315594803123156, 2.0572483830236563) .. controls (-3.8315594803123156, 0.0572483830236563) and (-3.8315594803123165, -0.0572483830236554) ..
-    (-2.8315594803123165, -2.0572483830236554) .. controls (-2.3315594803123165, -3.0572483830236554) and (-0.5815594803123152, -3.4286978070330377) ..
-    (1.0815594803123152, -3.3286978070330377) --
-    cycle
-    }
-
-\def\suppf{
-(1.2,\obsptseveny) -- (1.2,1.5) -- (-1.5,1.5) -- (-1.5,\obsptfivey) --
-\obslinefive
-\obslinesix
-\obsptseven --
-cycle
-}
-
-\def\suppA{
-%\obsptthree .. controls (3.0,3.0) and (-3.0,-6.0) ..  \obsptsix --
-\obsptthree arc [start angle=90, end angle=-149, radius=1.5]
---\obsptsix
-\obslinesix
-\obslineseven
-\obslineeight
-\obslineone
-\obslinetwo
-\obsptthree
-}
-
-\def\ncontone{(-1.2,0.5)}
-
-\def\suppn{
-(-1.45,-0.6) ellipse [x radius = 1.0,y radius=0.6,rotate=-65]
-%% (-1.8,0.5) .. controls \ncontone and (-0.9,0) ..
-%% (-1.0,-1.5) .. controls (-1.5,-1.0) and (-1.5,-1.0) ..
-%% (-1.4,-0.5) .. controls (-1.3,0.0) and () ..
-%% cycle
-}
-
-    % Patterns for filling
-    \pgfdeclarepatternformonly{owennortheast}
-    {\pgfpointorigin}{\pgfpoint{1cm}{1cm}}
-    {\pgfpoint{1cm}{1cm}}
-    {
-    \pgfpathmoveto{\pgfpointorigin}
-    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
-    \pgfsetlinewidth{0.5\pgflinewidth}
-    \pgfusepath{stroke}
-    }
-    
-
-     \pgfdeclarepatternformonly{owennorthwest}
-    {\pgfpointorigin}{\pgfpoint{1cm}{1cm}}
-    {\pgfpoint{1cm}{1cm}}
-    {
-    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
-    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
-   \pgfsetlinewidth{0.5\pgflinewidth}
-    \pgfusepath{stroke}
-    }
-
-\pgfdeclarepatternformonly{owennorthwestsmall}
-    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
-    {\pgfpoint{0.5cm}{0.5cm}}
-    {
-    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
-    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
-   \pgfsetlinewidth{0.5\pgflinewidth}
-    \pgfusepath{stroke}
-    }
-    
-       \pgfdeclarepatternformonly{owennortheastsmall}
-    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
-    {\pgfpoint{0.5cm}{0.5cm}}
-    {
-    \pgfpathmoveto{\pgfpointorigin}
-    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
-    \pgfsetlinewidth{0.5\pgflinewidth}
-    \pgfusepath{stroke}
-    }
-
-       \pgfdeclarepatternformonly{owengridsmall}
-    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
-    {\pgfpoint{0.5cm}{0.5cm}}
-    {
-    \pgfpathmoveto{\pgfpoint{0.5cm}{0cm}}
-    \pgfpathlineto{\pgfpoint{0.5cm}{1cm}}
-    \pgfsetlinewidth{0.5\pgflinewidth}
-    \pgfusepath{stroke}
-    \pgfpathmoveto{\pgfpoint{0cm}{0.5cm}}
-    \pgfpathlineto{\pgfpoint{1cm}{0.5cm}}
-    \pgfsetlinewidth{0.5\pgflinewidth}
-    \pgfusepath{stroke}
-    }
-
-
+\input{diagram-defs}
+\input{patterns-defs}
 \begin{tikzpicture}[even odd rule]   
 \draw[scale=\domainscale] % Truncation
 \truncation
@@ -158,7 +7,7 @@ cycle
 ;
     
 
-\filldraw[color=white,scale=\domainscale] % The obstacle
+\draw[scale=\domainscale] % The obstacle
 \obstacle
 ;
 
@@ -185,11 +34,11 @@ cycle
 
 \draw (2.0,-0.5) node[fill=white] {$\GD$};
 \draw[scale=\domainscale] (2.418221983093764, 0.6211657082460498) node[fill=white] {$\BR$};
-\draw (5.1,3.1) node {$\GI$};
+\draw (5.1,3.1) node[fill=white] {$\GI$};
 
 \draw (-1.8,2.3) node[fill=white] {$\supp f$};
 
 \draw (0,-2.8) node[fill=white] {$\supp(I-A)$};
 
-\draw (-2.9,-1.2) node[fill=white] {$\supp(1-n$};
+\draw (-2.9,-1.2) node[fill=white] {$\supp(1-n)$};
 \end{tikzpicture}

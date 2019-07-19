@@ -1,0 +1,56 @@
+    % Patterns for filling
+    \pgfdeclarepatternformonly{owennortheast}
+    {\pgfpointorigin}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{1cm}{1cm}}
+    {
+    \pgfpathmoveto{\pgfpointorigin}
+    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+    
+
+     \pgfdeclarepatternformonly{owennorthwest}
+    {\pgfpointorigin}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{1cm}{1cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+   \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+
+\pgfdeclarepatternformonly{owennorthwestsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{1cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0cm}{1cm}}
+   \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+    
+       \pgfdeclarepatternformonly{owennortheastsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpointorigin}
+    \pgfpathlineto{\pgfpoint{1cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+
+       \pgfdeclarepatternformonly{owengridsmall}
+    {\pgfpoint{-1cm}{-1cm}}{\pgfpoint{1cm}{1cm}}
+    {\pgfpoint{0.5cm}{0.5cm}}
+    {
+    \pgfpathmoveto{\pgfpoint{0.5cm}{0cm}}
+    \pgfpathlineto{\pgfpoint{0.5cm}{1cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    \pgfpathmoveto{\pgfpoint{0cm}{0.5cm}}
+    \pgfpathlineto{\pgfpoint{1cm}{0.5cm}}
+    \pgfsetlinewidth{0.5\pgflinewidth}
+    \pgfusepath{stroke}
+    }
+
