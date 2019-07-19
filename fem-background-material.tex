@@ -1253,7 +1253,7 @@ In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it ma
   \ere
 
   \bre[Extension to different boundary conditions on $\GI$]
-  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:ltthetahbound} below one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, where we bound $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and by the weighted $H^1$-norm of $\rho.$
+  As in \cite[Remark 5.4(e)]{DuWu:15}, we remark that it is not obvious how to extend the proof of \cref{thm:fembound} to a Helmholtz problem with an exact Dirichlet-to-Neumann boundary condition on $\GI.$ In \cref{lem:higherbound,lem:ltthetahbound} below one must bound terms involving $\thetah$ on the truncation boundary $\GI$; these bounds are achieved using \cref{lem:boundarybound}, where we bound $\NLtGI{\thetah}$ by higher-order discrete norms of $\thetah$ and by the $k$-weighted $H^1$-norm of $\rho.$
 
   However, a crucial part of the proof of \cref{lem:boundarybound} is the fact that one has the bound $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtNapprox \thetah}{\thetah}$, where $\DtNapprox$ is the impedance approximation to the DtN map $\DtN,$ i.e., $\DtNapprox = ik.$ To replicate the proof of \cref{lem:boundarybound} for an exact DtN boundary condition, one would need to show $k \NLtGI{\thetah}^2 \lesssim \IPLtGI{\DtN \thetah}{\theta}$ for the \emph{exact} DtN map $\DtN.$ As mentioned in \cite[Remark 5.4(e)]{DuWu:15}, whether such a bound holds in general is an open question; such as bound has only been shown in \cite[Equation (3.4b)]{MeSa:10} for the case $\GI$ is a circle (in 2-d) or a sphere (in 3-d).
   \ere
@@ -1577,7 +1577,6 @@ In particular, taking $\Gamma = \GD,$ for all $v \in \HozDD$
 \ele
 For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
 
-\optodo{Think carefully about what this means for IIP---I think it means you need to include the impedance part in the elliptic projection, because otherwise the Poisson problem doesn't have a unique solution, so you're not going to be able to use Lax--Milgram. But then we don't have the higher-order shift Theorems. Write a remark to this effect, and say that we're going to assume the scatterer is non-empty---put this in an assumption. Scrap all of the above - Du and Wu add a lower--order term into their elliptic projection, which means it's always coercive (because the energy norm is the $H^1$ norm. Write a remark explaining this instead, and say that we're not going to do it, but you could. I think that's best.}
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 \ben
 \item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HmD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
@@ -1643,7 +1642,7 @@ We also define the corresponding $n$-weighted $\LtD$ norm $\NLtDn{v} = \sqrt{\in
 \beqs
 \NHmDn{v}^2 \de \sum_{\alpha \st \abs{\alpha} \leq s}\NLtDn{D^\alpha v},
 \eeqs
-and the negative weighted Sobolev norms
+and the negative $n$-weighted Sobolev norms
 \beq\label{eq:negweightnorm}
 \NHnfn{-m}{D}{v} \de \sup_{w \in \HmD} \frac{\IPLtDn{v}{w}}{\NHmDn{w}}.
 \eeq
@@ -1693,7 +1692,7 @@ For any $w \in \HozDD$ the elliptic projection $\Ph w$ and the $n$-weighted $L^2
 \ele
 
 \bpf[Proof of \cref{lem:eugp}]
-The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgram Theorem (see, e.g., \cite[Theorem 2.7.7]{BrSc:08}) applied in $\Vhp$ (as in, e.g., \cite[Corollary 2.7.13]{BrSc:08}), because $\Ph w$ and $\Qhn w$ are defined by sesquilinear forms that are continuous and coercive on $\HozDD$ (equipped with the weighted $H^1$ norm $\NW{\cdot}$) and $\LtD$ respectively.
+The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgram Theorem (see, e.g., \cite[Theorem 2.7.7]{BrSc:08}) applied in $\Vhp$ (as in, e.g., \cite[Corollary 2.7.13]{BrSc:08}), because $\Ph w$ and $\Qhn w$ are defined by sesquilinear forms that are continuous and coercive on $\HozDD$ (equipped with the $k$-weighted $H^1$ norm $\NW{\cdot}$) and $\LtD$ respectively.
 
 Continuity and coercivity are immediate in the case of the $n$-weighted $L^2$ projection $\Qhn.$ For the elliptic projection $\Ph,$ continuity is immediate, and coercivity follows from the Poincar\'e inequality \cref{eq:poincare}, because we work in $\HozDD,$ and so all the functions we consider vanish on $\GD.$
 \epf
@@ -1704,8 +1703,6 @@ Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constan
 \NHmmD{w-\Ph w} \leq \Cmmo h^{s+1} \BAHoD{w}{\wh}.
 \eeq
 \ele
-\optodo{Correct language to talk about $n$-weighted}
-
 
 \ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
 Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
@@ -1791,9 +1788,9 @@ If we consider the IIP (i.e., we remove the assumption $\GD \neq \emptyset$ in \
 
 This lack of coercivity stems from the fact that we cannot apply the Poincar\'e inequality \cref{eq:poincare} to functions in $\HoD,$ because such functions are no longer zero on a portion of $\d D$ with non-zero $d-1$-dimensional measure. (Recall \cref{lem:poincare} requires such a property.) One can alternatively view this problem as arising from the fact that the stationary diffusion equation with Neumann boundary conditions does not have a unique solution (as one can simply add a constant to any solution). In the case $\GD=\emptyset,$ the PDE corresponding to the elliptic projection is precisely such a stationary diffusion equation: \cref{eq:sd1,eq:sd3} (\cref{eq:sd2} does not apply, as $\GD = \emptyset$).
 
-The remedy for this lack of coercivity/lack of uniqueness is to change the sesquilinear form $\aep$ from \cref{eq:aepho} to either \cref{eq:aeplower} or \cref{eq:aepused}. This change corresponds to changing the PDE underlying the elliptic projection from \cref{eq:sd1,eq:sd3} to either \cref{eq:sd4,eq:sd6} or \cref{eq:sd7,eq:sd9} respectively. Either of these alternatives for $\aep$ is coercive in the weighted $H^1$ norm, and so the proof of \cref{lem:eugp} goes through as before.
+The remedy for this lack of coercivity/lack of uniqueness is to change the sesquilinear form $\aep$ from \cref{eq:aepho} to either \cref{eq:aeplower} or \cref{eq:aepused}. This change corresponds to changing the PDE underlying the elliptic projection from \cref{eq:sd1,eq:sd3} to either \cref{eq:sd4,eq:sd6} or \cref{eq:sd7,eq:sd9} respectively. Either of these alternatives for $\aep$ is coercive in the $k$-weighted $H^1$ norm, and so the proof of \cref{lem:eugp} goes through as before.
 
-However, if one defines $\ep$ using \cref{eq:aepused}, then one encounters the additional problem that one does not have a shift theorem (analagous to \cref{thm:shift}) for the underlying PDE \cref{eq:sd7,eq:sd9}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. Whilst one could rewrite \cref{eq:sd7,eq:sd9} as
+However, if one defines $\aep$ using \cref{eq:aepused}, then one encounters the additional problem that one does not have a shift theorem (analagous to \cref{thm:shift}) for the underlying PDE \cref{eq:sd7,eq:sd9}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. Whilst one could rewrite \cref{eq:sd7,eq:sd9} as
 \beqs
 \Delta w = F  \tin D \tand
 \eeqs
@@ -1875,7 +1872,7 @@ Therefore, if one wishes to prove results for higher-order finite elements, the 
 %% \eeqs
 %% \ele
 
-\ble[Error bounds for weighted $\LtD$ projection]\label{lem:wltdprojerr}
+\ble[Error bounds for $n$-weighted $\LtD$ projection]\label{lem:wltdprojerr}
 Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \HozDD$
 \beq\label{eq:wltdprojerr}
 \NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^{m} \BALtDn{w}{\wh}.
@@ -1895,7 +1892,7 @@ Taking the supremum over $\vtilde,$ we have
 \beqs
 \NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\NLiD{n}}{\nmin} h^m \NLtDn{w-\Qhn w},
 \eeqs
-and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive (with continuity and coercivity constants equal to 1) in the weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
+and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clearly bounded and coercive (with continuity and coercivity constants equal to 1) in the $n$-weighted $L^2$-norm $\NLtDn{\cdot}$) the result follows.
 \epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
@@ -1914,10 +1911,10 @@ For any $\wh \in \Vhp,$ $\Deltah \wh$ exists and is unique.
 
 \bpf[Proof of \cref{lem:ddwd}]
 Choose an orthonormal (in the $n$-weighted inner product) basis  $(\phij)_j$ for $\Vhp.$ Write $\Delta\wh = \sum_j \wj \phij$, and take in turn $\vh = \phij$ for each $j;$ then \cref{eq:discderdef} is equivalent to the linear system $\Imat \bw = \bb,$ where $\bb_{j} = \IPLtDn{A \grad \wh}{\grad \phij}.$ The solution of this linear system clearly exists and is unique.
-%% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\optodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
+%% We equip $\Vhp$ with the $H^1$-norm. Observe that $\Deltah \wh$ satisfies the variational problem: Find $\vhtilde  \in \Vhp$ such that $\add(\uh,\vh) = \Ldd(\vh)$ for all $\vh \in \Vhp,$ where $\add(\uh,\vh) = \IPLtD{\uh}{\vh}$ and $\Ldd(\vh) = \IPLtD{A \grad \wh}{\grad \vh}.$ Observe that $\Ldd$ is bounded in $\Vhp$, as $\Ldd(\vh) \leq \NLiDop{A} \SNHoD{\wh}\SNHoD{\vh} \leq \NLiDop{A} \SNHoD{\wh}\NHoD{\vh},$ and $\add$ is coercive on $\Vhp,$ as, for $\vh \in \Vhp$, $\add(\vh,\vh) = \NLtD{\vh}^2 \geq \CinvVhp^2 \NHoD{\vh}^2$ by the standard inverse estimate\opntodo{Add in?}. Therefore, by the Lax--Milgram Theorem applied in $\Vhp$ (as $\Vhp$ is a finite-dimensional inner product space over a complete field, it is a Hilbert space), $\Deltah \wh$ exists and is unique.
 \epf
 
-%% By\optodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\optodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\optodo{Maybe define this}
+%% By\opntodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\opntodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\opntodo{Maybe define this}
 
 Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint in the $n$-weighted inner product, as
 \beqs
@@ -1944,7 +1941,7 @@ Observe that for $\wh \in \Vhp,$ $\DeltahI\mleft(\Deltah\wh\mright) = \wh,$ i.e.
 %% Observe that for \emph{every} $j \leq 0$, $\DeltaA^j v$ is defined for \emph{any} $v \in \LtD$ (i.e., $\Domain{\DeltaA^{j}} = \LtD$ for $j \leq 0$). For $\lambdam \geq 1,$ $\lambdam^j < \lambdam$, and only finitely many $\lambdam$ are in the interval $(0,1)$; therefore the series \cref{eq:deltaaseries} can be decomposed as a finite sum (for $\lambdam < 1$) and a convergent series (for $\lambdam \geq 1$).
 %% \ere
 %% \bre[Consistent Notation]
-%% Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\optodo{Maybe just double-check this is watertight.}\optodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
+%% Observe that the notation $\DeltaA^j$ is consistent, i.e., $\DeltaA^0 v = v$, for $j \in \NN,$ $\DeltaA^j$ is equal to the $j$-fold application of $\DeltaA,$ and $\DeltaA^{-1}$ is the inverse of $\DeltaA.$\opntodo{Maybe just double-check this is watertight.}\opntodo{This needs work - need $A$ to be smooth enough to define proper higher-order derivatives.}
 %% \ere
 We can use the higher-order derivative operators to define discrete higher-order norms:
 
@@ -1962,12 +1959,12 @@ For $\vh \in \Vhp$ and $m \in \RR$, define
 %% \eeqs
 %% \ede
 
-%% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \lcnamecref{lem:normrelationshiptech}\optodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
+%% In order to prove a relationship between the $A$-weighted higher order norm and the standard $H^m$ norms, we first must prove the following \lcnamecref{lem:normrelationshiptech}\opntodo{THIS NEEDS PROVING AND I DON'T KNOW HOW.}
 %% \ble[Relationship between $\DeltaA^m$ and standard higher-order derivatives]\label{lem:normrelationshiptech}
 %% For $m \in \NN,$ $\Domain{\DeltaA^{m/2}} \subseteq \HmD,$ and there exists a constant $\Cma > 0$ such that for all $v \in \Domain{\DeltaA^{m}}$
 %% \beqs
 %% \NHmD{v} \leq \Cma \NLtD{\DeltaA^{m/2}v}.
-%% \eeqs\optodo{The latter bit will probably use something shift-theorem-like, but you need to be careful because powers of the differential operator aren't defined standardly.}
+%% \eeqs\opntodo{The latter bit will probably use something shift-theorem-like, but you need to be careful because powers of the differential operator aren't defined standardly.}
 %% \ele
 
 
@@ -2084,9 +2081,9 @@ We have, using \cref{eq:feiptrans},
 and the result follows.
 \epf
 
-To prove \cref{lem:negdiscsum} below we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative weighted norms.
+To prove \cref{lem:negdiscsum} below we require the following \lcnamecref{lem:shiftnegativew} giving the shift theorem in negative $n$-weighted norms.
 
-\ble[Shift theorem in negative weighted norms]\label{lem:shiftnegativew}
+\ble[Shift theorem in negative $n$-weighted norms]\label{lem:shiftnegativew}
 Let $\ftilde \in \LtD$ a d $m \in [0,p-1]$ be an integer. Under \cref{ass:highp} we have
 \beq\label{eq:shiftnegativew}
 \NHnfn{-m}{D}{\sdsol\ftilde} \leq \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\ftilde},
@@ -2281,7 +2278,7 @@ and combining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, th
 \bre[Why is the factor $n$ only on the right-hand side of \cref{eq:sdeq}?]\label{rem:why}
 The reason for defining $\Sn$ with a factor $n$ on the right-hand side of \cref{eq:sdeq} but not on the left-hand side is somewhat buried in the proof of \cref{thm:fembound} and its associated lemmas. However, we give an overview of the reason here.
 
-All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in weighted discrete norms, because to prove bounds on the weighted $L^2$ projection $\Qhn$ we work in weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), rather than in non-weighted norms. Because we only work in weighted norms, we need \cref{lem:intoip} below to hold in the \emph{weighted} inner product. To prove \cref{lem:intoip} in the $n$-weighted inner product, we therefore use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, where the $\Deltah$ operator appears. Because we use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, we must then use the $n$-weighted inner product on the right-hand side of \cref{eq:deltaagreen}. Using this inner product in \cref{eq:deltaagreen} ensures the beginning of the proof of \cref{lem:negdiscsum} works---see the proof for more details.
+All the bounds in the proofs of \cref{lem:boundarybound,lem:higherbound,lem:ltthetahbound} are in $n$-weighted discrete norms, because to prove bounds on the $n$-weighted $L^2$ projection $\Qhn$ we work in $n$-weighted higher-order discrete norms (as in \cref{lem:wltdprojerr}), rather than in non-weighted norms. Because we only work in $n$-weighted norms, we need \cref{lem:intoip} below to hold in the \emph{$n$-weighted} inner product. To prove \cref{lem:intoip} in the $n$-weighted inner product, we therefore use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, where the $\Deltah$ operator appears. Because we use the $n$-weighted inner product on the left-hand side of \cref{eq:discderdef}, we must then use the $n$-weighted inner product on the right-hand side of \cref{eq:deltaagreen}. Using this inner product in \cref{eq:deltaagreen} ensures the beginning of the proof of \cref{lem:negdiscsum} works---see the proof for more details.
 
 We do not, however, put a factor $n$ on the left-hand side of \cref{eq:sdeq,eq:deltaagreen}. If we did, when we apply \cref{thm:shift} to $\Sn \ftilde$ (as we do in \cref{lem:shiftnegativew}), the resulting bounds would not be fully explicit in $n$ (because in \cref{thm:shift} we do not know explicitly how the constants depend on the `diffusion coefficient'). Not putting a factor $n$ on the left-hand side of \cref{eq:sdeq} is the reason why there is a \emph{non-weighted} inner product on the right-hand side of \cref{eq:discderdef} (so that the beginning of the proof of \cref{lem:negdiscsum}, as mentioned above, works).
 \ere
@@ -2575,7 +2572,7 @@ and therefore it follows that
 \NLtD{\thetah} \leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NW{\rho}.
 \eeq
 
-It only now remains to bound the weighted $H^1$ norm of $\thetah.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
+It only now remains to bound the $k$-weighted $H^1$ norm of $\thetah.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \begin{align}
 \SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
 &\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NW{\rho}\mright],\label{eq:sntheta}
