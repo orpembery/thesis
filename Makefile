@@ -15,13 +15,14 @@ all: thesis.pdf
 	#touch $<
 
 clean:
+	rm *aux	
 	rm *pdf
 	rm *log
 	rm *bbl
 	rm *blg
-	rm *dvi
 	rm *out
-	rm *aux
+	rm *toc
+	rm *dvi
 
 supervisor:
 # Based on https://tex.stackexchange.com/a/1495
