@@ -103,7 +103,7 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     \bprob[Finite-element approximation of \cref{prob:vtedp}]\label{prob:fevtedp}
     We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vtedp}) if
     \beqs
-    a(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
+    \aT(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
     \eeqs
     The finite-element approximation of \cref{prob:vedp} is defined analagously.
     \eprob
@@ -417,8 +417,8 @@ The first class of arguments we consider are (modified) duality arguments. In th
 
 To show the error in the weighted $H^1$ norm is bounded by the error in the $L^2$ norm, observe
 \begin{align}
-\NW{u-\uh}^2 &\leq \Re{a(u-\uh,u-\uh)} + k^2 \NLtD{u-\uh}^2\nonumber\\
-&= \Re{a(u-\uh,u-\vh)} + k^2 \NLtD{u-\uh}^2\text{ by Galerkin orthogonality}\nonumber\\
+\NW{u-\uh}^2 &\leq \Re{\aT(u-\uh,u-\uh)} + k^2 \NLtD{u-\uh}^2\nonumber\\
+&= \Re{\aT(u-\uh,u-\vh)} + k^2 \NLtD{u-\uh}^2\text{ by Galerkin orthogonality}\nonumber\\
 &\lesssim \NW{u-\uh}\NW{u-\vh} + k^2 \NLtD{u-\uh}^2,\label{eq:gardingerror}
 \end{align}
 for any $\vh \in \Vhp.$
@@ -449,11 +449,11 @@ and then combine \cref{eq:gardingerror,eq:epbound} to show the finite-element er
 
 We will now look over the Schatz argument in more detail, before considering modified Schatz arguments. We first establish some notation that will enable us to discuss best approximation errors for solutions of Helmholtz problems. We let $\solfem:\LtD\rightarrow \HoD$ denote the solution operator for \cref{prob:vtedp} with zero impedance boundary condition, and we let $\solfems$ denote the solution operator for the corresponding adjoint problem. That is, for any $\ftilde \in \LtD$ and for all $v \in \HozDD,$
 \beqs
-a(\solfem(\ftilde),v) = \IPLtD{\ftilde}{v}
+\aT(\solfem(\ftilde),v) = \IPLtD{\ftilde}{v}
 \eeqs
 and
 \beqs
-a(v,\solfems(\ftilde)) = \IPLtD{v}{\ftilde}.
+\aT(v,\solfems(\ftilde)) = \IPLtD{v}{\ftilde}.
 \eeqs
 One can, of course, define the corresponding solution operators in the case of non-zero impedance boundary conditions. We next define the approximability constants:
 \beqs
@@ -469,12 +469,12 @@ We are changing notation slightly from that normally prevelant in the literature
 
 We let $\xi \in \HozDD$ solve the adjoint Helmholtz problem
 \beqs
-a(v,\xi) = \IPLtD{v}{u-\uh} \tforall v \in \HozDD.
+\aT(v,\xi) = \IPLtD{v}{u-\uh} \tforall v \in \HozDD.
 \eeqs
 Then, taking $v = u-\uh,$ we have
 \begin{align}
-  \NLtD{u-\uh}^2 &= a(u-\uh,\xi)\label{eq:schatz0}\\
-  &=a(u-\uh,\xi - \vh) \text{ by Galerkin orthogonality for } u-\uh, \text{ for any } \vh \in \Vhp\nonumber\\
+  \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi)\label{eq:schatz0}\\
+  &=\aT(u-\uh,\xi - \vh) \text{ by Galerkin orthogonality for } u-\uh, \text{ for any } \vh \in \Vhp\nonumber\\
   &\lesssim \NW{u-\uh}\NW{\xi-\vh}\nonumber\\
   &\lesssim \NW{u-\uh} \wbaadj \NLtD{u-\uh}\nonumber.
 \end{align}
@@ -539,7 +539,7 @@ Also, by the Aubin--Nitsche duality argument (as $\aep$ is coercive),
 
 Combining \cref{eq:epho,eq:eplt} is a modification of the Schatz argument above: We start from \cref{eq:schatz0}, but instead of introducing an arbitrary $\vh \in \Vhp$ into the second argument, we instead introduce the elliptic projection $\Ph \xi$ by Galerkin orthogonality for $u-\uh$:
 \begin{align}
-  \NLtD{u-\uh}^2 &= a(u-\uh,\xi-\Ph\xi)\nonumber\\
+  \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi-\Ph\xi)\nonumber\\
   &= \aep(u-\uh,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi}\nonumber\\
   &= \aep(u-\Ih u,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi} \text{ by Galerkin orthogonality for }\xi-\Ph\xi\nonumber\\
   &\lesssim \wbaadj \NLtD{f} \wba \NLtD{u-\uh} + k^2 \NLtD{u-\uh} \NLtD{\xi-\Ph\xi}\text{ by \cref{eq:epho}}\nonumber\\
@@ -559,7 +559,7 @@ and taking $\vh = \Ih v,$ by \cref{lem:scottzhang} we have
 \beqs
 \NW{u-\uh}^2 \lesssim \NW{u-\uh}\wba\NLtD{f} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
 \eeqs
-We then obtain for any $\eps > 0$ by Cauchy's inequality
+We then obtain for any $\eps > 0$ by Cauchy's inequality \cref{eq:cauchy}
 \beq\label{eq:ep2}
 \NW{u-\uh}^2 \lesssim \eps \NW{u-\uh}^2 + \frac1\eps\wba^2 \NLtD{f}^2 + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2.
 \eeq
@@ -578,16 +578,16 @@ u-\uh = \mleft(u-\Ph u\mright) + \mleft(\Ph u - \uh\mright).
 Proving an error bound for $u-\uh$ therefore reduces to proving an error bound for the elliptic projection error $u- \Ph u$ and proving a bound on the difference $\Ph u - \uh.$ The former can either be accomplished by showing quasi-optimality of the elliptic projection (as above) or by proving such an error bound directly. The former approach is taken in \cite{DuWu:15,LiWu:18,ChGaNiTo:18}, and the latter approach is taken in \cite[Lemma 5.2]{FeWu:09} (althought the proof is only contained in \cite[Lemma 5.2]{FeWu:08}), \cite[Lemma 4.3]{FeWu:11}, and \cite[Lemma 4.2]{Wu:14}. In \cite{FeWu:09,FeWu:11,Wu:14} the bound on the elliptic projection error is proved by observing that the sesquilinear form $\IPLtD{\grad \vo}{\grad \vt}$ is coercive on $\HozDD$, and then also controlling the additional term arising from the impedance boundary condition.
 
 To bound the difference $\Ph u - \uh,$ one first shows that it solves a deterministic Helmholtz problem:
-For $u-\uh,$ for any $\vh \in \Vhp$ we have $a(u-\uh,\vh) = 0$ and $\aep(u-\Ph u,\vh) = 0$ by Galerkin orthogonality for $u-\uh$ and $u-\Ph u$ respectively\footnote{For the arguments in this \namecref{sec:errorsplit}, we define the elliptic projection in the first argument, see \cref{eq:ellprojfirst} below.}. Therefore
+For $u-\uh,$ for any $\vh \in \Vhp$ we have $\aT(u-\uh,\vh) = 0$ and $\aep(u-\Ph u,\vh) = 0$ by Galerkin orthogonality for $u-\uh$ and $u-\Ph u$ respectively\footnote{For the arguments in this \namecref{sec:errorsplit}, we define the elliptic projection in the first argument, see \cref{eq:ellprojfirst} below.}. Therefore
 \begin{align*}
-  a(\Ph u - \uh,\vh) &= a(\Ph u - u,\vh) + a(u-\uh,\vh)\\
-  &= a(\Ph u - u,\vh)\\
+  \aT(\Ph u - \uh,\vh) &= \aT(\Ph u - u,\vh) + \aT(u-\uh,\vh)\\
+  &= \aT(\Ph u - u,\vh)\\
   &= \aep(\Ph u - u,\vh) - k^2\IPLtD{\Ph u - u}{\vh}\\
   &= - k^2\IPLtD{\Ph u - u}{\vh},
 \end{align*}
 that is, $\Ph u - \uh$ solves the \emph{discrete} Helmholtz problem
 \beqs
-a(\Ph u - \uh,\vh) = \IPLtD{\ftilde}{\vh} \tforall \vh \in \Vhp,
+\aT(\Ph u - \uh,\vh) = \IPLtD{\ftilde}{\vh} \tforall \vh \in \Vhp,
 \eeqs
 where $\ftilde = k^2\mleft(u-\Ph u\mright).$ One then uses the fact that $\Ph u - \uh$ satisfies a discrete Helmholtz problem to prove a bound on the difference directly.
 
@@ -612,7 +612,7 @@ Observe that when using the elliptic projection in such a splitting argument, th
 \item One does not need the elliptic projection to be quasi-optimal \cref{eq:epho}, rather, one only need to bound the error $\NW{u-\Ph u}$, where $u$ solves a Helmholtz problem, in terms of $\NLtD{f}$.
 \item The elliptic projection should be defined in the first argument, not the second, i.e.
   \beq\label{eq:ellprojfirst}
-a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
+\aT(\Ph u,\vh) = \aT(u,\vh) \tforall \vh \in \Vhp.
   \eeq
 \een
 
@@ -793,7 +793,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% %% \bde[Finite-element approximation] 
 %% %%  The finite-element approximation to \eqref{eq:tedp} is the following:
 %% %% \beq\label{eq:tedpfe}
-%% %% \text{Find } \uh \in \Vh\quad \tst\quad a(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
+%% %% \text{Find } \uh \in \Vh\quad \tst\quad \aT(\uh,\vh) = F(\vh)\quad \tfa \vh \in \Vh,
 %% %% \eeq
 %% %% \ede
 
@@ -1029,7 +1029,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% \ble[G\r{a}rding inequality]
 %% If $v \in \HozDDR,$ then
 %% \beq\label{eq:garding}
-%% \Re\mleft(a(v,v)\mright) \geq \Amin \NW{v}^2 - k^2\mleft(\Amin + \NLiDRRR{n}\mright)\NLtDR{v}^2,
+%% \Re\mleft(\aT(v,v)\mright) \geq \Amin \NW{v}^2 - k^2\mleft(\Amin + \NLiDRRR{n}\mright)\NLtDR{v}^2,
 %% \eeq
 %% where $\Re$ denotes the real part.
 %% \ele
@@ -1055,7 +1055,7 @@ a(\Ph u,\vh) = a(u,\vh) \tforall \vh \in \Vhp.
 %% \eeqs
 %% By \cref{ass:bound} the solution $u$ of the TEDP exists and is unique. Assume the finite-element solution $\uh$ exists. Let $\xi \in \HoD$ satisfy the adjoint TEDP \eqref{eq:tedpadj} with $f=u-\uh,$ $\gD=0,$ and $\gI=0.$ Taking complex conjugates, it follows that
 %% \beq\label{eq:errordual}
-%% a(v,\xi) = \IPLtDR{v}{u-\uh} \tfa v \in \HoDR.
+%% \aT(v,\xi) = \IPLtDR{v}{u-\uh} \tfa v \in \HoDR.
 %% \eeq
 %% By \cref{ass:bound} $\xi$ exists, is unique and is in $\HtDR.$. Setting $v = u-\uh$ in \eqref{eq:errordual} we obtain
 %% \begin{align*}
@@ -1549,10 +1549,23 @@ Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{e
 \subsection{Routine analysis results}\label{sec:anbackground}
 In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout the following proofs.
 
-The following inequality is straightforward to prove: for $N \in \NN$ and $a_1,\ldots,a_N > 0$
+The following inequalities are straightforward to prove
+\bit
+\item For $N \in \NN$ and $a_1,\ldots,a_N > 0$
 \beq\label{eq:simple}
 \sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
 \eeq
+\item (Young's inequality) If $p,q \in (1,\infty)$ and $1/p + 1/q = 1$ then for all $a,b > 0$
+  \beq
+ab \leq \frac{a^p}p + \frac{b^q}q.
+\eeq\label{eq:young}
+\item (Cauchy's inequality) For all $\eps,a,b > 0$
+  \beq\label{eq:cauchy}
+  ab \leq \frac{a^2}{2\eps} + \frac{\eps b^2}2.
+\eeq
+  \eit
+  
+
 
 
 
@@ -1797,7 +1810,7 @@ However, if one defines $\aep$ using \cref{eq:aepused}, then one encounters the 
 \beqs
 \dn w = ikw \ton \GI
 \eeqs
-and then use \cref{thm:shift} to obtain results analagous to \cref{thm:shift}, the constants in the resulting bounds \cref{eq:shift} would be \emph{$k$-dependent}. This $k$-dependence would mean the resulting proof of $\hka{(2p+1)/(wp)}$-data-accuracy would not work. Whilst a shift theorem for \cref{eq:sd7,eq:sd9} that \emph{is} $k$-independent has been proved by Chaumont-Frelet, Nicaise, and Tomezyk \cite[Theorems 3.1, 4.3, and 5.1]{ChNiTo:18}, this is a lowest-order shift theorem (i.e., the analogue of \cref{thm:shift} for $l=0$) and no mention is made in \cref{ChNiTo:18} of an extension to higher order.
+and then use \cref{thm:shift} to obtain results analagous to \cref{thm:shift}, the constants in the resulting bounds \cref{eq:shift} would be \emph{$k$-dependent}. This $k$-dependence would mean the resulting proof of $\hka{(2p+1)/(wp)}$-data-accuracy would not work. Whilst a shift theorem for \cref{eq:sd7,eq:sd9} that \emph{is} $k$-independent has been proved by Chaumont-Frelet, Nicaise, and Tomezyk \cite[Theorems 3.1, 4.3, and 5.1]{ChNiTo:18}, this is a lowest-order shift theorem (i.e., the analogue of \cref{thm:shift} for $l=0$) and no mention is made in \cite{ChNiTo:18} of an extension to higher order.
 
 Therefore, if one wishes to prove results for higher-order finite elements, the only reasonable course of action when considering the IIP is to use \cref{eq:aeplower} to define $\aep$. In this case one can then repeat the proof of \cref{thm:shift} almost verbatim (as the results from \cite{Mc:00} used in the proof of \cref{thm:shift} also hold for the PDE \cref{eq:sd4,eq:sd6}), and the proofs of \cref{lem:ellprojerr,lem:ellprojerrw} proceed as before. However, observe that this course of action works fr our proof because our proof technique (error splitting) allows us to bound terms arising on the truncation boundary $\GI$ (see \cref{lem:boundarybound} below). However, if one uses a modified Schatz technique, it is not clear to us how one would bound terms arising on the truncation boundary. Therefore, these terms on the tunrcation boundary must be incorporated into the elliptic projection, and so one must use \cref{eq:aepused} to define the elliptic projection. One must then accept that, with current technology, one will be limited to proving bounds for first-order methods, due to the lack of a shift theorem for the underlying PDE, as outlined above. (We note in passing that it was precisely this usage of an elliptic projection given by \cref{eq:aepused} by Chaumont-Frelet and Nicaise in \cite{ChNi:18} that led to the work \cref{ChNiTo:18}.)
 \ere
@@ -2271,7 +2284,7 @@ and rearranging \cref{eq:verylongeq}, and using the facts that $\shiftn{m} \leq 
 &\mleft.\hphantom{\frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\NLiD{n}\mleft(\En \nvar\mright)^{l}}
 \quad\quad+ \sum_{m=0}^{l} \Etildefn{m,l} h^{2m+1}  \NHnfn{-2(l-m)}{D}{\vh}\mright)\label{eq:oddfinal}
 \end{align}
-and combining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, the result follows.%\optodo{Maybe put recursion in, but it's all in notes.}
+and combining \cref{eq:evenrecursivesum} (with $t=l$) and \cref{eq:oddfinal}, the result follows.%\opntodo{Maybe put recursion in, but it's all in notes.}
 \epf
 
 \bre[Why is the factor $n$ only on the right-hand side of \cref{eq:sdeq}?]\label{rem:why}
@@ -2299,15 +2312,15 @@ The following \lcnamecref{lem:simpleform} shows that $\thetah$ solves a discrete
 \ble[$\thetah$ solves a discrete Helmholtz problem]\label{lem:simpleform}
 For any $\vh \in \Vhp,$
 \beq\label{eq:thetaform}
-a(\thetah,\vh) = k^2\IPLtDn{\Qhn\rho}{\vh} + ik \IPLtGI{\rho}{\vh}.
+\aT(\thetah,\vh) = k^2\IPLtDn{\Qhn\rho}{\vh} + ik \IPLtGI{\rho}{\vh}.
 \eeq
 \ele
 
 \bpf[Proof of \cref{lem:simpleform}]
-Let $\vh \in \Vhp.$ Then $a(\thetah,\vh) = a(u-\uh,\vh) - a(\rho,\vh) = -a(\rho,\vh)$ by Galerkin orthogonality. By definition of $a,$ we have $-a(\rho,\vh) = -\IPLtD{A\grad\rho}{\vh} + k^2 \IPLtD{n\rho}{\vh} + ik\IPLtGI{\rho}{\vh}.$ By Galerkin orthogonality for $\rho = u - \Ph u$, $\IPLtD{A\grad\rho}{\vh} = 0$, and so by the definition of the $n$-weighted $L^2$ inner product, and the $n$-weighted $L^2$-projection $\Qhn,$ the result follows.
+Let $\vh \in \Vhp.$ Then $\aT(\thetah,\vh) = \aT(u-\uh,\vh) - \aT(\rho,\vh) = -\aT(\rho,\vh)$ by Galerkin orthogonality. By definition of $a,$ we have $-\aT(\rho,\vh) = -\IPLtD{A\grad\rho}{\vh} + k^2 \IPLtD{n\rho}{\vh} + ik\IPLtGI{\rho}{\vh}.$ By Galerkin orthogonality for $\rho = u - \Ph u$, $\IPLtD{A\grad\rho}{\vh} = 0$, and so by the definition of the $n$-weighted $L^2$ inner product, and the $n$-weighted $L^2$-projection $\Qhn,$ the result follows.
 \epf
 
-As the definition of the elliptic projection $\Ph$ (\cref{eq:epdef,eq:aepdef} above) uses a Neumann boundary condition on $\GI$, rather than an impedance boundary condition, (see\optodo{Insert ref or write it} above for this rationale) the right-hand side of \cref{eq:thetaform} includes a term defined on the truncation boundary $\GI.$\optodo{search for impedance boundary and replace with truncation boundary} If the definition of the elliptic projection used an imepdance boundary condition, this term would disappear. The presence of this term means that when we bound $\NLtDn{\thetah}$ and $\Npmohn{\thetah}$ in the proofs of \cref{lem:higherbound,lem:ltthetahbound} below, we will encounter terms involving $\NLtGI{\thetah}$. Therefore, we first prove a bound on $\NLtGI{\thetah}.$
+As mentioned in \cref{rem:epdef}, the definition of the elliptic projection $\Ph$ (\cref{eq:epdef,eq:aepdef} above) uses a Neumann boundary condition on $\GI$, rather than an impedance boundary condition, and therefore the right-hand side of \cref{eq:thetaform} includes a term defined on the truncation boundary $\GI.$ If the definition of the elliptic projection used an imepdance boundary condition, this term would disappear. The presence of this term means that when we bound $\NLtDn{\thetah}$ and $\Npmohn{\thetah}$ in the proofs of \cref{lem:higherbound,lem:ltthetahbound} below, we will encounter terms involving $\NLtGI{\thetah}$. Therefore, we first prove a bound on $\NLtGI{\thetah}.$
 
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 Under the assumptions of \cref{thm:fembound}, we have
@@ -2344,7 +2357,7 @@ To bound $\NLtGI{\rho}$appearing in  the second term on the right-hand side of \
 \beq\label{eq:rhomtbound}
 \NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cprojfn{0}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cprojfn{0}^{\half} h^{\half} \NW{\rho}.
 \eeq
-Therefore by \cref{eq:rhomtbound} and Young's inequality, we obtain
+Therefore by \cref{eq:rhomtbound} and Young's inequality \cref{eq:young}, we obtain
 \beq\label{eq:rhothetamt}
 \NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cprojfn{0} h \NW{\rho}^2 + \half \NLtGI{\thetah}^2.
 \eeq
@@ -2404,13 +2417,13 @@ Inserting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obt
 \IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}.
 \eeq
 
-Therefore, from\renewcommand{\creflastconjunction}{,~} \cref{eq:deltahm,eq:firstboundary,eq:secondboundary},\renewcommand{\creflastconjunction}{\lastconj} and the Cauchy--Schwartz inequality, we have\optodo{Write Young's and Cauchy's ineqlauities somewhere}
+Therefore, from\renewcommand{\creflastconjunction}{,~} \cref{eq:deltahm,eq:firstboundary,eq:secondboundary},\renewcommand{\creflastconjunction}{\lastconj} and the Cauchy--Schwartz inequality, we have
 \begin{align*}
 \Nfn{m,h}{\thetah}^2 &\leq k^2 \Nfn{m-1,h}{\thetah}^2 + k^2 \Nfn{m-1,h,n}{\Qhn \rho}\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\quad+ k\mleft(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah} + \CBt \nmin^{-m}h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\quad+ k\CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
 \end{align*}
-Therefore using Young's inequality we have
+Therefore using Young's inequality \cref{eq:young} we have
 \begin{align*}
 \Nfn{m,h}{\thetah}^2 &\leq k^2\mleft(\frac32 + \CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p} + \half \CBt \nmin^{-m} + \half\CBth \nmin^{-m}\mright)\Nfn{m-1,h,n}{\thetah}^2\\
 &\quad\quad+ \frac{k^2}2 \Nfn{m-1,h,n}{\Qhn \rho}^2 +  h^{2(1-m)} \NW{\rho}^2,
@@ -2453,7 +2466,7 @@ The following \lcnamecref{lem:continuity} is straightforward to prove, and used 
 \ble[Continuity of $a$]\label{lem:continuity}
 For any $\vo, \vt \in \HozDD,$
 \beqs
-\abs{a(\vo,\vt)} \leq \Cc \NLiD{n} \NW{\vo}\NW{\vt}.
+\abs{\aT(\vo,\vt)} \leq \Cc \NLiD{n} \NW{\vo}\NW{\vt}.
 \eeqs
 \ele
 
@@ -2467,23 +2480,23 @@ Under the assumptions of \cref{thm:fembound},%there exist constants $\Cfirst, \C
 
 \bpf[Proof of \cref{lem:ltthetahbound}]
 The proof initially uses the standard duality technique, but then becomes more complex than standard proofs. This complexity is due to the fact that (i) we are bounding $\thetah$, not the finite-element error $u-\uh$, and (ii) we are bounding $\thetah$ by its higher-order-discrete norms, rather than by its $H^1$-norm as in the Aubin--Nitsche argument.
-\optodo{$a$ should be $\aT$ throughout.}
+
 Consider the adjoint variational problem: Find $w \in \HozDD$ such that for all $v \in \HozDD$
 \beq\label{eq:adjointtheta}
-a(v,w) = \IPLtD{v}{\thetah}.
+\aT(v,w) = \IPLtD{v}{\thetah}.
 \eeq
-(I.e., $w$ solves the adjoint problem \cref{eq:adjoint} with right-hand side given by $n\thetah$.) Let $\eh \de u -\uh$ be the finite-element error, put $v = \eh$ in \cref{eq:adjointtheta} and take the complex conjugate\footnote{The reason we take the complex conjugate is that to apply Galerkin orthogonality for $w-\Ph w$, the term $w-\Ph w$ must be the first argument of $\aT$. Alternatively, one could define $\widetilde{\Ph}$ to be the analagoue of the elliptic projection but defined in the second argument, show analogies of the error bounds \cref{lem:ellprojerr} and proceed with the proof of this \lcnamecref{lem:ltthetahbound}. However, for simplicity, we instead take the complex ocnjufate of \cref{eq:adjointtheta}.} to obtain
+(I.e., $w$ solves the adjoint problem \cref{eq:adjoint} with right-hand side given by $n\thetah$.) Let $\eh \de u -\uh$ be the finite-element error, put $v = \eh$ in \cref{eq:adjointtheta} and take the complex conjugate\footnote{The reason we take the complex conjugate is that to apply Galerkin orthogonality for $w-\Ph w$, the term $w-\Ph w$ must be the first argument of $\aT$. Alternatively, one could define $\widetilde{\Ph}$ to be the analogue of the elliptic projection but defined in the second argument, show analogues of the error bounds \cref{lem:ellprojerr} and proceed with the proof of this \lcnamecref{lem:ltthetahbound}. However, for simplicity, we instead take the complex conjugate of \cref{eq:adjointtheta}.} to obtain
 \beqs
 \IPLtD{\thetah}{\eh} = \overline{\aT(\eh,w-\Ph w)} = \aep(w-\Ph w,\eh) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \NLtGI{w - \Ph w}{\eh}.
 \eeqs
 By Galerkin orthogonality for $w-\Ph w,$ we have (recalling $\eh = \rho + \thetah$)
 \begin{align}
   \IPLtD{\thetah}{\eh} &= \aep(w-\Ph w,\rho) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \NLtGI{w - \Ph w}{\eh}\nonumber\\
-&= \overline{a(\rho,w-\Ph w)}  -k^2 \IPLtDn{w-\Ph w}{\thetah} -ik \IPLtGI{w-\Ph w}{\thetah}.\label{eq:doublego}
-%&=a(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}
+&= \overline{\aT(\rho,w-\Ph w)}  -k^2 \IPLtDn{w-\Ph w}{\thetah} -ik \IPLtGI{w-\Ph w}{\thetah}.\label{eq:doublego}
+%&=\aT(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}
 \end{align}
 
-Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use Cauchy-Schwartz to obtain
+Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use the Cauchy-Schwartz inequality to obtain
 \begin{align}
 \NLtD{\thetah}^2 &\leq \Cc\NLiD{n} \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
 &+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtDn{\rho}\NLtDn{\thetah}\label{eq:boundingLtwo}
@@ -2540,7 +2553,7 @@ Rearranging \cref{eq:nearlythere} and using \cref{lem:ellprojerr} and the fact t
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.
 \end{align*}
-  Using Young's inequality to separate out the $\NLtD{\thetah}$ term on the right-hand side and then moving the resulting $\NLtD{\thetah}^2$ term to the left hand side, followed by \cref{eq:simple}, we obtain
+  Using Young's inequality \cref{eq:young} to separate out the $\NLtD{\thetah}$ term on the right-hand side and then moving the resulting $\NLtD{\thetah}^2$ term to the left hand side, followed by \cref{eq:simple}, we obtain
 \begin{align}
 \NLtD{\thetah}&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright) + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}  \mright)\NW{\rho}\nonumber \\
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
@@ -2585,5 +2598,4 @@ and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ a
 \end{align}
 Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{lem:ellprojerr} with $m=1$ and \cref{lem:scottzhang} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
 \epf
-\optodo{sort table width}
 
