@@ -1556,9 +1556,9 @@ The following inequalities are straightforward to prove
 \sqrt{\sum_{j=1}^N a_j^2} \leq \sum_{j=1}^N a_j.
 \eeq
 \item (Young's inequality) If $p,q \in (1,\infty)$ and $1/p + 1/q = 1$ then for all $a,b > 0$
-  \beq
+  \beq\label{eq:young}
 ab \leq \frac{a^p}p + \frac{b^q}q.
-\eeq\label{eq:young}
+\eeq
 \item (Cauchy's inequality) For all $\eps,a,b > 0$
   \beq\label{eq:cauchy}
   ab \leq \frac{a^2}{2\eps} + \frac{\eps b^2}2.
@@ -1781,13 +1781,13 @@ Applying C\'ea's Lemma to $\Ph$ in the $n$-weighted $H^1$ norm, we find
 \beq\label{eq:wepcea}
 \NHoDn{w-\Ph w} \leq \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}\nvar\BAHoDn{w}{\wh},
 \eeq
-as $\Ph$ corresponds to a sesquilinear form with continuity constant $\NLiDop{A}/\nmin$ and coercivety constant
+as $\Ph$ corresponds to a sesquilinear form with continuity constant $\NLiDop{A}/\nmin$ and coercivity constant
 \beqs
 \mleft(\Amin\min\set{1,1/\CP}\mright)/\mleft(2\NLiD{n}\mright).
 \eeqs
 Combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn} in the case $m > d/2$.
 
-For $s \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
+For $m \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
 \beq\label{eq:wep2pt1}
 2\CSZfn{m+2} \CAfn{m} \Cprod{m} \NLiDop{A} \frac{\NWmiD{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w},
 \eeq
