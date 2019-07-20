@@ -1,0 +1,18 @@
+\def\xextent{1}
+\def\ybottom{-2}
+\def\yrad{0.8}
+\filldraw[color=black] (0,0) arc (100:440: 1.0 and \yrad) coordinate (end)
+% arc notation learned from https://tex.stackexchange.com/questions/123158/tikz-using-the-ellipse-command-with-a-start-and-end-angle-instead-of-an-arc
+-- ++(\xextent,0)
+-- ++(0,\ybottom)
+-- (-\xextent,\ybottom)
+-- (-\xextent,0)
+-- cycle
+;
+
+\def\arrx{0.7}
+\def\arry{-\yrad}
+
+\draw [Stealth-Stealth,thick] (end) ++(\arrx,\arry)  -- (-\arrx,\arry);
+
+
