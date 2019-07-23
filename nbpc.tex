@@ -884,8 +884,9 @@ the triangle inequality and the bounds \cref{eq:bound3} and \cref{eq:bound1} fro
 %m_- h^{d/2}k \N{\tbu}_2 \leq k\N{\tu_h}_{\LtDR}\leq  
 \N{\tu_h}_{\HokDR} \leq
 \N{\tu-\tu_h}_{\HokDR} + \N{\tu}_{\HokDR} \label{eq:mainevent1}
-& \leq C^{(1)}_{\rm FEM1}\N{nf}_{\LtDR} + C^{(1)}_{\rm bound}\big\|n\widetilde{f}\big\|_{\LtDR} \\ \nonumber
-& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\DR)}\frac{\big\|\widetilde{f}\big\|_{\HokDR}}{k};
+& \leq C^{(1)}_{\rm FEM1}\NLtDR{n\ftilde} + C^{(1)}_{\rm bound}\NLtDR{n\ftilde} \\ 
+& \leq \mleft(C^{(1)}_{\rm FEM1} + C^{(1)}_{\rm bound}\mright)\NLtDR{n}\NLtDR{\ftilde} \label{eq:mainevent1a} \\
+& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\DR)}\frac{\big\|\widetilde{f}\big\|_{\HokDR}}{k};\nonumber
 %& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\DR)} m_+ h^{d/2} \N{\bff}_2,
 \end{align}
 the bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ in \cref{eq:keybound1} then follows from the definition of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk} and the definition of $C_2$ \cref{eq:C2}.
@@ -944,7 +945,7 @@ $\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \cref{e
 
 \
 
-\bpf[Proof of \cref{lem:keylemma1}]
+\bpf[Proof of \cref{lem:keylemma2}]
 In a similar way to the proof of \cref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} := \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
 a^{(1)}(\widetilde{u},v)= \widetilde{F}(v) \quad\text{ for all } v\in H^1(\Omega),
@@ -952,10 +953,11 @@ a^{(1)}(\widetilde{u},v)= \widetilde{F}(v) \quad\text{ for all } v\in H^1(\Omega
  \widetilde{F}(v) :=(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
 \eeq
 Observe that the definition of the norms $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnorm} and $\|\cdot\|_{\HokDR}$ \cref{eq:1knorm} and the Cauchy-Schwarz inequality imply that
-\beq\label{eq:Fbound}
-\big\| \widetilde{F}\big\|_{(\HokDR)'}\leq \big\|A\nabla \widetilde{f}\big\|_{\LtDR} \leq \big\|A\big\|_{L^\infty(\DR)} \big\|\nabla \widetilde{f}\big\|_{\LtDR}\leq 
-\big\|A\big\|_{L^\infty(\DR)} \big\| \widetilde{f}\big\|_{\HokDR}.
-\eeq
+\begin{align}
+\big\| \widetilde{F}\big\|_{(\HokDR)'}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtDR}\nonumber\\
+&\leq \big\|A\big\|_{L^\infty(\DR)} \big\|\nabla \widetilde{f}\big\|_{\LtDR}\label{eq:Fbounda}\\
+&\leq \big\|A\big\|_{L^\infty(\DR)} \big\| \widetilde{f}\big\|_{\HokDR}.\label{eq:Fbound}
+\end{align}
 Let $\tu_h$ be the solution of the finite element approximation of \cref{eq:411a}, i.e.,
 \beq\label{eq:41a}
 a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \cV_h,
@@ -1235,6 +1237,144 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 \ere
 
 %\section{Proof of \cref{lem:2}}
+
+\section{Extension of the results to weaker norms and probabilistic convergence results}
+\optodo{Insert chat}
+\subsection{Analogues of \cref{thm:1,cor:1,cor:1a} in weaker norms}
+\optodo{Chat about weaker norms, in light of $L^1$ numerical results}
+
+The reason that the terms $\NLiDR{\Ao-\At}$ and $\NLiDR{\no-\nt}$ appear in \cref{thm:1} is that the terms $\NLiDR{n}$ and $\NLiDR{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
+\beq\label{eq:keynbound}
+\NLtDR{n\ftilde} \leq \NLiDR{n}\NLtDR{\ftilde}
+\eeq
+and
+\beq\label{eq:keyAbound}
+\NLtDR{A \grad \ftilde} \leq \NLiDR{A}\NLtDR{\grad \ftilde}
+\eeq
+respectively, for some function $\ftilde,$ and these bounds are carried through the rest of the proof.
+
+However, if we instead use the variant of H\"older's inequality\optodo{Find ref} to bound \cref{eq:keynbound,eq:keyAbound} we instead obtain
+\beq\label{eq:keynbound2}
+\NLtDR{n\ftilde} \leq \NLqtildeDR{n}\NLptildeDR{\ftilde}
+\eeq
+and
+\beq\label{eq:keyAbound2}
+\NLtDR{A\grad\ftilde} \leq \NLqtildeDR{A}\NLptildeDR{\ftilde}.
+\eeq
+If we then apply\optodo{Write somewhere the inverse inequality from Brenner and Scott} to \cref{eq:keynbound2,eq:keyAbound2} we obtain
+\beq\label{eq:keynboundfinal}
+\NLtDR{n\ftilde} \leq \Cinvptilde \NLqtildeDR{n} h^{d\mleft(\frac1{\ptilde} - \half\mright)} \NLtDR{\ftilde}
+\eeq
+and
+\beq\label{eq:keyAboundfinal}
+\NLtDR{A\grad\ftilde} \leq \Cinvptilde \NLqtildeDR{A} h^{d\mleft(\frac1{\ptilde} - \half\mright)} \NLtDR{\grad\ftilde}.
+\eeq
+
+Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal}, and proceeding as in the proofs of \cref{lem:keylemma1,lem:keylemma2}, we obtain \cref{lem:keylemma1a,lem:keylemma2a} below, the analogues of \cref{lem:keylemma1,lem:keylemma2}.
+
+\ble[Alternative bounds on $(\Amato)^{-1} \Mmat_{n}$]\label{lem:keylemma1a}
+Assume that \cref{cond:1nbpc} holds, and assume that Part (i) of \cref{cond:2} holds. Then, for $n\in \LiDRRR$ and for any $\ptilde,\qtilde > 2$ such that $1/\ptilde + 1/\qtilde = \half$,
+\beq\label{eq:keybound12}
+\max\set{\NDk{\AmatoI \Mmatn},\NDkI{\Mmatn\AmatoI}} \leq \Cttilde h^{d\mleft(\frac1{\ptilde}-\half\mright)} \frac{\NLqtildeDR{n}}k
+\eeq
+and 
+\beq\label{eq:keybound1a2}
+\max\set{\Nt{\AmatoI \Mmatn},\Nt{\Mmatn\AmatoI}} \leq \Cttilde\mleft(\frac{\mplus}{\mminus}\mright) h^{d\mleft(\frac1{\ptilde}-\half\mright)} \frac{\NLqtildeDR{n}}k
+\eeq
+for all $k\geq \kz$,
+where
+\beq\label{eq:C2tilde}
+\Cttilde\de%\frac{m_+}{m_-} 
+%\left[ 
+\Cinvptilde\mleft(\CFEMoo + \Cboundo\mright).
+\eeq
+\ele
+
+\ble[Alternative bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2a}
+Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in L^\infty(\DR,\RR^{d\times d})$ and for any $\ptilde,\qtilde > 2$ such that $1/\ptilde + 1/\qtilde = \half$,
+\beq\label{eq:keybound22}
+\max\set{\NDk{\AmatoI \SmatA},\NDkI{\SmatA\AmatoI}} \leq \Cotilde h^{d\mleft(\frac1{\ptilde}-\half\mright)}k \NLqtildeDR{A}
+\eeq
+and
+\beq\label{eq:keybound2a2}
+\max\set{\Nt{\AmatoI \SmatA},\Nt{\SmatA\AmatoI}} \leq \Cotilde\mleft(\frac{\splus}{\mminus}\mright) h^{d\mleft(\frac1{\ptilde}-\half\mright)-1} \NLqtildeDR{A}
+\eeq
+%\begin{align}\nonumber
+%&\max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
+%\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\}\nonumber \\
+%&\hspace{2cm}
+% \leq \frac{s_+}{s_-} \left[ C_{\rm FEM2}^{(1)} + 
+% \frac{1}{\min\big\{\Aomin,\nomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nomax  \right) \right]k\N{A}_{L^\infty(\DR)}\label{eq:keybound2}
+%% + C_{\rm bound}^{(1)}\right) \frac{\N{n}_{L^\infty(\DR)}}{k}.
+%\end{align}
+for all $k\geq k_0$, where
+\beq\label{eq:C1tildenbpc}
+\Cotilde \de \Cinvptilde\mleft[\CFEMto +  \frac{1}{\min\set{\Aomin,\nomin}}\mleft(\frac{1}{\kz} + 2 \Cboundo \nomax  \mright) \mright]
+\eeq
+\ele
+
+
+\begin{theorem}[Alternative main ingredient to answer to Q1]\label{thm:1alt}
+Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. Let $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2.$ Let the $k$- and $h$-independent constants $\mpm$ and $\spm$ be given as in \cref{lem:normequiv} below. Then, given $\kz>0$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, $\ptilde$, and $\kz$) such that
+\begin{align}\nonumber
+&\max\set{\NDk{\Imat - \AmatoI\Amatt},\NDkI{\Imat -\Amatt\AmatoI}}\\
+&\hspace{3cm} 
+\leq \Cotilde kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\Ao-\At} + \Cttilde  kh^{d\mleft(\frac1{\ptilde}-\half\mright)}  \NLqtildeDR{\no-\nt}
+\label{eq:main1alt}
+\end{align}
+and 
+\begin{align}\nonumber
+&\max\set{\Nt{\Imat - \AmatoI\Amatt}, \Nt{\Imat -\Amatt\AmatoI}}\\
+&\hspace{0cm}
+\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{d\mleft(\frac1{\ptilde}-\half\mright)-1}\NLqtildeDR{\Ao-\At} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{d\mleft(\frac1{\ptilde}-\half\mright)}\NLqtildeDR{\no-\nt}
+\label{eq:main1aalt}
+\end{align}
+for all $k\geq k_0$. 
+\end{theorem}
+
+\bpf[Proof of \cref{thm:1alt}]
+
+\epf
+
+\begin{corollary}[Alternative answer to Q1: $k$-independent weighted GMRES iterations]\label{cor:1alt}
+Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
+let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
+% such that if 
+\beq\label{eq:condalt}
+\Cotilde kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\Ao-\At} +\Cttilde  kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\no-\nt}
+\leq \frac{1}{2}
+\eeq
+for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
+\beq\label{eq:pcsystem1alt}
+(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff
+\eeq
+\emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to 
+\beq\label{eq:pcsystem2alt}
+\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
+\eeq
+ converge in a $k$-independent number of iterations for all $k\geq k_0$.
+\end{corollary}
+
+\begin{corollary}[Alternative answer to Q1: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
+Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
+let $C_1$ and $C_2$ be as in \cref{thm:1alt}, and let $s_{\pm}$ and $m_{\pm}$ be as in \cref{lem:normequiv} (note that all these constants are independent of $k$, $h$, and $p$). Then if 
+% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
+% such that if 
+\beq\label{eq:condaalt}
+\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{d\mleft(\frac1{\ptilde}-\half\mright)-1} \NLqtildeDR{\Ao-\At} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\no-\nt} \leq \half
+\eeq
+for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1alt} or \cref{eq:pcsystem2alt}
+%\beqs
+%(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
+%\eeqs
+ converges in a $k$-independent number of iterations for all $k\geq k_0$.
+\end{corollary}
+
+
+\subsection{Probabilistic analogue of \cref{cor:1}}
+
+\section{Application to QMC methods for the Helmholtz equation}
 
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
 
