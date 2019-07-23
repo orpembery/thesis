@@ -262,7 +262,6 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 
 \cref{thm:1} and \cref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:srcnbpc} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP.
 
-\subsection{Fancy experiments Owen is doing where \cref{eq:cond} only holds ``on average''}
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
 
@@ -1377,7 +1376,7 @@ There exists a function $\Gfnname:(0,1)\rightarrow [0,\dofs]$ such that if GMRES
 \beqs
 \Gfn{\NLiDR{\no-\nt}} =
 \begin{dcases}
-\max\set{N,\ceil\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
+\max\set{N,\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
 N & \tif \alpha \geq 1,
 \end{dcases}
 \eeqs\optodo{Figure out if I need ceil}
