@@ -1273,7 +1273,7 @@ and
 Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal}, and proceeding as in the proofs of \cref{lem:keylemma1,lem:keylemma2}, we obtain \cref{lem:keylemma1a,lem:keylemma2a} below, the analogues of \cref{lem:keylemma1,lem:keylemma2}.
 
 \ble[Alternative bounds on $(\Amato)^{-1} \Mmat_{n}$]\label{lem:keylemma1a}
-Assume that \cref{cond:1nbpc} holds, and assume that Part (i) of \cref{cond:2} holds. Then, for $n\in \LiDRRR$ and for any $\ptilde,\qtilde > 2$ such that $1/\ptilde + 1/\qtilde = \half$,
+Under the assumptions of \cref{lem:keylemma1}, for $n\in \LiDRRR$ and for any $\ptilde,\qtilde > 2$ such that $1/\ptilde + 1/\qtilde = \half$,
 \beq\label{eq:keybound12}
 \max\set{\NDk{\AmatoI \Mmatn},\NDkI{\Mmatn\AmatoI}} \leq \Cttilde h^{d\mleft(\frac1{\ptilde}-\half\mright)} \frac{\NLqtildeDR{n}}k
 \eeq
@@ -1286,12 +1286,13 @@ where
 \beq\label{eq:C2tilde}
 \Cttilde\de%\frac{m_+}{m_-} 
 %\left[ 
-\Cinvptilde\mleft(\CFEMoo + \Cboundo\mright).
+\Cinvptilde\Ct,
 \eeq
+where $\Ct$ is defined by \cref{eq:C2}.
 \ele
 
 \ble[Alternative bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2a}
-Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in L^\infty(\DR,\RR^{d\times d})$ and for any $\ptilde,\qtilde > 2$ such that $1/\ptilde + 1/\qtilde = \half$,
+Under the assumptions of \cref{lem:keylemma2}, for $A\in L^\infty(\DR,\RR^{d\times d})$ and for any $\ptilde,\qtilde > 2$ such that $1/\ptilde + 1/\qtilde = \half$,
 \beq\label{eq:keybound22}
 \max\set{\NDk{\AmatoI \SmatA},\NDkI{\SmatA\AmatoI}} \leq \Cotilde h^{d\mleft(\frac1{\ptilde}-\half\mright)}k \NLqtildeDR{A}
 \eeq
@@ -1309,13 +1310,14 @@ and
 %\end{align}
 for all $k\geq k_0$, where
 \beq\label{eq:C1tildenbpc}
-\Cotilde \de \Cinvptilde\mleft[\CFEMto +  \frac{1}{\min\set{\Aomin,\nomin}}\mleft(\frac{1}{\kz} + 2 \Cboundo \nomax  \mright) \mright]
+\Cotilde \de \Cinvptilde\Co,
 \eeq
+where $\Co$ is given by \cref{eq:C1nbpc}.
 \ele
 
 
 \begin{theorem}[Alternative main ingredient to answer to Q1]\label{thm:1alt}
-Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. Let $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2.$ Let the $k$- and $h$-independent constants $\mpm$ and $\spm$ be given as in \cref{lem:normequiv} below. Then, given $\kz>0$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, $\ptilde$, and $\kz$) such that
+Let the assumptions of \cref{thm:1} hold.   Then, given $\kz>0$ and $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, $\ptilde$, and $\kz$) such that
 \begin{align}\nonumber
 &\max\set{\NDk{\Imat - \AmatoI\Amatt},\NDkI{\Imat -\Amatt\AmatoI}}\\
 &\hspace{3cm} 
@@ -1337,40 +1339,30 @@ for all $k\geq k_0$.
 \epf
 
 \begin{corollary}[Alternative answer to Q1: $k$-independent weighted GMRES iterations]\label{cor:1alt}
-Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
-let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
 \Cotilde kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\Ao-\At} +\Cttilde  kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\no-\nt}
 \leq \frac{1}{2}
 \eeq
-for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
-\beq\label{eq:pcsystem1alt}
-(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff
-\eeq
-\emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to 
-\beq\label{eq:pcsystem2alt}
-\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
-\eeq
- converge in a $k$-independent number of iterations for all $k\geq k_0$.
+for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations for all $k\geq k_0$.
 \end{corollary}
 
 \begin{corollary}[Alternative answer to Q1: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
-Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
-let $C_1$ and $C_2$ be as in \cref{thm:1alt}, and let $s_{\pm}$ and $m_{\pm}$ be as in \cref{lem:normequiv} (note that all these constants are independent of $k$, $h$, and $p$). Then if 
+Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2$. let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condaalt}
 \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{d\mleft(\frac1{\ptilde}-\half\mright)-1} \NLqtildeDR{\Ao-\At} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\no-\nt} \leq \half
 \eeq
-for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1alt} or \cref{eq:pcsystem2alt}
+for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
 %(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \end{corollary}
-
+\optodo{Need to have some chat about the trade-off with these, and the `theoretical' best $1/k$ for $L^1$}
 
 \subsection{Probabilistic analogue of \cref{cor:1}}
 
