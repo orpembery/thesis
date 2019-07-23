@@ -1096,8 +1096,12 @@ The bound \cref{eq:Elman} with $\Dmat=\Imat$ was originally proved in \cite{El:8
 \begin{corollary}
 \label{cor:GMRES_intro} 
 If $\|\Imat - \matrixC \|_\Dmat \leq \sigma < 1$, then, with $\beta$ defined as in \cref{eq:cosbeta},
-$$\cos \beta \geq \frac{1-\sigma}{1+\sigma} \quad \text{and} \quad
-\sin \beta \leq \frac{2 \sqrt{\sigma}}{(1+\sigma)^2} \ . $$
+\beqs
+\cos \beta \geq \frac{1-\sigma}{1+\sigma}\eeqs
+and
+\beq\label{eq:gmressin}
+\sin \beta \leq \frac{2 \sqrt{\sigma}}{(1+\sigma)^2}.
+\eeq
 \end{corollary}
 
 \bpf[Proof of \cref{cor:1}]
@@ -1365,6 +1369,49 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 \optodo{Need to have some chat about the trade-off with these, and the `theoretical' best $1/k$ for $L^1$}
 
 \subsection{Probabilistic analogue of \cref{cor:1}}
+\optodo{CHange $\sigma$ to $\alpha$ in Elman stuff}
+\optodo{Insert setup - $A$ equal, just doing $L^\infty$ stuff}
+\ble[Maximum number of GMRES iterations]\label{lem:probgmres1}
+Let $0 < \eps < 1,$ and let $\dofs$ denote the number of degrees of freedom.\optodo{Mentione $\dofs$ equals size of matrices}
+There exists a function $\Gfnname:(0,1)\rightarrow [0,\dofs]$ such that if GMRES is initialised with $\Nt{\brz} = 1,$ then GMRES applied to \cref{eq:pcsystem1} converges to within a tolerance $\eps$ in at most $\Gfn{\NLiDR{\no-\nt}}$ iterations. Moreover, $\Gfnname$ is given by
+\beqs
+\Gfn{\NLiDR{\no-\nt}} =
+\begin{dcases}
+\max\set{N,\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
+N & \tif \alpha \geq 1,
+\end{dcases}
+\eeqs
+where $\alpha = \Ct k \NLiDR{\no-\nt},$ where $\Ct$ is given by \cref{eq:C2}.
+\ele
+
+\bpf[Proof of \cref{lem:probgmres1}]
+For $\alpha \geq 1$, the result is immediate from\optodo{Find the fact that GMRES converges in at most $N$, put it in and ref it here}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} into \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
+\beq\label{eq:gmressub}
+\frac{\Nt{\brm}}{\Nt{\brz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
+\eeq
+To obtain an lower on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\brz} = 1$) if
+\beqs
+m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
+\eeqs
+Hence a sufficient condition for the GMRES residual to be less than $\eps$ is
+\beq\label{eq:gmressub2}
+m =\ceil{ \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
+\eeq
+The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2} and\optodo{at most $N$ result}.
+\epf
+
+We will use the following \lcnamecref{lem:gtechnical} to prove our probabilistic result.
+\ble[Properties of $\Gfnname$]\label{lem:gtechnical}
+Let $\eps,$ $\dofs$, and $\Gfnname$ be as in \cref{lem:probgmres1}. Define
+\beqs
+\alphacrit \de \inf \set{\alpha > 0 \st \Gfn{\alpha} = \dofs}.
+\eeqs
+Then $\alphacrit$ is well-defined and $\Gfnname\restrict_{\mleft[0,\alphacrit\mright]}:\mleft[0,\alphacrit\mright]\rightarrow \mleft[0,\dofs\mright]$ is strictly increasing and therefore invertible.
+\ele\optodo{Sort ceil}
+
+\bre[$\GfnnameI$ can be explicitly calculated]
+Observe that $\GfnnameI$ can be calculated in closed form:
+\ere
 
 \section{Application to QMC methods for the Helmholtz equation}
 
