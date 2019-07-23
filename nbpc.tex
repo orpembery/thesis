@@ -24,10 +24,10 @@ where $k>0$ is the wavenumber. In Equation \cref{eq:pde},
 \item $\supp(I-\Aj)$, $\supp(1-\nj)$, and $\supp\, f$ are all %compactly 
 contained in $B_R:= \{\bx : \|\bx\|_2<R\}$ for some $R>0$
 \een
-(see Definition \ref{def:EDP} below for a precise definition of this boundary-value problem).
+(see \cref{def:EDP} below for a precise definition of this boundary-value problem).
 
 Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-version finite-element discretisations (with decreasing mesh size $h$ and fixed polynomial degree $p$)
-of \cref{eq:pde} truncated to $\Omega_R:= \Dp \cap B_R$, with the radiation condition realised exactly on $\Gamma_R:=\partial B_R$ via the exact Dirichlet-to-Neumann map (see Definition \ref{def:Galerkin} and \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). Our results also hold in the case when the radiation condition is approximated by an impedance boundary condition, and the truncation boundary is not necessarily $\Gamma_R$; see Section \ref{sec:TEDP}.
+of \cref{eq:pde} truncated to $\Omega_R:= \Dp \cap B_R$, with the radiation condition realised exactly on $\Gamma_R:=\partial B_R$ via the exact Dirichlet-to-Neumann map (see \cref{def:Galerkin} and \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). Our results also hold in the case when the radiation condition is approximated by an impedance boundary condition, and the truncation boundary is not necessarily $\Gamma_R$; see \cref{sec:TEDP}.
  
 This \lcnamecref{chap:nbpc} answers the following question:
 
@@ -65,7 +65,7 @@ even when the linear system has a unique solution (which depends on the discreti
 Suppose one calculates the LU factorisation of the Galerkin matrix for one realisation of the coefficients $A$ and $n$. The answer to Q1 above makes $k$-explicit the extent to which this factorisation can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
 
 \subsection{Statement of the main results}\label{sec:main}
-The main results about Q1, Theorem \ref{thm:1} and Corollaries \ref{cor:1} and \ref{cor:1a} below, are proved under two conditions. These are defined precisely in Conditions \ref{cond:1nbpc} and \ref{cond:2} below, but they can be informally stated as 
+The main results about Q1, \cref{thm:1} and \cref{cor:1,cor:1a} below, are proved under two conditions. These are defined precisely in \cref{cond:1nbpc,cond:2} below, but they can be informally stated as 
 \bit
 \item the obstacle $\Dm$ and the coefficients $\Ao$ and $\no$ are such that $u^{(1)}$ exists and the problem is \emph{nontrapping} (i.e.~all the rays of geometric optics starting in $\Omega_R$ leave $\Omega_R$ after some uniform time), and
 \item the meshsize $h$ and polynomial degree $p$ in the finite-element method are chosen to depend on $k$ to ensure that the 
@@ -97,8 +97,8 @@ for the Helmholtz equation \cite{GrSpVa:17}, \cite{GrSpZo:18}, and for the time-
 Our main results about Q1 are the following.
 
 \begin{theorem}[Main ingredient to answer to Q1]\label{thm:1}
-Assume that $\Dm$, $\Ao$, and $\no$ satisfy Condition \ref{cond:1nbpc}, and assume that $h$ and $p$ satisfy Condition \ref{cond:2}. 
-Let the $k$- and $h$-independent constants $\mpm$ and $\spm$ be given as in Lemma \ref{lem:normequiv} below.
+Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. 
+Let the $k$- and $h$-independent constants $\mpm$ and $\spm$ be given as in \cref{lem:normequiv} below.
 Then, given $\kz>0$, there exist $\Co, \Ct>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $\kz$) such that
 \begin{align}\nonumber
 &\max\Big\{
@@ -124,7 +124,7 @@ and
 for all $k\geq k_0$. 
 \end{theorem}
 
-Two notes regarding Theorem \ref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in Conditions \ref{cond:1nbpc} and \ref{cond:2}, and (ii) the $L^\infty(\Omega_R)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
+Two notes regarding \cref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in \cref{cond:1nbpc,cond:2}, and (ii) the $L^\infty(\Omega_R)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
 \N{A}_{L^\infty(\Omega_R)}:= \esssup_{\bx\in\Omega_R}\N{A(\bx)}_2.
 \eeqs
@@ -132,8 +132,8 @@ Two notes regarding Theorem \ref{thm:1}: (i) the constants $C_1$ and $C_2$ are e
 By using the field-of-values-based theory for the convergence of GMRES introduced in \cite{El:82}, \cite{EiElSc:83} (the so-called `Elman estimate'), we have the following corollaries.
 
 \begin{corollary}[Answer to Q1: $k$-independent weighted GMRES iterations]\label{cor:1}
-Assume that $\Dm$, $\Ao$, and $\no$ satisfy Condition \ref{cond:1nbpc}, and $h$ and $p$ satisfy Condition \ref{cond:2}. Given $k_0>0$,
-let $C_1$ and $C_2$ be as in Theorem \ref{thm:1}. Then if 
+Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
+let $C_1$ and $C_2$ be as in \cref{thm:1}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
@@ -152,8 +152,8 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 \end{corollary}
 
 \begin{corollary}[Answer to Q1: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
-Assume that $\Dm$, $\Ao$, and $\no$ satisfy Condition \ref{cond:1nbpc}, and $h$ and $p$ satisfy Condition \ref{cond:2}. Given $k_0>0$,
-let $C_1$ and $C_2$ be as in Theorem \ref{thm:1}, and let $s_{\pm}$ and $m_{\pm}$ be as in Lemma \ref{lem:normequiv} (note that all these constants are independent of $k$, $h$, and $p$). Then if 
+Assume that $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
+let $C_1$ and $C_2$ be as in \cref{thm:1}, and let $s_{\pm}$ and $m_{\pm}$ be as in \cref{lem:normequiv} (note that all these constants are independent of $k$, $h$, and $p$). Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:conda}
@@ -171,15 +171,15 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 
 
 The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations is then larger -- but still independent of $k$.
-%In \S\ref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
+%In \cref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
 
 \bre
 When $h\sim  k^{-1}$, the bounds \cref{eq:main1} and \cref{eq:main1a} (and hence also \cref{eq:cond} and \cref{eq:conda}) are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect, as discussed in ) the bound \cref{eq:main1a} for standard GMRES is more pessimistic than the bound \cref{eq:main1} for weighted GMRES.
 \ere
 
 
-\paragraph{How sharp are Theorem \ref{thm:1} and Corollaries \ref{cor:1} and \ref{cor:1a} in their $k$-dependence?}
-Numerical experiments in \S\ref{sec:num} indicate that the condition \cref{eq:cond} is sharp, in that the $k$ in \cref{eq:cond} cannot be replaced by $k^\alpha$ for $\alpha<1$ \ednote{put some plots in here}. This suspected sharpness of \cref{eq:cond} is also supported by the PDE-result Theorem \ref{thm:2} below. Indeed, Theorem \ref{thm:2} % and Lemma \ref{lem:1} 
+\paragraph{How sharp are \cref{thm:1} and \cref{cor:1,cor:1a} in their $k$-dependence?}
+Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:cond} is sharp, in that the $k$ in \cref{eq:cond} cannot be replaced by $k^\alpha$ for $\alpha<1$ \ednote{put some plots in here}. This suspected sharpness of \cref{eq:cond} is also supported by the PDE-result \cref{thm:2} below. Indeed, \cref{thm:2} % and \cref{lem:1} 
  shows that the condition
 \beqs
 k\,
@@ -195,7 +195,7 @@ $\|\no - \nt\|_{L^\infty}$ be (in terms of $k$-dependence) for the relative erro
 %$u^{(1)}$ to be a good approximation to 
 $u^{(2)}$ by $u^{(1)}$ to be bounded independently of $k$ for arbitrarily-large $k$? 
 \eit
-Lemma \ref{lem:sharp} then shows that the condition ``$k\|\no - \nt\|_{L^\infty}$ sufficiently small" is the \emph{provably-sharp} answer to Q2 when $\Ao= \At= I$.
+\cref{lem:sharp} then shows that the condition ``$k\|\no - \nt\|_{L^\infty}$ sufficiently small" is the \emph{provably-sharp} answer to Q2 when $\Ao= \At= I$.
 
 %Before stating these PDE results, we define the weighted $H^1$ norm
 %\beq\label{eq:1knorm}
@@ -205,11 +205,11 @@ Lemma \ref{lem:sharp} then shows that the condition ``$k\|\no - \nt\|_{L^\infty}
 To state these PDE results, we use the notation for $a,b>0$ that $a\lesssim b$ when $a\leq C b$ for some $C>0$, independent of $k$, and $a\sim b$ if $a\lesssim b$ and $b\lesssim a$.
 
 
-%The sharpness of \cref{eq:cond} and \cref{eq:main1} is also supported by the answer to the analogue of Q1 at the level of PDEs. Indeed, the following Theorem \ref{thm:2} is the analogue of Theorem \ref{thm:1} 
+%The sharpness of \cref{eq:cond} and \cref{eq:main1} is also supported by the answer to the analogue of Q1 at the level of PDEs. Indeed, the following \cref{thm:2} is the analogue of \cref{thm:1} 
 
 \begin{theorem}[Answer to Q2 (the PDE analogue of Q1)]\label{thm:2}
 %Given $f\in L^2(\Omega_R)$ such that $\supp \, f \subset B_R$, 
-Let $\Dm$, $\Ao$, and $\no$ satisfy Condition \ref{cond:1nbpc}, and let $\Dm$, $\At$, and $\nt$ be such that $u^{(2)}$ exists
+Let $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and let $\Dm$, $\At$, and $\nt$ be such that $u^{(2)}$ exists
 for any $f\in L^2(\Omega_R)$ such that $\supp \, f \subset B_R$. 
 Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicitly in terms of $\Dm$, $\Ao$, and $\no$ in \cref{eq:C3} below, such that
 \beq\label{eq:PDEbound}
@@ -258,13 +258,13 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 
 \section{Numerical experiments}\label{sec:num}
 
-\subsection{Investigating the sharpness of Theorem \ref{thm:1} and Corollary \ref{cor:1}}
+\subsection{Investigating the sharpness of \cref{thm:1} and \cref{cor:1}}
 
-Theorem \ref{thm:1} and Corollary \ref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \S\ref{sec:problem} and shown in \S\ref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:srcnbpc} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see Definition \ref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of Theorem \ref{thm:1} and Corollary \ref{cor:1} for the TEDP.
+\cref{thm:1} and \cref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:srcnbpc} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP.
 
 \subsection{Fancy experiments Owen is doing where \cref{eq:cond} only holds ``on average''}
 
-%Say that these are for the TEDP defined in Definition \ref{def:TEDP}.
+%Say that these are for the TEDP defined in \cref{def:TEDP}.
 
 \section{Definitions and conditions}\label{sec:3}
 
@@ -319,7 +319,7 @@ and where $\langle\cdot,\cdot\rangle_{\GR}$ is the duality pairing on $\GR$ that
 \end{definition}
 
 \bre[The EDP with data in $(\HokDR)'$]
-In Definition \ref{def:EDP} we defined the EDP with the antilinear functional $F$ arising from an $f\in \LtDR$. In the rest of the paper, 
+In \cref{def:EDP} we defined the EDP with the antilinear functional $F$ arising from an $f\in \LtDR$. In the rest of the paper, 
 %\item In the rest of the paper, we usually consider the EDP with data given by $F$ defined in \cref{eq:EDPvar}, but sometimes 
 we sometimes consider the EDP with general $F\in (\HozDDR)'$ and we indicate when this is the case.
 In this latter situation, we recall that $\|\cdot\|_{\HokDR}$ is defined by \cref{eq:1knorm} and define the dual norm by
@@ -330,7 +330,7 @@ In this latter situation, we recall that $\|\cdot\|_{\HokDR}$ is defined by \cre
 \ere
 
 \bre[Relationship to the scattering problem posed on $\Dp$]
-For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \cref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \cref{eq:srcnbpc} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
+For a proof that the EDP solution (as defined by \cref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \cref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \cref{eq:srcnbpc} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
 \ere
 
 \bre[Existence and uniqueness]
@@ -339,7 +339,7 @@ Since $a(\cdot,\cdot)$ satisfies the G\aa rding inequality
 \Re a(v,v) \geq \min\big\{ A_{\min}, n_{\min}\big\} \N{v}^2_{\HokDR} - 2k^2 \N{v}^2_{L^2(\Omega_R)},
 \eeq
 Fredholm theory implies that existence of a solution to \cref{eq:EDPvar} follows from uniqueness (see, e.g., \cite[Theorem 2.34]{Mc:00}).
-Unique continuation results then imply that, under the additional assumption that $A$ is piecewise Lipschitz, the solution of the EDP of Definition \ref{def:EDP} exists and is unique; see \cite{GaLi:87}, \cite{BaCaTs:12}, and the discussion in \cite[\S1 and \S2.4]{GrPeSp:19} and \cite[\S]{GrSa:18}.
+Unique continuation results then imply that, under the additional assumption that $A$ is piecewise Lipschitz, the solution of the EDP of \cref{def:EDP} exists and is unique; see \cite{GaLi:87}, \cite{BaCaTs:12}, and the discussion in \cite[\S1 and \S2.4]{GrPeSp:19} and \cite[\S]{GrSa:18}.
 \ere
 
 
@@ -353,16 +353,16 @@ Unique continuation results then imply that, under the additional assumption tha
 %\N{F}_{(\HokDR)'}:= \sup_{v\in \HozDDR} \frac{|F(v)|}{\N{v}_{\HokDR}},
 %\eeq
 %where $\|\cdot\|_{\HokDR}$ is defined by \cref{eq:1knorm}.
-%\item For a proof that the EDP solution (as defined by Definition \ref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \cref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \cref{eq:srcnbpc} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
+%\item For a proof that the EDP solution (as defined by \cref{def:EDP}) is the truncation to $\Omega_R$ of the solution of \cref{eq:pde} posed in $\Dp$ in a weak sense, and satisfying both the Sommerfeld radiation condition \cref{eq:srcnbpc} and the Dirichlet boundary condition $\gamma u =0$ on $\Gamma$, see, e.g., \cite[Lemma 3.3]{GrPeSp:19}.
 %\item Since $a(\cdot,\cdot)$ satisfies the G\aa rding inequality 
 %\beq\label{eq:Garding}
 %\Re a(v,v) \geq \min\big\{ A_{\min}, n_{\min}\big\} \N{v}^2_{\HokDR} - 2k^2 \N{v}^2_{L^2(\Omega_R)},
 %\eeq
 %Fredholm theory implies that existence of a solution to \cref{eq:EDPvar} follows from uniqueness (see, e.g., \cite[Theorem 2.34]{Mc:00}).
-%Unique continuation results then imply that, under the additional assumption that $A$ is piecewise Lipschitz, the solution of the EDP of Definition \ref{def:EDP} exists and is unique; see \cite{GaLi:87}, \cite{BaCaTs:12}, and the discussion in \cite[\S1 and \S2.4]{GrPeSp:19} and \cite[\S]{GrSa:18}.
+%Unique continuation results then imply that, under the additional assumption that $A$ is piecewise Lipschitz, the solution of the EDP of \cref{def:EDP} exists and is unique; see \cite{GaLi:87}, \cite{BaCaTs:12}, and the discussion in \cite[\S1 and \S2.4]{GrPeSp:19} and \cite[\S]{GrSa:18}.
 %\eit
 
-Given $\Dm$, $f$, $\Aj, j=1,2,$ and $\nj, j=1,2,$ all satisfying the conditions in Definition \ref{def:EDP}, we let  $\uj$ denote the solution of the exterior Dirichlet problem of Definition \ref{def:EDP} with $A=\Aj$ and $n= \nj$.
+Given $\Dm$, $f$, $\Aj, j=1,2,$ and $\nj, j=1,2,$ all satisfying the conditions in \cref{def:EDP}, we let  $\uj$ denote the solution of the exterior Dirichlet problem of \cref{def:EDP} with $A=\Aj$ and $n= \nj$.
 We also let $a^{(j)}(\cdot,\cdot)$ denote the sesquilinear form $a(\cdot,\cdot)$ defined in \cref{eq:EDPa} with $A=\Aj$ and $n= \nj$.
 
 \begin{definition}[Finite-element/Galerkin solution]\label{def:Galerkin}
@@ -418,7 +418,7 @@ so that \cref{eq:Dk} holds.
 
 \bre
 For arbitrary Lipschitz $\Dm$, it is not always possible to fit $\Gamma$ exactly with simplicial elements, and some analysis of non-conforming error is then necessary; since this is very standard, we do not give it here.
-%\ednote{Euan copied this remark from \cite{GaGrSp:15}. Probably need to say something along these lines since don't have $H^2$ regularity for polyhedral $\Dm$ (and will talk about $H^2$ regularity in \S\ref{sec:cond2}).}
+%\ednote{Euan copied this remark from \cite{GaGrSp:15}. Probably need to say something along these lines since don't have $H^2$ regularity for polyhedral $\Dm$ (and will talk about $H^2$ regularity in \cref{sec:cond2}).}
 \ere
 
 \ble[Norm equivalences of FE functions]\label{lem:normequiv}
@@ -439,7 +439,7 @@ Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:mat
 (\Mmat_1 \bv,\bv)_2 \sim h^d \N{\bv}^2_2 \quad\tand\quad h^{d}\N{\bv}^2_2 \lesssim (\Smat_I \bv,\bv)_2 \lesssim h^{d-2} \N{\bv}^2_2.
 \eeqs
 
-\bpf[Sketch proof of Lemma \ref{lem:normequiv}]\ednote{can omit this if can find a good reference. One possibility \cite[Chapter V, Lemma 2.6]{Br:97}.}
+\bpf[Sketch proof of \cref{lem:normequiv}]\ednote{can omit this if can find a good reference. One possibility \cite[Chapter V, Lemma 2.6]{Br:97}.}
 The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtDR}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
 %\beqs
 %\N{v_h}^2_{L^2(\O
@@ -456,7 +456,7 @@ the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDD
 Finally, we need the concept of the \emph{adjoint} sesquilinear form to $a(\cdot,\cdot)$.
 
 \begin{definition}[The adjoint sesquilinear form $a^*(\cdot,\cdot)$]\label{def:adjoint}
-Let $\Dm$, $n$, and $A$, be as in the definition of the EDP (Definition \ref{def:EDP}). The adjoint sesquilinear form, $a^*(u,v)$, to $a(\cdot,\cdot)$ defined in \cref{eq:EDPa} is given by
+Let $\Dm$, $n$, and $A$, be as in the definition of the EDP (\cref{def:EDP}). The adjoint sesquilinear form, $a^*(u,v)$, to $a(\cdot,\cdot)$ defined in \cref{eq:EDPa} is given by
 \beq\label{eq:EDPadjoint}
 a^*(u,v) := \int_{\DR} 
 \Big((A \grad u)\cdot\grad \vb
@@ -481,7 +481,7 @@ a(\overline{u},v)= \overline{F(\overline{v})} \quad\tfa v\in \HozDDR.
 \eeq
 \ele
 
-For the proof of Lemma \ref{lem:adjoint} we need the following property of the DtN map $T_R$:
+For the proof of \cref{lem:adjoint} we need the following property of the DtN map $T_R$:
 \beq\label{eq:DtN}
 \big\langle T_R\psi, \overline{\phi} \big\rangle_\Gamma = \big\langle T_R \phi, \overline{\psi}\big\rangle_\Gamma \quad\tfa \phi,\psi \in H^{1/2}(\GR).
 \eeq
@@ -491,7 +491,7 @@ This property follows from the fact that, if $u$ and $v$ are solutions of the ho
 \eeqs
 see, e.g., \cite[Lemma 6.13]{Sp:15}.
 
-\bpf[Proof of Lemma \ref{lem:adjoint}]
+\bpf[Proof of \cref{lem:adjoint}]
 From \cref{eq:adjoint1} we have that 
 \beqs
 \overline{a^*(u,\overline{v})}= \overline{F(\overline{v})} \quad\tfa v\in \HozDDR.
@@ -499,12 +499,12 @@ From \cref{eq:adjoint1} we have that
 Using the definition of $a^*(\cdot,\cdot)$ and the property \cref{eq:DtN} in the left-hand side of this last equation, we find \cref{eq:adjoint2}.
 \epf
 
-\subsection{Nontrapping condition on $\Ao, \no,$ and $\Dm$ (Condition \ref{cond:1nbpc})}\label{sec:cond1}
+\subsection{Nontrapping condition on $\Ao, \no,$ and $\Dm$ (\cref{cond:1nbpc})}\label{sec:cond1}
 
 
 \begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
 $\Ao, \no,$ and $\Dm$ are such that, given $f\in L^2(\Omega_R)$ with $\supp \, f \subset B_R$, 
-the solution of the EDP %(Definition \ref{def:EDP}) 
+the solution of the EDP %(\cref{def:EDP}) 
 $u^{(1)}$ exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
 \beq\label{eq:bound1}
 \big\|u^{(1)}\big\|_{\HokDR} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(\Dp)} \quad \tfa k\geq k_0,
@@ -521,7 +521,7 @@ Given $\widetilde{F}\in (H^1_{0,D}(\Omega_R))^*$, let $\widetilde{u}$ be the sol
 \text{ find } \,\,\widetilde{u} \in H^1_{0,D}(\DR) \,\,\tst \,\,
 a^{(1)}(\widetilde{u},v)=\widetilde{F}(v) \,\, \tfa v\in H^1_{0,D}(\DR).
 \eeqs
-If Condition \ref{cond:1nbpc} holds, then $\widetilde{u}$ exists, is unique, and satisfies the bound
+If \cref{cond:1nbpc} holds, then $\widetilde{u}$ exists, is unique, and satisfies the bound
 \beq\label{eq:bound2}
 \N{\widetilde{u}}_{\HokDR} \leq \frac{1}{\min\{\Aomin,\nomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nomax  k\right) \big\|\widetilde{F}\big\|_{(\HokDR)'}
 \eeq
@@ -529,10 +529,10 @@ for all $k\geq k_0$.
 \ele
 
 
-\subsubsection{When does Condition \ref{cond:1nbpc} hold?}\label{sec:cond1hold}
+\subsubsection{When does \cref{cond:1nbpc} hold?}\label{sec:cond1hold}
 
 %\ednote{Euan says: could make this an appendix}
-We now discuss the situations for when Condition \ref{cond:1nbpc} has been proved to hold. The main point is that Condition \ref{cond:1nbpc} holds when $\Ao, \no,$ and $\Dm$ are such that the problem is \emph{nontrapping}, but the definition of nontrapping is subtle in the case when \emph{either} $\Dm \neq\emptyset$ \emph{or} $A$ and $n$ are discontinuous.
+We now discuss the situations for when \cref{cond:1nbpc} has been proved to hold. The main point is that \cref{cond:1nbpc} holds when $\Ao, \no,$ and $\Dm$ are such that the problem is \emph{nontrapping}, but the definition of nontrapping is subtle in the case when \emph{either} $\Dm \neq\emptyset$ \emph{or} $A$ and $n$ are discontinuous.
 
 We discuss four cases.
 \ben
@@ -560,20 +560,20 @@ H(\bx,\bxi):= \frac{1}{n(\bx)}\sum_{i=1}^d\sum_{j=1}^{d} A_{ij}(\bx)\xi_i \xi_j 
 (observe that $H$ is the \emph{semiclassical principle symbol} of the Helmholtz equation; see, e.g., \cite[\S7]{GrPeSp:19} for discussion on this aimed at a non-expert).
 
 \begin{definition}[Trapping/nontrapping]\label{def:trap}
-Given $\Ao$ and $\no$ as in Definition \ref{def:EDP} and $\Dm=\emptyset$, the EDP is \emph{nontrapping} if 
-%Given $n\in C^1(\RRd)$ with $\supp(1-n)$ compact, consider the bicharacteristics defined by \cref{eq:64} with $\tau=-1$ and thought of as a function of $t$ by Remark \ref{rem:bichar}. We say that $\no$ is \emph{nontrapping} if, given $B_R(\bze)\supset \supp\, n$, 
+Given $\Ao$ and $\no$ as in \cref{def:EDP} and $\Dm=\emptyset$, the EDP is \emph{nontrapping} if 
+%Given $n\in C^1(\RRd)$ with $\supp(1-n)$ compact, consider the bicharacteristics defined by \cref{eq:64} with $\tau=-1$ and thought of as a function of $t$ by \cref{rem:bichar}. We say that $\no$ is \emph{nontrapping} if, given $B_R(\bze)\supset \supp\, n$, 
 there exists a $S(R)>0$ such that all rays with $|\bx(s_0)|<R$ satisfy $|\bx(s)|>R$ for all $s\geq S(R)$; i.e.~all rays starting inside $B_R$ at $s_0$ have left $B_R$ by $S(R)$. 
 We say that the EDP \emph{trapping} if it is not nontrapping.
 \end{definition}
 
-The propagation of singularities results of \cite[\S VI]{DuHo:72} (see also, e.g., \cite[Chapter 24]{Ho:85}, \cite[\S12.3]{Zw:12}) combined with the parametrix argument of \cite{Va:75} then imply that Condition \ref{cond:1nbpc} is satisfied. These arguments, however, do not give an explicit expression for $C^{(1)}_{\rm bound}$ in terms of (properties of) $\Ao$ and $\no$.
+The propagation of singularities results of \cite[\S VI]{DuHo:72} (see also, e.g., \cite[Chapter 24]{Ho:85}, \cite[\S12.3]{Zw:12}) combined with the parametrix argument of \cite{Va:75} then imply that \cref{cond:1nbpc} is satisfied. These arguments, however, do not give an explicit expression for $C^{(1)}_{\rm bound}$ in terms of (properties of) $\Ao$ and $\no$.
 
 \paragraph{Case 2.}
 Defining how the rays interact with the boundary $\Gamma$ is subtle, and requires the notion of the Melrose--Sj{\"o}strand generalized-bicharacteristic flow 
-\cite[\S24.3]{Ho:85}, \cite{MeSj:78}, \cite{MeSj:82}; the definition of trapping/non-trapping in this case \cite[Definition 7.20]{MeSj:82} is then analogous to Definition \ref{def:trap}.
+\cite[\S24.3]{Ho:85}, \cite{MeSj:78}, \cite{MeSj:82}; the definition of trapping/non-trapping in this case \cite[Definition 7.20]{MeSj:82} is then analogous to \cref{def:trap}.
 
 If the EDP is nontrapping, both $\no$ and $\Ao$ are globally $C^{1,1}$ and $C^\infty$ in a neighbourhood of $\Dm$, and no rays are tangent to $\Gamma$ to infinite order, 
-then \cite[Theorem 2 and Equation 6.32]{GaSpWu:18} proves that Condition \ref{cond:1nbpc} holds with
+then \cite[Theorem 2 and Equation 6.32]{GaSpWu:18} proves that \cref{cond:1nbpc} holds with
 \beqs
 C^{(1)}_{\rm bound} := \frac{2\sqrt{2}}{\pi} \frac{1}{ (n_{\rm min})^{1/2}} \text{(Length of the longest ray in $\Omega_{R+2}$)};
 \eeqs
@@ -581,7 +581,7 @@ C^{(1)}_{\rm bound} := \frac{2\sqrt{2}}{\pi} \frac{1}{ (n_{\rm min})^{1/2}} \tex
 this result also holds when $\Dm=\emptyset$ and both $\no$ and $\Ao$ are globally $C^{1,1}$.
 
 \paragraph{Case 3.}
-When $\Dm$ is star-shaped with respect to the origin, identities due originally to Morawetz and involving the vector field $\bx$ can be used to prove that Condiiton \ref{cond:1nbpc} holds, with an explicit expression for $C^{(1)}_{\rm bound}$, when $\Ao$ and $\no$ are both Lipschitz and satisfy
+When $\Dm$ is star-shaped with respect to the origin, identities due originally to Morawetz and involving the vector field $\bx$ can be used to prove that \cref{cond:1nbpc} holds, with an explicit expression for $C^{(1)}_{\rm bound}$, when $\Ao$ and $\no$ are both Lipschitz and satisfy
 \beq\label{eq:A1nbpc}
 \Ao(\bx) - (\bx\cdot\nabla)\Ao(\bx) \geq \mu_1,\,\, \text{ in the sense of quadratic forms, for almost every }\bx\in \Dp,
 \eeq
@@ -600,21 +600,21 @@ When $A$ and $n$ are discontinuous on a common $C^\infty$ interface with strictl
 When $A$ and $n$ are discontinuous on a common $C^\infty$ interface with strictly positive curvature and $n$ jumps \emph{up} and $A$ jumps \emph{down}, and $\Dm$ is 
 $C^\infty$ and nontrapping (in the sense that all rays starting in the intersection of $\Dp$ and any neighbourhood of $\Dm$ leave that set, and never return, after some uniform time) then
 %of \cite[Definition 7.20]{MeSj:82} 
-then Condition \ref{cond:1nbpc} is proved in \cite{CaPoVo:99}, but without an explicit expression for $C^{(1)}_{\rm bound}$.
+then \cref{cond:1nbpc} is proved in \cite{CaPoVo:99}, but without an explicit expression for $C^{(1)}_{\rm bound}$.
 
-When $\Dm=\emptyset$ and $A$ and $n$ are piecewise constant (with $A$ scalar), discontinuous on a common Lipschitz star-shaped interface, and $n$ jumps \emph{up} and $A$ jumps \emph{down}, then Condition \ref{cond:1nbpc} is proved in \cite{MoSp:19} with an explicit expression for $C^{(1)}_{\rm bound}$. 
+When $\Dm=\emptyset$ and $A$ and $n$ are piecewise constant (with $A$ scalar), discontinuous on a common Lipschitz star-shaped interface, and $n$ jumps \emph{up} and $A$ jumps \emph{down}, then \cref{cond:1nbpc} is proved in \cite{MoSp:19} with an explicit expression for $C^{(1)}_{\rm bound}$. 
 This result was then generalised in \cite[Theorem 2.7]{GrPeSp:19}, where 
-Condition \ref{cond:1nbpc} is proved, again with an explicit expression for $C^{(1)}_{\rm bound}$, under the assumptions that $\Dm$ is starshaped with respect to the origin and $A$ and $n$ are $L^\infty$, with $A$ monotonically \emph{non-increasing} in the radial direction, and $n$ monotonically \emph{non-decreasing} (see \cite[Condition 2.6]{GrPeSp:19} for a more-precise statement of these conditions).
+\cref{cond:1nbpc} is proved, again with an explicit expression for $C^{(1)}_{\rm bound}$, under the assumptions that $\Dm$ is starshaped with respect to the origin and $A$ and $n$ are $L^\infty$, with $A$ monotonically \emph{non-increasing} in the radial direction, and $n$ monotonically \emph{non-decreasing} (see \cite[Condition 2.6]{GrPeSp:19} for a more-precise statement of these conditions).
 
 
-%When $A$ and $n$ are discontinuous on an interface, the problem is trapping if $n$ jumps up (as one travels across the interface in the direction away from the obstacle) and $A$ jumps down; otherwise the problem is nontrapping. When the interfaces across which $A$ and $n$ jump -- in the nontrapping way -- are $C^\infty$ with strictly positive curvature and $\Dm$ is $C^\infty$ and nontrapping in the sense of \cite[Definition 7.20]{MeSj:82} then Condition \ref{cond:1nbpc} is proved in \cite{CaPoVo:99}.
+%When $A$ and $n$ are discontinuous on an interface, the problem is trapping if $n$ jumps up (as one travels across the interface in the direction away from the obstacle) and $A$ jumps down; otherwise the problem is nontrapping. When the interfaces across which $A$ and $n$ jump -- in the nontrapping way -- are $C^\infty$ with strictly positive curvature and $\Dm$ is $C^\infty$ and nontrapping in the sense of \cite[Definition 7.20]{MeSj:82} then \cref{cond:1nbpc} is proved in \cite{CaPoVo:99}.
 
 
 %defined by \
 %The rays are again defined by \cref{eq:rays} in $\Dp$, but defining how they interact with the boundary $\Gamma$ is subtle.
 
 
-%Condition \ref{cond:1nbpc} holds when $\Ao, \no,$ and $\Dm$ are \emph{nontrapping} in the sense of Melrose--Sj{\"o}strand~\cite[Definition 7.20]{MeSj:82}.
+%\cref{cond:1nbpc} holds when $\Ao, \no,$ and $\Dm$ are \emph{nontrapping} in the sense of Melrose--Sj{\"o}strand~\cite[Definition 7.20]{MeSj:82}.
 
 
 
@@ -637,7 +637,7 @@ Condition \ref{cond:1nbpc} is proved, again with an explicit expression for $C^{
 % or (ii) the defect-measure argument of  \cite{Bu:02}\footnote{The arguments in \cite{Bu:02} actually require that, additionally, $\partial\Dm$ has no points where the tangent vector makes infinite-order contact with $\partial\Dm$.}
 
 
-\subsection{$k$-independent accuracy of the FE solution (Condition \ref{cond:2})}\label{sec:cond2}
+\subsection{$k$-independent accuracy of the FE solution (\cref{cond:2})}\label{sec:cond2}
 
 \begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
 \label{cond:2}
@@ -663,69 +663,69 @@ Furthermore, if $F(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^
 where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Ao, \no, \Dm, R, k_0$, and $p$.
 \end{condition}
 
-\subsubsection{When does Condition \ref{cond:2} hold?}\label{sec:cond2hold}
+\subsubsection{When does \cref{cond:2} hold?}\label{sec:cond2hold}
 
 First recall that the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$ if there exists $h_0= h_0(k,p)>0$ and $C_{\rm qo}>0$ (independent on $k$) such that if $h\leq h_0$ then 
 \beq\label{eq:qo}
 \N{u-u_h}_{\HokDR} \leq C_{\rm qo} \min_{v_h\in V_h} \N{u-v_h}_{\HokDR}.
 \eeq
-Observe that if Condition \ref{cond:1nbpc} holds and the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$, 
-then Condition \ref{cond:2} holds (by choosing $v_h=0$). Furthermore, $C^{(1)}_{\rm FEM1}$ is then the product of $C_{\rm qo}$ and $C^{(1)}_{\rm bound}$, and  $C^{(1)}_{\rm FEM2}$ is related to $C_{\rm qo}$ and the constant on the right-hand side of \cref{eq:bound2}.
+Observe that if \cref{cond:1nbpc} holds and the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$, 
+then \cref{cond:2} holds (by choosing $v_h=0$). Furthermore, $C^{(1)}_{\rm FEM1}$ is then the product of $C_{\rm qo}$ and $C^{(1)}_{\rm bound}$, and  $C^{(1)}_{\rm FEM2}$ is related to $C_{\rm qo}$ and the constant on the right-hand side of \cref{eq:bound2}.
 
-In the case of the \emph{homogeneous} Helmholtz equation (i.e.~\cref{eq:pde} with $\Ao= I$ and $\no=1$) conditions on $h,k,$ and $p$ for either quasi-optimality \cref{eq:qo} or bounds on the Galerkin error in terms of the data (as in Condition \ref{cond:2}) were obtained in 1-d in \cite{IhBa:95, IhBa:97}, and then in 2- and 3-d in \cite{Me:95, Sa:06, MeSa:10, MeSa:11, Wu:13, ZhWu:13, ChNi:18} (with many of these references studying the truncated EDP -- see Section \S\ref{sec:TEDP} -- instead of the EDP). 
+In the case of the \emph{homogeneous} Helmholtz equation (i.e.~\cref{eq:pde} with $\Ao= I$ and $\no=1$) conditions on $h,k,$ and $p$ for either quasi-optimality \cref{eq:qo} or bounds on the Galerkin error in terms of the data (as in \cref{cond:2}) were obtained in 1-d in \cite{IhBa:95, IhBa:97}, and then in 2- and 3-d in \cite{Me:95, Sa:06, MeSa:10, MeSa:11, Wu:13, ZhWu:13, ChNi:18} (with many of these references studying the truncated EDP -- see Section \cref{sec:TEDP} -- instead of the EDP). 
 \ednote{Maybe quote here all the thresholds, or put in numerical results section.}
 Initial analogues of these results for heterogeneous Helmholtz problems (making everything explicit in the coefficients $\Ao$ and $\no$, as well as in $h, k$, and $p$) can be found in \cite{GrSa:18} (for the TEDP) and \cite{GaSpWu:18} (for the EDP).
  
-We now give results involving sufficient conditions for Part (ii) of Condition \ref{cond:2}  to hold. 
+We now give results involving sufficient conditions for Part (ii) of \cref{cond:2}  to hold. 
 We highlight at this stage that all the techniques discussed below
-%used to prove Lemmas \ref{lem:hp1} and \ref{lem:hp2} 
-require at least $H^2$ regularity of the (adjoint) solution. Since the data for the variational problem in Part (ii) of Condition \ref{cond:2} is in $(\HokDR)'$ and not in $\LtDR$, none of these techniques can be used to obtain conditions under which Part (ii) of Condition \ref{cond:1nbpc} holds.
+%used to prove \cref{lem:hp1,lem:hp2} 
+require at least $H^2$ regularity of the (adjoint) solution. Since the data for the variational problem in Part (ii) of \cref{cond:2} is in $(\HokDR)'$ and not in $\LtDR$, none of these techniques can be used to obtain conditions under which Part (ii) of \cref{cond:1nbpc} holds.
 
-\ble[Conditions under which Part (i) of Condition \ref{cond:2} holds when $p=1$]\label{lem:hp1}
-If $\Gamma\in C^{1,1}$, $A\in C^{0,1}$, Condition \ref{cond:1nbpc} holds and $p=1$, then Part (i) of Condition \ref{cond:2} holds
+\ble[Conditions under which Part (i) of \cref{cond:2} holds when $p=1$]\label{lem:hp1}
+If $\Gamma\in C^{1,1}$, $A\in C^{0,1}$, \cref{cond:1nbpc} holds and $p=1$, then Part (i) of \cref{cond:2} holds
 if $h k^2$ is sufficiently small. 
 \ele
 
 \bpf[Sketch proof]
-Quasi-optimality follows from the convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the context of the homogeneous Helmholtz equation by \cite{Me:95, Sa:06, MeSa:10, MeSa:11}); see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of Definition \ref{def:EDP} (and for an explicit expression for the constant $C_{\rm qo}$ in terms of $C_{\rm bound}^{(1)}$). 
-Inserting the bound  \cref{eq:bound1} of Condition \ref{cond:1nbpc} into standard elliptic regularity estimates for the operator $\nabla\cdot(\Ao\nabla )$ implies that $\|u\|_{H^2(\DR)}\lesssim k\N{f}_{\LtDR}$, and then, using results from polynomial approximation theory, we have
+Quasi-optimality follows from the convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the context of the homogeneous Helmholtz equation by \cite{Me:95, Sa:06, MeSa:10, MeSa:11}); see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of \cref{def:EDP} (and for an explicit expression for the constant $C_{\rm qo}$ in terms of $C_{\rm bound}^{(1)}$). 
+Inserting the bound  \cref{eq:bound1} of \cref{cond:1nbpc} into standard elliptic regularity estimates for the operator $\nabla\cdot(\Ao\nabla )$ implies that $\|u\|_{H^2(\DR)}\lesssim k\N{f}_{\LtDR}$, and then, using results from polynomial approximation theory, we have
  \beq\label{eq:AN1}
 \N{u-u_h}_{\HokDR} \lesssim h \N{u}_{H^2(\DR)} + hk \N{u}_{H^1(\DR)}\lesssim hk \N{f}_{\LtDR} \lesssim \frac{1}{k}\N{f}_{\LtDR},
 \eeq
-and so Part (i) of Condition \ref{cond:2} is readily satisfied.
+and so Part (i) of \cref{cond:2} is readily satisfied.
 \epf
 
-\bre[Results about Part (i) of Condition \ref{cond:2} for the truncated EDP]
-In the context of the truncated EDP (TEDP) defined in \S\ref{sec:TEDP}, the result of Lemma \ref{lem:hp1} holds more generally. Indeed,
-if $\Gamma_D\in C^{1,1}$, $\Gamma_I$ is either $C^{1,1}$ or convex, $A\in C^{0,1}$, Condition \ref{cond:1nbpc} holds and $p\leq r+1$, then Part (i) of Condition \ref{cond:2} holds
+\bre[Results about Part (i) of \cref{cond:2} for the truncated EDP]
+In the context of the truncated EDP (TEDP) defined in \cref{sec:TEDP}, the result of \cref{lem:hp1} holds more generally. Indeed,
+if $\Gamma_D\in C^{1,1}$, $\Gamma_I$ is either $C^{1,1}$ or convex, $A\in C^{0,1}$, \cref{cond:1nbpc} holds and $p\leq r+1$, then Part (i) of \cref{cond:2} holds
 if $h^p k^{p+1}$ is sufficiently small. This result is proved 
 %When $r\geq 1$ and $p\leq r+1$, quasi-optimality is proved when $h^p k^{p+1}$ is sufficiently small 
 in \cite{ChNi:18a}, using a novel splitting of the solution (motivated by the splittings in \cite{MeSa:10, MeSa:11} for the case $\Ao= I, \no=1$). The first two bounds in \cref{eq:AN1} hold as before, and then 
-$\|u-u_h\|_{\HokDR} \lesssim  k^{-1/p}\|f\|_{\LtDR}$, so the analogue of Part (i) of Condition \ref{cond:2} for the TEDP is readily satisfied.
+$\|u-u_h\|_{\HokDR} \lesssim  k^{-1/p}\|f\|_{\LtDR}$, so the analogue of Part (i) of \cref{cond:2} for the TEDP is readily satisfied.
 
-In addition, when $\Ao=I$ and $\no=1$, Condition \ref{cond:1nbpc} holds, and $p=1$,  Part (i) of Condition \ref{cond:2} holds when $hk^{3/2}$ sufficiently small (cf.~$hk^2$ is sufficiently small in Lemma \ref{lem:hp1}) by 
+In addition, when $\Ao=I$ and $\no=1$, \cref{cond:1nbpc} holds, and $p=1$,  Part (i) of \cref{cond:2} holds when $hk^{3/2}$ sufficiently small (cf.~$hk^2$ is sufficiently small in \cref{lem:hp1}) by 
 %. This result is proved when $\Ao=I$ and $\no=1$ in 
 \cite{ZhWu:13} (see also \cite{ChNi:18}). This proof uses 
-a variation of the Schatz technique first introduced by \cite{FeWu:11} in the context of DG methods, and this technique requires a regularity assumption recently proved in \cite{ChNiTo:18}. Since this latter regularity result holds for general Hermitian-postive-definite $A\in C^{0,1}$, this result for the TEDP can be generalised for such $\Ao$ and arbitrary $\no$ satisfying the requirements in the definition of the TEDP (Definition \ref{def:TEDP}).
+a variation of the Schatz technique first introduced by \cite{FeWu:11} in the context of DG methods, and this technique requires a regularity assumption recently proved in \cite{ChNiTo:18}. Since this latter regularity result holds for general Hermitian-postive-definite $A\in C^{0,1}$, this result for the TEDP can be generalised for such $\Ao$ and arbitrary $\no$ satisfying the requirements in the definition of the TEDP (\cref{def:TEDP}).
 \ere
 
 
 %\bpf[Sketch proof]
-%When $r=0$, quasi-optimality follows from the convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the Helmholtz context by \cite{Me:95, Sa:06, MeSa:10, MeSa:11}); see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of Definition \ref{def:EDP} (and for an explicit expression for the constant $C_{\rm qo}$ in terms of $C_{\rm bound}^{(1)}$). 
-%Inserting the bound  \cref{eq:bound1} of Condition \ref{cond:1nbpc} into standard elliptic regularity estimates for the operator $\nabla\cdot(\Ao\nabla )$ implies that $\|u\|_{H^2(\DR)}\lesssim k\N{f}_{\LtDR}$, and then, using results from polynomial approximation theory, we have
+%When $r=0$, quasi-optimality follows from the convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the Helmholtz context by \cite{Me:95, Sa:06, MeSa:10, MeSa:11}); see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of \cref{def:EDP} (and for an explicit expression for the constant $C_{\rm qo}$ in terms of $C_{\rm bound}^{(1)}$). 
+%Inserting the bound  \cref{eq:bound1} of \cref{cond:1nbpc} into standard elliptic regularity estimates for the operator $\nabla\cdot(\Ao\nabla )$ implies that $\|u\|_{H^2(\DR)}\lesssim k\N{f}_{\LtDR}$, and then, using results from polynomial approximation theory, we have
 % \beq\label{eq:AN1}
 %\N{u-u_h}_{\HokDR} \lesssim h \N{u}_{H^2(\DR)} + hk \N{u}_{H^1(\DR)}\lesssim hk \N{f}_{\LtDR} \lesssim \frac{1}{k}\N{f}_{\LtDR},
 %\eeq
-%and so Part (i) of Condition \ref{cond:2} is readily satisfied.
+%and so Part (i) of \cref{cond:2} is readily satisfied.
 %
 %When $r\geq 1$ and $p\leq r+1$, quasi-optimality is proved when $h^p k^{p+1}$ is sufficiently small in \cite{ChNi:18a}, using a novel splitting of the solution (motivated by the splittings in \cite{MeSa:10, MeSa:11} for the case $\Ao= I, \no=1$). The first two bounds in \cref{eq:AN1} hold as before, and then 
-%$\|u-u_h\|_{\HokDR} \lesssim  k^{-1/p}\|f\|_{\LtDR}$, so Part (i) of Condition \ref{cond:2} is again readily satisfied.
+%$\|u-u_h\|_{\HokDR} \lesssim  k^{-1/p}\|f\|_{\LtDR}$, so Part (i) of \cref{cond:2} is again readily satisfied.
 %\epf
 %
 %The next lemma is useful only when $p=1$.
 %
-%\ble[Alternative conditions under which Part (i) of Condition \ref{cond:2} holds]\label{lem:hp2}
-%Part (i) of Condition \ref{cond:2} holds for $p=1$ when $hk^{3/2}$ sufficiently small. 
+%\ble[Alternative conditions under which Part (i) of \cref{cond:2} holds]\label{lem:hp2}
+%Part (i) of \cref{cond:2} holds for $p=1$ when $hk^{3/2}$ sufficiently small. 
 %\ele
 %
 %\bpf[References for proof]
@@ -740,44 +740,44 @@ a variation of the Schatz technique first introduced by \cite{FeWu:11} in the co
 
 
 %%%%%%%%%EUAN KEEPING OLD VERSION
-%We make the following remarks about Condition \ref{cond:2}.
+%We make the following remarks about \cref{cond:2}.
 %\ben
-%%\item If both Conditions \ref{cond:1nbpc} and \ref{cond:2} are satisfied, then $u_h$ satisfies an a priori bound with the same $k$-dependence as the bound on $u$ in Condition \ref{cond:1nbpc}. % (and this is how we'll use Condition \ref{cond:2} in the proof of Theorem \ref{thm:1}).
+%%\item If both Conditions \ref{cond:1nbpc} and \ref{cond:2} are satisfied, then $u_h$ satisfies an a priori bound with the same $k$-dependence as the bound on $u$ in \cref{cond:1nbpc}. % (and this is how we'll use \cref{cond:2} in the proof of \cref{thm:1}).
 %\item If the Galerkin solution is asymptotically quasi-optimal with constant independent of $k$, i.e.~there exists $h_0= h_0(k,p)>0$ and $C_{\rm qo}>0$ (independent on $k$) such that if $h\leq h_0$ then 
 %\beq\label{eq:qo}
 %\N{u-u_h}_{\HokDR} \leq C_{\rm qo} \min_{v_h\in V_h} \N{u-v_h}_{\HokDR},
 %\eeq
-%and Condition \ref{cond:1nbpc} holds, then Condition \ref{cond:2} holds. Furthermore, $C^{(1)}_{\rm FEM1}$ is then the product of $C_{\rm qo}$ and $C^{(1)}_{\rm bound}$, and  $C^{(1)}_{\rm FEM2}$ is related to $C_{\rm qo}$ and the constant on the right-hand side of \cref{eq:bound2}.
+%and \cref{cond:1nbpc} holds, then \cref{cond:2} holds. Furthermore, $C^{(1)}_{\rm FEM1}$ is then the product of $C_{\rm qo}$ and $C^{(1)}_{\rm bound}$, and  $C^{(1)}_{\rm FEM2}$ is related to $C_{\rm qo}$ and the constant on the right-hand side of \cref{eq:bound2}.
 %\item The convergence analysis of the FEM via the Schatz argument \cite{Sc:74}/Aubin-Nitsche trick (with these techniques pioneered in the Helmholtz context by \cite{Me:95}, \cite{Sa:06}, \cite{MeSa:10}) requires that the solution of the adjoint problem be $H^2$ regular. Applied to the PDE \cref{eq:pde}, these techniques prove that quasi-optimality \cref{eq:qo} holds
-% when $\Gamma \in C^{1,1}$ $A\in C^{0,1}$, $f\in L^2$, Condition \ref{cond:1nbpc} holds,  $p=1$, and $hk^2$ is sufficiently small; see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of Definition \ref{def:EDP}.
+% when $\Gamma \in C^{1,1}$ $A\in C^{0,1}$, $f\in L^2$, \cref{cond:1nbpc} holds,  $p=1$, and $hk^2$ is sufficiently small; see \cite[\S6]{GaSpWu:18} for these techniques specifically applied to the EDP of \cref{def:EDP}.
 % 
-%If Condition \ref{cond:1nbpc} holds and $u\in H^2$, one can show that $\|u\|_{H^2(\DR)}\lesssim k\N{f}_{\LtDR}$, and then, using results about polynomial approximation theory, we have
+%If \cref{cond:1nbpc} holds and $u\in H^2$, one can show that $\|u\|_{H^2(\DR)}\lesssim k\N{f}_{\LtDR}$, and then, using results about polynomial approximation theory, we have
 % \beq\label{eq:AN1}
 %\N{u-u_h}_{\HokDR} \lesssim h \N{u}_{H^2(\DR)} + hk \N{u}_{H^1(\DR)}\lesssim hk \N{f}_{\LtDR} \lesssim \frac{1}{k}\N{f}_{\LtDR},
 %\eeq
-%and so Part (i) of Condition \ref{cond:2} is readily satisfied.
+%and so Part (i) of \cref{cond:2} is readily satisfied.
 %%(omitted constant depends on $C^{(1)}_{\rm bound}$ and ``$H^2$ regularity constant"). To get Part (ii) satisfied using these arguments would need $\phi_i \in H^2$ (restrictive).
 %\item A generalisation of the arguments in Point 2 with $f\in H^r$, $\Gamma\in C^{r+1,1}$, $A\in C^{r,1}$ (so that $u\in H^{r+2}$ by elliptic regularity), $p\leq r+1$, shows that quasioptimality
 %% (and hence \cref{eq:AN1}) 
-%holds if $h^p k^{p+1}$ is sufficiently small \cite{ChNi:18a}, and one can then show that $\N{u-u_h}_{\HokDR}\lesssim k^{-1} \N{f}_{\LtDR}$, as in \cref{eq:AN1}; so Part (i) of Condition \ref{cond:2} is again readily satisfied.
+%holds if $h^p k^{p+1}$ is sufficiently small \cite{ChNi:18a}, and one can then show that $\N{u-u_h}_{\HokDR}\lesssim k^{-1} \N{f}_{\LtDR}$, as in \cref{eq:AN1}; so Part (i) of \cref{cond:2} is again readily satisfied.
 %
 %\item A new variation of the Schatz technique from \cite{FeWu:11} in the context of DG methods, used in context of standard FEM in \cite{ChNi:18}
 %and underlined by the regularity result of \cite{ChNiTo:18}
 %
 %
-%Part (i) of Condition \ref{cond:2} holds for $p=1$ when $hk^{3/2}$ sufficiently small. This result proved already in 1-d in \cite{IhBa:95a}.
-%%\item ***Numerical experiments for Owen to do*** If we don't have $H^2$ regularity, do we still have that Condition \ref{cond:2} holds with $hk^2 \sim 1$? (I would guess yes.) What about when $hk^{3/2}\sim 1$?
+%Part (i) of \cref{cond:2} holds for $p=1$ when $hk^{3/2}$ sufficiently small. This result proved already in 1-d in \cite{IhBa:95a}.
+%%\item ***Numerical experiments for Owen to do*** If we don't have $H^2$ regularity, do we still have that \cref{cond:2} holds with $hk^2 \sim 1$? (I would guess yes.) What about when $hk^{3/2}\sim 1$?
 %\een
 
 
 \section{Proofs of the main results}\label{sec:proofs}
 
-\subsection{Proof of Theorem \ref{thm:1}} 
+\subsection{Proof of \cref{thm:1}} 
 
-The following two lemmas are the heart of the proof of Theorem \ref{thm:1}.
+The following two lemmas are the heart of the proof of \cref{thm:1}.
 
 \ble[Bounds on $(\Amato)^{-1} \Mmat_{n}$]\label{lem:keylemma1}
-Assume that Condition \ref{cond:1nbpc} holds, and assume that Part (i) of Condition \ref{cond:2} holds. Then, for $n\in \LiDRRR$,
+Assume that \cref{cond:1nbpc} holds, and assume that Part (i) of \cref{cond:2} holds. Then, for $n\in \LiDRRR$,
 \beq\label{eq:keybound1}
 \max\Big\{\big\| (\Amato)^{-1} \Mmat_{n} \big\|_{\Dmat_k}, \,\,
 \big\|  \Mmat_{n}(\Amato)^{-1} \big\|_{(\Dmat_k)^{-1}}
@@ -805,7 +805,7 @@ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}.%\right].
 \ele
 
 \ble[Bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2}
-Assume that Condition \ref{cond:1nbpc} holds, and assume that Part (ii) of Condition \ref{cond:2} holds. Then, for $A\in L^\infty(\DR,\RR^{d\times d})$,
+Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in L^\infty(\DR,\RR^{d\times d})$,
 \beq\label{eq:keybound2}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_{(\Dmat_k)^{-1}}, \,\,
 \big\| \Smat_A (\Amato)^{-1} \big\|_{\Dmat_k}\Big\} \leq C_1\, k\N{A}_{L^\infty(\DR)}
@@ -831,7 +831,7 @@ C_1:=%\frac{s_+}{s_-}
 \eeq
 \ele
 
-\bpf[Proof of Theorem \ref{thm:1} using Lemmas \ref{lem:keylemma1} and \ref{lem:keylemma2}]
+\bpf[Proof of \cref{thm:1} using \cref{lem:keylemma1,lem:keylemma2}]
 Using the definition of the matrices $\Amatj, \Smat_A$, and $\Mmatj$ in \cref{eq:matrixAjdef} and \cref{eq:matrixSjdef}, we have
 \begin{align}\nonumber
 \Imat - (\Amato)^{-1}\Amatt = (\Amato)^{-1}\big(\Amato-\Amatt\big) &=  (\Amato)^{-1}\left( \Smat_{A^{(1)}} - \Smat_{A^{(2)}} - k^2 \big(\Mmat_{n^{(1)}}-\Mmat_{n^{(2)}}\big)\right)\\
@@ -855,7 +855,7 @@ The bound  \cref{eq:main1} on $\|\Imat - (\Amato)^{-1}\Amatt\|_2$ and  $\|\Imat 
 
 \
 
-\bpf[Proof of Lemma \ref{lem:keylemma1}]
+\bpf[Proof of \cref{lem:keylemma1}]
 We first concentrate on proving \cref{eq:keybound1}.
 Given $\bff \in \CC^N$ and $n\in \LiDRRR$, we create a variational problem whose Galerkin discretisation leads to the equation $\Amato \tbu = \Mmat_n\,\bff$.
 Indeed, let $\widetilde{f} := \sum_j f_j \phi_j\in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
@@ -869,16 +869,16 @@ a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h
 and let $\tbu$ be the vector of nodal values of $\tu_h$ \ednote{rephrase this as haven't (yet) assumed that $\{\phi_i\}$ is a nodal basis}. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\bff$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\bff\|_{\Dmat_k}$. Because of the definition 
 of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is equivalent to bounding $\|\tu_h\|_{\HokDR}$ in terms of $\|\widetilde{f}\|_{\HokDR}$.
 
-%First observe that the bound \cref{eq:bound3} from Part (i) of Condition \ref{cond:2} holds for the solution of the variational problem
+%First observe that the bound \cref{eq:bound3} from Part (i) of \cref{cond:2} holds for the solution of the variational problem
 %\beqs%\label{eq:411}
 %a^{(1)}(u,v)= (n\phi_j,v)_{L^2(\Omega)} \quad\text{ for all } v\in H^1(\Omega),
 %\eeqs
 %and hence, by linearity, it also holds for the solution $\widetilde{u}$ of the variational problem \cref{eq:411}.
 
 Using %the bounds in \cref{eq:normequiv1}, 
-the triangle inequality and the bounds \cref{eq:bound3} and \cref{eq:bound1} from Conditions \ref{cond:2} and \ref{cond:1nbpc} respectively, we find
+the triangle inequality and the bounds \cref{eq:bound3} and \cref{eq:bound1} from \cref{cond:2,cond:1nbpc} respectively, we find
 %Note that the hypotheses imply that the bound on the solution operator 
-%\cref{eq:bound_unif} holds (by Corollary \ref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \cref{eq:qoeps_lemma} holds (by Lemma \ref{lem:qo}).
+%\cref{eq:bound_unif} holds (by \cref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \cref{eq:qoeps_lemma} holds (by \cref{lem:qo}).
 %Starting with \cref{eq:equiv} we then have 
 \begin{align}
 %m_- h^{d/2}k \N{\tbu}_2 \leq k\N{\tu_h}_{\LtDR}\leq  
@@ -922,8 +922,8 @@ Therefore, since $\Mmat_n$ is a real, symmetric matrix,
 \beq\label{eq:A380} 
  \big\|\Mmat_n (\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}=\big\|((\Amato)^*)^{-1}\Mmat_n\big\|_{\Dmat_k}.
  \eeq 
-Recall from the text below \cref{eq:A*} that $(\Amato)^*$ is the Galerkin matrix corresponding to the variational problem \cref{eq:adjoint1} -- the adjoint problem. Lemma \ref{lem:adjoint} implies that if the EDP %with coefficients $A^{(1)}$ and $n^{(1)}$ 
-satisfies Conditions \ref{cond:1nbpc} and \ref{cond:2}, then so does the adjoint problem. Therefore, the argument above leading to the bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ under Condition \ref{cond:1nbpc} and Part (i) of Condition \ref{cond:2} proves the same bound on $\|((\Amato)^*)^{-1}\Mmat_n\|_{\Dmat_k}$, and then, using \cref{eq:A380}, also on $\big\|\Mmat_n(\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}$.
+Recall from the text below \cref{eq:A*} that $(\Amato)^*$ is the Galerkin matrix corresponding to the variational problem \cref{eq:adjoint1} -- the adjoint problem. \cref{lem:adjoint} implies that if the EDP %with coefficients $A^{(1)}$ and $n^{(1)}$ 
+satisfies \cref{cond:1nbpc,cond:2}, then so does the adjoint problem. Therefore, the argument above leading to the bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ under \cref{cond:1nbpc} and Part (i) of \cref{cond:2} proves the same bound on $\|((\Amato)^*)^{-1}\Mmat_n\|_{\Dmat_k}$, and then, using \cref{eq:A380}, also on $\big\|\Mmat_n(\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}$.
 
 To prove the bound on  $\|(\Amato)^{-1}\Mmat_n\|_{2}$ in \cref{eq:keybound1a}, we use the bounds 
 \beqs
@@ -938,14 +938,14 @@ $\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \cref{e
 %
 %Now, if $u$ is the solution of the adjoint problem with data $F(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{F(\overline{v})}$; 
 %
-%in particular if $F(v)$ is as in \cref{eq:EDPa}, then the $L^2$ data of the adjoint problem is just $\overline{f}$. Therefore, if the EDP satisfies Conditions \ref{cond:1nbpc} and \ref{cond:2}, then so does its adjoint, and
+%in particular if $F(v)$ is as in \cref{eq:EDPa}, then the $L^2$ data of the adjoint problem is just $\overline{f}$. Therefore, if the EDP satisfies \cref{cond:1nbpc,cond:2}, then so does its adjoint, and
 % the bound in \cref{eq:keybound1} on $\|(\Amato)^{-1}\Mmat_n\|_{2}$ also holds for $\|((\Amato)^*)^{-1}\Mmat_n\|_{2}$.
 \epf
 
 \
 
-\bpf[Proof of Lemma \ref{lem:keylemma1}]
-In a similar way to the proof of Lemma \ref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} := \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
+\bpf[Proof of \cref{lem:keylemma1}]
+In a similar way to the proof of \cref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} := \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
 a^{(1)}(\widetilde{u},v)= \widetilde{F}(v) \quad\text{ for all } v\in H^1(\Omega),
 \quad\text{ where } \quad
@@ -962,11 +962,11 @@ a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \cV_h,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\bff$. 
 
-Similar to in the proof of Lemma \ref{lem:keylemma1},
-using the triangle inequality, the bound \cref{eq:bound4} from Condition \ref{cond:2}, the bound \cref{eq:bound2} from Lemma \ref{lem:H1}, the bound \cref{eq:Fbound}, and the definition of $C_1$ \cref{eq:C1nbpc},
+Similar to in the proof of \cref{lem:keylemma1},
+using the triangle inequality, the bound \cref{eq:bound4} from \cref{cond:2}, the bound \cref{eq:bound2} from \cref{lem:H1}, the bound \cref{eq:Fbound}, and the definition of $C_1$ \cref{eq:C1nbpc},
 we find
 %Note that the hypotheses imply that the bound on the solution operator 
-%\cref{eq:bound_unif} holds (by Corollary \ref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \cref{eq:qoeps_lemma} holds (by Lemma \ref{lem:qo}).
+%\cref{eq:bound_unif} holds (by \cref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \cref{eq:qoeps_lemma} holds (by \cref{lem:qo}).
 %Starting with \cref{eq:equiv} we then have 
 \begin{align}\nonumber 
 %s_- h^{(d-2)/2} \N{\tbu}_2 &\leq \N{\nabla \tu_h}_{\LtDR}\leq  
@@ -1013,7 +1013,7 @@ $\|\Smat_A (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Smat_A\|_2$ (compare to \cref{e
 \epf
 
 \bre[Link to the results of \cite{GaGrSp:15}]
-A result analogous to the Euclidean-norm bounds in Theorem \ref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Ao= \At= I$, $\nt= 1$, and $\no = 1 + \ri\eps/k^2$, with the ``absorption parameter"/``shift" $\eps$ satisfying $0<\eps\lesssim k^2$. The motivation for proving this result was that the so-called ``shifted Laplacian preconditioning" of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to in Corollary \ref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
+A result analogous to the Euclidean-norm bounds in \cref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Ao= \At= I$, $\nt= 1$, and $\no = 1 + \ri\eps/k^2$, with the ``absorption parameter"/``shift" $\eps$ satisfying $0<\eps\lesssim k^2$. The motivation for proving this result was that the so-called ``shifted Laplacian preconditioning" of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to in \cref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
 $\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
  then give upper bounds on large the ``shift" $\eps$ can be for GMRES to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
 
@@ -1023,10 +1023,10 @@ The main differences between \cite{GaGrSp:15} and the present paper are that (i)
 (iii) \cite{GaGrSp:15} required a bound analogous to that on 
 $(\Amato)^{-1}\Mmat_{n}$, along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $\ri k$), but \emph{not} on 
 $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\|\cdot\|_2$ norm.
-%The result of Theorem \ref{thm:1}
+%The result of \cref{thm:1}
 \ere
 
-%\bre[Analogue of Theorem \ref{thm:1} in a weighted norm]\label{rem:weight1}
+%\bre[Analogue of \cref{thm:1} in a weighted norm]\label{rem:weight1}
 %The PDE analysis of the Helmholtz equation naturally takes place in the weighted $H^1$ norm $\|\cdot\|_{\HokDR}$ defined by \cref{eq:1knorm}. The discrete analogue of this norm is the norm $\|\cdot\|_{\Dmat_k}$ defined by 
 %\beq\label{eq:Dk}
 %\N{\bv}_{\Dmat_k}^2:= \big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 = \N{v_h}^2_{\HokDR}
@@ -1036,12 +1036,12 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 %This norm is used, e.g., in recent results about the convergence of domain-decomposition methods %in this norm are proved 
 %for the Helmholtz equation \cite{GrSpVa:17}, \cite{GrSpZo:18}, and for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:19}. 
 %
-%Inspecting the proof of Lemma \ref{lem:keylemma}, we see that the bounds \cref{eq:keybound1} and \cref{eq:keybound2} hold with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\Dmat_k}$ norm and without the terms involving $m_\pm$ and $s_\pm$ on the right-hand side. Theorem \ref{thm:1} 
-%%(and also Corollary \ref{cor:1}) 
+%Inspecting the proof of \cref{lem:keylemma}, we see that the bounds \cref{eq:keybound1} and \cref{eq:keybound2} hold with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\Dmat_k}$ norm and without the terms involving $m_\pm$ and $s_\pm$ on the right-hand side. \cref{thm:1} 
+%%(and also \cref{cor:1}) 
 %therefore also holds with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\Dmat_k}$ norm and the constant $C_1$ modified appropriately.
 %\ere
 
-\subsection{Proof of Corollaries \ref{cor:1} and \ref{cor:1a}}
+\subsection{Proof of \cref{cor:1,cor:1a}}
 
 We first give the set-up for weighted GMRES.
 Consider the abstract  linear system 
@@ -1089,7 +1089,7 @@ The bound \cref{eq:Elman} with $\Dmat=\Imat$ was originally proved in \cite{El:8
 
 
 
-Theorem \ref{thm:GMRES1_intro} has the following corollary, and the proofs of Corollaries \ref{cor:1} and \ref{cor:1a} follow from combining this with Theorem \ref{thm:1}.
+\cref{thm:GMRES1_intro} has the following corollary, and the proofs of \cref{cor:1,cor:1a} follow from combining this with \cref{thm:1}.
 
 \begin{corollary}
 \label{cor:GMRES_intro} 
@@ -1098,29 +1098,29 @@ $$\cos \beta \geq \frac{1-\sigma}{1+\sigma} \quad \text{and} \quad
 \sin \beta \leq \frac{2 \sqrt{\sigma}}{(1+\sigma)^2} \ . $$
 \end{corollary}
 
-\bpf[Proof of Corollary \ref{cor:1}]
-This follows from Theorem \ref{thm:1} by applying Corollary \ref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\sigma=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\sigma=1/2$.
+\bpf[Proof of \cref{cor:1}]
+This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\sigma=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\sigma=1/2$.
 \epf
 
 \
 
-\bpf[Proof of Corollary \ref{cor:1a}]
-This follows from Theorem \ref{thm:1} by applying Corollary \ref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Imat$, and $\sigma=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=\Imat$, and $\sigma=1/2$.
+\bpf[Proof of \cref{cor:1a}]
+This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Imat$, and $\sigma=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=\Imat$, and $\sigma=1/2$.
 \epf
 
 
 \bre[The improvement of the Elman estimate \cref{eq:Elman} in \cite{BeGoTy:06}]
-A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES in \cite[Theorem 2.1]{BeGoTy:06}, and then converted to a result about weighted GMRES in \cite[Theorem 5.3]{BoDoGrSpTo:19}; indeed, the convergence factor $\sin \beta$ is replaced by a function of $\beta$ strictly less than $\sin\beta$ for $\beta\in (0,\pi/2)$. Using this stronger result, however, does not improve the $k$-dependence of Corollary \ref{cor:1}.
+A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES in \cite[Theorem 2.1]{BeGoTy:06}, and then converted to a result about weighted GMRES in \cite[Theorem 5.3]{BoDoGrSpTo:19}; indeed, the convergence factor $\sin \beta$ is replaced by a function of $\beta$ strictly less than $\sin\beta$ for $\beta\in (0,\pi/2)$. Using this stronger result, however, does not improve the $k$-dependence of \cref{cor:1}.
 \ere
 
 
 %\section{Proof of }\label{sec:proofPDE}
 
-\subsection{Proofs of Theorem \ref{thm:2}, and Lemma \ref{lem:sharp}}
+\subsection{Proofs of \cref{thm:2}, and \cref{lem:sharp}}
 
-\bpf[Proof of Theorem \ref{thm:2}]
+\bpf[Proof of \cref{thm:2}]
 %We first prove the upper bound \cref{eq:PDEbound}.
-By Definition \ref{def:EDP}, $u^{(1)}$ and $u^{(2)}$ satisfy $a^{(1)}(u^{(1)}, v) = F(v)$ and 
+By \cref{def:EDP}, $u^{(1)}$ and $u^{(2)}$ satisfy $a^{(1)}(u^{(1)}, v) = F(v)$ and 
 $a^{(2)}(u^{(2)}, v) = F(v)$ respectively. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
 \beq\label{eq:vp1}
 a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{F}(v) \quad\tfa v\in H^1_{0,D}(\Omega_R)
@@ -1144,7 +1144,7 @@ and thus, by the definition of the norm $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnor
 \big\|\widetilde{F}\big\|_{(\HokDR)'}\leq \max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}\Big\}
 \big\| u^{(2)}\big\|_{\HokDR}.
 \eeqs
-Since Condition \ref{cond:1nbpc} holds, we can then apply the result of Lemma \ref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
+Since \cref{cond:1nbpc} holds, we can then apply the result of \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
 \begin{align*}
 \frac{\big\| u^{(1)} - u^{(1)}\big\|_{\HokDR}}
 {\big\| u^{(2)}\big\|_{\HokDR}, 
@@ -1160,7 +1160,7 @@ C_3:= \frac{1}{\min\big\{\Aomin,\nomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\
 \eeq
 \epf
 
-\bpf[Proof of Lemma \ref{lem:sharp}]
+\bpf[Proof of \cref{lem:sharp}]
 We actually prove the stronger result that given any function $c(k)$ such that $c(k)>0$ for all $k>0$, there exist 
 $f, \no, \nt$ (with $\no\not= \nt$), such that, firstly,
 \beqs
@@ -1176,8 +1176,8 @@ The heart of the proof is the equation
 where $\chi(r)$ is chosen to have $\supp \chi \subset \Omega_R$.
 This equation proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\Omega_R)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
 
-The overall idea of the proof is to set things up so that $(u^{(1)}-u^{(2)})(\bx) = \re^{\ri k r}\chi(r)$, the rationale being that \cref{eq:obs1} proves the sharpness of \cref{eq:bound1}, and \cref{eq:bound1} and its corollary \cref{eq:bound2} (applied to $u^{(1)}-u^{(2)}$) are the main ingredients in the proof of Theorem \ref{thm:2}.
-% to prove the sharpness of Theorem \ref{thm:2} (at least when $\Aj:=I$, $j=1,2,$), 
+The overall idea of the proof is to set things up so that $(u^{(1)}-u^{(2)})(\bx) = \re^{\ri k r}\chi(r)$, the rationale being that \cref{eq:obs1} proves the sharpness of \cref{eq:bound1}, and \cref{eq:bound1} and its corollary \cref{eq:bound2} (applied to $u^{(1)}-u^{(2)}$) are the main ingredients in the proof of \cref{thm:2}.
+% to prove the sharpness of \cref{thm:2} (at least when $\Aj:=I$, $j=1,2,$), 
 
 Observe that, when $\Aj:=I$, $j=1,2,$ and $\no:=1$, the variational problem \cref{eq:vp1} implies that 
 \beq\label{eq:obs2}
@@ -1195,7 +1195,7 @@ u^{(2)}(\bx):= -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)} \
 however, since $\widetilde{\chi}(r)$ has compact support, we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined.
 
 Setting aside for the moment this need to synchronise the definitions of $\chi$ and $\widetilde{\chi}$, since $\supp \,\widetilde{f}$ is a compact subset of $\Omega_R$, so is 
-$\supp \,u^{(2)}$, and so $u^{(2)}$ is then the solution of the exterior Dirichlet problem (in the sense of Definition \ref{def:EDP}) with data $f$ defined in \cref{eq:obs3} and coefficient $\nt:=1 + c(k)\widetilde{\chi}$.
+$\supp \,u^{(2)}$, and so $u^{(2)}$ is then the solution of the exterior Dirichlet problem (in the sense of \cref{def:EDP}) with data $f$ defined in \cref{eq:obs3} and coefficient $\nt:=1 + c(k)\widetilde{\chi}$.
 Finally, define $u^{(1)}$ to be the solution of the exterior Dirichlet problem with $f$ defined in \cref{eq:obs3}. The whole point of these definitions is that, combined with \cref{eq:obs1} and \cref{eq:obs2} and the uniqueness of the solution of the exterior Dirichlet problem, they imply that 
 \beq\label{eq:obs4}
 u^{(1)}(\bx)- u^{(2)}(\bx) = \re^{\ri k x_1}\chi(r),
@@ -1226,7 +1226,7 @@ The assumption
 $m >n+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta u^{(2)}$ vanish (and hence are finite) at $r=R_1$ and $r=R_2$.
 \epf
 
-\bre[Why doesn't Lemma \ref{lem:sharp} cover the case $\Ao\neq  \At$?]
+\bre[Why doesn't \cref{lem:sharp} cover the case $\Ao\neq  \At$?]
 When $\nj:=1$, $j=1,2,$, $\Ao:=I$, and $\At:= I + c(k)\widetilde{\chi}$, the variational problem \cref{eq:vp1} implies that 
 \beqs%\label{eq:obs2}
 \Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = c(k)\nabla\cdot \big(\widetilde{\chi}\nabla u^{(2)}\big).
@@ -1234,16 +1234,16 @@ When $\nj:=1$, $j=1,2,$, $\Ao:=I$, and $\At:= I + c(k)\widetilde{\chi}$, the var
 It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(\bx) - u^{(2)}(\bx)=\re^{\ri kr}\chi(r)$ (so that one can then use \cref{eq:obs1}).
 \ere
 
-%\section{Proof of Lemma \ref{lem:2}}
+%\section{Proof of \cref{lem:2}}
 
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
 
-%\subsection{Definition of the TEDP and analogues of the results in \S\ref{sec:3}}
+%\subsection{Definition of the TEDP and analogues of the results in \cref{sec:3}}
 
 \begin{definition}[Truncated Exterior Dirichlet Problem (TEDP)]\label{def:TEDP}
 Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp:= \RRd\setminus \overline{\Dm}$ is connected. 
 Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\overline{\Dm}\subset \Dtilde$. 
-Let $D:=\Dtilde\setminus\overline{\Dm}$, $\Gamma_D:= \partial \Dm$, and $\Gamma_I :=\partial \Dtilde$, so that $\partial D= \Gamma_D \cup \Gamma_I$ and $\Gamma_D\cap \Gamma_I = \emptyset$. Let % (see Figure \ref{fig:TEDP}). Let
+Let $D:=\Dtilde\setminus\overline{\Dm}$, $\Gamma_D:= \partial \Dm$, and $\Gamma_I :=\partial \Dtilde$, so that $\partial D= \Gamma_D \cup \Gamma_I$ and $\Gamma_D\cap \Gamma_I = \emptyset$. Let % (see \cref{fig:TEDP}). Let
 \beqs
 H_{0,D}^1(D):= \big\{ v\in H^1(D) : \gamma v=0 \ton \Gamma_D\big\}.
 \eeqs
@@ -1375,7 +1375,7 @@ F(v):= \int_D f\, \vb + \int_{\Gamma_I} g_I \, \overline{\gamma v}.
 %  % .. controls (-3,1.25) and (-3,1) .. cycle;
 %\end{tikzpicture}
 %
-%  \caption{The domains $\Omega$ and $\Dm$, and boundaries $\Gamma_I$ and $\Gamma_D$, in the definition of the TEDP (Definition \ref{def:TEDP}).}\label{fig:TEDP}
+%  \caption{The domains $\Omega$ and $\Dm$, and boundaries $\Gamma_I$ and $\Gamma_D$, in the definition of the TEDP (\cref{def:TEDP}).}\label{fig:TEDP}
 %  \end{centering}
 %  \end{figure}
 
@@ -1386,7 +1386,7 @@ F(v):= \int_D f\, \vb + \int_{\Gamma_I} g_I \, \overline{\gamma v}.
 \eeq
 where $\nu$ is the unit outward-pointing normal vector to $\Omega$ on $\Gamma_I$.
 
-\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $a(\cdot,\cdot)$ defined in \cref{eq:TEDPa} satisfies the G\aa rding inequality \cref{eq:Garding}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \S\ref{sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.
+\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $a(\cdot,\cdot)$ defined in \cref{eq:TEDPa} satisfies the G\aa rding inequality \cref{eq:Garding}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \cref{sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.
 
 \paragraph{Finite-element/Galerkin solution.}
 The Galerkin matrix is defined exactly as in \cref{eq:matrixAdef}, except that 
@@ -1400,40 +1400,40 @@ a^*(u,v) := \int_{\DR}
 \Big((A \grad u)\cdot\grad \vb
  - k^2 n u\vb\Big) +\ri k\int_{\Gamma_I} \gamma u\, \overline{\gamma v};
 \eeq
-then \cref{eq:A*} holds (with $\Nmat$ now given by \cref{eq:NTEDP}, and the analogue of Lemma \ref{lem:adjoint} follows in a straightforward way.
+then \cref{eq:A*} holds (with $\Nmat$ now given by \cref{eq:NTEDP}, and the analogue of \cref{lem:adjoint} follows in a straightforward way.
 
 
-\paragraph{The analogues of Conditions \ref{cond:1nbpc} and \ref{cond:2}.}
-The statement of the TEDP analogues of Conditions \ref{cond:1nbpc} and \ref{cond:2} are the same as for the EDP, apart from the following.
+\paragraph{The analogues of \cref{cond:1nbpc,cond:2}.}
+The statement of the TEDP analogues of \cref{cond:1nbpc,cond:2} are the same as for the EDP, apart from the following.
 \ben
 \item
 $\supp \,f$ need not be a subset of $\widetilde{\Omega}$ (i.e.~the support of $f$ can go up to the impedance boundary $\Gamma_I$), and
-\item the assumption $g_I= 0$ needs to be added to Condition \ref{cond:1nbpc} and Part (i) of Condition \ref{cond:2}.
+\item the assumption $g_I= 0$ needs to be added to \cref{cond:1nbpc} and Part (i) of \cref{cond:2}.
 \een
- Note that, since $a(\cdot,\cdot)$ for the TEDP satisfies the same G\aa rding inequality \cref{eq:Garding} as the $a(\cdot,\cdot)$ for the EDP, Lemma \ref{lem:H1} holds for the TEDP under the TEDP-analogue of Condition \ref{cond:1nbpc}.
+ Note that, since $a(\cdot,\cdot)$ for the TEDP satisfies the same G\aa rding inequality \cref{eq:Garding} as the $a(\cdot,\cdot)$ for the EDP, \cref{lem:H1} holds for the TEDP under the TEDP-analogue of \cref{cond:1nbpc}.
 
-\paragraph{The main results Theorem \ref{thm:1} and Corollary \ref{cor:1}.}
-Since Conditions \ref{cond:1nbpc} and \ref{cond:2} are essentially unchanged from the EDP case, Lemmas \ref{lem:keylemma1} and \ref{lem:keylemma2} hold for the TEDP, and thus so do Theorem \ref{thm:1} and Corollaries \ref{cor:1} and \ref{cor:1a}.
+\paragraph{The main results \cref{thm:1,cor:1}.}
+Since \cref{cond:1nbpc,cond:2} are essentially unchanged from the EDP case, \cref{lem:keylemma1,lem:keylemma2} hold for the TEDP, and thus so do \cref{thm:1,cor:1,cor:1a}.
 
-\paragraph{The PDE results Theorem \ref{thm:2} and Lemma \ref{lem:sharp}.}
+\paragraph{The PDE results \cref{thm:2} and \cref{lem:sharp}.}
 
-The PDE bound Theorem \ref{thm:2} relies only on Lemma \ref{lem:H1}, which, as stated above, also holds for the TEDP. Therefore Theorem \ref{thm:2} holds for the TEDP under the TEDP-analogue of Condition \ref{cond:1nbpc} described above. The construction in Lemma \ref{lem:sharp} to show sharpness of the bound in Theorem \ref{thm:1} (at least when $\Ao= \At= I$) also holds for the TEDP; this is because one can choose the supports of $\chi$ and $\widetilde{\chi}$ to be contained inside $\widetilde{\Omega}$, and then $u^{(1)}$ and $u^{(2)}$ defined in Lemma \ref{lem:sharp} satisfy the impedance boundary condition \cref{eq:imp} on $\Gamma_I$.
+The PDE bound \cref{thm:2} relies only on \cref{lem:H1}, which, as stated above, also holds for the TEDP. Therefore \cref{thm:2} holds for the TEDP under the TEDP-analogue of \cref{cond:1nbpc} described above. The construction in \cref{lem:sharp} to show sharpness of the bound in \cref{thm:1} (at least when $\Ao= \At= I$) also holds for the TEDP; this is because one can choose the supports of $\chi$ and $\widetilde{\chi}$ to be contained inside $\widetilde{\Omega}$, and then $u^{(1)}$ and $u^{(2)}$ defined in \cref{lem:sharp} satisfy the impedance boundary condition \cref{eq:imp} on $\Gamma_I$.
 
-\paragraph{When the TEDP-analogue of Condition \ref{cond:1nbpc} holds.}
+\paragraph{When the TEDP-analogue of \cref{cond:1nbpc} holds.}
 
-In \S\ref{sec:cond1hold} we discussed 4 situations (Cases 1-4) where Condition \ref{cond:1nbpc} is proved to hold for the EDP. We now discuss the TEDP-analogues of these.
+In \cref{sec:cond1hold} we discussed 4 situations (Cases 1-4) where \cref{cond:1nbpc} is proved to hold for the EDP. We now discuss the TEDP-analogues of these.
 %Cases 1, 3, and 4 (there is no proof yet for the TEDP-analogue of Case 2).
 
 \emph{Cases 1 and 2: $\Ao$, $\no$, and $\Gamma_I$  are $C^\infty$.} 
 With the rays defined as in the EDP case (by the Melrose--Sj{\"o}strand generalized bicharacteristic flow 
 \cite[\S24.3]{Ho:85}), the TEDP-analogue of nontrapping for the EDP is the assumption that 
 every ray eventually hits the boundary at a \emph{non-diffractive point} (defined in \cite[Page 1037]{BaLeRa:92}). Note that, in the case $\Dm=\emptyset$ $\Ao= I$, and $\no=1$, every ray eventually hits the boundary at a non-diffractive point by \cite[Lemma 5.3]{BaSpWu:16}.
-Under the additional assumption that $\no= 1$, Condition \ref{cond:1nbpc} follows from the results of \cite{BaLeRa:92} by combining \cite[Theorem 1.8]{BaSpWu:16} and \cite[Remark 5.6]{BaSpWu:16}, but $C^{(1)}_{\rm bound}$ is not given explicitly.
+Under the additional assumption that $\no= 1$, \cref{cond:1nbpc} follows from the results of \cite{BaLeRa:92} by combining \cite[Theorem 1.8]{BaSpWu:16} and \cite[Remark 5.6]{BaSpWu:16}, but $C^{(1)}_{\rm bound}$ is not given explicitly.
 
 \emph{Case 3: $\Dm$ is starshaped with respect to the origin, $\Ao$ and $\no$ are Lipschitz and satisfy radial monotonicity-like conditions.}
 When $\Gamma_I$ is also starshaped with respect to the origin and $A$ and $n$ satisfy \cref{eq:A1nbpc} and \cref{eq:n1nbpc} respectively (with $\Dp$ replaced by $\Omega$), 
 \cite[Theorem A.6(i)]{GrPeSp:19} proves that
-Condition \ref{cond:1nbpc} holds, with an explicit expression for $C^{(1)}_{\rm bound}$. Analogous results when (a) $2\Ao - (\bx\cdot\nabla)\Ao \geq \mu_1$ and $\no= 1$,
+\cref{cond:1nbpc} holds, with an explicit expression for $C^{(1)}_{\rm bound}$. Analogous results when (a) $2\Ao - (\bx\cdot\nabla)\Ao \geq \mu_1$ and $\no= 1$,
 and  (b) $\Ao= I$ and  $2\no + \bx \cdot \nabla \no \geq \mu_2$, 
 are contained in \cite[Theorem A.6(ii)]{GrPeSp:19} and \cite[Theorem A.6(iii)]{GrPeSp:19} respectively.
 When $A$ is scalar, these results were also proved in \cite[Theorem 1]{BrGaPe:17} and, when $\Ao= I$ and $\Dm=\emptyset$, also in \cite[Theorem 3.2]{GrSa:18}.
@@ -1441,10 +1441,10 @@ When $A$ is scalar, these results were also proved in \cite[Theorem 1]{BrGaPe:17
 \emph{Case 4: %\item[Case 4:]
  $\Ao$ and $\no$ are allowed to be discontinuous.}
 %\een
-Condition \ref{cond:1nbpc} is proved in \cite{CaVo:10} (without an explicit expression for $C^{(1)}_{\rm bound}$) when $\Dm$ is $C^\infty$ and nontrapping, $\Gamma_I$ is $C^\infty$, $\Ao= I $, and $\no$ is a piecewise-constant, monotonically non-decreasing function, jumping on interfaces that are $C^\infty$ with strictly positive curvature.
-Recall from \S\ref{cond:1nbpc} that \cite[Theorem 2.7]{GrPeSp:19} proves that Condition \ref{cond:1nbpc} holds for the EDP (with an explicit expression for $C^{(1)}_{\rm bound}$) when $\Dm$ is starshaped with respect to the origin, $A$ and $n$ are $L^\infty$, with $A$ monotonically \emph{non-increasing} in the radial direction, and $n$ monotonically \emph{non-decreasing}. This proof can be extended to the TEDP, with the additional assumption that $\Gamma_I$ is star-shaped with respect to the origin; see the discussion in \cite[Section A.2]{GrPeSp:19}.
+\cref{cond:1nbpc} is proved in \cite{CaVo:10} (without an explicit expression for $C^{(1)}_{\rm bound}$) when $\Dm$ is $C^\infty$ and nontrapping, $\Gamma_I$ is $C^\infty$, $\Ao= I $, and $\no$ is a piecewise-constant, monotonically non-decreasing function, jumping on interfaces that are $C^\infty$ with strictly positive curvature.
+Recall from \cref{cond:1nbpc} that \cite[Theorem 2.7]{GrPeSp:19} proves that \cref{cond:1nbpc} holds for the EDP (with an explicit expression for $C^{(1)}_{\rm bound}$) when $\Dm$ is starshaped with respect to the origin, $A$ and $n$ are $L^\infty$, with $A$ monotonically \emph{non-increasing} in the radial direction, and $n$ monotonically \emph{non-decreasing}. This proof can be extended to the TEDP, with the additional assumption that $\Gamma_I$ is star-shaped with respect to the origin; see the discussion in \cite[Section A.2]{GrPeSp:19}.
 
-%Condition \ref{cond:1nbpc} is proved, with an explicit expression for $C^{(1)}_{\rm bound}$, when 
+%\cref{cond:1nbpc} is proved, with an explicit expression for $C^{(1)}_{\rm bound}$, when 
 
 %\newpage
 %
@@ -1463,7 +1463,7 @@ Recall from \S\ref{cond:1nbpc} that \cite[Theorem 2.7]{GrPeSp:19} proves that Co
 \ben
 \item Varying  $\|\Ao-\At\|_{L^\infty}$ and $\|\no-\nt\|_{L^\infty}$ in standard GMRES.
 \item Computations where $\|\Ao-\At\|_{L^\infty}$ and $\|\no-\nt\|_{L^\infty}$ are sometimes large; is having the standard deviations of these $\sim 1/k$ good enough for $k$-independent GMRES iterations?
-\item ***on backburner*** Checking under what conditions (if any) Part (ii) Condition \ref{cond:2} holds by running the following experiment:
+\item ***on backburner*** Checking under what conditions (if any) Part (ii) \cref{cond:2} holds by running the following experiment:
 %\item Exciting experiments for random $n$ that you told us about last week.
 %\item In the weighted norm, the condition on $A$ is ``$k \|\Ao-\At\|_{L^\infty}$ sufficiently small" but in the Euclidean norm the best we have so far is ``$h^{-1} \|\Ao-\At\|_{L^\infty}$ sufficiently small". You indicated before that experiments seemed to indicate that ``$k \|\Ao-\At\|_{L^\infty}$ sufficiently small" seemed correct for the Euclidean norm too. The next time we meet, can you show me these results please?
 %\item Please run the following numerical experiment.
@@ -1472,7 +1472,7 @@ Recall from \S\ref{cond:1nbpc} that \cite[Theorem 2.7]{GrPeSp:19} proves that Co
 \item $\Ao$ being at least Lipschitz (but smooth is fine). To keep things simple, just take scalar- (as opposed to matrix-) valued $\Ao$ and don't worry about making it nontrapping.
 \item Smoothness of $\no$ doesn't really matter, just take smooth in the first instance for simplicity (and also don't worry about nontrapping).
 \item $\cV_h$ piecewise linear.
-\item Linear system $\Amato \bu = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of Condition \ref{cond:2},  but please check this!)
+\item Linear system $\Amato \bu = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of \cref{cond:2},  but please check this!)
 \item For each $\Ao, \no, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
 \item Goal: see if the bound \cref{eq:bound4} holds, using 
 \beqs
