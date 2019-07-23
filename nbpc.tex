@@ -1377,10 +1377,10 @@ There exists a function $\Gfnname:(0,1)\rightarrow [0,\dofs]$ such that if GMRES
 \beqs
 \Gfn{\NLiDR{\no-\nt}} =
 \begin{dcases}
-\max\set{N,\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
+\max\set{N,\ceil\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
 N & \tif \alpha \geq 1,
 \end{dcases}
-\eeqs
+\eeqs\optodo{Figure out if I need ceil}
 where $\alpha = \Ct k \NLiDR{\no-\nt},$ where $\Ct$ is given by \cref{eq:C2}.
 \ele
 
