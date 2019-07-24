@@ -1377,7 +1377,7 @@ There exists a function $\Gfnname:(0,1)\rightarrow [0,\dofs]$ such that if GMRES
 \beq\label{eq:gdef}
 \Gfn{\NLiDR{\no-\nt}} =
 \begin{dcases}
-\max\set{N,\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1} & \tif \alpha < 1\\
+\min\set{N,\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
 N & \tif \alpha \geq 1,
 \end{dcases}
 \eeq
@@ -1396,44 +1396,45 @@ m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)
 \eeq
 Hence, if $m$ is the lowest integer satisfying \cref{eq:mlower}, then
 \beq\label{eq:gmressub2}
-m \leq\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
+m =\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
 \eeq
 The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2} and\optodo{at most $N$ result}.
 \epf
 
-We will use the following \lcnamecref{lem:gtechnical} to prove our probabilistic result.
-\ble[Properties of $\Gfnname$]\label{lem:gtechnical}
-Let $\eps,$ $\dofs$, and $\Gfnname$ be as in \cref{lem:probgmres1}. Define
-\beqs
-\alphacrit \de \inf \set{\alpha > 0 \st \Gfn{\alpha} = \dofs}.
-\eeqs
-Then $\alphacrit$ is well-defined and $\Gfnname\restrict_{\mleft[0,\alphacrit\mright]}:\mleft[0,\alphacrit\mright]\rightarrow \mleft[0,\dofs\mright]$ is strictly increasing and therefore invertible.
-\ele\optodo{Sort ceil}
+%% We will use the following \lcnamecref{lem:gtechnical} to prove our probabilistic result.
+%% \ble[Properties of $\Gfnname$]\label{lem:gtechnical}
+%% Let $\eps,$ $\dofs$, and $\Gfnname$ be as in \cref{lem:probgmres1}. Define
+%% \beqs
+%% \alphacrit \de \inf \set{\alpha > 0 \st \Gfn{\alpha} = \dofs}.
+%% \eeqs
+%% Then $\alphacrit$ is well-defined and $\Gfnname\restrict_{\mleft[0,\alphacrit\mright]}:\mleft[0,\alphacrit\mright]\rightarrow \mleft[0,\dofs\mright]$ is strictly increasing and therefore invertible.
+%% \ele\optodo{Sort ceil}
 
-\bpf[Proof of \cref{lem:gtechnical}]
-Define
-\beqs
-g(\alpha) = \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
-\eeqs
-It suffices to prove that if $0 < \alpha < 1,$ then $dg/d\alpha> 0.$ We verify this by direct computation.
-\begin{align}
-\frac{dg}{d\alpha}(\alpha) &= \log \mleft(\eps\mright)\mleft(-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{d}{d\alpha} \mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)\mright)\nonumber\\
-&= \log\mleft( \eps\mright) \mleft(-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{\mleft(1+\alpha\mright)^2\alpha^{-\half} - 4\alpha^\half\mleft(1+\alpha\mright)}{\mleft(1+\alpha\mright)^4}\mright)\nonumber\\
-&= \log \mleft(\eps\mright) \log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{\mleft(1+\alpha\mright)\mleft(\alpha^{-\half}+3\alpha^\half\mright)}{\mleft(1+\alpha\mright)^4}\label{eq:lotsoflogs}
-\end{align}
-We must now show \cref{eq:lotsoflogs} is greater than 0 if $\alpha \in (0,1).$ Since $0 < \eps < 1,$ $\log \eps < 0$. Since $0 < \alpha < 1,$ $\alpha^{-\half} + 3\alpha^\half > 0.$ Therefore it remains to show
-\beq\label{eq:gmresfinalish}
-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2}<0.
-\eeq
-An equivalent condition to \cref{eq:gmresfinalish} is
-\beq\label{eq:gmresfrac1}
-\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2} < 1,
-\eeq
-and one can square \cref{eq:gmresfrac1} and rearrange to show that it is equivalent to the condition $0 < 1 + 6 \alpha^2 + + 4\alpha^3 + alpha^4,$ which is clearly true for $0 < \alpha < 1,$ and therefore $dg/d\alpha > 0$ as required.
-\epf
+%% \bpf[Proof of \cref{lem:gtechnical}]
+%% Define
+%% \beqs
+%% g(\alpha) = \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
+%% \eeqs
+%% It suffices to prove that if $0 < \alpha < 1,$ then $dg/d\alpha> 0.$ We verify this by direct computation.
+%% \begin{align}
+%% \frac{dg}{d\alpha}(\alpha) &= \log \mleft(\eps\mright)\mleft(-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{d}{d\alpha} \mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)\mright)\nonumber\\
+%% &= \log\mleft( \eps\mright) \mleft(-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{\mleft(1+\alpha\mright)^2\alpha^{-\half} - 4\alpha^\half\mleft(1+\alpha\mright)}{\mleft(1+\alpha\mright)^4}\mright)\nonumber\\
+%% &= \log \mleft(\eps\mright) \log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{\mleft(1+\alpha\mright)\mleft(\alpha^{-\half}+3\alpha^\half\mright)}{\mleft(1+\alpha\mright)^4}\label{eq:lotsoflogs}
+%% \end{align}
+%% We must now show \cref{eq:lotsoflogs} is greater than 0 if $\alpha \in (0,1).$ Since $0 < \eps < 1,$ $\log \eps < 0$. Since $0 < \alpha < 1,$ $\alpha^{-\half} + 3\alpha^\half > 0.$ Therefore it remains to show
+%% \beq\label{eq:gmresfinalish}
+%% \log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2}<0.
+%% \eeq
+%% An equivalent condition to \cref{eq:gmresfinalish} is
+%% \beq\label{eq:gmresfrac1}
+%% \frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2} < 1,
+%% \eeq
+%% and one can square \cref{eq:gmresfrac1} and rearrange to show that it is equivalent to the condition $0 < 1 + 6 \alpha^2 + + 4\alpha^3 + alpha^4,$ which is clearly true for $0 < \alpha < 1,$ and therefore $dg/d\alpha > 0$ as required.
+%% \epf
 
-\bre[$\GfnnameI$ can be explicitly calculated]
-Observe that $\GfnnameI$ can be calculated in closed form. From \cref{eq:gdef}, one can see that calculating $\alphacrit$ involves solving a quartic equation in $\alpha$ (which is possible in closed, albeit complicated, form). Once $\alphacrit$ has been calculated, inverting $\Gfnname$ on $\mleft[0,\alphacrit\mright]$ also involved solving a quartic equation for $\alpha$. However, we do not explicitly write the formulae for $\alphacrit$ or $\GfnnameI$ here.
+\bre[$\GfnnameI$ can be numerically calculated]
+%% Observe that $\GfnnameI$ can be calculated in closed form. From \cref{eq:gdef}, one can see that calculating $\alphacrit$ involves solving a quartic equation in $\alpha$ (which is possible in closed, albeit complicated, form). Once $\alphacrit$ has been calculated, inverting $\Gfnname$ on $\mleft[0,\alphacrit\mright]$ also involved solving a quartic equation for $\alpha$. However, we do not explicitly write the formulae for $\alphacrit$ or $\GfnnameI$ here.
+\optodo{Write something in here}
 \ere
 
 We are now able to state our abstract probabalistic result on GMRES convergence.
@@ -1446,15 +1447,19 @@ Fix $ \in [0,\dofs].$ Then
 \begin{align*}
 \PP\mleft(\text{GMRES applied to } \AmatoI\Amatt \text{ converges to within a tolerance } \eps \text{ within } R \text{ iterations}\mright)\\
 \begin{dcases}
-\leq \PP\mleft(\NLiDRRR{\no-\nt} \leq \GfnI{R}\mright) & \tif R < \dofs,\\
+\leq \PP\mleft(\Gfn{\NLiDRRR{\no-\nt}} \leq R\mright) & \tif R < \dofs,\\
 =1 & \tif R = \dofs.
 \end{dcases}
 \end{align*}
 \enth
 
 \bpf[Proof of \cref{thm:probgmres}]
-For $R < \dofs,$ the proof is immediate from \cref{lem:probgmres1,lem:gtechnical}. For $R = \dofs$, the proof is immediate from\optodo{At most dofs result.}.
+For $R < \dofs,$ the proof is immediate from \cref{lem:probgmres1}. For $R = \dofs$, the proof is immediate from\optodo{At most dofs result.}.
 \epf
+\optodo{Make some plots to show what $G$ looks like}
+\optodo{Add some chat explaining that we can really calculate these probabilities}
+\optodo{Add some examples of what happens as $k\rightarrow \infty$}
+\optodo{Add something about s.d. going like $1/k$ and some plots to back it up (Maybe add Gamma/(change to exp plus 1?) experiments if they can happen very quickly)}
 
 \section{Application to QMC methods for the Helmholtz equation}
 
