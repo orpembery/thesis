@@ -1436,6 +1436,26 @@ and one can square \cref{eq:gmresfrac1} and rearrange to show that it is equival
 Observe that $\GfnnameI$ can be calculated in closed form. From \cref{eq:gdef}, one can see that calculating $\alphacrit$ involves solving a quartic equation in $\alpha$ (which is possible in closed, albeit complicated, form). Once $\alphacrit$ has been calculated, inverting $\Gfnname$ on $\mleft[0,\alphacrit\mright]$ also involved solving a quartic equation for $\alpha$. However, we do not explicitly write the formulae for $\alphacrit$ or $\GfnnameI$ here.
 \ere
 
+We are now able to state our abstract probabalistic result on GMRES convergence.
+\optodo{For probabalistic notation ,see that chapter}
+\optodo{$\LiDR$ should be $\LiDRRR$}
+\bth[Probabalistic GMRES convergence]\label{thm:probgmres}
+Let $\no \in \LiDRRR$ be fixed, and let $\nt:\Omega\rightarrow\LiDRRR$ be a random field. Let $\eps, \dofs, \Nt{\brz}$ be as in \cref{lem:probgmres1}, and let $\Ao = \At = I.$ Let $\Amatt(\omega)$ denote the (random) Galerkin matrix corresponding to the discretisation of \cref{prob:edp}\optodo{Change?} with coefficients $\Ao=I$ and $\nt(\omega)$.
+
+Fix $ \in [0,\dofs].$ Then
+\begin{align*}
+\PP\mleft(\text{GMRES applied to } \AmatoI\Amatt \text{ converges to within a tolerance } \eps \text{ within } R \text{ iterations}\mright)\\
+\begin{dcases}
+\leq \PP\mleft(\NLiDRRR{\no-\nt} \leq \GfnI{R}\mright) & \tif R < \dofs,\\
+=1 & \tif R = \dofs.
+\end{dcases}
+\end{align*}
+\enth
+
+\bpf[Proof of \cref{thm:probgmres}]
+For $R < \dofs,$ the proof is immediate from \cref{lem:probgmres1,lem:gtechnical}. For $R = \dofs$, the proof is immediate from\optodo{At most dofs result.}.
+\epf
+
 \section{Application to QMC methods for the Helmholtz equation}
 
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
