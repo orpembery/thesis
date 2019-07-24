@@ -1374,28 +1374,29 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 \ble[Maximum number of GMRES iterations]\label{lem:probgmres1}
 Let $0 < \eps < 1,$ and let $\dofs$ denote the number of degrees of freedom.\optodo{Mentione $\dofs$ equals size of matrices}
 There exists a function $\Gfnname:(0,1)\rightarrow [0,\dofs]$ such that if GMRES is initialised with $\Nt{\brz} = 1,$ then GMRES applied to \cref{eq:pcsystem1} converges to within a tolerance $\eps$ in at most $\Gfn{\NLiDR{\no-\nt}}$ iterations. Moreover, $\Gfnname$ is given by
-\beqs
+\beq\label{eq:gdef}
 \Gfn{\NLiDR{\no-\nt}} =
 \begin{dcases}
-\max\set{N,\ceil\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}} & \tif \alpha < 1\\
+\max\set{N,\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1} & \tif \alpha < 1\\
 N & \tif \alpha \geq 1,
 \end{dcases}
-\eeqs\optodo{Figure out if I need ceil}
+\eeq
+
 where $\alpha = \Ct k \NLiDR{\no-\nt},$ where $\Ct$ is given by \cref{eq:C2}.
 \ele
-
+\optodo{Put in remark somewhere abour why its $+1$ not ceiling}
 \bpf[Proof of \cref{lem:probgmres1}]
 For $\alpha \geq 1$, the result is immediate from\optodo{Find the fact that GMRES converges in at most $N$, put it in and ref it here}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} into \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
 \beq\label{eq:gmressub}
 \frac{\Nt{\brm}}{\Nt{\brz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
 \eeq
 To obtain an lower on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\brz} = 1$) if
-\beqs
+\beq\label{eq:mlower}
 m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
-\eeqs
-Hence a sufficient condition for the GMRES residual to be less than $\eps$ is
+\eeq
+Hence, if $m$ is the lowest integer satisfying \cref{eq:mlower}, then
 \beq\label{eq:gmressub2}
-m =\ceil{ \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
+m \leq\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
 \eeq
 The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2} and\optodo{at most $N$ result}.
 \epf
@@ -1409,8 +1410,30 @@ Let $\eps,$ $\dofs$, and $\Gfnname$ be as in \cref{lem:probgmres1}. Define
 Then $\alphacrit$ is well-defined and $\Gfnname\restrict_{\mleft[0,\alphacrit\mright]}:\mleft[0,\alphacrit\mright]\rightarrow \mleft[0,\dofs\mright]$ is strictly increasing and therefore invertible.
 \ele\optodo{Sort ceil}
 
+\bpf[Proof of \cref{lem:gtechnical}]
+Define
+\beqs
+g(\alpha) = \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
+\eeqs
+It suffices to prove that if $0 < \alpha < 1,$ then $dg/d\alpha> 0.$ We verify this by direct computation.
+\begin{align}
+\frac{dg}{d\alpha}(\alpha) &= \log \mleft(\eps\mright)\mleft(-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{d}{d\alpha} \mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)\mright)\nonumber\\
+&= \log\mleft( \eps\mright) \mleft(-\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{\mleft(1+\alpha\mright)^2\alpha^{-\half} - 4\alpha^\half\mleft(1+\alpha\mright)}{\mleft(1+\alpha\mright)^4}\mright)\nonumber\\
+&= \log \mleft(\eps\mright) \log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2} \frac{\mleft(1+\alpha\mright)\mleft(\alpha^{-\half}+3\alpha^\half\mright)}{\mleft(1+\alpha\mright)^4}\label{eq:lotsoflogs}
+\end{align}
+We must now show \cref{eq:lotsoflogs} is greater than 0 if $\alpha \in (0,1).$ Since $0 < \eps < 1,$ $\log \eps < 0$. Since $0 < \alpha < 1,$ $\alpha^{-\half} + 3\alpha^\half > 0.$ Therefore it remains to show
+\beq\label{eq:gmresfinalish}
+\log\mleft(\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2}\mright)^{-2}<0.
+\eeq
+An equivalent condition to \cref{eq:gmresfinalish} is
+\beq\label{eq:gmresfrac1}
+\frac{2\alpha^\half}{\mleft(1+\alpha\mright)^2} < 1,
+\eeq
+and one can square \cref{eq:gmresfrac1} and rearrange to show that it is equivalent to the condition $0 < 1 + 6 \alpha^2 + + 4\alpha^3 + alpha^4,$ which is clearly true for $0 < \alpha < 1,$ and therefore $dg/d\alpha > 0$ as required.
+\epf
+
 \bre[$\GfnnameI$ can be explicitly calculated]
-Observe that $\GfnnameI$ can be calculated in closed form:
+Observe that $\GfnnameI$ can be calculated in closed form. From \cref{eq:gdef}, one can see that calculating $\alphacrit$ involves solving a quartic equation in $\alpha$ (which is possible in closed, albeit complicated, form). Once $\alphacrit$ has been calculated, inverting $\Gfnname$ on $\mleft[0,\alphacrit\mright]$ also involved solving a quartic equation for $\alpha$. However, we do not explicitly write the formulae for $\alphacrit$ or $\GfnnameI$ here.
 \ere
 
 \section{Application to QMC methods for the Helmholtz equation}
