@@ -1462,6 +1462,74 @@ For $R < \dofs,$ the proof is immediate from \cref{lem:probgmres1}. For $R = \do
 \optodo{Add something about s.d. going like $1/k$ and some plots to back it up (Maybe add Gamma/(change to exp plus 1?) experiments if they can happen very quickly)}
 
 \section{Application to QMC methods for the Helmholtz equation}
+\optodo{Need to first explain the iterative procedure}
+\subsection{Sequential algorithm}
+
+\begin{algorithm}[h]
+\DontPrintSemicolon
+\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+\SetKwFunction{Nearest}{nearest}
+
+\Input{$\maxGMRES$,$\SQMC$}
+\BlankLine
+Choose starting point $\bystart$\;
+$\bypre \defined \bystart$\;
+$\Sremaining \defined \SQMC\setminus\set{\bypre}$\;
+Calculate preconditioner $\Pmat$ at $\bypre$\;
+$\bycurrent \defined$ \Nearest{$\bypre,\Sremaining$}\;
+\While{$\Sremaining \neq \emptyset$}{
+\lIf{GMRES applied to $\Pmat \Amat(\bycurrent) = \Pmat \bb$ converges in fewer than $\maxGMRES$ iterations}{
+$\Sremaining \defined \SQMC\setminus\set{\bycurrent}$\;
+$\bycurrent \defined$ \Nearest{$\bypre,\Sremaining$}\;
+}
+\Else{
+$\bypre \defined \bycurrent$\;
+Calculate preconditioner $\Pmat$ at $\bypre$\;
+}
+}
+\caption{Algorithm to perform all solves in a QMC method using nearby preconditioning}
+\end{algorithm}
+\subsection{Parallelisable tensor-product algorithm}
+\optodo{Need to put exposition in here to explain why this is the right thing for a tensor product grid, etc.}
+Define
+\beqs
+\Npreidealj(r) = \max\set{\frac{J \sqrt{\lambdaj}}{2r},1}.
+\eeqs
+The `ideal' total number of QMC points is
+\beqs
+\Npreideal(r)=\prod_{j=1}^J  \Npreidealj(r)
+\eeqs
+
+Want to calculate the number of preconditioners $\Npre$, the set
+\beqs
+\Spre=\set{\ypreo,\ldots,\ypreNpre}
+\eeqs
+of QMC points at which to calculate the preconditioner and the map
+\beqs
+\nearestpre:\SQMC\rightarrow\Spre
+\eeqs
+taking each QMC point to its nearest (in the induced spatial $L^\infty$ norm) preconditioner, where $\SQMC$ is the set of QMC points.
+
+\begin{algorithm}[h]
+\DontPrintSemicolon
+\SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+\SetKwFunction{Round}{round}
+
+\Input{$\Npreideal \in \NN$}
+\Output{$\Spre$, $\nearestpre$}
+\BlankLine
+Solve (numerically) $\Npreideal(\rideal) = \Ntarget$ for $\rideal$\;
+\For{j $= 1$ \KwTo $J$}{
+Calculate $\Npreactualj =$ \Round{$\Npreidealj(\rideal)$}\;
+Define $\Sprej$ to be set of $\Npreactualj$ equally spaced points in $\mleft[-1/2,1/2\mright]$\;
+}
+Define $\displaystyle\Npre = \prod_{j=1}^J \Npreactualj$\;
+Define $\Spre$ by taking all possible tensor products of points in $\Sprej$\;
+\For{l $=1$ \KwTo $\NQMC$}{
+Calculate $\nearestpre\mleft(\by^{(l)}\mright)$ by brute force\;
+}
+\caption{Algorithm to determine $\Spre$ and $\nearestpre$}
+\end{algorithm}
 
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
 
