@@ -137,9 +137,9 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
 
 We now discuss three properties of the $h$-finite-element method for the Helmholtz equation:
 \bit
-\item The relative error $\displaystyle \frac{\NW{u-\uh}}{\NW{u}}$ is bounded,
-\item The error $\NW{u-\uh}$ is bounded in terms of norms of the data $f$ and $\gI$, and
-  \item The finite-element method is quasi-optimal, $\displaystyle \NW{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NW{u-\vh}.$
+\item The relative error $\displaystyle \frac{\NHokD{u-\uh}}{\NHokD{u}}$ is bounded,
+\item The error $\NHokD{u-\uh}$ is bounded in terms of norms of the data $f$ and $\gI$, and
+  \item The finite-element method is quasi-optimal, $\displaystyle \NHokD{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NHokD{u-\vh}.$
     \eit
 
     The key question we ask is: What mesh conditions lead to each of the three properties above? (I.e., how must one refine $h$ as $k$ increases in order for the finite-element method to satisfy each of the three properties above?)
@@ -203,7 +203,7 @@ hk^b \leq \Ct,
 \eeqs
 then the Galerkin solutions $\uh(k)$ satisfy
 \beq\label{eq:hkacc}
-\frac{\NW{u(k)-\uh(k)}}{\NW{u(k)}} \leq \eps
+\frac{\NHokD{u(k)-\uh(k)}}{\NHokD{u(k)}} \leq \eps
 \eeq
 for all $k \geq \kz.$
 
@@ -221,7 +221,7 @@ hk^b \leq \Ct,
 \eeqs
 then the Galerkin solutions $\uh(k)$ satisfy
 \beq\label{eq:hkdataacc}
-\frac{\NW{u(k)-\uh(k)}}{\NLtD{f} + \NLtGI{\gI}} \leq \eps
+\frac{\NHokD{u(k)-\uh(k)}}{\NLtD{f} + \NLtGI{\gI}} \leq \eps
 \eeq
 for all $k \geq \kz.$
 
@@ -237,7 +237,7 @@ hk^{a} \leq \Co,
 \eeqs
 then the Galerkin solutions $\uh(k)$ satisfy
 \beqs
-\NW{u(k) - \uh(k)} \leq \Cqo \inf_{\vh \in \Vhp} \NW{u(k) - \vh},
+\NHokD{u(k) - \uh(k)} \leq \Cqo \inf_{\vh \in \Vhp} \NHokD{u(k) - \vh},
 \eeqs
 for all $k \geq \kz.$
 \ede
@@ -247,11 +247,11 @@ For discretisations of other Helmholtz problems (e.g., full-space problems with 
 \ere
 
 \bre[Relationship between $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy]
-Observe that if an a priori bound such as \cref{eq:tedpbound} holds, then $\hk{a}{b}$-accuracy implies $\hk{a}b$-data-accuracy, as $\NW{u} \lesssim \NLtD{f} + \NLtGI{\gI}$.
+Observe that if an a priori bound such as \cref{eq:tedpbound} holds, then $\hk{a}{b}$-accuracy implies $\hk{a}b$-data-accuracy, as $\NHokD{u} \lesssim \NLtD{f} + \NLtGI{\gI}$.
 
 However, in order to conclude $\hk{a}{b}$-accuracy from $\hk{a}b$-data-accuracy, one would need to show
 \beq\label{eq:reversebound}
-\NLtD{f} \lesssim \NW{u}.
+\NLtD{f} \lesssim \NHokD{u}.
 \eeq
 However, in general \cref{eq:reversebound} does not hold\ednote{Euan---can one write down an example of this \emph{easily}?}, and so one cannot, in general, conclude $\hk{a}{b}$-accuracy from $\hk{a}{b}$-data-accuracy.
 \ere
@@ -265,7 +265,7 @@ To aid understanding of the above definitions, and to see how they connect with 
 \bre[Example achieving $\hk{a}{b}$-data-accuracy]\label{rem:dataacc}
 In \cite[Theorem 5.4]{ChGaNiTo:18}, Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk proved\footnote{The result proved in \cite[Theorem 5.4]{ChGaNiTo:18} is slightly more complicated than that stated here; the right-hand side of \cref{eq:hkacceg} should be $\Cth \mleft(hk + h^{2p}k^{2p+1}\mright)\NLtD{f}.$ However, an analagous proof to the one presented here holds in the more complicated case.} that if $k \geq \kz$ and $h^{p+1}k^{p+2} \leq \Co$, then
 \beq\label{eq:hkacceg}
-\NW{u(k) - \uh(k)} \leq \Cth h^{2p}k^{2p+1}\NLtD{f}
+\NHokD{u(k) - \uh(k)} \leq \Cth h^{2p}k^{2p+1}\NLtD{f}
 \eeq
 for some $\kz, \Co, \Cth > 0.$
 
@@ -418,21 +418,21 @@ The first class of arguments we consider are (modified) duality arguments. These
 
 To show the error in the weighted $H^1$ norm is bounded by the error in the $L^2$ norm, observe
 \begin{align}
-\NW{u-\uh}^2 &\leq \Re{\aT(u-\uh,u-\uh)} + k^2 \NLtD{u-\uh}^2\nonumber\\
+\NHokD{u-\uh}^2 &\leq \Re{\aT(u-\uh,u-\uh)} + k^2 \NLtD{u-\uh}^2\nonumber\\
 &= \Re{\aT(u-\uh,u-\vh)} + k^2 \NLtD{u-\uh}^2\text{ by Galerkin orthogonality}\nonumber\\
-&\lesssim \NW{u-\uh}\NW{u-\vh} + k^2 \NLtD{u-\uh}^2,\label{eq:gardingerror}
+&\lesssim \NHokD{u-\uh}\NHokD{u-\vh} + k^2 \NLtD{u-\uh}^2,\label{eq:gardingerror}
 \end{align}
 for any $\vh \in \Vhp.$
 
 The Schatz argument to prove quasi-optimality, outlined below, proceeds to show (for $p=1$)
 \beq\label{eq:schatzbound}
-k\NLtD{u-\uh} \lesssim hk^2 \NW{u-\uh},
+k\NLtD{u-\uh} \lesssim hk^2 \NHokD{u-\uh},
 \eeq
 and combining \cref{eq:gardingerror,eq:schatzbound}, one has
 \beqs
-\NW{u-\uh}^2 \lesssim \NW{u-\uh}\NW{u-\vh} + \mleft(hk^2\mright)^2\NW{u-\uh}^2
+\NHokD{u-\uh}^2 \lesssim \NHokD{u-\uh}\NHokD{u-\vh} + \mleft(hk^2\mright)^2\NHokD{u-\uh}^2
 \eeqs
-cancelling a factor $\NW{u-\uh}$ from each side, and moving the final term onto the left-hand side. one obtains quasi-optimality if $hk^2$ is sufficiently small.
+cancelling a factor $\NHokD{u-\uh}$ from each side, and moving the final term onto the left-hand side. one obtains quasi-optimality if $hk^2$ is sufficiently small.
 
 In contrast, so-called \defn{elliptic-projection-modified Schatz} (`modified Schatz' for short) arguments used to prove a finite-element error bound, also outlined below, show (for $p=1$)
 \beq\label{eq:epbound}
@@ -458,11 +458,11 @@ and
 \eeqs
 One can, of course, define the corresponding solution operators in the case of non-zero impedance boundary conditions. We next define the approximability constants:
 \beqs
-\wba \de \sup_{\ftilde \in \LtD}\inf_{\vh \in \Vhp} \frac{\NW{\solfem(\ftilde) - \vh}}{\NLtD{\ftilde}}
+\wba \de \sup_{\ftilde \in \LtD}\inf_{\vh \in \Vhp} \frac{\NHokD{\solfem(\ftilde) - \vh}}{\NLtD{\ftilde}}
 \eeqs
 and
 \beqs
-\wbaadj \de \sup_{\ftilde \in \LtD}\inf_{\vh \in \Vhp} \frac{\NW{\solfems(\ftilde) - \vh}}{\NLtD{\ftilde}}.
+\wbaadj \de \sup_{\ftilde \in \LtD}\inf_{\vh \in \Vhp} \frac{\NHokD{\solfems(\ftilde) - \vh}}{\NLtD{\ftilde}}.
 \eeqs
 We are changing notation slightly from that normally prevelant in the literature; notation for $\wbaadj$ was first introduced by Sauter in \cite[Section 2.2]{Sa:06}, but $\wbaadj$ was instead denoted $\tilde{\eta}$ in \cite{Sa:06}. Later, $\wbaadj$ was denoted $\eta$ in \cite[Equation (4.5)]{MeSa:10}.  When dealing purely with the Schatz argument for quasi-optimality (as in \cite[Section 2.2]{Sa:06}) one only needs consider the approximation of adjoint problems in the duality-argument step, and hence one only needs notation for $\wbaadj$. However, in our exposition of elliptic-projection-based arguments below, we will also need to consider the approximation of standard Helmholtz problems, and hence we adopt the notation above.
 
@@ -476,20 +476,20 @@ Then, taking $v = u-\uh,$ we have
 \begin{align}
   \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi)\label{eq:schatz0}\\
   &=\aT(u-\uh,\xi - \vh) \text{ by Galerkin orthogonality for } u-\uh, \text{ for any } \vh \in \Vhp\nonumber\\
-  &\lesssim \NW{u-\uh}\NW{\xi-\vh}\nonumber\\
-  &\lesssim \NW{u-\uh} \wbaadj \NLtD{u-\uh}\nonumber.
+  &\lesssim \NHokD{u-\uh}\NHokD{\xi-\vh}\nonumber\\
+  &\lesssim \NHokD{u-\uh} \wbaadj \NLtD{u-\uh}\nonumber.
 \end{align}
 Cancelling a factor of $\NLtD{u-\uh},$ we obtain
 \beq\label{eq:schatz1}
-\NLtD{u-\uh} \lesssim \wbaadj \NW{u-\uh}.
+\NLtD{u-\uh} \lesssim \wbaadj \NHokD{u-\uh}.
 \eeq
 Combining \cref{eq:gardingerror,eq:schatz1}, we have
 \beqs
-\NW{u-\uh}^2 \lesssim \NW{u-\uh}\NW{u-\vh} + \mleft(k\wbaadj\mright)^2 \NW{u-\uh}^2,
+\NHokD{u-\uh}^2 \lesssim \NHokD{u-\uh}\NHokD{u-\vh} + \mleft(k\wbaadj\mright)^2 \NHokD{u-\uh}^2,
 \eeqs
-and hence by cancelling a factor $\NW{u-\uh}$ and taking the final term on to the left-hand side, we obtain
+and hence by cancelling a factor $\NHokD{u-\uh}$ and taking the final term on to the left-hand side, we obtain
 \beqs
-\NW{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NW{u-\vh} \tif k\wbaadj \text{ is sufficiently small}.
+\NHokD{u-\uh} \lesssim \inf_{\vh \in \Vhp} \NHokD{u-\vh} \tif k\wbaadj \text{ is sufficiently small}.
 \eeqs
 All results showing quasi-optimality for the Helmholtz equation (for different finite-element spaces and different domains) can then be seen as simply obtaining estimates on $\eta$ in these different scenarios; this literature is summarised in \cref{tab:qo,tab:acc,tab:dataacc} below.
 
@@ -528,7 +528,7 @@ or
   \dn w -ikw &= 0 \ton \GI\label{eq:sd9}
 \end{align}
 respectively, where $F$ is an appropriately chosen function. In the following exposition, we will assume $\aep$ is given by \cref{eq:aepused}.
-Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NW{\cdot}$, with equivalence constants independent of $k$ via the multiplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous\footnote{For comment on showing coercivity and continuity for the other definitions of $\aep$, see \cref{rem:epdef} below.}, and hence is quasi-optimal:
+Since $\Ph$ is a Galerkin projection, one can show that in its energy norm $\Nep{\cdot}$ (equivalent to the $k$-weighted $H^1$ norm $\NHokD{\cdot}$, with equivalence constants independent of $k$ via the multiplicative trace inequality and the Poincar\'e--Friedrich's inequality (\cref{lem:poincare} below) $\aep$ is coercive and continuous\footnote{For comment on showing coercivity and continuity for the other definitions of $\aep$, see \cref{rem:epdef} below.}, and hence is quasi-optimal:
 \beq\label{eq:epho}
 \Nep{w-\Ph w} \lesssim \inf_{\vh \in \Vhp} \Nep{w-\vh}.
 \eeq
@@ -550,23 +550,23 @@ Therefore if $hk^2\wba$ is sufficiently small, the second term in \cref{eq:schat
 \beq\label{eq:ep1}
 k \NLtD{u-\uh} \lesssim k \wba\wbaadj \NLtD{f} \tif hk^2\wba \text{ is sufficiently small,}
 \eeq
-this is \cref{eq:epbound}. (We consider $k\NLtD{u-\uh}$ so as to compare with the quasi-optimality results above, as the $L^2$ term in $\NW{\cdot}$ is also multiplied by a factor $k$.)
+this is \cref{eq:epbound}. (We consider $k\NLtD{u-\uh}$ so as to compare with the quasi-optimality results above, as the $L^2$ term in $\NHokD{\cdot}$ is also multiplied by a factor $k$.)
 
 To obtain a bound on the error in the weighted $H^1$ norm\ednote{Both, Li and Wu \cite[Text after equation 4.15]{LiWu:18} use an error-spliiting-type technique to bound the $H^1$ error in terms of the $L^2$ error, but this only works because they're doing a PML problem, and so don't have a term defined on $\GI$. Would you mention this?}, we put \cref{eq:ep1} into \cref{eq:gardingerror} to get
 \beqs
-\NW{u-\uh}^2 \lesssim \NW{u-\uh}\NW{u-\vh} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
+\NHokD{u-\uh}^2 \lesssim \NHokD{u-\uh}\NHokD{u-\vh} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
 \eeqs
 and taking $\vh = \Ih v,$ by \cref{lem:scottzhang} we have
 \beqs
-\NW{u-\uh}^2 \lesssim \NW{u-\uh}\wba\NLtD{f} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
+\NHokD{u-\uh}^2 \lesssim \NHokD{u-\uh}\wba\NLtD{f} + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2,
 \eeqs
 We then obtain for any $\eps > 0$ by Cauchy's inequality \cref{eq:cauchy}
 \beq\label{eq:ep2}
-\NW{u-\uh}^2 \lesssim \eps \NW{u-\uh}^2 + \frac1\eps\wba^2 \NLtD{f}^2 + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2.
+\NHokD{u-\uh}^2 \lesssim \eps \NHokD{u-\uh}^2 + \frac1\eps\wba^2 \NLtD{f}^2 + \mleft(k\wba\wbaadj\mright)^2 \NLtD{f}^2.
 \eeq
 Taking $\eps$ sufficiently small, moving the first term on the right-hand side of \cref{eq:ep2} to the left-hand side, and taking a square root, we obtain
 \beq\label{eq:ep3}
-\NW{u-\uh} \lesssim\mleft(\wba  + k\wba\wbaadj\mright) \NLtD{f} \tif hk^2\wba\text{ is sufficiently small}.
+\NHokD{u-\uh} \lesssim\mleft(\wba  + k\wba\wbaadj\mright) \NLtD{f} \tif hk^2\wba\text{ is sufficiently small}.
 \eeq
 
 The term $\wba\NLtD{f}$ on the right-hand side of \cref{eq:ep3} is, up to a constant, the best-approximation error for $u$ (i.e., the error when one interpolates/quasi-interpolates $u$---see \cref{sec:helmfedisc,lem:scottzhang} above), and the term $k\wba^2$ is the \defn{pollution} term arising from the numerical method. As for the quasi-optimality results above, we remark that different bounds on the finite-element error (for different finite-element space $\Vhp$ and different domains) can be thought of as proving bounds on $\eta$ in these different situations.
@@ -594,15 +594,15 @@ where $\ftilde = k^2\mleft(u-\Ph u\mright).$ One then uses the fact that $\Ph u 
 
 In \cite{FeWu:09,FeWu:11,Wu:14} a discrete multiplier argument is used to prove a bound on $\Ph u - \uh$, reminiscent of the multiplier arguments used to prove a priori bounds on Helmholtz problems in \cref{sec:pdetheory}. In \cite{DuWu:15} an argument using higher-order (discrete) norms is used in an argument conceptually similar to the modified duality arguments above; this argument is the heart of the proof in \cref{sec:fem} below. In essence the argument in \cite{DuWu:15} reduces to showing the bounds
 \beq\label{eq:duwu1}
-\NLtD{\Ph u - \uh} \lesssim \mleft(h + \mleft(hk\mright)^p\mright)\NW{u-\Ph u} + \mleft(h^{p+1}k^2 + h^{2p}k^{p+2}\mright)\Nfn{p-1,h}{\Ph u - \uh}
+\NLtD{\Ph u - \uh} \lesssim \mleft(h + \mleft(hk\mright)^p\mright)\NHokD{u-\Ph u} + \mleft(h^{p+1}k^2 + h^{2p}k^{p+2}\mright)\Nfn{p-1,h}{\Ph u - \uh}
 \eeq
 and
 \beq\label{eq:duwu2}
-\Nfn{p-1,h}{\Ph u - \uh} \lesssim h^{2-p} \NW{u- \Ph u} + k^{p-1} \NLtD{\Ph u - \uh},
+\Nfn{p-1,h}{\Ph u - \uh} \lesssim h^{2-p} \NHokD{u- \Ph u} + k^{p-1} \NLtD{\Ph u - \uh},
 \eeq
 where $\Nfn{p-1,h}{\cdot}$ is a discrete norm analagous to the Sobolev norm of order $p-1$. \Cref{eq:duwu1,eq:duwu2} are then combined to show
 \beqs
-\NLtD{\Ph u - \uh} \lesssim \mleft(h + \mleft(hk\mright)^p\mright)\NW{u-\Ph u} + \mleft(\mleft(hk\mright)^{p+1} + h^{2p}k^{2p+1}\mright)\NLtD{\Ph u -\uh},
+\NLtD{\Ph u - \uh} \lesssim \mleft(h + \mleft(hk\mright)^p\mright)\NHokD{u-\Ph u} + \mleft(\mleft(hk\mright)^{p+1} + h^{2p}k^{2p+1}\mright)\NLtD{\Ph u -\uh},
 \eeqs
 and the final term can be absorbed into the left-hand side if $h^{2p}k^{2p+1}$ is sufficiently small.
 
@@ -610,7 +610,7 @@ and the final term can be absorbed into the left-hand side if $h^{2p}k^{2p+1}$ i
 
 Observe that when using the elliptic projection in such a splitting argument, there are two differences compared to the use of an elliptic projection in modified duality arguments:
 \ben
-\item One does not need the elliptic projection to be quasi-optimal \cref{eq:epho}, rather, one only need to bound the error $\NW{u-\Ph u}$, where $u$ solves a Helmholtz problem, in terms of $\NLtD{f}$.
+\item One does not need the elliptic projection to be quasi-optimal \cref{eq:epho}, rather, one only need to bound the error $\NHokD{u-\Ph u}$, where $u$ solves a Helmholtz problem, in terms of $\NLtD{f}$.
 \item The elliptic projection should be defined in the first argument, not the second, i.e.
   \beq\label{eq:ellprojfirst}
 \aT(\Ph u,\vh) = \aT(u,\vh) \tforall \vh \in \Vhp.
@@ -1188,7 +1188,7 @@ then the finite-element solution $\uh$ exists, is unique, and satisfies the erro
 \NLtD{u-\uh} \leq \CcorLt \CLtn(n)\mleft(h^2 + \CAnk^2 (hk)^{2p}\mright)\Cfg\tand\label{eq:femltbound}
 \eeq
 \beq
-\NW{u-\uh} \leq \CcorHo \CHon(n)\mleft(h + \CAnk (hk)^p + \CAnk^2k (hk)^{2p}\mright)\Cfg,\label{eq:femhobound}
+\NHokD{u-\uh} \leq \CcorHo \CHon(n)\mleft(h + \CAnk (hk)^p + \CAnk^2k (hk)^{2p}\mright)\Cfg,\label{eq:femhobound}
 \eeq
 where
 \beqs
@@ -1535,7 +1535,7 @@ Under \cref{ass:highp,ass:htwo}, there exist constants $\CFEMo, \CFEMt > 0$ inde
 %% \NHoD{u-\uhhat} \leq \mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg \tand
 %% \eeq
 \beq\label{eq:bestapproxW}
-\NW{u-\uhhat} \leq 2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMo  h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg.
+\NHokD{u-\uhhat} \leq 2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMo  h + \CFEMt \CAnk \mleft(hk\mright)^p \mright)\Cfg.
 \eeq
 \ele
 
@@ -1712,7 +1712,7 @@ For any $w \in \HozDD$ the elliptic projection $\Ph w$ and the $n$-weighted $L^2
 \ele
 
 \bpf[Proof of \cref{lem:eugp}]
-The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgram Theorem (see, e.g., \cite[Theorem 2.7.7]{BrSc:08}) applied in $\Vhp$ (as in, e.g., \cite[Corollary 2.7.13]{BrSc:08}), because $\Ph w$ and $\Qhn w$ are defined by sesquilinear forms that are continuous and coercive on $\HozDD$ (equipped with the $k$-weighted $H^1$ norm $\NW{\cdot}$) and $\LtD$ respectively.
+The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgram Theorem (see, e.g., \cite[Theorem 2.7.7]{BrSc:08}) applied in $\Vhp$ (as in, e.g., \cite[Corollary 2.7.13]{BrSc:08}), because $\Ph w$ and $\Qhn w$ are defined by sesquilinear forms that are continuous and coercive on $\HozDD$ (equipped with the $k$-weighted $H^1$ norm $\NHokD{\cdot}$) and $\LtD$ respectively.
 
 Continuity and coercivity are immediate in the case of the $n$-weighted $L^2$ projection $\Qhn.$ For the elliptic projection $\Ph,$ continuity is immediate, and coercivity follows from the Poincar\'e inequality \cref{eq:poincare}, because we work in $\HozDD,$ and so all the functions we consider vanish on $\GD.$
 \epf
@@ -2332,7 +2332,7 @@ As mentioned in \cref{rem:epdef}, the definition of the elliptic projection $\Ph
 \ble[Bound on $\NLtGI{\thetah}$ by $\Npmoh{\thetah}$]\label{lem:boundarybound}
 Under the assumptions of \cref{thm:fembound}, we have
 \beq\label{eq:boundarybound}
-\NLtGI{\thetah}^2 \leq \Cboundaryo \mleft(\En\nvar\mright)^{2\mleft(\floor{\frac{p-1}2}+1\mright)}\NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h,n}{\thetah}^2 + \Cboundaryt h \NW{\rho}^2,
+\NLtGI{\thetah}^2 \leq \Cboundaryo \mleft(\En\nvar\mright)^{2\mleft(\floor{\frac{p-1}2}+1\mright)}\NLiD{n}^4 k^2 h^{2p-1} \Nfn{p-1,h,n}{\thetah}^2 + \Cboundaryt h \NHokD{\rho}^2,
 \eeq
 \ele
 
@@ -2353,25 +2353,25 @@ We first bound the negative norm $\Nfn{1-p,h}{\Qhn\rho}$, to do this we use \cre
 &\leq \CSZfn{(p-1-m)} \nvar h^{(p-1-m)} \NLtDn{u-\Ph u}\nonumber\\
 &\quad+ \Cwfn{-(p-1-m)}\errn{(p-1-m)} h^{p-m} \NHoDn{u - \Ph u}\nonumber\\
 &\quad\quad\text{ by \cref{lem:ellprojerrw,lem:wltdprojerr}, taking } \wh = \Ph u \text{ in \cref{lem:ellprojerrw,eq:wltdprojerr},}\nonumber\\
-&\leq \mleft(\CSZfn{(p-1-m)} \Cwz + \Cwfn{-(p-1-m)}\mright)\En\nvar\NLiD{n} h^{p-m} \NW{\rho}\label{eq:Qhnrhoneg}
+&\leq \mleft(\CSZfn{(p-1-m)} \Cwz + \Cwfn{-(p-1-m)}\mright)\En\nvar\NLiD{n} h^{p-m} \NHokD{\rho}\label{eq:Qhnrhoneg}
 \end{align}
 by \cref{lem:ellprojerrw}. By \cref{lem:negdiscsum,eq:Qhnrhoneg} we have
 \begin{align}
 \Nfn{1-p,h,n}{\Qhn \rho}&\leq \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}}\NLiD{n} \Csumfn{p-1} \sum_{m=0}^{p-1} h^{m} \NHfn{-(p-1-m)}{D}{\Qhn \rho} \nonumber\\
-&\leq \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \NW{\rho}.\label{eq:Qhnrhosum}
+&\leq \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \NHokD{\rho}.\label{eq:Qhnrhosum}
 \end{align}
-To bound $\NLtGI{\rho}$appearing in  the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}. We take $\wh = \Ph u$ in \cref{eq:ellprojerr} and use the fact that $\NHoD{\cdot} \leq \NW{\cdot}$ to obtain
+To bound $\NLtGI{\rho}$appearing in  the second term on the right-hand side of \cref{eq:thetaboundarypart} we use \cref{thm:multiplicativetrace,lem:ellprojerr}. We take $\wh = \Ph u$ in \cref{eq:ellprojerr} and use the fact that $\NHoD{\cdot} \leq \NHokD{\cdot}$ to obtain
 \beq\label{eq:rhomtbound}
-\NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cprojfn{0}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cprojfn{0}^{\half} h^{\half} \NW{\rho}.
+\NLtGI{\rho} \leq \CMT\NHoD{\rho}^{1/2}\NLtD{\rho}^{1/2} \leq \CMT \Cprojfn{0}^{\half} h^\half \NHoD{\rho}\leq \CMT \Cprojfn{0}^{\half} h^{\half} \NHokD{\rho}.
 \eeq
 Therefore by \cref{eq:rhomtbound} and Young's inequality \cref{eq:young}, we obtain
 \beq\label{eq:rhothetamt}
-\NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cprojfn{0} h \NW{\rho}^2 + \half \NLtGI{\thetah}^2.
+\NLtGI{\rho}\NLtGI{\thetah} \leq \half \CMT^2 \Cprojfn{0} h \NHokD{\rho}^2 + \half \NLtGI{\thetah}^2.
 \eeq
 By combining \cref{eq:thetaboundarypart,eq:Qhnrhosum,eq:rhothetamt} we have
 \begin{align}
-\NLtGI{\thetah}^2 &\leq k \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \NW{\rho}\Nfn{p-1,h,n}{\thetah}\nonumber\\
-&\quad+ \half \CMT^2 \Cprojfn{0} h\NW{\rho}^2 + \half \NLtGI{\thetah}^2.\label{eq:thetahboundnear}
+\NLtGI{\thetah}^2 &\leq k \Cmess \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \NHokD{\rho}\Nfn{p-1,h,n}{\thetah}\nonumber\\
+&\quad+ \half \CMT^2 \Cprojfn{0} h\NHokD{\rho}^2 + \half \NLtGI{\thetah}^2.\label{eq:thetahboundnear}
 \end{align}
 By using Young's inequality on the first term in \cref{eq:thetahboundnear}, and moving the $\NLtGI{\thetah}^2/2$ term onto the left-hand side, we obtain \cref{eq:boundarybound}.
 \epf
@@ -2382,7 +2382,7 @@ We can now prove the main two \lcnamecrefs{lem:ltthetahbound} in the proof of \c
 Under the assumptions of \cref{thm:fembound}, for integer $m \in [1,p-1]$ there exist constants $\Chighmo,$ $\Chighmt > 0$ such that
 \begin{align}
 \Nfn{m,h,n}{\thetah} &\leq \Chighmo \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^mk^m \NLtD{\thetah}\nonumber\\
-&\quad\quad+ \Chighmt \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.\label{eq:chigh}
+&\quad\quad+ \Chighmt \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NHokD{\rho}.\label{eq:chigh}
 \end{align}
 \ele
 \bpf[Proof of \cref{lem:higherbound}]
@@ -2403,10 +2403,10 @@ We now proceed to bound the two terms in \cref{eq:deltahm} defined on the trunca
 &\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1} h^{-m+\half} \nmin^{-m} \NLtGI{\thetah}\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\text{ by \cref{lem:inversediscrete} applied } m-1 \text{ times,}\label{eq:useitagain}\\
 &\leq \CMT \CinvVhp^{1/2} \Chinv^{m-1} h^{-m+\half} \nmin^{-m}\nonumber\\
-&\quad\quad\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 k h^{p-\half} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h^{\half} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
+&\quad\quad\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 k h^{p-\half} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h^{\half} \NHokD{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
 &\quad\quad\text{ by \cref{lem:boundarybound} and \cref{eq:simple}}\nonumber\\
 &\leq \bigg(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah}\nonumber\\
-&\quad\quad\quad+ \CBt \nmin^{-m}h^{1-m} \NW{\rho}\bigg)\Nfn{m-1,h,n}{\thetah}\label{eq:firstboundary}
+&\quad\quad\quad+ \CBt \nmin^{-m}h^{1-m} \NHokD{\rho}\bigg)\Nfn{m-1,h,n}{\thetah}\label{eq:firstboundary}
 \end{align}
 by \cref{lem:inversediscrete} applied $p-m$ times.
 
@@ -2416,29 +2416,29 @@ To bound the second boundary term in \cref{eq:deltahm}, we have
 \eeq
 using the same reasoning as we used to obtain \cref{eq:useitagain} above. By \cref{thm:multiplicativetrace,lem:ellprojerr} (with $\wh = \Ph u$) we have
 \beq\label{eq:secondboundarytemp2}
-\NLtGI{\rho} \leq \CMT \Cprojfn{0}^{\half} h^{\half} \NW{\rho}.
+\NLtGI{\rho} \leq \CMT \Cprojfn{0}^{\half} h^{\half} \NHokD{\rho}.
 \eeq
 
 Inserting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obtain
 \beq\label{eq:secondboundary}
-\IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}.
+\IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth \nmin^{-m}h^{1-m} \NHokD{\rho} \Nfn{m-1,h}{\thetah}.
 \eeq
 
 Therefore, from\renewcommand{\creflastconjunction}{,~} \cref{eq:deltahm,eq:firstboundary,eq:secondboundary},\renewcommand{\creflastconjunction}{\lastconj} and the Cauchy--Schwartz inequality, we have
 \begin{align*}
 \Nfn{m,h}{\thetah}^2 &\leq k^2 \Nfn{m-1,h}{\thetah}^2 + k^2 \Nfn{m-1,h,n}{\Qhn \rho}\Nfn{m-1,h,n}{\thetah}\nonumber\\
-&\quad\quad+ k\mleft(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah} + \CBt \nmin^{-m}h^{1-m} \NW{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
-&\quad\quad+ k\CBth \nmin^{-m}h^{1-m} \NW{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
+&\quad\quad+ k\mleft(\CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p}k \Nfn{m-1,h,n}{\thetah} + \CBt \nmin^{-m}h^{1-m} \NHokD{\rho}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
+&\quad\quad+ k\CBth \nmin^{-m}h^{1-m} \NHokD{\rho} \Nfn{m-1,h}{\thetah}%\label{eq:thetahighnearlynearly}.
 \end{align*}
 Therefore using Young's inequality \cref{eq:young} we have
 \begin{align*}
 \Nfn{m,h}{\thetah}^2 &\leq k^2\mleft(\frac32 + \CBo \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nmin^{-p} + \half \CBt \nmin^{-m} + \half\CBth \nmin^{-m}\mright)\Nfn{m-1,h,n}{\thetah}^2\\
-&\quad\quad+ \frac{k^2}2 \Nfn{m-1,h,n}{\Qhn \rho}^2 +  h^{2(1-m)} \NW{\rho}^2,
+&\quad\quad+ \frac{k^2}2 \Nfn{m-1,h,n}{\Qhn \rho}^2 +  h^{2(1-m)} \NHokD{\rho}^2,
 \end{align*}
 and by \cref{eq:simple}
 \begin{align}
 \Nfn{m,h}{\thetah} &\leq k\mleft(\sqrt{\frac32} + \CBo^{\half} \mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2} + \frac1{\sqrt{2}} \CBt^{\half} \nmin^{-\frac{m}2} + \frac1{\sqrt{2}}\CBth^{\half} \nmin^{-\frac{m}2}\mright)\Nfn{m-1,h,n}{\thetah}\nonumber\\
-&\quad\quad+ \frac{k}{\sqrt{2}} \Nfn{m-1,h,n}{\Qhn \rho} +  h^{1-m} \NW{\rho},\label{eq:thetahighnearly}
+&\quad\quad+ \frac{k}{\sqrt{2}} \Nfn{m-1,h,n}{\Qhn \rho} +  h^{1-m} \NHokD{\rho},\label{eq:thetahighnearly}
 \end{align}
 
 We now proceed to bound $\Nfn{m-1,h,n}{\Qhn \rho}$: By \cref{lem:inversediscrete} we have
@@ -2454,17 +2454,17 @@ Using \cref{lem:wltdprojerr} we can bound the first of these terms by the second
 \eeq
 We can also bound
 \beq\label{eq:secondtermbound}
-\NLtDn{u - \Ph u} \leq \Cwfn{0} \nvar^3h \NHnfn{1}{D}{\rho} \leq \Cwfn{0} \nvar^3\NLiD{n} h \NW{\rho}
+\NLtDn{u - \Ph u} \leq \Cwfn{0} \nvar^3h \NHnfn{1}{D}{\rho} \leq \Cwfn{0} \nvar^3\NLiD{n} h \NHokD{\rho}
 \eeq
 by \cref{lem:ellprojerrw}. Therefore by \cref{eq:qhnmmo,eq:firsttermbound,eq:secondtermbound} we have (as $kh \leq 1$ and $\nvar \geq 1$)
 \beq\label{eq:qhnnearly}
-k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1}\Cwz \mleft(1+\CSZfn{0}\mright)\nvar^3\NLiD{n}\nmin^{1-m} h^{1-m}\NW{\rho}.
+k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1}\Cwz \mleft(1+\CSZfn{0}\mright)\nvar^3\NLiD{n}\nmin^{1-m} h^{1-m}\NHokD{\rho}.
 \eeq
 Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\NLiD{n}, \nmin^{-1} \geq 1,$ and so $\En, \nvar \geq1$)  we obtain
 
 \begin{align}
   \Nfn{m,h}{\thetah} &\leq \CRecofn{m} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \Nfn{m-1,h}{\thetah}\nonumber\\
-  &\quad+ \CRect \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NW{\rho}.\label{eq:readytorecurse}
+  &\quad+ \CRect \nvar^3\NLiD{n}\nmin^{1-m} h^{1-m} \NHokD{\rho}.\label{eq:readytorecurse}
 \end{align}
 Using \cref{eq:readytorecurse} recursively, and the facts that $\nmin^{-1} \geq 1$ and $hk \leq 1,$ we obtain \cref{eq:chigh}.
 \epf
@@ -2473,14 +2473,14 @@ The following \lcnamecref{lem:continuity} is straightforward to prove, and used 
 \ble[Continuity of $a$]\label{lem:continuity}
 For any $\vo, \vt \in \HozDD,$
 \beqs
-\abs{\aT(\vo,\vt)} \leq \Cc \NLiD{n} \NW{\vo}\NW{\vt}.
+\abs{\aT(\vo,\vt)} \leq \Cc \NLiD{n} \NHokD{\vo}\NHokD{\vt}.
 \eeqs
 \ele
 
 \ble[Bound on $\NLtDn{\thetah}$ by $\Nfn{p-1,h,n}{\thetah}$]\label{lem:ltthetahbound}
 Under the assumptions of \cref{thm:fembound},%there exist constants $\Cfirst, \Csecond > 0$ such that
 \begin{align}
-\NLtD{\thetah}&\leq \mleft(\Cfirst\NW{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
+\NLtD{\thetah}&\leq \mleft(\Cfirst\NHokD{\rho} +\Csecond  k^2h^p\Nfn{p-1,h,n}{\thetah}\mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
 &\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright).\label{eq:ltthetahbound}
 \end{align}
 \ele
@@ -2505,7 +2505,7 @@ By Galerkin orthogonality for $w-\Ph w,$ we have (recalling $\eh = \rho + \theta
 
 Therefore as $\eh = \rho + \thetah$ we can rearrange \cref{eq:doublego} and use the Cauchy-Schwartz inequality to obtain
 \begin{align}
-\NLtD{\thetah}^2 &\leq \Cc\NLiD{n} \NW{\rho} \NW{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
+\NLtD{\thetah}^2 &\leq \Cc\NLiD{n} \NHokD{\rho} \NHokD{w- \Ph w} + k^2 \abs{\IPLtDn{\thetah}{w- \Ph w}}\nonumber\\
 &+ k \abs{\IPLtGI{\thetah}{w-\Ph w}} + \NLtDn{\rho}\NLtDn{\thetah}\label{eq:boundingLtwo}
 \end{align}
 By combining \cref{lem:bestapprox,lem:ellprojerr}, we can show (as $w$ satisfies an adjoint Helmholtz problem with right-hand side $\thetah$)
@@ -2534,35 +2534,35 @@ We will be able to use \cref{eq:wlt,eq:who} to bound terms involving $w - \Ph w$
 We now estimate the other inner product term
 \begin{align}
 \abs{\IPLtGI{\thetah}{w - \Ph w}} &\leq \CMT\CinvVhp\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p-\half} \Nfn{p-1,h,n}{\thetah}\mright.\nonumber\\
-&\mleft.\quad\quad+ \Cboundaryt^{\half} h^{\half} \NW{\rho}\mright) h^{-\half}\NLtD{w - \Ph w}\nonumber\\
+&\mleft.\quad\quad+ \Cboundaryt^{\half} h^{\half} \NHokD{\rho}\mright) h^{-\half}\NLtD{w - \Ph w}\nonumber\\
 &\quad\quad\text{ by \cref{eq:simple}, \cref{lem:inverseinequality,lem:boundarybound,thm:multiplicativetrace},}
 \nonumber\\
-&\leq \CMT \CinvVhp \Cprojfn{0}\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NW{\rho}\mright)\nonumber\\
+&\leq \CMT \CinvVhp \Cprojfn{0}\mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NHokD{\rho}\mright)\nonumber\\
 &\quad\quad \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\label{eq:innerprod2}
 \end{align}
  by \cref{eq:wlt}.
 
 We now insert \cref{eq:wlt,eq:who,eq:innerprod1,eq:innerprod2} into \cref{eq:boundingLtwo}:
 \begin{align}
-\NLtD{\thetah}^2 &\leq \Bigg[\Cc\NLiD{n} \NW{\rho} \mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright)\\
+\NLtD{\thetah}^2 &\leq \Bigg[\Cc\NLiD{n} \NHokD{\rho} \mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright)\\
 &+k^2\Nfn{p-1,h,n}{\thetah}  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 h^p \\
-&+k\CMT \CinvVhp \Cprojfn{0} \mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NW{\rho}\mright)\Bigg]\nonumber\\
+&+k\CMT \CinvVhp \Cprojfn{0} \mleft(\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n} k h^{p} \Nfn{p-1,h,n}{\thetah} + \Cboundaryt^{\half} h \NHokD{\rho}\mright)\Bigg]\nonumber\\
 &\quad\quad \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\\
 &+\NLtDn{\rho}\NLtDn{\thetah}\nonumber\\
 %newline
-&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright)\NLiD{n} + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}\nvar  \mright)\NW{\rho} \\
+&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright)\NLiD{n} + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}\nvar  \mright)\NHokD{\rho} \\
 &+\mleft(  \Cfourteen \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2 + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mleft(\En\nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}\mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.\label{eq:nearlythere}
 \end{align}
 Rearranging \cref{eq:nearlythere} and using \cref{lem:ellprojerr} and the fact that $hk \leq 1$ we have
   \begin{align*}
-\NLtD{\thetah}^2&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright) + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}  \mright)\NW{\rho} \nonumber\\
+\NLtD{\thetah}^2&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright) + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}  \mright)\NHokD{\rho} \nonumber\\
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.
 \end{align*}
   Using Young's inequality \cref{eq:young} to separate out the $\NLtD{\thetah}$ term on the right-hand side and then moving the resulting $\NLtD{\thetah}^2$ term to the left hand side, followed by \cref{eq:simple}, we obtain
 \begin{align}
-\NLtD{\thetah}&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright) + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}  \mright)\NW{\rho}\nonumber \\
+\NLtD{\thetah}&\leq \Bigg[\mleft(\Cc\mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright) + \CMT \CinvVhp \Cprojfn{0} \Cboundaryt^{\half} + \Cprojfn{0}  \mright)\NHokD{\rho}\nonumber \\
 &+\mleft(  \Cfourteen  + \CMT \CinvVhp \Cprojfn{0}\Cboundaryo^{\half} \mright)k^2h^p\Nfn{p-1,h,n}{\thetah}\Bigg]\nonumber\\
 &\quad\quad \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\label{eq:part3penultimate}.
 \end{align}
@@ -2576,33 +2576,33 @@ With all our lemmas proved, we can now prove our main \lcnamecref{thm:fembound}.
 By \cref{lem:higherbound} (with $m=p-1$) in \cref{eq:ltthetahbound} and using the fact that $\NLiD{n}, \En, \nvar \geq 1$, we have
 \begin{align}
 \NLtD{\thetah}&\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^3\NLiD{n}\nmin^{2-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
-&\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho}\nonumber\\
+&\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NHokD{\rho}\nonumber\\
 &+\Csecond  \Chighfn{p-1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)^{p-1}\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\nonumber\\
 &\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde (hk )^{p+1}+ \CFEMttilde \CAnk h^{2p}k^{2p+1}\mright)\NLtD{\thetah}\label{eq:doublehkdep}
 \end{align}
 Choosing $h$ according to \cref{eq:hfemcond}, \cref{eq:doublehkdep} simplifies to
 \begin{align*}
 \NLtD{\thetah} &\leq \mleft(\Cfirst + \Csecond\Chighfn{p-1,2} \nvar^4\nmin^{1-p} \mright)\mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\NLiD{n}^2\\
-&\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NW{\rho} + \half \NLtD{\thetah},
+&\quad\quad\Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NHokD{\rho} + \half \NLtD{\thetah},
 \end{align*}
 
 and therefore it follows that
 \beq\label{eq:ltboundwithrho}
-\NLtD{\thetah} \leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NW{\rho}.
+\NLtD{\thetah} \leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\NLiD{n}\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NHokD{\rho}.
 \eeq
 
 It only now remains to bound the $k$-weighted $H^1$ norm of $\thetah.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \begin{align}
 \SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
-&\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NW{\rho}\mright],\label{eq:sntheta}
+&\mleft.\quad\quad+ \Chighmt \nvar^3\NLiD{n} \NHokD{\rho}\mright],\label{eq:sntheta}
 \end{align}
 
 and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ and $\nvar,\NLiD{n} \geq 1$)
 \begin{align}
 \SNHoD{\thetah} &\leq
 \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\NLiD{n}\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\NLiD{n}\mright)\nonumber\\
-&\quad\quad\mleft(\CHoboundo  +\CHoboundt \CAnk k(hk)^p\mright)\NW{\rho}.\label{eq:hoboundwithrho}
+&\quad\quad\mleft(\CHoboundo  +\CHoboundt \CAnk k(hk)^p\mright)\NHokD{\rho}.\label{eq:hoboundwithrho}
 \end{align}
-Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{lem:ellprojerr} with $m=1$ and \cref{lem:scottzhang} to bound $\NW{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
+Therefore by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho}, using \cref{lem:ellprojerr} with $m=1$ and \cref{lem:scottzhang} to bound $\NHokD{\rho}$, and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.
 \epf
 
