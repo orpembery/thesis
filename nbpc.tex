@@ -7,13 +7,13 @@ Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-finite-elem
  
 This \lcnamecref{chap:nbpc} answers the following question:
 
-%% \bit
-%% \item[Q1.] How small must $\NLi{\Ao - \At}$ and 
-%% $\NLi{\no - \nt}$ be (in some norm, in terms of $k$-dependence) for GMRES 
-%% applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent number of iterations
-%% %$ to be a good preconditioner for $\Amat^{(2)}$
-%%  for arbitrarily large $k$? 
-%% \eit
+\bit
+\item[Q1.]\label[itemblank]{it:nbpcq1} How small must $\NLi{\Ao - \At}$ and 
+$\NLi{\no - \nt}$ be (in some norm, in terms of $k$-dependence) for GMRES 
+applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent number of iterations
+%$ to be a good preconditioner for $\Amat^{(2)}$
+ for arbitrarily large $k$? 
+\eit
 
 \subsection{Motivation from uncertainty quantification of the Helmholtz equation} 
 Consider the Helmholtz equation 
@@ -31,7 +31,7 @@ Solving all these deterministic problems is a very computationally-intensive tas
 
 %Our motivation for tackling this question comes from calculating quantities of interest for the Helmholtz equation with \emph{random} coefficients $A$ and $n$. Such a calculation requires the solution of many deterministic Helmholtz problems, each with different $A$ and $n$, and
 
-Suppose one calculates the LU factorisation of the Galerkin matrix for one realisation of the coefficients $A$ and $n$. The answer to Q1 above makes $k$-explicit the extent to which this factorisation can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
+Suppose one calculates the LU factorisation of the Galerkin matrix for one realisation of the coefficients $A$ and $n$. The answer to \cref{it:nbpcq1} above makes $k$-explicit the extent to which this factorisation can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
 
 \subsection{Statement of the main results}\label{sec:main}
 The main results about Q1, \cref{thm:1} and \cref{cor:1,cor:1a} below, are proved under two conditions. These are defined precisely in \cref{cond:1nbpc,cond:2} below, but they can be informally stated as 
@@ -224,7 +224,23 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 \optodo{Put $L^\infty$ stuff in here}
 \subsection{Investigating the sharpness of \cref{thm:1} and \cref{cor:1}}
 
-\Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:src} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{prob:tedp}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP.
+\Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:src} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{prob:tedp}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
+\ben
+\item sufficient, and
+\item necessary
+  \een
+  for \emph{standard} GMRES applied to \cref{eq:pcsystem} to converge in a number of iterations that is independent of $k.$
+
+  Recall from the discussion around \cref{thm:2,lem:sharp} above that we expect, based on the PDE results \cref{thm:2,lem:sharp} that the condition `$k\NLiD{\Ao-\At} + k\NLiD{\no-\nt}$ is sufficiently small' is a necessary and sufficient condition for standard GMRES applied to \cref{eq:pcsystem} to converge in a $k$-independent number of iterations, even thought we can only prove this is a sufficient condition for \emph{weighted} GMRES.
+
+  To verify these expectations, we perform numerical experiments for the Interior Impedance Problem (i.e. \cref{prob:tedp} in 2-d with $\Dm = \emptyset$) with $D$ being the unit square, $\Ao = I$, $\no = 1$, and $f$ and $\gI$ corresponding to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Ao$ and $\no$ as above. We discretise with first-order finite-elements on a uniform grid with $h \sim k^{-3/2}.$
+
+  We perform experiments for $A$ and $n$ separately, i.e., we perform experiments with $\At=I$ and $\nt$ varying, and then experiments with $\At$ varying and $\nt=1.$ We define $\At$ and $\nt$ to be piecewise constant on a $10\times10$ square grid, with their values on each square chosen independently at random, with the restriction that $\nt > 0$ almost surely and $\At$ is (piecewise) positive-definite almost surely. We control $\NLiD{\Ao-\At}$ and $\NLiD{\no-\nt}$ as detailed below, and solve the linear systems \cref{eq:pcsystem} for $k = 20,40,60,80,100$ using standard GMRES. We record the number of GMRES iterations taken to achieve a tolerance of\optodo{Put in later}. We perform experiments for three different values of $\alpha\approx\NLiD{\Ao-\At}$ (and $\NLiD{\no-\nt}$), taking $\alpha = 0.1, 0.1/k^{1/2}, 0.1/k.$ We expect that when $\alpha = 0.1$ or $\alpha = 0.1/k^{1/2},$ the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\alpha = 0.1/k$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour has only been proven for $\LiD{\Ao-\At}$ for weighted GMRES.\optodo{Need to mention exact $LU$ somewhere}
+
+  For both $\NLiD{\Ao-\At}$ and $\NLiD{\no-\nt}$ we see the expected behaviour in all three cases. When $\alpha = 0.1$ we see (possibly exponential) growth in the number of GMRES iterations needed to achieve convergence, and when $\alpha = 0.1/k,$ we see that the number of GMRES iterations is bounded as $k$ increases. When $\alpha = 0.1/k^{1/2}$ we see slower growth as $k$ increases, but growth nonetheless.
+
+  The behaviour for $\alpha = 0.1$ indicates that the effectiveness of this `nearby preconditioning' strategy deteriorates rapdily as $k$ increases when the difference in the Helmholtz problems is independent of $k$. The behaviour for $\alpha = 0.1/k$ verifies that the condition `$k\NLiD{\Ao-\At} + k\NLiD{\no-\nt}$ is sufficiently small' is sufficient to achieve bounded GMRES iterations in this case, and the behaviour for $\alpha = 0.1/k^{1/2}$ indicates that this condition is sharp; reducing the magnitude of the difference betwen the Helmholtz problems as $k$ increases, but not at the rate $1/k$ is insufficient for the nearby preconditioning strategy to achieve $k$-independent GMRES iterations.
+  \optodo{Insert both tables and figures}
 
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
