@@ -1,4 +1,4 @@
-\section{Introduction and Motivation from UQ}\label{sec:intronbpc}
+1\section{Introduction and Motivation from UQ}\label{sec:intronbpc}
 
 \subsection{Statement of the problem}\label{sec:problem}
 Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:edp}, and let $\uj$ be the corresponding solution of \cref{prob:edp}, with $\Dm,$ $f$, etc. as in \cref{prob:edp}.
@@ -55,7 +55,7 @@ where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-
 $\vh =\sum_i \vi \phii$, and 
 \beq\label{eq:1knorm}
 \NHokDR{v}^2 := \NLtDR{\grad v}^2 + k^2 \NLtDR{v}^2 \quad \tfor v \in \HozDDR,
-\eeq\optodo{Decide what norm notation to use throughout- could deliniating spaces be useful?}
+\eeq
 where the space $\HozDDR$, defined by \cref{eq:spaceEDP} below, is the natural space containing the solution of the exterior Dirichlet problem. 
 
 The PDE analysis of the Helmholtz equation naturally takes place in the norm $\NHokDR{\cdot}$, and \cref{eq:Dk} shows that the norm $\NDmatk{\cdot}$ is
@@ -229,7 +229,7 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 \optodo{Put $L^\infty$ stuff in here}
 \subsection{Investigating the sharpness of \cref{thm:1} and \cref{cor:1}}
 
-\cref{thm:1} and \cref{cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:srcnbpc} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP.
+\Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:srcnbpc} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{def:TEDP}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP.
 
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
@@ -237,40 +237,34 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 \section{Definitions and conditions}\label{sec:3}
 
 \subsection{The variational problem and the Galerkin method}\label{sec:vpGm}
+As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variation formulation of \cref{prob:edp}, \cref{prob:vedp} above.
 
-\optodo{Ensure consistent notatyion everywhere}
-\optodo{Ref to definitions above}
 \bre[The EDP with data in $(\HokDR)'$]
-In \cref{def:EDP} we defined the EDP with the antilinear functional $F$ arising from an $f\in \LtDR$. In the rest of the \lcnamecref{chap:nbpc}, 
+In \cref{def:EDP} we defined the EDP with the antilinear functional $L$ arising from an $f\in \LtDR$. In the rest of the \lcnamecref{chap:nbpc}, 
 %\item In the rest of the paper, we usually consider the EDP with data given by $F$ defined in \cref{eq:EDPvar}, but sometimes 
-we sometimes consider the EDP with general $F\in (\HozDDR)'$ and we indicate when this is the case.
-In this latter situation, we recall that $\|\cdot\|_{\HokDR}$ is defined by \cref{eq:1knorm} and define the dual norm by
+we sometimes consider the EDP with general $L\in \HozDDRp$ and we indicate when this is the case.
+In this latter situation, we recall that $\NHokDR{\cdot}$ is defined by \cref{eq:1knorm} and define the dual norm by
 \beq\label{eq:dualnorm}
-\N{F}_{(\HokDR)'}:= \sup_{v\in \HozDDR} \frac{|F(v)|}{\N{v}_{\HokDR}}.
+\NHokDRp{L}= \sup_{v\in \HozDDR} \frac{\abs{L(v)}}{\NHokDR{v}}.
 \eeq
 %where $\|\cdot\|_{\HokDR}$ is defined by \cref{eq:1knorm}.
 \ere
 
 
-
-\begin{definition}[Finite-element/Galerkin solution]\label{def:Galerkin}
-\optodo{Check not defined earlier}
-Let $(\Vhp)_{h>0}$ be a family of finite-dimensional, nested subspaces of $\HozDDR$, whose union is dense in $\HozDDR$. Furthermore let $\Vhp$ consist of piecewise-polynomials on a simplicial mesh with mesh-size $h$
+For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional, nested subspaces of $\HozDDR$, whose union is dense in $\HozDDR$. Furthermore let $\Vhp$ consist of piecewise-polynomials on a simplicial mesh with mesh-size $h$
 %\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
-and fixed polynomial degree $p$. (Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$.)
+and fixed polynomial degree $p$. (Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$.) We define the analogue of the finite-element approximation \cref{prob:fevtedp} for \cref{prob:vedp} with general data $L \in \HokDRp.$
 
-
-Let $a(\cdot,\cdot)$ be defined by \cref{eq:EDPa}. Given $F\in (\HozDDR)'$, let $u$ be the solution of the variational problem \cref{eq:EDPvar} (i.e.~$u$ is the solution of the exterior Dirichlet problem with general data). The \emph{finite-element/Galerkin solution}, $u_h$, satisfies the variational problem
-\beq\label{eq:Galerkin}
-%\text{ find } u \in H^1_{0,D}(\DR) \tst 
-%\quad 
-a(u_h,v_h)=F(v_h) \quad \tfa v_h \in \Vhp.
-\eeq
-\end{definition}
+\bprob[Finite-element approximation of \cref{prob:vedp} with general data]\label{prob:fevedpgen}
+We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vedp} with general right-hand side $L \in \HokDRp$) if
+\beqs
+a(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
+\eeqs
+\eprob
 
 %Definition of Galerkin method
 
-Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
+We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
 Let 
 \beq\label{eq:matrixSjdef}
 \big(\Smat_{A}\big)_{ij}:= \int_\Omega \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
@@ -304,7 +298,7 @@ so that \cref{eq:Dk} holds.
 %for
 %$v_h =\sum_i v_i \phi_i$.
 
-We recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]):
+We recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
 
 \bde[Quasi-uniform]\label{def:quasiuniform}
 Let $\set{\cTh}_h$ be a set of triangulations of $\DR$ indexed by their mesh size $h.$ For each $T \in \cTh,$ let $\BT$ denote the largest ball contained in $T$.
@@ -349,7 +343,6 @@ the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDD
 
 
 Finally, we need the concept of the \emph{adjoint} sesquilinear form to $a(\cdot,\cdot)$.
-\optodo{Move this earlier and ref here?}
 \begin{definition}[The adjoint sesquilinear form $a^*(\cdot,\cdot)$]\label{def:adjoint}
 Let $\Dm$, $n$, and $A$, be as in the definition of the EDP (\cref{def:EDP}). The adjoint sesquilinear form, $a^*(u,v)$, to $a(\cdot,\cdot)$ defined in \cref{eq:EDPa} is given by
 \beq\label{eq:EDPadjoint}
@@ -395,7 +388,8 @@ Using the definition of $a^*(\cdot,\cdot)$ and the property \cref{eq:DtN} in the
 \epf
 
 \subsection{Nontrapping condition on $\Ao, \no,$ and $\Dm$ (\cref{cond:1nbpc})}\label{sec:cond1}
-\optodo{blurb}
+In our proofs of the effectiveness we will assume that the \cref{prob:edp} with coefficients $\Ao$ and $\no$ is nontrapping. Recall our earlier discussion of this concept in \cref{sec:wpbounds,sec:wpdisc} above. Observe that we \emph{do not} impose any behaviour on \cref{prob:edp} with coefficients $\At$ and $\nt$.
+
 \begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
 $\Ao, \no,$ and $\Dm$ are such that, given $f\in L^2(\DR)$ with $\supp \, f \subset \BR$, 
 the solution of the EDP %(\cref{def:EDP}) 
@@ -403,10 +397,10 @@ $u^{(1)}$ exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound
 \beq\label{eq:bound1}
 \big\|u^{(1)}\big\|_{\HokDR} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(\Dp)} \quad \tfa k\geq k_0,
 \eeq
-where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Ao, \no, \Dm, R$, and $k_0$.\optodo{notation for constant}
+where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Ao, \no, \Dm, R$, and $k_0$.
 \end{condition}
 
-Using the G\aa rding inequality \cref{eq:Garding}, one can prove the following result; see \cite[Lemma 5.1]{GrPeSp:19}.
+Using the G\aa rding inequality \cref{eq:garding}, one can prove the following result; see \cite[Lemma 5.1]{GrPeSp:19}.
 
 \ble[Bound for data in $(\HozDDR)'$]\label{lem:H1}
 %With the sesquilinear form $a(\cdot,\cdot)$ defined by \cref{eq:EDPa} with $A=\Ao$ and $n=\no$, 
@@ -426,7 +420,7 @@ for all $k\geq k_0$.
 
 
 \subsection{$k$-independent accuracy of the FE solution (\cref{cond:2})}\label{sec:cond2}
-\optodo{reformulate in terms of accuracy}
+We also make assumptions on the accuracy of the finite-element method applied to \cref{prob:edp} with coefficients $\Ao$ and $\no$. In the language of our extended discussions in \cref{sec:helmfedisc} above, we assume that the finite-element method applied to \cref{prob:vedp} with right-hand sides in $\LtDR$ or $\HozDDRp$ is $\hk{a}b$-data-accurate, for some $a$ and $b$.
 \begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
 \label{cond:2}
 
