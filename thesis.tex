@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass[draft]{book}
 
 \input{versions}
 
@@ -20,12 +20,15 @@
 
 \tableofcontents
 
-
+\listoffigures
+\listoftables
+\listofalgorithms
 
 \chapter{Introduction}\label{chap:intro}
 \input{introduction}
 
 \chapter{PDE Theory of the Deterministic Helmholtz Equation and Theory of its Finite-Element Discretisation}\label{chap:background}
+\chaptermark{PDE and FE Theory}
 \input{background}
 
 \input{fem-background-material}
@@ -38,6 +41,7 @@
 %\input{new-fem-bounds}
 
 \chapter{Well-posedness of Formulations of the Stochastic Helmholtz Equation}\label{chap:stochastic}
+\chaptermark{The Stochastic Helmholtz Equation}
 \input{new-introduction} 
 
 \input{helmholtz-results}
@@ -56,9 +60,11 @@
 
 
 \chapter{Nearby Preconditioning for the Helmholtz Equation}\label{chap:nbpc}
+\chaptermark{Nearby Preconditioning}
 \input{nbpc}
 
 \chapter{Multi-Level Monte Carlo for the Helmholtz Equation}\label{chap:mlmc}
+\chaptermark{Multi-Level Monte Carlo}
 
 \section{The Multi-Level Monte Carlo Complexity Theorem for the Helmholtz equation}\label{sec:comp}
 
@@ -74,6 +80,7 @@
 \input{osc-post}
 
 \chapter{Failure of Fredholm theory for the stochastic variational formulation of Helmholtz problems}\label{sec:federico}
+%\chaptermark{Failure of Fredholm Theory}
 \input{federico} 	
 
 \chapter{Recap of basic material on measure theory and Bochner spaces}\label{app:mtBs}
