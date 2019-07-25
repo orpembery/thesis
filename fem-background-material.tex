@@ -38,11 +38,11 @@ Let $D, A, n, f,$ and $\gI$ be as in \cref{prob:tedp}. We say $u \in \HozDDR$ sa
 \eeq
 where
 \beq\label{eq:aT}
-\aT(w,v) \de \int_{\DR} \big(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\big) - ik\int_{\GI} \trGI w\minispace\trGI \vbar
+\aT(w,v) \de \int_{D} \big(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\big) - ik\int_{\GI} \trGI w\minispace\trGI \vbar
 \eeq
 and
 \beqs
-\FT(v) \de \int_{\DR} f\minispace\vbar + \int_{\GI} \gI \minispace\trGI \vbar
+\FT(v) \de \int_{D} f\minispace\vbar + \int_{\GI} \gI \minispace\trGI \vbar
 \eeqs
 \eprob
 
@@ -103,7 +103,7 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     \bprob[Finite-element approximation of \cref{prob:vtedp}]\label{prob:fevtedp}
     We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vtedp}) if
     \beqs
-    \aT(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
+    \aT(\uh,\vh) = \FT(\vh) \tforall \vh \in \Vhp.
     \eeqs
     The finite-element approximation of \cref{prob:vedp} is defined analagously.
     \eprob

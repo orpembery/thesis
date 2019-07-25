@@ -235,12 +235,12 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variation formulation of \cref{prob:edp}, \cref{prob:vedp} above.
 
 \bre[The EDP with data in $(\HokDR)'$]
-In \cref{prob:edp} we defined the EDP with the antilinear functional $L$ arising from an $f\in \LtDR$. In the rest of the \lcnamecref{chap:nbpc}, 
+In \cref{prob:edp} we defined the EDP with the antilinear functional $\LE$ arising from an $f\in \LtDR$. In the rest of the \lcnamecref{chap:nbpc}, 
 %\item In the rest of the paper, we usually consider the EDP with data given by $F$ defined in \cref{eq:EDPvar}, but sometimes 
-we sometimes consider the EDP with general $L\in \HozDDRp$ and we indicate when this is the case.
+we sometimes consider the EDP with general $\LE\in \HozDDRp$ and we indicate when this is the case.
 In this latter situation, we define the dual norm by
 \beq\label{eq:dualnorm}
-\NHokDRp{L}= \sup_{v\in \HozDDR} \frac{\abs{L(v)}}{\NHokDR{v}}.
+\NHokDRp{L}= \sup_{v\in \HozDDR} \frac{\abs{\LE(v)}}{\NHokDR{v}}.
 \eeq
 %where $\|\cdot\|_{\HokDR}$ is defined by \cref{eq:1knorm}.
 \ere
@@ -253,7 +253,7 @@ and fixed polynomial degree $p$. (Note that the dimension $N$ of $\Vhp$ then sat
 \bprob[Finite-element approximation of \cref{prob:vedp} with general data]\label{prob:fevedpgen}
 We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vedp} with general right-hand side $L \in \HokDRp$) if
 \beq\label{eq:galerkin}
-a(\uh,\vh) = L(\vh) \tforall \vh \in \Vhp.
+\aE(\uh,\vh) = \LE(\vh) \tforall \vh \in \Vhp.
 \eeq
 \eprob
 
@@ -276,7 +276,7 @@ and let $u_h:= \sum_j u_j \phi_j$. Then \cref{eq:galerkin} implies that
 \beqs
 \Amat \bu = \bff,
 \eeqs
-where $(\bff)_i := F(\phi_i)$.
+where $(\bff)_i := \FE(\phi_i)$.
 Similar to above we let 
 \beq\label{eq:matrixAjdef}
 \Amatj := \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
