@@ -1,13 +1,9 @@
-\optodo{Include definition of quasi-uniform}
-\optodo{Include Norm equivalence lemma (cirrently lem 3.7 in nbpc article}
-
 \section{Introduction and Motivation from UQ}\label{sec:intronbpc}
 
 \subsection{Statement of the problem}\label{sec:problem}
-Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:edp}, and let $\uj$ be the corresponding solution of \cref{prob:edp}, with $\Dm,$ $f$, etc. asin \cref{prob:edp}.
+Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:edp}, and let $\uj$ be the corresponding solution of \cref{prob:edp}, with $\Dm,$ $f$, etc. as in \cref{prob:edp}.
 
-Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-version finite-element discretisations (with decreasing mesh size $h$ and fixed polynomial degree $p$)
-of \cref{eq:pde} truncated to $\Omega_R:= \Dp \cap B_R$, with the radiation condition realised exactly on $\Gamma_R:=\partial B_R$ via the exact Dirichlet-to-Neumann map (see \cref{def:Galerkin} and \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). Our results also hold in the case when the radiation condition is approximated by an impedance boundary condition, and the truncation boundary is not necessarily $\Gamma_R$; see \cref{sec:TEDP}.
+Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-finite-element discretisations of \cref{eq:hhedp} truncated to $\DR:= \Dp \cap \BR$, with the radiation condition realised exactly on $\GR:=\partial \BR$ via the exact Dirichlet-to-Neumann map (see \cref{def:Galerkin} and \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). Our results also hold in the case when the radiation condition is approximated by an impedance boundary condition, and the truncation boundary is not necessarily $\GR$; see \cref{sec:TEDP}.
  
 This \lcnamecref{chap:nbpc} answers the following question:
 
@@ -19,21 +15,14 @@ This \lcnamecref{chap:nbpc} answers the following question:
 %%  for arbitrarily large $k$? 
 %% \eit
 
-\bit
-\item Steve
-\item Dave
-\eit
-
 \subsection{Motivation from uncertainty quantification of the Helmholtz equation} 
 Consider the Helmholtz equation 
 \beqs%\label{eq:pde}
-\nabla\cdot\big(A(\bx;\omega) \nabla u(\bx,\omega) \big) + k^2 n(\bx;\omega) u(\bx;\omega) =-f(\bx), \quad \bx\in\Dp,
+\nabla\cdot\big(A(\omega,\bx) \nabla u(\omega,\bx) \big) + k^2 n(\omega,\bx) u(\omega,\bx) =-f(\bx), \quad \bx\in\Dp,
 \eeqs
-where $A(\bx;\omega)$ and $n(\bx;\omega)$ are \emph{random fields}, and $\omega$ is an element of the underlying probability space.
-To calculate quantities of interest of the solution $u(\cdot;\omega)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\cdot,\omega)$ and $n(\cdot,\omega)$.
-Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; this difficulty is due to the following three reasons:
-\optodo{Link to above, reasons are size, not coercive: The standard variational formulation of the Helmholtz equation is not coercive (i.e.~it is sign-indefinite) when $k$ is sufficiently large; in other words, zero is in the \emph{numerical range} or \emph{field of values} of the operator (defined in \cref{eq:fov} below). This indefiniteness is inherited by the Galerkin linear system; therefore 
-even when the linear system has a unique solution (which depends on the discretisation and on $k$), one expects iterative methods to behave extremely badly if the system is not preconditioned.}
+where $A(,\bx\omega)$ and $n(\omega,\bx)$ are \emph{random fields}, and $\omega$ is an element of the underlying probability space.
+To calculate quantities of interest of the solution $u(\omega,\cdot)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
+Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
 \optodo{Insert comments about preconditioners for Helmholtz}
 \optodo{Insert comments about complexity of preconditioners}
 \optodo{Insert comments about why we restrict to LU}
@@ -47,7 +36,7 @@ Suppose one calculates the LU factorisation of the Galerkin matrix for one reali
 \subsection{Statement of the main results}\label{sec:main}
 The main results about Q1, \cref{thm:1} and \cref{cor:1,cor:1a} below, are proved under two conditions. These are defined precisely in \cref{cond:1nbpc,cond:2} below, but they can be informally stated as 
 \bit
-\item the obstacle $\Dm$ and the coefficients $\Ao$ and $\no$ are such that $u^{(1)}$ exists and the problem is \emph{nontrapping} (i.e.~all the rays of geometric optics starting in $\Omega_R$ leave $\Omega_R$ after some uniform time), and
+\item the obstacle $\Dm$ and the coefficients $\Ao$ and $\no$ are such that $u^{(1)}$ exists and the problem is \emph{nontrapping} (i.e.~all the rays of geometric optics starting in $\DR$ leave $\DR$ after some uniform time), and
 \item the meshsize $h$ and polynomial degree $p$ in the finite-element method are chosen to depend on $k$ to ensure that the 
 finite-element solution to the problem with coefficients $\Ao$ and $\no$ exists, is unique, and 
 %Galerkin method (with coefficients $\Ao$ and $\no$) 
@@ -87,7 +76,7 @@ Then, given $\kz>0$, there exist $\Co, \Ct>0$, independent of $h$ and $k$ (but d
 \Big\}\\
 &\hspace{3cm} 
 \leq C_1 \,k \,
-\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)} + C_2 \, k \, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}
+\big\|\Ao-\At\big\|_{L^\infty(\DR)} + C_2 \, k \, \big\|\no-\nt\big\|_{L^\infty(\DR)}
 \label{eq:main1}
 \end{align}
 and 
@@ -98,15 +87,15 @@ and
 \Big\}\\
 &\hspace{0cm} 
 \leq C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}
+\big\|\Ao-\At\big\|_{L^\infty(\DR)} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \big\|\no-\nt\big\|_{L^\infty(\DR)}
 \label{eq:main1a}
 \end{align}
 for all $k\geq k_0$. 
 \end{theorem}
 
-Two notes regarding \cref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in \cref{cond:1nbpc,cond:2}, and (ii) the $L^\infty(\Omega_R)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
+Two notes regarding \cref{thm:1}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in \cref{cond:1nbpc,cond:2}, and (ii) the $L^\infty(\DR)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
-\N{A}_{L^\infty(\Omega_R)}:= \esssup_{\bx\in\Omega_R}\N{A(\bx)}_2.
+\N{A}_{L^\infty(\DR)}:= \esssup_{\bx\in\DR}\N{A(\bx)}_2.
 \eeqs
 
 By using the field-of-values-based theory for the convergence of GMRES introduced in \cite{El:82}, \cite{EiElSc:83} (the so-called `Elman estimate'), we have the following corollaries.
@@ -117,7 +106,7 @@ let $C_1$ and $C_2$ be as in \cref{thm:1}. Then if
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Ao, \no$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
-C_1 \,k \,\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)} +C_2 \, k\, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}
+C_1 \,k \,\big\|\Ao-\At\big\|_{L^\infty(\DR)} +C_2 \, k\, \big\|\no-\nt\big\|_{L^\infty(\DR)}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
@@ -138,7 +127,7 @@ let $C_1$ and $C_2$ be as in \cref{thm:1}, and let $s_{\pm}$ and $m_{\pm}$ be as
 % such that if 
 \beq\label{eq:conda}
  C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}
+\big\|\Ao-\At\big\|_{L^\infty(\DR)} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \big\|\no-\nt\big\|_{L^\infty(\DR)}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
@@ -163,7 +152,7 @@ Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:con
  shows that the condition
 \beqs
 k\,
-\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)} \quad\text{ and } \quad k\,\big\|\no-\nt\big\|_{L^\infty(\Omega_R)}
+\big\|\Ao-\At\big\|_{L^\infty(\DR)} \quad\text{ and } \quad k\,\big\|\no-\nt\big\|_{L^\infty(\DR)}
 %\Big) 
 \quad\text{ both sufficiently small}
 \eeqs
@@ -188,15 +177,15 @@ To state these PDE results, we use the notation for $a,b>0$ that $a\lesssim b$ w
 %The sharpness of \cref{eq:cond} and \cref{eq:main1} is also supported by the answer to the analogue of Q1 at the level of PDEs. Indeed, the following \cref{thm:2} is the analogue of \cref{thm:1} 
 
 \begin{theorem}[Answer to Q2 (the PDE analogue of Q1)]\label{thm:2}
-%Given $f\in L^2(\Omega_R)$ such that $\supp \, f \subset B_R$, 
+%Given $f\in L^2(\DR)$ such that $\supp \, f \subset \BR$, 
 Let $\Dm$, $\Ao$, and $\no$ satisfy \cref{cond:1nbpc}, and let $\Dm$, $\At$, and $\nt$ be such that $u^{(2)}$ exists
-for any $f\in L^2(\Omega_R)$ such that $\supp \, f \subset B_R$. 
+for any $f\in L^2(\DR)$ such that $\supp \, f \subset \BR$. 
 Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicitly in terms of $\Dm$, $\Ao$, and $\no$ in \cref{eq:C3} below, such that
 \beq\label{eq:PDEbound}
 \frac{\big\|u^{(1)}-u^{(2)}\big\|_{\HokDR}
 }{
 \N{u^{(2)}}_{\HokDR}
-}\leq C_3 \,k\, \max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}\Big\}%\right)
+}\leq C_3 \,k\, \max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\DR)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\DR)}\Big\}%\right)
 \eeq
 for all $k\geq k_0$. 
 \end{theorem}
@@ -214,24 +203,24 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 \N{u^{(2)}}_{\HokDR}
 }
 \sim 
-\frac{\N{u^{(1)}-u^{(2)}}_{L^2(\Omega_R)}
+\frac{\N{u^{(1)}-u^{(2)}}_{L^2(\DR)}
 }{
-\N{u^{(2)}}_{L^2(\Omega_R)}
-}\sim k \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}.
+\N{u^{(2)}}_{L^2(\DR)}
+}\sim k \big\|\no-\nt\big\|_{L^\infty(\DR)}.
 \eeq
 %\noi (ii) There exist $f, \Ao, \At$, (with $\Ao\not\equiv \At$), such that 
 %the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\no \equiv \nt\equiv 1$ exist, are unique, and satisfy
-%%There exist $f\in L^2(\Omega_R), \Aj \in C^{0,1}(\Omega_R)$, $j=1,2$ (with $\Ao\not\equiv \At$), such that the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\no \equiv \nt\equiv 1$ satisfy
+%%There exist $f\in L^2(\DR), \Aj \in C^{0,1}(\DR)$, $j=1,2$ (with $\Ao\not\equiv \At$), such that the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\no \equiv \nt\equiv 1$ satisfy
 %\beq\label{eq:sharp2}
 %\frac{\N{u^{(1)}-u^{(2)}}_{\HokDR}
 %}{
 %\N{u^{(2)}}_{\HokDR}
 %}
 %\sim 
-%\frac{\N{u^{(1)}-u^{(2)}}_{L^2(\Omega_R)}
+%\frac{\N{u^{(1)}-u^{(2)}}_{L^2(\DR)}
 %}{
-%\N{u^{(2)}}_{L^2(\Omega_R)}
-%}\sim k \big\|\Ao-\At\big\|_{L^\infty(\Omega_R)}.
+%\N{u^{(2)}}_{L^2(\DR)}
+%}\sim k \big\|\Ao-\At\big\|_{L^\infty(\DR)}.
 %\eeq
 \ele
 
@@ -266,22 +255,22 @@ In this latter situation, we recall that $\|\cdot\|_{\HokDR}$ is defined by \cre
 
 \begin{definition}[Finite-element/Galerkin solution]\label{def:Galerkin}
 \optodo{Check not defined earlier}
-Let $(\cV_h)_{h>0}$ be a family of finite-dimensional, nested subspaces of $H_{0,D}^1(\DR)$, whose union is dense in $H_{0,D}^1(\DR)$. Furthermore let $\cV_h$ consist of piecewise-polynomials on a simplicial mesh with mesh-size $h$
+Let $(\Vhp)_{h>0}$ be a family of finite-dimensional, nested subspaces of $\HozDDR$, whose union is dense in $\HozDDR$. Furthermore let $\Vhp$ consist of piecewise-polynomials on a simplicial mesh with mesh-size $h$
 %\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
-and fixed polynomial degree $p$. (Note that the dimension $N$ of $V_h$ then satisfies $N\sim h^{-d}$.)
+and fixed polynomial degree $p$. (Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$.)
 
 
 Let $a(\cdot,\cdot)$ be defined by \cref{eq:EDPa}. Given $F\in (\HozDDR)'$, let $u$ be the solution of the variational problem \cref{eq:EDPvar} (i.e.~$u$ is the solution of the exterior Dirichlet problem with general data). The \emph{finite-element/Galerkin solution}, $u_h$, satisfies the variational problem
 \beq\label{eq:Galerkin}
 %\text{ find } u \in H^1_{0,D}(\DR) \tst 
 %\quad 
-a(u_h,v_h)=F(v_h) \quad \tfa v_h \in V_h.
+a(u_h,v_h)=F(v_h) \quad \tfa v_h \in \Vhp.
 \eeq
 \end{definition}
 
 %Definition of Galerkin method
 
-Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\cV_h$ with each $\phi_i$ \emph{real-valued}.
+Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
 Let 
 \beq\label{eq:matrixSjdef}
 \big(\Smat_{A}\big)_{ij}:= \int_\Omega \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
@@ -313,11 +302,22 @@ so that \cref{eq:Dk} holds.
 %\N{\bv}_{\Dmat_k}^2:=   \N{v_h}^2_{\HokDR}=\big( \Dmat_k \bv,\bv\big)_2,
 %\eeq
 %for
-%$v_h =\sum_i v_i \phi_i$. 
+%$v_h =\sum_i v_i \phi_i$.
+
+We recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]):
+
+\bde[Quasi-uniform]\label{def:quasiuniform}
+Let $\set{\cTh}_h$ be a set of triangulations of $\DR$ indexed by their mesh size $h.$ For each $T \in \cTh,$ let $\BT$ denote the largest ball contained in $T$.
+If there exists $\rho > 0$ such that 
+\beqs
+\min\set{\diam \BT \st T \in \cT} \geq \rho h,
+\eeqs
+then $\set{\cTh}_h$ is said to be \defn{quasi-uniform}.
+\ede
 
 
 \ble[Norm equivalences of FE functions]\label{lem:normequiv}
-\ednote{Euan says: need to say using a nodal basis here} If $\cV_h$ is quasi-uniform, then
+\ednote{Euan says: need to say using a nodal basis here} If $\Vhp$ is quasi-uniform, then
 there exist $m_\pm$ and $s_\pm$, independent of $h$ and $p$, such that
 \beq\label{eq:normequiv1}
 m_- h^{d/2} \N{\bv}_2 \leq \N{v_h}_{\LtDR} \leq m_+ h^{d/2} \N{\bv}_2,
@@ -326,7 +326,7 @@ and
 \beq\label{eq:normequiv2}
 s_- h^{d/2} \N{\bv}_2 \leq \N{\nabla v_h}_{\LtDR} \leq s_+ h^{d/2-1} \N{\bv}_2,
 \eeq
-for all finite-element functions $v_h =\sum_i v_i \phi_i \in \cV_h$.
+for all finite-element functions $v_h =\sum_i v_i \phi_i \in \Vhp$.
 \ele
 
 Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the familiar bounds
@@ -341,7 +341,7 @@ The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtDR}$ a
 %\eeqs
 Then, \cref{eq:normequiv2} follows from \cref{eq:normequiv1} and the inequalities
 \beqs
-\N{v_h}_{L^2(\Omega_R)}\lesssim \N{\nabla v_h}_{L^2(\Omega_R)}\lesssim \frac{1}{h} \N{v_h}_{L^2(\Omega_R)},
+\N{v_h}_{L^2(\DR)}\lesssim \N{\nabla v_h}_{L^2(\DR)}\lesssim \frac{1}{h} \N{v_h}_{L^2(\DR)},
 \eeqs
 the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDDR$
 (see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
@@ -355,7 +355,7 @@ Let $\Dm$, $n$, and $A$, be as in the definition of the EDP (\cref{def:EDP}). Th
 \beq\label{eq:EDPadjoint}
 a^*(u,v) := \int_{\DR} 
 \Big((A \grad u)\cdot\grad \vb
- - k^2 n u\vb\Big) - \big\langle \gamma u,T_R(\gamma v)\big\rangle_{\Gamma_R}.
+ - k^2 n u\vb\Big) - \big\langle \gamma u,T_R(\gamma v)\big\rangle_{\GR}.
 \eeq
 \end{definition}
 
@@ -380,7 +380,7 @@ For the proof of \cref{lem:adjoint} we need the following property of the DtN ma
 \beq\label{eq:DtN}
 \big\langle T_R\psi, \overline{\phi} \big\rangle_\Gamma = \big\langle T_R \phi, \overline{\psi}\big\rangle_\Gamma \quad\tfa \phi,\psi \in H^{1/2}(\GR).
 \eeq
-This property follows from the fact that, if $u$ and $v$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{B_R}$, both satisfying the Sommerfeld radiation condition \cref{eq:srcnbpc}, then
+This property follows from the fact that, if $u$ and $v$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{\BR}$, both satisfying the Sommerfeld radiation condition \cref{eq:srcnbpc}, then
 \beqs
 \int_{\GR} (\gamma u)\, \pdiff{v}{n} = \int_{\GR} (\gamma v)\,\pdiff{u}{n};
 \eeqs
@@ -397,7 +397,7 @@ Using the definition of $a^*(\cdot,\cdot)$ and the property \cref{eq:DtN} in the
 \subsection{Nontrapping condition on $\Ao, \no,$ and $\Dm$ (\cref{cond:1nbpc})}\label{sec:cond1}
 \optodo{blurb}
 \begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
-$\Ao, \no,$ and $\Dm$ are such that, given $f\in L^2(\Omega_R)$ with $\supp \, f \subset B_R$, 
+$\Ao, \no,$ and $\Dm$ are such that, given $f\in L^2(\DR)$ with $\supp \, f \subset \BR$, 
 the solution of the EDP %(\cref{def:EDP}) 
 $u^{(1)}$ exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
 \beq\label{eq:bound1}
@@ -410,7 +410,7 @@ Using the G\aa rding inequality \cref{eq:Garding}, one can prove the following r
 
 \ble[Bound for data in $(\HozDDR)'$]\label{lem:H1}
 %With the sesquilinear form $a(\cdot,\cdot)$ defined by \cref{eq:EDPa} with $A=\Ao$ and $n=\no$, 
-Given $\widetilde{F}\in (H^1_{0,D}(\Omega_R))^*$, let $\widetilde{u}$ be the solution of the variational problem
+Given $\widetilde{F}\in (H^1_{0,D}(\DR))^*$, let $\widetilde{u}$ be the solution of the variational problem
 \beqs
 \text{ find } \,\,\widetilde{u} \in H^1_{0,D}(\DR) \,\,\tst \,\,
 a^{(1)}(\widetilde{u},v)=\widetilde{F}(v) \,\, \tfa v\in H^1_{0,D}(\DR).
@@ -432,8 +432,8 @@ for all $k\geq k_0$.
 
 \
 
-(i) Given $k_0>0$, $h$ and $p$ are such that, given $f\in \LtDR$ with $\supp\, f \subset B_R$, the solution $u_h$ of the Galerkin method \cref{eq:Galerkin} with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$ (and with $F(v)$ defined in \cref{eq:EDPa}) exists and is unique for all $k\geq k_0$. % (so that the matrix $\Amato$ is invertible). 
-Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some  $n\in \LiDRRR$ and $\alpha_j \in \CC$ (i.e.~$f$ is an arbitrary element of $\cV_h$ multiplied by $n$), then
+(i) Given $k_0>0$, $h$ and $p$ are such that, given $f\in \LtDR$ with $\supp\, f \subset \BR$, the solution $u_h$ of the Galerkin method \cref{eq:Galerkin} with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$ (and with $F(v)$ defined in \cref{eq:EDPa}) exists and is unique for all $k\geq k_0$. % (so that the matrix $\Amato$ is invertible). 
+Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some  $n\in \LiDRRR$ and $\alpha_j \in \CC$ (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then
 \beq\label{eq:bound3}
 \N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtDR} \quad\tfa k\geq k_0, 
 \eeq
@@ -444,7 +444,7 @@ with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$
 exists, and is unique for all $k\geq k_0$.
 %(so that the matrix $\Amato$ is invertible). 
 Furthermore, if $F(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} := \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
- (i.e.~$\widetilde{f}$ is an arbitrary element of $\cV_h$), then
+ (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
 \beq\label{eq:bound4}
 \N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM2}\,k\, \N{F}_{(\HokDR)'} \quad\tfa k\geq k_0, 
 \eeq
@@ -547,7 +547,7 @@ a^{(1)}(\widetilde{u},v)= (n\widetilde{f},v)_{L^2(\Omega)} \quad\text{ for all }
 \eeq
 let $\tu_h$ be the solution of the finite-element approximation of \cref{eq:411}, i.e.,
 \beq\label{eq:41}
-a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h\in \cV_h,
+a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$ \ednote{rephrase this as haven't (yet) assumed that $\{\phi_i\}$ is a nodal basis}. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\bff$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\bff\|_{\Dmat_k}$. Because of the definition 
 of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is equivalent to bounding $\|\tu_h\|_{\HokDR}$ in terms of $\|\widetilde{f}\|_{\HokDR}$.
@@ -643,7 +643,7 @@ Observe that the definition of the norms $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualno
 \end{align}
 Let $\tu_h$ be the solution of the finite element approximation of \cref{eq:411a}, i.e.,
 \beq\label{eq:41a}
-a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \cV_h,
+a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\bff$. 
 
@@ -812,25 +812,25 @@ A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES 
 By \cref{def:EDP}, $u^{(1)}$ and $u^{(2)}$ satisfy $a^{(1)}(u^{(1)}, v) = F(v)$ and 
 $a^{(2)}(u^{(2)}, v) = F(v)$ respectively. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
 \beq\label{eq:vp1}
-a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{F}(v) \quad\tfa v\in H^1_{0,D}(\Omega_R)
+a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{F}(v) \quad\tfa v\in H^1_{0,D}(\DR)
 \eeq
 where
 \beqs
- \widetilde{F}(v):= \int_{\Omega_R} \left((\At-\Ao) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\no-\nt) u^{(2)}\overline{v}.
+ \widetilde{F}(v):= \int_{\DR} \left((\At-\Ao) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\no-\nt) u^{(2)}\overline{v}.
 \eeqs
 Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HokDR}$ \cref{eq:1knorm}, we have that
 \begin{align*}
-| \widetilde{F}(v)| &\leq \big\|\Ao-\At\big\|_{L^\infty(\Omega_R)} \big\|\nabla u^{(2)}\big\|_{L^2(\Omega_R)}
-\N{\nabla v}_{L^2(\Omega_R)} 
+| \widetilde{F}(v)| &\leq \big\|\Ao-\At\big\|_{L^\infty(\DR)} \big\|\nabla u^{(2)}\big\|_{L^2(\DR)}
+\N{\nabla v}_{L^2(\DR)} 
 \\& \hspace{5cm}+ k^2 
-\big\|\no-\nt\big\|_{L^\infty(\Omega_R)} \big\| u^{(2)}\big\|_{L^2(\Omega_R)}
-\N{v}_{L^2(\Omega_R)}\\
-&\leq\max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}\Big\}
+\big\|\no-\nt\big\|_{L^\infty(\DR)} \big\| u^{(2)}\big\|_{L^2(\DR)}
+\N{v}_{L^2(\DR)}\\
+&\leq\max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\DR)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\DR)}\Big\}
 \big\| u^{(2)}\big\|_{\HokDR} \N{v}_{\HokDR}.
 \end{align*}
 and thus, by the definition of the norm $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnorm},
 \beqs
-\big\|\widetilde{F}\big\|_{(\HokDR)'}\leq \max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}\Big\}
+\big\|\widetilde{F}\big\|_{(\HokDR)'}\leq \max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\DR)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\DR)}\Big\}
 \big\| u^{(2)}\big\|_{\HokDR}.
 \eeqs
 Since \cref{cond:1nbpc} holds, we can then apply the result of \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
@@ -841,7 +841,7 @@ Since \cref{cond:1nbpc} holds, we can then apply the result of \cref{lem:H1}, i.
  \leq 
 \,&\frac{1}{\min\big\{\Aomin,\nomin\big\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nomax  k\right)
 \\
-&\quad\times \left(\max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\Omega_R)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\Omega_R)}\Big\}\right),
+&\quad\times \left(\max\Big\{\big\|\Ao-\At\big\|_{L^\infty(\DR)}\,,\, \big\|\no-\nt\big\|_{L^\infty(\DR)}\Big\}\right),
 \end{align*}
 and then the result \cref{eq:PDEbound} follows with 
 \beq\label{eq:C3}
@@ -853,7 +853,7 @@ C_3:= \frac{1}{\min\big\{\Aomin,\nomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\
 We actually prove the stronger result that given any function $c(k)$ such that $c(k)>0$ for all $k>0$, there exist 
 $f, \no, \nt$ (with $\no\not= \nt$), such that, firstly,
 \beqs
-\big\|\no-\nt\big\|_{L^\infty(\Omega_R)} \sim c(k)
+\big\|\no-\nt\big\|_{L^\infty(\DR)} \sim c(k)
 \eeqs
 and, secondly,
 the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\Ao = \At= I$ exist, are unique, and satisfy \cref{eq:sharp1}. 
@@ -862,8 +862,8 @@ The heart of the proof is the equation
 \beq\label{eq:obs1}
 (\Delta + k^2) \big(\re^{\ri k r}\chi(r)\big) =  \re^{\ri k r}\left(\ri k \frac{d-1}{r} \chi(r) + 2 \ri k \diff{\chi}{r}(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
 \eeq
-where $\chi(r)$ is chosen to have $\supp \chi \subset \Omega_R$.
-This equation proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\Omega_R)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
+where $\chi(r)$ is chosen to have $\supp \chi \subset \DR$.
+This equation proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\DR)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
 
 The overall idea of the proof is to set things up so that $(u^{(1)}-u^{(2)})(\bx) = \re^{\ri k r}\chi(r)$, the rationale being that \cref{eq:obs1} proves the sharpness of \cref{eq:bound1}, and \cref{eq:bound1} and its corollary \cref{eq:bound2} (applied to $u^{(1)}-u^{(2)}$) are the main ingredients in the proof of \cref{thm:2}.
 % to prove the sharpness of \cref{thm:2} (at least when $\Aj:=I$, $j=1,2,$), 
@@ -872,18 +872,18 @@ Observe that, when $\Aj:=I$, $j=1,2,$ and $\no:=1$, the variational problem \cre
 \beq\label{eq:obs2}
 \Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = -k^2 \big(1-\nt\big)u^{(2)}.
 \eeq
-Let $\nt:= 1 + c(k)\widetilde{\chi}$ with $\widetilde{\chi}= \widetilde{\chi}(r)$, $\widetilde{\chi}\in C^{\infty}(\Omega_R)$, $\widetilde{\chi}\not = 1$ (so that $\nt\not = \no$), and 
- $\supp \, \widetilde{\chi} \subset\Omega_R$. 
-%observe then that $\nt(\bx) >1$ for all $\bx \in \Omega_R$ and thus, in particular, %for some function $c(k)>0$ for all $k>0$ 
+Let $\nt:= 1 + c(k)\widetilde{\chi}$ with $\widetilde{\chi}= \widetilde{\chi}(r)$, $\widetilde{\chi}\in C^{\infty}(\DR)$, $\widetilde{\chi}\not = 1$ (so that $\nt\not = \no$), and 
+ $\supp \, \widetilde{\chi} \subset\DR$. 
+%observe then that $\nt(\bx) >1$ for all $\bx \in \DR$ and thus, in particular, %for some function $c(k)>0$ for all $k>0$ 
 %$\nt\not = \no$. 
-As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(\Omega_R)$ and
-$\supp \,\chi$ a compact subset of $\Omega_R$. Then with $\widetilde{f}$ defined in \cref{eq:obs1}, our goal is to let 
+As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(\DR)$ and
+$\supp \,\chi$ a compact subset of $\DR$. Then with $\widetilde{f}$ defined in \cref{eq:obs1}, our goal is to let 
 \beq\label{eq:obs3}
 u^{(2)}(\bx):= -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)} \quad\tand\quad  f(\bx):= -\big(\Delta +k^2 \nt(\bx)\big) u^{(2)}(\bx);
 \eeq
 however, since $\widetilde{\chi}(r)$ has compact support, we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined.
 
-Setting aside for the moment this need to synchronise the definitions of $\chi$ and $\widetilde{\chi}$, since $\supp \,\widetilde{f}$ is a compact subset of $\Omega_R$, so is 
+Setting aside for the moment this need to synchronise the definitions of $\chi$ and $\widetilde{\chi}$, since $\supp \,\widetilde{f}$ is a compact subset of $\DR$, so is 
 $\supp \,u^{(2)}$, and so $u^{(2)}$ is then the solution of the exterior Dirichlet problem (in the sense of \cref{def:EDP}) with data $f$ defined in \cref{eq:obs3} and coefficient $\nt:=1 + c(k)\widetilde{\chi}$.
 Finally, define $u^{(1)}$ to be the solution of the exterior Dirichlet problem with $f$ defined in \cref{eq:obs3}. The whole point of these definitions is that, combined with \cref{eq:obs1} and \cref{eq:obs2} and the uniqueness of the solution of the exterior Dirichlet problem, they imply that 
 \beq\label{eq:obs4}
@@ -891,24 +891,24 @@ u^{(1)}(\bx)- u^{(2)}(\bx) = \re^{\ri k x_1}\chi(r),
 \eeq
 and from this we therefore have that
 \beqs
-\big\|u^{(1)}-u^{(2)}\big\|_{L^2(\Omega_R)} \sim 1
+\big\|u^{(1)}-u^{(2)}\big\|_{L^2(\DR)} \sim 1
 \quad \tand \quad
 \big\|u^{(1)}-u^{(2)}\big\|_{\HokDR} \sim k.
 \eeqs
 Furthermore, the definitions of $u^{(2)}$ \cref{eq:obs3} and $\widetilde{f}$ \cref{eq:obs1} imply that
 \beqs
-\big\| u^{(2)}\big\|_{L^2(\Omega_R)} \sim \frac{1}{k\, c(k)} \quad\tand \quad 
+\big\| u^{(2)}\big\|_{L^2(\DR)} \sim \frac{1}{k\, c(k)} \quad\tand \quad 
 \big\| u^{(2)}\big\|_{\HokDR} \sim \frac{1}{c(k)},
 \eeqs 
-and, since $\|\no- \nt\|_{L^\infty(\Omega_R)} = c(k)$, \cref{eq:sharp1} holds.
+and, since $\|\no- \nt\|_{L^\infty(\DR)} = c(k)$, \cref{eq:sharp1} holds.
 
 Therefore, to complete the proof, we only need to show that there exists a choice of $\chi$ and $\widetilde{\chi}$ for which $u^{(2)}$ and $f$ defined by \cref{eq:obs3} are 
 in $H^{1}(\DR)$ and $\LtDR$ respectively (in fact, we prove that they are in $W^{1,\infty}(\DR)$ and $L^\infty(\DR)$ respectively).
 %well-defined. 
 Since $\chi$ and $\widetilde{\chi} \in C^\infty(\DR)$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
-Since $\overline{\Omega_-} \subset B_R$, there exist $0<R_1<R_2<R$ such that $\overline{\Dm} \subset B_{R_2}\setminus B_{R_1} \subset B_R$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \rightarrow (R_1)^+$ and 
+Since $\overline{\Omega_-} \subset \BR$, there exist $0<R_1<R_2<R$ such that $\overline{\Dm} \subset B_{R_2}\setminus B_{R_1} \subset \BR$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \rightarrow (R_1)^+$ and 
 $\chi(r) \sim (R_2-r)^m$ as $r \rightarrow (R_2)^-$. The definition of $\widetilde{f}$ \cref{eq:obs3} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $n$ at $r= R_1$ and $r=R_2$. 
-We now claim that if $m >n+4$, then $u^{(2)}\in W^{1,\infty}(\DR)$ and $f$ $\in L^\infty(\Omega_R)$. Indeed,  
+We now claim that if $m >n+4$, then $u^{(2)}\in W^{1,\infty}(\DR)$ and $f$ $\in L^\infty(\DR)$. Indeed,  
 straightforward calculation from \cref{eq:obs3} shows that  $u^{(2)}(r) \sim (r-R_1)^{m-n-2}$, $\nabla u^{(2)}(r) \sim (r-R_1)^{m-n-3}$, and $\Delta u^{(2)}(r) \sim (r-R_1)^{m-n-4}$ as $r \rightarrow (R_1)^+$, with analogous behaviour at $r=R_2$.
 %vanishes to order $m-n-2$ and $\Delta u^{(2)}$ vanishes to order $m-n-4$ at $r= R_1$ and $r=R_2$. 
 The assumption 
@@ -1310,7 +1310,7 @@ Recall from \cref{cond:1nbpc} that \cite[Theorem 2.7]{GrPeSp:19} proves that \cr
 \item TEDP with $\Omega$ a square/rectangle.
 \item $\Ao$ being at least Lipschitz (but smooth is fine). To keep things simple, just take scalar- (as opposed to matrix-) valued $\Ao$ and don't worry about making it nontrapping.
 \item Smoothness of $\no$ doesn't really matter, just take smooth in the first instance for simplicity (and also don't worry about nontrapping).
-\item $\cV_h$ piecewise linear.
+\item $\Vhp$ piecewise linear.
 \item Linear system $\Amato \bu = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of \cref{cond:2},  but please check this!)
 \item For each $\Ao, \no, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
 \item Goal: see if the bound \cref{eq:bound4} holds, using 
