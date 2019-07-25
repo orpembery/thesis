@@ -4,27 +4,7 @@
 \section{Introduction and Motivation from UQ}\label{sec:intronbpc}
 
 \subsection{Statement of the problem}\label{sec:problem}
-\optodo{Edit appropriately, so that this ties in with definitions before}
-Let $\Dm \subset \RRd, d=2,3, $ be a bounded Lipschitz open set such that the open complement $\Dp:= \RRd\setminus\overline{\Dm}$ is connected. 
-Let $\uj(\bx)$, $j=1,2,$ satisfy 
-%be the solutions of the exterior Dirichlet problem for 
-the heterogeneous Helmholtz equation
-\beq\label{eq:pde}
-\nabla\cdot(\Aj \nabla\uj ) + k^2 \nj \uj =-f \quad \tin \Dp,
-\eeq
-the Dirichlet boundary condition $\uj=0$ on $\Gamma:= \partial \Dm$, and the Sommerfeld radiation condition 
-\beq\label{eq:srcnbpc}
-\pdiff{\uj}{r}(\bx) - \ri k \uj(\bx) = o \left( \frac{1}{r^{(d-1)/2}}\right)
-\eeq
-as $r:= |\bx|\tendi$ (uniformly in $\xhat:= \bx/r$),
-where $k>0$ is the wavenumber. In Equation \cref{eq:pde},
-\ben
-\item $\Aj$ are symmetric, real-valued, positive-definite  matrix functions of $\bx$, 
-\item $\nj$ are real-valued functions of $\bx$, bounded away from zero, and 
-\item $\supp(I-\Aj)$, $\supp(1-\nj)$, and $\supp\, f$ are all %compactly 
-contained in $B_R:= \{\bx : \|\bx\|_2<R\}$ for some $R>0$
-\een
-(see \cref{def:EDP} below for a precise definition of this boundary-value problem).
+Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:edp}, and let $\uj$ be the corresponding solution of \cref{prob:edp}, with $\Dm,$ $f$, etc. asin \cref{prob:edp}.
 
 Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-version finite-element discretisations (with decreasing mesh size $h$ and fixed polynomial degree $p$)
 of \cref{eq:pde} truncated to $\Omega_R:= \Dp \cap B_R$, with the radiation condition realised exactly on $\Gamma_R:=\partial B_R$ via the exact Dirichlet-to-Neumann map (see \cref{def:Galerkin} and \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). Our results also hold in the case when the radiation condition is approximated by an impedance boundary condition, and the truncation boundary is not necessarily $\Gamma_R$; see \cref{sec:TEDP}.
