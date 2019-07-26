@@ -934,9 +934,35 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 
 \section{Extension of the results to weaker norms and probabilistic convergence results}
 \optodo{Insert chat}
-\subsection{Analogues of \cref{thm:1,cor:1,cor:1a} in weaker norms}
+\subsection{Analogues of \cref{thm:1,cor:1,cor:1a} in weaker norms}\label{sec:weaknorm}
 \optodo{Chat about weaker norms, in light of $L^1$ numerical results}
 
+Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $\NLiDRRR{\no-\nt} \sim 1/k$ (with an analagous result for $\Ao-\At$).\optodo{Insert somewhere, and write, some chat about why $1/k$ is the right thing to consider} This result show that $1/k$ is a sharp threshold when we consider the \emph{magnitude}  of the difference between $\no$ and $\nt$. However, this result does not say anything about the \emph{spatial} variability\optodo{Somehow thanks Stefan, Nilima comments from MAFELAP?} between $\no$ and $\nt$. For example if $\no$ and $\nt$ (defined on the unit square) are given by
+\beqs
+\no(\bx) =
+\begin{dcases}
+  1 &\tif \bx_1 \leq \half\\
+  2  &\tif \bx_1 > \half
+  \end{dcases}
+\eeqs
+and]
+\beqs
+\nt(\bx) =
+\begin{dcases}
+  1 &\tif \bx_1 \leq \half+\alpha\\
+  2  &\tif \bx_1 > \half+\alpha
+  \end{dcases}
+\eeqs
+for some $0 < \alpha < 1/2,$ then $\NLiDRRR{\no-\nt} = 1$ for all $\alpha$, but one would expect that for small $\alpha$ the corresponding solutions of \cref{prob:edp} satisfy $\uo \approx \ut,$ and one might expect that GMRES applied to $\AmatoI\Amatt$ would converge in a $k$-independent number of iterations. Therefore, in this \lcnamecref{sec:weaknorm} we seek to obtain analogues of \cref{thm:1,cor:1,cor:1a} with the difference in $\no-\nt$ and $\Ao-\At$ measured in weaker norms than the $L^\infty$ norm.
+\optodo{Probably put something in somewhere about PDE result being sharp}
+The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRRR{\no-\nt} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the disucssion in\optodo{Insert ref} that the length scale $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' in the sense that the $L^1$ norm provides the maximal amount of `weight' to the spatial variance of $\no-\nt$\optodo{Write this gooder} whilst also controlling the magnitude of $\no-\nt$.
+
+We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence is $\LpDRRR{\no-\nt}\sim 1/k$ for any $p>0$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $p$ and the dependence on $k.$
+
+
+\subsubsection{Numerics in weaker norms}\label{sec:weakernumerics}
+
+\subsubsection{Theory in weaker norms}\label{sec:weakertheory}
 The reason that the terms $\NLiDR{\Ao-\At}$ and $\NLiDR{\no-\nt}$ appear in \cref{thm:1} is that the terms $\NLiDR{n}$ and $\NLiDR{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
 \beq\label{eq:keynbound}
 \NLtDR{n\ftilde} \leq \NLiDR{n}\NLtDR{\ftilde}
@@ -1027,10 +1053,6 @@ and
 \end{align}
 for all $k\geq k_0$. 
 \end{theorem}
-
-\bpf[Proof of \cref{thm:1alt}]
-
-\epf
 
 \begin{corollary}[Alternative answer to Q1: $k$-independent weighted GMRES iterations]\label{cor:1alt}
 Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
@@ -1169,7 +1191,7 @@ Calculate preconditioner $\Pmat$ at $\bypre$\;
 $\bycurrent \defined$ \Nearest{$\bypre,\Sremaining$}\;
 \While{$\Sremaining \neq \emptyset$}{
 \lIf{GMRES applied to $\Pmat \Amat(\bycurrent) = \Pmat \bb$ converges in fewer than $\maxGMRES$ iterations}{
-$\Sremaining \defined \SQMC\setminus\set{\bycurrent}$\;
+$\Sremaining \defined \Sremaining\setminus\set{\bycurrent}$\;
 $\bycurrent \defined$ \Nearest{$\bypre,\Sremaining$}\;
 }
 \Else{
