@@ -122,11 +122,14 @@ l1_table = 'l1-table.tex'
 
 with open(l1_table,mode='w') as table:
     df.to_latex(table,float_format=float_format,column_format=column_format)
-
+    
 # This is a hack to get the table to print like I want
 with fileinput.input(files=(l1_table),inplace=True) as table:
     for line in table:
-        if line.startswith('{}'):
+
+        if line.endswith('Sc }\n'):
+            print(line[:-3]+'Sc }')        
+        elif line.startswith('{}'):
             print(r'$\eps$\textbackslash$k$'+line[2:])
         else:
             print(line)
