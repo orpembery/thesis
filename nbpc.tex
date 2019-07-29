@@ -960,11 +960,6 @@ The (realistic) best-case result we could obtain would be that GMRES applied to 
 We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence is $\NLqDRRR{\no-\nt}\sim 1/k$ for any $q>0$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
 
 
-\subsubsection{Numerics in weaker norms}\label{sec:weakernumerics}
-For our computations, we solve the Interior Impedance Problem in 2-d on the unit square with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We let $\Ao=\At=I,$ and we define $\no$ and $\nt$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we use GMRES to solve $\AmatoI\Amatt = \AmatoI \bff$ (for $\bff$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence\optodo{Put in tolerance}.
-
-\optodo{Put in results - table and graph}
-
 
 \subsubsection{Theory in weaker norms}\label{sec:weakertheory}
 The reason that the terms $\NLiDR{\Ao-\At}$ and $\NLiDR{\no-\nt}$ appear in \cref{thm:1} is that the terms $\NLiDR{n}$ and $\NLiDR{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
@@ -1083,6 +1078,22 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \end{corollary}
 \optodo{Need to have some chat about the trade-off with these, and the `theoretical' best $1/k$ for $L^1$}
+
+\subsubsection{Numerics in weaker norms}\label{sec:weakernumerics}
+For our computations, we solve the Interior Impedance Problem in 2-d on the unit square with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We let $\Ao=\At=I,$ and we define $\no$ and $\nt$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we use GMRES to solve $\AmatoI\Amatt = \AmatoI \bff$ (for $\bff$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence. Our convergence criteria are a realative residual tolerance of $10^{-5}$ and an absolute residual tolerance of $10^{-50}$ (the PETSc defaults).\optodo{Can lots of this numerical stuff be put in, e.g., and appendix to save repeating myself?}.
+
+Our results in\optodo{Insert fig refs} indicate the following conclusions for $\NLqDRR{\no-\nt} \sim 0.1/k^{\beta}$ :
+\bit
+\item For $\beta \in (0,0.6)$ there is clear growth of the number of GMRES iterations with $k$,
+\item For $\beta = 1$ there is clear boundedness of the number of GMRES iterations with $k$, and
+  \item for $\beta \in (0.7,0.9)$ it is unclear if the number of GMRES iterations grows with $k.$
+\eit
+
+If we compare our numerical results with the theory results in \cref{cor:aalt}, we see that the theory (with $h \sim k^{-3/2}$ and $d=2$) predicts that the number of iterations will remain bounded if $\NLqDRR{\no-\nt} k^{1+3/q}$ is sufficiently small, for any $q \in (2,\infty).$ Our computed results indicate that this result is not sharp. The computed results indicate that if $\NLqDRR{\no-\nt} \sim k^{-1}$ for any $q \geq 1,$ then the number of GMRES iterations is bounded as $k$ increases. Observe that the `best case' $1/k$ condition (see \optodo{Ref} above for why this is the best case) is only predicted by the theory in the $q\rightarrow \infty$ limit.\optodo{Probably need to write much more here}
+
+\optodo{Put in results - table and graph}
+
+
 
 \subsection{Probabilistic analogue of \cref{cor:1}}
 \optodo{CHange $\sigma$ to $\alpha$ in Elman stuff}
