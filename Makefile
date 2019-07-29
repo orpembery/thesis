@@ -63,3 +63,8 @@ spell:
 	for file in $(shell ls *tex); do \
 	aspell --mode=tex -c $$file ; \
 	done
+
+l1-data.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+	python l1-plot-and-table.py 
+	# Assume venv has been activated before starting
+	# How do I do dependence on all the data?
