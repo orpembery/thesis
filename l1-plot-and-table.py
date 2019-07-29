@@ -108,6 +108,23 @@ make_plot([0.4,0.5,0.6,0.7],'l1-med')
 
 make_plot([0.8,0.9,1.0],'l1-high')
 
+column_names = ['Number of LU factorisations calculated','Total number of linear systems solved','Number of LU factorisations as percentage of total solves','Average number of GMRES iterations','Maximum number of GMRES iterations']
+
+float_format = '{:.0f}'.format # Based on formatting described at https://pyformat.info/#number
+# Helped debug using https://stackoverflow.com/a/20937592
+
+column_format = 'Sc '*df.shape[1]
+
+l1_table = 'l1_table.tex'
+
+# This is a hack to get the table to print like I want
+df.index.name = r'$\eps$\textbackslash$k$'
+
+with open(l1_table,mode='w') as table:
+    df.to_latex(table,float_format=float_format,column_format=column_format)
+
+
+
 
 # Also need to put all data in a table and save that in the same file and the plots
 
