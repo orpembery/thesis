@@ -5,6 +5,7 @@ from fnmatch import fnmatch
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import numpy as np
+import fileinput
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/'
 
@@ -93,8 +94,6 @@ def make_plot(locs,filename):
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         
     plt.legend(loc='upper left')
-    
-    #plt.show()
 
     plt.savefig(filename+'.pgf') # This doesn't work
 
@@ -115,17 +114,25 @@ float_format = '{:.0f}'.format # Based on formatting described at https://pyform
 
 column_format = 'Sc '*df.shape[1]
 
-l1_table = 'l1_table.tex'
+l1_table = 'l1-table.tex'
 
-# This is a hack to get the table to print like I want
-df.index.name = r'$\eps$\textbackslash$k$'
+
 
 with open(l1_table,mode='w') as table:
     df.to_latex(table,float_format=float_format,column_format=column_format)
 
+with fileinput.input(files=(l1_table),inplace=True) as table:
+    for line in table:
+        if line.startswith('{}'):
+            print(r'$\eps$\textbackslash$k$'+line[2:])
+        else:
+            print(line)
+            
+        
+# This is a hack to get the table to print like I want
+df.index.name = r'$\eps$\textbackslash$k$'
 
 
+# Also need to put all data in a table and save that in the a file
 
-# Also need to put all data in a table and save that in the same file and the plots
-
-# Also need to input this file somewhere
+# Also need to input these files somewhere
