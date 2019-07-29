@@ -3,16 +3,15 @@
 .SUFFIXES: .tex .pdf
 
 all: thesis.pdf 
-	evince thesis.pdf &
-	touch thesis.tex # This is a hack, as I can't work out how to get make to depend on all the tex files
 
-.tex.pdf:
-	pdflatex $<
+
+thesis.pdf: *tex *pgf
+	pdflatex thesis.tex
 	bibtex thesis.aux # This is a hack
-	pdflatex $<
-	pdflatex $<
-	#evince thesis.pdf # As is this
-	#touch $<
+	pdflatex thesis.tex
+	pdflatex thesis.tex
+	evince thesis.pdf &
+	#touch thesis.tex # This is a hack, as I can't work out how to get make to depend on all the tex files
 
 clean:
 	rm *aux	
@@ -64,7 +63,9 @@ spell:
 	aspell --mode=tex -c $$file ; \
 	done
 
-l1-data.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+	python l1-plot-and-table.py
+
+*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
 	python l1-plot-and-table.py 
-	# Assume venv has been activated before starting
-	# How do I do dependence on all the data?
+

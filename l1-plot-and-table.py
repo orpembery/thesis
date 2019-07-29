@@ -107,6 +107,9 @@ make_plot([0.4,0.5,0.6,0.7],'l1-med')
 
 make_plot([0.8,0.9,1.0],'l1-high')
 
+
+# Make the table
+
 column_names = ['Number of LU factorisations calculated','Total number of linear systems solved','Number of LU factorisations as percentage of total solves','Average number of GMRES iterations','Maximum number of GMRES iterations']
 
 float_format = '{:.0f}'.format # Based on formatting described at https://pyformat.info/#number
@@ -117,22 +120,15 @@ column_format = 'Sc '*df.shape[1]
 l1_table = 'l1-table.tex'
 
 
-
 with open(l1_table,mode='w') as table:
     df.to_latex(table,float_format=float_format,column_format=column_format)
 
+# This is a hack to get the table to print like I want
 with fileinput.input(files=(l1_table),inplace=True) as table:
     for line in table:
         if line.startswith('{}'):
             print(r'$\eps$\textbackslash$k$'+line[2:])
         else:
             print(line)
-            
-        
-# This is a hack to get the table to print like I want
-df.index.name = r'$\eps$\textbackslash$k$'
-
-
-# Also need to put all data in a table and save that in the a file
 
 # Also need to input these files somewhere
