@@ -158,7 +158,7 @@ If $\Dm, A, n, f,$ and $\gI$ satisfy the requirements in \cref{prob:tedp}, $\gD 
     \eit
 Then
 \beq\label{eq:tedpbound}
-  \muo \NLtD{u}^2 + \mut k^2 \NLtD{\grad u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2 + 2\LI k^2 \NLtGI{\trGI u}^2\leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2
+  \muo \NLtD{\grad u}^2 + \mut k^2 \NLtD{u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2 + 2\LI k^2 \NLtGI{\trGI u}^2\leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2
 \eeq
 for all $k>0,$ where $\gradGI$ is the surface gradient on $\GI,$
 \beqs
@@ -201,24 +201,24 @@ In \eqref{eq:stdiff} if $A$ is bounded above and bounded away from zero, then th
 
 However, for Helmholtz problems, the situation is much more subtle (as will be discussed in more detail below). Even if $A$ and $n$ are bounded above and bounded away from zero, in general one cannot prove a bound
 \beq\label{eq:bgbound}
-\NW{u} \leq C \NLtDp{f},
+\NHokDp{u} \leq C \NLtDp{f},
 \eeq
 where $C$ depends explicitly on $A$, $n$, and the wavenumber $k$. A fundamental cause of this difficulty is the fact that the sesquilinear form $a$ associated with the standard variational formulation of the Helmholtz equation is not coercive. However, $a$ does satisfy a G\r{a}rding inequality
 \beq\label{eq:gardingbrief}
-\Re{a(v,v)} + k^2 \mleft(\Amin + \nmax\mright) \NLtD{v}^2 \geq \Amin \NW{v}^2,
+\Re{a(v,v)} + k^2 \mleft(\Amin + \nmax\mright) \NLtD{v}^2 \geq \Amin \NHokD{v}^2,
 \eeq
 where
 \beq\label{eq:weightednorm}
-\NW{v} \de \mleft(\NLtD{\grad v} + k^2 \NLtD{v}\mright)^{1/2}
+\NHokD{v} \de \mleft(\NLtD{\grad v} + k^2 \NLtD{v}\mright)^{1/2}
 \eeq
-is the weighted $H^1$ norm used frequently when studying Helmholtz problems\footnote{The norm $\NW{\cdot}$ is used because solutions of the Helmholtz equation typically  have $\grad u \sim ku$; therefore the norm $\NW{\cdot}$ should contain terms of roughly the same size. This relationship between the solution and its gradient is exactly the case for plane waves $u = \exp(ik \bx \cdot \bd)$ (for some $\bd \in \RRd$), where $\grad u = ik \bd u.$} The G\r{a}rding inequality means $\Re{a(v,v)}$ is `coercive' if an appropriate multiple of the $L^2$-norm is added to it.
+is the weighted $H^1$ norm used frequently when studying Helmholtz problems\footnote{The norm $\NHokD{\cdot}$ is used because solutions of the Helmholtz equation typically  have $\grad u \sim ku$; therefore the norm $\NHokD{\cdot}$ should contain terms of roughly the same size. This relationship between the solution and its gradient is exactly the case for plane waves $u = \exp(ik \bx \cdot \bd)$ (for some $\bd \in \RRd$), where $\grad u = ik \bd u.$} The G\r{a}rding inequality means $\Re{a(v,v)}$ is `coercive' if an appropriate multiple of the $L^2$-norm is added to it.
 
 Because of the G\r{a}rding inequality, if the solution of the Helmholtz equation is unique, then existence and an a priori bound on the solution follow from Fredholm Theory (see, e.g. \cite[Theorems 5.10 and 5.18]{Sp:15}; Fredholm theory can be applied because the sesquilinear form satisfies a G\r{a}rding inequality.) Therefore the challenge of proving well-posedness reduces to proving uniqueness. However, we note that the a priori bound one obtains using Fredholm theory is generally \emph{not} explicit in $k,$ $A$ or $n$.
 
 For homogeneous problems (with $A=I$ and $n=1$) uniqueness follows from the Sommerfeld radiation condition\optodo{Find ref/figure out - Rellich lemma?}; for heterogeneous problems, the Unique Continuation Principle (UCP) gives uniqueness, under some additional smoothness assumptions on $A$ and $n$ (see, e.g., \cite[p. 2871]{GrPeSp:19} for a discussion of the UCP and \cite[Section 2]{GrSa:18} for the application of the UCP to show uniqueness for heterogeneous Helmholtz problems). Therefore, as well-posedness results for the Helmholtz equation are essentially well-understood\footnote{Observe that if one can prove an a-priori bound of the form \eqref{eq:bgbound}, then one can conclude uniqueness (as the solution of the Helmholtz equation with zero data must therefore be the zero function). Therefore, if one can prove such a priori bounds \emph{without} the restrictions on $A$ and $n$ needed to apply the UCP, one can conclude uniqueness (and well-posedness, as outlined above) in a wider class of media; see \cite[pp. 2873, 2883]{GrPeSp:19} for more details on how the results in \cite{GrPeSp:19} can be used in this way.}, we now turn our attention to a priori bounds on the solution that are explicit in $k,$ $A$, and $n.$
 
 \subsubsection{$k$-, $A$-, and $n$-explicit a priori bounds}
- All the bounds we now discuss will, unless otherwise stated, be for the weighted $H^1$ norm $\NW{\cdot}$ defined in \cref{eq:weightednorm}. We  only consider the case where the scatterer $\Dm$ is compact, and the inhomogeneities in $A$ and $n$ are compactly supported, as in \cref{prob:edp}. Research into so-called rough surface scattering, where either $\Dm$ or the inhomogeneities in $A$ and $n$ are not compactly supported, is itself a rich area of research (see, e.g., the literature reviews in \cite{Th:06}), but this area is not the concern of this thesis. Throughout this section we use $\lesssim$ notation--- we say $a \lesssim b$ if $a \leq C b,$ where $C$ is independent of $k$. We define $\gtrsim$ similarly, and say $a \sim b$ is $a \lesssim b$ and $a \gtrsim b.$
+ All the bounds we now discuss will, unless otherwise stated, be for the weighted $H^1$ norm $\NHokD{\cdot}$ defined in \cref{eq:weightednorm}. We  only consider the case where the scatterer $\Dm$ is compact, and the inhomogeneities in $A$ and $n$ are compactly supported, as in \cref{prob:edp}. Research into so-called rough surface scattering, where either $\Dm$ or the inhomogeneities in $A$ and $n$ are not compactly supported, is itself a rich area of research (see, e.g., the literature reviews in \cite{Th:06}), but this area is not the concern of this thesis. Throughout this section we use $\lesssim$ notation--- we say $a \lesssim b$ if $a \leq C b,$ where $C$ is independent of $k$. We define $\gtrsim$ similarly, and say $a \sim b$ is $a \lesssim b$ and $a \gtrsim b.$
 
 \def\techtitle{Techniques for proving a priori bounds}
 \paragraph{\techtitle} There are two main classes of techniques for proving a priori bounds on the Helmholtz equation. The first class uses techniques from semiclassical analysis (a branch of microlocal analysis), and studies the behaviour of rays through the medium. In order for this approach to be used $\Dm,$ $A$, and $n$ must all be smooth, so that rays and the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is difficult to define rigorously if the scatterer has a corner).\ednote{Euan---I want to add some chat here about when these methods were first introduced, but I'm struggling to figure it out? Is it with Lax \& Phillips?} 
@@ -286,7 +286,7 @@ We note in passing that many of the results in \cite{Mo:61,MoLu:68,Me:95,CuFe:06
 
 For the IIP with a general Lipschitz boundary, it is an open problem to prove $C \sim 1.$ The current best results are by Spence \cite{Sp:14}, who showed that
 \beqs
-\NW{u} \lesssim k \NLtD{f} + k^{\half} \NLtGI{\gI},
+\NHokD{u} \lesssim k \NLtD{f} + k^{\half} \NLtGI{\gI},
 \eeqs
 using bounds on layer potentials, building on work by Esterhazy and Melenk \cite{EsMe:12} and Feng and Sheen \cite{FeSh:94}.
 

@@ -2,7 +2,7 @@
 In \cref{sec:placing} we place the Helmholtz stochastic EDP into the framework developed in \cref{sec:gen-framework}. In \cref{sec:hh-cond} we give sufficient conditions for the Helmholtz stochastic EDP to satisfy \cref{con:coeffstoform,,con:coeffstofunc,,con:cborel}, etc.. In \cref{sec:applying} we apply the general theory developed in \cref{sec:gen-framework} to prove \cref{thm:hh-gen,,thm:hh-hetero}.
 
 \subsection{Placing the Helmholtz stochastic EDP into the framework of \cref{sec:gen-framework}}\label{sec:placing}
-Recall $R>0$ is fixed. We let $X=Y=\HozDDR$ and define the norm $\NW{v}^2 \de \NLtDR{\grad v}^2 + k^2 \NLtDR{v}^2$ on $\HozDDR.$ Throughout this section, $\Az,\nz,$ and $\fz$ will be deterministic functions. Recall that since the supports of $1-n,$ $I-A,$ and $f$ are compactly contained in $\BR$, we can consider $A, n,$ and $f$ as functions on $\DR$ rather than on $\Dp$. In order to define the space $\cC$ and the maps $\coeff,\toform,$ and $\rhs$ we define the following function spaces on $\DR$.
+Recall $R>0$ is fixed. We let $X=Y=\HozDDR$ and define the norm $\NHokDR{v}^2 \de \NLtDR{\grad v}^2 + k^2 \NLtDR{v}^2$ on $\HozDDR.$ Throughout this section, $\Az,\nz,$ and $\fz$ will be deterministic functions. Recall that since the supports of $1-n,$ $I-A,$ and $f$ are compactly contained in $\BR$, we can consider $A, n,$ and $f$ as functions on $\DR$ rather than on $\Dp$. In order to define the space $\cC$ and the maps $\coeff,\toform,$ and $\rhs$ we define the following function spaces on $\DR$.
 
 \bde[Compact-support spaces]\label{def:compsuppspace}
 Let
@@ -95,7 +95,7 @@ We need to show that if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC$ then 
 \\
 &\quad\quad\quad\,\,\quad\quad
 +k^2\NLiDRRR{\nm-\nz}\NLtDR{\vo}\NLtDR{\vt}\\
-&\quad\quad\quad\,\,\leq 2\dinfty((\Am,\nm,\fm),(\Az,\nz,\fz))\Nw{\vo}\Nw{\vt},
+&\quad\quad\quad\,\,\leq 2\dinfty((\Am,\nm,\fm),(\Az,\nz,\fz))\NHokDR{\vo}\NHokDR{\vt},
 \end{align*}
 Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\toform((\Am,\nm,\fm)) \rightarrow \toform((\Az,\nz,\fz))$ in 
 
@@ -104,7 +104,7 @@ Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\toform((\Am,
 \Bigabs{\big[\rhs\mleft(\mleft(\Am,\nm,\fm\mright),\mright) - \rhs\mleft(\mleft(\Az,\nz,\fz\mright)\mright)\big]\mleft(\vt\mright)} 
  = \abs{\int_{\DR} \mleft(\fm- \fz\mright)\vtb\,\dd\Leb}
  %&\hspace{-2cm}\leq\NLtDR{\fm-\fz}\NLtDR{\vt}
- \leq \NLtDR{\fm-\fz} \frac{\Nw{\vt}}{k}.
+ \leq \NLtDR{\fm-\fz} \frac{\NHokDR{\vt}}{k}.
 \eeqs
 Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\rhs((\Am,\nm,\fm)) \rightarrow \rhs((\Az,\nz,\fz))$ in $\Ys.$
 \epf
@@ -147,7 +147,7 @@ Continuity of $\sol$ then follows from:
 \item\label[point]{it:contrecall} Recalling that the well-posedness result of \cref{thm:deteu} holds when $\fz \in \LtRDR$ is replaced by a right-hand side in $(\HozDDR)^*$; see, e.g., \cite[Theorem 2.34]{Mc:00}.
 \item Applying the result in \cref{it:contrecall} to obtain a bound
 %  \beqs
-  $\NW{\ud} \leq C(\Az,\nz) \NHozDDRas{F}.$
+  $\NHokDR{\ud} \leq C(\Az,\nz) \NHozDDRas{F}.$
 %  \eeqs
 
 \item Showing $\NHozDDRas{F}$ depends on $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRRRdtd{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
@@ -266,7 +266,7 @@ where we have used the fact that the two norms
 are equivalent.
 Since the trace operator $\gamma$ is continuous from $\HoDR$ to $\HhGR$ (see, e.g.~\cite[Theorem 3.38]{Mc:00}), there exists $\Ctilde > 0$ such that
 \beqs
-\Nhomspace{\mleft(\toform\circ\coeff\mright)(\omega)}\leq\Ctilde\max\set{\NLiDRRRdtd{A(\omega)},\NLiDRRR{n(\omega)},C(k)}\Nw{\vo}\Nw{\vt}.
+\Nhomspace{\mleft(\toform\circ\coeff\mright)(\omega)}\leq\Ctilde\max\set{\NLiDRRRdtd{A(\omega)},\NLiDRRR{n(\omega)},C(k)}\NHokDR{\vo}\NHokDR{\vt}.
 \eeqs
 and hence $\toform\circ\coeff \in \LiOhomspace.$
 \epf
