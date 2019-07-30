@@ -66,13 +66,21 @@ For \cref{it:large}, the matrices $\Amat$ are large because the number of degree
 
 However, discretising \eqref{eq:introdet} with a fixed number of points per wavelength is \emph{not} enough to keep the error in the finite-element solution of \eqref{eq:introdet} bounded as $k\rightarrow \infty.$ This is because standard-finite-element methods applied to the Helmholtz equation suffer from pollution, where the numerically calculated wave has a different wavelength to the true solution $u$, and so `drifts' away from $u$; moreover, this error increases as $k$ increases. See \cref{fig:intropoll} for an illustration of this phenomenon, and \cref{chap:background}\optodo{Better ref once chapter written} for an extended discussion of this phenomena.
 
-\begin{figure}
-\caption{\label{fig:intropoll} Figure showing pollution effect}
-\end{figure}\optodo{Update Figure caption once figure is created}
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{pollution-left.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{pollution-right.pgf}
+    \end{subfigure}
+\caption{\label{fig:intropoll} Figure showing the pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. Solid line denotes the true solution, dashed line denotes the finite-element approximation with $h = \pi k^{-1}/5$.}
+\end{figure}\optodo{Figure out how to make $-1$ yticks work}
 
 
 In summary, numerically solving the Helmholtz equation gives rise to large (size at least $ \sim k^d$) linear systems, and the size of these linear systems increases as $k$ increases. The table \cref{tab:introlinsys} presents the sizes of the linear systems one obtains for different values of $k$, depending on the spatial dimension, and the properties of the finite-element solution that one requires.
 \begin{table}
+  \centering
 \begin{tabular}{c|cccccc}
  &\multicolumn{2}{c}{Interpolation error bounded}&\multicolumn{2}{c}{Finite-element error bounded}&\multicolumn{2}{c}{Quasi-optimality}\\
     &\multicolumn{2}{c}{($h = \pi/5 \times k^{-1}$)}&\multicolumn{2}{c}{($h = k^{-3/2}$)}&\multicolumn{2}{c}{($h = k^{-2}$)}\\

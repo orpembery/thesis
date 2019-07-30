@@ -1,11 +1,9 @@
 # Things in this Makefile have been taken from http://matt.might.net/articles/intro-to-make/
 
-.SUFFIXES: .tex .pdf
-
 all: thesis.pdf 
 
 
-thesis.pdf: *tex *pgf
+thesis.pdf: *tex *pgf 
 	pdflatex thesis.tex
 	bibtex thesis.aux # This is a hack
 	pdflatex thesis.tex
@@ -14,6 +12,7 @@ thesis.pdf: *tex *pgf
 	#touch thesis.tex # This is a hack, as I can't work out how to get make to depend on all the tex files
 
 clean:
+	rm *~
 	rm *aux	
 	rm *pdf
 	rm *log
@@ -66,6 +65,9 @@ spell:
 l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
 	python l1-plot-and-table.py
 
-*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
-	python l1-plot-and-table.py 
+l1*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+	python l1-plot-and-table.py
+
+pollution*.pgf: pollution-figure.py
+	python pollution-figure.py
 
