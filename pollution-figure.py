@@ -1,4 +1,3 @@
-from helmholtz_firedrake.problems import HelmholtzProblem
 from helmholtz_firedrake.utils import h_to_num_cells
 import firedrake as fd
 from matplotlib import pyplot as plt
@@ -11,8 +10,6 @@ h = (k**-1.0) * (np.pi/5.0)
 d = 1
 
 num_cells = h_to_num_cells(h,d)
-
-print(num_cells,h**-1)
 
 mesh = fd.UnitIntervalMesh(num_cells)
 
@@ -43,8 +40,6 @@ u_true.interpolate(fd.sin(k*x[0]))
 coords = fd.Function(V)
 
 coords.interpolate(x[0])
-
-#fd.plot(u_h)
 
 sin_fn = np.sin(k*coords.dat.data_ro)
 
