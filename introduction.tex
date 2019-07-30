@@ -61,9 +61,16 @@ In this thesis we will be exclusively concerned with discretisation via finite e
 For \cref{it:large}, the matrices $\Amat$ are large because the number of degrees of freedom must increase as $k$ increases. One can see this from interpolating the solution of \eqref{eq:introdet}; solutions $u$ of \eqref{eq:introdet} oscillate on a scale $1/k$, and therefore the number of degrees of freedom (interpolation points) must increase like $k^d$ (where $d$ is the spatial dimension) in order to keep the interpolation error for $u$ bounded. This need for increasing degrees of freedom with $k$ is illustrated in \cref{fig:introinterp}, where we see the interpolation error grows if the number of degrees of freedom is not increased with $k$. In practice one typically chooses to use 6--10 discretisation points in each dimension for each wavelength in the domain---this choice  empirically keeps the interpolation error at a reasonable size, but means the linear systems \eqref{eq:intromat} will have $k^d$ unknowns. 
 
 \begin{figure}
-\caption{\label{fig:introinterp} Figure showing interpolation error growing if mesh is not refined}
-\end{figure}\optodo{Update Figure caption once figure is created}
-
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{interpolation-left.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{interpolation-right.pgf}
+    \end{subfigure}
+\caption{\label{fig:introinterp} Figure showing increasing interpolation error if the mesh is not refined with increasing frequency. The left-hand plot show the interpolant of $\sin(10x)$ on a mesh with 10 points per wavelength. The right-hand plot shows the interpolant of $\sin(50x)$ on the same mesh.}
+\end{figure}
+\optodo{Figure font sizes}
 However, discretising \eqref{eq:introdet} with a fixed number of points per wavelength is \emph{not} enough to keep the error in the finite-element solution of \eqref{eq:introdet} bounded as $k\rightarrow \infty.$ This is because standard-finite-element methods applied to the Helmholtz equation suffer from pollution, where the numerically calculated wave has a different wavelength to the true solution $u$, and so `drifts' away from $u$; moreover, this error increases as $k$ increases. See \cref{fig:intropoll} for an illustration of this phenomenon, and \cref{chap:background}\optodo{Better ref once chapter written} for an extended discussion of this phenomena.
 
 \begin{figure}[h]
@@ -74,8 +81,8 @@ However, discretising \eqref{eq:introdet} with a fixed number of points per wave
     \begin{subfigure}{0.45\textwidth}
 \input{pollution-right.pgf}
     \end{subfigure}
-\caption{\label{fig:intropoll} Figure showing the pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. Solid line denotes the true solution, dashed line denotes the finite-element approximation with $h = \pi k^{-1}/5$.}
-\end{figure}\optodo{Figure out how to make $-1$ yticks work}
+\caption{\label{fig:intropoll} Figure showing the pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. Solid line denotes the true solution, dashed line denotes the finite-element approximation with 10 points per wavelength.}
+\end{figure}\optodo{Figure out how to make $-1$ yticks work}\optodo{Remove boxes on this and other plots}
 
 
 In summary, numerically solving the Helmholtz equation gives rise to large (size at least $ \sim k^d$) linear systems, and the size of these linear systems increases as $k$ increases. The table \cref{tab:introlinsys} presents the sizes of the linear systems one obtains for different values of $k$, depending on the spatial dimension, and the properties of the finite-element solution that one requires.

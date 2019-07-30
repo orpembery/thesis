@@ -9,7 +9,6 @@ thesis.pdf: *tex *pgf
 	pdflatex thesis.tex
 	pdflatex thesis.tex
 	evince thesis.pdf &
-	#touch thesis.tex # This is a hack, as I can't work out how to get make to depend on all the tex files
 
 clean:
 	rm *~
@@ -23,7 +22,7 @@ clean:
 	rm *dvi
 
 supervisor:
-# Based on https://tex.stackexchange.com/a/1495
+	# Based on https://tex.stackexchange.com/a/1495
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 	bibtex thesis.aux
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}"
@@ -70,4 +69,7 @@ l1*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling
 
 pollution*.pgf: pollution-figure.py
 	python pollution-figure.py
+
+interpolation*.pgf: interpolation-figure.py
+	python interpolation-figure.py
 
