@@ -110,12 +110,12 @@ make_plot([0.8,0.9,1.0],'l1-high')
 
 # Make the table
 
-column_names = ['Number of LU factorisations calculated','Total number of linear systems solved','Number of LU factorisations as percentage of total solves','Average number of GMRES iterations','Maximum number of GMRES iterations']
-
 float_format = '{:.0f}'.format # Based on formatting described at https://pyformat.info/#number
 # Helped debug using https://stackoverflow.com/a/20937592
 
 column_format = 'Sc '*df.shape[1]
+
+df.columns = [int(k) for k in k_list]
 
 l1_table = 'l1-table.tex'
 
@@ -130,7 +130,7 @@ with fileinput.input(files=(l1_table),inplace=True) as table:
         if line.endswith('Sc }\n'):
             print(line[:-3]+'Sc }')        
         elif line.startswith('{}'):
-            print(r'$\eps$\textbackslash$k$'+line[2:])
+            print(r'$\beta$\textbackslash$k$'+line[2:])
         else:
             print(line)
 

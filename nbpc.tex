@@ -1084,13 +1084,25 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 \end{corollary}
 \optodo{Need to have some chat about the trade-off with these, and the `theoretical' best $1/k$ for $L^1$}
 
+\begin{figure}
 \input{l1-low.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 1/k^\beta,$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:l1low}
+\end{figure}
 
-\input{l1-med.pgf}
-
-\input{l1-high.pgf}
+\begin{figure}
+  \input{l1-med.pgf}
+    \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 1/k^\beta,$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:l1med}
+\end{figure}
+    
+    \begin{figure}
+    \input{l1-high.pgf}
+      \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 1/k^\beta,$ for $\beta = 0.8,0.9,1.$}\label{fig:l1high}
+\end{figure}
+      
 \begin{table}
+  \centering
   \input{l1-table}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 1/k^\beta.$}\label{tab:l1}
   \end{table}
 
 \subsection{Probabilistic analogue of \cref{cor:1}}
