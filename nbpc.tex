@@ -1119,13 +1119,35 @@ If we compare our numerical results with the theory results in \cref{cor:aalt}, 
 We now apply nearby preconditioning to \emph{stochastic} Helmholtz problems, i.e., the Helmholtz problems defined and described in \cref{chap:stochastic}. We have two applications. In \cref{sec:probnbpc} we develop a probabalistic analogue of \cref{cor:1} above, and in \cref{sec:qmcnbpc} we apply nearby preconditioning to a Quasi-Monte-Carlo (QMC) method, showing that we have significant computational gains by using nearby preconditioning.
 
 Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$. I.e., for simplicity's sake we only consider the case of random $n$, although everything we sya could be easily extended to random $A$. To maintain consistent notation with the rest of this \cref{chap:nbpc} we will use a superscript ${}^{(2)}$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.. We also let $\nso \in \LiDRRR$ define a \emph{deterministic} Helmholtz problem, as at the beginning of this \cref{sec:nbpc}; we will use this deterministic Helmholtz problem to precondition the (discretisations of) the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
-\beqs
+\beq\label{eq:stopc}
 \AmatoI\Amatt(\omega) = \AmatoI \bff.
-\eeqs
+\eeq
 
-\subsection{Probabilistic analogue of \cref{cor:1}}
+\subsection{Probabilistic analogue of \cref{cor:1a}}
+If we apply \cref{cor:1a} to the above set-up we can straightforwardly conclude the following \cref{cor:stonbpcas}
+
+\bco[Almost-sure nearby preconditioning]\label{cor:stonbpcas}
+Let the assumptions of \cref{cor:1a} hold, and let $\nt$ satisfy the assumptions at the start of \cref{sec:hh-results}. Then the number of GMRES iterations needed to solve \cref{eq:stopc} is bounded independently of $k$ almost surely if
+\beq\label{eq:nbpcas}
+\NLiDRRR{\nso-\nst(\omega)} \leq \frac1{2\Ct k}
+\eeq
+almost surely.
+\eco
+The numerical results in \cref{sec:num} above can be seen as confirming this result.
+
+\bre[\Cref{cor:stonbpcas} is not ideal]\label{rem:notideal}
+\Cref{cor:stonbpcas} is not ideal for two main reasons:
+\ben
+\item\label{it:notideal1} The condition \cref{eq:nbpcas} must hold almost surely, and
+  \item\label{it:notideal2} \Cref{cor:stonbpcas} does not give any explicit information on how the number of GMRES iterations depends on $\NLiDRRR{\nso-\nst(\omega)}.$
+    \een
+    \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely. \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRRR{\nso-\nst(\omega)}.$\optodo{Fix Items}
+    \ere
+    In order to correct the deficiencies described in \cref{rem:notideal} we will first prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate on the number of GMRES iterations.
+
 \optodo{CHange $\sigma$ to $\alpha$ in Elman stuff}
 \optodo{Insert setup - $A$ equal, just doing $L^\infty$ stuff}
+The following \lcnamecref{lem:probgmres1} is \emph{deterministic} result, i.e., it does not require $\nt$ to be a random field. Therefore for this \lcnamecref{lem:probgmres1} only, we assume $\nst$ is as given at the beginning of this \lcnamecref{chap:nbpc}.
 \ble[Maximum number of GMRES iterations]\label{lem:probgmres1}
 Let $0 < \eps < 1,$ and let $\dofs$ denote the number of degrees of freedom.\optodo{Mentione $\dofs$ equals size of matrices}
 There exists a function $\Gfnname:(0,1)\rightarrow [0,\dofs]$ such that if GMRES is initialised with $\Nt{\brz} = 1,$ then GMRES applied to \cref{eq:pcsystem1} converges to within a tolerance $\eps$ in at most $\Gfn{\NLiDR{\nso-\nst}}$ iterations. Moreover, $\Gfnname$ is given by
@@ -1156,6 +1178,10 @@ m =\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mrigh
 The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2} and\optodo{at most $N$ result}.
 \epf
 
+\bre[Why the dependence on $\alpha$ in \cref{lem:probgmres1}?]
+The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDRRR{\nso-\nst}$ is because the \lcnamecref{cor:GMRES_intro} only holds if $\alpha < 1$. Therefore if $\alpha \geq 1$ the only result available for us to apply is\optodo{worst case result}, stating that GMRES converges in at most $N$ iterations.
+\ere
+\optodo{Insert pictures of $G$}
 %% We will use the following \lcnamecref{lem:gtechnical} to prove our probabilistic result.
 %% \ble[Properties of $\Gfnname$]\label{lem:gtechnical}
 %% Let $\eps,$ $\dofs$, and $\Gfnname$ be as in \cref{lem:probgmres1}. Define
