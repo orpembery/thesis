@@ -1252,7 +1252,46 @@ Notwithstanding the comments in \cref{rem:pessimistic}, we wil show in this \lcn
 
 
 
-\subsection{Application to QMC methods for the Helmholtz equation}
+\subsection{Application to Quasi-Monte-Carlo methods for the Helmholtz equation}\label{sec:nbpcqmc}
+
+We now apply nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the Helmholtz equation. We begin with a brief description of QMC methods, before detailing two ways we apply nearby preconditioning to these methods. Finally, we give computational results for applying nearby preconditioning to QMC methods for the Helmholtz equation.
+
+\subsubsection{Brief description of QMC}
+
+QMC methods (or rules) are high-dimensional integration rules, designed to yield superior rates of convergence (with respect to the number of integration points) compared to Monte-Carlo methods. Suppose one wants to approximate $\EXP{Q},$ where $Q$ is some random variable (later in this \lcnamecref{sec:nbpcqmc}, $Q$ will be a function of a stochastic PDE). By definition, the expectation is
+\beq\label{eq:qmcexpdef}
+\EXP{Q} = \int_\Omega Q(\omega) \ddPPomega.
+\eeq
+
+If we now suppose $Q$ depends on the sample space via a finite set of random variables $\Uo,\ldots,\UJ$, then we can rewrite \cref{eq:qmcexpdef} as
+\beq\label{eq:qmcexp2}
+\EXP{Q} = \int_\Omega Q\mleft((\Uo(\omega),\ldots,\UJ(\omega)\mright) \ddPPomega.
+\eeq
+If, for example, the $\Uj$ are all Uniform random variables on $\mleft[-1/2,1/2\mright]$, then \cref{eq:qmcexp2} can be rewritten as
+\beq\label{eq:qmcexp3}
+\EXP{Q} = \int_{\cube{J}} Q\mleft(\by\mright) \dd\lambda,
+\eeq
+where $\by \in \cube{J}$ and $\lambda$ denotes Lebesgue measure.
+
+Any integration rule, or method for approximating $\EXP{Q}$, can then be seen as a method for approximating the $J$-dimensional integral on the right-hand side of \cref{eq:qmcexp3}. Sampling-based rules will choose points $\byo,\ldots,\byNpoints \in \cube{J}$ and use the approximation
+\beqs
+\EXP{Q} \approx \frac1{\Npoints}\sum_{l=1}^{\Npoints} Q\mleft(\byl\mright).
+\eeqs
+Monte-Carlo and Quasi-Monte-Carlo rules are methods for choosing the points $\byl$. In a Monte-Carlo rule the points are chosen at random in accordance with the associated probability distribution. For example, in this case, the points are chosen according to the Uniform distribution on $\cube{J}$. Observe that Monte-Carlo rules do not need the dependence of $Q$ on $\omega$ to take the form prescribed above, they apply to any random variable.
+
+Quasi-Monte-Carlo rules, in contrast to Monte-Carlo rules, do require the dependence on $\omega$ to take the form prescribed above, as QMC rules are high-dimensional integration rules (where we are integrating across the high-dimensional cube $\cube{J}).$ In QMC rules the points $\byl$ are not chosen completely at random, unlike Monte-Carlo rules.
+
+The advantages of QMC rules is that they can exhibit higher rates of convergence compared to Monte-Carlo rules; Monte Carlo rules typically converge with rate $1/\Npoints^{1/2}$ (see\optodo{Ref when done}), whereas QMC rules can converge with rates up to $1/\Npoints$\optodo{Insert ref} or with even higher rates for higher-order QMC rules\optodo{Refs}.
+
+In applying QMC rules to stochastic PDEs, we assume that the random coefficient is dependent on fintely many (or countably many) random variables, as in \cref{eq:qmcexp2} above, and we then use QMC rules to estimate expectations of quantities of interest for the stochastic PDE. Seee\optodo{ref} below for this setup worked out in more detail for the Helmholtz equation. Applying QMC rules to stochastic PDEs is a vibrant and active research area. For recent overviews of this field, see \cite{KuNu:16} (and the associated tutorial \cite{KuNU:18a}) and \cite{KuNu:18b}. We observe that there is currently no rigorous study of how QMC methods behave for the Helmholtz equation, although we undertstand such work is underway in \cite{GaKuSl}.
+
+The key idea in applying nearby preconditioning to QMC methods for the Helmholtz equation is that we do not just choose one realisation $\no$ of the coefficient for which to calculate the preconditioner, rather, we choose as many as a are necessary to ensure the number of GMRES iterations across all samples remains bounded. The key questions the algorithms in this \lcnamecref{sec:nbpcqmc} answer are therefore: How many preconditioners should one calculate, and for which realisations of the coefficient should they be calculated?
+
+
+
+
+
+
 \optodo{Need to first explain the iterative procedure}
 \subsection{Sequential algorithm}
 

@@ -5,7 +5,7 @@
 all: thesis.pdf 
 
 
-thesis.pdf: *tex *pgf
+thesis.pdf: *tex *pgf *bib
 	pdflatex thesis.tex
 	bibtex thesis.aux # This is a hack
 	pdflatex thesis.tex
@@ -15,12 +15,12 @@ thesis.pdf: *tex *pgf
 
 clean:
 	rm *aux	
-	rm *pdf
 	rm *log
 	rm *bbl
 	rm *blg
 	rm *out
 	rm *toc
+	rm *pdf
 	rm *dvi
 
 supervisor:
