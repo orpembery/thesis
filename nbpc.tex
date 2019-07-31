@@ -1287,14 +1287,46 @@ In applying QMC rules to stochastic PDEs, we assume that the random coefficient 
 
 The key idea in applying nearby preconditioning to QMC methods for the Helmholtz equation is that we do not just choose one realisation $\no$ of the coefficient for which to calculate the preconditioner, rather, we choose as many as a are necessary to ensure the number of GMRES iterations across all samples remains bounded. The key questions the algorithms in this \lcnamecref{sec:nbpcqmc} answer are therefore: How many preconditioners should one calculate, and for which realisations of the coefficient should they be calculated?
 
+\subsubsection{Methods for applying nearby preconditioning to QMC}\label{sec:nbpcqmcnum}
+We now detail two methods for using nearby preconditioning to speed up QMC methods for the Helmholtz equation. To apply these methods, we use the following model problem: We consider the Interior Impedance Problem in 2-d with $f=1$ and $\gI=0$, $A = I$ and $n$ given by
+\beq\label{eq:artificialkl}
+n(\omega,\bx) = 1 + \sum_{j=1}^{10} \Uj(omega) \sqrt{\lambdaj} \psij(\bx),
+\eeq
+where
+\beqs
+\sqrt{\lambdaj} = j^{-2}
+\eeqs
+and
+\beqs
+\psij(\bx) = \cos\mleft(\frac{j\pi}4 x\mright)\cos\mleft(\frac{\mleft(j+1\mright)\pi}4 y\mright).
+\eeqs
+Observe that $\NLiDRR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ This expansion is based on the random-field expansion in \cite[Section 5.1]{GiGrKuScSl:19}. Expansions similar to \cref{eq:artificalkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Loe\`eve expansion of a random field, where the $\Uj$ are independent random variables, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator\optodo{ref LPS}. In view of the fact that we will bev using QMC methods to approximated $\EXP{Q(u)}$ (for some quantities of interest $Q$) we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
+\beqs
+n(\by) = 1 + 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
+\eeqs
+There is no a priori reason that one must have such an affine dependence of the random field on the randomness in order to apply nearby preconditioning to QMC methods (one could, for example, take $n$ to be a lognormal random field). However, affine dependence will allow us to easily define the so-called `paralleisable' nearby-preconditioning-QMC algorithm below.
+
+We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly numerical; there is no current theory to support these calculations. In particular, we show below\optodo{ref} that it appears that for the QMC error for Helmholtz problems to remain bounded as $k$ increases, one must increase the number of QMC points polynomially in $k.$ We again remark that there is currently no theoretical justification for this behaviour.
+
+\paragraph{Terminology} Before we describe the nearby-preconditioning-QMC algorithms in detail we establish two pieces of terminology that will be of use in describing these algorithms. Firstly, we will use the word `point' to refer to a point in the parameter space $\cube{J}$, and use phrases such as `calculate a preconditioner at the point $\by$' as shorthand for `calculate the preconditioner corresponding to the finite-element discretisation of the Helmholtz IIP (as described above) with coefficient $n(\by)$'.
+
+We we alse use the words `nearby' and `nearest' (when referring to QMC points) to mean: nearest in the metric
+\beqs
+\dQMC(\byo,\byt) = \NLiDRRR{n(\byo)-n(\byt)}.
+\eeqs
+We use this metric to describe the geometry of our QMC points as our results in \cref{sec:intronbpc} above indicate that it is the $L^\infty$-norm of the different in the coefficients that dictates the effectiveness of nearby preconditioning. Therefore, when considering which QMC points will yield preconditioners suitable for use with other QMC points, this metric is a natural metric to use.
 
 
+\paragraph{A sequential algorithm} We first describe a straightforward algorithm that uses nearby preconditioning to speed up QMC calculation for the Helmholtz equation. We call this a `sequential' algorithm because, unlike the `parallel' algorithm we describe below, it is intrinsically sequential and cannot be parallelised. I.e., finite-element solves for different realisations of the random field $n$ cannot be treated in parallel. One can, of course, use parallelisation for inidividual finite-element solves.
 
-
-
-\optodo{Need to first explain the iterative procedure}
-\subsection{Sequential algorithm}
-
+An overview of the algorithm is:
+\ben
+\item Choose a point $\by$ for which to calculate a preconditioner
+\item\label{it:nearest} Find the nearest non-computed point and attempt a preconditioned GMRES solve at that point.
+    \item If GMRES does not take too long to converge, return to \cref{it:nearest}.
+\item If GMRES takes too long to converge, recalculate the preconditioner at the current point, and return to \cref{it:nearest}.
+  \een
+  The algorithm is written in more formal pseudocode in \cref{alg:seq}.
 \begin{algorithm}[h]
 \DontPrintSemicolon
 \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
@@ -1317,28 +1349,82 @@ $\bypre \defined \bycurrent$\;
 Calculate preconditioner $\Pmat$ at $\bypre$\;
 }
 }
-\caption{Algorithm to perform all solves in a QMC method using nearby preconditioning}
+\caption{Algorithm to perform all solves in a QMC method using nearby preconditioning\label{alg:seq}}
 \end{algorithm}
-\subsection{Parallelisable tensor-product algorithm}
-\optodo{Need to put exposition in here to explain why this is the right thing for a tensor product grid, etc.}
-Define
-\beqs
-\Npreidealj(r) = \max\set{\frac{J \sqrt{\lambdaj}}{2r},1}.
-\eeqs
-The `ideal' total number of QMC points is
-\beqs
-\Npreideal(r)=\prod_{j=1}^J  \Npreidealj(r)
-\eeqs
+\paragraph{Parallelisable algorithm} The main disadvantage of the `sequential' algorithm described above is that the points at which preconditioners are calculated are identified as the algorithm progresses. Therefore the algorithm cannot be parallelised by sending different collections of QMC points to different processors (as one would need to know which preconditioner to use for each point at the start of the algorithm). Therefore, we now suggest an alternative algorithm that allows one to specify the number of preconditioning points before the algorithm commences, and then calculates which points to use as preconditioning points, and then performs the all of the QMC solves, potentially in parallel if required. The most complicated part of the algorithm is deciding at which points to calculate the preconditioners, and so we describe this part of the algorithm in more detail here. A more formal description of the algorithm is available in \cref{alg:par}.
 
-Want to calculate the number of preconditioners $\Npre$, the set
-\beqs
-\Spre=\set{\ypreo,\ldots,\ypreNpre}
+Suppose we are given a set $\set{\byo,\ldots,\byNQMC}$ of QMC points and a number $\Npretarget$; the target number of preconditioners to compute. The aim of this algorithm is to select (approximately) $\Npretarget$ QMC points that are (approximately) equally spaced with respect to the $\dQMC$ metric defined above. If such a goal is acheived, then one expects that the preconditioning points are best located to minimise the total number of GMRES iterations across all solves across all of the QMC points.
+
+The algorithm contains two key ideas:
+\ben
+  \item Use a surrogate metric in place of $\dQMC$, and
+\item Locate the preconditioning points according to a tensor-product rule.
+  \een
+  We now describe each of these two ideas in turn.
+\optodo{Say somewhere doing general $J$}
+  Whilst the metric $\dQMC$ is the metric related to the performance of nearby preconditioning (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with; it is not obvious what geometry it induces on $\cube{J}$, nor how to theoretically work with it (we ignore the issue of \emph{computing} $\dQMC$ here). Therefore, we work in an alternative, although related metric
+  \beqs
+\dapprox(\byo,\by) = \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}.
 \eeqs
-of QMC points at which to calculate the preconditioner and the map
+Observe that $\dapprox$ is a weighted $L^1$ metric, with the weights corresponding to the terms in \cref{eq:artificalkl}. Recall that $\sqrt{almbdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
+
+To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric). Therefore, given the centres of two of these balls $\bcone$ and $\bct$ (if we suppose these are the centres of `adjacent' balls), then we will have
+\beq\label{eq:centres2r}
+\dapprox(\bcone,\bct) = 2r.
+\eeq
+The question now arises of how we choose $\bcone$ and $\bct$ so that \cref{eq:centres2r} holds. We observe that, by the definition of $\dapprox$, if we choose $\bcone$ and $\bct$ such that
 \beqs
-\nearestpre:\SQMC\rightarrow\Spre
+\sqrt{\lambdaj}\abs{{\bcone}_{j}-{\bct}_j} = \frac{2r}{J},
 \eeqs
-taking each QMC point to its nearest (in the induced spatial $L^\infty$ norm) preconditioner, where $\SQMC$ is the set of QMC points.
+then we will have \cref{eq:centres2r} by construction, because
+\beqs
+\dapprox(\bcone,\bct) = \sum_{j=1}^J \frac{2r}J = 2r.
+\eeqs
+Therefore, in dimension $j$ we choose the centres of the balls to be spaced
+\beqs
+\min\set{\frac{2r}{J\sqrt{\lambdaj}},1}
+\eeqs
+apart (where we include the minimum so that, for high dimensions, we include at least one centre). That is, in dimension $j$, we take
+\beqs
+\Nj \de \max\set{1,\frac{J\sqrt{\lambdaj}}{2r}}
+\eeqs
+equally spaced points $\centresj = \set{c_{j,1},\ldots,c_{j,\Nj}},$ and then we form the centres $\bcone,\ldots,\bcNpre$ by taking tensor products of the points in $\centreso,\ldots,\centresJ,$ giving a total of $\Npre = \No \times \cdots \times \NJ$ preconditioning points.
+
+However, there are three immediate questions with the above approach:
+\ben
+\item The above procedure assumes we know the radius of the balls we wish to construct, and then returns the total number of preconditioning points, and their locations.
+\item There is no guarantee that the numbers of points $\Nj$ calculated above are integers.
+  \item There is no guarantee the preconditioning points given by the above procedure are QMC points.
+    \een
+    These questions are all completely valid, and so we slightly modify the above procedure to deal with them.
+
+    Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\RRp \rightarrow \RRp$ given by $r \mapsto \Npre.$ Therefore we can calculate numerically the value $\rideal$ such that $\rideal \mapsto \Npretarget.$ (In the code\optodo{ref}, we do this via interval bisection.) Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\Npreidealo,\ldots,\NpreidealJ$ as above (recalling that the $\Npreidealj$ are not necessarily integers). We can then round all the $\Npreidealj$ to obtain integers (as $\Npreidealj \geq 1$ for all $j$ by construction) $\Npreactualj$, and we then take $\Npreactualj$ centres in each dimension. We can then form the centres as above, giving a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ peconditioning points.
+
+    These points may not be QMC points; if we desired, we could simply calculate the preconditioners at these non-QMC points, however, instead we elect to calculate the preconditioners at QMC points, and so we simply replace each calculated centre with its nearest QMC point.
+    \optodo{THis almost certainly needs more writing and more notation}
+
+    This algorithm is summarised more formally in \cref{alg:par}.
+    
+    
+
+%% Define
+%% \beqs
+%% \Npreidealj(r) = \max\set{\frac{J \sqrt{\lambdaj}}{2r},1}.
+%% \eeqs
+%% The `ideal' total number of QMC points is
+%% \beqs
+%% \Npreideal(r)=\prod_{j=1}^J  \Npreidealj(r)
+%% \eeqs
+
+%% Want to calculate the number of preconditioners $\Npre$, the set
+%% \beqs
+%% \Spre=\set{\ypreo,\ldots,\ypreNpre}
+%% \eeqs
+%% of QMC points at which to calculate the preconditioner and the map
+%% \beqs
+%% \nearestpre:\SQMC\rightarrow\Spre
+%% \eeqs
+%% taking each QMC point to its nearest (in the induced spatial $L^\infty$ norm) preconditioner, where $\SQMC$ is the set of QMC points.
 
 \begin{algorithm}[h]
 \DontPrintSemicolon
@@ -1358,7 +1444,7 @@ Define $\Spre$ by taking all possible tensor products of points in $\Sprej$\;
 \For{l $=1$ \KwTo $\NQMC$}{
 Calculate $\nearestpre\mleft(\by^{(l)}\mright)$ by brute force\;
 }
-\caption{Algorithm to determine $\Spre$ and $\nearestpre$}
+\caption{Algorithm to determine $\Spre$ and $\nearestpre$\label{alg:par}}
 \end{algorithm}
 
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
