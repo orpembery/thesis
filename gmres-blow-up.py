@@ -4,7 +4,7 @@ import firedrake as fd
 import pickle
 
 
-k_list = [10.0,20.0,30.0,40.0,50.0,60.0]
+k_list = [10.0,20.0,30.0,40.0,50.0,60.0,70.0,80.0,90.0,100.0]
 
 GMRES_its = []
 
