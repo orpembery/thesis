@@ -95,7 +95,7 @@ def make_plot(locs,filename):
         
     plt.legend(loc='upper left')
 
-    plt.savefig(filename+'.pgf') # This doesn't work
+    plt.savefig(filename+'.pgf') 
 
     plt.close() # Why is there an extra figure created when doing two ormore plots, and why does this fix it?
 
