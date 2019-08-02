@@ -1,20 +1,17 @@
 # Things in this Makefile have been taken from http://matt.might.net/articles/intro-to-make/
 
-.SUFFIXES: .tex .pdf
-
 all: thesis.pdf 
-	evince thesis.pdf &
-	touch thesis.tex # This is a hack, as I can't work out how to get make to depend on all the tex files
 
-.tex.pdf:
-	pdflatex $<
+
+thesis.pdf: *tex *pgf 
+	pdflatex thesis.tex
 	bibtex thesis.aux # This is a hack
-	pdflatex $<
-	pdflatex $<
-	#evince thesis.pdf # As is this
-	#touch $<
+	pdflatex thesis.tex
+	pdflatex thesis.tex
+	evince thesis.pdf &
 
 clean:
+	rm *~
 	rm *aux	
 	rm *pdf
 	rm *log
@@ -25,7 +22,7 @@ clean:
 	rm *dvi
 
 supervisor:
-# Based on https://tex.stackexchange.com/a/1495
+	# Based on https://tex.stackexchange.com/a/1495
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 	bibtex thesis.aux
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}"
@@ -63,3 +60,21 @@ spell:
 	for file in $(shell ls *tex); do \
 	aspell --mode=tex -c $$file ; \
 	done
+
+l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+	python l1-plot-and-table.py
+
+l1*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+	python l1-plot-and-table.py
+
+pollution*.pgf: pollution-figure.py
+	python pollution-figure.py
+
+interpolation*.pgf: interpolation-figure.py
+	python interpolation-figure.py
+
+GMRES.pgf: GMRES.pickle gmres-blow-up-plot.py
+	python gmres-blow-up-plot.py
+
+GMRES.pickle: gmres-blow-up.py
+	python gmres-blow-up.py
