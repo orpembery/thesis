@@ -1,14 +1,15 @@
 import pickle
 import numpy as np
 import sys
-from name_writing import name_writing, make_quants
+from running_helmholtz_monte_carlo.name_writing import make_quants
+#from name_writing import name_writing, make_quants
 from helmholtz_monte_carlo.calculate import mean_and_error
 from glob import glob
 from matplotlib import pyplot as plt
 
-"""This script plots (and calculates) how the quasi-monte carlo error depends on the wavenumber k.
+"""This script plots (and calculates) how the quasi-monte carlo error depends on the wavenumber k."""
 
-The script takes a number of command-line arguments, in order, as follows:
+"""The script takes a number of command-line arguments, in order, as follows:
 
 number of h levels - the number of grids used, where they were obtained by uniform refinement from a grid with mesh size k**-3/2. A value of 1 indicates that the finest grid had mesh size k**-3/2.
 
@@ -35,27 +36,27 @@ The script computes results for all the qois that are available
 The remaining arguments are the values of k to use.
 """
 
-h_levels = sys.argv[1]
+h_levels = 1#sys.argv[1]
 
-M = int(sys.argv[2])
+M = 11#int(sys.argv[2])
 
-nu = int(sys.argv[3])
+nu = 20#int(sys.argv[3])
 
-J = int(sys.argv[4])
+J = 10#int(sys.argv[4])
 
-delta = float(sys.argv[5])
+delta = 1.0#float(sys.argv[5])
 
-lambda_mult = float(sys.argv[6])
+lambda_mult = 1.0#float(sys.argv[6])
 
-j_scaling = float(sys.argv[7])
+j_scaling = 4.0#float(sys.argv[7])
 
-dim = int(sys.argv[8])
+dim = 2#int(sys.argv[8])
 
-h_coarse_magnitude = float(sys.argv[9])
+h_coarse_magnitude = 0.002#float(sys.argv[9])
 
-h_coarse_scaling = float(sys.argv[10])
+h_coarse_scaling = 0.0#float(sys.argv[10])
 
-next_number = 11
+#next_number = 11
 
 # If altered, don't forget to change entry to make_quants
 
@@ -63,14 +64,14 @@ on_balena = '*' # This doesn't matter, but needs to go in for completeness
 
 qois = '*' # As above
 
-k_list = [ float(k) for k in sys.argv[next_number:]]
+k_list = [10.0,20.0,30.0,40.0,50.0,60.0]#[ float(k) for k in sys.argv[next_number:]]
 
 for ii_k in range(len(k_list)):
 
     k = k_list[ii_k]
 
     # Make the dict
-
+    import pdb; pdb.set_trace()
     quants = make_quants([k,h_levels,M,nu,J,delta,lambda_mult,j_scaling,dim,on_balena,h_coarse_magnitude,h_coarse_scaling,qois])
 
     folder_name_start = name_writing(quants)
