@@ -73,3 +73,8 @@ pollution*.pgf: pollution-figure.py
 interpolation*.pgf: interpolation-figure.py
 	python interpolation-figure.py
 
+GMRES.pgf: GMRES.pickle gmres-blow-up-plot.py
+	python gmres-blow-up-plot.py
+
+GMRES.pickle: gmres-blow-up.py
+	python gmres-blow-up.py
