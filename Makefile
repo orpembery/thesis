@@ -76,4 +76,4 @@ nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*
 	python nbpc-qmc-parallel-table.py
 
 nbpc-linfinity-plot-*pgf: nbpc-linfinity-plots.py
-	python nbpc-linfinity-plots.py
+	python nbpc-linfinity-plots.py # Takes a couple of minutes.

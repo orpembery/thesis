@@ -227,6 +227,41 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 
 \section{Numerical experiments}\label{sec:num}
 \optodo{Put $L^\infty$ stuff in here}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+      \centering
+\input{nbpc-linfinity-plot-A-0.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{nbpc-linfinity-plot-n-0.pgf}
+    \end{subfigure}
+\caption{\label{fig:nbpclinfinity0} $noise \sim 1/k$}
+\end{figure}\optodo{Update caption once I've written this}
+
+\begin{figure}[h]
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{nbpc-linfinity-plot-A-1.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{nbpc-linfinity-plot-n-1.pgf}
+    \end{subfigure}
+\caption{\label{fig:nbpclinfinity1} $noise \sim 1/k^{0.5}$}
+\end{figure}\optodo{Update caption once I've written this}
+
+\begin{figure}[h]
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{nbpc-linfinity-plot-A-2.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{nbpc-linfinity-plot-n-2.pgf}
+    \end{subfigure}
+\caption{\label{fig:nbpclinfinity2} $noise \sim 1$}
+\end{figure}\optodo{Update caption once I've written this}
+
+
 \subsection{Investigating the sharpness of \cref{thm:1} and \cref{cor:1}}
 
 \Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:src} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{prob:tedp}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
