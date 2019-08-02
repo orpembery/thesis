@@ -1530,17 +1530,32 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
 \begin{table}
   \centering
   \input{nbpc-qmc-sequential-table}
-  \caption{Results applying our sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm}\label{tab:nbpcqmcseq}
+  \caption{Results applying our sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm, with the maximum number of GMRES iterations $=10$.}\label{tab:nbpcqmcseq}
 \end{table}\optodo{Make caption better}
 
 \begin{table}
   \centering
   \input{nbpc-qmc-parallel-table}
-  \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm}\label{tab:nbpcqmcspar}
+  \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $0.2$\%.}\label{tab:nbpcqmcspar}
   \end{table}\optodo{Make caption better}
 
 
+\optodo{Put in stuff about getting to 3.5 once the computations are done.}
 
+Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$
+
+As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
+\bit
+\item We first use the sequential algorithm for low wave numbers (fixing the maximum number of GMRES iterations) and observe how the number of preconditioners (as a proportion of the number of QMC points) changes with $k$.
+  \item We then use the parallel algorithm (with the above proportion of preconditioners) for higher values of $k.$
+    \eit
+    We remark that, in principle, one could use the sequential algorithm for all values of $k$, however, this would take an incredibly long time--- we see below that for $k=60$ we must perform $2^{20}$ Helmholtz solves; if we performed these solves sequentially, and each solve took 5 seconds, this computation would take on the order of 60 days to complete.
+
+    The results for the sequential algorithm are summarised in \cref{tab:seq}, for $k$ up to 30. These results show that nearby preconditioning is very effective, with the number of preconditioners remaining (approximately) constant as a percentage of the total number of solves. This is the best result one could realistically hope for; in this case the decreasing (like $1/k$) radius over which nearby preconditioning is effective is offset by the growing number of QMC points, meaning the number of preconditioners is constant as a fraction of the total number of solves.
+
+    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion in \optodo{ref} above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditinoers that must be calculated.
+
+    In conclusion, we see that nearby preconditioning gives very significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
     
 
     
