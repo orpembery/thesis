@@ -71,3 +71,6 @@ l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-sc
 
 nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
 	python nbpc-qmc-sequential-table.py
+
+nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py
+	python nbpc-qmc-parallel-table.py
