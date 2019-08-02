@@ -1390,18 +1390,21 @@ apart (where we include the minimum so that, for high dimensions, we include at 
 \eeqs
 equally spaced points $\centresj = \set{c_{j,1},\ldots,c_{j,\Nj}},$ and then we form the centres $\bcone,\ldots,\bcNpre$ by taking tensor products of the points in $\centreso,\ldots,\centresJ,$ giving a total of $\Npre = \No \times \cdots \times \NJ$ preconditioning points.
 
-However, there are three immediate questions with the above approach:
+However, there are three immediate objections to the above approach:
 \ben
-\item The above procedure assumes we know the radius of the balls we wish to construct, and then returns the total number of preconditioning points, and their locations.
+\item The above procedure assumes we know the radius of the balls we wish to construct, and then returns the total number of preconditioning points, and their locations, but we only know in advance the ideal total number of preconditioning points.
 \item There is no guarantee that the numbers of points $\Nj$ calculated above are integers.
   \item There is no guarantee the preconditioning points given by the above procedure are QMC points.
     \een
     These questions are all completely valid, and so we slightly modify the above procedure to deal with them.
 
-    Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\RRp \rightarrow \RRp$ given by $r \mapsto \Npre.$ Therefore we can calculate numerically the value $\rideal$ such that $\rideal \mapsto \Npretarget.$ (In the code\optodo{ref}, we do this via interval bisection.) Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\Npreidealo,\ldots,\NpreidealJ$ as above (recalling that the $\Npreidealj$ are not necessarily integers). We can then round all the $\Npreidealj$ to obtain integers (as $\Npreidealj \geq 1$ for all $j$ by construction) $\Npreactualj$, and we then take $\Npreactualj$ centres in each dimension. We can then form the centres as above, giving a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ peconditioning points.
+    Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\Npreideal:\RRp \rightarrow \RRp$ given by $r \mapsto \Npre.$ Therefore we can calculate numerically the value $\rideal$ such that $\Npreideal(\rideal) = \Npretarget.$ (In the code\optodo{ref}, we do this via interval bisection.)
 
-    These points may not be QMC points; if we desired, we could simply calculate the preconditioners at these non-QMC points, however, instead we elect to calculate the preconditioners at QMC points, and so we simply replace each calculated centre with its nearest QMC point.
-    \optodo{THis almost certainly needs more writing and more notation}
+    Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\Npreidealo,\ldots,\NpreidealJ$ as above (recalling that the $\Npreidealj$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Npreidealj}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Npreidealj \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
+
+We then take $\Npreactualj$ centres in each dimension, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ peconditioning points.
+
+These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead calculate the preconditioners at QMC points, and so we simply replace each calculated centre with its nearest QMC point.
 
     This algorithm is summarised more formally in \cref{alg:par}.
     
@@ -1447,6 +1450,89 @@ Calculate $\nearestpre\mleft(\by^{(l)}\mright)$ by brute force\;
 \caption{Algorithm to determine $\Spre$ and $\nearestpre$\label{alg:par}}
 \end{algorithm}
 
+\paragraph{Advantages and disadvantages of each method} The advantages of the sequential algorithm are:
+\bit
+\item Its simplicity; the algorithm is simple and intuitive to describe, and
+\item Its lack of heuristics - one only needs to specify the maximum number of GMRES iterations; this could be determined, for example by the memory constraints of the machine one is using.
+    \eit
+    However, the disadvantages of the sequential algorithm re:
+    \bit
+  \item The algorithm is inherently serial; one must see whether a given solve converges in the required number of GMRES iterations before performing subsequent solves. (In principle one could parallelise the algorithm by splitting the QMC points up onto different groups of processors, and then using the sequential algorithm on each group of processors. However, there is no guarantee one would split the QMC points up in a way that groups nearby points, which could lead to a substantial increase in computational work.)
+    \item There is no guarantee that this method for exploring the sample space and choosing the preconditioning points will yield an optimal collection of preconditioning points (optimal in the sense of the minimal number of preconditioning points needed).
+    \eit\optodo{\emph{Why} wouldn't this algorithm work in parallel? Is it any worse than calculating PCs multiple times?}
+    \optodo{Put somewhere that it would work well for MCMC, citing paper Rob said. Also, Recycling Krylov in future work?}
+
+    The advantages and disadvantages of the parallel algorithm are, by and large, the reverse of those for the sequential algorithm. The advantages of the parallel algorithm are:
+    \bit
+  \item The algorithm is fully parallelisable; once the preconditioning points and the map from QMC points to preconditioning points have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner multiple times, on different groups of processes\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.}\optodo{ref code}. However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
+    \item The preconditioning points should fill the parameter space `well'. Given the points are chosen a priori to be well spaced according to the $\dapprox$ metric, one expects they will be a close to optimal collection (in the sense described above).
+      \eit
+      The disadvantages of the parallel algorithm are:
+      \bit
+    \item One needs a heuristic for how many preconditioning points to choose, as this is not given by the algorithm. (In our numerical experiments below, we obtain this heuristic by using the sequential algorithm for low $k$, and then extrapolating the proportion of preconditioning points used to larger values of $k.$
+      \item The number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. However, we expect the number of generated points will be close $\Npretarget$.
+      \eit
+\optodo{Use backref and make an index?}
+\optodo{histogram of GMRES iterations for parallel algorithm?}
+
+\subsubsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
+\optodo{Need to tidy code/make plots/make better the stuff that calculates 3.5}
+
+We now describe numerical experiments demonstrating the effectiveness of nearby preconditioning for tackling Helmholtz problems.
+
+As described above, before we perform our numerical experiments, we need to determine:
+\bit
+\item How the number of QMC points should scale with $k$, and
+  \item How many preconditioners we should choose.
+    \eit
+    We tackle each of these in turn, before using the parallelisable algorithm detail above to apply nearby preconditioning to QMC methods for the Helmholtz equation. Throughout this \lcnamecref{sec:nbpcqmcnumerics} we use the model problem\optodo{Copy model problem from above, and make appropriate changes above.}.
+
+    To determine how the number of QMC points should scale with $k$, we first estimate the QMC error for increasing $k.$ To estimate the QMC error we use a randomly shifted QMC rule; our exposition here follows \cite[Section 4.2]{GrKuNuScSl:11}.
+
+    Suppose our QMC points are $\byo,\ldots,\byNQMC$, and the resulting QMC rule is
+    \beqs
+\QMC{\NQMC}{Q} = \frac1{\NQMC}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\mright)\mright).
+\eeqs
+For a `shift' $\shift \in \cube{J}$ we define the shifted QMC rule
+\beqs
+\QMCshift{\NQMC}{Q}{\shift} = \frac1{\NQMC}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus\shift\mright)\mright),
+\eeqs
+where $\by \oplus \shift$ denotes $\by + \shift$ `wrapped around' onto the hypercube $\cube{J}$. (Formally $\by \oplus \shift = \fracoperator{\mleft(\by + \bhalf\mright)+\shift} - \bhalf,$ where $\fracoperator{\cdot}$ denotes the fractional part.)
+
+We then define the randomly shifted QMC rule (with multiple randomly chosen shifts $\shifto,\ldots,\shiftNshifts$)
+\beqs
+\QMCrandshift{Q}{\Nshifts} = \frac1{\Nshifts}\sum_{s=1}^{\Nshifts} \QMCshift{Q}{\shifts} = \frac1{\NQMC\Nshifts}\sum_{s=1}^{\Nshifts}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus \shifts\mright)\mright).
+\eeqs
+
+Having defined the randomly shifted QMC rule, one can the use a statistical estimator of the QMC standard error\optodo{Figure out why this is the case, and if anything is different for complex, and how we've implemented it.}\optodo{Also, what is the terminology for this?} \cite[Equation (4.6)]{GrKuNuScSl:11}
+\beqs
+\QMCerror{\NQMC}{\Nshifts} = \mleft(\frac1{\Nshifts\mleft(\Nshifts-1\mright)}\sum_{s=1}^{\Nshifts} \mleft(\QMCshift{Q}{\shifts} - \QMCrandshift{Q}{\Nshifts}\mright)^2\mright)^{\half}.
+\eeqs
+
+To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ and approximated quantities of interest using a randomly shifted lattice rule\optodo{Check terminology}\optodo{ref code?} with 2048 points, and 20 random shifts (so a total of 40,960 PDE solves). We set $h = 0.002$ for all of the computations ($0.002 \approx 60^{-3/2}$) to avoid having to consider the effect of finite-element error. The quantities of interest we considered were:
+\bit
+\item The integral of the solution over the whole domain,
+\item The value of the solution at the origin,
+\item The value of the solution at the top-right corner of the domain, and
+\item The $x$-component of the gradient of the solution at the top-right corner of the domain.
+  \eit
+  Observe that these QOIs require increasing regularity of the solution (the integral is defined for functions in $\LoD$, point evaluation for functions in $\Hfn{}{3/2 + \eps}{D}$\optodo{check} and point evaluation of the gradient for functions in $\Hfn{}{5/2+\eps}{D}$\optodo{Double check mesh goes the right way for point evaluation of gradient to be defined} for any $\eps > 0.$), and so computing for this range of quantities of interest will give a good insight into the behaviour of QMC applied to the Helmholtz equation for a wide range of QoIs.
+%%     That is, we randomly choose $\shifto,\ldots,\shiftNshifts$ points in $\cube{J}$ (the `shifts')rause the standard error estimator
+%%     \beqs
+%%     \mleft(\frac1{\nu\mleft(\nu-1\mright)} \sum_{s=1}^{\Nshifts} 
+%%     \eeqs$h = 0.002$ (relation to $k=60$ - maximum?)
+
+\begin{table}
+  \centering
+  \input{nbpc-qmc-sequential-table}
+  \caption{Results applying our sequential nearby-precondition-Quasi-Monte-Carlo algorithm}\label{tab:nbpcqmcseq}
+  \end{table}\optodo{Make caption better}
+
+
+
+    
+
+    
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
 
 %\subsection{Definition of the TEDP and analogues of the results in \cref{sec:3}}

@@ -69,3 +69,5 @@ l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-sc
 *.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
 	python l1-plot-and-table.py 
 
+nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
+	python nbpc-qmc-sequential-table.py
