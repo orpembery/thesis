@@ -17,15 +17,20 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
 
 \subsection{Motivation from uncertainty quantification of the Helmholtz equation} 
 Consider the Helmholtz equation 
-\beqs%\label{eq:pde}
+\beq\label{eq:nbpchh}
 \nabla\cdot\big(A(\omega,\bx) \nabla u(\omega,\bx) \big) + k^2 n(\omega,\bx) u(\omega,\bx) =-f(\bx), \quad \bx\in\Dp,
-\eeqs
+\eeq
 where $A(,\bx\omega)$ and $n(\omega,\bx)$ are \emph{random fields}, and $\omega$ is an element of the underlying probability space.
 To calculate quantities of interest of the solution $u(\omega,\cdot)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
 Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
-\optodo{Insert comments about preconditioners for Helmholtz}
-\optodo{Insert comments about complexity of preconditioners}
-\optodo{Insert comments about why we restrict to LU}
+
+Moreover, the cost of \emph{constructing} preconditioners for the resulting linear systems is also very expensive. For example, if our preconditioner is given by an exact LU factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns).\optodo{Find ref, Gander and Zhang if not elsewhere}.
+
+Observe that the cost of applying the preconditioner is significantly less than the cost of constructing the preconditioner. Therefore, if one calculates a preconditioner for one realisation of \cref{eq:nbpchh} and then re-uses it for many `nearby' (in some sense) realisations of \cref{eq:nbpchh}, then one could obtain considerable computational savings.
+
+Even if one does not use an exact $LU$-factorisation as the preconditioner, one may still obtain considerable savings by reusing preconditioners. Even if one uses a modern Helmholtz preconditioner such as a sweeping preconditioner or a domain-decompostion preconditioner (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners) one still performs $LU$-factorisations (or direct solves) on subdomains of the domain (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and reducing the need for these $LU$ factorisations, may still lead to considerable savings.
+
+In this lcnmaecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition. In this case, the only error that arises in the preconditioning process is due to using a preconditioner for one realisation of the Helmholtz equation for a different realisation, and we do not need to considered the error arising from the process of constructing the preconditioner itself.
 %The search for good preconditioners for discretisations of the H
 %Therefore, solving 
 
