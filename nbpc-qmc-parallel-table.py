@@ -5,14 +5,14 @@ import pickle
 import numpy as np
 import fileinput
 
-k_list = [10.0,20.0,30.0,40.0,50.0,60.0]
+k_list = [10.0,30.0,40.0,50.0,60.0]
 
 df_master = pd.DataFrame(index=[int(k) for k in k_list],columns=['num_lu','total_solves','lu_as_percentage','av_gmres','max_gmres'])
 
 this_directory = './data/data-for-nbpc-qmc/'
 
 for k in k_list:
-
+    print(k)
     # Find the right directory
 
     for possible_folder in listdir(this_directory):

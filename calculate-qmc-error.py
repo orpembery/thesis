@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 import sys
-from running_helmholtz_monte_carlo.name_writing import make_quants
+from running_helmholtz_monte_carlo.name_writing import make_quants, name_writing
 #from name_writing import name_writing, make_quants
 from helmholtz_monte_carlo.calculate import mean_and_error
 from glob import glob
@@ -56,6 +56,10 @@ h_coarse_magnitude = 0.002#float(sys.argv[9])
 
 h_coarse_scaling = 0.0#float(sys.argv[10])
 
+nearby_preconditioning = 0
+
+nearby_preconditioning_proportion = 1.0
+
 #next_number = 11
 
 # If altered, don't forget to change entry to make_quants
@@ -71,14 +75,13 @@ for ii_k in range(len(k_list)):
     k = k_list[ii_k]
 
     # Make the dict
-    import pdb; pdb.set_trace()
-    quants = make_quants([k,h_levels,M,nu,J,delta,lambda_mult,j_scaling,dim,on_balena,h_coarse_magnitude,h_coarse_scaling,qois])
+    quants = make_quants([k,h_levels,M,nu,J,delta,lambda_mult,j_scaling,dim,on_balena,h_coarse_magnitude,h_coarse_scaling,nearby_preconditioning,nearby_preconditioning_proportion,qois])
 
     folder_name_start = name_writing(quants)
 
-    h_magnitude = 2.0**-(float(quants['h_levels'])-1.0)*h_coarse_magnitude
+    h_magnitude = quants['h_coarse_mag']
 
-    test_filename = folder_name_start + '*/*' + str(h_magnitude) + '*' + '.pickle'
+    test_filename = './data/data-for-num-qmc-points/' + folder_name_start + '*/*' + str(h_magnitude) + '*' + '.pickle'
     
     filenames = glob(test_filename)
 
