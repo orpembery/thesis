@@ -66,7 +66,7 @@ spell:
 l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
 	python l1-plot-and-table.py
 
-*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+l1-*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
 	python l1-plot-and-table.py 
 
 nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
@@ -74,3 +74,6 @@ nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
 
 nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*/*pickle
 	python nbpc-qmc-parallel-table.py
+
+*error-plot.pgf: calculate-qmc-error.py
+	python calculate-qmc-error.py

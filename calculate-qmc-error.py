@@ -70,6 +70,10 @@ qois = '*' # As above
 
 k_list = [10.0,20.0,30.0,40.0,50.0,60.0]#[ float(k) for k in sys.argv[next_number:]]
 
+markers = 'ovsdp*'
+
+lines = ['--','--','-.','-.',':',':']
+
 for ii_k in range(len(k_list)):
 
     k = k_list[ii_k]
@@ -147,6 +151,9 @@ for ii_k in range(len(k_list)):
         for ii_qoi in range(num_qois):
             error_store[ii_qoi][ii_k,this_M] = np.abs(computed_mean_err[1][ii_qoi])
 
+# Now move on to convergence rates with respect to k and plotting
+
+            
 for ii_qoi in range(num_qois):
 
     M_list = list(range(0,M+1))
@@ -155,6 +162,9 @@ for ii_qoi in range(num_qois):
 
     qoi_C_alpha = [[],[]]
 
+    qoi = qoi_names_list[ii_qoi]
+
+    # Assume QMC error is CN^alpha. We first fit C and alpha to the data (for each k) and then investigate their dependence on k.
     for ii_k in range(len(k_list)):
     
         error_list = error_store[ii_qoi][ii_k,:]
@@ -170,9 +180,13 @@ for ii_qoi in range(num_qois):
 
         qoi_C_alpha[1].append(alpha)
 
+        fig = plt.figure()
+        
         # Do a loglog plot of the error
-        loglog = plt.loglog(N_list,error_list,'.')    
+        loglog = plt.loglog(N_list,error_list,'ok')
 
+        # Draw line of best fit, based on values of C and alpha calculated above
+        
         big_N = max(N_list)
 
         small_N = min(N_list)
@@ -185,51 +199,81 @@ for ii_qoi in range(num_qois):
 
         k = k_list[ii_k]
 
-        # Add the best fit line
-        plt.loglog(x_for_fit,y_for_fit,'--',color=loglog[-1].get_color(),label='k='+str(k)+': C = '+str(C)[:num_sig_fig] + ', alpha = '+str(alpha)[:num_sig_fig])
-        
+        plt.loglog(x_for_fit,y_for_fit,'--',color=loglog[-1].get_color(),label= r'$' + str(C)[:num_sig_fig] + r'N_{\mathrm{QMC}}^{-' + str(alpha)[:num_sig_fig] + r'}$')
 
-    plt.xlabel('N')
+        plt.xlabel(r'$N_\mathrm{QMC}$')
 
-    plt.ylabel('QMC Error')
+        plt.ylabel('QMC Error')
 
-    plt.title(qoi_names_list[ii_qoi])
+        #plt.title(qoi+', k = '+str(int(k)))
 
-    plt.legend()
+        plt.legend()
     
-    plt.show()
+        #plt.show()
 
-    qoi_name = qoi_names_list[ii_qoi]
+        fig_name = qoi+'-'+str(int(k))+'-error-plot'
 
-    plt.loglog(k_list,qoi_C_alpha[0],'rx')
-    plt.title('C against k, for qoi = '+ qoi_name)
+        fig.set_size_inches((3,3))
+        
+        plt.savefig(fig_name+'.pgf')
+
+        plt.close(fig)
+        
+    # Now investigate dependence of C and alpha on k
+
+    fig = plt.figure()
+    
+    plt.loglog(k_list,qoi_C_alpha[0],'ko')
+    #plt.title('C against k, for qoi = '+ qoi)
     plt.xlabel('k')
     plt.ylabel('C')
-    plt.show()
+    #plt.show()
 
+    fig_name = qoi+'-C-plot'
+
+    fig.set_size_inches((3,3))
+    
+    plt.savefig(fig_name+'.pgf')
+
+    plt.close(fig)
+    
     # Now fit alpha = alpha_0 - alpha_1 log(k)
 
     log_k = np.log10(k_list)
 
     alpha = qoi_C_alpha[1]
 
+    # Numpy.polyfit uses different notation to us. So entry [0] corresponds to -alpha_1 and entry [1] corresponds to alpha_0
+    
     alpha_logk_fit = np.polyfit(log_k,alpha,deg=1)
 
-    alpha_0 = alpha_logk_fit[0]
+    alpha_0 = alpha_logk_fit[1]
 
-    alpha_1 = alpha_logk_fit[1]
+    alpha_1 = -alpha_logk_fit[0]
 
     # Add best fit line
-    alpha_logk_best_fit = alpha_1 + alpha_0 * log_k
-    
+    alpha_logk_best_fit = alpha_0 - alpha_1 * log_k
 
-    plt.semilogx(k_list,alpha_logk_best_fit,'r','--',label='alpha = '+str(alpha_0)[:num_sig_fig]+' - '+str(alpha_1)[:num_sig_fig]+'log(k); alpha_1/alpha_0 = '+str(-alpha_1/alpha_0)[:num_sig_fig])
-    plt.title('alpha against k for qoi = '+qoi_name)
-    plt.xlabel('k')
-    plt.ylabel('alpha')
+
+    fig = plt.figure()
+
+    plt.semilogx(k_list,alpha_logk_best_fit,'k--',label=r'$\alpha = '+str(alpha_0)[:num_sig_fig]+r' - '+str(alpha_1)[:num_sig_fig]+r'\log(k)$')
+    # ; alpha_1/alpha_0 = '+str(alpha_1/alpha_0)[:num_sig_fig]
+    #plt.title('alpha against k for qoi = '+qoi)
+    plt.xlabel(r'$k$')
+    plt.ylabel(r'$\alpha$')
     plt.legend()
-    plt.semilogx(k_list,qoi_C_alpha[1],'rx')
-    plt.show()
+    plt.semilogx(k_list,qoi_C_alpha[1],'ko')
+
+    fig_name = qoi+'-alpha-plot'
+
+    fig.set_size_inches((3,3))
+    
+    plt.savefig(fig_name+'.pgf')
+
+    plt.close(fig)
+    
+    #plt.show()
 
 
     
