@@ -1526,7 +1526,53 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
 %%     \beqs
 %%     \mleft(\frac1{\nu\mleft(\nu-1\mright)} \sum_{s=1}^{\Nshifts} 
 %%     \eeqs$h = 0.002$ (relation to $k=60$ - maximum?)
+  \optodo{Need to make this read better}
 
+\begin{figure}[h]
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{integral-C-plot.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{integral-alpha-plot.pgf}
+    \end{subfigure}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = \int_D u$.  \label{fig:integralCalpha}}
+\end{figure}\optodo{Refs for QMC error eqn}
+
+\begin{figure}[h]
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{origin-C-plot.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{origin-alpha-plot.pgf}
+    \end{subfigure}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q =  u(\bzero)$.  \label{fig:originCalpha}}
+\end{figure}\optodo{Refs for QMC error eqn}
+
+\begin{figure}[h]
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{top_right-C-plot.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{top_right-alpha-plot.pgf}
+    \end{subfigure}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = u((1,1))$.  \label{fig:toprightCalpha}}
+\end{figure}\optodo{Refs for QMC error eqn}
+
+\begin{figure}[h]
+    \centering
+  \begin{subfigure}{0.45\textwidth}
+\input{gradient_top_right-C-plot.pgf}
+  \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\input{gradient_top_right-alpha-plot.pgf}
+    \end{subfigure}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = \gradu((1,1))$.  \label{fig:gradienttoprightCalpha}}
+\end{figure}\optodo{Refs for QMC error eqn}
+
+  
 \begin{table}
   \centering
   \input{nbpc-qmc-sequential-table}
