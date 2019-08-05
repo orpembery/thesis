@@ -41,12 +41,7 @@ qois = '*' # As above
 
 k_list = [10.0,20.0,30.0,40.0,50.0,60.0]
 
-# For plotting
-markers = 'ovsdp*'
-lines = ['--','--','-.','-.',':',':']
-
 # Extract all of the data
-
 for ii_k in range(len(k_list)):
 
     k = k_list[ii_k]
@@ -127,11 +122,11 @@ for ii_k in range(len(k_list)):
             error_store[ii_qoi][ii_k,this_M] = np.abs(computed_mean_err[1][ii_qoi])
 
 # For each k, see how the QMC error converges with respect to the number of QMC points, and plot it.            
-
 table_row_names = ['alpha0','alpha1','alpha1/alpha0']
 
 df = pd.DataFrame(columns=qoi_names_list,index=table_row_names)
 
+# Perform calculations for each QoI separately.
 for ii_qoi in range(num_qois):
 
     M_list = list(range(0,M+1))
@@ -183,11 +178,7 @@ for ii_qoi in range(num_qois):
 
         plt.ylabel('QMC Error')
 
-        #plt.title(qoi+', k = '+str(int(k)))
-
         plt.legend()
-    
-        #plt.show()
 
         fig_name = qoi+'-'+str(int(k))+'-error-plot'
 
@@ -202,10 +193,9 @@ for ii_qoi in range(num_qois):
     fig = plt.figure()
     
     plt.loglog(k_list,qoi_C_alpha[0],'ko')
-    #plt.title('C against k, for qoi = '+ qoi)
+
     plt.xlabel('k')
     plt.ylabel('C')
-    #plt.show()
 
     fig_name = qoi+'-C-plot'
 
@@ -240,18 +230,19 @@ for ii_qoi in range(num_qois):
 
 
     fig = plt.figure()
+    
+    plt.semilogx(k_list,alpha_logk_best_fit,'k--',label=r'$\alpha = '+str(alpha_0)[:num_sig_fig]+r' - '+str(alpha_1)[:num_sig_fig]+r'\log(k)$',basex=np.e)
 
-    plt.semilogx(k_list,alpha_logk_best_fit,'k--',label=r'$\alpha = '+str(alpha_0)[:num_sig_fig]+r' - '+str(alpha_1)[:num_sig_fig]+r'\log(k)$')
-    # ; alpha_1/alpha_0 = '+str(alpha_1/alpha_0)[:num_sig_fig]
-    #plt.title('alpha against k for qoi = '+qoi)
     plt.xlabel(r'$k$')
     plt.ylabel(r'$\alpha$')
     plt.legend()
-    plt.semilogx(k_list,qoi_C_alpha[1],'ko')
+    plt.semilogx(k_list,qoi_C_alpha[1],'ko',basex=np.e)
 
     fig_name = qoi+'-alpha-plot'
 
     fig.set_size_inches((5,4))
+
+    LogLocator()
     
     plt.savefig(fig_name+'.pgf')
 
