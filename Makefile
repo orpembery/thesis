@@ -86,3 +86,6 @@ nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*
 
 num-qmc-points-table.tex: n_actual.py
 	python n_actual.py
+
+prob-plot-rate-*.pgf: plot-probabalistic-runs.py
+	python plot-probabalistic-runs.py
