@@ -89,3 +89,6 @@ num-qmc-points-table.tex: n_actual.py
 
 prob-plot-rate-*.pgf: plot-probabalistic-runs.py
 	python plot-probabalistic-runs.py
+
+prob-gmres-theory*pgf: prob-gmres-theory-plots.py
+	python prob-gmres-theory-plots.py

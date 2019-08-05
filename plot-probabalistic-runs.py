@@ -18,6 +18,8 @@ k_list = [10.0,20.0,30.0,40.0]#,50.0,60.0]
 
 betas = [0.0,1.0,2.0]
 
+threshold = 12
+
 storage = np.empty(shape=(len(k_list),len(betas)),dtype=object)
 
 for file in csv_list:
@@ -50,7 +52,9 @@ for beta in betas:
 
         ii_beta = betas.index(beta)
 
-        data = np.unique(storage[ii_k,ii_beta])
+        data = storage[ii_k,ii_beta]
+
+        frac_under_threshold = float(np.sum(data <= threshold))/float(len(data))
 
         plt.xlabel('$k$')
 
@@ -63,7 +67,9 @@ for beta in betas:
         
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
-        plt.plot(k*np.ones((len(data))),data,'ok')
+        print(k,frac_under_threshold)
+        
+        plt.plot(k,frac_under_threshold,'ok')
 
     plt.savefig(filename+'.pgf')
 
