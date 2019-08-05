@@ -122,7 +122,7 @@ for ii_k in range(len(k_list)):
             error_store[ii_qoi][ii_k,this_M] = np.abs(computed_mean_err[1][ii_qoi])
 
 # For each k, see how the QMC error converges with respect to the number of QMC points, and plot it.            
-table_row_names = ['alpha0','alpha1','alpha1/alpha0']
+table_row_names = ['alpha0','alpha1']
 
 df = pd.DataFrame(columns=qoi_names_list,index=table_row_names)
 
@@ -223,8 +223,6 @@ for ii_qoi in range(num_qois):
 
     df.loc['alpha1',qoi] = alpha_1
 
-    df.loc['alpha1/alpha0',qoi] = alpha_1/alpha_0
-
     # Add best fit line
     alpha_logk_best_fit = alpha_0 - alpha_1 * log_k
 
@@ -252,7 +250,7 @@ for ii_qoi in range(num_qois):
 
 column_names = [r'$Q = \int_D u$',r'$Q = u(\bzero)$',r'$Q = u((1,1))$',r'$Q = \gradu((1,1))$']
 
-index_names = [r'$\alphaz$',r'$\alpha$',r'$\alphaz/alphao$']
+index_names = [r'$\alphaz$',r'$\alphao$']
 
 float_format = '{:.2f}'.format # Based on formatting described at https://pyformat.info/#number
 # Helped debug using https://stackoverflow.com/a/20937592
@@ -265,6 +263,4 @@ df.index = index_names
 
 with open(table_name,mode='w') as table:
     df.to_latex(table,header=column_names,float_format=float_format,column_format=column_format)
-
-
     

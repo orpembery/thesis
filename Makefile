@@ -83,3 +83,6 @@ nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*
 
 *alpha-plot.pgf: calculate-qmc-error.py
 	python calculate-qmc-error.py # Takes ~20 seconds
+
+num-qmc-points-table.tex: n_actual.py
+	python n_actual.py

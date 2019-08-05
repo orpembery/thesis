@@ -1312,12 +1312,6 @@ n(\by) = 1 + 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
 There is no a priori reason that one must have such an affine dependence of the random field on the randomness in order to apply nearby preconditioning to QMC methods (one could, for example, take $n$ to be a lognormal random field). However, affine dependence will allow us to easily define the so-called `paralleisable' nearby-preconditioning-QMC algorithm below.
 
 We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly numerical; there is no current theory to support these calculations. In particular, we show below\optodo{ref} that it appears that for the QMC error for Helmholtz problems to remain bounded as $k$ increases, one must increase the number of QMC points polynomially in $k.$ We again remark that there is currently no theoretical justification for this behaviour.
-\optodo{Ref appendix}
-\begin{table}
-  \centering
-  \input{qmc-alpha-table}
-  \caption{The quantities $\alphaz,$ $\alphao,$ and $\alphao/\alphaz$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\log(k)}$.}\label{tab:qmcalpha}
-  \end{table}
 
 
 \paragraph{Terminology} Before we describe the nearby-preconditioning-QMC algorithms in detail we establish two pieces of terminology that will be of use in describing these algorithms. Firstly, we will use the word `point' to refer to a point in the parameter space $\cube{J}$, and use phrases such as `calculate a preconditioner at the point $\by$' as shorthand for `calculate the preconditioner corresponding to the finite-element discretisation of the Helmholtz IIP (as described above) with coefficient $n(\by)$'.
@@ -1579,23 +1573,54 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
 \caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = \gradu((1,1))$.  \label{fig:gradienttoprightCalpha}}
 \end{figure}\optodo{Refs for QMC error eqn}
 \optodo{Fix plots with $e$ on x axis.}
-  
-\begin{table}
+
+\optodo{Ref appendix}
+\begin{table}[h]
   \centering
-  \input{nbpc-qmc-sequential-table}
-  \caption{Results applying our sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm, with the maximum number of GMRES iterations $=10$.}\label{tab:nbpcqmcseq}
-\end{table}\optodo{Make caption better}
+  \input{qmc-alpha-table}
+  \caption{The quantities $\alphaz$ and $\alphao$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\log(k)}$.}\label{tab:qmcalpha}
+  \end{table}
 
-\begin{table}
+We use these computational results to determine how $\NQMC$ should increase with $k$, in order to keep the QMC error bounded. Based on QMC theory results for the stationary diffusion equation\optodo{ref results}, we make the assumption that the QMC error (with one shift) satisfies
+\beq\label{eq:qmcerrorform}
+\QMCerror{Q}{1} = C \NQMC^{-\alpha},
+\eeq
+for some $C, \alpha > 0.$ Based on this assumption, \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} plot $C$ and $\alpha$ for increasing $k$. (In \cref{app:hhqmcconv}, we plot the QMC error for increasing $\NQMC$ for each $k \in \set{10,20,30,40,50,60}$ and for each QoI---these plots allow us to determine the values of $C$ and $\alpha$ for each value of $k.$) For the QoIs that are point evaluations (\cref{fig:originCalpha,fig:toprightCalpha}), $C$ appears to be constant; we assume $C$ is constant in all of the following calculations.
+
+Based on the evidence in \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha}, we conjecture
+\beq\label{eq:alphaform}
+\alpha(k) = \alphaz - \alphao\log(k),
+\eeq
+for some constants $\alphaz,\alphao > 0.$ (Throughout this \lcnamecref{sec:nbpcqmcnumerics}, $\log$ denotes the natural logarithm.) We fitted $\alphaz$ and $\alphao$, and have plotted the resulting line of best fit on \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha}. (Observe that the conjectured form \cref{eq:alphaform} cannot hold for $k$ very large, as then $\alpha(k)$ would be negative. Nevertheless, for the range of $k$ we consider in these numerical experiments, the form \cref{eq:alphaform} seems to give a good fit with the data.)
+
+Having understood how the QMC error increases with $k$ for fixed $\NQMC$, we now use this knowledge to determine how one should increase $\NQMC$ with $k$ in order to keep the QMC error bounded. Recalling that we assume $C$ in \cref{eq:qmcerrorform} is constant, if we take
+\beq\label{eq:Nform}
+\NQMC(k) = \exp\mleft(\Ctilde \alpha(k)^{-1}\mright),
+\eeq
+for some constant $\Ctilde > 0$, then substituting \cref{eq:Nform} into \cref{eq:qmcerrorform}, we see that the QMC error should remain bounded, with
+\beqs
+\QMCerror{Q}{1} = C \exp\mleft(-\Ctilde\mright).
+\eeqs
+
+In our numerical experiments with increasing $\NQMC(k)$ below, we choose $\Ctilde$ so that $\NQMC(10) = 2048,$ as in our numerical experiments to determine the behaviour of the QMC error, we used $\NQMC = 2048$ (with 20 shifts). Also, for ease of computational set-up, in our numerical experiments we take the number of QMC points to be a power of 2, chosen so that $\NQMCactual(k) = 2^{M(k)},$ where
+\beqs
+M(k) = \round{\logtwo\mleft(\NQMC(k)\mright)}.
+\eeqs
+
+Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results for the QoI being the integral of the solution, as this seems to display slightly different convergence characteristics), in our numerical experiments we take $\alpha(k) = 1.4 - 0.18 \log(k).$ The resulting values of $\NQMC$ are summarised in \cref{tab:nqmc}.
+
+\begin{table}[h]
   \centering
-  \input{nbpc-qmc-parallel-table}
-  \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $0.2$\%.}\label{tab:nbpcqmcspar}
-  \end{table}\optodo{Make caption better}
+  \input{num-qmc-points-table}
+  \caption{The ideal and actual number of QMC points $\NQMC$, chosen so that the QMC error is empirically bounded for all $k$.}\label{tab:qmcpoints}
+  \end{table}
 
 
-\optodo{Put in stuff about getting to 3.5 once the computations are done.}
 
-Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$
+
+\optodo{Insert and make table}
+
+Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$\optodo{Do computations with this scaling to check QMC error remains bounded?}
 
 As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
 \bit
@@ -1607,6 +1632,19 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
     The results for the sequential algorithm are summarised in \cref{tab:seq}, for $k$ up to 30. These results show that nearby preconditioning is very effective, with the number of preconditioners remaining (approximately) constant as a percentage of the total number of solves. This is the best result one could realistically hope for; in this case the decreasing (like $1/k$) radius over which nearby preconditioning is effective is offset by the growing number of QMC points, meaning the number of preconditioners is constant as a fraction of the total number of solves.
 
     Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion in \optodo{ref} above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditinoers that must be calculated.
+
+    \begin{table}
+  \centering
+  \input{nbpc-qmc-sequential-table}
+  \caption{Results applying our sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm, with the maximum number of GMRES iterations $=10$.}\label{tab:nbpcqmcseq}
+\end{table}\optodo{Make caption better}
+
+\begin{table}
+  \centering
+  \input{nbpc-qmc-parallel-table}
+  \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $0.2$\%.}\label{tab:nbpcqmcspar}
+  \end{table}\optodo{Make caption better}
+
 
     In conclusion, we see that nearby preconditioning gives very significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
     
