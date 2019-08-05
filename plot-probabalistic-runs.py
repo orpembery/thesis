@@ -71,6 +71,13 @@ for beta in betas:
         
         plt.plot(k,frac_under_threshold,'ok')
 
+        if beta == 0.0:
+            plt.yticks([0.0,0.1,0.2,0.3,0.4])
+        elif beta == 1.0:
+            plt.yticks([0.992,0.994,0.996,0.998,1.0])
+        elif beta == 2.0:
+            plt.yticks([1.0])
+
     plt.savefig(filename+'.pgf')
 
     plt.close()

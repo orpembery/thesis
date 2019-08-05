@@ -42,7 +42,7 @@ def plot_k(threshold,beta):
         ax = fig.gca()
         ax.yaxis.set_major_locator(MaxNLocator(4))
         
-    plt.plot(k_range,probs,'.')
+    plt.plot(k_range,probs,'.k')
 
     plt.savefig(filename + '.pgf')
 
