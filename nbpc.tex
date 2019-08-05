@@ -1312,6 +1312,13 @@ n(\by) = 1 + 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
 There is no a priori reason that one must have such an affine dependence of the random field on the randomness in order to apply nearby preconditioning to QMC methods (one could, for example, take $n$ to be a lognormal random field). However, affine dependence will allow us to easily define the so-called `paralleisable' nearby-preconditioning-QMC algorithm below.
 
 We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly numerical; there is no current theory to support these calculations. In particular, we show below\optodo{ref} that it appears that for the QMC error for Helmholtz problems to remain bounded as $k$ increases, one must increase the number of QMC points polynomially in $k.$ We again remark that there is currently no theoretical justification for this behaviour.
+\optodo{Ref appendix}
+\begin{table}
+  \centering
+  \input{qmc-alpha-table}
+  \caption{The quantities $\alphaz,$ $\alphao,$ and $\alphao/\alphaz$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\log(k)}$.}\label{tab:qmcalpha}
+  \end{table}
+
 
 \paragraph{Terminology} Before we describe the nearby-preconditioning-QMC algorithms in detail we establish two pieces of terminology that will be of use in describing these algorithms. Firstly, we will use the word `point' to refer to a point in the parameter space $\cube{J}$, and use phrases such as `calculate a preconditioner at the point $\by$' as shorthand for `calculate the preconditioner corresponding to the finite-element discretisation of the Helmholtz IIP (as described above) with coefficient $n(\by)$'.
 

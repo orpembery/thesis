@@ -6,6 +6,7 @@ from running_helmholtz_monte_carlo.name_writing import make_quants, name_writing
 from helmholtz_monte_carlo.calculate import mean_and_error
 from glob import glob
 from matplotlib import pyplot as plt
+import pandas as pd
 
 """This script plots (and calculates) how the quasi-monte carlo error depends on the wavenumber k."""
 
@@ -153,6 +154,9 @@ for ii_k in range(len(k_list)):
 
 # Now move on to convergence rates with respect to k and plotting
 
+table_row_names = ['alpha0','alpha1','alpha1/alpha0']
+
+df = pd.DataFrame(columns=qoi_names_list,index=table_row_names)
             
 for ii_qoi in range(num_qois):
 
@@ -251,6 +255,12 @@ for ii_qoi in range(num_qois):
 
     alpha_1 = -alpha_logk_fit[0]
 
+    df.loc['alpha0',qoi] = alpha_0
+
+    df.loc['alpha1',qoi] = alpha_1
+
+    df.loc['alpha1/alpha0',qoi] = alpha_1/alpha_0
+
     # Add best fit line
     alpha_logk_best_fit = alpha_0 - alpha_1 * log_k
 
@@ -275,10 +285,21 @@ for ii_qoi in range(num_qois):
     
     #plt.show()
 
+column_names = [r'$Q = \int_D u$',r'$Q = u(\bzero)$',r'$Q = u((1,1))$',r'$Q = \gradu((1,1))$']
+
+index_names = [r'$\alphaz$',r'$\alpha$',r'$\alphaz/alphao$']
+
+float_format = '{:.2f}'.format # Based on formatting described at https://pyformat.info/#number
+# Helped debug using https://stackoverflow.com/a/20937592
+
+column_format = 'Sc Sc Sc Sc Sc'
+
+table_name = 'qmc-alpha-table.tex'
+
+df.index = index_names
+
+with open(table_name,mode='w') as table:
+    df.to_latex(table,header=column_names,float_format=float_format,column_format=column_format)
+
 
     
-
-
-# Need to get qoi strings, and check that they always come in the same order
-
-# Also need to think about how to plot variation in n
