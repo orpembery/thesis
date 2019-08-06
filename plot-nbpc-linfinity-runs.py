@@ -5,14 +5,14 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
-this_directory = './'
+this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
 csv_list = []
-for filename in listdir():
+for filename in listdir(this_directory):
     if fnmatch(filename,'*csv'):
         csv_list.append(this_directory + filename)
 
-info_data = utils.read_repeats_from_csv(this_directory+csv_list[0])
+info_data = utils.read_repeats_from_csv(csv_list[0])
 
 names_list = list(info_data[0].keys())
 
@@ -25,7 +25,7 @@ names_list.remove('num_repeats')
         
 all_csvs_df = utils.csv_list_to_dataframe(csv_list,names_list)
 
-def plt_gmres2(n_pre_type,noise_masters,ks,modifier):
+def plt_gmres2(n_pre_type,noise_masters,ks,modifier,filename):
     # Idea for old plotting script - loop over modifiers, loop over k, for each one, plot it
     # Idea for new script, loop over noise_masters, loop over k, for each one, plot it
     """Modifier must be a string (and noise_master)"""
@@ -57,7 +57,7 @@ def plt_gmres2(n_pre_type,noise_masters,ks,modifier):
                         c='k')
     
     plt.xlabel(r'$k$')
-    plt.ylabel('# GMRES Iterations')
+    plt.ylabel('Number of GMRES Iterations')
 
     plt.xticks([20,40,60,80]) # told by http://stackoverflow.com/questions/12608788/ddg#12608937
 
@@ -66,8 +66,10 @@ def plt_gmres2(n_pre_type,noise_masters,ks,modifier):
         
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
-    plt.show()
+    #plt.show()
 
+    plt.savefig(filename+'.pgf')
+    
     plt.close(fig)
 
 #----- Should only need to edit below here ------
@@ -86,11 +88,15 @@ A_modifiers = ['(0.0, 0.0, 0.0, 0.0)','(0.0, -0.5, 0.0, 0.0)','(0.0, -1.0, 0.0, 
 n_modifiers = ['(0.0, 0.0, 0.0, 0.0)','(0.0, 0.0, 0.0, -0.5)','(0.0, 0.0, 0.0, -1.0)']
 
 # ------ An example -------
-for modifier in A_modifiers:
-    plt_gmres2(n_pre_type,[noise_master_A],ks,modifier)
+for ii_mod in range(3):
+    modifier = A_modifiers[ii_mod]
+    filename = 'nbpc-linfinity-A-'+str(ii_mod)
+    plt_gmres2(n_pre_type,[noise_master_A],ks,modifier,filename)
 
-for modifier in n_modifiers:
-    plt_gmres2(n_pre_type,[noise_master_n],ks,modifier)
+for ii_mod in range(3):
+    modifier = n_modifiers[ii_mod]
+    filename = 'nbpc-linfinity-n-'+str(ii_mod)
+    plt_gmres2(n_pre_type,[noise_master_n],ks,modifier,filename)
     
                               
 

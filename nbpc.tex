@@ -247,7 +247,35 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
   For both $\NLiD{\Aso-\Ast}$ and $\NLiD{\nso-\nst}$ we see the expected behaviour in all three cases. When $\alpha = 0.1$ we see (possibly exponential) growth in the number of GMRES iterations needed to achieve convergence, and when $\alpha = 0.1/k,$ we see that the number of GMRES iterations is bounded as $k$ increases. When $\alpha = 0.1/k^{1/2}$ we see slower growth as $k$ increases, but growth nonetheless.
 
   The behaviour for $\alpha = 0.1$ indicates that the effectiveness of this `nearby preconditioning' strategy deteriorates rapdily as $k$ increases when the difference in the Helmholtz problems is independent of $k$. The behaviour for $\alpha = 0.1/k$ verifies that the condition `$k\NLiD{\Aso-\Ast} + k\NLiD{\nso-\nst}$ is sufficiently small' is sufficient to achieve bounded GMRES iterations in this case, and the behaviour for $\alpha = 0.1/k^{1/2}$ indicates that this condition is sharp; reducing the magnitude of the difference betwen the Helmholtz problems as $k$ increases, but not at the rate $1/k$ is insufficient for the nearby preconditioning strategy to achieve $k$-independent GMRES iterations.
-  \optodo{Insert both tables and figures}
+\begin{figure}
+\input{nbpc-linfinity-A-0.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by ... where $\alpha = 0.5$}\label{fig:linfinityA0}
+\end{figure}
+
+\begin{figure}
+\input{nbpc-linfinity-A-1.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by ... where $\alpha = 0.5/k^{1/2}$}\label{fig:linfinityA1}
+\end{figure}
+
+\begin{figure}
+\input{nbpc-linfinity-A-2.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by ... where $\alpha = 0.5/k$}\label{fig:linfinityA2}
+\end{figure}
+
+\begin{figure}
+\input{nbpc-linfinity-n-0.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by ... where $\alpha = 0.5$}\label{fig:linfinityn0}
+\end{figure}
+
+\begin{figure}
+\input{nbpc-linfinity-n-1.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by ... where $\alpha = 0.5/k^{1/2}$}\label{fig:linfinityn1}
+\end{figure}
+
+\begin{figure}
+\input{nbpc-linfinity-n-2.pgf}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by ... where $\alpha = 0.5/k$}\label{fig:linfinityn2}
+\end{figure}
 
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
