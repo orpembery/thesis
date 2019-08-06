@@ -148,14 +148,14 @@ When $h\sim  k^{-1}$, the bounds \cref{eq:main1} and \cref{eq:main1a} (and hence
 
 
 \paragraph{How sharp are \cref{thm:1} and \cref{cor:1,cor:1a} in their $k$-dependence?}
-Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:cond} is sharp, in that the $k$ in \cref{eq:cond} cannot be replaced by $k^\alpha$ for $\alpha<1$ \ednote{put some plots in here}. This suspected sharpness of \cref{eq:cond} is also supported by the PDE-result \cref{thm:2} below. Indeed, \cref{thm:2} % and \cref{lem:1} 
+Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:cond} is sharp, in that the $k$ in \cref{eq:cond} cannot be replaced by $k^\alpha$ for $\alpha<1$. This suspected sharpness of \cref{eq:cond} is also supported by the PDE-result \cref{thm:2} below. Indeed, \cref{thm:2} % and \cref{lem:1} 
  shows that the condition
-\beqs
+\beq\label{eq:sufficientlysmall}
 k\,
 \big\|\Aso-\Ast\big\|_{L^\infty(\DR)} \quad\text{ and } \quad k\,\big\|\nso-\nst\big\|_{L^\infty(\DR)}
 %\Big) 
 \quad\text{ both sufficiently small}
-\eeqs
+\eeq
 is not only an answer to Q1 (about finite-element discretisations), but is also the natural answer to the analogue of Q1 at the level of PDEs, namely 
 \bit
 \item[Q2.]
@@ -224,9 +224,12 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 %\eeq
 \ele
 
+\bre[Physcial interpretation for $k$-dependence]\label{rem:physical1k}
+It is unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both Q1 and Q2. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$, it is unsurprising that perturbations of size (up to) $1/k$ give bounded relative difference (in Q2) and bounded GMRES iterations for the nearby-preconditioned linear system (in Q1). In some sense, perturbations of size up to $1/k$ are `unseen' by the PDE.
+\ere
+
 
 \section{Numerical experiments}\label{sec:num}
-\optodo{Put $L^\infty$ stuff in here}
 \subsection{Investigating the sharpness of \cref{thm:1} and \cref{cor:1}}
 
 \Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP). Recall that in this problem the Sommerfeld radiation condition \cref{eq:src} is approximated by an impedance boundary condition (or, equivalently, when the DtN operator $T_R$ is approximated by $\ri k$); see \cref{prob:tedp}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
@@ -966,11 +969,8 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 %\section{Proof of \cref{lem:2}}
 
 \section{Extension of the results to weaker norms and probabilistic convergence results}
-\optodo{Insert chat}
 \subsection{Analogues of \cref{thm:1,cor:1,cor:1a} in weaker norms}\label{sec:weaknorm}
-\optodo{Chat about weaker norms, in light of $L^1$ numerical results}
-
-Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $\NLiDRRR{\nso-\nst} \sim 1/k$ (with an analagous result for $\Aso-\Ast$).\optodo{Insert somewhere, and write, some chat about why $1/k$ is the right thing to consider} This result show that $1/k$ is a sharp threshold when we consider the \emph{magnitude}  of the difference between $\nso$ and $\nst$. However, this result does not say anything about the \emph{spatial} variability\optodo{Somehow thanks Stefan, Nilima comments from MAFELAP?} between $\nso$ and $\nst$. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
+Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $\NLiDRRR{\nso-\nst} \sim 1/k$ (with an analagous result for $\Aso-\Ast$). This result show that $1/k$ is a sharp threshold when we consider the \emph{magnitude}  of the difference between $\nso$ and $\nst$. However, this result does not say anything about the \emph{spatial} variability between $\nso$ and $\nst$. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
 \beq\label{eq:noweak}
 \nso(\bx) =
 \begin{dcases}
@@ -987,7 +987,7 @@ and
   \end{dcases}
 \eeq
 for some $0 < \alpha < 1/2,$ then $\NLiDRRR{\nso-\nst} = 1$ for all $\alpha$, but one would expect that for small $\alpha$ the corresponding solutions of \cref{prob:edp} satisfy $\uso \approx \ust,$ and one might expect that GMRES applied to $\AmatoI\Amatt$ would converge in a $k$-independent number of iterations. Therefore, in this \lcnamecref{sec:weaknorm} we seek to obtain analogues of \cref{thm:1,cor:1,cor:1a} with the difference in $\nso-\nst$ and $\Aso-\Ast$ measured in weaker norms than the $L^\infty$ norm.
-\optodo{Probably put something in somewhere about PDE result being sharp}
+
 The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the disucssion in\optodo{Insert ref} that the length scale $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' in the sense that the $L^1$ norm provides the maximal amount of `weight' to the spatial variance of $\nso-\nst$\optodo{Write this gooder} whilst also controlling the magnitude of $\nso-\nst$.
 
 We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence is $\NLqDRRR{\nso-\nst}\sim 1/k$ for any $q>0$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
@@ -1110,7 +1110,18 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \end{corollary}
-\optodo{Need to have some chat about the trade-off with these, and the `theoretical' best $1/k$ for $L^1$}
+\optodo{fix exponent}
+Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\no-\nt$ and the restriction on the magnitude of this norm. E.g., the condition on $\no-\nt$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
+\beq\label{eq:altsufficientlysmall}
+\NLqtildeDRRR{\no-\nt} k h^{-\frac{d}{\qtilde}} \text{ is sufficiently small}.
+\eeq
+Observe that as $\qtilde \downarrow 2,$ we measure $\no-\nt$ in a weaker norm, but the condition \cref{eq:altsufficientlysmall} becomes more restrictive; the power of $h$ increases. Conversely, as $\qtilde \uparrow \infty,$ we measure $\no-\nt$ in a stronger norm, but the condition \cref{eq:altsufficientlysmall} becomes less restrictive; the power of $h$ decreases. (Also observe that in the $\qtilde=\infty$ limit we recover the condition \cref{eq:sufficientlysmall} we previously proved for $\NLiDRRR{\no-\nt}.$
+
+However, the numerics below suggest that in certain cases, a sufficient condition for nearby preconditioning to be effective is
+\beq\label{eq:experimentalsufficientlysmall}
+\NLqtildeDRRR{\no-\nt} k \text{ is sufficiently small},
+\eeq
+for \emph{any} $\qtilde \geq 1$, and moreover \cref{eq:experimentalsufficientlysmall} may be sharp in its $k$-dependence. (This requirement would fit with our previous observation about $1/k$ being the length scale below which perturbations cannot be seen---see \cref{rem:physical1k} above.) However, we do not saythat \cref{eq:experimentalsufficientlysmall} is sufficient for all cases; recall that for transmission problems, very small perturbations in $n$ can lead to very different behaviour in the solution $u$ if $k$ is a quasi-resonance for $\no$ or $\nt$; see the discussion at the end of \cref{sec:wpdisc} above.
 
 
 \subsubsection{Numerics in weaker norms}\label{sec:weakernumerics}
@@ -1123,8 +1134,7 @@ Our results in\optodo{Insert fig refs} indicate the following conclusions for $\
   \item for $\beta \in (0.7,0.9)$ it is unclear if the number of GMRES iterations grows with $k.$
 \eit
 
-If we compare our numerical results with the theory results in \cref{cor:aalt}, we see that the theory (with $h \sim k^{-3/2}$ and $d=2$) predicts that the number of iterations will remain bounded if $\NLqDRR{\nso-\nst} k^{1+3/q}$ is sufficiently small, for any $q \in (2,\infty).$ Our computed results indicate that this result is not sharp. The computed results indicate that if $\NLqDRR{\nso-\nst} \sim k^{-1}$ for any $q \geq 1,$ then the number of GMRES iterations is bounded as $k$ increases. Observe that the `best case' $1/k$ condition (see \optodo{Ref} above for why this is the best case) is only predicted by the theory in the $q\rightarrow \infty$ limit.\optodo{Probably need to write much more here}
-
+If we compare our numerical results with the theory results in \cref{cor:aalt}, we see that the theory (with $h \sim k^{-3/2}$ and $d=2$) predicts that the number of iterations will remain bounded if $\NLqDRR{\nso-\nst} k^{1+3/q}$ is sufficiently small, for any $q \in (2,\infty).$ Our computed results indicate that this result is not sharp. The computed results indicate that if $\NLqDRR{\nso-\nst} \sim k^{-1}$ for any $q \geq 1,$ then the number of GMRES iterations is bounded as $k$ increases. Observe that the `best case' $1/k$ condition (see \optodo{Ref} above for why this is the best case) is only predicted by the theory in the $q\rightarrow \infty$ limit.
 
 \begin{figure}
 \input{l1-low.pgf}
@@ -1155,7 +1165,8 @@ Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cr
 \beq\label{eq:stopc}
 \AmatoI\Amatt(\omega)\bu = \AmatoI \bff.
 \eeq
-\optodo{Comment just doing Linfty}
+For simplicity's sake, in all that follows we will measure $\no-\nt$ in the $L^{\infty}$ norm, or though one could use any of the weaker norms discussed above, and obtain analogous results.
+
 \subsection{Probabilistic analogue of \cref{cor:1a}}
 If we apply \cref{cor:1a} to the above set-up we can straightforwardly conclude the following \cref{cor:stonbpcas}
 
@@ -1179,9 +1190,9 @@ The numerical results in \cref{sec:num} above can be seen as confirming this res
     In order to correct the deficiencies described in \cref{rem:notideal} we will first prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate on the number of GMRES iterations.
 
 \optodo{CHange $\sigma$ to $\alpha$ in Elman stuff}
-The following \lcnamecref{lem:probgmres1} is an \emph{deterministic} result, i.e., it does not require $\nt$ to be a random field. Therefore for this \lcnamecref{lem:probgmres1} only, we assume $\nst$ is as given at the beginning of this \lcnamecref{chap:nbpc}.
+The following \lcnamecref{lem:probgmres1} is a \emph{deterministic} result, i.e., it does not require $\nt$ to be a random field. Therefore for this \lcnamecref{lem:probgmres1} only, we assume $\nst$ is as given at the beginning of this \lcnamecref{chap:nbpc}.
 \ble[Maximum number of GMRES iterations]\label{lem:probgmres1}
-Let $0 < \eps < 1,$ and let $\dofs$ denote the number of degrees of freedom.\optodo{Mentione $\dofs$ equals size of matrices}
+Let $0 < \eps < 1,$ and let $\dofs$ denote the number of degrees of freedom, i.e. the size of the matrices $\Amato$ and $\Amatt$.
 
 Let $\GMRES{\eps}{\nso}{\nst}$ denote the number of iterations required for GMRES in the unweighted norm $\Nt{\cdot}$ with $\Nt{\brz} = 1,$ applied to
 \beqs
@@ -1205,7 +1216,7 @@ N & \tif \alpha \geq 1,
 
 where $\alpha = \Ct k \NLiDR{\nso-\nst},$ where $\Ct$ is given by \cref{eq:C2}.
 \ele
-\optodo{Put in remark somewhere abour why its $+1$ not ceiling}
+
 \bpf[Proof of \cref{lem:probgmres1}]
 For $\alpha \geq 1$, the result is immediate from\optodo{Find the fact that GMRES converges in at most $N$, put it in and ref it here}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} into \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
 \beq\label{eq:gmressub}
@@ -1217,10 +1228,18 @@ m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)
 \eeq
 Hence, if $m$ is the lowest integer satisfying \cref{eq:mlower}, then
 \beq\label{eq:gmressub2}
-m =\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
+m  \leq\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
 \eeq
 The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2} and\optodo{at most $N$ result}.
 \epf
+
+\bre[Why not use the ceiling in \cref{eq:gmressub2}?]
+One could replace the bound \cref{eq:gmressub2} on $m$ by the equality
+\beqs
+m  =\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
+\eeqs
+However, the change in the definition of $\Gfnname$ \cref{eq:gdef} would mean $\Gfnname$ would no longer be continuous. As we must use numberical methods to calculate probabilities associated with $\Gfnname$ (see \cref{thm:probgmres,rem:gcomputable} below), it is much simpler if $\Gfnname$ is continuous, and so we use \cref{eq:gmressub2}.
+\ere
 
 \bre[Why the dependence on $\alpha$ in \cref{lem:probgmres1}?]
 The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDRRR{\nso-\nst}$ is because the \lcnamecref{cor:GMRES_intro} only holds if $\alpha < 1$. Therefore if $\alpha \geq 1$ the only result available for us to apply is\optodo{worst case result}, stating that GMRES converges in at most $N$ iterations.
@@ -1249,8 +1268,12 @@ By \cref{lem:probgmres1} we have the implication: if $\Gfn{\nso-\nst(\omega)} \l
 \eeqs
 The result immediately follows.
 \epf
-\optodo{Put in about $\# GMRES$ being a RV}
-\bre[The expression \cref{eq:GMRESprob} is computable]
+
+\bre[$\GMRES{\eps}{\no}{\nt}$ is a random variable]
+All of the operations used in constructing the vectors $\bxm$ in the GMRES algorithm are measurable functions of $bBxmmo$ and $\AmatoI\Amatt$ (see, e.g., \cite[Algorithms 11.4.2 and 5.1.3]{GoVa:13}), therefore $\mleft(\bxm\mright)_{m=1}^N$ is a sequence of measurable functions, a stochastic process\optodo{Check formal definition}. The stopping criterion $\Nt{\bxm} < \eps$ is a \defn{stopping time} in the theory of stochastic processes\optodo{Ref, check} (because at time $m$ one can evaluate whether the criterion has been fulfilled. Therefore, in particular\optodo{Reasoning correct?} the number of GMRES iterations after which the criterion is fulfilled (i.e., $\GMRES{\eps}{\no}{\nt}$) is a random variable\optodo{Ref}.\optodo{Ask a probabalist about this.}
+\ere
+
+\bre[The expression \cref{eq:GMRESprob} is computable]\label{rem:computable}
 Because the function $\Gfnname$ is not invertible (as is clear from \optodo{pics} above), one cannot write the left-hand side of \cref{eq:GMRESprob} as
 \beqs
 \PP\mleft(\NLiDRRR{\nso-\nst} \leq \GfnnameI\mleft(\mleft[0,R\mright]\mright)\mright).
@@ -1265,33 +1288,27 @@ However, one can still compute the set
 \bre[\Cref{thm:probgmres} is pessimistic]\label{rem:pessimistic}
 Observe that we expect the bound in \cref{thm:probgmres} to be pessimistic, i.e., we expect that \cref{eq:GMRESprob} is not sharp. We especially expect \cref{eq:GMRESprob} is not sharp for large values of $R:$
 
-One can show via elementary calculus that (assuming that for $\alpha < 1$ the expression involving $\alpha$ in \cref{eq:gdef} is always $\leq N$) for $\alpha < 1$ $\Gfnname$ achieves its maximum when $\alpha = 1/3$. Also observe that $\Gfnname$ over the range $\alpha < 1$ only depends on $k$ through the dependence of $\alpha$ on $k.$ Therefore, the maximum of $\Gfnname$ over $\alpha \in (0,1)$ is independent of $k.$ Let $\Gfnmaxlo$ denote the value of this maximum. Then, for any $R \in \mleft(\Gfnmaxlo,N\mright)$, the estimate $\PP\mleft(\Gfn{\nso-\nst} \leq R\mright)$ is equal to $\PP\mleft(\NLiDRRR{\nso-\nst} \leq 1/\mleft(\Ct k\mright)\mright),$ i.e., the lower-bound estimate is \emph{independent} of $R$. This is almost certainly not sharp - we would expect $\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright)$ to increase with $R$. However, because the only rigorous result we have available if $\alpha \geq 1$ is\optodo{N result}, we cannot prove this expectation rigorously.
+One can show via elementary calculus that (assuming that for $\alpha < 1$ the expression involving $\alpha$ in \cref{eq:gdef} is always $\leq N$) for $\alpha < 1$ $\Gfnname$ achieves its maximum when $\alpha = 1/3$. Also observe that $\Gfnname$ over the range $\alpha < 1$ only depends on $k$ through the dependence of $\alpha$ on $k.$ Therefore, the maximum of $\Gfnname$ over $\alpha \in (0,1)$ is independent of $k.$ Let $\Gfnmaxlo$ denote the value of this maximum. Then, for any $R \in \mleft(\Gfnmaxlo,N\mright)$, the estimate $\PP\mleft(\Gfn{\nso-\nst} \leq R\mright)$ is equal to $\PP\mleft(\NLiDRRR{\nso-\nst} \leq 1/\mleft(\Ct k\mright)\mright),$ i.e., the lower-bound estimate is \emph{independent} of $R$. This is almost certainly not sharp - we would expect $\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright)$ to increase with $R$. However, because the only rigorous result we have available if $\alpha \geq 1$ is\optodo{N result}, we cannot prove a better bound.
 \ere
 
 \subsubsection{Qualitative predictions from \cref{thm:probgmres}}\label{sec:qualgmres}
 
-Notwithstanding the comments in \cref{rem:pessimistic}, we wil show in this \lcnamecref{sec:qualgmres} that \cref{thm:probgmres} gives \emph{qualitatively} correct predictions 
-\optodo{Add in computations vs theory for 1000 samples once done}
-\optodo{Add picture of predicted prob leq 10}
+Notwithstanding the comments in \cref{rem:pessimistic}, we wil show in this \lcnamecref{sec:qualgmres} that \cref{thm:probgmres} gives \emph{qualitatively} correct predictions. To illustrate this correctness, we take $\Ao=\At=I,$ $\no =1$, and $\nt = \no + \eta,$ where $\eta$ is an $\Exp{\sigma}$ random variable, where $\sigma$ is the shape parameter, that we will vary. By construction, $\NLiDRRR{\no-\nt} = \eta$. Recall that the standard deviation of $\eta$ is $\sigma$, and therefore one might expect (based on \cref{cor:1,cor:1a}) that if $\sigma \sim 1/k,$ the number of GMRES iterations may be controllable (in some sense) as $k \rightarrow \infty.$
 
-\begin{figure}[h]
-    \centering
-\input{prob-plot-rate-0.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1 $  \label{fig:prob-plot-0.0}}
-\end{figure}
+In our numerical experiments (for which we use the IIP, with $h = k^{-3/2}$ on the unit square\optodo{Standard computational setup in appendix}) we consider three cases:
+\ben
+\item\label{it:sigma1} $\displaystyle \sigma  = 1,$
+\item\label{it:sigma2} $\displaystyle \sigma  = \frac{1}k,$ and
+  \item\label{it:sigma3} $\displaystyle \sigma  = \frac{1}{k^2}.$
+    \een
 
-\begin{figure}[h]
-    \centering
-\input{prob-plot-rate-1.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1/k $  \label{fig:prob-plot-1.0}}
-\end{figure}
+    For each of these cases we calculate
+    \beq\label{eq:gmresprob}
+    \PP\mleft(\GMRES{\eps}{\no}{\nt} \leq 12\mright),
+    \eeq
+     and compare these experimental results to the lower bounds given by \cref{thm:probgmres}.
 
-\begin{figure}[h]
-    \centering
-\input{prob-plot-rate-2.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1/k^2 $  \label{fig:prob-plot-2.0}}
-\end{figure}
-
+    Qualitatively, from \cref{fig:prob-theory-plot-0.0,fig:prob-theory-plot-1.0,fig:prob-theory-plot-2.0} we expect that in \cref{it:sigma1} the probability \cref{eq:gmresprob} \emph{decreases} as $k$ increases, in \cref{it:sigma2} the probability \cref{eq:gmresprob} \emph{is constant} as $k$ increases, and in \cref{it:sigma3} the probability \cref{eq:gmresprob} \emph{increases} as $k$ increases. This qualitative behaviour is what we see experimentally in \cref{fig:prob-plot-0.0,fig:prob-plot-1.0,fig:prob-plot-2.0}, although the values for the probabilities are higher, as is expected, because \cref{thm:probgmres} is a lower bound.
 
 \begin{figure}[h]
     \centering
@@ -1310,16 +1327,24 @@ Notwithstanding the comments in \cref{rem:pessimistic}, we wil show in this \lcn
     \input{prob-gmres-theory-2.0.pgf}
     \caption{Plots of number of GMRES iterations required for convergence of ... with the standard deviation $=1/k^{2} $ according to \cref{thm:probgmres}.\label{fig:prob-theory-plot-2.0}}
 \end{figure}
+\begin{figure}[h]
+    \centering
+\input{prob-plot-rate-0.0.pgf}
+\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1 $  \label{fig:prob-plot-0.0}}
+\end{figure}
 
+\begin{figure}[h]
+    \centering
+\input{prob-plot-rate-1.0.pgf}
+\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1/k $  \label{fig:prob-plot-1.0}}
+\end{figure}
 
-\optodo{Add some examples of what happens as $k\rightarrow \infty$}
-\optodo{Add something about s.d. going like $1/k$ and some plots to back it up (Maybe add Gamma/(change to exp plus 1?) experiments if they can happen very quickly)}
-
-
-
-
-
-
+\begin{figure}[h]
+    \centering
+\input{prob-plot-rate-2.0.pgf}
+\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1/k^2 $  \label{fig:prob-plot-2.0}}
+\end{figure}
+\optodo{Sort captions}
 
 \subsection{Application to Quasi-Monte-Carlo methods for the Helmholtz equation}\label{sec:nbpcqmc}
 
@@ -1574,7 +1599,7 @@ We then define the randomly shifted QMC rule (with multiple randomly chosen shif
 \QMCrandshift{Q}{\Nshifts} = \frac1{\Nshifts}\sum_{s=1}^{\Nshifts} \QMCshift{Q}{\shifts} = \frac1{\NQMC\Nshifts}\sum_{s=1}^{\Nshifts}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus \shifts\mright)\mright).
 \eeqs
 
-Having defined the randomly shifted QMC rule, one can the use a statistical estimator of the QMC standard error\optodo{Figure out why this is the case, and if anything is different for complex, and how we've implemented it.}\optodo{Also, what is the terminology for this?} \cite[Equation (4.6)]{GrKuNuScSl:11}
+Having defined the randomly shifted QMC rule, one can the use the standard unbiased statistical estimator of the QMC standard error \cite[Equation (4.6)]{GrKuNuScSl:11}\optodo{Ref, ref to appendix}
 \beqs
 \QMCerror{\NQMC}{\Nshifts} = \mleft(\frac1{\Nshifts\mleft(\Nshifts-1\mright)}\sum_{s=1}^{\Nshifts} \mleft(\QMCshift{Q}{\shifts} - \QMCrandshift{Q}{\Nshifts}\mright)^2\mright)^{\half}.
 \eeqs
