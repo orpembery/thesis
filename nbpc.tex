@@ -1704,11 +1704,6 @@ Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results 
   \caption{The ideal and actual number of QMC points $\NQMC$, chosen so that the QMC error is empirically bounded for all $k$.}\label{tab:qmcpoints}
   \end{table}
 
-
-
-
-\optodo{Insert and make table}
-
 Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$\optodo{Do computations with this scaling to check QMC error remains bounded?}
 
 As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
