@@ -1,0 +1,40 @@
+\beqs
+\sN \de \frac1N \sum_{j=1}^N \abs{\yj-\Yhat}^2,
+\eeqs
+\beqs
+\Yhat \de \frac1N \sum_{l=1}^N \Yl,
+\eeqs
+\beqs
+\Yl = Y(\omegal),
+\eeqs
+$\omegal$ i.i.d., so $\Yl$ are uncorrelated.
+Notation:
+\beqs
+\mu \de \abs{\EXP{Y}},
+\eeqs
+\beqs
+\sigma \de \VAR{Y} = \EXP{\abs{Y}^2} - \abs{\EXP{Y}}^2.
+\eeqs
+
+Want an unbiased estimator of $\VAR{\Yhat}$. Have
+\beqs
+\VAR{\Yhat} = \VAR{\frac1N \sum_{l=1}^N \Yl} = \frac1{N^2} \VAR{\sum_{l=1}^N \Yl} = \frac1N \VAR{Y}
+\eeqs
+as $\Yl$ uncorrelated.
+
+Show that Bessel correction for an estimator of $\VAR{Y}$ is correct:
+
+\begin{align*}
+  \EXP{\sN} &= \frac1N \EXP{\sum_{j=1}^N \abs{\Yj - \Yhat}^2}\\
+  &= \frac1N\EXP{\sum_{j=1}^N \abs{\Yj  - \frac1N \sum_{l=1}^N \Yl}^2}\\
+  & = \frac1N \EXP{\sum_{j=1}^N\mleft(\abs{\Yj}^2 - \frac1N \sum_{l=1}^N \mleft(\Yj \Ylbar + \Yl\Yjbar\mright) + \frac1{N^2} \abs{\sum_{l=1}^N  \Yl}^2\mright)}\\
+  & = \frac1N \sum_{j=1}^N\mleft(\EXP{\abs{\Yj}^2} -\frac2N \EXP{\abs{\Yj}^2} -\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \abs{\sum_{l=1}^N  \Yl}^2}\mright)\\
+  & = \frac1N \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \mleft(\sum_{l=1}^N\Yl\mright)\mleft(\overline{\sum_{m=1}^N  \Ym}\mright)}\mright)\\
+  & = \frac1N \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \sum_{l=1}^N\mleft(\Yl\sum_{m=1}^N  \Ymbar\mright)}\mright)\\
+  & = \frac1N \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \sum_{l=1}^N\abs{\Yl}^2 + \sum_{l=1}^N \sum_{m\neq l} \Yl \Ymbar}\mright)\\
+  & = \frac1N \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \sum_{l=1}^N\abs{\Yl}^2} +\frac1{N^2} \sum_{l=1}^N \sum_{m\neq l} \EXP{\Yl \Ymbar}\mright)\\
+  &= \frac1N \sum_{j=1}^N \mleft(\frac{N-2}N \mleft(\mu^2 + \sigma^2\mright) - \frac2N \mleft(N-1\mright) \mu^2 + \frac1{N^2} N \mleft(\mu^2 + \sigma^2\mright) + \frac1{N^2} N \mleft(N-1\mright) \mu^2\mright)\\
+  &= \frac1N \sum_{j=1}^N \mleft( \frac{N-1}N \mleft(\mu^2 + \sigma^2\mright) - \frac{N-1}{N} \mu^2\mright)\\
+  &= \frac1N \sum_{j=1}^N \frac{N-1}N \sigma^2\\
+  &= \frac{N-1}{N} \sigma^2.
+  \end{align*}
