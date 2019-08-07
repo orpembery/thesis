@@ -1738,12 +1738,12 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
   \input{nbpc-qmc-sequential-table}
   \caption{Results applying our sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm, with the maximum number of GMRES iterations $=10$.}\label{tab:nbpcqmcseq}
 \end{table}
-    \optodo{Fix table with LaTeX}
+
 \begin{table}
   \centering
   \input{nbpc-qmc-parallel-table}
   \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $0.2$\%.}\label{tab:nbpcqmcspar}
-  \end{table}\optodo{Make caption better}
+  \end{table}
 
 
     In conclusion, we see that nearby preconditioning gives very significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
@@ -1753,15 +1753,15 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
 
 %\subsection{Definition of the TEDP and analogues of the results in \cref{sec:3}}
-\optodo{Ref to above}
+
 \paragraph{The impedance boundary $\Gamma_I$.} By comparing \cref{eq:src,eq:ibc}, we see that, in the case $g_I=0$, the TEDP approximates the DtN operator $T_R$ by $\ri k$. Indeed, by using Green's first identity and the definition of the normal derivative (see, e.g., \cite[Lemma 4.3]{Mc:00}), show that the boundary condition on $\Gamma_I$ imposed in the variational problem \cref{prob:vtedp} is 
 %In this BVP, the DtN operator $T_R$ Sommerfeld radiation condition 
 \beq\label{eq:imp}
 \dudnu - \ri k\gamma u = g_I \ton \Gamma_I.
 \eeq
-where $\nu$ is the unit outward-pointing normal vector to $\Omega$ on $\Gamma_I$.\optodo{Keep or not?}
+where $\nu$ is the unit outward-pointing normal vector to $\Omega$ on $\Gamma_I$.
 
-\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $\aT(\cdot,\cdot)$ defined in \cref{eq:aT} satisfies the G\aa rding inequality \cref{eq:gardingbrief}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \cref{sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.\optodo{Check this stuff is above}
+\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $\aT(\cdot,\cdot)$ defined in \cref{eq:aT} satisfies the G\aa rding inequality \cref{eq:gardingbrief}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \cref{sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.
 
 \paragraph{Finite-element/Galerkin solution.}
 The Galerkin matrix is defined exactly as in \cref{eq:matrixAdef}, except that 
@@ -1856,4 +1856,4 @@ The PDE bound \cref{thm:2} relies only on \cref{lem:H1}, which, as stated above,
 \eit
 %\item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in \emph{weighted} GMRES.
 \een
-\optodo{Consistent captialisation in sections}
+

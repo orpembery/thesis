@@ -1,10 +1,10 @@
-\section{Theory of the Finite-Element Discretisation of the Helmholtz Equation}\label{sec:helmfe}
+\section{Theory of the finite-element discretisation of the Helmholtz equation}\label{sec:helmfe}
 
 We now shift our attention to the numerical analysis of the Helmholtz equation in heterogeneous media; in particular, we  study the finite-element method for the Helmholtz equation. We first state the variational formulations of the Helmholtz equation, define the finite element method, and recall results on the approximation properties of finite-element spaces. we then prove our main result, error bounds for the finite-element method for the heterogeneous Helmholtz equation, where the bounds hold for arbitrary (fixed) degree finite elements, and are explicit in $n$ and (in principle) $A$.
 
 a new error bound for the finite-element method for the Helmholtz equation in heterogeneous media.
 
-  \subsection{Variational Formulations for the Helmholtz equation}\label{sec:varform}
+  \subsection{Variational formulations for the Helmholtz equation}\label{sec:varform}
   The finite element method is based on the variational formulation of the Helmholtz equation; for simplicity of exposition, we state the variational formulation of \cref{prob:edp,prob:tedp} in the case $\gD = 0,$ although these can be generalised to the case $\gD \neq 0.$
   
 \bprob[Variational formulation of EDP when $\gD = 0$]\label{prob:vedp}
@@ -52,7 +52,7 @@ and
 
 For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
   
-\subsection{Background Concepts in Finite-Element Theory}\label{sec:fetheory}
+\subsection{Background concepts in finite-element theory}\label{sec:fetheory}
 
 We now give a brief summary of elementary concepts in finite-element theory. In the interest of brevity, we focus only on those concepts that we be needed to
 prove the new error bound for finite-element discretisations of the Helmholtz equation in \cref{sec:fem} below.
@@ -413,7 +413,7 @@ In contrast, the merit of splitting arguments is that they can give mesh conditi
 However, the drawback of splitting arguments is their complexity. They involve proving bounds on the solution of discrete Helmholtz problems; such bounds are complicated to prove, especially in the higher-order cases, and the constants involved depend on the polynomial degree $p$ in highly complicated ways. These drawbacks limit the likelihood that such bounds can be used for $hp$-finite-element methods, where the dependence on the polynomial degree must be known explicitly.
 
 
-\subsubsection{(Modified) Duality arguments}
+\subsubsection{(Modified) duality arguments}
 The first class of arguments we consider are (modified) duality arguments. These arguments are used to prove quasi-optimality, accuracy, and data-accuracy results; they include the more commonly known Schatz argument for Helmholtz problems. In these arguments, one uses a G\r{a}rding inequality satisfied by the Helmholtz equation to show that the error in the weighted $H^1$ norm is bounded by the best approximation error, plus error in the $L^2$ norm\footnote{Recall that for the stationary diffusion equation, one can show the finite-element error is bounded by the approximation error simply using coercivity and boundedness of the bilinear form---this is Cea's Lemma.}. One then uses a modification of the standard Aubin--Nitsche duality argument to bound the $L^2$ norm.
 
 To show the error in the weighted $H^1$ norm is bounded by the error in the $L^2$ norm, observe
@@ -1112,7 +1112,7 @@ Observe that when using the elliptic projection in such a splitting argument, th
 %% To show that $\uh$ exists, as in the proof of \cref{lem:ellprojbounds} we can use the error bound \eqref{eq:hherrltbound} to show that $\uh$ is unique, and we can then use the fact that $\Vhp$ is finite-dimensional to show that $\uh$ exists.
 %% \epf
 
-\section{New Finite-Element-Error bounds for the Heterogeneous Helmholtz Equation}\label{sec:fem}
+\section{New finite-element-error bounds for the heterogeneous Helmholtz equation}\label{sec:fem}
 
 We now prove our new error bounds for higher-order finite-element approximations of the solution of the Helmholtz equation in heterogeneous media--- we show that (for nontrapping media) the finite-element method applied to \cref{prob:tedp} is $\hka{(2p+1)/(2p)}$-data-accurate. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the main differences that:
 \ben
