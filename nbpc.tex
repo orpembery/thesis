@@ -24,7 +24,7 @@ where $A(,\bx\omega)$ and $n(\omega,\bx)$ are \emph{random fields}, and $\omega$
 To calculate quantities of interest of the solution $u(\omega,\cdot)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
 Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
 
-Moreover, the cost of \emph{constructing} preconditioners for the resulting linear systems is also very expensive. For example, if our preconditioner is given by an exact LU factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}\optodo{See if any of the sparse matrix books have this in.}.
+Moreover, the cost of \emph{constructing} preconditioners for the resulting linear systems is also very expensive. For example, if our preconditioner is given by an exact LU factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}.
 
 Observe that the cost of applying the preconditioner is significantly less than the cost of constructing the preconditioner. Therefore, if one calculates a preconditioner for one realisation of \cref{eq:nbpchh} and then re-uses it for many `nearby' (in some sense) realisations of \cref{eq:nbpchh}, then one could obtain considerable computational savings.
 
@@ -378,7 +378,7 @@ Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:mat
 
 For a proof of \cref{lem:normequiv}, see \cite[Chapter V, Lemma 2.5]{Br:07}.\ednote{Euan---in \cite[Chapter V, Lemma 2.5]{Br:07} this result is written slightly differently (with scaled basis functions and a scaled 2-norm) but it's equivalent to our result. I presume I don't need to put anything 'tranlating' their result to ours? (Can download the 3rd edition from the CUP website if you use your Bath institutional login.)}
 
-%% \bpf[Sketch proof of \cref{lem:normequiv}]\optodo{can omit this if can find a good reference. One possibility . Need to check basis scaling business.}
+%% \bpf[Sketch proof of \cref{lem:normequiv}]\opntodo{can omit this if can find a good reference. One possibility . Need to check basis scaling business.}
 %% The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtDR}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
 %% %\beqs
 %% %\N{v_h}^2_{L^2(\O
@@ -995,13 +995,13 @@ We will give numerical results indicating that this best-case result is sharp (o
 
 
 \subsubsection{Theory in weaker norms}\label{sec:weakertheory}
-The reason that the terms $\NLiDR{\Aso-\Ast}$ and $\NLiDR{\nso-\nst}$ appear in \cref{thm:1} is that the terms $\NLiDR{n}$ and $\NLiDR{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
+The reason that the terms $\NLiDRRRdtd{\Aso-\Ast}$ and $\NLiDRRR{\nso-\nst}$ appear in \cref{thm:1} is that the terms $\NLiDRRR{n}$ and $\NLiDRRRdtd{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
 \beq\label{eq:keynbound}
-\NLtDR{n\ftilde} \leq \NLiDR{n}\NLtDR{\ftilde}
+\NLtDR{n\ftilde} \leq \NLiDRRR{n}\NLtDR{\ftilde}
 \eeq
 and
 \beq\label{eq:keyAbound}
-\NLtDR{A \grad \ftilde} \leq \NLiDR{A}\NLtDR{\grad \ftilde}
+\NLtDR{A \grad \ftilde} \leq \NLiDRRRdtd{A}\NLtDR{\grad \ftilde}
 \eeq
 respectively, for some function $\ftilde,$ and these bounds are carried through the rest of the proof.
 
@@ -1207,7 +1207,10 @@ Let $\GMRES{\eps}{\nso}{\nst}$ denote the number of iterations required for GMRE
 \beqs
 \AmatoI\Amatt  \bu = \AmatoI \bff
 \eeqs
-to converge to within a tolerance $\eps.$
+to converge to within a tolerance $\eps,$ i.e., to achieve
+\beqs
+\frac{\Nt{\bxm}}{\Nt{\bff}} < \eps.
+\eeqs
 
 Then there exists a function $\Gfnname:\RRp\rightarrow [0,\dofs]$ such that
 \beqs
@@ -1216,15 +1219,17 @@ Then there exists a function $\Gfnname:\RRp\rightarrow [0,\dofs]$ such that
 
 Moreover, $\Gfnname$ is given by
 \beq\label{eq:gdef}
-\Gfn{\NLiDR{\nso-\nst}} =
+\Gfn{\NLiDRRR{\nso-\nst}} =
 \begin{dcases}
 \min\set{N,\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1} & \tif \alpha < 1\\
 N & \tif \alpha \geq 1,
 \end{dcases}
 \eeq
 
-where $\alpha = \Ct k \NLiDR{\nso-\nst},$ where $\Ct$ is given by \cref{eq:C2}.
+where $\alpha = \Ct k \NLiDRRR{\nso-\nst},$ where $\Ct$ is given by \cref{eq:C2}.
 \ele
+
+See \cref{fig:G} for some examples of the function $\Gfnname$.
 
 The proof of \cref{lem:probgmres1} uses the following corollary \cite[Corollary 3]{SaSc:86} of \cite[Proposition 2]{SaSc:86} on the `lucky breakdown' of GMRES.
 \bco[Guaranteed convergence of GMRES]\label{cor:gmresguaranteed}
@@ -1236,7 +1241,7 @@ For $\alpha \geq 1$, the result is immediate from \cref{cor:gmresguaranteed}. Fo
 \beq\label{eq:gmressub}
 \frac{\Nt{\brm}}{\Nt{\brz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
 \eeq
-To obtain an lower on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\brz} = 1$) if
+To obtain a lower bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\brz} = 1$) if
 \beq\label{eq:mlower}
 m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
 \eeq
@@ -1259,42 +1264,17 @@ However, the change in the definition of $\Gfnname$ \cref{eq:gdef} would mean $\
 The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDRRR{\nso-\nst}$ is because the \lcnamecref{cor:GMRES_intro} only holds if $\alpha < 1$. Therefore if $\alpha \geq 1$ the only result available for us to apply is \cref{cor:gmresguaranteed}, stating that GMRES converges in at most $N$ iterations.
 \ere
 
-%% \begin{figure}
-%%   \centering
-%%   \input{G-20.pgf}
-%%   \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G20}}
-%%     \end{figure}
-
-%% \begin{figure}
-%%   \centering
-%%   \input{G-40.pgf}
-%%   \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=40,$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G40}}
-%%     \end{figure}
-
-%% \begin{figure}
-%%   \centering
-%%   \input{G-100.pgf}
-%%   \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=100,$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G100}}
-%%     \end{figure}
-
-
 \begin{figure}
   \centering
   \input{G.pgf}
-  \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,40,100$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G}}
+  \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,40,100$ $\Ct = 0.1,$ $N=\ceil{k^3},$ and $\eps = 10^{-5}$.\label{fig:G}}
     \end{figure}
 
 
-\Cref{lem:probgmres1} gives us the relationship between the (bound on the) number of GMRES iterations and $\NLiDRRR{\nso-\nst(\omega)}.$ We can therefore infer probabalistic properties of the number of GMRES iterations from the probability distribution of $\NLiDRRR{\nso-\nst(\omega)}.$
+\Cref{lem:probgmres1} gives us the relationship between the (bound on the) number of GMRES iterations and $\NLiDRRR{\nso-\nst(\omega)}.$ We can therefore infer probabalistic properties of the number of GMRES iterations from the probability distribution of $\NLiDRRR{\nso-\nst(\omega)}.$ (For probabalistic notation, we refer the reader to \cref{chap:stochastic}.)
 
-
-
-\optodo{For probabalistic notation ,see that chapter}
-\optodo{$\LiDR$ should be $\LiDRRR$}
 \bth[Probabilistic GMRES convergence]\label{thm:probgmres}
-Let $\nso \in \LiDRRR$ be fixed, and let $\nst:\Omega\rightarrow\LiDRRR$ be a random field. Let $\eps$ and $\dofs$ be as in \cref{lem:probgmres1}, and let $\Aso = \Ast = I.$ Let $\Amatt(\omega)$ denote the (random) Galerkin matrix corresponding to the discretisation of \cref{prob:edp}\optodo{Change?} with coefficients $\Aso=I$ and $\nst(\omega)$.
-
-Fix $ R \in \NN.$ Then
+Let $\nso \in \LiDRRR$ be fixed, and let $\nst:\Omega\rightarrow\LiDRRR$ be a random field. Let $\eps$ and $\dofs$ be as in \cref{lem:probgmres1}, and let $\Aso = \Ast = I.$ Fix $ R \in \NN.$ Then
 \beq\label{eq:GMRESprob}
 \PP\mleft(\Gfn{\NLiDRRR{\nso-\nst}} \leq R\mright)\leq\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright) .
 \eeq
@@ -1309,11 +1289,11 @@ The result immediately follows.
 \epf
 
 \bre[$\GMRES{\eps}{\no}{\nt}$ is a random variable]
-All of the operations used in constructing the vectors $\bxm$ in the GMRES algorithm are measurable functions of $bBxmmo$ and $\AmatoI\Amatt$ (see, e.g., \cite[Algorithms 11.4.2 and 5.1.3]{GoVa:13}), therefore $\mleft(\bxm\mright)_{m=1}^N$ is a sequence of measurable functions, a stochastic process\optodo{Check formal definition}. The stopping criterion $\Nt{\bxm} < \eps$ is a \defn{stopping time} in the theory of stochastic processes\optodo{Ref, check} (because at time $m$ one can evaluate whether the criterion has been fulfilled. Therefore, in particular\optodo{Reasoning correct?} the number of GMRES iterations after which the criterion is fulfilled (i.e., $\GMRES{\eps}{\no}{\nt}$) is a random variable\optodo{Ref}.\optodo{Ask a probabalist about this.}
+All of the operations used in constructing the vectors $\bxm$ in the GMRES algorithm are measurable functions of $\bxmmo$ and $\AmatoI\Amatt$ (see, e.g., \cite[Algorithms 11.4.2 and 5.1.3]{GoVa:13}), therefore $\mleft(\bxm\mright)_{m=1}^N$ is a sequence of random variables, a stochastic process (see, e.g., \cite[Definition 2.1.4]{Ok:13}). The stopping criterion $\Nt{\bxm} < \eps$ is an \emph{exit time} from the set $\mleft[\eps,\infty\mright)$, and therefore, because we assume $\OFP$ is a complete probability space, it follows from, e.g.,  \cite[Example 7.2.2]{Ok:13} that $\GMRES{\eps}{\no}{\nt}$ is a stopping time. See \cite[Definition 7.2.1]{Ok:13} for the probabalistic definition of a stopping time. Informally, a random time is a stopping time, if one can determine whether it has occured based only on past knowledge. For example, the \emph{first} time a stochastic process exits a set is a stopping time, the \emph{last} time a stochastic process exits a set is not. Because $\GMRES{\eps}{\no}{\nt}$ is a stopping time, it is measurable with respect to the associated filtration (see, e.g., \cite[Definition 3.2.2]{Ok:13}), and so is measurable with respect to $\cF$. I.e., $\GMRES{\eps}{\no}{\nt}$ is a random variable.
 \ere
 
 \bre[The expression \cref{eq:GMRESprob} is computable]\label{rem:computable}
-Because the function $\Gfnname$ is not invertible (as is clear from \optodo{pics} above), one cannot write the left-hand side of \cref{eq:GMRESprob} as
+Because the function $\Gfnname$ is not invertible (as is clear from \cref{fig:G} above), one cannot write the left-hand side of \cref{eq:GMRESprob} as
 \beqs
 \PP\mleft(\NLiDRRR{\nso-\nst} \leq \GfnnameI\mleft(\mleft[0,R\mright]\mright)\mright).
 \eeqs
@@ -1327,14 +1307,14 @@ However, one can still compute the set
 \bre[\Cref{thm:probgmres} is pessimistic]\label{rem:pessimistic}
 Observe that we expect the bound in \cref{thm:probgmres} to be pessimistic, i.e., we expect that \cref{eq:GMRESprob} is not sharp. We especially expect \cref{eq:GMRESprob} is not sharp for large values of $R:$
 
-One can show via elementary calculus that (assuming that for $\alpha < 1$ the expression involving $\alpha$ in \cref{eq:gdef} is always $\leq N$) for $\alpha < 1$ $\Gfnname$ achieves its maximum when $\alpha = 1/3$. Also observe that $\Gfnname$ over the range $\alpha < 1$ only depends on $k$ through the dependence of $\alpha$ on $k.$ Therefore, the maximum of $\Gfnname$ over $\alpha \in (0,1)$ is independent of $k.$ Let $\Gfnmaxlo$ denote the value of this maximum. Then, for any $R \in \mleft(\Gfnmaxlo,N\mright)$, the estimate $\PP\mleft(\Gfn{\nso-\nst} \leq R\mright)$ is equal to $\PP\mleft(\NLiDRRR{\nso-\nst} \leq 1/\mleft(\Ct k\mright)\mright),$ i.e., the lower-bound estimate is \emph{independent} of $R$. This is almost certainly not sharp - we would expect $\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright)$ to increase with $R$. However, because the only rigorous result we have available if $\alpha \geq 1$ is\optodo{N result}, we cannot prove a better bound.
+One can show via elementary calculus that (assuming that for $\alpha < 1$ the expression involving $\alpha$ in \cref{eq:gdef} is always $\leq N$) for $\alpha < 1$ $\Gfnname$ achieves its maximum when $\alpha = 1/3$. Also observe that $\Gfnname$ over the range $\alpha < 1$ only depends on $k$ through the dependence of $\alpha$ on $k.$ Therefore, the maximum of $\Gfnname$ over $\alpha \in (0,1)$ is independent of $k.$ Let $\Gfnmaxlo$ denote the value of this maximum. Then, for any $R \in \mleft(\Gfnmaxlo,N\mright)$, the estimate $\PP\mleft(\Gfn{\nso-\nst} \leq R\mright)$ is equal to $\PP\mleft(\NLiDRRR{\nso-\nst} \leq 1/\mleft(\Ct k\mright)\mright),$ i.e., the lower-bound estimate is \emph{independent} of $R$. This is almost certainly not sharp - we would expect $\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright)$ to increase with $R$. However, because the only rigorous result we have available if $\alpha \geq 1$ is \cref{cor:gmresguaranteed}, we cannot prove a better bound.
 \ere
 
 \subsubsection{Qualitative predictions from \cref{thm:probgmres}}\label{sec:qualgmres}
 
 Notwithstanding the comments in \cref{rem:pessimistic}, we wil show in this \lcnamecref{sec:qualgmres} that \cref{thm:probgmres} gives \emph{qualitatively} correct predictions. To illustrate this correctness, we take $\Ao=\At=I,$ $\no =1$, and $\nt = \no + \eta,$ where $\eta$ is an $\Exp{\sigma}$ random variable, where $\sigma$ is the shape parameter, that we will vary. By construction, $\NLiDRRR{\no-\nt} = \eta$. Recall that the standard deviation of $\eta$ is $\sigma$, and therefore one might expect (based on \cref{cor:1,cor:1a}) that if $\sigma \sim 1/k,$ the number of GMRES iterations may be controllable (in some sense) as $k \rightarrow \infty.$
 
-In our numerical experiments (for which we use the IIP, with $h = k^{-3/2}$ on the unit square\optodo{Standard computational setup in appendix}) we consider three cases:
+In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0.$ we consider three cases:
 \ben
 \item\label{it:sigma1} $\displaystyle \sigma  = 1,$
 \item\label{it:sigma2} $\displaystyle \sigma  = \frac{1}k,$ and
@@ -1352,38 +1332,38 @@ In our numerical experiments (for which we use the IIP, with $h = k^{-3/2}$ on t
 \begin{figure}[h]
     \centering
 \input{prob-gmres-theory-0.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence of ... with the standard deviation $=1 $ according to \cref{thm:probgmres}.\label{fig:prob-theory-plot-0.0}}
+\caption{The lower bound in \cref{eq:GMRESprob} for $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDRR{\no-\nt} \sim \Exp{\sigma}$ with $\sigma = 1.$\label{fig:prob-theory-plot-0.0}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
 \input{prob-gmres-theory-1.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence of ... with the standard deviation $=1/k $ according to \cref{thm:probgmres}.\label{fig:prob-theory-plot-1.0}}
+\caption{The lower bound in \cref{eq:GMRESprob} for $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDRR{\no-\nt} \sim \Exp{\sigma}$ with $\sigma = 1/k.$\label{fig:prob-theory-plot-1.0}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \input{prob-gmres-theory-2.0.pgf}
-    \caption{Plots of number of GMRES iterations required for convergence of ... with the standard deviation $=1/k^{2} $ according to \cref{thm:probgmres}.\label{fig:prob-theory-plot-2.0}}
+    \caption{The lower bound in \cref{eq:GMRESprob} for $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDRR{\no-\nt} \sim \Exp{\sigma}$ with $\sigma = 1/k^2.$\label{fig:prob-theory-plot-2.0}}
 \end{figure}
 \begin{figure}[h]
     \centering
 \input{prob-plot-rate-0.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1 $  \label{fig:prob-plot-0.0}}
+\caption{Empricial probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDRR{\no-\nt} \sim \Exp{\sigma}$ with $\sigma = 1.$\label{fig:prob-plot-0.0}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
 \input{prob-plot-rate-1.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1/k $  \label{fig:prob-plot-1.0}}
+\caption{Empricial probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDRR{\no-\nt} \sim \Exp{\sigma}$ with $\sigma = 1/k$\label{fig:prob-plot-1.0}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
 \input{prob-plot-rate-2.0.pgf}
-\caption{Plots of number of GMRES iterations required for convergence for 1000 realisations of ... with the standard deviation $=1/k^2 $  \label{fig:prob-plot-2.0}}
+\caption{Empricial probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDRR{\no-\nt} \sim \Exp{\sigma}$ with $\sigma = 1.$\label{fig:prob-plot-2.0}}
 \end{figure}
-\optodo{Sort captions}
+
 
 \subsection{Application to Quasi-Monte-Carlo methods for the Helmholtz equation}\label{sec:nbpcqmc}
 
@@ -1414,9 +1394,9 @@ Monte-Carlo and Quasi-Monte-Carlo rules are methods for choosing the points $\by
 
 Quasi-Monte-Carlo rules, in contrast to Monte-Carlo rules, do require the dependence on $\omega$ to take the form prescribed above, as QMC rules are high-dimensional integration rules (where we are integrating across the high-dimensional cube $\cube{J}).$ In QMC rules the points $\byl$ are not chosen completely at random, unlike Monte-Carlo rules.
 
-The advantages of QMC rules is that they can exhibit higher rates of convergence compared to Monte-Carlo rules; Monte Carlo rules typically converge with rate $1/\Npoints^{1/2}$ (see\optodo{Ref when done}), whereas QMC rules can converge with rates up to $1/\Npoints$\optodo{Insert ref} or with even higher rates for higher-order QMC rules\optodo{Refs}.
+The advantages of QMC rules is that they can exhibit higher rates of convergence compared to Monte-Carlo rules; Monte Carlo rules typically converge with rate $1/\Npoints^{1/2}$ (see\ednote{I'll sketch this in the MLMC chapter, and add in a reference once it's done.}), whereas QMC rules can converge with rates up to $1/\Npoints$  or with even higher rates for higher-order QMC rules, see, e.g., \cite[Penultimate paragraph of Section 1.2]{KuNu:16}.
 
-In applying QMC rules to stochastic PDEs, we assume that the random coefficient is dependent on fintely many (or countably many) random variables, as in \cref{eq:qmcexp2} above, and we then use QMC rules to estimate expectations of quantities of interest for the stochastic PDE. Seee\optodo{ref} below for this setup worked out in more detail for the Helmholtz equation. Applying QMC rules to stochastic PDEs is a vibrant and active research area. For recent overviews of this field, see \cite{KuNu:16} (and the associated tutorial \cite{KuNU:18a}) and \cite{KuNu:18b}. We observe that there is currently no rigorous study of how QMC methods behave for the Helmholtz equation, although we undertstand such work is underway in \cite{GaKuSl}.
+In applying QMC rules to stochastic PDEs, we assume that the random coefficient is dependent on fintely many (or countably many) random variables, as in \cref{eq:qmcexp2} above, and we then use QMC rules to estimate expectations of quantities of interest for the stochastic PDE. Seee the next \lcnamecref{sec:nbpcqmcnum} for this setup worked out in more detail for the Helmholtz equation. Applying QMC rules to stochastic PDEs is a vibrant and active research area. For recent overviews of this field, see \cite{KuNu:16} (and the associated tutorial \cite{KuNU:18a}) and \cite{KuNu:18b}. We observe that there is currently no rigorous study of how QMC methods behave for the Helmholtz equation, although we undertstand such work is underway in \cite{GaKuSl}.
 
 The key idea in applying nearby preconditioning to QMC methods for the Helmholtz equation is that we do not just choose one realisation $\no$ of the coefficient for which to calculate the preconditioner, rather, we choose as many as a are necessary to ensure the number of GMRES iterations across all samples remains bounded. The key questions the algorithms in this \lcnamecref{sec:nbpcqmc} answer are therefore: How many preconditioners should one calculate, and for which realisations of the coefficient should they be calculated?
 
@@ -1433,13 +1413,13 @@ and
 \beqs
 \psij(\bx) = \cos\mleft(\frac{j\pi}4 x\mright)\cos\mleft(\frac{\mleft(j+1\mright)\pi}4 y\mright).
 \eeqs
-Observe that $\NLiDRR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ This expansion is based on the random-field expansion in \cite[Section 5.1]{GiGrKuScSl:19}. Expansions similar to \cref{eq:artificalkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Loe\`eve expansion of a random field, where the $\Uj$ are independent random variables, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator\optodo{ref LPS}. In view of the fact that we will bev using QMC methods to approximated $\EXP{Q(u)}$ (for some quantities of interest $Q$) we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
+Observe that $\NLiDRR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ This expansion is based on the random-field expansion in \cite[Section 5.1]{GiGrKuScSl:19}. Expansions similar to \cref{eq:artificalkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Loe\`eve expansion of a random field, where the $\Uj$ are independent random variables, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator, see, e.g., \cite[Section 7.4]{LoPoSh:14}. In view of the fact that we will be using QMC methods to approximate $\EXP{Q(u)}$ (for some quantities of interest $Q$) we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
 \beqs
 n(\by) = 1 + 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
 \eeqs
 There is no a priori reason that one must have such an affine dependence of the random field on the randomness in order to apply nearby preconditioning to QMC methods (one could, for example, take $n$ to be a lognormal random field). However, affine dependence will allow us to easily define the so-called `paralleisable' nearby-preconditioning-QMC algorithm below.
 
-We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly numerical; there is no current theory to support these calculations. In particular, we show below\optodo{ref} that it appears that for the QMC error for Helmholtz problems to remain bounded as $k$ increases, one must increase the number of QMC points polynomially in $k.$ We again remark that there is currently no theoretical justification for this behaviour.
+We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly numerical; there is no current theory to support these calculations. In particular, we show in \cref{sec:nbpcqmcnumerics} below that it appears that for the QMC error for Helmholtz problems to remain bounded as $k$ increases, one must increase the number of QMC points with $k.$ We again remark that there is currently no theoretical justification for this behaviour.
 
 
 \paragraph{Terminology} Before we describe the nearby-preconditioning-QMC algorithms in detail we establish two pieces of terminology that will be of use in describing these algorithms. Firstly, we will use the word `point' to refer to a point in the parameter space $\cube{J}$, and use phrases such as `calculate a preconditioner at the point $\by$' as shorthand for `calculate the preconditioner corresponding to the finite-element discretisation of the Helmholtz IIP (as described above) with coefficient $n(\by)$'.
@@ -1495,12 +1475,12 @@ The algorithm contains two key ideas:
 \item Locate the preconditioning points according to a tensor-product rule.
   \een
   We now describe each of these two ideas in turn.
-\optodo{Say somewhere doing general $J$}
+
   Whilst the metric $\dQMC$ is the metric related to the performance of nearby preconditioning (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with; it is not obvious what geometry it induces on $\cube{J}$, nor how to theoretically work with it (we ignore the issue of \emph{computing} $\dQMC$ here). Therefore, we work in an alternative, although related metric
   \beqs
 \dapprox(\byo,\by) = \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}.
 \eeqs
-Observe that $\dapprox$ is a weighted $L^1$ metric, with the weights corresponding to the terms in \cref{eq:artificalkl}. Recall that $\sqrt{almbdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
+Observe that $\dapprox$ is a weighted $L^1$ metric, with the weights corresponding to the terms in \cref{eq:artificalkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
 
 To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric). Therefore, given the centres of two of these balls $\bcone$ and $\bct$ (if we suppose these are the centres of `adjacent' balls), then we will have
 \beq\label{eq:centres2r}
@@ -1532,7 +1512,7 @@ However, there are three immediate objections to the above approach:
     \een
     These questions are all completely valid, and so we slightly modify the above procedure to deal with them.
 
-    Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\Npreideal:\RRp \rightarrow \RRp$ given by $r \mapsto \Npre.$ Therefore we can calculate numerically the value $\rideal$ such that $\Npreideal(\rideal) = \Npretarget.$ (In the code\optodo{ref}, we do this via interval bisection.)
+    Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\Npreideal:\RRp \rightarrow \RRp$ given by $r \mapsto \Npre.$ Therefore we can calculate numerically the value $\rideal$ such that $\Npreideal(\rideal) = \Npretarget.$ (In our computations, we do this via interval bisection.)
 
     Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\Npreidealo,\ldots,\NpreidealJ$ as above (recalling that the $\Npreidealj$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Npreidealj}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Npreidealj \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
 
@@ -1593,12 +1573,11 @@ Calculate $\nearestpre\mleft(\by^{(l)}\mright)$ by brute force\;
     \bit
   \item The algorithm is inherently serial; one must see whether a given solve converges in the required number of GMRES iterations before performing subsequent solves. (In principle one could parallelise the algorithm by splitting the QMC points up onto different groups of processors, and then using the sequential algorithm on each group of processors. However, there is no guarantee one would split the QMC points up in a way that groups nearby points, which could lead to a substantial increase in computational work.)
     \item There is no guarantee that this method for exploring the sample space and choosing the preconditioning points will yield an optimal collection of preconditioning points (optimal in the sense of the minimal number of preconditioning points needed).
-    \eit\optodo{\emph{Why} wouldn't this algorithm work in parallel? Is it any worse than calculating PCs multiple times?}
-    \optodo{Put somewhere that it would work well for MCMC, citing paper Rob said. Also, Recycling Krylov in future work?}
+    \eit
 
     The advantages and disadvantages of the parallel algorithm are, by and large, the reverse of those for the sequential algorithm. The advantages of the parallel algorithm are:
     \bit
-  \item The algorithm is fully parallelisable; once the preconditioning points and the map from QMC points to preconditioning points have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner multiple times, on different groups of processes\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.}\optodo{ref code}. However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
+  \item The algorithm is fully parallelisable; once the preconditioning points and the map from QMC points to preconditioning points have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner multiple times, on different groups of processes\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.} However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
     \item The preconditioning points should fill the parameter space `well'. Given the points are chosen a priori to be well spaced according to the $\dapprox$ metric, one expects they will be a close to optimal collection (in the sense described above).
       \eit
       The disadvantages of the parallel algorithm are:
@@ -1606,12 +1585,9 @@ Calculate $\nearestpre\mleft(\by^{(l)}\mright)$ by brute force\;
     \item One needs a heuristic for how many preconditioning points to choose, as this is not given by the algorithm. (In our numerical experiments below, we obtain this heuristic by using the sequential algorithm for low $k$, and then extrapolating the proportion of preconditioning points used to larger values of $k.$
       \item The number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. However, we expect the number of generated points will be close $\Npretarget$.
       \eit
-\optodo{Use backref and make an index?}
-\optodo{histogram of GMRES iterations for parallel algorithm?}
+
 
 \subsubsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
-\optodo{Need to tidy code/make plots/make better the stuff that calculates 3.5}
-
 We now describe numerical experiments demonstrating the effectiveness of nearby preconditioning for tackling Helmholtz problems.
 
 As described above, before we perform our numerical experiments, we need to determine:
@@ -1619,7 +1595,7 @@ As described above, before we perform our numerical experiments, we need to dete
 \item How the number of QMC points should scale with $k$, and
   \item How many preconditioners we should choose.
     \eit
-    We tackle each of these in turn, before using the parallelisable algorithm detail above to apply nearby preconditioning to QMC methods for the Helmholtz equation. Throughout this \lcnamecref{sec:nbpcqmcnumerics} we use the model problem\optodo{Copy model problem from above, and make appropriate changes above.}.
+    We tackle each of these in turn, before using the parallelisable algorithm detail above to apply nearby preconditioning to QMC methods for the Helmholtz equation. Throughout this \lcnamecref{sec:nbpcqmcnumerics} we use the model problem detailed above.
 
     To determine how the number of QMC points should scale with $k$, we first estimate the QMC error for increasing $k.$ To estimate the QMC error we use a randomly shifted QMC rule; our exposition here follows \cite[Section 4.2]{GrKuNuScSl:11}.
 
@@ -1638,24 +1614,26 @@ We then define the randomly shifted QMC rule (with multiple randomly chosen shif
 \QMCrandshift{Q}{\Nshifts} = \frac1{\Nshifts}\sum_{s=1}^{\Nshifts} \QMCshift{Q}{\shifts} = \frac1{\NQMC\Nshifts}\sum_{s=1}^{\Nshifts}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus \shifts\mright)\mright).
 \eeqs
 
-Having defined the randomly shifted QMC rule, one can the use the standard unbiased statistical estimator of the QMC standard error \cite[Equation (4.6)]{GrKuNuScSl:11}\optodo{Ref, ref to appendix}
+Having defined the randomly shifted QMC rule, one can the use the standard statistical estimator of the standard deviation of the error in $\QMCrandshift{Q}{\Nshifts}$ \cite[Equation (4.6)]{GrKuNuScSl:11}
 \beqs
 \QMCerror{\NQMC}{\Nshifts} = \mleft(\frac1{\Nshifts\mleft(\Nshifts-1\mright)}\sum_{s=1}^{\Nshifts} \mleft(\QMCshift{Q}{\shifts} - \QMCrandshift{Q}{\Nshifts}\mright)^2\mright)^{\half}.
 \eeqs
+(See \cref{app:complexerror} for proof that $\QMCerror{\NQMC}{\Nshifts}^2$ is an unbiased estimator of the variance of $\QMCrandshift{Q}{\Nshifts}$; recall that it does \emph{not} follow that $\QMCerror{\NQMC}{\Nshifts}$ is an \emph{unbiased} estimator of the standard deviation of $\QMCrandshift{Q}{\Nshifts}$.)
 
-To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ and approximated quantities of interest using a randomly shifted lattice rule\optodo{Check terminology}\optodo{ref code?} with 2048 points, and 20 random shifts (so a total of 40,960 PDE solves). We set $h = 0.002$ for all of the computations ($0.002 \approx 60^{-3/2}$) to avoid having to consider the effect of finite-element error. The quantities of interest we considered were:
+We estimated $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup}with $2048$ QMC points and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$) to avoid having to consider the effect of finite-element error. The quantities of interest we considered were:
 \bit
 \item The integral of the solution over the whole domain,
 \item The value of the solution at the origin,
 \item The value of the solution at the top-right corner of the domain, and
 \item The $x$-component of the gradient of the solution at the top-right corner of the domain.
   \eit
-  Observe that these QOIs require increasing regularity of the solution (the integral is defined for functions in $\LoD$, point evaluation for functions in $\Hfn{}{3/2 + \eps}{D}$\optodo{check} and point evaluation of the gradient for functions in $\Hfn{}{5/2+\eps}{D}$\optodo{Double check mesh goes the right way for point evaluation of gradient to be defined} for any $\eps > 0.$), and so computing for this range of quantities of interest will give a good insight into the behaviour of QMC applied to the Helmholtz equation for a wide range of QoIs.
+  Observe that these QOIs require increasing regularity of the solution (the integral is defined for functions in $\LoD$, point evaluation for functions in $\Hfn{}{3/2 + \eps}{D}$ and point evaluation of the gradient for functions in $\Hfn{}{5/2+\eps}{D}$ (in 3-d - the corresponding function spaces are $\Hfn{}{1+\eps}{D}$ and $\Hfn{}{2+\eps}{D}$ in 2-d) for any $\eps > 0.$), and so computing for this range of quantities of interest will give a good insight into the behaviour of QMC applied to the Helmholtz equation for a wide range of QoIs\footnote{We can evaluate point values of $\uh$ because $\uh$ is continuous, and we evaluate $\grad\uh((1,1))$ as the value of $\grad \uh$ on the upper-rightmost mesh element; such an evaluation is possible due the structure of our mesh; see \cref{fig:grid}.}.
 %%     That is, we randomly choose $\shifto,\ldots,\shiftNshifts$ points in $\cube{J}$ (the `shifts')rause the standard error estimator
 %%     \beqs
 %%     \mleft(\frac1{\nu\mleft(\nu-1\mright)} \sum_{s=1}^{\Nshifts} 
 %%     \eeqs$h = 0.002$ (relation to $k=60$ - maximum?)
-  \optodo{Need to make this read better}
+
+In \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} we plot how $C$ and $\alpha$ depend on $k$, for the plots of the QMC error with increasing $\NQMC$ for each value of $k,$ see \cref{app:hhqmcconv}.
 
 \begin{figure}[h]
     \centering
@@ -1665,8 +1643,8 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
     \begin{subfigure}{\textwidth}
 \input{integral-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = \int_D u$.  \label{fig:integralCalpha}}
-\end{figure}\optodo{Refs for QMC error eqn}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm. \label{fig:integralCalpha}}
+\end{figure}
 
 \begin{figure}[h]
     \centering
@@ -1676,8 +1654,8 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
     \begin{subfigure}{\textwidth}
 \input{origin-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q =  u(\bzero)$.  \label{fig:originCalpha}}
-\end{figure}\optodo{Refs for QMC error eqn}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm. \label{fig:originCalpha}}
+\end{figure}
 
 \begin{figure}[h]
     \centering
@@ -1687,8 +1665,8 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
     \begin{subfigure}{\textwidth}
 \input{top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = u((1,1))$.  \label{fig:toprightCalpha}}
-\end{figure}\optodo{Refs for QMC error eqn}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm.  \label{fig:toprightCalpha}}
+\end{figure}
 
 \begin{figure}[h]
     \centering
@@ -1698,18 +1676,17 @@ To estimate the QMC error for increasing $k$, we took $k = 10,20,30,40,50,60$ an
     \begin{subfigure}{\textwidth}
 \input{gradient_top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in EQN for $Q = \gradu((1,1))$.  \label{fig:gradienttoprightCalpha}}
-\end{figure}\optodo{Refs for QMC error eqn}
-\optodo{Fix plots with $e$ on x axis.}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
+\end{figure}
 
-\optodo{Ref appendix}
+
 \begin{table}[h]
   \centering
   \input{qmc-alpha-table}
   \caption{The quantities $\alphaz$ and $\alphao$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\log(k)}$.}\label{tab:qmcalpha}
   \end{table}
 
-We use these computational results to determine how $\NQMC$ should increase with $k$, in order to keep the QMC error bounded. Based on QMC theory results for the stationary diffusion equation\optodo{ref results}, we make the assumption that the QMC error (with one shift) satisfies
+We use these computational results to determine how $\NQMC$ should increase with $k$, in order to keep the QMC error bounded. Based on QMC theory results for the stationary diffusion equation, e.g., \cite[Equation 4.2]{GrKuNuScSl:11}, we make the assumption that the QMC error (with one shift) satisfies
 \beq\label{eq:qmcerrorform}
 \QMCerror{Q}{1} = C \NQMC^{-\alpha},
 \eeq
@@ -1743,7 +1720,7 @@ Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results 
   \caption{The ideal and actual number of QMC points $\NQMC$, chosen so that the QMC error is empirically bounded for all $k$.}\label{tab:qmcpoints}
   \end{table}
 
-Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$\optodo{Do computations with this scaling to check QMC error remains bounded?}
+Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$\ednote{Should I do the QMC calculations with multiple shifts, but this point scaling, again, and check that the estimate of the QMC error is roughly constant? It could take a while, and be rather expensive....}
 
 As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
 \bit
@@ -1754,14 +1731,14 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
 
     The results for the sequential algorithm are summarised in \cref{tab:seq}, for $k$ up to 30. These results show that nearby preconditioning is very effective, with the number of preconditioners remaining (approximately) constant as a percentage of the total number of solves. This is the best result one could realistically hope for; in this case the decreasing (like $1/k$) radius over which nearby preconditioning is effective is offset by the growing number of QMC points, meaning the number of preconditioners is constant as a fraction of the total number of solves.
 
-    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion in \optodo{ref} above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditinoers that must be calculated.
+    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditinoers that must be calculated.
 
     \begin{table}
   \centering
   \input{nbpc-qmc-sequential-table}
   \caption{Results applying our sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm, with the maximum number of GMRES iterations $=10$.}\label{tab:nbpcqmcseq}
-\end{table}\optodo{Make caption better}
-
+\end{table}
+    \optodo{Fix table with LaTeX}
 \begin{table}
   \centering
   \input{nbpc-qmc-parallel-table}
@@ -1879,4 +1856,4 @@ The PDE bound \cref{thm:2} relies only on \cref{lem:H1}, which, as stated above,
 \eit
 %\item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in \emph{weighted} GMRES.
 \een
-
+\optodo{Consistent captialisation in sections}

@@ -4,6 +4,12 @@ import helmholtz_firedrake.utils as utils
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from matplotlib import rcParams
+
+# Found out how to do this from https://tex.stackexchange.com/a/391078
+pgf_latex_dict  = { 'pgf.preamble' : [r'\usepackage{mleftright}']}
+
+rcParams.update(pgf_latex_dict)
 
 this_directory = '/home/owen/Documents/running-code/prob-gmres-examples/output/'
 
@@ -58,7 +64,7 @@ for beta in betas:
 
         plt.xlabel('$k$')
 
-        plt.ylabel('Number of GMRES iterations')
+        plt.ylabel(r'Empirical probability that $\mathrm{GMRES}\mleft(\epsilon, n^{(1)} n^{(2)}\mright) \leq 12$')
 
         plt.xticks([int(k) for k in k_list])
 

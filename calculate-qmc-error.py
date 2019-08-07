@@ -234,13 +234,11 @@ for ii_qoi in range(num_qois):
     plt.xlabel(r'$k$')
     plt.ylabel(r'$\alpha$')
     plt.legend()
-    plt.semilogx(k_list,qoi_C_alpha[1],'ko',basex=np.e)
+    plt.semilogx(k_list,qoi_C_alpha[1],'ko')
 
     fig_name = qoi+'-alpha-plot'
 
     fig.set_size_inches((5,4))
-
-    LogLocator()
     
     plt.savefig(fig_name+'.pgf')
 
@@ -262,5 +260,6 @@ table_name = 'qmc-alpha-table.tex'
 df.index = index_names
 
 with open(table_name,mode='w') as table:
-    df.to_latex(table,header=column_names,float_format=float_format,column_format=column_format)
+    # Learned about escape=False from https://stackoverflow.com/a/44261383
+    df.to_latex(table,header=column_names,float_format=float_format,column_format=column_format,escape=False)
     

@@ -11,7 +11,6 @@ thesis.pdf: *tex *pgf *bib
 	pdflatex thesis.tex
 	pdflatex thesis.tex
 	evince thesis.pdf &
-	#touch thesis.tex # This is a hack, as I can't work out how to get make to depend on all the tex files
 
 clean:
 	rm *aux	
@@ -30,7 +29,7 @@ supervisor:
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}"
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 
-	touch thesis.tex # This means next time I try and make the thesis, make runs
+
 
 	evince thesis.pdf &
 
@@ -40,8 +39,6 @@ revision:
 	bibtex thesis.aux
 	pdflatex  "\def\revisionversion{1} \input{thesis.tex}"
 	pdflatex  "\def\revisionversion{1} \input{thesis.tex}" 
-
-	touch thesis.tex # This means next time I try and make the thesis, make runs
 
 	evince thesis.pdf &
 

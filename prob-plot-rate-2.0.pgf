@@ -14,6 +14,7 @@
 %%   \import{<path to file>}{<filename>.pgf}
 %%
 %% Matplotlib used the following preamble
+%%   \usepackage{mleftright}
 %%   \usepackage{fontspec}
 %%   \setmainfont{DejaVuSerif.ttf}[Path=/home/owen/progs/firedrake-complex/firedrake/lib/python3.5/site-packages/matplotlib/mpl-data/fonts/ttf/]
 %%   \setsansfont{DejaVuSans.ttf}[Path=/home/owen/progs/firedrake-complex/firedrake/lib/python3.5/site-packages/matplotlib/mpl-data/fonts/ttf/]
@@ -192,7 +193,7 @@
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=0.558857in,y=2.376000in,,bottom,rotate=90.000000]{\color{textcolor}\sffamily\fontsize{10.000000}{12.000000}\selectfont Number of GMRES iterations}%
+\pgftext[x=0.558857in,y=2.376000in,,bottom,rotate=90.000000]{\color{textcolor}\sffamily\fontsize{10.000000}{12.000000}\selectfont Empirical probability that \(\displaystyle \mathrm{GMRES}\mleft(\epsilon, n^{(1)} n^{(2)}\mright) \leq 12\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfpathrectangle{\pgfqpoint{0.800000in}{0.528000in}}{\pgfqpoint{4.960000in}{3.696000in}}%
