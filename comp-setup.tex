@@ -1,0 +1,13 @@
+All of the computations in this thesis were performed with the following computational setup, unless otherwise stated.
+
+\paragraph{PDE/FEM:}
+The PDE we solve is the Interior impedance problem, i.e., \cref{prob:vtedp} with $\Dm = \emptyset,$ posed on the 2-d unit square; $D = [0,1]^2.$ We use first-order continuous finite elements throughout the thesis, with $h = k^{-3/2}$ unless stated otherwise. We use regular grids, see \cref{fig:grid} for an example grid. Where we needed to calculate a preconditioner $\AmatoI,$ we calculated the exact $LU$ decomposition of $\Amato$.
+
+\begin{figure}[h]
+  \centering
+  \input{sample-mesh.pgf}
+  \caption{A sample mesh, similar to those used in all the computations in this thesis.\label{fig:grid}}
+  \end{figure}
+
+\paragraph{Numerical setup}
+All finite-element calculations were carried out using the Firedrake software library \cite{RaHaMiLaLuMcBeMaKe:16,LuVaRaBeRaHaKe:15}, which uses PETSc to perform its linear solves \cite{BaAbAsBrBrBuDaEiGrKaKnMaMcMiMuRuSaSmZaZhZh:18,BaGrMcSm:97,DaPaKlCo:11,BaAbAdBrBrBuDaDeEiGrKaKaKnMaMcMiMuRuSaSmZaZh:19} and Chaco \cite{HeLe:95} to perform graph partitions software. PETSc uses the MUMPS \cite{AmDuLEKo:01,AmGuLEPr:06} solver to perform $LU$ factorisations and direct solves. When GMRES was used, the stopping criterion was a relative error (relative to the 2-norm of the right-hand side) of $10^{-5}$ or an absolute error of $10^{-50}.$ Many of the computations were carried out on the Balena High Performance Computing (HPC) Service at the University of Bath.

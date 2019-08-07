@@ -24,7 +24,7 @@ where $A(,\bx\omega)$ and $n(\omega,\bx)$ are \emph{random fields}, and $\omega$
 To calculate quantities of interest of the solution $u(\omega,\cdot)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
 Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
 
-Moreover, the cost of \emph{constructing} preconditioners for the resulting linear systems is also very expensive. For example, if our preconditioner is given by an exact LU factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns).\optodo{Find ref, Gander and Zhang if not elsewhere}.
+Moreover, the cost of \emph{constructing} preconditioners for the resulting linear systems is also very expensive. For example, if our preconditioner is given by an exact LU factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}\optodo{See if any of the sparse matrix books have this in.}.
 
 Observe that the cost of applying the preconditioner is significantly less than the cost of constructing the preconditioner. Therefore, if one calculates a preconditioner for one realisation of \cref{eq:nbpchh} and then re-uses it for many `nearby' (in some sense) realisations of \cref{eq:nbpchh}, then one could obtain considerable computational savings.
 
@@ -224,7 +224,7 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet pr
 %\eeq
 \ele
 
-\bre[Physcial interpretation for $k$-dependence]\label{rem:physical1k}
+\bre[Physical interpretation for $k$-dependence]\label{rem:physical1k}
 It is unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both Q1 and Q2. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$, it is unsurprising that perturbations of size (up to) $1/k$ give bounded relative difference (in Q2) and bounded GMRES iterations for the nearby-preconditioned linear system (in Q1). In some sense, perturbations of size up to $1/k$ are `unseen' by the PDE.
 \ere
 
@@ -243,9 +243,8 @@ It is unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficien
 
   To verify these expectations, we perform numerical experiments for the Interior Impedance Problem (i.e. \cref{prob:tedp} in 2-d with $\Dm = \emptyset$) with $D$ being the unit square, $\Aso = I$, $\nso = 1$, and $f$ and $\gI$ corresponding to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$ as above. We discretise with first-order finite-elements on a uniform grid with $h \sim k^{-3/2}.$
 
-  We perform experiments for $A$ and $n$ separately, i.e., we perform experiments with $\Ast=I$ and $\nst$ varying, and then experiments with $\Ast$ varying and $\nst=1.$ We define $\Ast$ and $\nst$ to be piecewise constant on a $10\times10$ square grid, with their values on each square chosen independently at random, with the restriction that $\nst > 0$ almost surely and $\Ast$ is (piecewise) positive-definite almost surely. We control $\NLiD{\Aso-\Ast}$ and $\NLiD{\nso-\nst}$ as detailed below, and solve the linear systems \cref{eq:pcsystem} for $k = 20,40,60,80,100$ using standard GMRES. We record the number of GMRES iterations taken to achieve a tolerance of\optodo{Put in later}. We perform experiments for three different values of $\alpha\approx\NLiD{\Aso-\Ast}$ (and $\NLiD{\nso-\nst}$), taking $\alpha = 0.1, 0.1/k^{1/2}, 0.1/k.$ We expect that when $\alpha = 0.1$ or $\alpha = 0.1/k^{1/2},$ the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\alpha = 0.1/k$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour has only been proven for $\LiD{\Aso-\Ast}$ for weighted GMRES.\optodo{Need to mention exact $LU$ somewhere}
+  We perform experiments for $A$ and $n$ separately, i.e., we perform experiments with $\Ast=I$ and $\nst$ varying, and then experiments with $\Ast$ varying and $\nst=1.$ We define $\Ast$ and $\nst$ to be piecewise constant on a $10\times10$ square grid, with their values on each square chosen independently at random, with the restriction that $\nst > 0$ almost surely and $\Ast$ is (piecewise) positive-definite almost surely. We control $\NLiD{\Aso-\Ast}$ and $\NLiD{\nso-\nst}$ as detailed below, and solve the linear systems \cref{eq:pcsystem} for $k = 20,40,60,80,100$ using standard GMRES. We record the number of GMRES iterations taken to achieve a (relative) tolerance of $10^{-5}$ (relative to $\Nt{b}$). We perform experiments for three different values of $\alpha\approx\NLiD{\Aso-\Ast}$ (and $\NLiD{\nso-\nst}$), taking $\alpha = 0.1, 0.1/k^{1/2}, 0.1/k.$ We expect that when $\alpha = 0.1$ or $\alpha = 0.1/k^{1/2},$ the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\alpha = 0.1/k$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour has only been proven for $\NLiDRRR{\Aso-\Ast}$ for weighted GMRES.
 
-  The computations were carried out on a single node of the Balena High Performance Computing (HPC) Service at the University of Bath. The computations were carried out using the Firedrake software\optodo{Citations}, which in uses the PETSc\optodo{cite} and Chaco\optodo{cite} software. PETSc utilised the MUMPS\optodo{cite} solver to perform the $LU$ factorisations.
 
   For both $\NLiD{\Aso-\Ast}$ and $\NLiD{\nso-\nst}$ we see the expected behaviour in all three cases. When $\alpha = 0.1$ we see (possibly exponential) growth in the number of GMRES iterations needed to achieve convergence, and when $\alpha = 0.1/k,$ we see that the number of GMRES iterations is bounded as $k$ increases. When $\alpha = 0.1/k^{1/2}$ we see slower growth as $k$ increases, but growth nonetheless.
 
@@ -360,7 +359,7 @@ then $\set{\cTh}_h$ is said to be \defn{quasi-uniform}.
 
 
 \ble[Norm equivalences of FE functions]\label{lem:normequiv}
-\ednote{Euan says: need to say using a nodal basis here} If $\Vhp$ is quasi-uniform, then
+If $\Vhp$ is quasi-uniform with a nodal basis, then
 there exist $m_\pm$ and $s_\pm$, independent of $h$ and $p$, such that
 \beq\label{eq:normequiv1}
 m_- h^{d/2} \N{\bv}_2 \leq \N{v_h}_{\LtDR} \leq m_+ h^{d/2} \N{\bv}_2,
@@ -377,18 +376,20 @@ Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:mat
 (\Mmat_1 \bv,\bv)_2 \sim h^d \N{\bv}^2_2 \quad\tand\quad h^{d}\N{\bv}^2_2 \lesssim (\Smat_I \bv,\bv)_2 \lesssim h^{d-2} \N{\bv}^2_2.
 \eeqs
 
-\bpf[Sketch proof of \cref{lem:normequiv}]\ednote{can omit this if can find a good reference. One possibility \cite[Chapter V, Lemma 2.6]{Br:97}.}
-The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtDR}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
-%\beqs
-%\N{v_h}^2_{L^2(\O
-%\eeqs
-Then, \cref{eq:normequiv2} follows from \cref{eq:normequiv1} and the inequalities
-\beqs
-\N{v_h}_{L^2(\DR)}\lesssim \N{\nabla v_h}_{L^2(\DR)}\lesssim \frac{1}{h} \N{v_h}_{L^2(\DR)},
-\eeqs
-the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDDR$
-(see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
-\epf
+For a proof of \cref{lem:normequiv}, see \cite[Chapter V, Lemma 2.5]{Br:07}.\ednote{Euan---in \cite[Chapter V, Lemma 2.5]{Br:07} this result is written slightly differently (with scaled basis functions and a scaled 2-norm) but it's equivalent to our result. I presume I don't need to put anything 'tranlating' their result to ours? (Can download the 3rd edition from the CUP website if you use your Bath institutional login.)}
+
+%% \bpf[Sketch proof of \cref{lem:normequiv}]\optodo{can omit this if can find a good reference. One possibility . Need to check basis scaling business.}
+%% The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtDR}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
+%% %\beqs
+%% %\N{v_h}^2_{L^2(\O
+%% %\eeqs
+%% Then, \cref{eq:normequiv2} follows from \cref{eq:normequiv1} and the inequalities
+%% \beqs
+%% \N{v_h}_{L^2(\DR)}\lesssim \N{\nabla v_h}_{L^2(\DR)}\lesssim \frac{1}{h} \N{v_h}_{L^2(\DR)},
+%% \eeqs
+%% the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDDR$
+%% (see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
+%% \epf
 
 
 Finally, we need the concept of the \emph{adjoint} sesquilinear form to $a(\cdot,\cdot)$.
@@ -592,7 +593,7 @@ let $\tu_h$ be the solution of the finite-element approximation of \cref{eq:411}
 \beq\label{eq:41}
 a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h\in \Vhp,
 \eeq
-and let $\tbu$ be the vector of nodal values of $\tu_h$ \ednote{rephrase this as haven't (yet) assumed that $\{\phi_i\}$ is a nodal basis}. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\bff$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\bff\|_{\Dmat_k}$. Because of the definition 
+and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\bff$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\bff\|_{\Dmat_k}$. Because of the definition 
 of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is equivalent to bounding $\|\tu_h\|_{\HokDR}$ in terms of $\|\widetilde{f}\|_{\HokDR}$.
 
 %First observe that the bound \cref{eq:bound3} from Part (i) of \cref{cond:2} holds for the solution of the variational problem
@@ -821,23 +822,23 @@ The bound \cref{eq:Elman} with $\Dmat=\Imat$ was originally proved in \cite{El:8
 
 \begin{corollary}
 \label{cor:GMRES_intro} 
-If $\|\Imat - \matrixC \|_\Dmat \leq \sigma < 1$, then, with $\beta$ defined as in \cref{eq:cosbeta},
+If $\|\Imat - \matrixC \|_\Dmat \leq \alpha < 1$, then, with $\beta$ defined as in \cref{eq:cosbeta},
 \beqs
-\cos \beta \geq \frac{1-\sigma}{1+\sigma}\eeqs
+\cos \beta \geq \frac{1-\alpha}{1+\alpha}\eeqs
 and
 \beq\label{eq:gmressin}
-\sin \beta \leq \frac{2 \sqrt{\sigma}}{(1+\sigma)^2}.
+\sin \beta \leq \frac{2 \sqrt{\alpha}}{(1+\alpha)^2}.
 \eeq
 \end{corollary}
 
 \bpf[Proof of \cref{cor:1}]
-This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\sigma=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\sigma=1/2$.
+This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\alpha=1/2$.
 \epf
 
 \
 
 \bpf[Proof of \cref{cor:1a}]
-This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Imat$, and $\sigma=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=\Imat$, and $\sigma=1/2$.
+This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Imat$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=\Imat$, and $\alpha=1/2$.
 \epf
 
 
@@ -988,10 +989,9 @@ and
 \eeq
 for some $0 < \alpha < 1/2,$ then $\NLiDRRR{\nso-\nst} = 1$ for all $\alpha$, but one would expect that for small $\alpha$ the corresponding solutions of \cref{prob:edp} satisfy $\uso \approx \ust,$ and one might expect that GMRES applied to $\AmatoI\Amatt$ would converge in a $k$-independent number of iterations. Therefore, in this \lcnamecref{sec:weaknorm} we seek to obtain analogues of \cref{thm:1,cor:1,cor:1a} with the difference in $\nso-\nst$ and $\Aso-\Ast$ measured in weaker norms than the $L^\infty$ norm.
 
-The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the disucssion in\optodo{Insert ref} that the length scale $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' in the sense that the $L^1$ norm provides the maximal amount of `weight' to the spatial variance of $\nso-\nst$\optodo{Write this gooder} whilst also controlling the magnitude of $\nso-\nst$.
+The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that the length scale $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' with regards to the norm used to measure $\nso-\nst$. When we measure $\nso-\nst$ in the $L^\infty$ norm, we are able to control the \emph{magnitude} of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, where $\nso-\nst=1,$ then $\NLiDRRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
 
 We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence is $\NLqDRRR{\nso-\nst}\sim 1/k$ for any $q>0$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
-
 
 
 \subsubsection{Theory in weaker norms}\label{sec:weakertheory}
@@ -1005,7 +1005,12 @@ and
 \eeq
 respectively, for some function $\ftilde,$ and these bounds are carried through the rest of the proof.
 
-However, if we instead use the variant of H\"older's inequality\optodo{Find ref} to bound \cref{eq:keynbound,eq:keyAbound} we instead obtain
+However, we observe that we have the following generalisation of H\"older's inequality: If $\ptilde,\qtilde > 2$ such that $1/2 = 1/\ptilde + /\qtilde,$ then
+\beq\label{eq:genholder}
+\NLtDR{\vo\vt} \leq \NLptildeDR{\vo}\NLqtildeDR{\vt}.
+\eeq
+
+If we instead use \cref{eq:genholder} to bound \cref{eq:keynbound,eq:keyAbound} we instead obtain
 \beq\label{eq:keynbound2}
 \NLtDR{n\ftilde} \leq \NLqtildeDR{n}\NLptildeDR{\ftilde}
 \eeq
@@ -1013,7 +1018,12 @@ and
 \beq\label{eq:keyAbound2}
 \NLtDR{A\grad\ftilde} \leq \NLqtildeDR{A}\NLptildeDR{\ftilde}.
 \eeq
-If we then apply\optodo{Write somewhere the inverse inequality from Brenner and Scott} to \cref{eq:keynbound2,eq:keyAbound2} we obtain
+
+As $\ftilde \in \Vhp$, we can apply an inverse inequality to bound $\NLptildeDR{\ftilde}$ by $\NLtDR{\ftilde}$. The required inverse inequality is (see \cite[Theorem 4.5.11 and Remark 4.5.20]{BrSc:08}
+\beq\label{eq:inverseptilde}
+\NLptildeDR{\ftilde} \leq \Cinvptilde h^{d\mleft(\frac1{\ptilde} - \half\mright)} \NLtDR{\ftilde}.
+\eeq
+If we then apply \cref{eq:inverseptilde} to \cref{eq:keynbound2,eq:keyAbound2} we obtain
 \beq\label{eq:keynboundfinal}
 \NLtDR{n\ftilde} \leq \Cinvptilde \NLqtildeDR{n} h^{d\mleft(\frac1{\ptilde} - \half\mright)} \NLtDR{\ftilde}
 \eeq
@@ -1087,22 +1097,22 @@ for all $k\geq k_0$.
 \end{theorem}
 
 \begin{corollary}[Alternative answer to Q1: $k$-independent weighted GMRES iterations]\label{cor:1alt}
-Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $\qtilde >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
-\Cotilde kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\Aso-\Ast} +\Cttilde  kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\nso-\nst}
+\Cotilde kh^{-\frac{d}{\qtilde}} \NLqtildeDR{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{\qtilde}} \NLqtildeDR{\nso-\nst}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations for all $k\geq k_0$.
 \end{corollary}
 
 \begin{corollary}[Alternative answer to Q1: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
-Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $\ptilde,\qtilde >2$ such that $1/\ptilde + 1/\qtilde = 1/2$. let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $\qtilde >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condaalt}
-\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{d\mleft(\frac1{\ptilde}-\half\mright)-1} \NLqtildeDR{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{d\mleft(\frac1{\ptilde}-\half\mright)} \NLqtildeDR{\nso-\nst} \leq \half
+\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{\qtilde}-1} \NLqtildeDR{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{\qtilde}} \NLqtildeDR{\nso-\nst} \leq \half
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
@@ -1110,7 +1120,7 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \end{corollary}
-\optodo{fix exponent}
+
 Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\no-\nt$ and the restriction on the magnitude of this norm. E.g., the condition on $\no-\nt$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
 \beq\label{eq:altsufficientlysmall}
 \NLqtildeDRRR{\no-\nt} k h^{-\frac{d}{\qtilde}} \text{ is sufficiently small}.
@@ -1125,16 +1135,16 @@ for \emph{any} $\qtilde \geq 1$, and moreover \cref{eq:experimentalsufficientlys
 
 
 \subsubsection{Numerics in weaker norms}\label{sec:weakernumerics}
-For our computations, we solve the Interior Impedance Problem in 2-d on the unit square with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we use GMRES to solve $\AmatoI\Amatt = \AmatoI \bff$ (for $\bff$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence. Our convergence criteria are a realative residual tolerance of $10^{-5}$ and an absolute residual tolerance of $10^{-50}$ (the PETSc defaults).\optodo{Can lots of this numerical stuff be put in, e.g., and appendix to save repeating myself?}.
+For our computations, we use the computational setup as in \cref{app:compsetup}, with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we use GMRES to solve $\AmatoI\Amatt = \AmatoI \bff$ (for $\bff$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence.
 
-Our results in\optodo{Insert fig refs} indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{\beta}$ :
+Our results in \cref{fig:l1low,fig:l1med,fig:l1high} indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{\beta}$ :
 \bit
 \item For $\beta \in (0,0.6)$ there is clear growth of the number of GMRES iterations with $k$,
 \item For $\beta = 1$ there is clear boundedness of the number of GMRES iterations with $k$, and
   \item for $\beta \in (0.7,0.9)$ it is unclear if the number of GMRES iterations grows with $k.$
 \eit
 
-If we compare our numerical results with the theory results in \cref{cor:aalt}, we see that the theory (with $h \sim k^{-3/2}$ and $d=2$) predicts that the number of iterations will remain bounded if $\NLqDRR{\nso-\nst} k^{1+3/q}$ is sufficiently small, for any $q \in (2,\infty).$ Our computed results indicate that this result is not sharp. The computed results indicate that if $\NLqDRR{\nso-\nst} \sim k^{-1}$ for any $q \geq 1,$ then the number of GMRES iterations is bounded as $k$ increases. Observe that the `best case' $1/k$ condition (see \optodo{Ref} above for why this is the best case) is only predicted by the theory in the $q\rightarrow \infty$ limit.
+If we compare our numerical results with the theory results in \cref{cor:aalt}, we see that the theory (with $h \sim k^{-3/2}$ and $d=2$) predicts that the number of iterations will remain bounded if $\NLqDRR{\nso-\nst} k^{1+3/q}$ is sufficiently small, for any $q \in (2,\infty).$ Our computed results indicate that this result is not sharp. The computed results indicate that if $\NLqDRR{\nso-\nst} \sim k^{-1}$ for any $q \geq 1,$ then the number of GMRES iterations is bounded as $k$ increases. Observe that the `best case' $1/k$ condition is only predicted by the theory in the $q\rightarrow \infty$ limit.
 
 \begin{figure}
 \input{l1-low.pgf}
@@ -1182,14 +1192,13 @@ The numerical results in \cref{sec:num} above can be seen as confirming this res
 \bre[\Cref{cor:stonbpcas} is not ideal]\label{rem:notideal}
 \Cref{cor:stonbpcas} is not ideal for two main reasons:
 \ben
-\item\label{it:notideal1} The condition \cref{eq:nbpcas} must hold almost surely, and
-  \item\label{it:notideal2} \Cref{cor:stonbpcas} does not give any explicit information on how the number of GMRES iterations depends on $\NLiDRRR{\nso-\nst(\omega)}.$
+\item\label[itemreason]{it:notideal1} The condition \cref{eq:nbpcas} must hold almost surely, and
+  \item\label[itemreason]{it:notideal2} \Cref{cor:stonbpcas} does not give any explicit information on how the number of GMRES iterations depends on $\NLiDRRR{\nso-\nst(\omega)}.$
     \een
-    \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely. \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRRR{\nso-\nst(\omega)}.$\optodo{Fix Items}
+    \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely. \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRRR{\nso-\nst(\omega)}.$
     \ere
     In order to correct the deficiencies described in \cref{rem:notideal} we will first prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate on the number of GMRES iterations.
 
-\optodo{CHange $\sigma$ to $\alpha$ in Elman stuff}
 The following \lcnamecref{lem:probgmres1} is a \emph{deterministic} result, i.e., it does not require $\nt$ to be a random field. Therefore for this \lcnamecref{lem:probgmres1} only, we assume $\nst$ is as given at the beginning of this \lcnamecref{chap:nbpc}.
 \ble[Maximum number of GMRES iterations]\label{lem:probgmres1}
 Let $0 < \eps < 1,$ and let $\dofs$ denote the number of degrees of freedom, i.e. the size of the matrices $\Amato$ and $\Amatt$.
@@ -1217,8 +1226,13 @@ N & \tif \alpha \geq 1,
 where $\alpha = \Ct k \NLiDR{\nso-\nst},$ where $\Ct$ is given by \cref{eq:C2}.
 \ele
 
+The proof of \cref{lem:probgmres1} uses the following corollary \cite[Corollary 3]{SaSc:86} of \cite[Proposition 2]{SaSc:86} on the `lucky breakdown' of GMRES.
+\bco[Guaranteed convergence of GMRES]\label{cor:gmresguaranteed}
+For an $N \times N$ problem GMRES converges in at most $N$ iterations.
+\eco
+
 \bpf[Proof of \cref{lem:probgmres1}]
-For $\alpha \geq 1$, the result is immediate from\optodo{Find the fact that GMRES converges in at most $N$, put it in and ref it here}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} into \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
+For $\alpha \geq 1$, the result is immediate from \cref{cor:gmresguaranteed}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} into \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
 \beq\label{eq:gmressub}
 \frac{\Nt{\brm}}{\Nt{\brz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
 \eeq
@@ -1226,11 +1240,11 @@ To obtain an lower on the number of iterations needed to obtain the solution to 
 \beq\label{eq:mlower}
 m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
 \eeq
-Hence, if $m$ is the lowest integer satisfying \cref{eq:mlower}, then
+Hence, if $m$ is the smallest integer satisfying \cref{eq:mlower}, then
 \beq\label{eq:gmressub2}
 m  \leq\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
 \eeq
-The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2} and\optodo{at most $N$ result}.
+The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2,cor:gmresguaranteed}.
 \epf
 
 \bre[Why not use the ceiling in \cref{eq:gmressub2}?]
@@ -1242,9 +1256,34 @@ However, the change in the definition of $\Gfnname$ \cref{eq:gdef} would mean $\
 \ere
 
 \bre[Why the dependence on $\alpha$ in \cref{lem:probgmres1}?]
-The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDRRR{\nso-\nst}$ is because the \lcnamecref{cor:GMRES_intro} only holds if $\alpha < 1$. Therefore if $\alpha \geq 1$ the only result available for us to apply is\optodo{worst case result}, stating that GMRES converges in at most $N$ iterations.
+The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDRRR{\nso-\nst}$ is because the \lcnamecref{cor:GMRES_intro} only holds if $\alpha < 1$. Therefore if $\alpha \geq 1$ the only result available for us to apply is \cref{cor:gmresguaranteed}, stating that GMRES converges in at most $N$ iterations.
 \ere
-\optodo{Insert pictures of $G$}
+
+%% \begin{figure}
+%%   \centering
+%%   \input{G-20.pgf}
+%%   \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G20}}
+%%     \end{figure}
+
+%% \begin{figure}
+%%   \centering
+%%   \input{G-40.pgf}
+%%   \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=40,$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G40}}
+%%     \end{figure}
+
+%% \begin{figure}
+%%   \centering
+%%   \input{G-100.pgf}
+%%   \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=100,$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G100}}
+%%     \end{figure}
+
+
+\begin{figure}
+  \centering
+  \input{G.pgf}
+  \caption{Plot of $\Gfnname$ for $\NLiDRRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,40,100$ $\Ct = 0.1,$ $N=k^3,$ and $\eps = 10^{-5}$.\label{fig:G}}
+    \end{figure}
+
 
 \Cref{lem:probgmres1} gives us the relationship between the (bound on the) number of GMRES iterations and $\NLiDRRR{\nso-\nst(\omega)}.$ We can therefore infer probabalistic properties of the number of GMRES iterations from the probability distribution of $\NLiDRRR{\nso-\nst(\omega)}.$
 
