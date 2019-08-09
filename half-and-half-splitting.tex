@@ -21,7 +21,7 @@
  \bth[MLMC Complexity Theorem]\label{thm:mlmccomp}
 If \cref{ass:constants,ass:powersnice} hold, $L$ is given by
 \beq\label{eq:Lcond}
-L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)},
+L = \ceiling{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)},
 \eeq
 that is,
 \beqs
@@ -29,7 +29,7 @@ that is,
 \eeqs
 and the number of samples on each computational level is given by
 \beqs
-\Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
+\Nl = \ceiling{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
 \eeqs
 then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ satisfies the bounds
  
@@ -63,18 +63,18 @@ that is
 
 As $\hL = \hz s^{-L},$ it follows from \eqref{eq:hLcond} that a sufficient condition for the bias to be $\leq \eps^2/2$ is
 \beq\label{eq:Lcondpart}
-L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co k^\sigma \hz^\alpha \eps^{-1}\mright)}.
+L = \ceiling{\frac1\alpha\log_s\mleft(\sqrt{2}\co k^\sigma \hz^\alpha \eps^{-1}\mright)}.
 \eeq
 As $\hz = \Ccoarse k^{-\coarseexp},$ we can simplify \eqref{eq:Lcondpart} to obtain \eqref{eq:Lcond}.
 % \beqs
-% L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
+% L = \ceiling{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
 % \eeqs
 
 We now seek to bound the variance. One can show\ednote{Again, as in \cite{ClGiScTe:11}} the variance $V = \sum_{l=0}^L \Nl^{-1} \Vl,$ and the cost is $\cC = \sum_{l=0}^L \Nl \Cl.$
 
 To find the optimal number of samples per level (the values of $\Nl, l=0,\ldots,L$) we formulate this as an optimisation problem to find $\Nl$ that minimise $\cC$, subject to $V=\eps/2.$ This can be solved using a Lagrange multiplier as in \cite{Gi:15}, and we obtain
 \beq\label{eq:Nl}
-\Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half}}.
+\Nl = \ceiling{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half}}.
 \eeq
 \optodo{Check this is correct, should it be divided by the sum?}
 We now just need to infer the computational complexity for MLMC with $L$ given by \eqref{eq:Lcond} and the $\Nl$ given by \eqref{eq:Nl}.

@@ -32,7 +32,7 @@ for ii_k in range(len(k_list)):
 
     plt.xlabel(r'$\|n_{1} - n_{2}\|_{L^{\infty}\mleft(D_{R},\mathbb{R}\mright)}$')
 
-    plt.ylabel(r'$G_{10^{-5}}$')
+    plt.ylabel(r'$G_{\varepsilon}$')
 
 plt.legend()
 

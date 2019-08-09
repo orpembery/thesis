@@ -29,9 +29,11 @@ def plot_k(threshold,beta):
 
     fig = plt.figure()
 
+    fig.set_size_inches((6,2.5))
+    
     plt.xlabel(r'$k$')
 
-    plt.ylabel(r'Probability Number of GMRES iterations is at most 12')
+    plt.ylabel('Probability that number of\nGMRES iterations is at most 12')
 
     if beta == 2.0:
         plt.yticks([0.97,0.98,0.99,1.0])
@@ -41,6 +43,7 @@ def plot_k(threshold,beta):
         # Found out about this from https://www.scivision.dev/matplotlib-force-integer-labeling-of-axis/
         ax = fig.gca()
         ax.yaxis.set_major_locator(MaxNLocator(4))
+        #plt.yticks([0.28,0.29,0.3])
         
     plt.plot(k_range,probs,'.k')
 

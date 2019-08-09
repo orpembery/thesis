@@ -50,39 +50,39 @@ for beta in betas:
 
     fig = plt.figure()
 
+    fig.set_size_inches((6,2.5))
+    
     filename = 'prob-plot-rate-'+str(beta)
 
-    for k in k_list:
+    ii_beta = betas.index(beta)
 
-        ii_k = k_list.index(k)
-
-        ii_beta = betas.index(beta)
-
+    frac_under_threshold = []
+    
+    for ii_k in range(len(k_list)):
+    
         data = storage[ii_k,ii_beta]
 
-        frac_under_threshold = float(np.sum(data <= threshold))/float(len(data))
+        frac_under_threshold.append(float(np.sum(data <= threshold))/float(len(data)))
 
-        plt.xlabel('$k$')
+    plt.xlabel('$k$')
 
-        plt.ylabel(r'Empirical probability that $\mathrm{GMRES}\mleft(\epsilon, n^{(1)} n^{(2)}\mright) \leq 12$')
+    plt.ylabel('Empirical probability that\n$\mathrm{GMRES}\mleft(\epsilon, n^{(1)} n^{(2)}\mright) \leq 12$')
 
-        plt.xticks([int(k) for k in k_list])
+    plt.xticks([int(k) for k in k_list])
 
-        # Found out about this from https://www.scivision.dev/matplotlib-force-integer-labeling-of-axis/
-        ax = fig.gca()
-        
-        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    # Found out about this from https://www.scivision.dev/matplotlib-force-integer-labeling-of-axis/
+    ax = fig.gca()
 
-        print(k,frac_under_threshold)
-        
-        plt.plot(k,frac_under_threshold,'ok')
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
-        if beta == 0.0:
-            plt.yticks([0.0,0.1,0.2,0.3,0.4])
-        elif beta == 1.0:
-            plt.yticks([0.992,0.994,0.996,0.998,1.0])
-        elif beta == 2.0:
-            plt.yticks([1.0])
+    plt.plot(k_list,frac_under_threshold,'ok--')
+
+    if beta == 0.0:
+        plt.yticks([0.0,0.1,0.2,0.3,0.4])
+    elif beta == 1.0:
+        plt.yticks([0.992,0.994,0.996,0.998,1.0])
+    elif beta == 2.0:
+        plt.yticks([1.0])
 
     plt.savefig(filename+'.pgf')
 

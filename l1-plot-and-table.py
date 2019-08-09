@@ -54,7 +54,7 @@ df = df.sort_index()
 
 def make_plot(locs,filename):
 
-    fig = plt.figure()
+    fig = plt.figure(frameon=False)
 
     styles = 'ovsd'
 
