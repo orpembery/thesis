@@ -78,20 +78,20 @@ Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\
 \eeq
 where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
 
-(ii) Given $k_0>0$, $h$ and $p$ are such that, given $F\in (\HozDDR)'$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} 
+(ii) Given $k_0>0$, $h$ and $p$ are such that, given $\LE\in (\HozDDR)'$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} 
 with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$
 exists, and is unique for all $k\geq k_0$.
 %(so that the matrix $\Amato$ is invertible). 
-Furthermore, if $F(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} := \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
+Furthermore, if $\LE(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} := \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
 \beq\label{eq:bound4}
-\N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM2}\,k\, \N{F}_{(\HokDR)'} \quad\tfa k\geq k_0, 
+\N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LE}_{(\HokDR)'} \quad\tfa k\geq k_0, 
 \eeq
 where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
 \end{condition}
 
 \bre[\Cref{eq:bound4} is $k$-independent]\label{rem:yesitis}
-Note that \cref{eq:bound4} is a $k$-independent bound on $\NHokDR{\utilde},$ despite the fact that a factor $k$ appears on the right-hand side. The factor $k$ appears because the weighted norm $\NHokDR{\cdot}$ is used in the definition of $\NHokDRs{\cdot},$ and therefore $\NHokDRs{\Ftilde} \sim \NHoDRs{\Ftilde}/k.$
+Note that \cref{eq:bound4} is a $k$-independent bound on $\NHokDR{\utilde},$ despite the fact that a factor $k$ appears on the right-hand side. The factor $k$ appears because the weighted norm $\NHokDR{\cdot}$ is used in the definition of $\NHokDRs{\cdot},$ and therefore $\NHokDRs{\Ltilde} \sim \NHoDRs{\Ltilde}/k.$
 \ere
 
 
@@ -133,14 +133,16 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
 
-Two notes regarding \cref{cor:1,cor1a}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in \cref{cond:1nbpc,cond:2}, and (ii) the $L^\infty(\DR)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
+Two notes regarding \cref{cor:1,cor:1a}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in \cref{cond:1nbpc,cond:2}, and (ii) the $L^\infty(\DR)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
-\N{A}_{L^\infty(\DR)}:= \esssup_{\bx\in\DR}\N{A(\bx)}_2.
+\NLiDRRRdtd{A}\de \esssup_{\bx\in\DR}\N{A(\bx)}_2.
 \eeqs
 
 
 The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations is then larger -- but still independent of $k$.
 %In \cref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
+
+The proofs of \cref{cor:1,cor:1a} are in \cref{sec:mainproofs} below.
 
 \bre
 When $h\sim  k^{-1}$, the bounds \cref{eq:main1} and \cref{eq:main1a} (and hence also \cref{eq:cond} and \cref{eq:conda}) are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect, as discussed in \cref{sec:helmfedisc}) the bound \cref{eq:main1a} for standard GMRES is more pessimistic than the bound \cref{eq:main1} for weighted GMRES.
@@ -305,7 +307,7 @@ As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the He
 
 \bre[The EDP with data in $(\HokDR)'$]
 In \cref{prob:edp} we defined the EDP with the antilinear functional $\LE$ arising from a function $f\in \LtDR$. In the rest of the \lcnamecref{chap:nbpc}, 
-%\item In the rest of the paper, we usually consider the EDP with data given by $F$ defined in \cref{eq:EDPvar}, but sometimes 
+%\item In the rest of the paper, we usually consider the EDP with data given by $\LE$ defined in \cref{eq:EDPvar}, but sometimes 
 we sometimes consider the EDP with general $\LE\in \HozDDRp$ and we indicate when this is the case.
 In this latter situation, we define the dual norm by
 \beq\label{eq:dualnorm}
@@ -424,13 +426,13 @@ a^*(\vo,\vt) := \int_{\DR}
 (where $^*$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $a^*(\cdot,\cdot)$; i.e.~$(\Amat^*)_{ij} = a^*(\phi_j, \phi_i)$.
 
 \ble[Link between variational problems involving $a(\cdot,\cdot)$ and $a^*(\cdot,\cdot)$]\label{lem:adjoint}
-Given $F\in (\HozDDR)'$, if $u$ is the solution to the variational problem
+Given $\LE\in (\HozDDR)'$, if $u$ is the solution to the variational problem
 \beq\label{eq:adjoint1}
-a^*(u,v)= F(v) \quad\tfa v\in \HozDDR,
+a^*(u,v)= \LE(v) \quad\tfa v\in \HozDDR,
 \eeq
 then $\overline{u}$ satisfies
 \beq\label{eq:adjoint2}
-a(\overline{u},v)= \overline{F(\overline{v})} \quad\tfa v\in \HozDDR.
+a(\overline{u},v)= \overline{\LE(\overline{v})} \quad\tfa v\in \HozDDR.
 \eeq
 \ele\optodo{Consider putting something like this in Chap 2.}
 
@@ -447,7 +449,7 @@ see, e.g., \cite[Lemma 6.13]{Sp:15}.
 \bpf[Proof of \cref{lem:adjoint}]
 From \cref{eq:adjoint1} we have that 
 \beqs
-\overline{a^*(u,\overline{v})}= \overline{F(\overline{v})} \quad\tfa v\in \HozDDR.
+\overline{a^*(u,\overline{v})}= \overline{\LE(\overline{v})} \quad\tfa v\in \HozDDR.
 \eeqs
 Using the definition of $a^*(\cdot,\cdot)$ and the property \cref{eq:DtN} in the left-hand side of this last equation, we find \cref{eq:adjoint2}.
 \epf
@@ -655,9 +657,9 @@ $\|\Mmat_n((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound1a} follows in a similar 
 $\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \cref{eq:A380}).
 %, namely the variational problem \cref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \cref{eq:src} being changed to $+\ri k$).
 %
-%Now, if $u$ is the solution of the adjoint problem with data $F(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{F(\overline{v})}$; 
+%Now, if $u$ is the solution of the adjoint problem with data $\LE(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{\LE(\overline{v})}$; 
 %
-%in particular if $F(v)$ is as in \cref{eq:EDPa}, then the $L^2$ data of the adjoint problem is just $\overline{f}$. Therefore, if the EDP satisfies \cref{cond:1nbpc,cond:2}, then so does its adjoint, and
+%in particular if $\LE(v)$ is as in \cref{eq:EDPa}, then the $L^2$ data of the adjoint problem is just $\overline{f}$. Therefore, if the EDP satisfies \cref{cond:1nbpc,cond:2}, then so does its adjoint, and
 % the bound in \cref{eq:keybound1} on $\|(\Amato)^{-1}\Mmat_n\|_{2}$ also holds for $\|((\Amato)^*)^{-1}\Mmat_n\|_{2}$.
 \epf
 
@@ -665,36 +667,36 @@ The proof of \cref{lem:keylemma2} uses the following \lcnamecref{lem:H1}, which 
 
 \ble[Bound for data in $\HozDDRs$]\label{lem:H1}
 %With the sesquilinear form $a(\cdot,\cdot)$ defined by \cref{eq:EDPa} with $A=\Aso$ and $n=\nso$, 
-Given $\widetilde{F}\in \HozDDRs$, let $\widetilde{u}$ be the solution of the variational problem
+Given $\widetilde{\LE}\in \HozDDRs$, let $\widetilde{u}$ be the solution of the variational problem
 \beqs
 \text{ find } \,\,\widetilde{u} \in H^1_{0,D}(\DR) \,\,\tst \,\,
-a^{(1)}(\widetilde{u},v)=\widetilde{F}(v) \,\, \tfa v\in H^1_{0,D}(\DR).
+a^{(1)}(\widetilde{u},v)=\widetilde{\LE}(v) \,\, \tfa v\in H^1_{0,D}(\DR).
 \eeqs
 If \cref{cond:1nbpc} holds, then $\widetilde{u}$ exists, is unique, and satisfies the bound
 \beq\label{eq:bound2}
-\N{\widetilde{u}}_{\HokDR} \leq \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right) \big\|\widetilde{F}\big\|_{(\HokDR)'}
+\N{\widetilde{u}}_{\HokDR} \leq \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right) \big\|\widetilde{\LE}\big\|_{(\HokDR)'}
 \eeq
 for all $k\geq k_0$.
 \ele
-Observe that, similar to \cref{rem:yesitis}, \cref{eq:bound2} is a $k$-independent bound, due to the norm $\NHokDRs{F}$ on the right-hand side.
+Observe that, similar to \cref{rem:yesitis}, \cref{eq:bound2} is a $k$-independent bound, due to the norm $\NHokDRs{\LE}$ on the right-hand side.
 
 
 \bpf[Proof of \cref{lem:keylemma2}]
 In a similar way to the proof of \cref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} := \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
-a^{(1)}(\widetilde{u},v)= \widetilde{F}(v) \quad\text{ for all } v\in H^1(\Omega),
+a^{(1)}(\widetilde{u},v)= \widetilde{\LE}(v) \quad\text{ for all } v\in H^1(\Omega),
 \quad\text{ where } \quad
- \widetilde{F}(v) :=(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
+ \widetilde{\LE}(v) :=(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
 \eeq
 Observe that the definition of the norms $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnorm} and $\|\cdot\|_{\HokDR}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
 \begin{align}
-\big\| \widetilde{F}\big\|_{(\HokDR)'}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtDR}\nonumber\\
+\big\| \widetilde{\LE}\big\|_{(\HokDR)'}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtDR}\nonumber\\
 &\leq \NLiDRRRdtd{A} \big\|\nabla \widetilde{f}\big\|_{\LtDR}\label{eq:Fbounda}\\
 &\leq \NLiDRRRdtd{A} \big\| \widetilde{f}\big\|_{\HokDR}.\label{eq:Fbound}
 \end{align}
 Let $\tu_h$ be the solution of the finite element approximation of \cref{eq:411a}, i.e.,
 \beq\label{eq:41a}
-a^{(1)}(\tu_h,v_h)= \widetilde{F}(v_h) \quad\text{ for all } v_h\in \Vhp,
+a^{(1)}(\tu_h,v_h)= \widetilde{\LE}(v_h) \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\bff$. 
 
@@ -710,7 +712,7 @@ we find
 \N{\tu-\tu_h}_{\HokDR} + \N{\tu}_{\HokDR},\nonumber \\ \nonumber
 & \leq \left[ C^{(1)}_{\rm FEM2} k + 
 \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax k  \right) 
-\right]\big\|\widetilde{F}\big\|_{(\HokDR)'},\\
+\right]\big\|\widetilde{\LE}\big\|_{(\HokDR)'},\\
 &\leq C_1 \, k\, 
 %\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) \right]
 \NLiDRRRdtd{A} \big\|\nabla\widetilde{f}\big\|_{\LtDR},\label{eq:mainevent2}\\
@@ -776,30 +778,27 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 %therefore also holds with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\Dmat_k}$ norm and the constant $C_1$ modified appropriately.
 %\ere
 
-\subsection{Proof of \cref{cor:1,cor:1a}}
+\subsection{Proofs of \cref{cor:1,cor:1a}}\label{sec:mainproofs}
 
-We first give the set-up for weighted GMRES.
-Consider the abstract  linear system 
+We first give the set-up for weighted GMRES, first introduced in by Essai in \cite{Es:98}, largely following \cite[Section 5]{GrSpVa:17}. Consider the abstract  linear system 
 % \begin{equation*}
 $\matrixC \bx = \bd$
 %\end{equation*}
-in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible.   
-Given an initial guess $\bx^0$, we introduce the residual $\br^0 := \bd- C \bx^0$ and 
-the usual Krylov spaces:  
+in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\bxsz$ be the initial guess, and define the initial residual $\br^0 := \bd- C \bx^0$ and the standard Krylov spaces:  
 \beqs  
-\cK^m(C, \br^0) := \mathrm{span}\big\{\matrixC^j \br^0 : j = 0, \ldots, m-1\big\}.
+\cK^m(\Cmat, \br^0) := \mathrm{span}\big\{\matrixC^j \br^0 : j = 0, \ldots, m-1\big\}.
 \eeqs
-Let $(\cdot , \cdot )_{\Dmat}$ denote the inner product on $\CC^n$ 
+Analagously to the definition of $\NDk{\cdot}$ above, let $(\cdot , \cdot )_{\Dmat}$ denote the inner product on $\CC^n$ 
 induced by some Hermitian positive-definite matrix $\Dmat$, i.e.~
 %\begin{equation*}
 $(\bv,\bw)_{\Dmat} := (\Dmat \bv, \bw)_2,$
 %\end{equation*} 
-with induced norm $\Vert \cdot \Vert_\Dmat$. For $m \geq 1$, define   $\bx^m$  to be  the unique element of $\cK^m$ satisfying  the  
+and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\bx^m$  to be  the unique element of $\cK^m$ satisfying  the  
  minimal residual  property: 
 $$ \ \Vert \br^m \Vert_\Dmat := \Vert \bd - \matrixC \bx^m \Vert_\Dmat \ = \ \min_{\bx \in \cK^m(C, \br^0)} \Vert {\bd} - {\matrixC} {\bx} \Vert_\Dmat. $$
-When $\Dmat = \Imat$ this is just the usual GMRES algorithm, but for  more general  $\Dmat$ it 
-is the weighted GMRES method \cite{Es:98} in which case  
-its implementation requires the application of the weighted Arnoldi process \cite{GuPe:14}.
+Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essaie in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
+
+
 Let 
 \beq\label{eq:fov}
 W_\Dmat(\matrixC):= \Big\{ (\matrixC \bx, \bx)_{\Dmat} : \bx \in \CCN, \|\bx\|_\Dmat=1\Big\};
@@ -809,9 +808,9 @@ $W_\Dmat(\matrixC)$ is called the \emph{numerical range} or \emph{field of value
 %Recall the so-called ``Elman estimate" for GMRES
 
 \begin{theorem}[Elman estimate for weighted GMRES]\label{thm:GMRES1_intro} 
-Let $\matrixC$ be a matrix with $0\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
+Let $\matrixC$ be a matrix with $\bzero\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
 \beq\label{eq:cosbeta}
-\cos \beta := \frac{\mathrm{dist}\big(0, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
+\cos \beta := \frac{\mathrm{dist}\big(\bzero, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
 \eeq
 If the matrix equation $\matrixC \bx = \by$ is solved using weighted GMRES then, 
 for $m\in \mathbb{N}$, the GMRES residual $\br_m$ %:= \matrixC \bx_m - \by$ 
@@ -820,7 +819,7 @@ satisfies
 \frac{\N{\bfr_m}_{\Dmat}}{\N{\bfr_0}_{\Dmat}} \leq \sin^m \beta. %, \quad \text{ where}\quad 
 \eeq
 \end{theorem}
-The bound \cref{eq:Elman} with $\Dmat=\Imat$ was originally proved in \cite{El:82} (see also \cite[Theorem 3.3]{EiElSc:83}) and appears in the form above in \cite[Equation 1.2]{BeGoTy:06}. The bound \cref{eq:Elman} (for arbitrary Hermitian positive-definite $\Dmat$) was stated (without proof) in \cite{CaWi:92} and proved in \cite[Theorem 5.1]{GrSpVa:17}. % (see also \cite[Remark 5.2]{GrSpVa:17}). 
+The bound \cref{eq:Elman} with $\Dmat=\Imat$ was first proved in \cite[Theorem 6.3]{El:82} (see also \cite[Theorem 3.3]{EiElSc:83}) and was written in the above form in \cite[Equation 1.2]{BeGoTy:06}. The bound \cref{eq:Elman} (for arbitrary Hermitian positive-definite $\Dmat$) was stated (without proof) in \cite{CaWi:92}\ednote{Euan---where is it stated in this paper? I can't see it.} and proved in \cite[Theorem 5.1]{GrSpVa:17}. % (see also \cite[Remark 5.2]{GrSpVa:17}). 
 
 
 
@@ -855,35 +854,34 @@ A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES 
 
 %\section{Proof of }\label{sec:proofPDE}
 
-\subsection{Proofs of \cref{thm:2}, and \cref{lem:sharp}}
+\subsection{Proofs of the PDE results \cref{thm:2,lem:sharp}}
 
 \bpf[Proof of \cref{thm:2}]
 %We first prove the upper bound \cref{eq:PDEbound}.
-By \cref{prob:edp}, $u^{(1)}$ and $u^{(2)}$ satisfy $a^{(1)}(u^{(1)}, v) = F(v)$ and 
-$a^{(2)}(u^{(2)}, v) = F(v)$ respectively. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
+By the assumptions on $\Aso,\, \Ast,\, \nso,\,\st$, and $\Dm$, $u^{(1)}$ and $u^{(2)}$ exist, are unique, satisfy $a^{(1)}(u^{(1)}, v) = \LE(v)$ for all $v \in \HozDDR$ and $a^{(2)}(u^{(2)}, v) = \LE(v)$ respectively, where $\LE$ is given by \cref{eq:Ledp}. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
 \beq\label{eq:vp1}
-a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{F}(v) \quad\tfa v\in H^1_{0,D}(\DR)
+a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{\LE}(v) \quad\tfa v\in H^1_{0,D}(\DR)
 \eeq
 where
 \beqs
- \widetilde{F}(v):= \int_{\DR} \left((\Ast-\Aso) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\nso-\nst) u^{(2)}\overline{v}.
+ \widetilde{\LE}(v):= \int_{\DR} \left((\Ast-\Aso) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\nso-\nst) u^{(2)}\overline{v}.
 \eeqs
-Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HokDR}$ \cref{eq:weightednorm}, we have that
+Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HokDR}$ (see \cref{eq:weightednorm}), we have
 \begin{align*}
-| \widetilde{F}(v)| &\leq \big\|\Aso-\Ast\big\|_{L^\infty(\DR)} \big\|\nabla u^{(2)}\big\|_{L^2(\DR)}
+| \widetilde{\LE}(v)| &\leq \NLiDRRRdtd{\Aso-\Ast} \big\|\nabla u^{(2)}\big\|_{L^2(\DR)}
 \N{\nabla v}_{L^2(\DR)} 
 \\& \hspace{5cm}+ k^2 
-\big\|\nso-\nst\big\|_{L^\infty(\DR)} \big\| u^{(2)}\big\|_{L^2(\DR)}
+\NLiDRRR{\nso-\nst} \big\| u^{(2)}\big\|_{L^2(\DR)}
 \N{v}_{L^2(\DR)}\\
-&\leq\max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(\DR)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(\DR)}\Big\}
-\big\| u^{(2)}\big\|_{\HokDR} \N{v}_{\HokDR}.
+&\leq\max\Big\{\NLiDRRRdtd{\Aso-\Ast}\,,\, \NLiDRRR{\nso-\nst}\Big\}
+\big\| u^{(2)}\big\|_{\HokDR} \N{v}_{\HokDR}
 \end{align*}
-and thus, by the definition of the norm $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnorm},
+(by Cauchy--Schwarz in $\RR^2$). Therefore, by the definition of the norm $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnorm},
 \beqs
-\big\|\widetilde{F}\big\|_{(\HokDR)'}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(\DR)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(\DR)}\Big\}
+\big\|\widetilde{\LE}\big\|_{(\HokDR)'}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(\DR)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(\DR)}\Big\}
 \big\| u^{(2)}\big\|_{\HokDR}.
 \eeqs
-Since \cref{cond:1nbpc} holds, we can then apply the result of \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
+Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
 \begin{align*}
 \frac{\big\| u^{(1)} - u^{(1)}\big\|_{\HokDR}}
 {\big\| u^{(2)}\big\|_{\HokDR}, 
@@ -891,7 +889,7 @@ Since \cref{cond:1nbpc} holds, we can then apply the result of \cref{lem:H1}, i.
  \leq 
 \,&\frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right)
 \\
-&\quad\times \left(\max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(\DR)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(\DR)}\Big\}\right),
+&\quad \left(\max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(\DR)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(\DR)}\Big\}\right),
 \end{align*}
 and then the result \cref{eq:PDEbound} follows with 
 \beq\label{eq:C3}
@@ -901,68 +899,72 @@ C_3:= \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_
 
 \bpf[Proof of \cref{lem:sharp}]
 We actually prove the stronger result that given any function $c(k)$ such that $c(k)>0$ for all $k>0$, there exist 
-$f, \nso, \nst$ (with $\nso\not= \nst$), such that, firstly,
+$f, \nso,$ and $ \nst$ (with $\nso\not= \nst$) with
 \beqs
 \big\|\nso-\nst\big\|_{L^\infty(\DR)} \sim c(k)
 \eeqs
-and, secondly,
-the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\Aso = \Ast= I$ exist, are unique, and satisfy \cref{eq:sharp1}. 
+such that the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:vedp} with $\Aso = \Ast= I$ exist, are unique, and satisfy \cref{eq:sharp1}. 
 
 The heart of the proof is the equation
 \beq\label{eq:obs1}
-(\Delta + k^2) \big(\re^{\ri k r}\chi(r)\big) =  \re^{\ri k r}\left(\ri k \frac{d-1}{r} \chi(r) + 2 \ri k \diff{\chi}{r}(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
+(\Delta + k^2) \big(\re^{\ri k r}\chi(r)\big) =  \re^{\ri k r}\left(\ri k \frac{d-1}{r} \chi(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
 \eeq
-where $\chi(r)$ is chosen to have $\supp \chi \subset \DR$.
-This equation proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\DR)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
+where $\chi(r)$ is chosen to have $\supp \chi \subset \DR$. Observe that \cref{eq:obs1} is the Helmholtz equation for a circular wave $e^{ikr}$, with the added factor $\chi$ to ensure the function has compact support. Given plane-wave and circular-wave solutions to the Helmholtz equation usually scale optimally in terms of $k$, we expect that \cref{eq:obs1} will be $k$ to proving that \cref{eq:PDEbound} is sharp. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates\ednote{Euan---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....} and observing that $e^{ikr} \chi(r)$ has angular derivatives equal to zero.
 
-The overall idea of the proof is to set things up so that $(u^{(1)}-u^{(2)})(\bx) = \re^{\ri k r}\chi(r)$, the rationale being that \cref{eq:obs1} proves the sharpness of \cref{eq:bound1}, and \cref{eq:bound1} and its corollary \cref{eq:bound2} (applied to $u^{(1)}-u^{(2)}$) are the main ingredients in the proof of \cref{thm:2}.
-% to prove the sharpness of \cref{thm:2} (at least when $\Aj:=I$, $j=1,2,$), 
-
-Observe that, when $\Aj:=I$, $j=1,2,$ and $\nso:=1$, the variational problem \cref{eq:vp1} implies that 
-\beq\label{eq:obs2}
-\Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = -k^2 \big(1-\nst\big)u^{(2)}.
+Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\DR)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}). Also, recall that the proof of the PDE bound \cref{eq:PDEbound} used the nontrapping resolvent estimate \cref{eq:bound1} applied to $\uso-\ust.$ Therefore we expect that if we set things up so that
+\beq\label{eq:sharpdiff}
+\uso-\ust = e^{ikr}\chi(r),
 \eeq
-Let $\nst:= 1 + c(k)\widetilde{\chi}$ with $\widetilde{\chi}= \widetilde{\chi}(r)$, $\widetilde{\chi}\in C^{\infty}(\DR)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), and 
- $\supp \, \widetilde{\chi} \subset\DR$. 
-%observe then that $\nst(\bx) >1$ for all $\bx \in \DR$ and thus, in particular, %for some function $c(k)>0$ for all $k>0$ 
-%$\nst\not = \nso$. 
-As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(\DR)$ and
-$\supp \,\chi$ a compact subset of $\DR$. Then with $\widetilde{f}$ defined in \cref{eq:obs1}, our goal is to let 
+because \cref{eq:obs1} shows the sharpness of the resolvent estimate \cref{eq:bound1} we expect that combining \cref{eq:obs1} and \cref{eq:sharpdiff} will show the sharpness of the PDE bound \cref{eq:PDEbound}.
+
+We now set things up so that \cref{eq:sharpdiff} holds. We define $\nso = 1$ and $\nst = \nso + c(k) \chitilde(r),$ for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(\DR)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \subset\DR$, and $\NLiDRRR{\chitilde} = 1$ (so that $\NLiDRRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(\DR)$ and $\supp \,\chi$ a compact subset of $\DR$. We will specify $\chitilde$ and $\chi$ in more detail later. Let $\ftilde(r)$ be as defined in \cref{eq:obs1}, and define
 \beq\label{eq:obs3}
-u^{(2)}(\bx):= -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)} \quad\tand\quad  f(\bx):= -\big(\Delta +k^2 \nst(\bx)\big) u^{(2)}(\bx);
+u^{(2)}(\bx):= -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)}
 \eeq
-however, since $\widetilde{\chi}(r)$ has compact support, we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined.
+and
+\beqs
+f(\bx):= -\big(\Delta +k^2 \nst(\bx)\big) u^{(2)}(\bx).
+\eeqs
+We will define $\chi$ and $\chitilde$ below in such a way that if $\chitilde=0,$ then $\chi = 0$. This relation means we understand the right-hand side of \cref{eq:obs3} to be zero if $\chitilde$ is zero. In addition, since $\widetilde{\chi}(r)$ has compact support and $\ftilde$ depends on $\chi,$ we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined. As the final part of the setup, let $\uso$ solve
+\beqs
+\mleft(\Delta + k^2\mright) \uso = -f,
+\eeqs
+i.e., \cref{prob:vedp} with coefficients $\Aso = I$ and $\nso =1$ and right-hand side $f$.
 
-Setting aside for the moment this need to synchronise the definitions of $\chi$ and $\widetilde{\chi}$, since $\supp \,\widetilde{f}$ is a compact subset of $\DR$, so is 
-$\supp \,u^{(2)}$, and so $u^{(2)}$ is then the solution of the exterior Dirichlet problem (in the sense of \cref{prob:edp}) with data $f$ defined in \cref{eq:obs3} and coefficient $\nst:=1 + c(k)\widetilde{\chi}$.
-Finally, define $u^{(1)}$ to be the solution of the exterior Dirichlet problem with $f$ defined in \cref{eq:obs3}. The whole point of these definitions is that, combined with \cref{eq:obs1} and \cref{eq:obs2} and the uniqueness of the solution of the exterior Dirichlet problem, they imply that 
-\beq\label{eq:obs4}
-u^{(1)}(\bx)- u^{(2)}(\bx) = \re^{\ri k x_1}\chi(r),
+Now observe that by construction
+
+\begin{align*}
+  \mleft(\Delta + k^2\mright) \mleft(\uso-\ust\mright) &= -k^2 \mleft(1-\nst\mright)\ust\\
+  &= -k^2 c(k) \chitilde \frac{-1}{k^2 c(k)} \frac{\ftilde}{\chitilde}\\
+  &= \ftilde\\
+  &= \mleft(\Delta + k^2 \mright)\mleft(e^{-ikr}\chi(r)\mright).
+\end{align*}
+Therefore, by uniqueness of the solution of \cref{prob:vedp} \beq\label{eq:obs4}
+u^{(1)}(\bx)- u^{(2)}(\bx) = \re^{\ri k r}\chi(r),
 \eeq
-and from this we therefore have that
+and therefore \cref{eq:obs4} we have
 \beqs
 \big\|u^{(1)}-u^{(2)}\big\|_{L^2(\DR)} \sim 1
 \quad \tand \quad
 \big\|u^{(1)}-u^{(2)}\big\|_{\HokDR} \sim k.
 \eeqs
-Furthermore, the definitions of $u^{(2)}$ \cref{eq:obs3} and $\widetilde{f}$ \cref{eq:obs1} imply that
+Furthermore, the definitions of $u^{(2)}$ and $\widetilde{f}$ imply that
 \beqs
 \big\| u^{(2)}\big\|_{L^2(\DR)} \sim \frac{1}{k\, c(k)} \quad\tand \quad 
 \big\| u^{(2)}\big\|_{\HokDR} \sim \frac{1}{c(k)},
 \eeqs 
-and, since $\|\nso- \nst\|_{L^\infty(\DR)} = c(k)$, \cref{eq:sharp1} holds.
+and, since $\|\nso- \nst\|_{L^\infty(\DR)} = c(k)$, \cref{eq:sharp1} holds, as required.
 
 Therefore, to complete the proof, we only need to show that there exists a choice of $\chi$ and $\widetilde{\chi}$ for which $u^{(2)}$ and $f$ defined by \cref{eq:obs3} are 
 in $H^{1}(\DR)$ and $\LtDR$ respectively (in fact, we prove that they are in $W^{1,\infty}(\DR)$ and $L^\infty(\DR)$ respectively).
 %well-defined. 
-Since $\chi$ and $\widetilde{\chi} \in C^\infty(\DR)$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
-Since $\overline{\Omega_-} \subset \BR$, there exist $0<R_1<R_2<R$ such that $\overline{\Dm} \subset B_{R_2}\setminus B_{R_1} \subset \BR$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \rightarrow (R_1)^+$ and 
-$\chi(r) \sim (R_2-r)^m$ as $r \rightarrow (R_2)^-$. The definition of $\widetilde{f}$ \cref{eq:obs3} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $n$ at $r= R_1$ and $r=R_2$. 
-We now claim that if $m >n+4$, then $u^{(2)}\in W^{1,\infty}(\DR)$ and $f$ $\in L^\infty(\DR)$. Indeed,  
-straightforward calculation from \cref{eq:obs3} shows that  $u^{(2)}(r) \sim (r-R_1)^{m-n-2}$, $\nabla u^{(2)}(r) \sim (r-R_1)^{m-n-3}$, and $\Delta u^{(2)}(r) \sim (r-R_1)^{m-n-4}$ as $r \rightarrow (R_1)^+$, with analogous behaviour at $r=R_2$.
-%vanishes to order $m-n-2$ and $\Delta u^{(2)}$ vanishes to order $m-n-4$ at $r= R_1$ and $r=R_2$. 
+Because $\chi$ and $\widetilde{\chi}$ are in $C^\infty(\DR)$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
+Since $\clos{\Dm} \subset \BR$, there exist $0<R_1<R_2<R$ such that $\overline{\Dm} \subset B_{R_2}\setminus B_{R_1} \subset \BR$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \downarrow R_1$ and 
+$\chi(r) \sim (R_2-r)^m$ as $r \uparrow R_2$. The definition of $\widetilde{f}$ \cref{eq:obs3} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $\mtilde$ at $r= R_1$ and $r=R_2$. 
+We now claim that if $m >\mtilde+4$, then $u^{(2)}\in W^{1,\infty}(\DR)$ and $f$ $\in L^\infty(\DR)$. Indeed,  
+straightforward calculation from \cref{eq:obs3} shows that  $u^{(2)}(r) \sim (r-R_1)^{m-\mtilde-2}$, $\nabla u^{(2)}(r) \sim (r-R_1)^{m-\mtilde-3}$, and $\Delta u^{(2)}(r) \sim (r-R_1)^{m-\mtilde-4}$ as $r \downarrow R_1$, with analogous behaviour at $r=R_2$.
 The assumption 
-$m >n+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta u^{(2)}$ vanish (and hence are finite) at $r=R_1$ and $r=R_2$.
+$m >\mtilde+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta u^{(2)}$ vanish (and hence are finite) at $r=R_1$ and $r=R_2$.
 \epf
 
 \bre[Why doesn't \cref{lem:sharp} cover the case $\Aso\neq  \Ast$?]
@@ -1857,7 +1859,7 @@ The PDE bound \cref{thm:2} relies only on \cref{lem:H1}, which, as stated above,
 \item For each $\Aso, \nso, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
 \item Goal: see if the bound \cref{eq:bound4} holds, using 
 \beqs
-\N{\sum_j \alpha_j (A\nabla \phi_j)}_{\LtDR} \quad \text{ as a proxy for } \quad \N{F}_{(\HokDR)'}.
+\N{\sum_j \alpha_j (A\nabla \phi_j)}_{\LtDR} \quad \text{ as a proxy for } \quad \N{\LE}_{(\HokDR)'}.
 \eeqs
 \eit
 %\item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in \emph{weighted} GMRES.
