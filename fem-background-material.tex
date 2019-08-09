@@ -122,7 +122,7 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     \ele
 
     
-    \bre[Not considering variational crimes]
+    \bre[Not considering variational crimes]\label{rem:crimes}
     Throughout this thesis we assume that \cref{prob:fevtedp} is a conforming discretisation if \cref{prob:vtedp}, i.e. $\Vhp \subset \HozDDR.$ This inclusion is true if $\DR$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevtedp} and commit a variational crime by approximating the boundary of $\DR$ by a polygon, or introducing mesh elements with curved boundaries using interpolated boundary conditions or isoparametric finite elements. See, e.g., \cite[Chapter 10]{BrSc:08} for an overview of the additional errors introduced by variational crimes (although not in the context of the Helmholtz equation). In this thesis we  ignore such variational crimes, and the additional errors they induce; such analysis is standard. Therefore for the remainder of this thesis we assume that \cref{lem:scottzhang} holds, even if we have not triangulated the domain $D$ exactly.
     \ere
     

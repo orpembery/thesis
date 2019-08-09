@@ -1,0 +1,14 @@
+\documentclass[draft]{article}
+\usepackage{ifdraft}
+
+\usepackage{tikz}
+\ifoptionfinal{}{%
+    \usetikzlibrary{external}\tikzexternalize
+}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw[fill=yellow] (0,0) -- (3,0) -- (3,3) -- cycle;
+\end{tikzpicture}
+\end{document}
+

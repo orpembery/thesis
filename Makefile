@@ -6,10 +6,10 @@ all: thesis.pdf
 
 
 thesis.pdf: *tex *pgf *bib
-	pdflatex thesis.tex
+	pdflatex -shell-escape thesis.tex
 	bibtex thesis.aux # This is a hack
-	pdflatex thesis.tex
-	pdflatex thesis.tex
+	pdflatex -shell-escape thesis.tex
+	pdflatex -shell-escape thesis.tex
 	evince thesis.pdf &
 
 clean:

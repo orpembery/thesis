@@ -4,6 +4,16 @@ from fnmatch import fnmatch
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from matplotlib import rcParams
+
+# Learnt about this from
+# https://matplotlib.org/users/usetex.html
+# https://matplotlib.org/users/customizing.html#customizing-matplotlib
+# via
+# https://stackoverflow.com/questions/11367736/matplotlib-consistent-font-using-latex
+
+#rcParams['mathtext.fontset'] = 'cm'
+#rcParams['font.sans-serif'] = 'Computer Modern Sans serif'
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
@@ -31,6 +41,8 @@ def plt_gmres2(n_pre_type,noise_masters,ks,modifier,filename):
     """Modifier must be a string (and noise_master)"""
 
     fig = plt.figure()
+
+    fig.set_size_inches((4.5,2.5))
     
     handles = []
     for ii in range(len(noise_masters)):
@@ -44,17 +56,15 @@ def plt_gmres2(n_pre_type,noise_masters,ks,modifier,filename):
                 drop_level=False)
             
             for jj in data.columns:
-                if k == ks[0] and jj == 0:
-                    handles.append(
-                        plt.scatter(
-                            x=data.reset_index().loc[0,'k'],
-                            y=data.iloc[0,jj],
-                            c='k'))
-                else:
-                    plt.scatter(
-                        x=data.reset_index().loc[0,'k'],
-                        y=data.iloc[0,jj],
-                        c='k')
+                y_data = np.unique(data.iloc[0,jj])
+
+                x_data = np.repeat(k,len(y_data))
+                
+                plt.scatter(
+                    x = x_data,
+                    y=y_data,
+                    c='k',
+                    marker='.')
     
     plt.xlabel(r'$k$')
     plt.ylabel('Number of GMRES Iterations')
@@ -65,8 +75,6 @@ def plt_gmres2(n_pre_type,noise_masters,ks,modifier,filename):
     ax = fig.gca()
         
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-
-    #plt.show()
 
     plt.savefig(filename+'.pgf')
     
