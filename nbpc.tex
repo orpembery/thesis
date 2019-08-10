@@ -34,10 +34,10 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
 \subsection{Statement of the main results}\label{sec:main}
 Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor:1a} gives results in the \emph{Euclidean} norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), whereas \Cref{cor:1} gives results in the \emph{weighted} norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$. These weighted norms are induced by the corresponding vector norms
 \beq\label{eq:Dk}
-\NDmatk{\bv}^2:= \big( \Dmatk \bv, \bv\big)_2 = %\big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 
+\NDmatk{\bv}^2\de \big( \Dmatk \bv, \bv\big)_2 = %\big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 
 \N{v_h}^2_{\HokDR}
 \quad \tand
-\quad \NDmatkI{\bv}^2:= \big( \Dmatk^{-1} \bv, \bv\big)_2 %= %\big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 
+\quad \NDmatkI{\bv}^2\de \big( \Dmatk^{-1} \bv, \bv\big)_2 %= %\big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 
 %\N{v_h}^2_{\HokDR}
 \eeq
 where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-matrices by \cref{eq:Dk2} below and $\vh =\sum_i \vi \phii$, where the $\phii$ are the finite-element basis functions.
@@ -82,7 +82,7 @@ where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\As
 with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$
 exists, and is unique for all $k\geq k_0$.
 %(so that the matrix $\Amato$ is invertible). 
-Furthermore, if $\LE(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} := \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
+Furthermore, if $\LE(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
 \beq\label{eq:bound4}
 \N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LE}_{(\HokDR)'} \quad\tfa k\geq k_0, 
@@ -170,7 +170,7 @@ $u^{(2)}$ by $u^{(1)}$ to be bounded independently of $k$ for arbitrarily-large 
 
 %Before stating these PDE results, we define the weighted $H^1$ norm
 %\beq\label{eq:1knorm}
-%\N{v}^2_{\HokDR} := \N{\grad v}^2_{L^2(\DR)} + k^2 \N{v}^2_{L^2(\DR)} \quad \tfor v \in H^1_{0,D}(\DR),
+%\N{v}^2_{\HokDR} \de \N{\grad v}^2_{L^2(\DR)} + k^2 \N{v}^2_{L^2(\DR)} \quad \tfor v \in H^1_{0,D}(\DR),
 %\eeq
 %where the space $H^1_{0,D}(\DR)$, defined by \cref{eq:spaceEDP} below, is the natural space containing the solution of the exterior Dirichlet problem. 
 To state these PDE results, we use the notation for $a,b>0$ that $a\lesssim b$ when $a\leq C b$ for some $C>0$, independent of $k$, and $a\sim b$ if $a\lesssim b$ and $b\lesssim a$.
@@ -333,33 +333,33 @@ Observe that implicit in our use of $\aE$ in \cref{eq:galerkin} is the fact that
 We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
 Let 
 \beq\label{eq:matrixSjdef}
-\big(\Smat_{A}\big)_{ij}:= \int_\Omega \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
-\big(\Mmat_{n}\big)_{ij}:= \int_\Omega n\,\phi_i\, \phi_j,
+\big(\Smat_{A}\big)_{ij}\de \int_\Omega \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
+\big(\Mmat_{n}\big)_{ij}\de \int_\Omega n\,\phi_i\, \phi_j,
 \quad\tand\quad
-\big(\Nmat\big)_{ij}:= \int_{\GR} T_R (\gamma\phi_j) \,\gamma \phi_i
+\big(\Nmat\big)_{ij}\de \int_{\GR} T_R (\gamma\phi_j) \,\gamma \phi_i
 \eeq
 be the stiffness, domain-mass, and boundary-mass matrices, respectively. Note that both $\Smat_A$ and $\Mmat_n$ are \emph{real-valued}, but $\Nmat$ is \emph{complex-valued} (because the DtN operator $T_R$ is complex-valued).
 Let
 \beq\label{eq:matrixAdef}
-\Amat := \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
+\Amat \de \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
 \eeq
-and let $u_h:= \sum_j u_j \phi_j$. Then \cref{eq:galerkin} implies that
+and let $u_h\de \sum_j u_j \phi_j$. Then \cref{eq:galerkin} implies that
 \beqs
 \Amat \bu = \bff,
 \eeqs
-where $(\bff)_i := \FE(\phi_i)$.
+where $(\bff)_i \de \FE(\phi_i)$.
 Similar to above we let 
 \beq\label{eq:matrixAjdef}
-\Amatj := \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
+\Amatj \de \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
 \eeq
 Finally, let 
 \beq\label{eq:Dk2}
-\Dmat_k:= \Smat_I + k^2 \Mmat_1;
+\Dmat_k\de \Smat_I + k^2 \Mmat_1;
 \eeq
 so that \cref{eq:Dk} holds.
 %then the weighted norm $\|\cdot\|_{\Dmat_k}$ is given by 
 %\beq\label{eq:Dk3}
-%\N{\bv}_{\Dmat_k}^2:=   \N{v_h}^2_{\HokDR}=\big( \Dmat_k \bv,\bv\big)_2,
+%\N{\bv}_{\Dmat_k}^2\de   \N{v_h}^2_{\HokDR}=\big( \Dmat_k \bv,\bv\big)_2,
 %\eeq
 %for
 %$v_h =\sum_i v_i \phi_i$.
@@ -413,7 +413,7 @@ Finally, we need the concept of the \emph{adjoint} sesquilinear form to $a(\cdot
 \begin{definition}[The adjoint sesquilinear form $a^*(\cdot,\cdot)$]\label{def:adjoint}
 Let $\Dm$, $n$, and $A$, be as in the definition of the EDP (\cref{prob:edp}). The adjoint sesquilinear form, $a^*(\cdot,\cdot)$, to $a(\cdot,\cdot)$ defined in \cref{eq:aedp} is given by
 \beq\label{eq:EDPadjoint}
-a^*(\vo,\vt) := \int_{\DR} 
+a^*(\vo,\vt) \de \int_{\DR} 
 \Big((A \grad \vo)\cdot\grad \vtb
  - k^2 n \vo\vtb\Big) - \big\langle \gamma \vo,T_R(\gamma \vt)\big\rangle_{\GR}.
 \eeq
@@ -421,7 +421,7 @@ a^*(\vo,\vt) := \int_{\DR}
 
 \noi It is then straightforward to check that
 \beq\label{eq:A*}
-\Amat^* := \Smat_A -k^2 \Mmat_n - \Nmat^*
+\Amat^* \de \Smat_A -k^2 \Mmat_n - \Nmat^*
 \eeq
 (where $^*$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $a^*(\cdot,\cdot)$; i.e.~$(\Amat^*)_{ij} = a^*(\phi_j, \phi_i)$.
 
@@ -516,7 +516,7 @@ C_2
 for all $k\geq k_0$,
 where
 \beq\label{eq:C2}
-C_2:=%\frac{m_+}{m_-} 
+C_2\de%\frac{m_+}{m_-} 
 %\left[ 
 C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}.%\right].
 \eeq
@@ -543,7 +543,7 @@ and
 %\end{align}
 for all $k\geq k_0$, where
 \beq\label{eq:C1nbpc}
-C_1:=%\frac{s_+}{s_-} 
+C_1\de%\frac{s_+}{s_-} 
 \left[ C_{\rm FEM2}^{(1)} + 
  \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right) \right]
 \eeq
@@ -563,10 +563,10 @@ The bounds  \cref{eq:main1} on $\|\Imat - (\Amato)^{-1}\Amatt\|_2$ and  $\|\Imat
 %
 %, and $C_1$, $C_2$ in \cref{eq:main1} are given explicitly by
 %\beq\label{eq:C1nbpc}
-%C_1:=%\frac{s_+}{s_-} 
+%C_1\de%\frac{s_+}{s_-} 
 %\left[ C_{\rm FEM2}^{(1)} + 
 % \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right) \right] \,\,\tand\,\,
-%\quad C_2:=  %+ \frac{m_+}{m_-} 
+%\quad C_2\de  %+ \frac{m_+}{m_-} 
 % \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right].
 %\eeq
 \epf
@@ -576,7 +576,7 @@ The bounds  \cref{eq:main1} on $\|\Imat - (\Amato)^{-1}\Amatt\|_2$ and  $\|\Imat
 \bpf[Proof of \cref{lem:keylemma1}]
 We first concentrate on proving \cref{eq:keybound1}.
 Given $\bff \in \CC^N$ and $n\in \LiDRRR$, we create a variational problem whose Galerkin discretisation leads to the equation $\Amato \tbu = \Mmat_n\,\bff$.
-Indeed, let $\widetilde{f} := \sum_j f_j \phi_j\in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
+Indeed, let $\widetilde{f} \de \sum_j f_j \phi_j\in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411}
 a^{(1)}(\widetilde{u},v)= (n\widetilde{f},v)_{L^2(\Omega)} \quad\text{ for all } v\in H^1(\Omega),
 \eeq
@@ -622,7 +622,7 @@ To prove the bound on $\|\Mmat_n(\Amato)^{-1}\|_{(\Dmat_k)^{-1}}$ in \cref{eq:ke
 \big\|\bw\|_{\Dmat_k}
 }
 \eeq
-where $\bw := (\Dmat_k)^{1/2}\bv$, and where $\matrixC^*$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
+where $\bw \de (\Dmat_k)^{1/2}\bv$, and where $\matrixC^*$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
 Therefore, since $\Mmat_n$ is a real, symmetric matrix,
 \beqs
 \frac{
@@ -682,11 +682,11 @@ Observe that, similar to \cref{rem:yesitis}, \cref{eq:bound2} is a $k$-independe
 
 
 \bpf[Proof of \cref{lem:keylemma2}]
-In a similar way to the proof of \cref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} := \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
+In a similar way to the proof of \cref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
 a^{(1)}(\widetilde{u},v)= \widetilde{\LE}(v) \quad\text{ for all } v\in H^1(\Omega),
 \quad\text{ where } \quad
- \widetilde{\LE}(v) :=(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
+ \widetilde{\LE}(v) \de(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
 \eeq
 Observe that the definition of the norms $\|\cdot\|_{(\HokDR)'}$ \cref{eq:dualnorm} and $\|\cdot\|_{\HokDR}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
 \begin{align}
@@ -766,7 +766,7 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 %\bre[Analogue of \cref{thm:1} in a weighted norm]\label{rem:weight1}
 %The PDE analysis of the Helmholtz equation naturally takes place in the weighted $H^1$ norm $\|\cdot\|_{\HokDR}$ defined by \cref{eq:1knorm}. The discrete analogue of this norm is the norm $\|\cdot\|_{\Dmat_k}$ defined by 
 %\beq\label{eq:Dk}
-%\N{\bv}_{\Dmat_k}^2:= \big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 = \N{v_h}^2_{\HokDR}
+%\N{\bv}_{\Dmat_k}^2\de \big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 = \N{v_h}^2_{\HokDR}
 %\eeq
 %for
 %$v_h =\sum_i v_i \phi_i$. 
@@ -784,24 +784,24 @@ We first give the set-up for weighted GMRES, first introduced in by Essai in \ci
 % \begin{equation*}
 $\matrixC \bx = \bd$
 %\end{equation*}
-in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\bxsz$ be the initial guess, and define the initial residual $\br^0 := \bd- C \bx^0$ and the standard Krylov spaces:  
+in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\bxsz$ be the initial guess, and define the initial residual $\br^0 \de \bd- C \bx^0$ and the standard Krylov spaces:  
 \beqs  
-\cK^m(\Cmat, \br^0) := \mathrm{span}\big\{\matrixC^j \br^0 : j = 0, \ldots, m-1\big\}.
+\cK^m(\Cmat, \br^0) \de \mathrm{span}\big\{\matrixC^j \br^0 : j = 0, \ldots, m-1\big\}.
 \eeqs
 Analagously to the definition of $\NDk{\cdot}$ above, let $(\cdot , \cdot )_{\Dmat}$ denote the inner product on $\CC^n$ 
 induced by some Hermitian positive-definite matrix $\Dmat$, i.e.~
 %\begin{equation*}
-$(\bv,\bw)_{\Dmat} := (\Dmat \bv, \bw)_2,$
+$(\bv,\bw)_{\Dmat} \de (\Dmat \bv, \bw)_2,$
 %\end{equation*} 
 and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\bx^m$  to be  the unique element of $\cK^m$ satisfying  the  
  minimal residual  property: 
-$$ \ \Vert \br^m \Vert_\Dmat := \Vert \bd - \matrixC \bx^m \Vert_\Dmat \ = \ \min_{\bx \in \cK^m(C, \br^0)} \Vert {\bd} - {\matrixC} {\bx} \Vert_\Dmat. $$
+$$ \ \Vert \br^m \Vert_\Dmat \de \Vert \bd - \matrixC \bx^m \Vert_\Dmat \ = \ \min_{\bx \in \cK^m(C, \br^0)} \Vert {\bd} - {\matrixC} {\bx} \Vert_\Dmat. $$
 Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essaie in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
 
 
 Let 
 \beq\label{eq:fov}
-W_\Dmat(\matrixC):= \Big\{ (\matrixC \bx, \bx)_{\Dmat} : \bx \in \CCN, \|\bx\|_\Dmat=1\Big\};
+W_\Dmat(\matrixC)\de \Big\{ (\matrixC \bx, \bx)_{\Dmat} : \bx \in \CCN, \|\bx\|_\Dmat=1\Big\};
 \eeq
 $W_\Dmat(\matrixC)$ is called the \emph{numerical range} or \emph{field of values} of $\matrixC$ (in the $(\cdot,\cdot)_\Dmat$ inner product).
 
@@ -810,10 +810,10 @@ $W_\Dmat(\matrixC)$ is called the \emph{numerical range} or \emph{field of value
 \begin{theorem}[Elman estimate for weighted GMRES]\label{thm:GMRES1_intro} 
 Let $\matrixC$ be a matrix with $\bzero\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
 \beq\label{eq:cosbeta}
-\cos \beta := \frac{\mathrm{dist}\big(\bzero, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
+\cos \beta \de \frac{\mathrm{dist}\big(\bzero, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
 \eeq
 If the matrix equation $\matrixC \bx = \by$ is solved using weighted GMRES then, 
-for $m\in \mathbb{N}$, the GMRES residual $\br_m$ %:= \matrixC \bx_m - \by$ 
+for $m\in \mathbb{N}$, the GMRES residual $\br_m$ %\de \matrixC \bx_m - \by$ 
 satisfies
 \beq\label{eq:Elman}
 \frac{\N{\bfr_m}_{\Dmat}}{\N{\bfr_0}_{\Dmat}} \leq \sin^m \beta. %, \quad \text{ where}\quad 
@@ -864,7 +864,7 @@ a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{\LE}(v) \quad\tfa v\in H^1_{0,D}(\DR)
 \eeq
 where
 \beqs
- \widetilde{\LE}(v):= \int_{\DR} \left((\Ast-\Aso) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\nso-\nst) u^{(2)}\overline{v}.
+ \widetilde{\LE}(v)\de \int_{\DR} \left((\Ast-\Aso) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\nso-\nst) u^{(2)}\overline{v}.
 \eeqs
 Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HokDR}$ (see \cref{eq:weightednorm}), we have
 \begin{align*}
@@ -893,7 +893,7 @@ Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \
 \end{align*}
 and then the result \cref{eq:PDEbound} follows with 
 \beq\label{eq:C3}
-C_3:= \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right).
+C_3\de \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right).
 \eeq
 \epf
 
@@ -919,11 +919,11 @@ because \cref{eq:obs1} shows the sharpness of the resolvent estimate \cref{eq:bo
 
 We now set things up so that \cref{eq:sharpdiff} holds. We define $\nso = 1$ and $\nst = \nso + c(k) \chitilde(r),$ for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(\DR)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \subset\DR$, and $\NLiDRRR{\chitilde} = 1$ (so that $\NLiDRRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(\DR)$ and $\supp \,\chi$ a compact subset of $\DR$. We will specify $\chitilde$ and $\chi$ in more detail later. Let $\ftilde(r)$ be as defined in \cref{eq:obs1}, and define
 \beq\label{eq:obs3}
-u^{(2)}(\bx):= -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)}
+u^{(2)}(\bx)\de -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)}
 \eeq
 and
 \beqs
-f(\bx):= -\big(\Delta +k^2 \nst(\bx)\big) u^{(2)}(\bx).
+f(\bx)\de -\big(\Delta +k^2 \nst(\bx)\big) u^{(2)}(\bx).
 \eeqs
 We will define $\chi$ and $\chitilde$ below in such a way that if $\chitilde=0,$ then $\chi = 0$. This relation means we understand the right-hand side of \cref{eq:obs3} to be zero if $\chitilde$ is zero. In addition, since $\widetilde{\chi}(r)$ has compact support and $\ftilde$ depends on $\chi,$ we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined. As the final part of the setup, let $\uso$ solve
 \beqs
@@ -968,7 +968,7 @@ $m >\mtilde+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta 
 \epf
 
 \bre[Why doesn't \cref{lem:sharp} cover the case $\Aso\neq  \Ast$?]
-When $\nj:=1$, $j=1,2,$, $\Aso:=I$, and $\Ast:= I + c(k)\widetilde{\chi}$, the variational problem \cref{eq:vp1} implies that 
+When $\nj\de1$, $j=1,2,$, $\Aso\de I$, and $\Ast\de I + c(k)\widetilde{\chi}$, the variational problem \cref{eq:vp1} implies that 
 \beqs%\label{eq:obs2}
 \Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = c(k)\nabla\cdot \big(\widetilde{\chi}\nabla u^{(2)}\big).
 \eeqs
@@ -1232,7 +1232,7 @@ Moreover, $\Gfnname$ is given by
 \beq\label{eq:gdef}
 \Gfn{\NLiDRRR{\nso-\nst}} =
 \begin{dcases}
-\min\set{N,\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1} & \tif \alpha < 1\\
+\min\set{N,\frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1} & \tif \alpha < 1\\
 N & \tif \alpha \geq 1,
 \end{dcases}
 \eeq
@@ -1254,11 +1254,11 @@ For $\alpha \geq 1$, the result is immediate from \cref{cor:gmresguaranteed}. Fo
 \eeq
 To obtain a bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\brz} = 1$) if
 \beq\label{eq:mlower}
-m \geq \frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
+m \geq \frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
 \eeq
 Hence, if $\ms$ is the smallest integer satisfying \cref{eq:mlower}, then
 \beq\label{eq:gmressub2}
-\ms  \leq\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
+\ms  \leq\frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
 \eeq
 The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2,cor:gmresguaranteed} as GMRES will have converged to within a tolerance $\eps$ within $\ms$ iterations.
 \epf
@@ -1266,7 +1266,7 @@ The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2,cor:gmresg
 \bre[Why not use the ceiling in \cref{eq:gmressub2}?]
 One could replace the bound \cref{eq:gmressub2} by the equality
 \beqs
-\ms  =\ceil{\frac{\log{\eps}}{\log\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
+\ms  =\ceil{\frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
 \eeqs
 However, the change in the definition of $\Gfnname$ \cref{eq:gdef} would mean $\Gfnname$ would no longer be continuous. As we must use numerical methods to calculate probabilities associated with $\Gfnname$ (see \cref{thm:probgmres,rem:computable} below), it is convenient if $\Gfnname$ is continuous, and so we use \cref{eq:gmressub2}.
 \ere
@@ -1437,14 +1437,14 @@ We now detail two methods for using nearby preconditioning to speed up QMC metho
 n(\omega,\bx) = 1 + \sum_{j=1}^{10} \Uj(\omega) \sqrt{\lambdaj} \psij(\bx),
 \eeq
 where
-\beqs
+\beq\label{eq:artificialkllambdas}
 \sqrt{\lambdaj} = j^{-2}
-\eeqs
+\eeq
 and
-\beq\label{eq:artificialkl}
+\beq\label{eq:artificialklfuns}
 \psij(\bx) = \cos\mleft(\frac{j\pi}4 x\mright)\cos\mleft(\frac{\mleft(j+1\mright)\pi}4 y\mright).
 \eeq
-Observe that $\NLiDRR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ This expansion is based on the random-field expansion used in \cite[Section 5.1]{GiGrKuScSl:19}, although the main change we make from \cite{GiGrKuScSl:19} is to introduce the factors $1/4$ in \cref{eq:artificialkl}. We introduce this factor to ensure that the oscillations in the medium $n$ are `low frequency' compared to the frequency $k$ of the waves passing through the medium. Expansions similar to \cref{eq:artificalkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Lo\`eve expansion of a random field. In a Karhunen--Lo\`eve expansion the $\Uj$ are independent random variables whose distribution is determined by the distribution of the random field, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator, see, e.g., \cite[Section 7.4]{LoPoSh:14}. In view of the fact that we will be using QMC methods to approximate $\EXP{Q(u)}$ (for some quantities of interest $Q$) we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
+Observe that $\NLiDRR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ This expansion is based on the random-field expansion used in \cite[Section 5.1]{GiGrKuScSl:19}, although the main change we make from \cite{GiGrKuScSl:19} is to introduce the factors $1/4$ in \cref{eq:artificialklfuns}. We introduce this factor to ensure that the oscillations in the medium $n$ are `low frequency' compared to the frequency $k$ of the waves passing through the medium. Expansions similar to \cref{eq:artificialkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Lo\`eve expansion of a random field. In a Karhunen--Lo\`eve expansion the $\Uj$ are independent random variables whose distribution is determined by the distribution of the random field, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator, see, e.g., \cite[Section 7.4]{LoPoSh:14}. In view of the fact that we will be using QMC methods to approximate $\EXP{Q(u)}$ (for some quantities of interest $Q$) we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
 \beqs
 n(\by) = 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
 \eeqs
@@ -1494,11 +1494,13 @@ $\bypre \defined \bycurrent$\;
 Calculate preconditioner $\Lmat\Umat = \AmatpreI$\;
 }
 }
-\caption{Algorithm to perform all solves in a QMC method using nearby preconditioning\label{alg:seq}}
+\caption{Algorithm to perform all solves in a QMC method using nearby preconditioning\label{alg:seq}. $\maxGMRES$ is the maximum allowed number of GMRES iterations and $\SQMC$ is the set of all QMC points. $\nearest(\bypre,\Sremaining)$ denotes the point in $\SQMC$ nearest to $\bypre$ in the $\dQMC$ metric.}
 \end{algorithm}
-\paragraph{Parallelisable algorithm} The main disadvantage of the `sequential' algorithm described above is that the points at which preconditioners are calculated are identified as the algorithm progresses. Therefore the algorithm cannot be parallelised by sending different collections of QMC points to different processors (as one would need to know which preconditioner to use for each point at the start of the algorithm). Therefore, we now suggest an alternative algorithm that allows one to specify the number of preconditioning points before the algorithm commences, and then calculates which points to use as preconditioning points, and then performs the all of the QMC solves, potentially in parallel if required. The most complicated part of the algorithm is deciding at which points to calculate the preconditioners, and so we describe this part of the algorithm in more detail here. A more formal description of the algorithm is available in \cref{alg:par}.
+\subsubsection{A parallel algorithm}
 
-Suppose we are given a set $\set{\byo,\ldots,\byNQMC}$ of QMC points and a number $\Npretarget$; the target number of preconditioners to compute. The aim of this algorithm is to select (approximately) $\Npretarget$ QMC points that are (approximately) equally spaced with respect to the $\dQMC$ metric defined above. If such a goal is acheived, then one expects that the preconditioning points are best located to minimise the total number of GMRES iterations across all solves across all of the QMC points.
+The main disadvantage of the `sequential' algorithm described above is that the points at which preconditioners are calculated are identified as the algorithm progresses. Therefore the algorithm cannot be parallelised by sending different collections of QMC points to different processors (as then one would need to know which preconditioner to use for each point at the start of the algorithm). Therefore, we now suggest an alternative algorithm that allows one to specify the number of preconditioning points \emph{before} the algorithm begins. The algorithm then calculates which points to use as preconditioning points, before performing the linear solves. Because the preconditioners are known in advance, the solves can be computed in parallel if required. The most complicated part of the algorithm is deciding at which points to calculate the preconditioners, and so we describe this part of the algorithm in more detail here. A more formal pseudocode description of the algorithm is given in \cref{alg:par}.
+
+Suppose we are given a set $\SQMC = \set{\byo,\ldots,\byNQMC}$ of QMC points and a number $\Npretarget$; the target number of preconditioners to compute. The aim of this algorithm is to select (approximately) $\Npretarget$ QMC points that are (approximately) equally spaced with respect to the $\dQMC$ metric defined above. If such a goal is acheived, then one expects that the preconditioning points are best located to minimise the total number of GMRES iterations across the solves for all of the QMC points.
 
 The algorithm contains two key ideas:
 \ben
@@ -1507,13 +1509,13 @@ The algorithm contains two key ideas:
   \een
   We now describe each of these two ideas in turn.
 
-  Whilst the metric $\dQMC$ is the metric related to the performance of nearby preconditioning (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with; it is not obvious what geometry it induces on $\cube{J}$, nor how to theoretically work with it (we ignore the issue of \emph{computing} $\dQMC$ here). Therefore, we work in an alternative, although related metric
+\paragraph{Surrogate metric} Whilst the metric $\dQMC$ is the metric related to the performance of nearby preconditioning (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with; it is not obvious what geometry it induces on $\cube{J}$. Therefore, we work in an alternative, although related metric
   \beqs
-\dapprox(\byo,\by) = \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}.
+\dapprox(\byo,\byt) \de \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}.
 \eeqs
-Observe that $\dapprox$ is a weighted $L^1$ metric, with the weights corresponding to the terms in \cref{eq:artificalkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
+Observe that $\dapprox$ is a weighted $L^1$ metric on $\cube{J}$, with the weights corresponding to the terms in \cref{eq:artificialkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric. Also observe that the structure of $\dapprox$ is similar to that of $\dQMC$ and for all $\byo,\byt \in \cube{J},$ the inequality $\dQMC\mleft(\byo,\byt\mright) \leq \dapprox\mleft(\byo,\byt\mright)$ holds. Therefore we expect $\dapprox$ is a reasonable approximation of $\dQMC.$
 
-To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric). Therefore, given the centres of two of these balls $\bcone$ and $\bct$ (if we suppose these are the centres of `adjacent' balls), then we will have
+\paragraph{Tensor-product rule} To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric). Therefore, given the centres of two adjacent balls $\bcone$ and $\bct$, then we will have
 \beq\label{eq:centres2r}
 \dapprox(\bcone,\bct) = 2r.
 \eeq
@@ -1533,11 +1535,11 @@ apart (where we include the minimum so that, for high dimensions, we include at 
 \beqs
 \Nj \de \max\set{1,\frac{J\sqrt{\lambdaj}}{2r}}
 \eeqs
-equally spaced points $\centresj = \set{c_{j,1},\ldots,c_{j,\Nj}},$ and then we form the centres $\bcone,\ldots,\bcNpre$ by taking tensor products of the points in $\centreso,\ldots,\centresJ,$ giving a total of $\Npre = \No \times \cdots \times \NJ$ preconditioning points.
+equally spaced points in the sets $\centresj = \set{c_{j,1},\ldots,c_{j,\Nj}},$ and then we form the centres $\bcone,\ldots,\bcNpre$ by taking tensor products of the points in $\centreso,\ldots,\centresJ,$ giving a total of $\Npre = \No \times \cdots \times \NJ$ preconditioning points.
 
 However, there are three immediate objections to the above approach:
 \ben
-\item The above procedure assumes we know the radius of the balls we wish to construct, and then returns the total number of preconditioning points, and their locations, but we only know in advance the ideal total number of preconditioning points.
+\item The above procedure assumes we know the radius of the balls we wish to construct, and then returns the total number of preconditioning points, and their locations. However, we only know in advance the ideal total number of preconditioning points.
 \item There is no guarantee that the numbers of points $\Nj$ calculated above are integers.
   \item There is no guarantee the preconditioning points given by the above procedure are QMC points.
     \een
@@ -1545,11 +1547,11 @@ However, there are three immediate objections to the above approach:
 
     Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\Npreideal:\RRp \rightarrow \RRp$ given by $r \mapsto \Npre.$ Therefore we can calculate numerically the value $\rideal$ such that $\Npreideal(\rideal) = \Npretarget.$ (In our computations, we do this via interval bisection.)
 
-    Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\Npreidealo,\ldots,\NpreidealJ$ as above (recalling that the $\Npreidealj$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Npreidealj}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Npreidealj \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
+    Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\No(\rideal),\ldots,\NJ(\rideal)$ as above (recalling that the $\Nj(\rideal)$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Nj(\rideal)}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Nj(\rideal) \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
 
-We then take $\Npreactualj$ centres in each dimension, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ peconditioning points.
+We then take $\Npreactualj$ centres in each dimension, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
 
-These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead calculate the preconditioners at QMC points, and so we simply replace each calculated centre with its nearest QMC point.
+These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead replace each calculated centre with its nearest QMC point and calculate the preconditioners at these QMC points.
 
     This algorithm is summarised more formally in \cref{alg:par}.
     
@@ -1592,33 +1594,35 @@ Define $\Spre$ by taking all possible tensor products of points in $\Sprej$\;
 \For{l $=1$ \KwTo $\NQMC$}{
 Calculate $\nearestpre\mleft(\by^{(l)}\mright)$ by brute force\;
 }
-\caption{Algorithm to determine $\Spre$ and $\nearestpre$\label{alg:par}}
+\caption{Algorithm to determine $\Spre$ and $\nearestpre$\label{alg:par}. $\Spre$ is the set of preconditioning points, and $\nearestpre:\SQMC\rightarrow\Spre$ maps each QMC points to its nearest preconditioning point.}
 \end{algorithm}
 
-\paragraph{Advantages and disadvantages of each method} The advantages of the sequential algorithm are:
+\subsubsection{Advantages and disadvantages of each method}
+
+The advantages of the sequential algorithm are:
 \bit
 \item Its simplicity; the algorithm is simple and intuitive to describe, and
 \item Its lack of heuristics - one only needs to specify the maximum number of GMRES iterations; this could be determined, for example by the memory constraints of the machine one is using.
     \eit
-    However, the disadvantages of the sequential algorithm re:
+    However, the disadvantages of the sequential algorithm are:
     \bit
-  \item The algorithm is inherently serial; one must see whether a given solve converges in the required number of GMRES iterations before performing subsequent solves. (In principle one could parallelise the algorithm by splitting the QMC points up onto different groups of processors, and then using the sequential algorithm on each group of processors. However, there is no guarantee one would split the QMC points up in a way that groups nearby points, which could lead to a substantial increase in computational work.)
+  \item The algorithm is inherently serial; one must see whether a given solve converges in the required number of GMRES iterations before knowing whether we must recalculate the preconditioner for subsequent solves. (In principle one could parallelise the algorithm by splitting the QMC points up onto different groups of processors, and then use the sequential algorithm on each group of processors. However, there is no guarantee one would split the QMC points up in a way that grouped nearby points, therefore this approach could lead to a substantial increase in computational work.)
     \item There is no guarantee that this method for exploring the sample space and choosing the preconditioning points will yield an optimal collection of preconditioning points (optimal in the sense of the minimal number of preconditioning points needed).
     \eit
 
     The advantages and disadvantages of the parallel algorithm are, by and large, the reverse of those for the sequential algorithm. The advantages of the parallel algorithm are:
     \bit
-  \item The algorithm is fully parallelisable; once the preconditioning points and the map from QMC points to preconditioning points have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner multiple times, on different groups of processes\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.} However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
+  \item The algorithm is fully parallelisable; once the preconditioning points and the map $\nearestpre$ from the QMC points to the preconditioning points have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner multiple times, on different groups of processes\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.} However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
     \item The preconditioning points should fill the parameter space `well'. Given the points are chosen a priori to be well spaced according to the $\dapprox$ metric, one expects they will be a close to optimal collection (in the sense described above).
       \eit
       The disadvantages of the parallel algorithm are:
       \bit
-    \item One needs a heuristic for how many preconditioning points to choose, as this is not given by the algorithm. (In our numerical experiments below, we obtain this heuristic by using the sequential algorithm for low $k$, and then extrapolating the proportion of preconditioning points used to larger values of $k.$
-      \item The number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. However, we expect the number of generated points will be close $\Npretarget$.
+    \item One needs a heuristic for how many preconditioning points to choose, as this is not given by the algorithm. (In our numerical experiments below, we obtain this heuristic by using the sequential algorithm for low $k$, and then extrapolating the proportion of preconditioning points used for low values of $k$ to larger values of $k.$
+      \item The number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. However, we expect the number of generated points will be close to $\Npretarget$.
       \eit
 
 
-\subsubsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
+\subsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
 We now describe numerical experiments demonstrating the effectiveness of nearby preconditioning for tackling Helmholtz problems.
 
 As described above, before we perform our numerical experiments, we need to determine:
@@ -1626,9 +1630,11 @@ As described above, before we perform our numerical experiments, we need to dete
 \item How the number of QMC points should scale with $k$, and
   \item How many preconditioners we should choose.
     \eit
-    We tackle each of these in turn, before using the parallelisable algorithm detail above to apply nearby preconditioning to QMC methods for the Helmholtz equation. Throughout this \lcnamecref{sec:nbpcqmcnumerics} we use the model problem detailed above.
+    We tackle each of these in turn, before using the parallel algorithm detailed above to apply nearby preconditioning to QMC methods for the Helmholtz equation. Throughout this \lcnamecref{sec:nbpcqmcnumerics} we use the model problem detailed in \cref{eq:artificialkl,eq:artificialkllambdas,eq:artificialklfuns} above.
 
-    To determine how the number of QMC points should scale with $k$, we first estimate the QMC error for increasing $k.$ To estimate the QMC error we use a randomly shifted QMC rule; our exposition here follows \cite[Section 4.2]{GrKuNuScSl:11}.
+\subsubsection{QMC error estimators}
+    
+    To determine how the number of QMC points should scale with $k$, we first estimate the QMC error for increasing $k.$ The QMC rules we use is a a randomly shifted QMC rule, we use such a rule because there exists an error estimator for this rule, see \cref{eq:errest} below. Our exposition below follows that in \cite[Section 4.2]{GrKuNuScSl:11}.
 
     Suppose our QMC points are $\byo,\ldots,\byNQMC$, and the resulting QMC rule is
     \beqs
@@ -1636,98 +1642,109 @@ As described above, before we perform our numerical experiments, we need to dete
 \eeqs
 For a `shift' $\shift \in \cube{J}$ we define the shifted QMC rule
 \beqs
-\QMCshift{\NQMC}{Q}{\shift} = \frac1{\NQMC}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus\shift\mright)\mright),
+\QMCshift{Q}{\shift} = \frac1{\NQMC}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus\shift\mright)\mright),
 \eeqs
-where $\by \oplus \shift$ denotes $\by + \shift$ `wrapped around' onto the hypercube $\cube{J}$. (Formally $\by \oplus \shift = \fracoperator{\mleft(\by + \bhalf\mright)+\shift} - \bhalf,$ where $\fracoperator{\cdot}$ denotes the fractional part.)
+where $\by \oplus \shift$ denotes $\by + \shift$ `wrapped around' onto the hypercube $\cube{J}$. (Formally $\by \oplus \shift = \fracoperator{\mleft(\by + \bhalf\mright)+\shift} - \bhalf,$ where $\fracoperator{\cdot}$ denotes the fractional part and $\bhalf$ denotes the $J$-dimensional vector with every entry $1/2.$)
 
 We then define the randomly shifted QMC rule (with multiple randomly chosen shifts $\shifto,\ldots,\shiftNshifts$)
 \beqs
 \QMCrandshift{Q}{\Nshifts} = \frac1{\Nshifts}\sum_{s=1}^{\Nshifts} \QMCshift{Q}{\shifts} = \frac1{\NQMC\Nshifts}\sum_{s=1}^{\Nshifts}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus \shifts\mright)\mright).
 \eeqs
 
-Having defined the randomly shifted QMC rule, one can the use the standard statistical estimator of the standard deviation of the error in $\QMCrandshift{Q}{\Nshifts}$ \cite[Equation (4.6)]{GrKuNuScSl:11}
-\beqs
+Having defined the randomly shifted QMC rule, one can use the standard statistical estimator of the standard deviation of the error in $\QMCrandshift{Q}{\Nshifts}$ \cite[Equation (4.6)]{GrKuNuScSl:11}
+\beq\label{eq:errest}
 \QMCerror{\NQMC}{\Nshifts} = \mleft(\frac1{\Nshifts\mleft(\Nshifts-1\mright)}\sum_{s=1}^{\Nshifts} \mleft(\QMCshift{Q}{\shifts} - \QMCrandshift{Q}{\Nshifts}\mright)^2\mright)^{\half}.
-\eeqs
+\eeq
 (See \cref{app:complexerror} for proof that $\QMCerror{\NQMC}{\Nshifts}^2$ is an unbiased estimator of the variance of $\QMCrandshift{Q}{\Nshifts}$; recall that it does \emph{not} follow that $\QMCerror{\NQMC}{\Nshifts}$ is an \emph{unbiased} estimator of the standard deviation of $\QMCrandshift{Q}{\Nshifts}$.)
 
-We estimated $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup}with $2048$ QMC points and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$) to avoid having to consider the effect of finite-element error. The quantities of interest we considered were:
+\subsubsection{$k$-dependence of the number of QMC points}
+
+We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We estimated $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup} with $\NQMC = 2048$ and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$) to avoid having to consider the effect of finite-element error. The quantities of interest (QoIs) we considered were:
 \bit
 \item The integral of the solution over the whole domain,
 \item The value of the solution at the origin,
 \item The value of the solution at the top-right corner of the domain, and
 \item The $x$-component of the gradient of the solution at the top-right corner of the domain.
   \eit
-  Observe that these QOIs require increasing regularity of the solution (the integral is defined for functions in $\LoD$, point evaluation for functions in $\Hfn{}{3/2 + \eps}{D}$ and point evaluation of the gradient for functions in $\Hfn{}{5/2+\eps}{D}$ (in 3-d - the corresponding function spaces are $\Hfn{}{1+\eps}{D}$ and $\Hfn{}{2+\eps}{D}$ in 2-d) for any $\eps > 0.$), and so computing for this range of quantities of interest will give a good insight into the behaviour of QMC applied to the Helmholtz equation for a wide range of QoIs\footnote{We can evaluate point values of $\uh$ because $\uh$ is continuous, and we evaluate $\grad\uh((1,1))$ as the value of $\grad \uh$ on the upper-rightmost mesh element; such an evaluation is possible due the structure of our mesh; see \cref{fig:grid}.}.
+  Observe that these QoIs require increasing regularity of the solution. (The integral is defined for functions in $\LoD$, point evaluation for functions in $\Hfn{}{3/2 + \eps}{D}$ and point evaluation of the gradient for functions in $\Hfn{}{5/2+\eps}{D}$ (in 3-d - the corresponding function spaces are $\Hfn{}{1+\eps}{D}$ and $\Hfn{}{2+\eps}{D}$ in 2-d) for any $\eps > 0.$) Therefore computing for this range of QoIs will give a good insight into the behaviour of QMC applied to the Helmholtz equation\footnote{We can evaluate point values of $\uh$ because $\uh$ is continuous, and we can use the value of $\grad \uh$ on the upper-rightmost mesh element as a proxy for $\grad \uh((1,1))$; such an use is possible due the structure of our mesh; see \cref{fig:grid}.}.
 %%     That is, we randomly choose $\shifto,\ldots,\shiftNshifts$ points in $\cube{J}$ (the `shifts')rause the standard error estimator
 %%     \beqs
 %%     \mleft(\frac1{\nu\mleft(\nu-1\mright)} \sum_{s=1}^{\Nshifts} 
 %%     \eeqs$h = 0.002$ (relation to $k=60$ - maximum?)
 
-In \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} we plot how $C$ and $\alpha$ depend on $k$, for the plots of the QMC error with increasing $\NQMC$ for each value of $k,$ see \cref{app:hhqmcconv}.
+%In \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} we plot how $C$ and $\alpha$ depend on $k$, for the plots of the QMC error with increasing $\NQMC$ for each value of $k,$ see \cref{app:hhqmcconv}.
 
 \begin{figure}[h]
     \centering
-  \begin{subfigure}{\textwidth}
-\input{integral-C-plot.pgf}
-  \end{subfigure}
     \begin{subfigure}{\textwidth}
-\input{integral-alpha-plot.pgf}
+      \centering
+\input{integral-C-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm. \label{fig:integralCalpha}}
+    \begin{subfigure}{\textwidth}
+                \centering
+      \input{integral-alpha-plot.pgf}
+    \end{subfigure}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
 \end{figure}
-
+\optodo{Figure out how to rotate plot labels}
 \begin{figure}[h]
     \centering
-  \begin{subfigure}{\textwidth}
+    \begin{subfigure}{\textwidth}
+            \centering
 \input{origin-C-plot.pgf}
   \end{subfigure}
     \begin{subfigure}{\textwidth}
+                \centering
 \input{origin-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm. \label{fig:originCalpha}}
+
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-  \begin{subfigure}{\textwidth}
+    \begin{subfigure}{\textwidth}
+            \centering
 \input{top_right-C-plot.pgf}
   \end{subfigure}
     \begin{subfigure}{\textwidth}
+            \centering
 \input{top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm.  \label{fig:toprightCalpha}}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-  \begin{subfigure}{\textwidth}
+    \begin{subfigure}{\textwidth}
+            \centering
 \input{gradient_top_right-C-plot.pgf}
   \end{subfigure}
     \begin{subfigure}{\textwidth}
+            \centering 
 \input{gradient_top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\log$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
+\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
 \end{figure}
 
 
-\begin{table}[h]
+\begin{table}[h!]
   \centering
   \input{qmc-alpha-table}
-  \caption{The quantities $\alphaz$ and $\alphao$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\log(k)}$.}\label{tab:qmcalpha}
+  \caption{The quantities $\alphaz$ and $\alphao$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\loge(k)}$.}\label{tab:qmcalpha}
   \end{table}
 
-We use these computational results to determine how $\NQMC$ should increase with $k$, in order to keep the QMC error bounded. Based on QMC theory results for the stationary diffusion equation, e.g., \cite[Equation 4.2]{GrKuNuScSl:11}, we make the assumption that the QMC error (with one shift) satisfies
+Based on QMC theory results for the stationary diffusion equation, e.g., \cite[Equation 4.2]{GrKuNuScSl:11}, we make the assumption that the QMC error (with one shift) satisfies
 \beq\label{eq:qmcerrorform}
-\QMCerror{Q}{1} = C \NQMC^{-\alpha},
+\QMCerror{Q}{\Nshifts} = C \NQMC^{-\alpha},
 \eeq
-for some $C, \alpha > 0.$ Based on this assumption, \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} plot $C$ and $\alpha$ for increasing $k$. (In \cref{app:hhqmcconv}, we plot the QMC error for increasing $\NQMC$ for each $k \in \set{10,20,30,40,50,60}$ and for each QoI---these plots allow us to determine the values of $C$ and $\alpha$ for each value of $k.$) For the QoIs that are point evaluations (\cref{fig:originCalpha,fig:toprightCalpha}), $C$ appears to be constant; we assume $C$ is constant in all of the following calculations.
+for some $C, \alpha > 0.$ Based on this assumption, \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} plot $C$ and $\alpha$ for increasing $k$. (In \cref{app:hhqmcconv}, we plot the QMC error for increasing $\NQMC$ for each $k \in \set{10,20,30,40,50,60}$ and for each QoI---these plots allow us to determine the values of $C$ and $\alpha$ for each value of $k.$) For the QoIs that are point evaluations (\cref{fig:originCalpha,fig:toprightCalpha}), $C$ appears to be approximately constant; we assume $C$ is constant in all of the following calculations.
 
 Based on the evidence in \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha}, we conjecture
 \beq\label{eq:alphaform}
-\alpha(k) = \alphaz - \alphao\log(k),
+\alpha(k) = \alphaz - \alphao\loge(k),
 \eeq
-for some constants $\alphaz,\alphao > 0.$ (Throughout this \lcnamecref{sec:nbpcqmcnumerics}, $\log$ denotes the natural logarithm.) We fitted $\alphaz$ and $\alphao$, and have plotted the resulting line of best fit on \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha}. (Observe that the conjectured form \cref{eq:alphaform} cannot hold for $k$ very large, as then $\alpha(k)$ would be negative. Nevertheless, for the range of $k$ we consider in these numerical experiments, the form \cref{eq:alphaform} seems to give a good fit with the data.)
+for some constants $\alphaz,\alphao > 0.$ (Throughout this \lcnamecref{sec:nbpcqmcnumerics}, $\loge$ denotes the natural logarithm.) We fitted $\alphaz$ and $\alphao$ numerically, and have plotted the resulting line of best fit on \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha}. (Observe that the conjectured form \cref{eq:alphaform} cannot hold for $k$ very large, as then $\alpha(k)$ would be negative. Nevertheless, for the range of $k$ we consider in these numerical experiments, the form \cref{eq:alphaform} seems to give a good fit with the data.) The values of $C$ and $\alpha$ for the different QoIs are given in \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha}.
 
 Having understood how the QMC error increases with $k$ for fixed $\NQMC$, we now use this knowledge to determine how one should increase $\NQMC$ with $k$ in order to keep the QMC error bounded. Recalling that we assume $C$ in \cref{eq:qmcerrorform} is constant, if we take
 \beq\label{eq:Nform}
@@ -1735,15 +1752,15 @@ Having understood how the QMC error increases with $k$ for fixed $\NQMC$, we now
 \eeq
 for some constant $\Ctilde > 0$, then substituting \cref{eq:Nform} into \cref{eq:qmcerrorform}, we see that the QMC error should remain bounded, with
 \beqs
-\QMCerror{Q}{1} = C \exp\mleft(-\Ctilde\mright).
+\QMCerror{Q}{\Nshifts} = C \exp\mleft(-\Ctilde\mright).
 \eeqs
 
-In our numerical experiments with increasing $\NQMC(k)$ below, we choose $\Ctilde$ so that $\NQMC(10) = 2048,$ as in our numerical experiments to determine the behaviour of the QMC error, we used $\NQMC = 2048$ (with 20 shifts). Also, for ease of computational set-up, in our numerical experiments we take the number of QMC points to be a power of 2, chosen so that $\NQMCactual(k) = 2^{M(k)},$ where
+In our numerical experiments with increasing $\NQMC(k)$ below, we choose $\Ctilde$ so that $\NQMC(10) = 2048,$ because in our numerical experiments to determine the behaviour of the QMC error, we used $\NQMC = 2048$ (with 20 shifts). Also in our numerical experiments below we take the number of QMC points to be a power of 2, because the lattice rule we use to generate the points is a complete lattice rule if $\NQMC$ is a power of 2 (see \cite{NuREADME}). We choose $\NQMC$ to be a power of 2 by setting $\NQMC(k) = 2^{M(k)},$ where
 \beqs
-M(k) = \round{\logtwo\mleft(\NQMC(k)\mright)}.
+M(k) = \round{\logtwo\mleft(\exp\mleft(\Ctilde \alpha(k)^{-1}\mright)\mright)}.
 \eeqs
 
-Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results for the QoI being the integral of the solution, as this seems to display slightly different convergence characteristics), in our numerical experiments we take $\alpha(k) = 1.4 - 0.18 \log(k).$ The resulting values of $\NQMC$ are summarised in \cref{tab:nqmc}.
+Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results for the QoI being the integral of the solution, as this seems to display slightly different convergence characteristics), in our numerical experiments below we take $\alpha(k) = 1.38 - 0.19  \loge(k).$ The resulting values of $\NQMC$ are summarised in \cref{tab:nqmc}.
 
 \begin{table}[h]
   \centering
@@ -1751,18 +1768,21 @@ Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results 
   \caption{The ideal and actual number of QMC points $\NQMC$, chosen so that the QMC error is empirically bounded for all $k$.}\label{tab:qmcpoints}
   \end{table}
 
+\subsubsection{Numerical results for nearby preconditioning applied to QMC}
+
 Now that we understand how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points scaling as above) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$\ednote{Should I do the QMC calculations with multiple shifts, but this point scaling, again, and check that the estimate of the QMC error is roughly constant? It could take a while, and be rather expensive....}
 
 As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
 \bit
-\item We first use the sequential algorithm for low wave numbers (fixing the maximum number of GMRES iterations) and observe how the number of preconditioners (as a proportion of the number of QMC points) changes with $k$.
+\item We first use the sequential algorithm for low $k$ (fixing the maximum number of GMRES iterations) and observe how the number of preconditioners (as a proportion of the number of QMC points) changes with $k$.
   \item We then use the parallel algorithm (with the above proportion of preconditioners) for higher values of $k.$
     \eit
-    We remark that, in principle, one could use the sequential algorithm for all values of $k$, however, this would take an incredibly long time--- we see below that for $k=60$ we must perform $2^{20}$ Helmholtz solves; if we performed these solves sequentially, and each solve took 5 seconds, this computation would take on the order of 60 days to complete.
+    We remark that, in principle, one could use the sequential algorithm for all values of $k$, however, this would take an incredibly long time--- we see in \cref{tab:qmcpoints} that for $k=60$ we must perform $2^{17}$ Helmholtz solves; if we performed these solves sequentially, and each solve took 10 seconds, this computation would take over 2 weeks to complete.
 
-    The results for the sequential algorithm are summarised in \cref{tab:seq}, for $k$ up to 30. These results show that nearby preconditioning is very effective, with the number of preconditioners remaining (approximately) constant as a percentage of the total number of solves. This is the best result one could realistically hope for; in this case the decreasing (like $1/k$) radius over which nearby preconditioning is effective is offset by the growing number of QMC points, meaning the number of preconditioners is constant as a fraction of the total number of solves.
+    The results for the sequential algorithm are summarised in \cref{tab:nbpcqmcseq}, for $k = 10,\,20,\,30$. These results show that nearby preconditioning is effective, with the number of preconditioners growing (approximately) linearly in $k$, but at a very low percentage of the total number of solves. This result indicates the decreasing radius (on the order $1/k$) over which nearby preconditioning is effective is mostly offset by the growing number of QMC points. Observe that if the number of QMC points remained constant in $k$, we would expect the number of preconditioners to (potentially) increase like $k^J$, because the number of balls of radius $\sim 1/k$ in $\cube{J}$ is $\sim k^J.$
 
-    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditinoers that must be calculated.
+    \optodo{Rewrite the next two paragraphs later}
+    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditioners that must be calculated.
 
     \begin{table}
   \centering
@@ -1777,36 +1797,38 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
   \end{table}
 
 
-    In conclusion, we see that nearby preconditioning gives very significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
+    In conclusion, we see that nearby preconditioning gives a very significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
     
 
     
 \section{Extension of the results to the truncated exterior Dirichlet problem}\label{sec:TEDP}
 
+We now briefly outline how the results in \cref{sec:main} above can be extended to \cref{prob:vtedp}, the Truncated Exterior Dirichlet Problem.
+
 %\subsection{Definition of the TEDP and analogues of the results in \cref{sec:3}}
 
-\paragraph{The impedance boundary $\Gamma_I$.} By comparing \cref{eq:src,eq:ibc}, we see that, in the case $g_I=0$, the TEDP approximates the DtN operator $T_R$ by $\ri k$. Indeed, by using Green's first identity and the definition of the normal derivative (see, e.g., \cite[Lemma 4.3]{Mc:00}), show that the boundary condition on $\Gamma_I$ imposed in the variational problem \cref{prob:vtedp} is 
-%In this BVP, the DtN operator $T_R$ Sommerfeld radiation condition 
-\beq\label{eq:imp}
-\dudnu - \ri k\gamma u = g_I \ton \Gamma_I.
-\eeq
-where $\nu$ is the unit outward-pointing normal vector to $\Omega$ on $\Gamma_I$.
+%% \paragraph{The impedance boundary $\Gamma_I$.} By comparing \cref{eq:src,eq:ibc}, we see that, in the case $g_I=0$, the TEDP approximates the DtN operator $T_R$ by $\ri k$. Indeed, by using Green's first identity and the definition of the normal derivative (see, e.g., \cite[Lemma 4.3]{Mc:00}), show that the boundary condition on $\Gamma_I$ imposed in the variational problem \cref{prob:vtedp} is 
+%% %In this BVP, the DtN operator $T_R$ Sommerfeld radiation condition 
+%% \beq\label{eq:imp}
+%% \dudnu - \ri k\gamma u = g_I \ton \Gamma_I.
+%% \eeq
+%% where $\nu$ is the unit outward-pointing normal vector to $\Omega$ on $\Gamma_I$.
 
-\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $\aT(\cdot,\cdot)$ defined in \cref{eq:aT} satisfies the G\aa rding inequality \cref{eq:gardingbrief}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \cref{sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.
+\paragraph{Existence and uniqueness of a solution to the TEDP.} The sesquilinear form $\aT(\cdot,\cdot)$ defined in \cref{eq:aT} satisfies the G\aa rding inequality \cref{eq:gardingbrief}, and existence and uniqueness of a solution to the TEDP follow under the same condition on $A$ (piecewise-Lipschitz) as for the EDP, as discussed in \cref{thm:tedp}.%sec:vpGm}; in the case of Lipschitz scalar $A$, these unique-continuation arguments are summarised in \cite[\S2]{GrSa:18}.
 
 \paragraph{Finite-element/Galerkin solution.}
-The Galerkin matrix is defined exactly as in \cref{eq:matrixAdef}, except that 
+The Galerkin matrix $\Amat$ is defined exactly as in \cref{eq:matrixAdef}, except that 
 \beq\label{eq:NTEDP}
-\big(\Nmat\big)_{ij}:= \ri k\int_{\Gamma_I}  (\gamma\phi_i) \,\gamma \phi_j.
+\big(\Nmat\big)_{ij}\de \ri k\int_{\Gamma_I}  (\gamma\phi_i) \,\gamma \phi_j.
 \eeq
 
 \paragraph{The adjoint sesquilinear form.} For the TEDP, the adjoint sesquilinear form is given by 
 \beq\label{eq:TEDPadjoint}
-a^*(u,v) := \int_{\DR} 
+a^*(u,v) \de \int_{\DR} 
 \Big((A \grad u)\cdot\grad \vb
  - k^2 n u\vb\Big) +\ri k\int_{\Gamma_I} \gamma u\, \overline{\gamma v};
 \eeq
-then \cref{eq:A*} holds (with $\Nmat$ now given by \cref{eq:NTEDP}, and the analogue of \cref{lem:adjoint} follows in a straightforward way.
+then \cref{eq:A*} holds (with $\Nmat$ now given by \cref{eq:NTEDP}), and the analogue of \cref{lem:adjoint} follows in a straightforward way.
 
 
 \paragraph{The analogues of \cref{cond:1nbpc,cond:2}.}
@@ -1816,7 +1838,7 @@ The statement of the TEDP analogues of \cref{cond:1nbpc,cond:2} are the same as 
 $\supp \,f$ need not be a subset of $\widetilde{\Omega}$ (i.e.~the support of $f$ can go up to the impedance boundary $\Gamma_I$), and
 \item the assumption $g_I= 0$ needs to be added to \cref{cond:1nbpc} and Part (i) of \cref{cond:2}.
 \een
- Note that, since $a(\cdot,\cdot)$ for the TEDP satisfies the same G\aa rding inequality \cref{eq:gardingbrief} as the $a(\cdot,\cdot)$ for the EDP, \cref{lem:H1} holds for the TEDP under the TEDP-analogue of \cref{cond:1nbpc}.
+ Note that, since $\aT(\cdot,\cdot)$ for the TEDP satisfies the same G\aa rding inequality \cref{eq:gardingbrief} as $a(\cdot,\cdot)$ for the EDP, \cref{lem:H1} holds for the TEDP under the TEDP-analogue of \cref{cond:1nbpc}.
 
 \paragraph{The main results \cref{thm:1,cor:1}.}
 Since \cref{cond:1nbpc,cond:2} are essentially unchanged from the EDP case, \cref{lem:keylemma1,lem:keylemma2} hold for the TEDP, and thus so do \cref{thm:1,cor:1,cor:1a}.
@@ -1865,26 +1887,26 @@ The PDE bound \cref{thm:2} relies only on \cref{lem:H1}, which, as stated above,
 %
 %\newpag
 
-\section*{Owen to do list}
-\ben
-\item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in standard GMRES.
-\item Computations where $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ are sometimes large; is having the standard deviations of these $\sim 1/k$ good enough for $k$-independent GMRES iterations?
-\item ***on backburner*** Checking under what conditions (if any) Part (ii) \cref{cond:2} holds by running the following experiment:
-%\item Exciting experiments for random $n$ that you told us about last week.
-%\item In the weighted norm, the condition on $A$ is ``$k \|\Aso-\Ast\|_{L^\infty}$ sufficiently small" but in the Euclidean norm the best we have so far is ``$h^{-1} \|\Aso-\Ast\|_{L^\infty}$ sufficiently small". You indicated before that experiments seemed to indicate that ``$k \|\Aso-\Ast\|_{L^\infty}$ sufficiently small" seemed correct for the Euclidean norm too. The next time we meet, can you show me these results please?
-%\item Please run the following numerical experiment.
-\bit
-\item TEDP with $\Omega$ a square/rectangle.
-\item $\Aso$ being at least Lipschitz (but smooth is fine). To keep things simple, just take scalar- (as opposed to matrix-) valued $\Aso$ and don't worry about making it nontrapping.
-\item Smoothness of $\nso$ doesn't really matter, just take smooth in the first instance for simplicity (and also don't worry about nontrapping).
-\item $\Vhp$ piecewise linear.
-\item Linear system $\Amato \bu = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of \cref{cond:2},  but please check this!)
-\item For each $\Aso, \nso, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
-\item Goal: see if the bound \cref{eq:bound4} holds, using 
-\beqs
-\N{\sum_j \alpha_j (A\nabla \phi_j)}_{\LtDR} \quad \text{ as a proxy for } \quad \N{\LE}_{(\HokDR)'}.
-\eeqs
-\eit
-%\item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in \emph{weighted} GMRES.
-\een
+%% \section*{Owen to do list}
+%% \ben
+%% \item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in standard GMRES.
+%% \item Computations where $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ are sometimes large; is having the standard deviations of these $\sim 1/k$ good enough for $k$-independent GMRES iterations?
+%% \item ***on backburner*** Checking under what conditions (if any) Part (ii) \cref{cond:2} holds by running the following experiment:
+%% %\item Exciting experiments for random $n$ that you told us about last week.
+%% %\item In the weighted norm, the condition on $A$ is ``$k \|\Aso-\Ast\|_{L^\infty}$ sufficiently small" but in the Euclidean norm the best we have so far is ``$h^{-1} \|\Aso-\Ast\|_{L^\infty}$ sufficiently small". You indicated before that experiments seemed to indicate that ``$k \|\Aso-\Ast\|_{L^\infty}$ sufficiently small" seemed correct for the Euclidean norm too. The next time we meet, can you show me these results please?
+%% %\item Please run the following numerical experiment.
+%% \bit
+%% \item TEDP with $\Omega$ a square/rectangle.
+%% \item $\Aso$ being at least Lipschitz (but smooth is fine). To keep things simple, just take scalar- (as opposed to matrix-) valued $\Aso$ and don't worry about making it nontrapping.
+%% \item Smoothness of $\nso$ doesn't really matter, just take smooth in the first instance for simplicity (and also don't worry about nontrapping).
+%% \item $\Vhp$ piecewise linear.
+%% \item Linear system $\Amato \bu = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of \cref{cond:2},  but please check this!)
+%% \item For each $\Aso, \nso, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
+%% \item Goal: see if the bound \cref{eq:bound4} holds, using 
+%% \beqs
+%% \N{\sum_j \alpha_j (A\nabla \phi_j)}_{\LtDR} \quad \text{ as a proxy for } \quad \N{\LE}_{(\HokDR)'}.
+%% \eeqs
+%% \eit
+%% %\item Varying  $\|\Aso-\Ast\|_{L^\infty}$ and $\|\nso-\nst\|_{L^\infty}$ in \emph{weighted} GMRES.
+%% \een
 
