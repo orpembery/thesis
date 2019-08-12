@@ -293,7 +293,7 @@ We perform experiments for three different functional forms of $\alpha$  taking 
 \caption{GMRES iteration counts for $\AmatoI\Amatt$ where $\Aso=\Ast=1$ and $\NLiDRRR{\nso-\nst} = \alpha$ as described in \cref{sec:num}.}
 \end{figure}
 \optodo{Need to figure out how to get computer modern consistently in axis labels. Some bookmarks saved that may help.}
-  
+  \ednote{Euan---I had to redo these computations, as there was a bug in my code, so we now don't see \emph{really} rapid growth in the number of GMRES iterations as $k$ inreases. I think the previous code may have may the variations in $n$ too large, meaning we got really rapid growth.}
 
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
@@ -1782,7 +1782,7 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
     The results for the sequential algorithm are summarised in \cref{tab:nbpcqmcseq}, for $k = 10,\,20,\,30$. These results show that nearby preconditioning is effective, with the number of preconditioners growing (approximately) linearly in $k$, but at a very low percentage of the total number of solves. This result indicates the decreasing radius (on the order $1/k$) over which nearby preconditioning is effective is mostly offset by the growing number of QMC points. Observe that if the number of QMC points remained constant in $k$, we would expect the number of preconditioners to (potentially) increase like $k^J$, because the number of balls of radius $\sim 1/k$ in $\cube{J}$ is $\sim k^J.$
 
     \optodo{Rewrite the next two paragraphs later}
-    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of 0.2\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:par}. We observe that the fraction of preconditioners is approximate 0.2\%, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of 0.5\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditioners that must be calculated.
+    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of ??\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:nbpcqmcpar}. We observe that the fraction of preconditioners is approximately ???, but the maximum (and average) number of GMRES iterations appears to grow very slowly with $k.$ This growth (which did not occur with the sequential algorithm) may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of ???\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditioners that must be calculated.
 
     \begin{table}
   \centering
@@ -1795,9 +1795,9 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
   \input{nbpc-qmc-parallel-table}
   \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $0.2$\%.}\label{tab:nbpcqmcspar}
   \end{table}
+\ednote{Euan---clearly something has gone wrong in my numerics here---the proportion of preconditioners that I'm calculating is far too high. I'll try and fix this and run some new numerics ASAP. The above paragraph may be rewritten in the light of better numerics!}
 
-
-    In conclusion, we see that nearby preconditioning gives a very significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
+    In conclusion, we see that nearby preconditioning gives a significant speedup when applied to a QMC model problem. We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
     
 
     
