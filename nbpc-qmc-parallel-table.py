@@ -12,7 +12,7 @@ df_master = pd.DataFrame(index=[int(k) for k in k_list],columns=['num_lu','total
 this_directory = './data/data-for-nbpc-qmc/'
 
 for k in k_list:
-
+    print(k)
     # Find the right directory
 
     for possible_folder in listdir(this_directory):

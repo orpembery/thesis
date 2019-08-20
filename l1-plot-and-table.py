@@ -54,7 +54,7 @@ df = df.sort_index()
 
 def make_plot(locs,filename):
 
-    fig = plt.figure()
+    fig = plt.figure(frameon=False)
 
     styles = 'ovsd'
 
@@ -94,7 +94,6 @@ def make_plot(locs,filename):
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         
     plt.legend(loc='upper left')
-
 
     plt.savefig(filename+'.pgf')
 
