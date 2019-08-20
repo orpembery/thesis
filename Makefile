@@ -77,9 +77,6 @@ interpolation*.pgf: interpolation-figure.py
 GMRES.pgf: GMRES.pickle gmres-blow-up-plot.py
 	python gmres-blow-up-plot.py
 
-GMRES.pickle: gmres-blow-up.py
-	python gmres-blow-up.py
-
 nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
 	python nbpc-qmc-sequential-table.py
 
