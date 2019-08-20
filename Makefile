@@ -102,9 +102,6 @@ prob-plot-rate-*.pgf: plot-probabalistic-runs.py
 prob-gmres-theory*pgf: prob-gmres-theory-plots.py
 	python prob-gmres-theory-plots.py
 
-nbpc-linfinity-*.pgf: plot-nbpc-linfinity-runs.py
-	python plot-nbpc-linfinity-runs.py
-
 sample-mesh.pgf: sample-grid.py
 	python sample-grid.py
 
