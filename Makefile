@@ -3,7 +3,8 @@
 all: thesis.pdf 
 
 
-thesis.pdf: *tex *pgf 
+
+thesis.pdf: *tex *pgf *bib
 	pdflatex thesis.tex
 	bibtex thesis.aux # This is a hack
 	pdflatex thesis.tex
@@ -13,12 +14,12 @@ thesis.pdf: *tex *pgf
 clean:
 	rm *~
 	rm *aux	
-	rm *pdf
 	rm *log
 	rm *bbl
 	rm *blg
 	rm *out
 	rm *toc
+	rm *pdf
 	rm *dvi
 
 supervisor:
@@ -78,3 +79,12 @@ GMRES.pgf: GMRES.pickle gmres-blow-up-plot.py
 
 GMRES.pickle: gmres-blow-up.py
 	python gmres-blow-up.py
+
+nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
+	python nbpc-qmc-sequential-table.py
+
+nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*/*pickle
+	python nbpc-qmc-parallel-table.py
+
+nbpc-linfinity-plot-*pgf: nbpc-linfinity-plots.py
+	python nbpc-linfinity-plots.py # Takes a couple of minutes.

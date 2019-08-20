@@ -66,15 +66,15 @@ def make_plot(locs,filename):
 
 
         if loc == 1.0:
-            str_loc = ''
+            str_loc = '1'
         else:
             str_loc = str(loc)
 
 
         if loc == 0.0:
-            label = r'$\alpha = 0.2$'
+            label = r'$\beta = 0$'
         else:
-            label = r'$\alpha = 0.2/k^{'+str_loc+'}$'
+            label = r'$\beta = '+str_loc+'$'
 
         
         
@@ -94,6 +94,7 @@ def make_plot(locs,filename):
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         
     plt.legend(loc='upper left')
+
 
     plt.savefig(filename+'.pgf')
 
