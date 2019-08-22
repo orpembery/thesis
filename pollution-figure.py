@@ -13,7 +13,11 @@ num_cells = h_to_num_cells(h,d)
 
 mesh = fd.UnitIntervalMesh(num_cells)
 
+mesh_fine = fd.UnitIntervalMesh(20*num_cells)
+
 V = fd.FunctionSpace(mesh,"CG",1)
+
+V_fine = fd.FunctionSpace(mesh_fine,"CG",1)
 
 u = fd.TrialFunction(V)
 
@@ -31,17 +35,23 @@ u_h = fd.Function(V)
 
 fd.solve(a==L,u_h,solver_parameters = {'ksp_type': 'preonly', 'pc_type': 'lu'},bcs=[bc])
 
-u_true = fd.Function(V)
+u_fine = fd.Function(V_fine)
 
 x = fd.SpatialCoordinate(mesh)
 
-u_true.interpolate(fd.sin(k*x[0]))
+x_fine = fd.SpatialCoordinate(mesh_fine)
+
+u_fine.interpolate(fd.sin(k*x_fine[0]))
 
 coords = fd.Function(V)
 
 coords.interpolate(x[0])
 
-sin_fn = np.sin(k*coords.dat.data_ro)
+coords_fine = fd.Function(V_fine)
+
+coords_fine.interpolate(x_fine[0])
+
+sin_fn = np.sin(k*coords_fine.dat.data_ro)
 
 filenames = ['pollution-left','pollution-right']
 
@@ -57,7 +67,7 @@ for ii_plot in range(2):
 
     fig = plt.figure()
     
-    plot1 = plt.plot(coords.dat.data_ro,sin_fn,'-k',label='True solution')
+    plot1 = plt.plot(coords_fine.dat.data_ro,sin_fn,'-k',label='True solution')
 
     plt.plot(coords.dat.data_ro,u_h.dat.data_ro,'k--',label='Finite-element approximation')
 

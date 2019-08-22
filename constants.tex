@@ -83,10 +83,12 @@ $
     $\Csecond$ &$\Cfourteen  + \CMT \CinvVhp \Cmmofn{0}\Cboundaryo^{\half}$&Proof of \cref{lem:ltthetahbound}\\
   $\CLtboundo$&$ 2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMo$&Proof of \cref{thm:fembound}\\
   $\CLtboundt$&$2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMt$&Proof of \cref{thm:fembound}\\
-  $\CHoboundo$&$\Amin^{\half}\Chighfn{1,1}\CLtboundo+\Chighmt$&Proof of \cref{thm:fembound}\\
-  $\CHoboundt$&$\Amin^{\half}\Chighfn{1,1}\CLtboundt$&Proof of \cref{thm:fembound}\\
-  $\CcorLt$&$4\max\set{\CFEMo,\CFEMt}\mleft(\Cmmofn{0} + \Cmmofn{-1}\mright) \max\set{\CLtboundo,\CLtboundt}$&\Cref{thm:fembound}\\
-  $\CcorHo$&$8\max\set{\CFEMo,\CFEMt}\mleft(\Cmmofn{0} + \Cmmofn{-1}\mright)\max\set{\CHoboundo+\CLtboundo,\CHoboundt+\CLtboundt}$&\Cref{thm:fembound}\\
+  $\Crhoendbound$ & $2\mleft(\Cmmofn{-1} + \Cmmofn{0}\mright)\max\set{\CFEMo,\CFEMt}$ & \cref{eq:rhoendbound}\\
+  $\CHobound$&$\Amin^{\half}\max\set{\Chighfn{1,1}\CLtboundo,\Chighfn{1,1}\CLtboundt,\Chighfn{1,2}}$&Proof of \cref{thm:fembound}\\
+%  $\CHoboundt$&$\Amin^{\half}\Chighfn{1,1}\CLtboundt$&Proof of \cref{thm:fembound}\\
+      $\CthetahLt$& $2\Crhoendbound \max\set{\CLtboundo,\CLtboundt} $ & \cref{eq:thetahLt}\\
+  $\CcorLt$&$\max\set{\Cmmofn{0}\max\set{\CFEMo,\CFEMt},\CthetahLt}$&\Cref{thm:fembound}\\
+$\CcorHo$&$\max\set{2\mleft(\Cmmofn{-1}+\Cmmofn{0}\mright)\max\set{\CFEMo,\CFEMt},2\CHobound\Crhoendbound,\CthetahLt} $&\Cref{thm:fembound}\\
     $\Chcond$ & $\displaystyle\frac1{4^{2p}} \mleft(\Csecond\Chighfn{p-1,1}\mright)^{-\frac1{2p}} \min\set{\CFEMo^{-\frac1{2p}},\CFEMt^{-\frac1{p+1}}}$ & \cref{thm:fembound}\\
 \bottomrule
 \end{longtabu}

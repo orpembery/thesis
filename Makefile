@@ -12,7 +12,6 @@ thesis.pdf: *tex *pgf *bib
 	evince thesis.pdf &
 
 clean:
-	rm *~
 	rm *aux	
 	rm *log
 	rm *bbl
@@ -21,6 +20,7 @@ clean:
 	rm *toc
 	rm *pdf
 	rm *dvi
+	rm *~
 
 supervisor:
 	# Based on https://tex.stackexchange.com/a/1495
