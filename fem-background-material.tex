@@ -1966,7 +1966,7 @@ and hence by C\'ea's Lemma (as the inner product $\IPLtDn{\cdot}{\cdot}$ is clea
 \epf
 
 \subsection{Discrete Sobolev spaces}\label{sec:discsob}
-When we analyse the high-order finite-element method, we need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first define a notion of higher-order discrete derivatives, and then develop some theory of so-called discrete Sobolev spaces. We follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation. The main result of this \lcnamecref{sec:discsob} is \cref{lem:negdiscsum} below giving the relationship between negative-order discrete Sobolev norms and negative-order continuous Sobolev norms.
+When we analyse the high-order finite-element method, we need to measure higher-order norms of functions in the finite-element space $\Vhp.$ However, as these functions do not have higher-order weak derivatives, we must first define a notion of higher-order discrete derivatives, and then develop some theory of so-called discrete Sobolev spaces. We follow the presentation in \cite{DuWu:15}, albeit working in the heterogeneous case, and with some changes of notation. We also note that a similar definition of discrete norms can be found in \cite[p. 238 ff.]{Br:07}. The main result of this \lcnamecref{sec:discsob} is \cref{lem:negdiscsum} below giving the relationship between negative-order discrete Sobolev norms and negative-order continuous Sobolev norms.
 
 \bde[Discrete derivative operator]
 Define the \defn{$A$-weighted discrete second derivative operator} $\Deltah:\Vhp\rightarrow\Vhp$ by, for $\wh \in \Vhp$,
@@ -2692,4 +2692,3 @@ We can now proceed to bound $\NHokD{u-\uh}$:
 \end{align*}
 Using the fact that $hk \leq 1,$ and the definitions of $\CHon(n)$ and $\CcorHo,$ we then obtain \cref{eq:femhobound}, as required.
 \epf
-\optodo{See Braess 3rd edn p. 239 for a defn of the discrete norm on the matrix level - is his definition the same as ours?}
