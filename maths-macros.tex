@@ -331,11 +331,12 @@
 \newcommand{\Ctildemin}{\widetilde{C}_{\min}}
 \newcommand{\Cboundfn}[2]{C_{#1,\mathrm{bound},#2}}
 \newcommand{\CLtfn}[1]{\Cfn{\ref{eq:ltboundwithrho},#1}}
-\newcommand{\CHofn}[1]{\Cfn{\ref{eq:hoboundwithrho},#1}}
+\newcommand{\CHofn}{\Cfn{\ref{eq:hoboundwithrho}}}
 \newcommand{\CLtboundo}{\CLtfn{1}}
 \newcommand{\CLtboundt}{\CLtfn{2}}
-\newcommand{\CHoboundo}{\CHofn{1}}
-\newcommand{\CHoboundt}{\CHofn{2}}
+\newcommand{\CHobound}{\CHofn}
+\newcommand{\Crhoendbound}{\Cfn{\ref{eq:rhoendbound}}}
+%\newcommand{\CHoboundt}{\CHofn{2}}
 \newcommand{\CFEMohat}{2\CFEMo} % Needs tidying
 \newcommand{\CFEMthat}{2\CFEMt}
 \newcommand{\Ccorfn}[1]{\Cfn{\mathrm{Cor},#1}}
@@ -371,7 +372,7 @@
 \newcommand{\CHon}{\Condn_{H^{1}}}
 %\newcommand{\Cerrfn}[1]{\cCfn{\mathrm{err},#1}}
 \newcommand{\Csumrecfn}[1]{\Cfn{\ref{eq:sumforrecursion},#1}}
-
+\newcommand{\CthetahLt}{\Cfn{\ref{eq:thetahLt}}}
 
 
 
@@ -781,3 +782,5 @@
 \newcommand{\CzinftyDp}{\Czinfty{\Dp}}
 \newcommand{\Czinfty}[1]{C_{0}^{\infty}\mleft(#1\mright)}
 \newcommand{\uhtilde}{\utilde_{h}}
+\newcommand{\LtG}{\Lt{\Gamma}}
+\newcommand{\NLtG}[1]{\Nfn{\LtG}{#1}}

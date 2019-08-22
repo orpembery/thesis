@@ -213,7 +213,7 @@ hk^b \leq \Ct,
 \eeq
 then the Galerkin solutions $\uh(k)$ exist, are unique (for each $k$), and satisfy
 \beq\label{eq:hkdataacc}
-\frac{\NHokD{u(k)-\uh(k)}}{\NLtD{f} + \NHhGI{\gI}} \leq \eps
+\frac{\NHokD{u(k)-\uh(k)}}{\NLtD{f} + \NHhGI{\gI}} \leq \eps \quad \tor \quad \frac{\NHokD{u(k)-\uh(k)}}{\NLtD{f} + \NLtGI{\gI}} \leq \eps
 \eeq
 for all $k \geq \kz.$
 
@@ -1228,12 +1228,14 @@ where
 \beqs
 \Condn(n) = \Pfn{p-2}\mleft(\nmax\mright)^{-\frac1{p+1}}\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)^{-\frac{p-1}{2p}},
 \eeqs
-\beqs
-\CLtn(n) = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\nmax\mright)\tand
-\eeqs
-\beqs
-\CHon(n) = \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\CLtn,
-\eeqs
+\beq\label{eq:CLtn}
+\CLtn(n) = \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\nmax\mright)^2 + \Pfn{p-2}\mleft(\nmax\mright)\tand
+\eeq
+\begin{align*}
+  \CHon(n) = \max&\bigg\{\Pfn{p-2}\mleft(\nmax\mright),\\
+    &\mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}(\mleft(\nmax\mright),\\
+    &\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\bigg\},
+\end{align*}
 where the polynomial $\Pfn{j}(x)$ is defined in \cref{eq:p} below, and the $n$-dependent constant $\En$ is defined in \cref{eq:en} below.
 \enth
 %\bco[Higher-order-finite-element bound]\label{cor:fembound}
@@ -1635,7 +1637,7 @@ There exists $\CMT > 0$ such that for all $v \in \HoD$
 Let $\Gamma \subseteq D$ have nonvanishing $d-1$-dimensional measure. There exist constants $\CP,\Ctilde > 0$ depending only on $D$ and $\Gamma$ such that for all $v \in \HoD$
 
 \beqs
-\NLtD{v}^2 \leq \CP \SNHoD{v}^2 + \Ctilde \NLtGI{v}^2.
+\NLtD{v}^2 \leq \CP \SNHoD{v}^2 + \Ctilde \NLtG{v}^2.
 \eeqs
 
 In particular, taking $\Gamma = \GD,$ for all $v \in \HozDD$
@@ -2635,24 +2637,59 @@ Choosing $h$ according to \cref{eq:hfemcond}, \cref{eq:doublehkdep} simplifies t
 \end{align*}
 
 and therefore it follows that
-\beq\label{eq:ltboundwithrho}
-\NLtD{\thetah} \leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NHokD{\rho}.
-\eeq
+\begin{align}
+  \NLtD{\thetah} &\leq \nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1} \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NHokD{\rho}\label{eq:ltboundwithrho}\\
+  &= \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)\mleft(\CLtboundo h + \CLtboundt  \CAnk (hk)^p\mright)\NHokD{\rho}\label{eq:ltboundwithrho2}
+\end{align}
+(recall the definition of $\CLtn(n)$ from \cref{eq:CLtn}).
 
-It only now remains to bound the $k$-weighted $H^1$ norm of $\thetah.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
+By \cref{lem:ellprojerr,lem:bestapprox} (using \cref{eq:simple} and the fact that $k \geq 1$)
+\beq\label{eq:rhoendbound}
+\NHokD{\rho} \leq \Crhoendbound  \Pfn{p-2}\mleft(\nmax\mright) \mleft( h +  \CAnk \mleft(hk\mright)^p\mright) \Cfg,
+\eeq
+and therefore
+\beq\label{eq:thetahLt}
+\NLtD{\thetah} \leq \mleft(\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\mright) \CthetahLt \mleft(h^2 + \CAnk h\mleft(hk\mright)^p + \CAnk^2 \mleft(hk\mright)^{2p}\mright)\Cfg.
+\eeq
+We can now bound $\NLtD{u-\uh}$:
+\begin{align*}
+  \NLtD{u-\uh} &\leq  \NLtD{\rho} + \NLtD{\thetah}\\
+  &\leq \Cmmofn{0} \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^{p}\mright)\Cfg + \NLtD{\thetah}, \text{ by \cref{lem:ellprojerr,lem:bestapprox}}\\
+  &\leq \Cmmofn{0} \max\set{\CFEMo,\CFEMt}\Pfn{p-2}\mleft(\nmax\mright)\mleft(h^2 +  \CAnk h\mleft(hk\mright)^{p}+ \mleft(hk\mright)^{2p}\mright)\Cfg\\
+  &\quad+ \mleft(\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\mright) \CthetahLt \mleft(h^2 + \CAnk h\mleft(hk\mright)^p + \CAnk^2 \mleft(hk\mright)^{2p}\mright)\Cfg,
+\end{align*}
+which gives \cref{eq:femltbound}, as required.
+
+We can now proceed similarly as above to bound $\SNHoD{\thetah},$ and hence to bound $\NHokD{u-\uh}.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \begin{align}
 \SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
-&\mleft.\quad\quad+ \Chighmt \nvar^3\nmax \NHokD{\rho}\mright],\label{eq:sntheta}
+&\mleft.\quad\quad+ \Chighfn{1,2} \nvar^3\nmax \NHokD{\rho}\mright],\label{eq:sntheta}
 \end{align}
 
-and by combining \cref{eq:sntheta,eq:ltboundwithrho} we obtain (as $hk \leq 1$ and $\nvar,\nmax \geq 1$)
+and by combining \cref{eq:sntheta,eq:ltboundwithrho2} we obtain (as $hk \leq 1$)%(as $hk \leq 1$ and $\nvar,\nmax \geq 1$)
+\beq\label{eq:hoboundwithrho}
+\SNHoD{\thetah} \leq \CHobound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)\mleft( 1 +  \CAnk k(hk)^p\mright)+  \nvar^3\nmax \mright]\NHokD{\rho}.
+\eeq
+
+Substituting \cref{eq:rhoendbound} into \cref{eq:hoboundwithrho} we have
 \begin{align}
-\SNHoD{\thetah} &\leq
-\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nvar^6\nmin^{-(p+1)} \mleft(\En \nvar\mright)^{\floor{\frac{p-1}2}+1}\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
-&\quad\quad\mleft(\CHoboundo  +\CHoboundt \CAnk k(hk)^p\mright)\NHokD{\rho}.\label{eq:hoboundwithrho}
+\SNHoD{\thetah} &\leq \CHobound\Crhoendbound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
+&\quad\quad\mleft( 1 +  \CAnk k(hk)^p\mright)   \mleft( h +  \CAnk \mleft(hk\mright)^p\mright) \Cfg\nonumber\\
+ &\leq 2\CHobound\Crhoendbound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
+&\quad\quad\cdot\mleft( h +  \CAnk (hk)^p + \CAnk^2 k\mleft(hk\mright)^{2p}\mright)\Cfg.\label{eq:thetahhonearly}
 \end{align}
-Therefore, since $u-\uh = \rho + \thetah,$ by combining \cref{eq:ltboundwithrho,eq:hoboundwithrho} we can bound $\NHokD{u-\uh}$ by $\NHokD{\rho},$
 
-by using using \cref{lem:ellprojerr} with $m=1$ and \cref{lem:scottzhang} to bound $\NHokD{\rho}$ and  , , and using the fact that $hk \leq 1,$ we obtain \cref{eq:femltbound,eq:femhobound}.\optodo{Make this last line clearer}
+We can now proceed to bound $\NHokD{u-\uh}$:
+\begin{align*}
+  \NHokD{u-\uh} & \leq \NHokD{\rho} + \NHokD{\thetah}\\
+  &\leq \NHoD{\rho} + k\NLtD{\rho} + \SNHoD{\thetah} + k\NLtD{\thetah}\\
+  & \leq 2\mleft(\Cmmofn{-1} + \Cmmofn{0}\mright) \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p\mright) \Cfg\\
+  &\quad\quad+ \SNHoD{\thetah} + k\NLtD{\thetah}, \text{ by \cref{lem:bestapprox,lem:ellprojerr},}\\
+  &\leq2\mleft(\Cmmofn{-1} + \Cmmofn{0}\mright) \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p\mright) \Cfg\\
+  &\quad\quad + 2\CHobound\Crhoendbound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
+  &\quad\quad\quad\quad\cdot\mleft( h +  \CAnk (hk)^p + \CAnk^2 k\mleft(hk\mright)^{2p}\mright)\Cfg\\
+  &\quad\quad+\mleft(\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\mright) \CthetahLt k\mleft(h^2 + \CAnk h\mleft(hk\mright)^p + \CAnk^2 \mleft(hk\mright)^{2p}\mright)\Cfg , \text{ by \cref{eq:thetahhonearly,eq:thetahLt}}.
+\end{align*}
+Using the fact that $hk \leq 1,$ and the definitions of $\CHon(n)$ and $\CcorHo,$ we then obtain \cref{eq:femhobound}, as required.
 \epf
 \optodo{See Braess 3rd edn p. 239 for a defn of the discrete norm on the matrix level - is his definition the same as ours?}
