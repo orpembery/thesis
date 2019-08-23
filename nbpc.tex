@@ -5,21 +5,16 @@ Consider the stochastic Helmholtz equation
 \beq\label{eq:nbpchh}
 \nabla\cdot\big(A(\omega,\bx) \nabla u(\omega,\bx) \big) + k^2 n(\omega,\bx) u(\omega,\bx) =-f(\bx), \quad \bx\in\Dp,
 \eeq
-as defined in \cref{chap:stochastic}. To calculate quantities of interest of the solution $u(\omega,\cdot)$, one must solve many deterministic Helmholtz problems, with each one corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
+as defined in \cref{chap:stochastic}. If $Q(u)$ is some quantity of interest of the solution, then the simplest way to approximate $\EXP{Q(u)}$ is via a sampling-based method, i.e. using the approximation
+\beq\label{eq:samplingexp}
+\EXP{Q(u)} \approx \frac1N \sum_{l=1}^N Q(u(\omega^{l})),
+\eeq
+where the $\omega^l$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega^l,\cdot)$ and $n(\omega^l,\cdot)$.
 Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
 
-Moreover, when using preconditioned iterative methods, as described in \cref{sec:numsolve} above, the cost of \emph{constructing} preconditioners for the linear systems is also very expensive. For example, if our preconditioner is given by an exact $LU$ factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}.
+Therefore, in this \lcnamecref{chap:nbpc} we consider whether one can reuse the preconditioner from one solve for subsequent solves, and thereby reduce the overall computational effort. We consider the following problem and question.
 
-Observe that the cost of applying the preconditioner is significantly less than the cost of constructing the preconditioner. Therefore, if one calculates a preconditioner for one realisation of \cref{eq:nbpchh} and then re-uses it for many `nearby' (in some sense) realisations of \cref{eq:nbpchh}, then one could obtain considerable computational savings. This idea of `reusing' preconditioners for `nearby' linear systems is the `nearby preconditioning' strategy proposed in this \lcnamecref{chap:nbpc}.
-
-If one does not use an exact $LU$-factorisation as the preconditioner, one may still obtain considerable savings by reusing preconditioners. Even if one uses a modern Helmholtz preconditioner such as a sweeping preconditioner or a domain-decompostion preconditioner (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners) one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings.
-
-In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition. In this case, the only error that arises in the nearby preconditioning process is due to applying a preconditioner constructed for one realisation of the Helmholtz equation to a different, nearby, realisation. Therefore  we do not need to consider the error arising from the preconditioning process itself.% The answer to \cref{it:nbpcq1} above makes $k$-explicit the extent to which the $LU$ factorisation for one realisation of \cref{eq:nbpchh} can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
-
-\subsection{Statement of the problem}\label{sec:problem}
-Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp}, with $\uj$ the corresponding solution and $\Dm,$ $f$, etc. as in \cref{prob:vedp}. Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-finite-element discretisations of \cref{prob:vedp} (see \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). The results we prove in this \lcnamecref{chap:nbpc} also hold for the TEDP, \cref{prob:vtedp}, see \cref{sec:TEDP} below for the minor changes one must make in this case.
- 
-This \lcnamecref{chap:nbpc} answers the following question:
+Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp}, with $\uj$ the corresponding solution and $\Dm,$ $f$, etc. as in \cref{prob:vedp}. Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-finite-element discretisations of \cref{prob:vedp} (see \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). The results we prove in this \lcnamecref{chap:nbpc} also hold for the TEDP, \cref{prob:vtedp}, see \cref{sec:TEDP} below for the minor changes one must make in this case.\optodo{Update this once its clear what I'm doing with the boundary}
 
 % Inspired by the usage of enumitem here: https://tex.stackexchange.com/a/58714
 \ben[label=Q1., ref=Q1]
@@ -30,6 +25,14 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
  for arbitrarily large $k$? 
 \een
 
+Moreover, when using preconditioned iterative methods, as described in \cref{sec:numsolve} above, the cost of \emph{constructing} preconditioners for the linear systems is also very expensive. For example, if our preconditioner is given by an exact $LU$ factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}.
+
+Observe that the cost of applying the preconditioner is significantly less than the cost of constructing the preconditioner. Therefore, if one calculates a preconditioner for one realisation of \cref{eq:nbpchh} and then re-uses it for many `nearby' (in some sense) realisations of \cref{eq:nbpchh}, then one could obtain considerable computational savings. This idea of `reusing' preconditioners for `nearby' linear systems is the `nearby preconditioning' strategy proposed in this \lcnamecref{chap:nbpc}.
+
+If one does not use an exact $LU$-factorisation as the preconditioner, one may still obtain considerable savings by reusing preconditioners. Even if one uses a modern Helmholtz preconditioner such as a sweeping preconditioner or a domain-decompostion preconditioner (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners) one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings.
+
+In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition. In this case, the only error that arises in the nearby preconditioning process is due to applying a preconditioner constructed for one realisation of the Helmholtz equation to a different, nearby, realisation. Therefore  we do not need to consider the error arising from the preconditioning process itself.% The answer to \cref{it:nbpcq1} above makes $k$-explicit the extent to which the $LU$ factorisation for one realisation of \cref{eq:nbpchh} can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
+\optodo{Insert outline}
 
 \subsection{Statement of the main results}\label{sec:main}
 Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor:1a} gives results in the \emph{Euclidean} norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), whereas \Cref{cor:1} gives results in the \emph{weighted} norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$. These weighted norms are induced by the corresponding vector norms
