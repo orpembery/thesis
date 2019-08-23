@@ -37,10 +37,10 @@ In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the
 \subsection{Statement of the main results}\label{sec:main}
 Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor:1a} gives results in the \emph{Euclidean} norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), whereas \Cref{cor:1} gives results in the \emph{weighted} norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$. These weighted norms are induced by the corresponding vector norms
 \beq\label{eq:Dk}
-\NDmatk{\bv}^2\de \big( \Dmatk \bv, \bv\big)_2 = %\big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 
+\NDmatk{\vvec}^2\de \big( \Dmatk \vvec, \vvec\big)_2 = %\big( (\Smat_I + k^2 \Mmat_1)\vvec,\vvec\big)_2 
 \N{v_h}^2_{\HokDR}
 \quad \tand
-\quad \NDmatkI{\bv}^2\de \big( \Dmatk^{-1} \bv, \bv\big)_2 %= %\big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 
+\quad \NDmatkI{\vvec}^2\de \big( \Dmatk^{-1} \vvec, \vvec\big)_2 %= %\big( (\Smat_I + k^2 \Mmat_1)\vvec,\vvec\big)_2 
 %\N{v_h}^2_{\HokDR}
 \eeq
 where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-matrices by \cref{eq:Dk2} below and $\vh =\sum_i \vi \phii$, where the $\phii$ are the finite-element basis functions.
@@ -110,11 +110,11 @@ C_1 \,k \,\NLiDRRRdtd{\Aso-\Ast} +C_2 \, k\, \NLiDRRR{\nso-\nst}
 \eeq
 for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
 \beq\label{eq:pcsystem1}
-(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff
+(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec
 \eeq
 \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to 
 \beq\label{eq:pcsystem2}
-\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
+\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 \eeq
  converge in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
@@ -131,7 +131,7 @@ let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{\pm}$ and $m_{\pm}$ be as
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
-%(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
+%(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
@@ -349,9 +349,9 @@ Let
 \eeq
 and let $u_h\de \sum_j u_j \phi_j$. Then \cref{eq:galerkin} implies that
 \beqs
-\Amat \bu = \bff,
+\Amat \uvec = \fvec,
 \eeqs
-where $(\bff)_i \de \FE(\phi_i)$.
+where $(\fvec)_i \de \FE(\phi_i)$.
 Similar to above we let 
 \beq\label{eq:matrixAjdef}
 \Amatj \de \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
@@ -363,7 +363,7 @@ Finally, let
 so that \cref{eq:Dk} holds.
 %then the weighted norm $\|\cdot\|_{\Dmat_k}$ is given by 
 %\beq\label{eq:Dk3}
-%\N{\bv}_{\Dmat_k}^2\de   \N{v_h}^2_{\HokDR}=\big( \Dmat_k \bv,\bv\big)_2,
+%\N{\vvec}_{\Dmat_k}^2\de   \N{v_h}^2_{\HokDR}=\big( \Dmat_k \vvec,\vvec\big)_2,
 %\eeq
 %for
 %$v_h =\sum_i v_i \phi_i$.
@@ -383,18 +383,18 @@ then $\set{\cTh}_{h>0}$ is said to be \defn{quasi-uniform}.
 If $\set{{\cTh}_{h>0}}$ is quasi-uniform with a nodal basis, then
 there exist $m_\pm$ and $s_\pm$, independent of $h$ and $p$, such that
 \beq\label{eq:normequiv1}
-m_- h^{d/2} \N{\bv}_2 \leq \N{v_h}_{\LtDR} \leq m_+ h^{d/2} \N{\bv}_2,
+m_- h^{d/2} \N{\vvec}_2 \leq \N{v_h}_{\LtDR} \leq m_+ h^{d/2} \N{\vvec}_2,
 \eeq
 and
 \beq\label{eq:normequiv2}
-s_- h^{d/2} \N{\bv}_2 \leq \N{\nabla v_h}_{\LtDR} \leq s_+ h^{d/2-1} \N{\bv}_2,
+s_- h^{d/2} \N{\vvec}_2 \leq \N{\nabla v_h}_{\LtDR} \leq s_+ h^{d/2-1} \N{\vvec}_2,
 \eeq
 for all finite-element functions $v_h =\sum_i v_i \phi_i \in \Vhp$.
 \ele
 
 Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the familiar bounds
 \beqs
-(\Mmat_1 \bv,\bv)_2 \sim h^d \N{\bv}^2_2 \quad\tand\quad h^{d}\N{\bv}^2_2 \lesssim (\Smat_I \bv,\bv)_2 \lesssim h^{d-2} \N{\bv}^2_2.
+(\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad h^{d}\N{\vvec}^2_2 \lesssim (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
 \eeqs
 
 For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5] the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.\ednote{Euan---in \cite[Chapter V, Lemma 2.5]{Br:07} this result is written slightly differently (with scaled basis functions and a scaled 2-norm) but it's equivalent to our result. I presume I don't need to put anything 'translating' their result to ours? (Can download the 3rd edition from the CUP website if you use your Bath institutional login.)}
@@ -579,7 +579,7 @@ The bounds  \cref{eq:main1} on $\|\Imat - (\Amato)^{-1}\Amatt\|_2$ and  $\|\Imat
 
 \bpf[Proof of \cref{lem:keylemma1}]
 We first concentrate on proving \cref{eq:keybound1}.
-Given $\bff \in \CC^N$ and $n\in \LiDRRR$, we create a variational problem whose Galerkin discretisation leads to the equation $\Amato \tbu = \Mmat_n\,\bff$.
+Given $\fvec \in \CC^N$ and $n\in \LiDRRR$, we create a variational problem whose Galerkin discretisation leads to the equation $\Amato \tbu = \Mmat_n\,\fvec$.
 Indeed, let $\widetilde{f} \de \sum_j f_j \phi_j\in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411}
 a^{(1)}(\widetilde{u},v)= (n\widetilde{f},v)_{L^2(\Omega)} \quad\text{ for all } v\in H^1(\Omega),
@@ -588,7 +588,7 @@ and let $\tu_h$ be the solution of the finite-element approximation of \cref{eq:
 \beq\label{eq:41}
 a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h\in \Vhp,
 \eeq
-and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\bff$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\bff\|_{\Dmat_k}$. (Recall $\bff \in \CCN$ was arbitrary.) Because of the definition 
+and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\fvec$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\fvec\|_{\Dmat_k}$. (Recall $\fvec \in \CCN$ was arbitrary.) Because of the definition 
 of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is bound equivalent to bounding $\|\tu_h\|_{\HokDR}$ in terms of $\|\widetilde{f}\|_{\HokDR}$.
 
 %First observe that the bound \cref{eq:bound3} from Part (i) of \cref{cond:2} holds for the solution of the variational problem
@@ -609,38 +609,38 @@ the triangle inequality and the bounds \cref{eq:bound3} and \cref{eq:bound1} fro
 & \leq C^{(1)}_{\rm FEM1}\NLtDR{n\ftilde} + C^{(1)}_{\rm bound}\NLtDR{n\ftilde} \\ 
 & \leq \mleft(C^{(1)}_{\rm FEM1} + C^{(1)}_{\rm bound}\mright)\NLiDRRR{n}\NLtDR{\ftilde} \label{eq:mainevent1a} \\
 & \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\NLiDRRR{n}\frac{\big\|\widetilde{f}\big\|_{\HokDR}}{k};\nonumber
-%& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\DR)} m_+ h^{d/2} \N{\bff}_2,
+%& \leq\big(C^{(1)}_{\rm FEM1}+  C^{(1)}_{\rm bound}\big)\N{n}_{L^\infty(\DR)} m_+ h^{d/2} \N{\fvec}_2,
 \end{align}
 the bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ in \cref{eq:keybound1} then follows from the definition of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk} and the definition of $C_2$ \cref{eq:C2}.
 
-To prove the bound on $\|\Mmat_n(\Amato)^{-1}\|_{(\Dmat_k)^{-1}}$ in \cref{eq:keybound1}, first observe that the definitions of $\|\cdot\|_{\Dmat_k}$ and $\|\cdot\|_{(\Dmat_k)^{-1}}$ in \cref{eq:Dk} imply that, for any matrix $\Cmat \in \CCNtN$ and for any $\bv\in \CC^N$,
+To prove the bound on $\|\Mmat_n(\Amato)^{-1}\|_{(\Dmat_k)^{-1}}$ in \cref{eq:keybound1}, first observe that the definitions of $\|\cdot\|_{\Dmat_k}$ and $\|\cdot\|_{(\Dmat_k)^{-1}}$ in \cref{eq:Dk} imply that, for any matrix $\Cmat \in \CCNtN$ and for any $\vvec\in \CC^N$,
 \beq\label{eq:A380-0}
 \frac{
-\big\|\matrixC \bv \big\|_{(\Dmat_k)^{-1}}
+\big\|\matrixC \vvec \big\|_{(\Dmat_k)^{-1}}
 }{
-\big\|\bv\|_{(\Dmat_k)^{-1}}
+\big\|\vvec\|_{(\Dmat_k)^{-1}}
 } = 
 \frac{
-\big\|\matrixC^* \bw \big\|_{\Dmat_k}
+\big\|\matrixC^* \wvec \big\|_{\Dmat_k}
 }{
-\big\|\bw\|_{\Dmat_k}
+\big\|\wvec\|_{\Dmat_k}
 }
 \eeq
-where $\bw \de (\Dmat_k)^{1/2}\bv$, and where $\matrixC^*$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
+where $\wvec \de (\Dmat_k)^{1/2}\vvec$, and where $\matrixC^*$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
 Therefore, since $\Mmat_n$ is a real, symmetric matrix,
 \beqs
 \frac{
-\big\|\Mmat_n (\Amato)^{-1}\bv\big\|_{(\Dmat_k)^{-1}}
+\big\|\Mmat_n (\Amato)^{-1}\vvec\big\|_{(\Dmat_k)^{-1}}
 }{
-\N{\bv}_{(\Dmat_k)^{-1}}
+\N{\vvec}_{(\Dmat_k)^{-1}}
 }
 =
-\frac{\NDk{\mleft(\AmatoI\Mmatn\mright)^* \bw}}{\NDk{\bw}}
+\frac{\NDk{\mleft(\AmatoI\Mmatn\mright)^* \wvec}}{\NDk{\wvec}}
 = 
 \frac{
-\big\|((\Amato)^*)^{-1}\Mmat_n\bw\big\|_{\Dmat_k}
+\big\|((\Amato)^*)^{-1}\Mmat_n\wvec\big\|_{\Dmat_k}
 }{
-\N{\bw}_{\Dmat_k}
+\N{\wvec}_{\Dmat_k}
 },
  \eeqs
  so that 
@@ -654,7 +654,7 @@ To prove the bound on  $\|(\Amato)^{-1}\Mmat_n\|_{2}$ in \cref{eq:keybound1a}, w
 \beqs
 m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{\LtDR} \leq \N{\widetilde{u}_h}_{\HokDR}
 \,\tand\,
-\big\|\widetilde{f}\big\|_{\LtDR} \leq m_+ h^{d/2}\N{\bff}_2,
+\big\|\widetilde{f}\big\|_{\LtDR} \leq m_+ h^{d/2}\N{\fvec}_2,
 \eeqs
 on either side of the inequality \cref{eq:mainevent1}, with these bounds coming from \cref{eq:normequiv1}. The proof of the bound on 
 $\|\Mmat_n((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound1a} follows in a similar way to above, using the fact that 
@@ -686,7 +686,7 @@ Observe that, similar to \cref{rem:yesitis}, \cref{eq:bound2} is a $k$-independe
 
 
 \bpf[Proof of \cref{lem:keylemma2}]
-In a similar way to the proof of \cref{lem:keylemma1}, given $\bff \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
+In a similar way to the proof of \cref{lem:keylemma1}, given $\fvec \in \CC^N$ and a symmetric $A\in L^\infty(\DR, \RR^{d\times d})$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDDR$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
 a^{(1)}(\widetilde{u},v)= \widetilde{\LE}(v) \quad\text{ for all } v\in H^1(\Omega),
 \quad\text{ where } \quad
@@ -702,7 +702,7 @@ Let $\tu_h$ be the solution of the finite element approximation of \cref{eq:411a
 \beq\label{eq:41a}
 a^{(1)}(\tu_h,v_h)= \widetilde{\LE}(v_h) \quad\text{ for all } v_h\in \Vhp,
 \eeq
-and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\bff$. 
+and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\fvec$. 
 
 Similar to the proof of \cref{lem:keylemma1},
 using the triangle inequality, the bound \cref{eq:bound4} from \cref{cond:2}, the bound \cref{eq:bound2} from \cref{lem:H1}, the bound \cref{eq:Fbound}, and the definition of $C_1$ \cref{eq:C1nbpc},
@@ -725,7 +725,7 @@ we find
 \NLiDRRRdtd{A} \big\|\widetilde{f}\big\|_{\HokDR},\nonumber
 %&\leq \left[ C^{(1)}_{\rm FEM2} k + 
 %\frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) 
-%\right]\big\|A\big\|_{L^\infty(\DR)}s_+ h^{(d-2)/2} \N{\bff}_2,
+%\right]\big\|A\big\|_{L^\infty(\DR)}s_+ h^{(d-2)/2} \N{\fvec}_2,
 \end{align}
 and the bound on $\|(\Amato)^{-1}\Smat_A\|_{\Dmat_k}$ in \cref{eq:keybound2} follows.
 
@@ -747,7 +747,7 @@ To prove the bound on  $\|(\Amato)^{-1}\Smat_A\|_{2}$ in \cref{eq:keybound2a}, w
 \beqs
 m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{\LtDR} \leq \N{\widetilde{u}_h}_{\HokDR}
 \,\tand\,
-\big\|\nabla \widetilde{f}\big\|_{\LtDR} \leq s_+ h^{d/2-1}\N{\bff}_2,
+\big\|\nabla \widetilde{f}\big\|_{\LtDR} \leq s_+ h^{d/2-1}\N{\fvec}_2,
 \eeqs
 on either side of the inequality \cref{eq:mainevent2}, with these bounds coming from \cref{eq:normequiv1}.and \cref{eq:normequiv2} respectively. The proof of the bound on 
 $\|\Smat_A((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound2a} follows in a similar way to above, using \cref{eq:Fbound}.
@@ -770,7 +770,7 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 %\bre[Analogue of \cref{thm:1} in a weighted norm]\label{rem:weight1}
 %The PDE analysis of the Helmholtz equation naturally takes place in the weighted $H^1$ norm $\|\cdot\|_{\HokDR}$ defined by \cref{eq:1knorm}. The discrete analogue of this norm is the norm $\|\cdot\|_{\Dmat_k}$ defined by 
 %\beq\label{eq:Dk}
-%\N{\bv}_{\Dmat_k}^2\de \big( (\Smat_I + k^2 \Mmat_1)\bv,\bv\big)_2 = \N{v_h}^2_{\HokDR}
+%\N{\vvec}_{\Dmat_k}^2\de \big( (\Smat_I + k^2 \Mmat_1)\vvec,\vvec\big)_2 = \N{v_h}^2_{\HokDR}
 %\eeq
 %for
 %$v_h =\sum_i v_i \phi_i$. 
@@ -786,41 +786,41 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 
 We first give the set-up for weighted GMRES, first introduced in by Essai in \cite{Es:98}, largely following \cite[Section 5]{GrSpVa:17}. Consider the abstract  linear system 
 % \begin{equation*}
-$\matrixC \bx = \bd$
+$\matrixC \xvec = \dvec$
 %\end{equation*}
-in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\bxsz$ be the initial guess, and define the initial residual $\br^0 \de \bd- C \bx^0$ and the standard Krylov spaces:  
+in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\xvecz$ be the initial guess, and define the initial residual $\rvec^0 \de \dvec- C \xvec^0$ and the standard Krylov spaces:  
 \beqs  
-\cK^m(\Cmat, \br^0) \de \mathrm{span}\big\{\matrixC^j \br^0 : j = 0, \ldots, m-1\big\}.
+\cK^m(\Cmat, \rvec^0) \de \mathrm{span}\big\{\matrixC^j \rvec^0 : j = 0, \ldots, m-1\big\}.
 \eeqs
 Analagously to the definition of $\NDk{\cdot}$ above, let $(\cdot , \cdot )_{\Dmat}$ denote the inner product on $\CC^n$ 
 induced by some Hermitian positive-definite matrix $\Dmat$, i.e.~
 %\begin{equation*}
-$(\bv,\bw)_{\Dmat} \de (\Dmat \bv, \bw)_2,$
+$(\vvec,\wvec)_{\Dmat} \de (\Dmat \vvec, \wvec)_2,$
 %\end{equation*} 
-and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\bx^m$  to be  the unique element of $\cK^m$ satisfying  the  
+and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\xvec^m$  to be  the unique element of $\cK^m$ satisfying  the  
  minimal residual  property: 
-$$ \ \Vert \br^m \Vert_\Dmat \de \Vert \bd - \matrixC \bx^m \Vert_\Dmat \ = \ \min_{\bx \in \cK^m(C, \br^0)} \Vert {\bd} - {\matrixC} {\bx} \Vert_\Dmat. $$
+$$ \ \Vert \rvecm \Vert_\Dmat \de \Vert \dvec - \matrixC \xvec^m \Vert_\Dmat \ = \ \min_{\xvec \in \cK^m(C, \rvec^0)} \Vert {\dvec} - {\matrixC} {\xvec} \Vert_\Dmat. $$
 Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essaie in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
 
 
 Let 
 \beq\label{eq:fov}
-W_\Dmat(\matrixC)\de \Big\{ (\matrixC \bx, \bx)_{\Dmat} : \bx \in \CCN, \|\bx\|_\Dmat=1\Big\};
+W_\Dmat(\matrixC)\de \Big\{ (\matrixC \xvec, \xvec)_{\Dmat} : \xvec \in \CCN, \|\xvec\|_\Dmat=1\Big\};
 \eeq
 $W_\Dmat(\matrixC)$ is called the \emph{numerical range} or \emph{field of values} of $\matrixC$ (in the $(\cdot,\cdot)_\Dmat$ inner product).
 
 %Recall the so-called ``Elman estimate" for GMRES
 
 \begin{theorem}[Elman estimate for weighted GMRES]\label{thm:GMRES1_intro} 
-Let $\matrixC$ be a matrix with $\bzero\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
+Let $\matrixC$ be a matrix with $\zerovec\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
 \beq\label{eq:cosbeta}
-\cos \beta \de \frac{\mathrm{dist}\big(\bzero, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
+\cos \beta \de \frac{\mathrm{dist}\big(\zerovec, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
 \eeq
-If the matrix equation $\matrixC \bx = \by$ is solved using weighted GMRES then, 
-for $m\in \mathbb{N}$, the GMRES residual $\br_m$ %\de \matrixC \bx_m - \by$ 
+If the matrix equation $\matrixC \xvec = \by$ is solved using weighted GMRES then, 
+for $m\in \mathbb{N}$, the GMRES residual $\rvecm$ %\de \matrixC \xvec_m - \by$ 
 satisfies
 \beq\label{eq:Elman}
-\frac{\N{\bfr_m}_{\Dmat}}{\N{\bfr_0}_{\Dmat}} \leq \sin^m \beta. %, \quad \text{ where}\quad 
+\frac{\N{\rvecm}_{\Dmat}}{\N{\rvecz}_{\Dmat}} \leq \sin^m \beta. %, \quad \text{ where}\quad 
 \eeq
 \end{theorem}
 The bound \cref{eq:Elman} with $\Dmat=\Imat$ was first proved in \cite[Theorem 6.3]{El:82} (see also \cite[Theorem 3.3]{EiElSc:83}) and was written in the above form in \cite[Equation 1.2]{BeGoTy:06}. The bound \cref{eq:Elman} (for arbitrary Hermitian positive-definite $\Dmat$) was stated (without proof) in \cite{CaWi:92}\ednote{Euan---where is it stated in this paper? I can't see it.} and proved in \cite[Theorem 5.1]{GrSpVa:17}. % (see also \cite[Remark 5.2]{GrSpVa:17}). 
@@ -1130,7 +1130,7 @@ Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $q >2$, let $\Cot
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
-%(\Amat^{(1)})^{-1}\Amat^{(2)}\bu = \bff\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\bv = \bff
+%(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
@@ -1151,7 +1151,7 @@ for \emph{any} $q \geq 1$, and moreover \cref{eq:experimentalsufficientlysmall} 
 
 
 \subsection{Numerics in weaker norms}\label{sec:weakernumerics}
-For our computations, we use the computational setup as in \cref{app:compsetup}, with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We emphasise that whilst the preceeding theory is for \cref{prob:vedp} and our computations are for \cref{prob:vtedp}, we expect one could prove analagous results to those above for \cref{probvtedp}, see \cref{sec:TEDP} below for an outline of the major steps needed to extend the theory to \cref{prob:vtedp}. We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we used GMRES to solve $\AmatoI\Amatt = \AmatoI \bff$ (for $\bff$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence.
+For our computations, we use the computational setup as in \cref{app:compsetup}, with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We emphasise that whilst the preceeding theory is for \cref{prob:vedp} and our computations are for \cref{prob:vtedp}, we expect one could prove analagous results to those above for \cref{probvtedp}, see \cref{sec:TEDP} below for an outline of the major steps needed to extend the theory to \cref{prob:vtedp}. We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we used GMRES to solve $\AmatoI\Amatt = \AmatoI \fvec$ (for $\fvec$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence.
 
 Our results in \cref{fig:l1low,fig:l1med,fig:l1high} (also displayed in \cref{tab:l1}) indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{\beta}$ :
 \bit
@@ -1189,7 +1189,7 @@ Recall from \cref{sec:intronbpc} that our motivation for developing nearby preco
 
 Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$. That is, for simplicity's sake we only consider the case of random $n$, although everything we say could be easily extended to random $A$. To maintain consistent notation with the rest of this \lcnamecref{chap:nbpc} we will use a superscript $(2)$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.). We let $\nso \in \LiDRRR$ define a \emph{deterministic} Helmholtz problem. We will use the discretisation of this deterministic Helmholtz problem to precondition the discretisations of the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
 \beq\label{eq:stopc}
-\AmatoI\Amatt(\omega)\bu = \AmatoI \bff.
+\AmatoI\Amatt(\omega)\uvec = \AmatoI \fvec.
 \eeq
 For simplicity's sake, in all that follows we will measure $\no-\nt$ in the $L^{\infty}$ norm, or though one could use any of the weaker norms discussed in \cref{sec:weaknorm} above, and obtain analogous results.
 
@@ -1216,13 +1216,13 @@ The numerical results in \cref{sec:num} above can be seen as confirming \cref{co
     In order to correct the deficiencies described in \cref{rem:notideal} we will first prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate (\cref{lem:probgmres1} below) for the number of GMRES iterations. We first define notation for the number of GMRES iterations required for convergence. Because \cref{lem:probgmres1} below is a \emph{deterministic} result, i.e., it does not require $\nst$ to be a random field. Therefore for this \lcnamecref{lem:probgmres1} only, we assume $\nst$ is as given at the beginning of this \lcnamecref{chap:nbpc}.
 
 \bde[Number of GMRES iterations required for convergence]
-Let $\GMRES{\eps}{\nso}{\nst}$ denote the number of iterations required for GMRES in the unweighted norm $\Nt{\cdot}$ with $\Nt{\brz} = 1,$ applied to
+Let $\GMRES{\eps}{\nso}{\nst}$ denote the number of iterations required for GMRES in the unweighted norm $\Nt{\cdot}$ with $\Nt{\rvecz} = 1,$ applied to
 \beqs
-\AmatoI\Amatt  \bu = \AmatoI \bff
+\AmatoI\Amatt  \uvec = \AmatoI \fvec
 \eeqs
 to converge to within a tolerance $\eps,$ i.e., to achieve
 \beqs
-\frac{\Nt{\brm}}{\Nt{\bff}} < \eps.
+\frac{\Nt{\rvecm}}{\Nt{\fvec}} < \eps.
 \eeqs
     \ede
     
@@ -1254,9 +1254,9 @@ For an $N \times N$ problem GMRES converges in at most $N$ iterations.
 \bpf[Proof of \cref{lem:probgmres1}]
 For $\alpha \geq 1$, the result is immediate from \cref{cor:gmresguaranteed}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} (the corollary of the ELman estimate) into the Elman estimate \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
 \beq\label{eq:gmressub}
-\frac{\Nt{\brm}}{\Nt{\brz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
+\frac{\Nt{\rvecm}}{\Nt{\rvecz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
 \eeq
-To obtain a bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\brz} = 1$) if
+To obtain a bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\rvecz} = 1$) if
 \beq\label{eq:mlower}
 m \geq \frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
 \eeq
@@ -1308,7 +1308,7 @@ Under the assumptions of \cref{lem:probgmres1}, $\GMRES{\eps}{\nso}{\nst}$ is a 
 \ele
 
 \bpf[Sketch Proof of \cref{lem:randomvariable}]
-All of the operations used in constructing the vectors $\bxm$ in the GMRES algorithm are measurable functions of $\bxmmo$ and $\AmatoI\Amatt$ (see, e.g., \cite[Algorithms 11.4.2 and 5.1.3]{GoVa:13}), therefore $\mleft(\brm\mright)_{m=1}^N$ is a sequence of random variables, i.e., a stochastic process (see, e.g., \cite[Definition 2.1.4]{Ok:13}). The stopping criterion $\Nt{\brm}/\Nt{\bff} < \eps$ is an exit time for the stochastic process $\bxm$ from the set $\CCN \setminus \ball{\eps\Nt{\bff}}{\bxs},$ where $\bxs$ is the true solution. Therefore, because we assume $\OFP$ is a complete probability space, it follows from, e.g.,  \cite[Example 7.2.2]{Ok:13} that $\GMRES{\eps}{\no}{\nt}$ is a stopping time (see \cite[Definition 7.2.1]{Ok:13}). Because $\GMRES{\eps}{\no}{\nt}$ is a stopping time, it is measurable with respect to the associated filtration (see, e.g., \cite[Definition 3.2.2]{Ok:13}), and so is measurable with respect to $\cF$. I.e., $\GMRES{\eps}{\no}{\nt}$ is a random variable.
+All of the operations used in constructing the vectors $\xvecm$ in the GMRES algorithm are measurable functions of $\xvecmmo$ and $\AmatoI\Amatt$ (see, e.g., \cite[Algorithms 11.4.2 and 5.1.3]{GoVa:13}), therefore $\mleft(\rvecm\mright)_{m=1}^N$ is a sequence of random variables, i.e., a stochastic process (see, e.g., \cite[Definition 2.1.4]{Ok:13}). The stopping criterion $\Nt{\rvecm}/\Nt{\fvec} < \eps$ is an exit time for the stochastic process $\xvecm$ from the set $\CCN \setminus \ball{\eps\Nt{\fvec}}{\xvecs},$ where $\xvecs$ is the true solution. Therefore, because we assume $\OFP$ is a complete probability space, it follows from, e.g.,  \cite[Example 7.2.2]{Ok:13} that $\GMRES{\eps}{\no}{\nt}$ is a stopping time (see \cite[Definition 7.2.1]{Ok:13}). Because $\GMRES{\eps}{\no}{\nt}$ is a stopping time, it is measurable with respect to the associated filtration (see, e.g., \cite[Definition 3.2.2]{Ok:13}), and so is measurable with respect to $\cF$. I.e., $\GMRES{\eps}{\no}{\nt}$ is a random variable.
 \epf
 
 \bre[The expression \cref{eq:GMRESprob} is computable]\label{rem:computable}
@@ -1903,7 +1903,7 @@ The PDE bound \cref{thm:2} relies only on \cref{lem:H1}, which, as stated above,
 %% \item $\Aso$ being at least Lipschitz (but smooth is fine). To keep things simple, just take scalar- (as opposed to matrix-) valued $\Aso$ and don't worry about making it nontrapping.
 %% \item Smoothness of $\nso$ doesn't really matter, just take smooth in the first instance for simplicity (and also don't worry about nontrapping).
 %% \item $\Vhp$ piecewise linear.
-%% \item Linear system $\Amato \bu = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of \cref{cond:2},  but please check this!)
+%% \item Linear system $\Amato \uvec = \Smat_{A} \balpha$ for some arbitrary complex-valued vector $\balpha$ and some arbitrary $A\in L^\infty$. (I claim this corresponds to the problem described in Part (ii) of \cref{cond:2},  but please check this!)
 %% \item For each $\Aso, \nso, \balpha$, solve linear system for increasing values of $k$, first with $h\sim k^{-2}$, and then with $h\sim k^{-3/2}$.
 %% \item Goal: see if the bound \cref{eq:bound4} holds, using 
 %% \beqs
