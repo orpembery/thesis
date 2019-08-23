@@ -6,9 +6,9 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
-this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/output02/'
+this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
-noise_level = 0.2
+noise_level = 0.5
 
 csv_list = []
 for filename in listdir(this_directory):
@@ -58,7 +58,8 @@ n_pre_type = 'constant'
 
 noise_masters = ['('+str(noise_level)+', 0.0)','(0.0, '+str(noise_level)+')']
 
-ks = [20.0,40.0,60.0,80.0,100.0]
+ks = [20.0,40.0,60.0,80.0]#,100.0]
+print('Currently not plotting k=100')
 
 modifierss = [['(0.0, -1.0, 0.0, 0.0)','(0.0, -0.5, 0.0, 0.0)','(0.0, 0.0, 0.0, 0.0)'],['(0.0, 0.0, 0.0, -1.0)','(0.0, 0.0, 0.0, -0.5)','(0.0, 0.0, 0.0, 0.0)']]
 
