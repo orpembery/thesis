@@ -12,26 +12,24 @@ as defined in \cref{chap:stochastic}. If $Q(u)$ is some quantity of interest of 
 where the $\omega^l$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega^l,\cdot)$ and $n(\omega^l,\cdot)$.
 Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
 
-Therefore, in this \lcnamecref{chap:nbpc} we consider whether one can reuse the preconditioner from one solve for subsequent solves, and thereby reduce the overall computational effort. We consider the following problem and question.
+Therefore, in this \lcnamecref{chap:nbpc} we consider whether one can reuse the preconditioner from one solve for subsequent solves, and thereby reduce the overall computational effort. This idea of reusing preconditioners for `nearby' (in some sense) linear systems is the `nearby preconditioning' strategy proposed in this \lcnamecref{chap:nbpc}. To analyse this strategy rigorously, we first consider the following problem and question.
 
 Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp}, with $\uj$ the corresponding solution and $\Dm,$ $f$, etc. as in \cref{prob:vedp}. Let $\Amatj$, $j=1,2,$ be the Galerkin matrices corresponding to $h$-finite-element discretisations of \cref{prob:vedp} (see \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). The results we prove in this \lcnamecref{chap:nbpc} also hold for the TEDP, \cref{prob:vtedp}, see \cref{sec:TEDP} below for the minor changes one must make in this case.\optodo{Update this once its clear what I'm doing with the boundary}
 
 % Inspired by the usage of enumitem here: https://tex.stackexchange.com/a/58714
 \ben[label=Q1., ref=Q1]
-\item\label[itemblank]{it:nbpcq1} How small must $\NLi{\Aso - \Ast}$ and 
-$\NLi{\nso - \nst}$ be (in some norm, in terms of $k$-dependence) for GMRES 
+\item\label[itemblank]{it:nbpcq1} How small must $\N{\Aso - \Ast}$ and 
+$\N{\nso - \nst}$ be (in some norm, in terms of $k$-dependence) for GMRES 
 applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent number of iterations
 %$ to be a good preconditioner for $\Amat^{(2)}$
  for arbitrarily large $k$? 
-\een
+ \een
 
-Moreover, when using preconditioned iterative methods, as described in \cref{sec:numsolve} above, the cost of \emph{constructing} preconditioners for the linear systems is also very expensive. For example, if our preconditioner is given by an exact $LU$ factorisation, then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}.
+ We note that the above suggestion of re-using preconditioners could, at first glance, reduce the computational effort needed because Helmholtz preconditioners typically require more effort to \emph{construct} than they do to \emph{apply}.
 
-Observe that the cost of applying the preconditioner is significantly less than the cost of constructing the preconditioner. Therefore, if one calculates a preconditioner for one realisation of \cref{eq:nbpchh} and then re-uses it for many `nearby' (in some sense) realisations of \cref{eq:nbpchh}, then one could obtain considerable computational savings. This idea of `reusing' preconditioners for `nearby' linear systems is the `nearby preconditioning' strategy proposed in this \lcnamecref{chap:nbpc}.
+ For example, if we calculate the action of $\AmatI$ exactly (say via an $LU$ factorisation) then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}. This relationship between the cost of construction and application is also seen in recent Helmholtz preconditioners such as a sweeping preconditioners and a domain-decompostion preconditioners (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners). For these preconditioners one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition.
 
-If one does not use an exact $LU$-factorisation as the preconditioner, one may still obtain considerable savings by reusing preconditioners. Even if one uses a modern Helmholtz preconditioner such as a sweeping preconditioner or a domain-decompostion preconditioner (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners) one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings.
-
-In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition. In this case, the only error that arises in the nearby preconditioning process is due to applying a preconditioner constructed for one realisation of the Helmholtz equation to a different, nearby, realisation. Therefore  we do not need to consider the error arising from the preconditioning process itself.% The answer to \cref{it:nbpcq1} above makes $k$-explicit the extent to which the $LU$ factorisation for one realisation of \cref{eq:nbpchh} can be used as an effective preconditioner for Galerkin matrices arising from different realisations of $A$ and $n$.
+ \subsection{Outline of the chapter}% Don't know why cleveref didn't work here
 \optodo{Insert outline}
 
 \subsection{Statement of the main results}\label{sec:main}
@@ -59,49 +57,12 @@ finite-element solution to the problem with coefficients $\Aso$ and $\nso$ exist
 is uniformly accurate as $k\tendi$. 
 \eit 
 
-\begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
-$\Aso, \nso,$ and $\Dm$ are such that, given $f\in L^2(\DR)$ with $\supp \, f \subset \BR$, 
-the solution of \cref{prob:vedp} %(\cref{prob:edp}) 
-$u^{(1)}$ exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
-\beq\label{eq:bound1}
-\big\|u^{(1)}\big\|_{\HokDR} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(\Dp)} \quad \tfa k\geq k_0,
-\eeq
-where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso, \Dm, R$, and $k_0$.
-\end{condition}
-
-\begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
-\label{cond:2}
-
-\
-
-(i) Given $k_0>0$, $h$ and $p$ are such that, given $f\in \LtDR$ with $\supp\, f \subset \BR$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$ (and with $\FE(v)$ defined in \cref{eq:Ledp}) exists and is unique for all $k\geq k_0$. % (so that the matrix $\Amato$ is invertible). 
-Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDRRR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then
-\beq\label{eq:bound3}
-\N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtDR} \quad\tfa k\geq k_0, 
-\eeq
-where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
-
-(ii) Given $k_0>0$, $h$ and $p$ are such that, given $\LE\in (\HozDDR)'$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} 
-with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$
-exists, and is unique for all $k\geq k_0$.
-%(so that the matrix $\Amato$ is invertible). 
-Furthermore, if $\LE(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
- (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
-\beq\label{eq:bound4}
-\N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LE}_{(\HokDR)'} \quad\tfa k\geq k_0, 
-\eeq
-where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
-\end{condition}
-
-\bre[\Cref{eq:bound4} is $k$-independent]\label{rem:yesitis}
-Note that \cref{eq:bound4} is a $k$-independent bound on $\NHokDR{\utilde},$ despite the fact that a factor $k$ appears on the right-hand side. The factor $k$ appears because the weighted norm $\NHokDR{\cdot}$ is used in the definition of $\NHokDRs{\cdot},$ and therefore $\NHokDRs{\Ltilde} \sim \NHoDRs{\Ltilde}/k.$
-\ere
 
 
 
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
+Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, and $h$ and $p$ satisfy \cref{cond:2} below. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
@@ -117,10 +78,12 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 \Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 \eeq
  converge in a $k$-independent number of iterations for all $k\geq k_0$.
-\enth
+ \enth
+
+The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} below.
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and $h$ and $p$ satisfy \cref{cond:2}. Given $k_0>0$,
+Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, and $h$ and $p$ satisfy \cref{cond:2} below. Given $k_0>0$,
 let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{\pm}$ and $m_{\pm}$ be as in \cref{lem:normequiv} below (note that all these constants are independent of $k$, $h$, and $p$). Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
@@ -136,13 +99,11 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
 
-Two notes regarding \cref{cor:1,cor:1a}: (i) the constants $C_1$ and $C_2$ are expressed explicitly in \cref{eq:C1nbpc} and \cref{eq:C2} below in terms of constants appearing in \cref{cond:1nbpc,cond:2}, and (ii) the $L^\infty(\DR)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
+Two notes regarding \cref{cor:1,cor:1a}: (i)The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by weaker norms, and the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $L^\infty(\DR)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
 \NLiDRRRdtd{A}\de \esssup_{\bx\in\DR}\N{A(\bx)}_2.
 \eeqs
-
-
-The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations is then larger -- but still independent of $k$.
+(iii) The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations is then larger -- but still independent of $k$.
 %In \cref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
 
 The proofs of \cref{cor:1,cor:1a} are in \cref{sec:mainproofs} below.
@@ -196,7 +157,7 @@ for all $k\geq k_0$.
 \end{theorem}
 
 \ble[Sharpness of the bound \cref{eq:PDEbound} when $\Aso = \Ast= I$]\label{lem:sharp}
-There exist $f, \,\nso$, and $\nst$ (with $\nso\neq \nst$) such that 
+There exist $f, \,\nso$, and $\nst$ (with $\nso\neq \nst$ both continuous) such that 
 the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\Aso = \Ast= I$ exist, are unique, and satisfy
 \beq\label{eq:sharp1}
 \frac{\N{u^{(1)}-u^{(2)}}_{\HokDR}
@@ -225,14 +186,14 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\As
 %\eeq
 \ele
 
+Proofs of \cref{thm:2,lem:sharp} are in \cref{sec:pdeproofs} below.
+
 \bre[Physical interpretation for $k$-dependence]\label{rem:physical1k}
-It is unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both \cref{it:nbpcq1} and \cref{it:nbpcq2}. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$, it is unsurprising that perturbations of size (up to) $1/k$ give bounded relative difference (in \cref{it:nbpcq2}) and bounded GMRES iterations for the nearby-preconditioned linear system (in \cref{it:nbpcq1}). In some sense, perturbations of size up to $1/k$ are `unseen' by the PDE or numerical method. Perturbations of order $1/k$ being `unseen' by the PDE can also be seen in bounds proved for $u$ where $n = \no + \eta,$ with $\no$ nontrapping and $\NLiDRRR{\eta} \lesssim 1/k,$ see \cref{rem:kdep} above.
+It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both \cref{it:nbpcq1} and \cref{it:nbpcq2}. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$ one expects perturbations of size up to $1/k$ to be `unseen' by the PDE or numerical method. This is exactly what we see; perturbations of size (up to) $1/k$ give bounded relative difference (in \cref{it:nbpcq2}) and bounded GMRES iterations for the nearby-preconditioned linear system (in \cref{it:nbpcq1}). Also, on a PDE leve, perturbations of order $1/k$ being `unseen' by the PDE can also be seen in bounds proved for $u$ where $n = \no + \eta,$ with $\no$ nontrapping and $\NLiDRRR{\eta} \lesssim 1/k,$ see \cref{rem:kdep} above.
 \ere
 
 
-\section{Numerical experiments}\label{sec:num}
-
-\subsection{Investigating the sharpness of \cref{thm:1} and \cref{cor:1}}
+\section{Numerical experiments investigating the sharpness of \cref{thm:1} and \cref{cor:1}}\label{sec:num}
 
 \Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP) \cref{prob:vtedp}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
 \ben
@@ -462,6 +423,53 @@ Using the definition of $a^*(\cdot,\cdot)$ and the property \cref{eq:DtN} in the
 
 \section{Proofs of the main results}\label{sec:proofs}
 
+\Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}.
+
+\begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
+$\Aso, \nso,$ and $\Dm$ are such that, given $f\in L^2(\DR)$ with $\supp \, f \subset \BR$, 
+the solution of \cref{prob:vedp} %(\cref{prob:edp}) 
+$u^{(1)}$ exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
+\beq\label{eq:bound1}
+\big\|u^{(1)}\big\|_{\HokDR} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(\Dp)} \quad \tfa k\geq k_0,
+\eeq
+where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso, \Dm, R$, and $k_0$.
+\end{condition}
+
+\begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
+\label{cond:2}
+
+\
+
+(i) Given $k_0>0$, $h$ and $p$ are such that, given $f\in \LtDR$ with $\supp\, f \subset \BR$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$ (and with $\FE(v)$ defined in \cref{eq:Ledp}) exists and is unique for all $k\geq k_0$. % (so that the matrix $\Amato$ is invertible). 
+Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDRRR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then
+\beq\label{eq:bound3}
+\N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtDR} \quad\tfa k\geq k_0, 
+\eeq
+where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
+
+(ii) Given $k_0>0$, $h$ and $p$ are such that, given $\LE\in (\HozDDR)'$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} 
+with $a(\cdot,\cdot)=a^{(1)}(\cdot,\cdot)$
+exists, and is unique for all $k\geq k_0$.
+%(so that the matrix $\Amato$ is invertible). 
+Furthermore, if $\LE(v)= (A\nabla \widetilde{f},\nabla v)_{\LtDR}$, where $A\in L^\infty(\DR, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
+ (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
+\beq\label{eq:bound4}
+\N{u-u_h}_{\HokDR} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LE}_{\HokDRs} \quad\tfa k\geq k_0, 
+\eeq
+where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
+\end{condition}
+
+For details of when \cref{cond:1nbpc,cond:2nbpc} are satisfied, see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2nbpc}).
+
+\bre[\Cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3}]\label{rem:yesitis}
+Note that \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LE(v) = \int_{\DR} f\vbar,$ then
+\beqs
+\NHokDRs{\LE} = \sup_{v \in \HozDDR} \frac{\abs{\LE(v)}}{\NHokDR{v}} \leq\sup_{v \in \HozDDR} \frac{\NLtDR{f}\NLtDR{v}}{\NHokDR{vz}} \lesssim \frac1k \sup_{v \in \HozDDR} \frac{\NLtDR{f}\NLtDR{v}}{\NLtDR{vz}} = \frac{\NLtDR{f}}k.
+\eeqs
+The factor $k$ appears in \cref{eq:bound4} because the weighted norm $\NHokDR{\cdot}$ is used in the definition of $\NHokDRs{\cdot},$ rather than the unweighted norm $\NHoDR{\cdot}.$
+\ere
+
+
 The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{thm:1}.
 
 \begin{theorem}[Main ingredient of the answer to \cref{it:nbpcq1}]\label{thm:1}
@@ -659,7 +667,7 @@ m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{\LtDR} \leq \N{\widetilde{u
 on either side of the inequality \cref{eq:mainevent1}, with these bounds coming from \cref{eq:normequiv1}. The proof of the bound on 
 $\|\Mmat_n((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound1a} follows in a similar way to above, using the fact that 
 $\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \cref{eq:A380}).
-%, namely the variational problem \cref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \cref{eq:src} being changed to $+\ri k$).
+%, namely the variational problem \cref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \cref{eq:src} being changed to $+i k$).
 %
 %Now, if $u$ is the solution of the adjoint problem with data $\LE(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{\LE(\overline{v})}$; 
 %
@@ -754,7 +762,7 @@ $\|\Smat_A((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound2a} follows in a similar 
 \epf
 
 \bre[Link to the results of \cite{GaGrSp:15}]
-A result analogous to the Euclidean-norm bounds in \cref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Aso= \Ast= I$, $\nst= 1$, and $\nso = 1 + \ri\eps/k^2$, with the `absorption parameter' or `shift' $\eps$ satisfying $0<\eps\lesssim k^2$. The motivation for proving this result was that the so-called `shifted Laplacian preconditioning' of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to \cref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
+A result analogous to the Euclidean-norm bounds in \cref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Aso= \Ast= I$, $\nst= 1$, and $\nso = 1 + i\eps/k^2$, with the `absorption parameter' or `shift' $\eps$ satisfying $0<\eps\lesssim k^2$. The motivation for proving this result was that the so-called `shifted Laplacian preconditioning' of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to \cref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
 $\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
  then give upper bounds on large the `shift' $\eps$ can be for GMRES to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
 
@@ -762,7 +770,7 @@ $\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
 The main differences between \cite{GaGrSp:15} and the present paper are that (i)  \cite{GaGrSp:15} focused on the TEDP, not the EDP,
 (ii) \cite{GaGrSp:15} focused on the particular case that $\Dm$ is star-shaped with respect to a ball, finding a $k$- and $\eps$-explicit expression for $C^{(1)}_{\rm bound}$ in this case using Morawetz identities, whereas we assume the existence of $\Cboundo,$
 (iii) \cite{GaGrSp:15} required a bound on 
-$(\Amato)^{-1}\Mmat_{n}$, analogous to the bounds in \cref{lem:keylemma1} along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $\ri k$), but \emph{not} on 
+$(\Amato)^{-1}\Mmat_{n}$, analogous to the bounds in \cref{lem:keylemma1} along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $i k$), but \emph{not} on 
 $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\|\cdot\|_2$ norm.
 %The result of \cref{thm:1}
 \ere
@@ -858,7 +866,7 @@ A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES 
 
 %\section{Proof of }\label{sec:proofPDE}
 
-\subsection{Proofs of the PDE results \cref{thm:2,lem:sharp}}
+\subsection{Proofs of the PDE results \cref{thm:2,lem:sharp}}\label{sec:pdeproofs}
 
 \bpf[Proof of \cref{thm:2}]
 %We first prove the upper bound \cref{eq:PDEbound}.
@@ -911,11 +919,11 @@ such that the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:vedp
 
 The heart of the proof is the equation
 \beq\label{eq:obs1}
-(\Delta + k^2) \big(\re^{\ri k r}\chi(r)\big) =  \re^{\ri k r}\left(\ri k \frac{d-1}{r} \chi(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
+(\Delta + k^2) \big(e^{i k r}\chi(r)\big) =  e^{i k r}\left(i k \frac{d-1}{r} \chi(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
 \eeq
 where $\chi(r)$ is chosen to have $\supp \chi \subset \DR$. Observe that \cref{eq:obs1} is the Helmholtz equation for a circular wave $e^{ikr}$, with the added factor $\chi$ to ensure the function has compact support. Given plane-wave and circular-wave solutions to the Helmholtz equation usually scale optimally in terms of $k$, we expect that \cref{eq:obs1} will be $k$ to proving that \cref{eq:PDEbound} is sharp. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates\ednote{Euan---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....} and observing that $e^{ikr} \chi(r)$ has angular derivatives equal to zero.
 
-Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\DR)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $\re^{\ri kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}). Also, recall that the proof of the PDE bound \cref{eq:PDEbound} used the nontrapping resolvent estimate \cref{eq:bound1} applied to $\uso-\ust.$ Therefore we expect that if we set things up so that
+Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(\DR)$ norm of $\widetilde{f}$ and the $\HokDR$ norm of $e^{i kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}). Also, recall that the proof of the PDE bound \cref{eq:PDEbound} used the nontrapping resolvent estimate \cref{eq:bound1} applied to $\uso-\ust.$ Therefore we expect that if we set things up so that
 \beq\label{eq:sharpdiff}
 \uso-\ust = e^{ikr}\chi(r),
 \eeq
@@ -944,7 +952,7 @@ Now observe that by construction
   &= \mleft(\Delta + k^2 \mright)\mleft(e^{-ikr}\chi(r)\mright).
 \end{align*}
 Therefore, by uniqueness of the solution of \cref{prob:vedp} \beq\label{eq:obs4}
-u^{(1)}(\bx)- u^{(2)}(\bx) = \re^{\ri k r}\chi(r),
+u^{(1)}(\bx)- u^{(2)}(\bx) = e^{i k r}\chi(r),
 \eeq
 and therefore \cref{eq:obs4} we have
 \beqs
@@ -976,7 +984,7 @@ When $\nj\de1$, $j=1,2,$, $\Aso\de I$, and $\Ast\de I + c(k)\widetilde{\chi}$, t
 \beqs%\label{eq:obs2}
 \Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = c(k)\nabla\cdot \big(\widetilde{\chi}\nabla u^{(2)}\big).
 \eeqs
-It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(\bx) - u^{(2)}(\bx)=\re^{\ri kr}\chi(r)$ (so that one can then use \cref{eq:obs1}).
+It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(\bx) - u^{(2)}(\bx)=e^{i kr}\chi(r)$ (so that one can then use \cref{eq:obs1}).
 \ere
 
 %\section{Proof of \cref{lem:2}}
@@ -1822,14 +1830,14 @@ We now briefly outline how the results in \cref{sec:main} above can be extended 
 \paragraph{Finite-element/Galerkin solution.}
 The Galerkin matrix $\Amat$ is defined exactly as in \cref{eq:matrixAdef}, except that 
 \beq\label{eq:NTEDP}
-\big(\Nmat\big)_{ij}\de \ri k\int_{\Gamma_I}  (\gamma\phi_i) \,\gamma \phi_j.
+\big(\Nmat\big)_{ij}\de i k\int_{\Gamma_I}  (\gamma\phi_i) \,\gamma \phi_j.
 \eeq
 
 \paragraph{The adjoint sesquilinear form.} For the TEDP, the adjoint sesquilinear form is given by 
 \beq\label{eq:TEDPadjoint}
 a^*(u,v) \de \int_{\DR} 
 \Big((A \grad u)\cdot\grad \vb
- - k^2 n u\vb\Big) +\ri k\int_{\Gamma_I} \gamma u\, \overline{\gamma v};
+ - k^2 n u\vb\Big) +i k\int_{\Gamma_I} \gamma u\, \overline{\gamma v};
 \eeq
 then \cref{eq:A*} holds (with $\Nmat$ now given by \cref{eq:NTEDP}), and the analogue of \cref{lem:adjoint} follows in a straightforward way.
 
