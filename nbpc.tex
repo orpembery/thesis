@@ -258,17 +258,17 @@ We perform experiments for three different forms of $\alpha$  taking $\alpha = 0
 \caption{GMRES iteration counts for $\AmatoI\Amatt$ where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = \alpha$ as described in \cref{sec:num}.}
 \end{figure}
 \optodo{Need to figure out how to get computer modern consistently in axis labels. Some bookmarks saved that may help.}
-  \ednote{Euan---I had to redo these computations, as there was a bug in my code, so we now don't see \emph{really} rapid growth in the number of GMRES iterations as $k$ inreases. I think the previous code may have may the variations in $n$ too large, meaning we got really rapid growth.}
+%  \ednote{Euan---I had to redo these computations, as there was a bug in my code, so we now don't see \emph{really} rapid growth in the number of GMRES iterations as $k$ inreases. I think the previous code may have may the variations in $n$ too large, meaning we got really rapid growth.}
 
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
 
-\section{Definitions and conditions}\label{sec:3}
+\section{Proofs of \cref{cor:1,cor:1a,thm:2,lem:sharp}}\label{sec:3}
 
 We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} above.
 
-\subsection{The variational problem and the Galerkin method}\label{sec:vpGm}
-As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly repy on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP \cref{prob:vedp} and TEDP \cref{prob:vtedp} above.
+\subsection{Definition of variational problems and conditions used to prove main results}\label{sec:vpGm}
+As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP \cref{prob:vedp} and TEDP \cref{prob:vtedp} above.
 
 \bprob[General variational Helmholtz problem]\label{prob:vgen}
 Let $D, A,$ and $n$ be as in \cref{prob:tedp}. We say $u \in \HozDD$ satisfies the \defn{variational formulation of the truncated exterior Dirichlet problem} with $\gD = 0$ if
@@ -290,7 +290,7 @@ With the exception of some overlap in notation, it is straightforward to see tha
 The strength of the general formulation \cref{prob:vgen} is that it allows us to treat a wide variety of Helmholtz problems at once. Indeed, \emph{any} Helmholtz problem that can be written in the form \cref{eq:vgen,eq:agen} and satisfies \cref{cond:1nbpc,cond:2} below can be treated using the analysis in this \namecref{chap:nbpc}.
 \ere 
 
-For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional, nested subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of piecewise-polynomials on a simplicial mesh $\cTh$ with mesh-size $h$
+For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional, nested subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
 %\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
 and fixed polynomial degree $p$. (Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
 \bprob[Finite-element approximation of \cref{prob:vgen}]\label{prob:fevgen}
@@ -310,7 +310,7 @@ Let
 \quad\tand\quad
 \big(\Nmat\big)_{ij}\de \int_{\GR} \T (\gamma\phi_j) \,\gamma \phi_i
 \eeq
-be the stiffness, domain-mass, and boundary-mass matrices, respectively. Note that both $\Smat_A$ and $\Mmat_n$ are \emph{real-valued}, but $\Nmat$ is \emph{complex-valued} (because the DtN operator $T_R$ is complex-valued).
+be the stiffness, domain-mass, and boundary-mass matrices, respectively. Note that both $\Smat_A$ and $\Mmat_n$ are \emph{real-valued}, but in general $\Nmat$ is \emph{complex-valued} (because both the  DtN operator $\DtN$ and the impedance operator $ik$ are complex-valued).
 Let
 \beq\label{eq:matrixAdef}
 \Amat \de \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
@@ -335,17 +335,6 @@ so that \cref{eq:Dk} holds.
 %\eeq
 %for
 %$v_h =\sum_i v_i \phi_i$.
-
-We recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
-
-\bde[Quasi-uniform]\label{def:quasiuniform}
-Let $\set{\cTh}_{h>0}$ be a set of triangulations of $D$ indexed by their mesh size $h.$ For each $S \in \cTh,$ let $\BT$ denote the largest ball contained in $S$.
-If there exists $\rho > 0$ such that 
-\beqs
-\min\set{\diam \BT \st S \in \cT} \geq \rho h,
-\eeqs
-then $\set{\cTh}_{h>0}$ is said to be \defn{quasi-uniform}.
-\ede
 
 \ble[Norm equivalences of FE functions]\label{lem:normequiv}
 If $\set{{\cTh}_{h>0}}$ is quasi-uniform with a nodal basis, then
@@ -436,8 +425,6 @@ This property follows from the fact that, if $\uo$ and $\ut$ are solutions of th
 see, e.g., \cite[Lemma 6.13]{Sp:15}.
 \epf
 
-\section{Proofs of the main results}\label{sec:proofs}
-
 \Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}.
 
 \begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
@@ -488,6 +475,8 @@ The factor $k$ appears in \cref{eq:bound4} because the weighted norm $\NHokD{\cd
 \ere
 
 
+\subsection{Proof of the main ingredient of the proofs of \cref{cor:1,cor:1a}}\label{sec:proofs}
+
 The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{thm:1}.
 
 \begin{theorem}[Main ingredient of the answer to \cref{it:nbpcq1}]\label{thm:1}
@@ -517,10 +506,6 @@ and
 \end{align}
 for all $k\geq k_0$. 
 \end{theorem}
-
-
-
-\subsection{Proof of \cref{thm:1}} 
 
 The following two lemmas are the heart of the proof of \cref{thm:1}.
 
@@ -808,7 +793,7 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 %therefore also holds with the $\|\cdot\|_2$ norm replaced by the $\|\cdot\|_{\Dmat_k}$ norm and the constant $C_1$ modified appropriately.
 %\ere
 
-\subsection{Proofs of \cref{cor:1,cor:1a}}\label{sec:mainproofs}
+\subsection{Proofs of the finite-element results \cref{cor:1,cor:1a}}\label{sec:mainproofs}
 
 We first give the set-up for weighted GMRES, first introduced in by Essai in \cite{Es:98}, largely following \cite[Section 5]{GrSpVa:17}. Consider the abstract  linear system 
 % \begin{equation*}
@@ -826,7 +811,7 @@ $(\vvec,\wvec)_{\Dmat} \de (\Dmat \vvec, \wvec)_2,$
 and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\xvec^m$  to be  the unique element of $\cK^m$ satisfying  the  
  minimal residual  property: 
 $$ \ \Vert \rvecm \Vert_\Dmat \de \Vert \dvec - \matrixC \xvec^m \Vert_\Dmat \ = \ \min_{\xvec \in \cK^m(C, \rvec^0)} \Vert {\dvec} - {\matrixC} {\xvec} \Vert_\Dmat. $$
-Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essaie in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
+Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essai in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
 
 
 Let 

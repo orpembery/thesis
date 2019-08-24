@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
-this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
+this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/output05/'
 
 noise_level = 0.5
 
