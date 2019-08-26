@@ -1013,11 +1013,11 @@ for some $0 < \alpha < 1/2,$ then $\NLiDRR{\nso-\nst} = 1$ for all $\alpha$, but
 
 The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that the length scale $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' with regards to the norm used to measure $\nso-\nst$. When we measure $\nso-\nst$ in the $L^\infty$ norm as above, we are able to control the magnitude of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, and $\nso-\nst=1$ on this small set, then $\NLiDRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
 
-We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence if $\NLqDRR{\nso-\nst}\sim 1/k$ for any $q>0$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
+We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence if $\NLqDRR{\nso-\nst}\sim 1/k$ for any $1 \leq q < \infty$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
 
 
 \subsection{Theory in weaker norms}\label{sec:weakertheory}
-Before we prove results analogous to \cref{thm:1} in weaker norms (so that we can conclude results analogous to \cref{cor:1,cor:1a} in weaker norms), we first recap why the terms  $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ appear in \cref{thm:1}. These terms appear in \cref{thm:1} because the terms $\NLiDRR{n}$ and $\NLiDRRdtd{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear in these \lcnamecrefs{lem:keylemma1} because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
+Before we prove results analogous to \cref{cor:1,cor:1a} in weaker norms (using a result analogous to \cref{thm:1} in weaker norms), we first recap why the terms  $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ appear in \cref{thm:1}. These terms appear in \cref{thm:1} because the terms $\NLiDRR{n}$ and $\NLiDRRdtd{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear in these \lcnamecrefs{lem:keylemma1} because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
 \beq\label{eq:keynbound}
 \NLtD{n\ftilde} \leq \NLiDRR{n}\NLtD{\ftilde}
 \eeq
@@ -1054,7 +1054,55 @@ and
 \NLtD{A\grad\ftilde} \leq \Cinvs \NLqDRRdtd{A} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\grad\ftilde}.
 \eeq
 
-Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal}, as in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we obtain \cref{lem:keylemma1a,lem:keylemma2a} below, the analogues of \cref{lem:keylemma1,lem:keylemma2}.
+Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal}, as in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we can obtain the following \lcnamecrefs{cor:1alt}, the analogues of \cref{cor:1,cor:1a}.
+
+\bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1alt}
+Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
+% such that if 
+\beq\label{eq:condalt}
+\Cotilde kh^{-\frac{d}{q}} \NLqDRRdtd{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst}
+\leq \frac{1}{2}
+\eeq
+for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations for all $k\geq k_0$.
+\enth
+
+\bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
+Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
+% such that if 
+\beq\label{eq:condaalt}
+\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{q}-1} \NLqDRRdtd{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst} \leq \half
+\eeq
+for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
+%\beqs
+%(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
+%\eeqs
+ converges in a $k$-independent number of iterations for all $k\geq k_0$.
+\enth
+
+\bre[Trade off between the type of norm and powers of $h$ and $k$]
+Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\no-\nt$ and the restriction on the magnitude of this norm. E.g., the condition on $\no-\nt$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
+\beq\label{eq:altsufficientlysmall}
+\NLqDRR{\no-\nt} k h^{-\frac{d}{q}} \text{ is sufficiently small}.
+\eeq
+Observe that as $q \downarrow 2,$ we measure $\no-\nt$ in a weaker norm, but the condition \cref{eq:altsufficientlysmall} becomes more restrictive; the power of $h$ increases. Conversely, as $q \uparrow \infty,$ we measure $\no-\nt$ in a stronger norm, but the condition \cref{eq:altsufficientlysmall} becomes less restrictive; the power of $h$ decreases. (Also observe that in the $q\uparrow\infty$ limit we recover the condition \cref{eq:sufficientlysmall} we previously proved for $\NLiDRR{\no-\nt}.$
+\ere
+
+\bre[\Cref{cor:1,cor:1a} are a special case of \cref{cor:1a,cor:1aalt}]
+Observe that in the case $q=\infty$ \cref{cor:1a,cor:1aalt} become our previous results in the $L^\infty$ norm, \cref{cor:1,cor:1a}.
+\ere
+
+The numerical experiments in \cref{sec:weakernumerics} below suggest that, at least in certain cases, a sufficient condition for nearby preconditioning to be effective is
+\beq\label{eq:experimentalsufficientlysmall}
+\NLqDRR{\no-\nt} k \quad\text{is sufficiently small},
+\eeq
+for \emph{any} $q \geq 1$, and moreover \cref{eq:experimentalsufficientlysmall} appears sharp in its $k$-dependence. (This requirement would fit with our previous observation about $1/k$ being the length scale below which perturbations cannot be seen---see \cref{rem:physical1k} above.) However, we do not say that \cref{eq:experimentalsufficientlysmall} is sufficient for all cases; recall that for transmission problems, very small perturbations in $n$ can lead to very different behaviour in the solution $u$ if $k$ is a quasi-resonance for $\no$ or $\nt$; see the discussion at the end of \cref{sec:wpdisc} above.
+
+
+\subsubsection{Proof of \cref{cor:1alt,cor:1aalt}}
+
+We first state analogues of \cref{lem:keylemma1,lem:keylemma2} in weaker norms; these \lcnamecrefs{lem:keylemma1} are the key to the proofs of \cref{cor:1alt,cor:1aalt} above. The essence of the proofs of \cref{lem:keylemma1a,lem:keylemma2a} are the discussion at the start of \cref{sec:weakertheory}.
 
 \ble[Alternative bounds on $(\Amato)^{-1} \Mmat_{n}$]\label{lem:keylemma1a}
 Under the assumptions of \cref{lem:keylemma1}, for $n\in \LiDRR$ and for any $s,q > 2$ such that $1/s + 1/q = \half$,
@@ -1099,7 +1147,11 @@ for all $k\geq k_0$, where
 where $\Co$ is given by \cref{eq:C1nbpc} and $1/s = 1/2 - 1/q.$
 \ele
 
-We can use \cref{lem:keylemma1a,lem:keylemma2a} in palce of \cref{lem:keylemma1,lem:keylemma2} to obtain the following analogue of \cref{thm:1} in weaker norms.
+\bre[Reduction to \cref{lem:keylemma1,lem:keylemma2}]
+Observe that in the case $s=2$ and $q=\infty$ \cref{lem:keylemma1a,lem:keylemma2a} reduce to the our previous results \cref{lem:keylemma1,lem:keylemma2}.
+\ere
+
+We can use \cref{lem:keylemma1a,lem:keylemma2a} in place of \cref{lem:keylemma1,lem:keylemma2} to obtain the following analogue of \cref{thm:1} in weaker norms. The proof of \cref{thm:1alt} is identical to the proof of \cref{thm:1}, with \cref{lem:keylemma1,lem:keylemma2} replaced by \cref{lem:keylemma1a,lem:keylemma2a}.
 
 \begin{theorem}[Alternative main ingredient to answer to \cref{it:nbpcq1}]\label{thm:1alt}
 Let the assumptions of \cref{thm:1} hold.   Then, given $\kz>0$ and $q >2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that
@@ -1121,50 +1173,15 @@ for all $k\geq k_0$.
 
 %We can now use \cref{thm:1alt} to obtain the following analogues to \cref{cor:1,cor:1a} in weaker norms.
 
-\bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1alt}
-Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
-% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
-% such that if 
-\beq\label{eq:condalt}
-\Cotilde kh^{-\frac{d}{q}} \NLqDRRdtd{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst}
-\leq \frac{1}{2}
-\eeq
-for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations for all $k\geq k_0$.
-\enth
-
-\bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
-Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
-% there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
-% such that if 
-\beq\label{eq:condaalt}
-\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{q}-1} \NLqDRRdtd{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst} \leq \half
-\eeq
-for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
-%\beqs
-%(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
-%\eeqs
- converges in a $k$-independent number of iterations for all $k\geq k_0$.
-\enth
-
-\bre[Trade of between norm and restriction on the norm]
-Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\no-\nt$ and the restriction on the magnitude of this norm. E.g., the condition on $\no-\nt$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
-\beq\label{eq:altsufficientlysmall}
-\NLqDRR{\no-\nt} k h^{-\frac{d}{q}} \text{ is sufficiently small}.
-\eeq
-Observe that as $q \downarrow 2,$ we measure $\no-\nt$ in a weaker norm, but the condition \cref{eq:altsufficientlysmall} becomes more restrictive; the power of $h$ increases. Conversely, as $q \uparrow \infty,$ we measure $\no-\nt$ in a stronger norm, but the condition \cref{eq:altsufficientlysmall} becomes less restrictive; the power of $h$ decreases. (Also observe that in the $q\uparrow\infty$ limit we recover the condition \cref{eq:sufficientlysmall} we previously proved for $\NLiDRR{\no-\nt}.$
-\ere
-
-The numerics in \cref{sec:weakernumerics} below suggest that in certain cases, a sufficient condition for nearby preconditioning to be effective is
-\beq\label{eq:experimentalsufficientlysmall}
-\NLqDRR{\no-\nt} k \quad\text{is sufficiently small},
-\eeq
-for \emph{any} $q \geq 1$, and moreover \cref{eq:experimentalsufficientlysmall} may be sharp in its $k$-dependence. (This requirement would fit with our previous observation about $1/k$ being the length scale below which perturbations cannot be seen---see \cref{rem:physical1k} above.) However, we do not say that \cref{eq:experimentalsufficientlysmall} is sufficient for all cases; recall that for transmission problems, very small perturbations in $n$ can lead to very different behaviour in the solution $u$ if $k$ is a quasi-resonance for $\no$ or $\nt$; see the discussion at the end of \cref{sec:wpdisc} above.
+\bpf[Sketch proof of \cref{cor:1alt,cor:1aalt}]
+The proofs of \cref{cor:1alt,cor:1aalt} are completely analagous to the proofs of \cref{cor:1,cor:1a}, with the exception that we use \cref{thm:1alt} in place of \cref{thm:1}.
+\epf
 
 
 \subsection{Numerics in weaker norms}\label{sec:weakernumerics}
-For our computations, we use the computational setup as in \cref{app:compsetup}, with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media. We emphasise that whilst the preceeding theory is for \cref{prob:vedp} and our computations are for \cref{prob:vtedp}, we expect one could prove analagous results to those above for \cref{probvtedp}, see \cref{sec:TEDP} below for an outline of the major steps needed to extend the theory to \cref{prob:vtedp}. We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we used GMRES to solve $\AmatoI\Amatt = \AmatoI \fvec$ (for $\fvec$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence.
+For our computations, we use the computational setup as in \cref{app:compsetup}, with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media.  We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2,0.2/k^{0.1},0.2/k^{0.2},\ldots,0.2/k$ and for $k=10,20,\ldots,100$ we used GMRES to solve $\AmatoI\Amatt = \AmatoI \fvec$ (for $\fvec$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence.
 
-Our results in \cref{fig:l1low,fig:l1med,fig:l1high} (also displayed in \cref{tab:l1}) indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{\beta}$ :
+Our results in \cref{fig:l1low,fig:l1med,fig:l1high} (also displayed in \cref{tab:l1}) indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{\beta}$, for all $1 \leq q < \infty$:
 \bit
 \item For $\beta \in (0,0.6)$ there is clear growth of the number of GMRES iterations with $k$,
 \item For $\beta = 1$ there is clear boundedness of the number of GMRES iterations with $k$, and
