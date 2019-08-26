@@ -36,18 +36,18 @@ def plt_gmres(n_pre_type,noise_master,ks,modifier,filename):
     for k in ks:
         data = all_csvs_df.xs((n_pre_type,noise_master,modifier,k),level=('n_pre_type','noise_master','modifier','k'),drop_level=False)
         for jj in data.columns:
-            plt.scatter(data.reset_index().loc[0,'k'],data.iloc[0,jj],c='k')
+            plt.scatter(data.reset_index().loc[0,'k'],data.iloc[0,jj],c='k',marker='.')
 
     plt.xlabel(r'$k$')
     plt.ylabel('Number of GMRES Iterations')
 
-    plt.xticks([20,40,60,80,100]) # told by http://stackoverflow.com/questions/12608788/ddg#12608937
+    plt.xticks([20,40,60,80])#,100]) # told by http://stackoverflow.com/questions/12608788/ddg#12608937
 
     # Integers only on y axis
     # Found out about this from https://www.scivision.dev/matplotlib-force-integer-labeling-of-axis/
     ax = fig.gca()   
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # Maybe add an argument to MaxNLocator to give the number of intervals on the x axis
-    fig.set_size_inches((3,3))
+    fig.set_size_inches((5,2.5))
     
     plt.savefig(filename+'.pgf')
 
