@@ -678,7 +678,7 @@ $\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \cref{e
 % the bound in \cref{eq:keybound1} on $\|(\Amato)^{-1}\Mmat_n\|_{2}$ also holds for $\|((\Amato)^*)^{-1}\Mmat_n\|_{2}$.
 \epf
 
-The proof of \cref{lem:keylemma2} uses the following \lcnamecref{lem:H1}, which one can prove sing the G\aa rding inequality \cref{eq:gardingbrief}; see \cite[Lemma 5.1]{GrPeSp:19}.
+The proof of \cref{lem:keylemma2} uses the following \lcnamecref{lem:H1}, which one can prove using the G\aa rding inequality \cref{eq:gardingbrief}; see \cite[Lemma 5.1]{GrPeSp:19}.
 
 \ble[Bound for data in $\HozDDs$]\label{lem:H1}
 %With the sesquilinear form $a(\cdot,\cdot)$ defined by \cref{eq:EDPa} with $A=\Aso$ and $n=\nso$, 
@@ -693,7 +693,7 @@ If \cref{cond:1nbpc} holds, then $\widetilde{u}$ exists, is unique, and satisfie
 \eeq
 for all $k\geq k_0$.
 \ele
-Observe that, similar to \cref{rem:yesitis}, \cref{eq:bound2} is a $k$-independent bound, due to the norm $\NHokDs{\LE}$ on the right-hand side.
+%Observe that, similar to \cref{rem:yesitis}, \cref{eq:bound2} is a $k$-independent bound, due to the norm $\NHokDs{\LE}$ on the right-hand side.
 
 
 \bpf[Proof of \cref{lem:keylemma2}]
@@ -834,7 +834,7 @@ satisfies
 \frac{\N{\rvecm}_{\Dmat}}{\N{\rvecz}_{\Dmat}} \leq \sin^m \beta. %, \quad \text{ where}\quad 
 \eeq
 \end{theorem}
-The bound \cref{eq:Elman} with $\Dmat=\Imat$ was first proved in \cite[Theorem 6.3]{El:82} (see also \cite[Theorem 3.3]{EiElSc:83}) and was written in the above form in \cite[Equation 1.2]{BeGoTy:06}. The bound \cref{eq:Elman} (for arbitrary Hermitian positive-definite $\Dmat$) was stated (without proof) in \cite{CaWi:92}\ednote{Euan---where is it stated in this paper? I can't see it.} and proved in \cite[Theorem 5.1]{GrSpVa:17}. % (see also \cite[Remark 5.2]{GrSpVa:17}). 
+The bound \cref{eq:Elman} with $\Dmat=\Imat$ was first proved in \cite[Theorem 6.3]{El:82} (see also \cite[Theorem 3.3]{EiElSc:83}) and was written in the above form in \cite[Equation 1.2]{BeGoTy:06}. The bound \cref{eq:Elman} (for arbitrary Hermitian positive-definite $\Dmat$) was stated implicitly (without proof) in \cite[p. 247]{CaWi:92} and proved in \cite[Theorem 5.1]{GrSpVa:17}. % (see also \cite[Remark 5.2]{GrSpVa:17}). 
 
 
 
@@ -924,13 +924,13 @@ The heart of the proof is the equation
 \beq\label{eq:obs1}
 (\Delta + k^2) \big(e^{i k r}\chi(r)\big) =  e^{i k r}\left(i k \frac{d-1}{r} \chi(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
 \eeq
-where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:obs1} is the Helmholtz equation for a circular wave $e^{ikr}$, with the added factor $\chi$ to ensure the function has compact support. Given plane-wave and circular-wave solutions to the Helmholtz equation usually scale optimally in terms of $k$, we expect that \cref{eq:obs1} will be $k$ to proving that \cref{eq:PDEbound} is sharp. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates\ednote{Euan---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....} and observing that $e^{ikr} \chi(r)$ has angular derivatives equal to zero.
+where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:obs1} is the Helmholtz operator applied to a circular wave $e^{ikr}$, with the added factor $\chi$ to ensure the function has compact support. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates\ednote{Both---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....} and observing that $e^{ikr} \chi(r)$ has angular derivatives equal to zero.
 
 Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(D)$ norm of $\widetilde{f}$ and the $\HokD$ norm of $e^{i kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}). Also, recall that the proof of the PDE bound \cref{eq:PDEbound} used the nontrapping resolvent estimate \cref{eq:bound1} applied to $\uso-\ust.$ Therefore we expect that if we set things up so that
 \beq\label{eq:sharpdiff}
 \uso-\ust = e^{ikr}\chi(r),
 \eeq
-because \cref{eq:obs1} shows the sharpness of the resolvent estimate \cref{eq:bound1} we expect that combining \cref{eq:obs1} and \cref{eq:sharpdiff} will show the sharpness of the PDE bound \cref{eq:PDEbound}.
+because \cref{eq:obs1} shows the sharpness of the resolvent estimate \cref{eq:bound1} we expect that combining \cref{eq:obs1} and \cref{eq:sharpdiff} will show the sharpness of the PDE bound \cref{eq:PDEbound}. Moreover, the function $e^{ikr} \chi(r)$ was used to prove the sharpness of resolvent estimates in \cite[Discussion on p. 1445 and Lemma 3.10]{ChMo:08} and \cite[Lemma 4.12]{Sp:14}, and so we can expect it will also be effective for proving sharpness in our setting.
 
 We now set things up so that \cref{eq:sharpdiff} holds. We define $\nso = 1$ and $\nst = \nso + c(k) \chitilde(r),$ for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(D)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \subset D$, and $\NLiDRR{\chitilde} = 1$ (so that $\NLiDRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(D)$ and $\supp \,\chi$ a compact subset of $D$. We will specify $\chitilde$ and $\chi$ in more detail later. Let $\ftilde(r)$ be as defined in \cref{eq:obs1}, and define
 \beq\label{eq:obs3}
@@ -952,7 +952,7 @@ Now observe that by construction
   \mleft(\Delta + k^2\mright) \mleft(\uso-\ust\mright) &= -k^2 \mleft(1-\nst\mright)\ust\\
   &= -k^2 c(k) \chitilde \frac{-1}{k^2 c(k)} \frac{\ftilde}{\chitilde}\\
   &= \ftilde\\
-  &= \mleft(\Delta + k^2 \mright)\mleft(e^{-ikr}\chi(r)\mright).
+  &= \mleft(\Delta + k^2 \mright)\mleft(e^{ikr}\chi(r)\mright).
 \end{align*}
 Therefore, by uniqueness of the solution of \cref{prob:vedp} \beq\label{eq:obs4}
 u^{(1)}(\bx)- u^{(2)}(\bx) = e^{i k r}\chi(r),
@@ -984,16 +984,16 @@ $m >\mtilde+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta 
 
 \bre[Why doesn't \cref{lem:sharp} cover the case $\Aso\neq  \Ast$?]
 When $\nj\de1$, $j=1,2,$, $\Aso\de I$, and $\Ast\de I + c(k)\widetilde{\chi}$, the variational problem \cref{eq:vp1} implies that 
-\beqs%\label{eq:obs2}
+\beq\label{eq:obs2}
 \Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = c(k)\nabla\cdot \big(\widetilde{\chi}\nabla u^{(2)}\big).
-\eeqs
+\eeq
 It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(\bx) - u^{(2)}(\bx)=e^{i kr}\chi(r)$ (so that one can then use \cref{eq:obs1}).
 \ere
 
 %\section{Proof of \cref{lem:2}}
 
 \section{Extension of nearby preconditioning results to weaker norms}\label{sec:weaknorm}
-Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k$ (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the \emph{magnitude}  of the difference between $\nso$ and $\nst$. However, this result does not say anything about the \emph{spatial} variability between $\nso$ and $\nst$. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
+Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the \emph{magnitude}  of the difference between $\nso$ and $\nst$. However, this result does not say anything about the \emph{spatial} variability between $\nso$ and $\nst$. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
 \beq\label{eq:noweak}
 \nso(\bx) =
 \begin{dcases}
@@ -1017,7 +1017,7 @@ We will give numerical results indicating that this best-case result is sharp (o
 
 
 \subsection{Theory in weaker norms}\label{sec:weakertheory}
-Before we prove results analogous to \cref{thm:1} in weaker norms (so that we can conclude results analogous to \cref{cor:1,cor:1a} in weaker norms), we first recap why the terms  $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ appear in \cref{thm:1}. These terms appear in cref{thm:1} because the terms $\NLiDRR{n}$ and $\NLiDRRdtd{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
+Before we prove results analogous to \cref{thm:1} in weaker norms (so that we can conclude results analogous to \cref{cor:1,cor:1a} in weaker norms), we first recap why the terms  $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ appear in \cref{thm:1}. These terms appear in \cref{thm:1} because the terms $\NLiDRR{n}$ and $\NLiDRRdtd{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear in these \lcnamecrefs{lem:keylemma1} because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
 \beq\label{eq:keynbound}
 \NLtD{n\ftilde} \leq \NLiDRR{n}\NLtD{\ftilde}
 \eeq
@@ -1119,7 +1119,7 @@ and
 for all $k\geq k_0$. 
 \end{theorem}
 
-We can now use \cref{thm:1alt} to obtain the following analogues to \cref{cor:1,cor:1a} in weaker norms.
+%We can now use \cref{thm:1alt} to obtain the following analogues to \cref{cor:1,cor:1a} in weaker norms.
 
 \bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1alt}
 Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
