@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
-this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/output05/'
+this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
 noise_level = 0.5
 
@@ -29,15 +29,32 @@ names_list.remove('num_repeats')
 all_csvs_df = utils.csv_list_to_dataframe(csv_list,names_list)
 
 
-def plt_gmres(n_pre_type,noise_master,ks,modifier,filename):
 
-    fig = plt.figure()
+def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename):
+
+    styles = 'ovsd'
     
-    for k in ks:
-        data = all_csvs_df.xs((n_pre_type,noise_master,modifier,k),level=('n_pre_type','noise_master','modifier','k'),drop_level=False)
-        for jj in data.columns:
-            plt.scatter(data.reset_index().loc[0,'k'],data.iloc[0,jj],c='k',marker='.')
+    fig = plt.figure()
 
+    for modifier in modifiers:
+
+        ii = modifiers.index(modifier)
+        
+        for k in ks:
+        
+            data = all_csvs_df.xs((n_pre_type,noise_master,modifier,k),level=('n_pre_type','noise_master','modifier','k'),drop_level=False)
+
+            data = data.to_numpy()
+
+            y_data = np.unique(data)
+
+            x_data = k * np.ones((len(y_data)))
+
+            #print(x_data)
+            #print(y_data)
+                
+            plt.plot(x_data,y_data,'k'+styles[ii])
+                     
     plt.xlabel(r'$k$')
     plt.ylabel('Number of GMRES Iterations')
 
@@ -61,9 +78,20 @@ noise_masters = ['('+str(noise_level)+', 0.0)','(0.0, '+str(noise_level)+')']
 ks = [20.0,40.0,60.0,80.0]#,100.0]
 print('Currently not plotting k=100')
 
-modifierss = [['(0.0, -1.0, 0.0, 0.0)','(0.0, -0.5, 0.0, 0.0)','(0.0, 0.0, 0.0, 0.0)'],['(0.0, 0.0, 0.0, -1.0)','(0.0, 0.0, 0.0, -0.5)','(0.0, 0.0, 0.0, 0.0)']]
+
+
+# Need to sort saving names
+
+modifierss = [['(0.0, 0.0, 0.0, 0.0)', '(0.0, -0.1, 0.0, 0.0)', '(0.0, -0.2, 0.0, 0.0)', '(0.0, -0.3, 0.0, 0.0)', '(0.0, -0.4, 0.0, 0.0)', '(0.0, -0.5, 0.0, 0.0)', '(0.0, -0.6, 0.0, 0.0)', '(0.0, -0.7, 0.0, 0.0)', '(0.0, -0.8, 0.0, 0.0)', '(0.0, -0.9, 0.0, 0.0)', '(0.0, -1.0, 0.0, 0.0)'], ['(0.0, 0.0, 0.0, 0.0)', '(0.0, 0.0, 0.0, -0.1)', '(0.0, 0.0, 0.0, -0.2)', '(0.0, 0.0, 0.0, -0.3)', '(0.0, 0.0, 0.0, -0.4)', '(0.0, 0.0, 0.0, -0.5)', '(0.0, 0.0, 0.0, -0.6)', '(0.0, 0.0, 0.0, -0.7)', '(0.0, 0.0, 0.0, -0.8)', '(0.0, 0.0, 0.0, -0.9)', '(0.0, 0.0, 0.0, -1.0)']]
+
+#modifierss = [['(0.0, -1.0, 0.0, 0.0)','(0.0, -0.5, 0.0, 0.0)','(0.0, 0.0, 0.0, 0.0)'],['(0.0, 0.0, 0.0, -1.0)','(0.0, 0.0, 0.0, -0.5)','(0.0, 0.0, 0.0, 0.0)']]
 
 # ------ An example -------
+
+# Fix me
+
+plot_collection = [[0,4],[4,8],[8,10]]
+
 for ii_An in range(2):
     noise_master = noise_masters[ii_An]
     modifiers = modifierss[ii_An]
@@ -74,9 +102,9 @@ for ii_An in range(2):
         filename += 'A'
     filename += '-'
     
-    for ii in range(len(modifiers)):
+    for ii in range(len(plot_collection)):
         filename_tmp = filename + str(ii)
-        plt_gmres(n_pre_type,noise_master,ks,modifiers[ii],filename_tmp)
+        plt_gmres(n_pre_type,noise_master,ks,modifiers[plot_collection[ii][0]:plot_collection[ii][1]],filename_tmp)
 
                               
 
