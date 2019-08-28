@@ -78,6 +78,9 @@ GMRES.pgf: GMRES.pickle gmres-blow-up-plot.py
 nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
 	python nbpc-qmc-sequential-table.py
 
+lu-graph.pgf: nbpc-qmc-sequential-table.py
+	python nbpc-qmc-sequential-table.py
+
 nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*/*pickle
 	python nbpc-qmc-parallel-table.py
 

@@ -3,6 +3,9 @@ import pandas as pd
 from os import listdir
 from fnmatch import fnmatch
 import fileinput
+from matplotlib import pyplot as plt
+from running_helmholtz_monte_carlo.nbpc_percentage_fit import make_fits
+import numpy as np
 
 #import pdb; pdb.set_trace()
 
@@ -60,5 +63,22 @@ with fileinput.input(files=(table_name),inplace=True) as table:
         else:
             print(line)
 
-            
+# Also plot a graph
 
+[fit_0,fit_1] = make_fits()
+
+plt.plot(k_list,df_master['lu_as_percentage'],'ok',label='_irrelvanet')
+
+plt.plot(k_list,fit_0 + fit_1*np.array(k_list),'--k',label=r'$'+str(fit_0)[:5]+' + '+str(fit_1)[:4]+r'k$')
+
+plt.xlabel(r'$k$')
+
+plt.legend()
+
+plt.ylabel('Number of LU factorisations/Number of QMC points (%)')
+
+plt.xticks([10,20,30])
+
+plt.savefig('lu-graph.pgf')
+
+#plt.show()
