@@ -6,9 +6,9 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
-this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/output02/'
+this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
-noise_level = 0.2
+noise_level = 0.5
 
 csv_list = []
 for filename in listdir(this_directory):
@@ -29,25 +29,73 @@ names_list.remove('num_repeats')
 all_csvs_df = utils.csv_list_to_dataframe(csv_list,names_list)
 
 
-def plt_gmres(n_pre_type,noise_master,ks,modifier,filename):
 
-    fig = plt.figure()
+def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename,things_for_plotting):
+
+    styles = 'ovXdP'
     
-    for k in ks:
-        data = all_csvs_df.xs((n_pre_type,noise_master,modifier,k),level=('n_pre_type','noise_master','modifier','k'),drop_level=False)
-        for jj in data.columns:
-            plt.scatter(data.reset_index().loc[0,'k'],data.iloc[0,jj],c='k')
+    fig = plt.figure()
 
+    for modifier in modifiers:
+
+        ii = modifiers.index(modifier)
+
+        # Define y_data and x_data
+
+        x_data = 'setup'
+
+        y_data = 'setup'
+
+        if things_for_plotting[ii] == 0.0:
+            number = 0
+        elif things_for_plotting[ii] == 1.0:
+            number = 1
+        else:
+            number = things_for_plotting[ii]
+
+        label = r'$\beta = $'+str(number)
+        
+        for k in ks:
+            
+            data = all_csvs_df.xs((n_pre_type,noise_master,modifier,k),level=('n_pre_type','noise_master','modifier','k'),drop_level=False)
+
+            data = data.to_numpy()
+
+            y_data_tmp = np.max(np.unique(data))
+
+            print(y_data_tmp)
+
+            if np.all(y_data == 'setup'):
+                y_data = np.array(y_data_tmp)
+            else:
+                y_data = np.append(y_data,y_data_tmp)
+
+            if np.all(x_data == 'setup'):
+                x_data = np.array(k)
+            else:
+                x_data = np.append(x_data,k)
+
+            #print(x_data)
+            #print(y_data)
+
+        print(x_data)
+
+        print(y_data)
+                
+        plt.plot(x_data,y_data,'k'+styles[ii]+'--',label=label)
+                     
     plt.xlabel(r'$k$')
     plt.ylabel('Number of GMRES Iterations')
 
-    plt.xticks([20,40,60,80,100]) # told by http://stackoverflow.com/questions/12608788/ddg#12608937
+    plt.legend()
+
+    plt.xticks([20,40,60,80])#,100]) # told by http://stackoverflow.com/questions/12608788/ddg#12608937
 
     # Integers only on y axis
     # Found out about this from https://www.scivision.dev/matplotlib-force-integer-labeling-of-axis/
     ax = fig.gca()   
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # Maybe add an argument to MaxNLocator to give the number of intervals on the x axis
-    fig.set_size_inches((3,3))
+    #fig.set_size_inches((5,2.5))
     
     plt.savefig(filename+'.pgf')
 
@@ -58,11 +106,25 @@ n_pre_type = 'constant'
 
 noise_masters = ['('+str(noise_level)+', 0.0)','(0.0, '+str(noise_level)+')']
 
-ks = [20.0,40.0,60.0,80.0,100.0]
+ks = [20.0,40.0,60.0,80.0]#,100.0]
+print('Currently not plotting k=100')
 
-modifierss = [['(0.0, -1.0, 0.0, 0.0)','(0.0, -0.5, 0.0, 0.0)','(0.0, 0.0, 0.0, 0.0)'],['(0.0, 0.0, 0.0, -1.0)','(0.0, 0.0, 0.0, -0.5)','(0.0, 0.0, 0.0, 0.0)']]
+
+
+# Need to sort saving names
+
+modifierss = [['(0.0, 0.0, 0.0, 0.0)', '(0.0, -0.1, 0.0, 0.0)', '(0.0, -0.2, 0.0, 0.0)', '(0.0, -0.3, 0.0, 0.0)', '(0.0, -0.4, 0.0, 0.0)', '(0.0, -0.5, 0.0, 0.0)', '(0.0, -0.6, 0.0, 0.0)', '(0.0, -0.7, 0.0, 0.0)', '(0.0, -0.8, 0.0, 0.0)', '(0.0, -0.9, 0.0, 0.0)', '(0.0, -1.0, 0.0, 0.0)'], ['(0.0, 0.0, 0.0, 0.0)', '(0.0, 0.0, 0.0, -0.1)', '(0.0, 0.0, 0.0, -0.2)', '(0.0, 0.0, 0.0, -0.3)', '(0.0, 0.0, 0.0, -0.4)', '(0.0, 0.0, 0.0, -0.5)', '(0.0, 0.0, 0.0, -0.6)', '(0.0, 0.0, 0.0, -0.7)', '(0.0, 0.0, 0.0, -0.8)', '(0.0, 0.0, 0.0, -0.9)', '(0.0, 0.0, 0.0, -1.0)']]
+
+things_for_plotting = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+
+#modifierss = [['(0.0, -1.0, 0.0, 0.0)','(0.0, -0.5, 0.0, 0.0)','(0.0, 0.0, 0.0, 0.0)'],['(0.0, 0.0, 0.0, -1.0)','(0.0, 0.0, 0.0, -0.5)','(0.0, 0.0, 0.0, 0.0)']]
 
 # ------ An example -------
+
+# Fix me
+
+plot_collection = [[0,4],[4,8],[8,11]]
+
 for ii_An in range(2):
     noise_master = noise_masters[ii_An]
     modifiers = modifierss[ii_An]
@@ -73,9 +135,9 @@ for ii_An in range(2):
         filename += 'A'
     filename += '-'
     
-    for ii in range(len(modifiers)):
+    for ii in range(len(plot_collection)):
         filename_tmp = filename + str(ii)
-        plt_gmres(n_pre_type,noise_master,ks,modifiers[ii],filename_tmp)
+        plt_gmres(n_pre_type,noise_master,ks,modifiers[plot_collection[ii][0]:plot_collection[ii][1]],filename_tmp,things_for_plotting[plot_collection[ii][0]:plot_collection[ii][1]])
 
                               
 

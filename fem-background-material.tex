@@ -1166,7 +1166,17 @@ The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \c
 
 
 \subsection{Main result: new finite-element-error bounds}\label{sec:errbounds}
-As we are using higher-order finite elements (which we assume are of degree $p$), in order to obtain full convergence rates we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations.
+As we are using higher-order finite elements (which we assume are of degree $p$), in order to obtain full convergence rates we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
+
+\bde[Quasi-uniform]\label{def:quasiuniform}
+Let $\set{\cTh}_{h>0}$ be a set of triangulations of $D$ indexed by their mesh size $h.$ For each $S \in \cTh,$ let $\BT$ denote the largest ball contained in $S$.
+If there exists $\rho > 0$ such that 
+\beqs
+\min\set{\diam \BT \st S \in \cT} \geq \rho h,
+\eeqs
+then $\set{\cTh}_{h>0}$ is said to be \defn{quasi-uniform}.
+\ede
+
 \bas[Assumptions for higher-$p$ finite-element method bounds]\label{ass:highp}
 Assume
 \bit

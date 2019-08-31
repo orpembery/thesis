@@ -534,15 +534,15 @@
 \pgfsetstrokecolor{currentstroke}%
 \pgfsetstrokeopacity{0.800000}%
 \pgfsetdash{}{0pt}%
-\pgfpathmoveto{\pgfqpoint{2.317632in}{3.199199in}}%
+\pgfpathmoveto{\pgfqpoint{2.423855in}{3.199199in}}%
 \pgfpathlineto{\pgfqpoint{4.402778in}{3.199199in}}%
 \pgfpathquadraticcurveto{\pgfqpoint{4.430556in}{3.199199in}}{\pgfqpoint{4.430556in}{3.226977in}}%
 \pgfpathlineto{\pgfqpoint{4.430556in}{3.422778in}}%
 \pgfpathquadraticcurveto{\pgfqpoint{4.430556in}{3.450556in}}{\pgfqpoint{4.402778in}{3.450556in}}%
-\pgfpathlineto{\pgfqpoint{2.317632in}{3.450556in}}%
-\pgfpathquadraticcurveto{\pgfqpoint{2.289854in}{3.450556in}}{\pgfqpoint{2.289854in}{3.422778in}}%
-\pgfpathlineto{\pgfqpoint{2.289854in}{3.226977in}}%
-\pgfpathquadraticcurveto{\pgfqpoint{2.289854in}{3.199199in}}{\pgfqpoint{2.317632in}{3.199199in}}%
+\pgfpathlineto{\pgfqpoint{2.423855in}{3.450556in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{2.396077in}{3.450556in}}{\pgfqpoint{2.396077in}{3.422778in}}%
+\pgfpathlineto{\pgfqpoint{2.396077in}{3.226977in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{2.396077in}{3.199199in}}{\pgfqpoint{2.423855in}{3.199199in}}%
 \pgfpathclose%
 \pgfusepath{stroke,fill}%
 \end{pgfscope}%
@@ -553,15 +553,15 @@
 \definecolor{currentstroke}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{currentstroke}%
 \pgfsetdash{{5.550000pt}{2.400000pt}}{0.000000pt}%
-\pgfpathmoveto{\pgfqpoint{2.345410in}{3.338088in}}%
-\pgfpathlineto{\pgfqpoint{2.623187in}{3.338088in}}%
+\pgfpathmoveto{\pgfqpoint{2.451633in}{3.338088in}}%
+\pgfpathlineto{\pgfqpoint{2.729411in}{3.338088in}}%
 \pgfusepath{stroke}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{textcolor}%
 \pgfsetfillcolor{textcolor}%
-\pgftext[x=2.734298in,y=3.289477in,left,base]{\color{textcolor}\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \alpha = 1.3375 - 0.1569\log(k)\)}%
+\pgftext[x=2.840522in,y=3.289477in,left,base]{\color{textcolor}\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \alpha = 1.3375 - 0.1569\mathrm{ln}(k)\)}%
 \end{pgfscope}%
 \end{pgfpicture}%
 \makeatother%

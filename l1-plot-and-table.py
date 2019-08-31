@@ -56,7 +56,7 @@ def make_plot(locs,filename):
 
     fig = plt.figure(frameon=False)
 
-    styles = 'ovsd'
+    styles = 'ovXdP'
 
     for ii_loc in range(len(locs)):
 
