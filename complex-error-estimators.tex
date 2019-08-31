@@ -53,9 +53,9 @@ Let $Y$ be a complex-valued random variable, and $\Yo,\ldots,\YN$ be independent
 
 \bde[Unbiased estimator of the variance of the Monte-Carlo estimator]
 Let $Y$ be a complex-valued random variable, and $\Yhat$ the Monte-Carlo estimator of $\EXP{Y}$. The estimator $\unbiased{\Yhat}{N}$ of $\VAR{\Yhat}$ is
-\beqs
+\beq\label{eq:unbiased}
 \unbiased{\Yhat}{N} \de \frac1{N(N-1)} \sum_{j=1}^N \abs{\Yj - \Yhat}^2.
-\eeqs
+\eeq
 \ede
 
 The factor $1/(N-1)$ in \cref{eq:unbiased} is known as \defn{Bessel's correction}\optodo{Ref}, and ensures the estimator is unbiased, as we now prove.

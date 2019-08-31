@@ -30,7 +30,7 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
  For example, if we calculate the action of $\AmatI$ exactly (say via an $LU$ factorisation) then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}. This relationship between the cost of construction and application is also seen in recent Helmholtz preconditioners such as a sweeping preconditioners and a domain-decompostion preconditioners (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners). For these preconditioners one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition.
 
  \subsection{Outline of the chapter}% Don't know why cleveref didn't work here
-\optodo{Insert outline}
+In \cref{sec:main} we state the main results of this \lcnamecref{chap:nbpc} on the effectiveness of nearby preconditioning, and give their analogues on the PDE level. In \cref{sec:num} we describe numerical experiments investigating the sharpness of the nearby-preconditioning results in \cref{sec:main}. In \cref{sec:3} we prove the results in \cref{sec:main}. In \cref{sec:weaknorm} we extend the results in \cref{sec:main} to hold in weaker spatial norms, and we describe numerical experiments investigating the sharpness of these new results. In \cref{sec:nbpcqmc} we then apply the idea of nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the stochastic Helmholtz equation; in \cref{sec:nbpcqmcnum} we describe two algorithms for applying nearby preconditioning to QMC methods and in \cref{sec:nbpcqmcnumerics} we describe numerical experiments on the effectiveness of nearby preconditioning applied to QMC methods. In \cref{sec:nbpclitreview} we briefly review the related literature. Finally, in \cref{sec:nbpcstochastic}, we show how one can prove probabalistic results about the behaviour of nearby preconditioning, and we describe numerical experiments that investigate these probabalistic results.
 
 \subsection{Statement of the main results}\label{sec:main}
 Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor:1a} gives results in the \emph{Euclidean} norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), whereas \Cref{cor:1} gives results in the \emph{weighted} norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$. These weighted norms are induced by the corresponding vector norms
@@ -46,7 +46,7 @@ where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-
 As described in \cref{sec:wpdisc}, the PDE analysis of the Helmholtz equation naturally takes place in the norm $\NHokD{\cdot}$, and \cref{eq:Dk} shows that the norm $\NDmatk{\cdot}$ is
 the discrete analogue of the norm $\NHokD{\cdot}$. %See \cref{eq:Dk2} and \cref{eq:Dk3} below for this norm expressed in terms of the Euc
 The norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$ recently appeared in results about the convergence of domain-decomposition methods %in this norm are proved 
-for the Helmholtz equation \cite{GrSpVa:17}, \cite{GrSpZo:18}, and for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:19}. 
+for the Helmholtz equation \cite{GrSpVa:17,GrSpZo:18}, and for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:19}. 
 
 \Cref{cor:1,cor:1a} are proved under the \Cref{cond:1nbpc,cond:2} below. These \lcnamecrefs{cond:1nbpc} can be informally stated as 
 \bit
@@ -62,7 +62,7 @@ is uniformly accurate as $k\tendi$.
 
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, and $h$ and $p$ satisfy \cref{cond:2} below. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
+Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
@@ -83,7 +83,7 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} below.
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, and $h$ and $p$ satisfy \cref{cond:2} below. Given $k_0>0$,
+Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$,
 let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{\pm}$ and $m_{\pm}$ be as in \cref{lem:normequiv} below (note that all these constants are independent of $k$, $h$, and $p$). Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
@@ -195,14 +195,14 @@ It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a s
 
 \section{Numerical experiments investigating the sharpness of \cref{thm:1} and \cref{cor:1}}\label{sec:num}
 
-\Cref{thm:1,cor:1} were stated for the exterior Dirichlet problem, but, as highlighted in \cref{sec:problem} and shown in \cref{sec:TEDP}, they hold also for the truncated exterior Dirichlet problem (TEDP) \cref{prob:vtedp}. The numerical experiments in this section seek to verify the analogues of \cref{thm:1} and \cref{cor:1} for the TEDP, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
+The numerical experiments in this section seek to verify the analogues of \cref{thm:1,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
 \ben
 \item sufficient, and
 \item necessary
   \een
   for \emph{standard} GMRES applied to \cref{eq:pcsystem1} to converge in a number of iterations that is independent of $k.$
 
-Based on the PDE results \cref{thm:2,lem:sharp} above, we expect that the condition \cref{eq:sufficientlysmall} is a necessary and sufficient condition for standard GMRES applied to \cref{eq:pcsystem1} to converge in a $k$-independent number of iterations, even though we can only prove this is a sufficient condition for \emph{weighted} GMRES. We expect this because \cref{eq:sufficientlysmall} is a sufficient condition for \cref{it:nbpcq2}, the PDE analogue of \cref{it:nbpcq1}. Indeed, this is exactly the behaviour we observe in numerical experiments; we see that if \cref{eq:sufficientlysmall} holds, then standard GMRES applied to \cref{eq:pcystem1} converges in a $k$-independent number of iterations, and moreover , \cref{eq:sufficientlysmall} appears to be sharp. We now describe our numerical experiments in more detail.
+Based on the PDE results \cref{thm:2,lem:sharp} above, we expect that the condition \cref{eq:sufficientlysmall} is a necessary and sufficient condition for standard GMRES applied to \cref{eq:pcsystem1} to converge in a $k$-independent number of iterations, even though we can only prove this is a sufficient condition for \emph{weighted} GMRES. We expect this because \cref{eq:sufficientlysmall} is a sufficient condition for \cref{it:nbpcq2}, the PDE analogue of \cref{it:nbpcq1}. Indeed, this is exactly the behaviour we observe in numerical experiments; we see that if \cref{eq:sufficientlysmall} holds, then standard GMRES applied to \cref{eq:pcsystem1} converges in a $k$-independent number of iterations, and moreover, \cref{eq:sufficientlysmall} appears to be sharp. We now describe our numerical experiments in more detail.
 
 To verify this expected behaviour, we perform numerical experiments for the setup described in \cref{app:compsetup} with $\Aso = I$ and $\nso = 1$. We define $f$ and $\gI$ to correspond to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$. We perform experiments for $A$ and $n$ separately, i.e., first we perform experiments with $\Ast=I$ and $\nst$ varying, and then we perform experiments with $\Ast$ varying and $\nst=1.$
 
@@ -375,9 +375,9 @@ Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form,
 
 \noi It is then straightforward to check that
 \beq\label{eq:A*}
-\Amat^* \de \Smat_A -k^2 \Mmat_n - \Nmat^*
+\Amat^\dagger \de \Smat_A -k^2 \Mmat_n - \Nmat^\dagger
 \eeq
-(where $^*$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^*)_{ij} = \aGs(\phi_j, \phi_i)$.
+(where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
 
 \ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
 If $\LE$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem,
@@ -445,7 +445,7 @@ Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\
 \eeq
 where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
 
-(ii) Given $k_0>0$, $h$ and $p$ are such that, given $\LG\in \HozDDs$, the solution $u_h$ of the Galerkin method \cref{eq:fevgen} 
+(ii) Given $k_0>0$, $h$ and $p$ are such that, given $\LG\in \HozDDs$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} 
 with $\aG = \aGo$
 exists, and is unique for all $k\geq k_0$.
 %(so that the matrix $\Amato$ is invertible). 
@@ -625,12 +625,12 @@ To prove the bound on $\|\Mmat_n(\Amato)^{-1}\|_{(\Dmat_k)^{-1}}$ in \cref{eq:ke
 \big\|\vvec\|_{(\Dmat_k)^{-1}}
 } = 
 \frac{
-\big\|\matrixC^* \wvec \big\|_{\Dmat_k}
+\big\|\matrixC^\dagger \wvec \big\|_{\Dmat_k}
 }{
 \big\|\wvec\|_{\Dmat_k}
 }
 \eeq
-where $\wvec \de (\Dmat_k)^{1/2}\vvec$, and where $\matrixC^*$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
+where $\wvec \de (\Dmat_k)^{1/2}\vvec$, and where $\matrixC^\dagger$ is the conjugate transpose of $\matrixC$ (i.e.~the adjoint with respect to $(\cdot,\cdot)_2$).
 Therefore, since $\Mmat_n$ is a real, symmetric matrix,
 \beqs
 \frac{
@@ -639,20 +639,20 @@ Therefore, since $\Mmat_n$ is a real, symmetric matrix,
 \N{\vvec}_{(\Dmat_k)^{-1}}
 }
 =
-\frac{\NDk{\mleft(\AmatoI\Mmatn\mright)^* \wvec}}{\NDk{\wvec}}
+\frac{\NDk{\mleft(\AmatoI\Mmatn\mright)^\dagger \wvec}}{\NDk{\wvec}}
 = 
 \frac{
-\big\|((\Amato)^*)^{-1}\Mmat_n\wvec\big\|_{\Dmat_k}
+\big\|((\Amato)^\dagger)^{-1}\Mmat_n\wvec\big\|_{\Dmat_k}
 }{
 \N{\wvec}_{\Dmat_k}
 },
  \eeqs
  so that 
 \beq\label{eq:A380} 
- \big\|\Mmat_n (\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}=\big\|((\Amato)^*)^{-1}\Mmat_n\big\|_{\Dmat_k}.
+ \big\|\Mmat_n (\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}=\big\|((\Amato)^\dagger)^{-1}\Mmat_n\big\|_{\Dmat_k}.
  \eeq 
-Recall from the text below \cref{eq:A*} that $(\Amato)^*$ is the Galerkin matrix corresponding to the variational problem \cref{eq:adjoint1} -- the adjoint problem. \cref{lem:adjoint} implies that if the EDP %with coefficients $A^{(1)}$ and $n^{(1)}$ 
-satisfies \cref{cond:1nbpc,cond:2}, then so does the adjoint problem. Therefore, the argument above leading to the bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ under \cref{cond:1nbpc} and Part (i) of \cref{cond:2} proves the same bound on $\|((\Amato)^*)^{-1}\Mmat_n\|_{\Dmat_k}$, and then, using \cref{eq:A380}, also on $\big\|\Mmat_n(\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}$.
+Recall from the text below \cref{eq:A*} that $(\Amato)^\dagger$ is the Galerkin matrix corresponding to the variational problem \cref{eq:adjoint1} -- the adjoint problem. \cref{lem:adjoint} implies that if the EDP %with coefficients $A^{(1)}$ and $n^{(1)}$ 
+satisfies \cref{cond:1nbpc,cond:2}, then so does the adjoint problem. Therefore, the argument above leading to the bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ under \cref{cond:1nbpc} and Part (i) of \cref{cond:2} proves the same bound on $\|((\Amato)^\dagger)^{-1}\Mmat_n\|_{\Dmat_k}$, and then, using \cref{eq:A380}, also on $\big\|\Mmat_n(\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}$.
 
 To prove the bound on  $\|(\Amato)^{-1}\Mmat_n\|_{2}$ in \cref{eq:keybound1a}, we use the bounds 
 \beqs
@@ -661,14 +661,14 @@ m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{\LtD} \leq \N{\widetilde{u}
 \big\|\widetilde{f}\big\|_{\LtD} \leq m_+ h^{d/2}\N{\fvec}_2,
 \eeqs
 on either side of the inequality \cref{eq:mainevent1}, with these bounds coming from \cref{eq:normequiv1}. The proof of the bound on 
-$\|\Mmat_n((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound1a} follows in a similar way to above, using the fact that 
-$\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^*)^{-1}\Mmat_n\|_2$ (compare to \cref{eq:A380}).
+$\|\Mmat_n((\Amato)^\dagger)^{-1}\|_{2}$ in \cref{eq:keybound1a} follows in a similar way to above, using the fact that 
+$\|\Mmat_n (\Amato)^{-1}\|_2=\|((\Amato)^\dagger)^{-1}\Mmat_n\|_2$ (compare to \cref{eq:A380}).
 %, namely the variational problem \cref{eq:EDPvar} with the operator $T_R$ in $a^{(1)}(\cdot,\cdot)$ replaced by $\overline{T_R}$ (corresponding to the $-\ri k$ in the radiation condition \cref{eq:src} being changed to $+i k$).
 %
 %Now, if $u$ is the solution of the adjoint problem with data $\LE(v)$, then $\overline{u}$ is the solution of the original problem with data $\overline{\LE(\overline{v})}$; 
 %
 %in particular if $\LE(v)$ is as in \cref{eq:EDPa}, then the $L^2$ data of the adjoint problem is just $\overline{f}$. Therefore, if the EDP satisfies \cref{cond:1nbpc,cond:2}, then so does its adjoint, and
-% the bound in \cref{eq:keybound1} on $\|(\Amato)^{-1}\Mmat_n\|_{2}$ also holds for $\|((\Amato)^*)^{-1}\Mmat_n\|_{2}$.
+% the bound in \cref{eq:keybound1} on $\|(\Amato)^{-1}\Mmat_n\|_{2}$ also holds for $\|((\Amato)^\dagger)^{-1}\Mmat_n\|_{2}$.
 \epf
 
 The proof of \cref{lem:keylemma2} uses the following \lcnamecref{lem:H1}, which one can prove using the G\aa rding inequality \cref{eq:gardingbrief}; see \cite[Lemma 5.1]{GrPeSp:19}.
@@ -682,7 +682,7 @@ a^{(1)}(\widetilde{u},v)=\widetilde{\LE}(v) \,\, \tfa v\in H^1_{0,D}(D).
 \eeqs
 If \cref{cond:1nbpc} holds, then $\widetilde{u}$ exists, is unique, and satisfies the bound
 \beq\label{eq:bound2}
-\N{\widetilde{u}}_{\HokD} \leq \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right) \big\|\widetilde{\LE}\big\|_{(\HokD)'}
+\N{\widetilde{u}}_{\HokD} \leq \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right) \big\|\widetilde{\LE}\big\|_{(\HokD)^*}
 \eeq
 for all $k\geq k_0$.
 \ele
@@ -696,9 +696,9 @@ a^{(1)}(\widetilde{u},v)= \widetilde{\LE}(v) \quad\text{ for all } v\in H^1(\Ome
 \quad\text{ where } \quad
  \widetilde{\LE}(v) \de(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
 \eeq
-Observe that the definition of the norms $\|\cdot\|_{(\HokD)'}$ \cref{eq:dualnorm} and $\|\cdot\|_{\HokD}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
+Observe that the definition of the norms $\|\cdot\|_{(\HokD)^*}$ and $\|\cdot\|_{\HokD}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
 \begin{align}
-\big\| \widetilde{\LE}\big\|_{(\HokD)'}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtD}\nonumber\\
+\big\| \widetilde{\LE}\big\|_{(\HokD)^*}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtD}\nonumber\\
 &\leq \NLiDRRdtd{A} \big\|\nabla \widetilde{f}\big\|_{\LtD}\label{eq:Fbounda}\\
 &\leq \NLiDRRdtd{A} \big\| \widetilde{f}\big\|_{\HokD}.\label{eq:Fbound}
 \end{align}
@@ -720,7 +720,7 @@ we find
 \N{\tu-\tu_h}_{\HokD} + \N{\tu}_{\HokD},\nonumber \\ \nonumber
 & \leq \left[ C^{(1)}_{\rm FEM2} k + 
 \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax k  \right) 
-\right]\big\|\widetilde{\LE}\big\|_{(\HokD)'},\\
+\right]\big\|\widetilde{\LE}\big\|_{(\HokD)^*},\\
 &\leq C_1 \, k\, 
 %\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) \right]
 \NLiDRRdtd{A} \big\|\nabla\widetilde{f}\big\|_{\LtD},\label{eq:mainevent2}\\
@@ -737,15 +737,15 @@ The bound on $\|\Smat_A(\Amato)^{-1}\|_{(\Dmat_k)^{-1}}$ follows in a similar wa
 bound on  $\|(\Amato)^{-1}\Mmat_n\|_{(\Dmat_k)^{-1}}$ from the bound on $\|\Mmat_n(\Amato)^{-1}\|_{\Dmat_k}$ in Part (i). Indeed, 
 \cref{eq:A380-0} and the fact that $\Smat_A$ is a real, symmetric matrix imply that 
 \beq\label{eq:A380-2} 
- \big\|\Smat_A (\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}=\big\|\big((\Amato)^*\big)^{-1}\Smat_A\big\|_{\Dmat_k}
+ \big\|\Smat_A (\Amato)^{-1}\big\|_{(\Dmat_k)^{-1}}=\big\|\big((\Amato)^\dagger\big)^{-1}\Smat_A\big\|_{\Dmat_k}
  \eeq 
 %since 
 %\beqs
-%\big\|\Smat_A(\Amato)^{-1}\big\|_{2}=\big\|(\Smat_A(\Amato)^{-1})^*\big\|_{2}=\big\|((\Amato)^*)^{-1}\Smat_A\big\|_{2},
+%\big\|\Smat_A(\Amato)^{-1}\big\|_{2}=\big\|(\Smat_A(\Amato)^{-1})^\dagger\big\|_{2}=\big\|((\Amato)^\dagger)^{-1}\Smat_A\big\|_{2},
 %\eeqs
 (c.f. \cref{eq:A380}),
 and then the arguments in the proof of part (i) imply that 
-the bound in \cref{eq:keybound2} on $\|(\Amato)^{-1}\Smat_A\|_{\Dmat_k}$ also holds for $\|((\Amato)^*)^{-1}\Smat_A\|_{\Dmat_k}$.
+the bound in \cref{eq:keybound2} on $\|(\Amato)^{-1}\Smat_A\|_{\Dmat_k}$ also holds for $\|((\Amato)^\dagger)^{-1}\Smat_A\|_{\Dmat_k}$.
 
 To prove the bound on  $\|(\Amato)^{-1}\Smat_A\|_{2}$ in \cref{eq:keybound2a}, we use the bounds 
 \beqs
@@ -754,7 +754,7 @@ m_- h^{d/2} k \N{\tbu}_2 \leq k \N{\widetilde{u}_h}_{\LtD} \leq \N{\widetilde{u}
 \big\|\nabla \widetilde{f}\big\|_{\LtD} \leq s_+ h^{d/2-1}\N{\fvec}_2,
 \eeqs
 on either side of the inequality \cref{eq:mainevent2}, with these bounds coming from \cref{eq:normequiv1}.and \cref{eq:normequiv2} respectively. The proof of the bound on 
-$\|\Smat_A((\Amato)^*)^{-1}\|_{2}$ in \cref{eq:keybound2a} follows in a similar way to above, using \cref{eq:Fbound}.
+$\|\Smat_A((\Amato)^\dagger)^{-1}\|_{2}$ in \cref{eq:keybound2a} follows in a similar way to above, using \cref{eq:Fbound}.
 \epf
 
 \bre[Link to the results of \cite{GaGrSp:15}]
@@ -884,9 +884,9 @@ Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_
 &\leq\max\Big\{\NLiDRRdtd{\Aso-\Ast}\,,\, \NLiDRR{\nso-\nst}\Big\}
 \big\| u^{(2)}\big\|_{\HokD} \N{v}_{\HokD}
 \end{align*}
-(by Cauchy--Schwarz in $\RR^2$). Therefore, by the definition of the norm $\|\cdot\|_{(\HokD)'}$ \cref{eq:dualnorm},
+(by Cauchy--Schwarz in $\RR^2$). Therefore, by the definition of the norm $\|\cdot\|_{(\HokD)^*}$
 \beqs
-\big\|\widetilde{\LE}\big\|_{(\HokD)'}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(D)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(D)}\Big\}
+\big\|\widetilde{\LE}\big\|_{(\HokD)^*}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(D)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(D)}\Big\}
 \big\| u^{(2)}\big\|_{\HokD}.
 \eeqs
 Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
@@ -1636,7 +1636,7 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:
 
 %% \paragraph{The adjoint sesquilinear form.} For the TEDP, the adjoint sesquilinear form is given by 
 %% \beq\label{eq:TEDPadjoint}
-%% a^*(u,v) \de \int_{D} 
+%% a^\dagger(u,v) \de \int_{D} 
 %% \Big((A \grad u)\cdot\grad \vb
 %%  - k^2 n u\vb\Big) +i k\int_{\Gamma_I} \gamma u\, \overline{\gamma v};
 %% \eeq
@@ -1779,7 +1779,7 @@ to converge to within a tolerance $\eps,$ i.e., to achieve
 If we apply \cref{cor:1a} to the \cref{eq:stopc} we can straightforwardly conclude the following \lcnamecref{cor:stonbpcas}
 
 \bco[Almost-sure nearby preconditioning]\label{cor:stonbpcas}
-Let $0 < \eps < 1,$ $\nst:\Omega \rightarrow \LiDRR$ satisfy the assumptions at the start of \cref{sec:hh-results}, $\no, \,\Dm,$ and $f$ be as in \cref{sec:problem}, and let the assumptions of \cref{cor:1a} hold. Then $\GMRES{\eps}{\nso}{\nst}$ is bounded independently of $k$ almost surely if
+Let $0 < \eps < 1,$ $\nst:\Omega \rightarrow \LiDRR$ satisfy the assumptions at the start of \cref{sec:hh-results}, $\no, \,\Dm,$ and $f$ be as in \cref{prob:vgen}, and let the assumptions of \cref{cor:1a} hold. Then $\GMRES{\eps}{\nso}{\nst}$ is bounded independently of $k$ almost surely if
 \beq\label{eq:nbpcas}
 \NLiDRR{\nso-\nst(\omega)} \leq \frac1{2\Ct k}
 \eeq
@@ -1807,7 +1807,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
     \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely.% \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRR{\nso-\nst(\omega)}.$
     \ere
 
-    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probgmres}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this is that the Elman estimate \cref{cor:GMRES_intro} above (when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information of how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed}). In summary, current results on GMRES convergence will only allow us to prove very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probgmres} below.
+    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this is that the Elman estimate \cref{cor:GMRES_intro} above (when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information of how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed}). In summary, current results on GMRES convergence will only allow us to prove very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
 
 
 
@@ -1828,7 +1828,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
 %% One can show via elementary calculus that for $\alpha < 1$ $\Gfnname$ achieves its maximum when $\alpha = 1/3$ (assuming that for $\alpha < 1$ the expression involving $\alpha$ in \cref{eq:gdef} is always  at most $N$). Also observe that $\Gfnname$ over the range $\alpha  \in (0,1)$ only depends on $k$ through the dependence of $\alpha$ on $k.$ Therefore, the maximum of $\Gfnname$ over $\alpha \in (0,1)$ is independent of $k.$ Let $\Gfnmaxlo$ denote the value of this maximum. Then, for any $R \in \mleft(\Gfnmaxlo,N\mright)$, the estimate $\PP\mleft(\Gfn{\nso-\nst} \leq R\mright)$ is equal to $\PP\mleft(\alpha<1\mright) = \PP\mleft(\NLiDRR{\nso-\nst} < 1/\mleft(\Ct k\mright)\mright),$ i.e., the lower-bound in \cref{eq:GMRESprob} is \emph{independent} of $R$, for $R \in \mleft(\Gfnmaxlo,N\mright)$  This is almost certainly not sharp - we would expect $\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright)$ to increase with $R$. However, because the only rigorous result we have available if $\alpha \geq 1$ is \cref{cor:gmresguaranteed}, we cannot prove a better bound.
 %% \ere
 
-\subsection{Numerical probabailistic results for nearby preconditioning}\label{sec:qualgmres}
+\subsection{Numerical probabalistic results for nearby preconditioning}\label{sec:qualgmres}
 
 Notwithstanding the fact that we are limited in the probabilistic results we can \emph{prove} about nearby preconditioning, we will now see that we observe reasonable probabailistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A sensible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of ther order $1/k$. We can expect this result as the standard deviation of a random variable has the same units as the random variable itself, and therefore it is reasonable to assume that the same scaling as in \cref{cor:stonbpcas} will give a bounded average number of GMREs iterations. Will we see exactly this behaviour in our numerical experiments.
 
