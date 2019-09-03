@@ -144,38 +144,7 @@ as required.
 
 \section{Multi-level Monte-Carlo}
 
-
-TO HERE
-
-Let $\OFP$ be a probability space, and let $Q$ be a random variable\footnote{One can think of $Q$ as being $Q(u),$ where $u$ is the solution of some stochastic PDE.} on $\OFP$ such that $\EXP{Q} < \infty.$ We will refer to $Q$ as the \defn{quantity of interest} or QoI. In order to define the multi-level Monte Carlo (MLMC) method for estimating $\EXP{Q},$ we must also define the following quantities, following  \cite[Theorem 1]{ClGiScTe:11}. We assume there exist
-\bit
-\item A set of levels\footnote{One can think of $\hl$ as the mesh size associated with level $l$.} $\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =\frac{\hlmo}s$ for $l \geq 1.$
-\item A set of random variables (that may or may not exist)\footnote{One can think of $\Qhtilde$ as $Q(\uh),$ where $\uhl$ is the finite-element solution of the PDE with mesh size $h  $.} $\set{\Qhtilde}_{h \in (0,1)}.$
-  \eit
-
-We denote the random variables $\Qhtilde,$ in order to simplify the notation for mesh dependence in what follows.
-
-In order to do things for the Helmholtz equation, we use the following assumption:
-
-%% \bas[Mesh conditions for existence and uniqueness]
-%% There exists a measurable function $\Cmesh:\Omega\rightarrow \RRp$ and a function $\mesh:\RRp\rightarrow \RRp$ such that $\Qhtilde(\omega)$ exists (and satisfies the error bounds etc. below) if
-%% \beqs
-%% h \leq \Cmesh(\omega)\mesh(k).
-%% \eeqs
-%% Note that $\mesh(k)\rightarrow 0$ as $k\rightarrow \infty.$
-%% \eas
-
-
-Observe that for a given $k, \omega$ there is no guarantee that $\Qhtilde(\omega)$ exists. Therefore, we follow [Graham, Parkinson, Scheichl] and 
-That is, the random variable $\Qh$ is (thinking about things in terms of PDEs etc.) the QoI evaluated at the numerical solution, where that solution is taken on a mesh that is the finer of $h$ and $\hmaxomega$. This guarantees the QoI exists, and the error bounds below hold.
-
-%% \bre[What is $\mesh(k)$?]
-%% If nontrapping, $\mesh(k)=k^{-3/2}$. If trapping, more stringent, nothing proved in literature, but would expect to be similar to results for contant wavespeed.
-%% \ere
-
-With this setup in place, we define the following quantities.
-
-We define the correction operators\optodo{You may be able to save some time computing these - if both $\hl$ and $\hlmo$ are larger that $\hmaxomega$, then the difference between them is zero.} between the levels by $\Yl \de \Qhl - \Qhlmo, l \geq 1,$ $\Yz = \Qhz.$ We let $\Ylhat$ be an unbiased estimator of $\Yl$, i.e., $\EXP{\Ylhat} = \EXP{\Yl}.$ In what follows $\Ylhat$ will be the Monte Carlo estimator
+We define a set of levels$\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =\frac{\hlmo}s$ for $l \geq 1$. We then define the correction operators between the levels by $\Yl \de \Qhltilde - \Qhlmotilde, l \geq 1,$ $\Yz = \Qhztilde.$ We let $\Ylhat$ be the Monte-Carlo estimator of $\Yl$,
  \beqs
 \Ylhat \de \frac1{\Nl}\sum_{i=1}^{\Nl} \Yli,
  \eeqs
@@ -185,9 +154,9 @@ We define the correction operators\optodo{You may be able to save some time comp
  \eeqs
  where the $\Ylhat$ are independent.
 
-  The following assumptions
-  % \lcnamecrefs{ass:coarse}
-   will form the backbone of our analysis. They are a generalisation of the assumptions contained in \cite{ClGiScTe:11,ChScTe:13} for the MLMC method, the generalisation being that we assume that the quantities below depend not only on the levels $\hl$ but also on some additional parameter $k>1.$ When this theory is applied to the Helmholtz equation, $k$ will be the wavenumber of the Helmholtz equation.
+  %% The following assumptions
+  %% % \lcnamecrefs{ass:coarse}
+  %%  will form the backbone of our analysis. They are a generalisation of the assumptions contained in \cite{ClGiScTe:11,ChScTe:13} for the MLMC method, the generalisation being that we assume that the quantities below depend not only on the levels $\hl$ but also on some additional parameter $k>1.$ When this theory is applied to the Helmholtz equation, $k$ will be the wavenumber of the Helmholtz equation.
 
 %% The following assumption (which will be realised in a more concrete setting for the Helmholtz equation) concerns the existence of the approximating QoIs $\Qhl.$
 
@@ -211,7 +180,7 @@ In order to obtain a nice expression for the cost of computing one sample of $\Q
 \bas[Dependence of coarse space on $k$]\label{ass:coarse}
 We let
 \beqs
-\hz = \Ccoarse \mesh(k).
+\hz = \Ccoarse k^{-a}.
 \eeqs
 for some chosen constant $\Ccoarse > 0.$
 \eas
@@ -231,51 +200,51 @@ for some chosen constant $\Ccoarse > 0.$
 
 
 
-\subsection{Lemma}
+%% \subsection{Lemma}
 
-The proof of the main \lcnamecref{thm:mlmccomp} will require the following \lcnamecref{lem:sumbound}.
+%% The proof of the main \lcnamecref{thm:mlmccomp} will require the following \lcnamecref{lem:sumbound}.
 
-\ble\label{lem:sumbound}
-If $L$ is given by
-\beq\label{eq:Ldef}
-L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright)},
-\eeq
-then, for $s>1$ and $\delta \in \RR,$ we have the bound
-\beq\label{eq:sumbound}
-\sum_{l=0}^{L} s^{\delta l} \leq
-\begin{cases}
-L+1 & \tif \delta = 0,\\
-\frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}s^{\delta}}{1-s^{-\delta}}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha} &\tif \delta >0\\
-\frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha}&\tif \delta < 0
-\end{cases}
-\eeq
-\ele
+%% \ble\label{lem:sumbound}
+%% If $L$ is given by
+%% \beq\label{eq:Ldef}
+%% L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright)},
+%% \eeq
+%% then, for $s>1$ and $\delta \in \RR,$ we have the bound
+%% \beq\label{eq:sumbound}
+%% \sum_{l=0}^{L} s^{\delta l} \leq
+%% \begin{cases}
+%% L+1 & \tif \delta = 0,\\
+%% \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}s^{\delta}}{1-s^{-\delta}}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha} &\tif \delta >0\\
+%% \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha}&\tif \delta < 0
+%% \end{cases}
+%% \eeq
+%% \ele
 
-\bpf[Proof of \cref{lem:sumbound}]
-The proof follows that in \cite{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldef}, it follows that
-\beq\label{eq:Lbounds}
-\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright) \leq L < \frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright) + 1.
-\eeq
-Rearranging \eqref{eq:Lbounds}, we obtain the bounds
-\beq\label{eq:saLbounds}
-\sqrt{2}\co \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha\eps^{-1} \leq s^{\alpha L} < \sqrt{2}\co \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha\eps^{-1}s^\alpha.
-\eeq
-If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLbounds} to obtain
-\beq\label{eq:sdLpos}
-s^{\delta L} < \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Cppw^{\delta}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha}s^{\delta},
-\eeq
-and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLbounds} to obtain
-\beq\label{eq:sdLneg}
-s^{\delta L} \leq \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Cppw^{\delta}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha}.
-\eeq
-We now observe that, for $\delta \neq 0,$
-\begin{align}
-\sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
-&= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
-&\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumbound}
-\end{align}
-since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumbound} with \eqref{eq:sdLpos} and \eqref{eq:sdLneg}, we obtain \eqref{eq:sumbound} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
-\epf
+%% \bpf[Proof of \cref{lem:sumbound}]
+%% The proof follows that in \cite{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldef}, it follows that
+%% \beq\label{eq:Lbounds}
+%% \frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright) \leq L < \frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright) + 1.
+%% \eeq
+%% Rearranging \eqref{eq:Lbounds}, we obtain the bounds
+%% \beq\label{eq:saLbounds}
+%% \sqrt{2}\co \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha\eps^{-1} \leq s^{\alpha L} < \sqrt{2}\co \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha\eps^{-1}s^\alpha.
+%% \eeq
+%% If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLbounds} to obtain
+%% \beq\label{eq:sdLpos}
+%% s^{\delta L} < \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Cppw^{\delta}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha}s^{\delta},
+%% \eeq
+%% and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLbounds} to obtain
+%% \beq\label{eq:sdLneg}
+%% s^{\delta L} \leq \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Cppw^{\delta}k^{\frac{\delta\sigma}{\alpha}}\mesh(k)^\delta\eps^{-\frac\delta\alpha}.
+%% \eeq
+%% We now observe that, for $\delta \neq 0,$
+%% \begin{align}
+%% \sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
+%% &= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
+%% &\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumbound}
+%% \end{align}
+%% since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumbound} with \eqref{eq:sdLpos} and \eqref{eq:sdLneg}, we obtain \eqref{eq:sumbound} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
+%% \epf
 
 
 The following theorem describes the computational effort needed to obtain RMSE $\leq \eps$. It is exactly the same as \cite[Theorem 1]{ClGiScTe:11}, but with the dependence on all the parameters explicit.%, and with some additional cases enumerated. %\Cref{thm:mlmccomp} contains more cases than in \cite[Theorem 1]{ClGiScTe:11} because \cite[Theorem 1]{ClGiScTe:11} makes the assumption throughout that $\alpha \geq 1/2\min\set{\beta,\gamma}.$ This assumption does not always hold for the Helmholtz equation (see the cases of a direct solver in 3-D below), however, examining the proof of \cite[Theorem 1]{ClGiScTe:11}  shows that in any given case, one only needs the assumption $\alpha \geq \beta/2$ or the assumption $\alpha \geq \gamma2$, never both at the same time. Therefore, for convenience, we explicitly state when these conditions are needed, and for completeness, we give the results when these conditions are violated. 
@@ -301,7 +270,7 @@ $\cC \de \EXP{\Cost{\QhatMLhL}}$
 \eeqs
 and
 \beqs
-k^\sigma \mesh(k)^\alpha \geq 1.
+k^\sigma k^{-a\alpha} \geq 1.
 \eeqs
 \eas
 
@@ -318,7 +287,7 @@ and the number of samples on each computational level is given by
 then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ satisfies the bounds
  
  \begin{numcases}{ \CMLhL(\eps) \lesssim}
-k^\tau \mleft(\log\mleft(\frac{k^\sigma \mesh(k)^\alpha}\eps\mright)\mright)^2 \eps^{-2} + k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
+k^\tau \mleft(\log\mleft(\frac{k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2 \eps^{-2} + k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
 k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & otherwise.\label{eq:mlmchhoth}
 \end{numcases}
  \enth
@@ -338,7 +307,7 @@ that is, \eqref{eq:hLcond}. As $\hL = \hz s^{-L},$ it follows from \eqref{eq:hLc
 \beq\label{eq:Lcondpart}
 L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co k^\sigma \hz^\alpha \eps^{-1}\mright)}.
 \eeq
-As $\hz = \Ccoarse \mesh(k),$ we can simplify \eqref{eq:Lcondpart} to obtain \eqref{eq:Ldef}.
+As $\hz = \Ccoarse k^{-a},$ we can simplify \eqref{eq:Lcondpart} to obtain \eqref{eq:Ldef}.
 % \beqs
 % L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
 % \eeqs
@@ -348,7 +317,7 @@ We now seek to bound the variance. One can show the variance $V = \sum_{l=0}^L \
 \cC &= \EXP{\Cost{\QhatMLhL}}\nonumber\\
 &\leq \sum_{l=0}^L \EXP{\Cost{\Ylhat}}\text{less equal as could save if you've had to over-refine on both levels in $\Ylhat$ - difference will be zero}\nonumber\\
 &= \sum_{l=0}^L \sum_{i=1}^{\Nl} \EXP{\Cost{\Yli}}\nonumber\\
-&\leq \sum_{l=0}^L \sum_{i=0}^{\Nl} \mleft(\EXP{\Cost{\Qhl}} + \EXP{\Cost{\Qhlmo}}\mright)\nonumber\\
+&\leq \sum_{l=0}^L \sum_{i=0}^{\Nl} \mleft(\EXP{\Cost{\Qhltilde}} + \EXP{\Cost{\Qhlmotilde}}\mright)\nonumber\\
 &\leq \sum_{l=0}^L \Nl \mleft(\cth \hl^{-\gamma} + \cth \hlmo^{-\gamma}\mright)\nonumber\\
 &=\sum_{l=0}^L \Nl\mleft(1+s^{-\gamma}\mright) \cth \hl^{-\gamma}\nonumber\\
 &= \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \Nl\Cl\label{eq:Cboundformin}
@@ -373,7 +342,7 @@ The computational complexity $\cC$ is given by
 
 Using \cref{lem:sumbound}, the second term in \eqref{eq:complexitymidway} can be bounded (as $\gamma > 0$) by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
 \beq\label{eq:firstterm}
-\frac{\mleft(1+s^{-\gamma}\mright) \cth \hz^{-\gamma} \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} \mesh(k)^\gamma \eps^{-\frac\gamma\alpha}
+\frac{\mleft(1+s^{-\gamma}\mright) \cth \hz^{-\gamma} \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} k^{-a\gamma} \eps^{-\frac\gamma\alpha}
 = \frac{\mleft(1+s^{-\gamma}\mright)\cth \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}
 \eeq
 
@@ -382,20 +351,20 @@ To bound the sum in the first part of \eqref{eq:complexitymidway}, we must disti
 
 If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (using \cref{lem:sumbound})
 \beq
-2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma \mesh(k)^\alpha}\eps\mright)+2\mright)^2,
+2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright)+2\mright)^2,
 \label{eq:gammaequal}
 \eeq
-by \eqref{eq:Ldef}. We wish to simplify \eqref{eq:gammaequal}, so that it is of the form $\mathrm{Constant} \times \text{Terms involving } \eps \text{ and } k.$ To achieve this simplification, we use \cref{ass:epsk}. As $k^\sigma \mesh(k)^\alpha \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
+by \eqref{eq:Ldef}. We wish to simplify \eqref{eq:gammaequal}, so that it is of the form $\mathrm{Constant} \times \text{Terms involving } \eps \text{ and } k.$ To achieve this simplification, we use \cref{ass:epsk}. As $k^\sigma k^{-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
 \beqs
-2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma \mesh(k)^\alpha}\eps\mright),
+2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
 \eeqs
 and thus \eqref{eq:gammaequal} can be bounded by
 \beq\label{eq:gammaequalpart1}
-8 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma \mesh(k)^\alpha}\eps\mright)\mright)^2.
+8 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2.
 \eeq
-As $k^\sigma \mesh(k)^\alpha \geq 1$ and $\eps \leq 1/\mleft(\sqrt{2}\co\Ccoarse^\alpha\mright),$ we can bound \eqref{eq:gammaequalpart1} by (including a change of base in the logarithm)
+As $k^\sigma k^{-a\alpha} \geq 1$ and $\eps \leq 1/\mleft(\sqrt{2}\co\Ccoarse^\alpha\mright),$ we can bound \eqref{eq:gammaequalpart1} by (including a change of base in the logarithm)
 \beq\label{eq:gammaequalfinal}
-\frac{32 \ct\cth \mleft(1+s^{-\gamma}\mright)}{\alpha^2 \mleft(\log(s)\mright)^2} k^\tau \mleft(\log\mleft(\frac{k^\sigma \mesh(k)^\alpha}\eps\mright)\mright)^2.
+\frac{32 \ct\cth \mleft(1+s^{-\gamma}\mright)}{\alpha^2 \mleft(\log(s)\mright)^2} k^\tau \mleft(\log\mleft(\frac{k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2.
 \eeq
 
 For simplicity in what follows, we define
@@ -405,7 +374,7 @@ For simplicity in what follows, we define
 
 If $\gamma > \beta$ then by \cref{lem:sumbound} the first term in \eqref{eq:complexitymidway} becomes\optodo{Check if the below is right - it seems to be saying the complexity is independent of the coarse mesh}
 \beq
-\eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} \mesh(k)^{\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
+\eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
 \eeq
 where
 \beqs
