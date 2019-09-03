@@ -8,9 +8,9 @@
 
 \section{Set up}
 
-We work in the framework of \cref{chap:stochastic}. For $h>0,$ define the random field\optodo{Assume or show it is one} $\uh:\Omega \rightarrow \Vhp$ by letting $\uh(\omega)$ solve \cref{prob:fevedp} with coefficients $A(\omega)$ and $n(\omega)$ (if it exists). Let $Q:\HozDDR\rightarrow\RR$ be a (measurable) \defn{quantity of interest} (QoI) of the solution $u$ (so that $Q(u)$ is a random variable). As an abuse of notation, we also use $Q$ to denote $Q \circ u,$ where the context means this notation is unambiguous. If $\uh(\omega)$ exists, we let $\Qh$ denote $Q \circ \uh.$
+We work in the framework of \cref{chap:stochastic}. For $h>0,$ define the random field\optodo{Assume or show it is one} $\uh:\Omega \rightarrow \Vhp$ by letting $\uh(\omega)$ solve \cref{prob:fevgen} (with $\T = \TR$) with coefficients $A(\omega)$ and $n(\omega)$ (if it exists). Let $Q:\HozDDR\rightarrow\RR$ be a (measurable) \defn{quantity of interest} (QoI) of the solution $u$ (so that $Q(u)$ is a random variable). As an abuse of notation, we also use $Q$ to denote $Q \circ u,$ where the context means this notation is unambiguous. If $\uh(\omega)$ exists, we let $\Qh$ denote $Q \circ \uh.$
 
-As hnited at in the preceeding paragraph, the finite-element solution $\uh(\omega)$ may not always exist. Moreover, the existence (or not) of $\uh(\omega)$ is due to the fact that the constants involved in the definitions of accuracy and data-accuracy of a finite-element method (\cref{def:hkacc,def:hkdatacc} above) are dependent on the coefficients $A$ and $n$. Therefore, when $A$ and $n$ are random fields, the associated existence and uniqueness criterion (and a priori bounds) are all path-dependent. To define this path-dependence precisely, we use the following \lcnamecref{def:probdataacc}.
+As hnited at in the preceeding paragraph, the finite-element solution $\uh(\omega)$ may not always exist. Moreover, the existence (or not) of $\uh(\omega)$ is due to the fact that the constants involved in the definitions of accuracy and data-accuracy of a finite-element method (\cref{def:hkacc,def:hkdataacc} above) are dependent on the coefficients $A$ and $n$. Therefore, when $A$ and $n$ are random fields, the associated existence and uniqueness criterion (and a priori bounds) are all path-dependent. To define this path-dependence precisely, we use the following \lcnamecref{def:probdataacc}.
 
 \bas[Probabilistic version of data-accuracy]\label{def:probdataacc}
 There exist random variables $\Co$ and $\cotilde$ such that if
@@ -102,7 +102,7 @@ where the $\Qhtildesj$ are independently and identically distributed samples of 
 We can prove the following \lcnamecref{thm:hhmc} on the computational complexity of the Monte-Carlo estimator $\QhatMC$
 
 \bth[Computational complexity of Monte-Carlo]\label{thm:hhmc}
-Assume $\VAR{\Qhtilde}$ is independent of $h$ and the assumptions of \cref{lem:c,ass:a} hold. Given $\eps \in (0,1),$ if
+Let the assumptions of \cref{lem:c,ass:a} hold. Given $\eps \in (0,1),$ if
 \beq\label{eq:NMC}
 \NMC  \sim 2\VAR{\Qhtilde}\eps^{-2}
 \eeq
@@ -206,9 +206,7 @@ for some chosen constant $\Ccoarse > 0.$
 
 %% \ble\label{lem:sumbound}
 %% If $L$ is given by
-%% \beq\label{eq:Ldef}
-%% L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma}\mesh(k)^\alpha \eps^{-1}\mright)},
-%% \eeq
+
 %% then, for $s>1$ and $\delta \in \RR,$ we have the bound
 %% \beq\label{eq:sumbound}
 %% \sum_{l=0}^{L} s^{\delta l} \leq
@@ -258,48 +256,45 @@ The following theorem describes the computational effort needed to obtain RMSE $
 %%  \eeqs
 %%  \eas
 
-\paragraph{Notation}
 
-$\Cl \de \cth\hl^{-\gamma}$
-
-$\cC \de \EXP{\Cost{\QhatMLhL}}$
-
-\bas[Assumptions on $\eps$ and $k$ to make things nicer]\label{ass:epsk}
+\bas[Assumptions on $\eps$ and $k$ to simplify expressions in the case $\beta=\gamma$]\label{ass:epsk}
 \beqs
 \eps \leq \min\set{\frac{\sqrt{2}\co\Ccoarse^\alpha}{s^{2\alpha}},\frac1{\sqrt{2}\co\Ccoarse^\alpha}},
 \eeqs
 and
 \beqs
-k^\sigma k^{-a\alpha} \geq 1.
+k^{\sigma-a\alpha} \geq 1.
 \eeqs
 \eas
 
 \bth[MLMC Complexity Theorem]\label{thm:mlmccomp}
-If \cref{ass:epsk} holds,  $L$ is given by \eqref{eq:Ldef}
+If \cref{ass:epsk} holds,  $L$ is given by
+\beq\label{eq:Ldef}
+L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-a\alpha} \eps^{-1}\mright)},
+\eeq
 that is,
 \beq\label{eq:hLcond}
 \hL \leq \mleft(\frac\eps{\sqrt{2}\co k^{\sigma}}\mright)^{\frac1\alpha},
 \eeq
 and the number of samples on each computational level is given by
-\beqs
+\beq\label{eq:Nl}
 \Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
-\eeqs
-then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ satisfies the bounds
+\eeq
+where $\Cl \de \cth\hl^{-\gamma}$, then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ satisfies the bounds
  
  \begin{numcases}{ \CMLhL(\eps) \lesssim}
-k^\tau \mleft(\log\mleft(\frac{k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2 \eps^{-2} + k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
+k^\tau \mleft(\loge\mleft(\frac{k^{\sigma-a\alpha}}\eps\mright)\mright)^2 \eps^{-2} + k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
 k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & otherwise.\label{eq:mlmchhoth}
 \end{numcases}
  \enth
  \bpf[Proof of \cref{thm:mlmccomp}]
-We first decompose the (squared) mean-squared error into the bias error and the sampling error:
-
-\beqs
-\errQhatMLhL^2 = \mleft(\EXP{\QhatMLhL} - \EXP{Q}\mright)^2 + \underbrace{\EXP{\mleft(\QhatMLhL - \EXP{\QhatMLhL}\mright)^2}}_{V\de},
+We recall the decomposition of the (squared) mean-squared error into the bias error and the sampling error analagous to \cref{eq:mccomp1}
+\beqs\label{eq:mlmcdecomp}
+\errQhatMLhL^2 = \VAR{\QhatMLhL} + \mleft(\EXP{\QhatMLhL - Q}\mright)^2.
 \eeqs
-the first term is the \emph{bias}, and the second term is the \emph{variance} of the estimator $\QhatMLhL.$ We now proceed to choose the parameters $L$ and $\Nl, l = 0,\ldots,L$ such that we can bound both the bias and the variance by $\eps^2/2.$
+We now proceed to choose the parameters $L$ and $\Nl, l = 0,\ldots,L$ such that we can bound both the bias and the variance by $\eps^2/2.$
 
-We first bound the bias, to do this, we only need to choose $L.$ One can show that the bias is equal to $\abs{\EXP{\QhL - Q}}^2.$ Therefore a sufficient condition for the bias to be $\leq \eps^2/2$ is (by \cref{ass:a})
+We first bound the bias, to do this, we only need to choose $L.$ One can show that the bias is equal to $\abs{\EXP{\QhL - Q}}^2.$ Therefore by \cref{ass:a} a sufficient condition for the bias to be $\leq \eps^2/2$ is (by \cref{ass:a})
 \beqs
 \co k^\sigma \hL^\alpha \leq \frac{\eps}{\sqrt{2}},
 \eeqs
@@ -312,49 +307,44 @@ As $\hz = \Ccoarse k^{-a},$ we can simplify \eqref{eq:Lcondpart} to obtain \eqre
 % L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
 % \eeqs
 
-We now seek to bound the variance. One can show the variance $V = \sum_{l=0}^L \Nl^{-1} \Vl,$ and the cost is: (following \cite{GrPaSc:19})
+We now seek to bound the variance. One can show similarly to \cref{eq:mccomp2} that the variance $\VAR{\QhatMLhL} = \sum_{l=0}^L \Nl^{-1} \Vl,$ and the cost is: (following \cite{GrPaSc:19})
 \begin{align}
-\cC &= \EXP{\Cost{\QhatMLhL}}\nonumber\\
-&\leq \sum_{l=0}^L \EXP{\Cost{\Ylhat}}\text{less equal as could save if you've had to over-refine on both levels in $\Ylhat$ - difference will be zero}\nonumber\\
+\EXP{\Cost{\QhatMLhL}}&\leq \sum_{l=0}^L \EXP{\Cost{\Ylhat}}\nonumber\\
 &= \sum_{l=0}^L \sum_{i=1}^{\Nl} \EXP{\Cost{\Yli}}\nonumber\\
 &\leq \sum_{l=0}^L \sum_{i=0}^{\Nl} \mleft(\EXP{\Cost{\Qhltilde}} + \EXP{\Cost{\Qhlmotilde}}\mright)\nonumber\\
-&\leq \sum_{l=0}^L \Nl \mleft(\cth \hl^{-\gamma} + \cth \hlmo^{-\gamma}\mright)\nonumber\\
+%% &\leq \sum_{l=0}^L \Nl \mleft(\cth \hl^{-\gamma} + \cth \hlmo^{-\gamma}\mright)\nonumber\\
 &=\sum_{l=0}^L \Nl\mleft(1+s^{-\gamma}\mright) \cth \hl^{-\gamma}\nonumber\\
 &= \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \Nl\Cl\label{eq:Cboundformin}
 \end{align}
 
-To find the optimal number of samples per level (the values of $\Nl, l=0,\ldots,L$) we formulate this as an optimisation problem to find $\Nl$ that minimise \eqref{eq:Cboundformin}, subject to $V=\eps/2.$ This can be solved using a Lagrange multiplier as in \cite{Gi:15}, and we obtain
-\beq\label{eq:Nl}
-\Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half}}.
-\eeq
-We now just need to infer the computational complexity for MLMC with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}.
+To find the optimal number of samples per level (the values of $\Nl, l=0,\ldots,L$) we formulate this as an optimisation problem to find the numbers $\Nl$ that minimise \eqref{eq:Cboundformin}, subject to $\VAR{\QhatMLhL}=\eps/2.$ This can be solved using a Lagrange multiplier as in \cite{Gi:15}, and we obtain \cref{eq:Nl}. We now need to infer the computational complexity for MLMC with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}.
 
-The computational complexity $\cC$ is given by
+From \cref{eq:Cboundformin}
 \begin{align}
-\cC &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^{L} \Cl \Nl\nonumber\\
+\EXP{\Cost{\QhatMLhL}} &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^{L} \Cl \Nl\nonumber\\
 &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl \mleft(\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half} + 1\mright) \text{ (by \eqref{eq:Nl})}\nonumber\\
 &= 2\eps^{-2}\mleft(1+s^{-\gamma}\mright)\mleft(\sum_{l=0}^L\mleft(\Vl\Cl\mright)^{\half}\mright)^2 + \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl\nonumber\\
-&= 2 \ct \cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \hl^{-\gamma} \text{ (by \cref{ass:b,ass:c})}\nonumber\\
+&= 2 \ct \cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \hl^{-\gamma} \text{ (by \cref{ass:b,ass:costone})}\nonumber\\
 &= 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\hz^{\beta-\gamma}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\mleft(1+s^{-\gamma}\mright) \hz^{-\gamma} \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hl\text{ )}\label{eq:complexitymidway}\\
 %% &=2 \ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\Cppw^{-\gamma} k^{\rho + \gamma\coarseexp}  \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hz\text{ )}\nonumber\\
 %% &\leq2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} \text{ (since }\gamma>0,\text{ by \cref{lem:sumbound})}.\label{eq:complexitymidway}
 \end{align}
 
-Using \cref{lem:sumbound}, the second term in \eqref{eq:complexitymidway} can be bounded (as $\gamma > 0$) by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
+Using \cref{lem:sumboundnew} with $\Lconst = 1/\alpha,$ $\func = \sqrt{2}\co\Ccoarse^\alpha k^{\sigma - a\alpha}$, and $\delta = \gamma$, the second sum in \eqref{eq:complexitymidway} can be bounded (as $\gamma > 0$) by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
 \beq\label{eq:firstterm}
-\frac{\mleft(1+s^{-\gamma}\mright) \cth \hz^{-\gamma} \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} k^{-a\gamma} \eps^{-\frac\gamma\alpha}
+\cth\frac{\mleft(1+s^{-\gamma}\mright)  \hz^{-\gamma} s^\gamma \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha-a\gamma} \eps^{-\frac\gamma\alpha}
 = \frac{\mleft(1+s^{-\gamma}\mright)\cth \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}
 \eeq
 
 To bound the sum in the first part of \eqref{eq:complexitymidway}, we must distinguish three cases based on $\gamma - \beta.$
 
 
-If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (using \cref{lem:sumbound})
+If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, and $\delta = 0$ and \cref{eq:Ldef})
 \beq
-2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright)+2\mright)^2,
+2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2.
 \label{eq:gammaequal}
 \eeq
-by \eqref{eq:Ldef}. We wish to simplify \eqref{eq:gammaequal}, so that it is of the form $\mathrm{Constant} \times \text{Terms involving } \eps \text{ and } k.$ To achieve this simplification, we use \cref{ass:epsk}. As $k^\sigma k^{-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
+We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
 \beqs
 2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
 \eeqs
@@ -364,30 +354,32 @@ and thus \eqref{eq:gammaequal} can be bounded by
 \eeq
 As $k^\sigma k^{-a\alpha} \geq 1$ and $\eps \leq 1/\mleft(\sqrt{2}\co\Ccoarse^\alpha\mright),$ we can bound \eqref{eq:gammaequalpart1} by (including a change of base in the logarithm)
 \beq\label{eq:gammaequalfinal}
-\frac{32 \ct\cth \mleft(1+s^{-\gamma}\mright)}{\alpha^2 \mleft(\log(s)\mright)^2} k^\tau \mleft(\log\mleft(\frac{k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2.
+\frac{32 \ct\cth \mleft(1+s^{-\gamma}\mright)}{\alpha^2 \mleft(\loge(s)\mright)^2} k^\tau \mleft(\loge\mleft(\frac{k^{\sigma-a\alpha}}\eps\mright)\mright)^2
 \eeq
+and obtain \cref{eq:mlmchheq}.
 
-For simplicity in what follows, we define
+For simplicity in the proof of \cref{eq:mlmchhoth}, we define
 \beqs
 \csumdelta \de \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}.
 \eeqs
 
-If $\gamma > \beta$ then by \cref{lem:sumbound} the first term in \eqref{eq:complexitymidway} becomes\optodo{Check if the below is right - it seems to be saying the complexity is independent of the coarse mesh}
+If $\gamma > \beta$ then using \cref{lem:sumboundnew} as above, but with $\delta = (\gamma-\beta)/2$, the first term in \eqref{eq:complexitymidway} becomes\optodo{Check if the below is right - it seems to be saying the complexity is independent of the coarse mesh}
 \beq
 \eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
 \eeq
 where
 \beqs
-\Cgammagtrbeta \de 2\ct\cth\mleft(1+s^{-\gamma}\mright)\csumgammambetat^2 s^{\gamma-\beta} \Ccoarse^{\beta-\gamma}.
+\Cgammagtrbeta \de 2\ct\cth\mleft(1+s^{-\gamma}\mright)\csumgammambetat^2 s^{\gamma-\beta} \Ccoarse^{\beta-\gamma},
 \eeqs
+that is, an expression of the form \cref{eq:mlmchhoth}. The second equality in \cref{eq:gammagtr} follows from the definition of $\hz$ in \cref{ass:coarse}.
 If $\gamma < \beta,$ then analagously the first term in \eqref{eq:complexitymidway} is
 \beqs
 \Cgammalessbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},
 \eeqs
 where
-\beqs
+\beq\label{eq:gammaless}
 \Cgammalessbeta \de \frac{\Cgammagtrbeta}{s^{\gamma-\beta}}.
-\eeqs
+\eeq
 
 We now combine \eqref{eq:firstterm}, \eqref{eq:gammaequalfinal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless} and supress all the constants to obtain the result.
 %Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
@@ -396,14 +388,14 @@ We now combine \eqref{eq:firstterm}, \eqref{eq:gammaequalfinal}, \eqref{eq:gamma
 
 %\input{nasty}
 
-\subsection{The lemma in generality}
+\subsection{Technical lemma}
 
 \ble\label{lem:sumboundnew}
 If $L$ is given by
 \beq\label{eq:Ldefgen}
 L = \ceil{\Lconst\log_{s}\mleft( \func \eps^{-1}\mright)},
 \eeq
-for some $\func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the bound
+for some $\Lconst, \func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the bound
 \beq\label{eq:sumboundgen}
 \sum_{l=0}^{L} s^{\delta l} \leq
 \begin{cases}
@@ -412,15 +404,15 @@ L+1 & \tif \delta = 0,\\
 \frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0
 \end{cases}
 \eeq
-\beq\label{eq:sumboundLmo}
-\sum_{l=0}^{L} s^{\delta l} \leq
-\begin{cases}
-L & \tif \delta = 0,\\
-\frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0\\
-\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0
-\end{cases}
-\eeq
-\optodo{Tidy}
+%% \beq\label{eq:sumboundLmo}
+%% \sum_{l=0}^{L} s^{\delta l} \leq
+%% \begin{cases}
+%% L & \tif \delta = 0,\\
+%% \frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0\\
+%% \frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0
+%% \end{cases}
+%% \eeq
+%\optodo{Tidy}
 \ele
 
 \bpf[Proof of \cref{lem:sumboundnew}]
@@ -447,31 +439,4 @@ We now observe that, for $\delta \neq 0,$
 &\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumboundgen}
 \end{align}
 since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} and \eqref{eq:sdLneggen}, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
-
-
-
-\paragraph{For sum up to $L-1$}
-The proof follows that in \cite{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that
-\beq\label{eq:Lmobounds}
-\Lconst\log_s\mleft(\func \eps^{-1}\mright)-1 \leq L-1 < \Lconst\log_s\mleft(\func \eps^{-1}\mright).
-\eeq
-Rearranging \eqref{eq:Lmobounds}, we obtain the bounds
-\beq\label{eq:saLmobounds}
-\mleft( \func\eps^{-1}\mright)^{\alpha \Lconst}s^{-\alpha} \leq s^{\alpha (L-1)} < \mleft( \func\eps^{-1}\mright)^{\alpha \Lconst}.
-\eeq
-If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLmobounds} to obtain
-\beq\label{eq:sdLmopos}
-s^{\delta (L-1)} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}
-\eeq
-and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLmobounds} to obtain
-\beq\label{eq:sdLmoneg}
-s^{\delta (L-1)} \leq \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{-\delta}.
-\eeq
-We now observe that, for $\delta \neq 0,$
-\begin{align}
-\sum_{l=0}^{L-1} s^{\delta l} &= \frac{s^{\delta\mleft(L\mright)} -1}{s^{\delta}-1}\nonumber\\
-&= \frac{s^{\delta (L-1)} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
-&\leq \frac{s^{\delta (L-1)}}{1-s^{-\delta}},\label{eq:ssumboundLmo}
-\end{align}
-since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundLmo} with \eqref{eq:sdLmopos} and \eqref{eq:sdLmoneg}, we obtain \eqref{eq:sumboundLmo} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
 \epf
