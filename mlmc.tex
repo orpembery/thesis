@@ -6,6 +6,147 @@
 %% \een
 %% We now proceed to prove our abstract MLMC convergence result, comtaining the generalisations metioned above.
 
+\section{Set up}
+
+We work in the framework of \cref{chap:stochastic}. For $h>0,$ define the random field\optodo{Assume or show it is one} $\uh:\Omega \rightarrow \Vhp$ by letting $\uh(\omega)$ solve \cref{prob:fevedp} with coefficients $A(\omega)$ and $n(\omega)$ (if it exists). Let $Q:\HozDDR\rightarrow\RR$ be a (measurable) \defn{quantity of interest} (QoI) of the solution $u$ (so that $Q(u)$ is a random variable). As an abuse of notation, we also use $Q$ to denote $Q \circ u,$ where the context means this notation is unambiguous. If $\uh(\omega)$ exists, we let $\Qh$ denote $Q \circ \uh.$
+
+As hnited at in the preceeding paragraph, the finite-element solution $\uh(\omega)$ may not always exist. Moreover, the existence (or not) of $\uh(\omega)$ is due to the fact that the constants involved in the definitions of accuracy and data-accuracy of a finite-element method (\cref{def:hkacc,def:hkdatacc} above) are dependent on the coefficients $A$ and $n$. Therefore, when $A$ and $n$ are random fields, the associated existence and uniqueness criterion (and a priori bounds) are all path-dependent. To define this path-dependence precisely, we use the following \lcnamecref{def:probdataacc}.
+
+\bas[Probabilistic version of data-accuracy]\label{def:probdataacc}
+There exist random variables $\Co$ and $\cotilde$ such that if
+\beq\label{eq:probdataacc}
+hk^a < \Co(\omega),
+\eeq
+then $\uh(\omega)$ exists, is unique, and $Q$ and $\Qh$ satisfy
+\beqs
+\abs{Q(\omega)-\Qh(\omega)} \leq \cotilde(\omega) h^\alpha k^\sigma \Cfg.
+\eeqs
+\eas
+
+In order to define a finite-element approximation of $u$ (and therefore a random variable $\Qh$) that exists almost surely, we borrow a technique from \cite{GrPaSc:19}. Informally, for a given $h>0,$ for any realisations $\omega \in \Omega$ such that \cref{eq:probdataacc} is \emph{not} satisfied, we compute on a finer mesh (that does satisfy \cref{eq:probdataacc}). For fixed $h>0$ we define
+\beq\label{eq:hmaxomega}
+\hmaxomega \de \Co(\omega)k^{-a}.
+\eeq
+We then define
+\beq\label{eq:homega}
+\homega \de \min\set{h,\hmaxomega}.
+\eeq
+Observe that $\homega$ \emph{always} satisfies \cref{eq:probdataacc}. We then define
+\beqs
+\uhtilde(\omega) = u_{\homega}(\omega),
+\eeqs
+i.e., $\uhtilde$ is the finite-element approximation of $u(\omega)$ on the mesh with mesh size $\homega.$ We then define
+\beq\label{eq:Qhtilde}
+\Qhtilde = Q \circ \uhtilde.
+\eeq
+\optodo{Assume or prove that $\uhtilde$ is a random field}
+
+Given $\uhtilde$ has a random mesh size, the cost of computing $\uhtilde$ (or $\Qhtilde$) will be a random variable\optodo{Prove?}. Therefore we make the following \lcnamecref{ass:costone} on the cost of computing samples.
+
+\bas[Cost of one sample]\label{ass:costone}
+There exist $\cthtilde, \gamma > 0$ such that $\cthtilde$ is independent of $h$ and $k$, and if $\Qhtilde(\omega)$ exists, then
+\beqs
+\Cost{\Qhtilde(\omega)} \leq \cthtilde(\omega) \homega^{-\gamma},
+\eeqs
+\eas
+
+The following \lcnamecref{lem:c} shows how, provided the set $\Omegabad$\optodo{Chat about this earlier/here} has small probability, the expected cost of computing a sample of $\Qhtilde$ is governed solely by the specified mesh size $h$ (and not by any over-refinement). The assumption \cref{eq:cass} is the technical version of the statement `$\Omegabad$ has small probability'.
+
+\bas[Assumptions on $\Omegabad$]\label{ass:omegabad}
+Assume:
+\bit
+\item $hk^a \leq 1$
+\item \beq\label{eq:cass}
+\cth \de 2\EXP{\cthtilde\mleft(1+\Co^{-\gamma}\mright)} < \infty
+\eeq
+\eit
+\eas
+
+\ble[Expected cost of one sample]\label{lem:c}
+If \cref{ass:omegabad} holds, then 
+\beq\label{eq:singlecost}
+\EXP{\Cost{\Qh}} \leq \cth h^{-\gamma}.
+\eeq
+\ele
+\optodo{Show/assume cost is RV}
+\bpf[Proof of \cref{lem:c}]
+The proof follows closely that in \cite[Lemma 5.8]{GrPaSc:19}.
+We have
+\beq\label{eq:costpf1}
+\Cost{\uhtilde(\omega)} \leq \cthtilde(\omega)\homega^{-\gamma} \leq \cthtilde(\omega) \mleft(h^{-\gamma} + \mleft(\hmaxomega\mright)^{-\gamma}\mright)
+\eeq
+by \cref{ass:costone,eq:homega}. Then using \cref{eq:hmaxomega}, the definition of $\hmaxomega,$ \cref{eq:costpf1} is bounded by
+\beq\label{eq:costpf2}
+\cthtilde(\omega)h^{-\gamma} + \mleft(\cthtilde\Co\mright)(\omega) k^{a\gamma},
+\eeq
+and since $hk^a \leq 1$ and \cref{eq:cass} holds, we obtain \cref{eq:singlecost}.
+\epf
+
+\ble[Convergence of numerical method]\label{ass:a}
+Under \cref{def:probdataacc}, there exist constant $\co, \alpha, \sigma> 0$, such that $\co$ is independent of $h$ and $k$, and
+\beqs
+\abs{\EXP{\Qhtilde-Q}} \leq \co k^\sigma h^{\alpha}.
+\eeqs
+\ele
+
+The proof of \cref{ass:a} is immediate (with $\co = \EXP{\cotilde}$) from the definition of $\Qhtilde$ \cref{eq:Qhtilde}, \cref{def:probdataacc} and the fact that $\homega \leq h$ (by \cref{eq:homega}.
+\optodo{Define RMSE}
+\section{Monte-Carlo methods}
+
+We now define the Monte-Carlo estimator of $Q$,
+\beqs
+\QhatMC \de \frac1{\NMC} \sum_{j=1}^{\NMC} \Qhtildesj,
+\eeqs
+where the $\Qhtildesj$ are independently and identically distributed samples of $\Qhtilde.$
+
+We can prove the following \lcnamecref{thm:hhmc} on the computational complexity of the Monte-Carlo estimator $\QhatMC$
+
+\bth[Computational complexity of Monte-Carlo]\label{thm:hhmc}
+Assume $\VAR{\Qhtilde}$ is independent of $h$ and the assumptions of \cref{lem:c,ass:a} hold. Given $\eps \in (0,1),$ if
+\beq\label{eq:NMC}
+\NMC  \sim 2\VAR{\Qhtilde}\eps^{-2}
+\eeq
+and
+\beq\label{eq:hMC}
+h \sim \mleft(\sqrt{2}\co\mright)^{-\frac1{\alpha}}k^{-\frac\sigma\alpha}\eps^{\frac1{\alpha}},
+\eeq
+then $\err{\QhatMC} \leq \eps$ and the computational complexity of $\QhatMC$ satisfies
+\beqs
+\EXP{\CMC} \sim 2^{1+\frac\gamma{2\alpha}}\VAR{\Qhtilde}\co^{\frac\gamma{\alpha}}\eps^{-2-\frac{\gamma}{\alpha}}k^{\frac{\gamma\sigma}\alpha}.
+\eeqs
+\enth
+
+\bpf[Proof of \cref{thm:hhmc}]
+The proof is standard, see, e.g., \cite[Section 2.1]{ClGiScTe:11}. We have
+\begin{align}
+\err{\QhatMC}^2 &= \EXP{\mleft(\QhatMC - \EXP{\QhatMC} + \EXP{\QhatMC} - \EXP{Q}\mright)^2}\nonumber\\
+&= \EXP{\mleft(\QhatMC - \EXP{\QhatMC}\mright)^2} + \mleft(\EXP{\QhatMC} - \EXP{Q}\mright)^2\nonumber\\
+&= \VAR{\QhatMC} + \mleft(\EXP{\QhatMC} - \EXP{Q}\mright)^2,\label{eq:mccomp1}
+\end{align}
+where the second line follows from the fact that $\EXP{\QhatMC - \EXP{\QhatMC}} = 0$, and the third line follows from the fact that $\QhatMC$ is an unbiased estimator.
+
+By definition of $\QhatMC$, and the fact that the samples $\Qhtildesj$ are independent, we have
+\beq\label{eq:mccomp2}
+\VAR{\QhatMC} = \frac1{\NMC^2}\sum_{j=1}^{\NMC}\VAR{\Qhtildesj} = \frac1{\NMC} \VAR{\Qhtilde}.
+\eeq
+Therefore we can conclude from \cref{eq:mccomp1,eq:mccomp2} that the root-mean-squared-error satisfies
+\beq\label{eq:mccomp3}
+\err{\QhatMC}^2 = \frac1{\NMC}\VAR{\Qhtilde} + \NLoO{\Qhtilde-Q}^2.
+\eeq
+By \cref{eq:NMC,eq:hMC}, each of the terms in \cref{eq:mccomp3} is bounded by  $\eps^2/2,$ and therefore $\err{\QhatMC} \leq \eps.$
+
+All that remains is to estimate the (expected) computational complexity. We have
+\beqs
+\EXP{\Cost{\QhatMC}} = \NMC \EXP{\Cost{\uhtilde}} \leq \NMC \cth h^{-\gamma} \sim 2^{1+\frac\gamma{2\alpha}}\VAR{\Qhtilde}\co^{\frac{\gamma}{\alpha}}\eps^{-2-\frac{\gamma}{\alpha}}k^{\frac{\gamma\sigma}\alpha}
+\eeqs
+as required.
+\epf
+
+\section{Multi-level Monte-Carlo}
+
+
+TO HERE
+
 Let $\OFP$ be a probability space, and let $Q$ be a random variable\footnote{One can think of $Q$ as being $Q(u),$ where $u$ is the solution of some stochastic PDE.} on $\OFP$ such that $\EXP{Q} < \infty.$ We will refer to $Q$ as the \defn{quantity of interest} or QoI. In order to define the multi-level Monte Carlo (MLMC) method for estimating $\EXP{Q},$ we must also define the following quantities, following  \cite[Theorem 1]{ClGiScTe:11}. We assume there exist
 \bit
 \item A set of levels\footnote{One can think of $\hl$ as the mesh size associated with level $l$.} $\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =\frac{\hlmo}s$ for $l \geq 1.$
@@ -16,31 +157,21 @@ We denote the random variables $\Qhtilde,$ in order to simplify the notation for
 
 In order to do things for the Helmholtz equation, we use the following assumption:
 
-\bas[Mesh conditions for existence and uniqueness]
-There exists a measurable function $\Cmesh:\Omega\rightarrow \RRp$ and a function $\mesh:\RRp\rightarrow \RRp$ such that $\Qhtilde(\omega)$ exists (and satisfies the error bounds etc. below) if
-\beqs
-h \leq \Cmesh(\omega)\mesh(k).
-\eeqs
-Note that $\mesh(k)\rightarrow 0$ as $k\rightarrow \infty.$
-\eas
+%% \bas[Mesh conditions for existence and uniqueness]
+%% There exists a measurable function $\Cmesh:\Omega\rightarrow \RRp$ and a function $\mesh:\RRp\rightarrow \RRp$ such that $\Qhtilde(\omega)$ exists (and satisfies the error bounds etc. below) if
+%% \beqs
+%% h \leq \Cmesh(\omega)\mesh(k).
+%% \eeqs
+%% Note that $\mesh(k)\rightarrow 0$ as $k\rightarrow \infty.$
+%% \eas
 
-Observe that for a given $k, \omega$ there is no guarantee that $\Qhtilde(\omega)$ exists. Therefore, we follow [Graham, Parkinson, Scheichl] and define
-\beq\label{eq:hmaxomega}
-\hmaxomega \de \Cmesh(\omega)\mesh(k).
-\eeq
-We then define
-\beqs
-\homega \de \max\set{h,\hmaxomega}
-\eeqs
-and subsequently define
-\beqs
-\Qh(\omega) \de \Qtildehomega.
-\eeqs
+
+Observe that for a given $k, \omega$ there is no guarantee that $\Qhtilde(\omega)$ exists. Therefore, we follow [Graham, Parkinson, Scheichl] and 
 That is, the random variable $\Qh$ is (thinking about things in terms of PDEs etc.) the QoI evaluated at the numerical solution, where that solution is taken on a mesh that is the finer of $h$ and $\hmaxomega$. This guarantees the QoI exists, and the error bounds below hold.
 
-\bre[What is $\mesh(k)$?]
-If nontrapping, $\mesh(k)=k^{-3/2}$. If trapping, more stringent, nothing proved in literature, but would expect to be similar to results for contant wavespeed.
-\ere
+%% \bre[What is $\mesh(k)$?]
+%% If nontrapping, $\mesh(k)=k^{-3/2}$. If trapping, more stringent, nothing proved in literature, but would expect to be similar to results for contant wavespeed.
+%% \ere
 
 With this setup in place, we define the following quantities.
 
@@ -68,25 +199,11 @@ We define the correction operators\optodo{You may be able to save some time comp
 %% then the QoI $\Qhl$ exists.
 %% \eas
 
-\bas[Convergence of numerical method]\label{ass:a}
-There exist $\co, \alpha, \sigma> 0$, such that $\co$ is independent of $h$ and $k$, and
-\beqs
-\abs{\EXP{\Qh-Q}} \leq \co k^\sigma h^{\alpha}.
-\eeqs
-\eas
-
 \bas[Variance of correction operators]\label{ass:b}
 There exist $\ct, \beta, \tau > 0$, such that $\ct$ is independent of $h$ and $k,$ and
 \beqs
 \Vl \de \VAR{\Yl} \leq \ct k^\tau\hl^{\beta},
 \eeqs  where $\VAR{\cdot}$ denotes variance.
-\eas
-
-\bas[Cost of one sample]\label{ass:costone}
-There exist $\cthtilde, \gamma > 0$ such that $\cthtilde$ is independent of $h$ and $k$, and if $\Qhtilde(\omega)$ exists, then
-\beqs
-\Cost{\Qhtilde(\omega)} \leq \cthtilde(\omega) h^{-\gamma},
-\eeqs
 \eas
 
 In order to obtain a nice expression for the cost of computing one sample of $\Qh,$ we require the following assumption on the coarse space:
@@ -99,31 +216,6 @@ We let
 for some chosen constant $\Ccoarse > 0.$
 \eas
 
-\ble[Expected cost of one sample]\label{lem:c}
-If
-\beq\label{eq:cass}
-\cthtilde \in \LpO\text{ for some }p \geq 1 \tand 1/\Cmesh \in \LqgammaO \tfor q \text{ the conjugate exponent of } p,
-\eeq
-then
-\beq\label{eq:singlecost}
-\EXP{\Cost{\Qh}} \leq \cth h^{-\gamma},
-\eeq
-where $\cth = \NLoO{\cthtilde} + \Ccoarse^\gamma \NLpO{\cthtilde}\NLqgammaO{\Cmesh^{-1}}^\gamma.$
-\ele
-
-\bpf[Proof of \cref{lem:c}]
-The proof follows closely that in \cite[Lemma 5.8]{GrPaSc:19}.
-
-We have
-\begin{align}
-\EXP{\Cost{\Qh}} &= \int_{\Omega} \Cost{\Qhomegatilde(\omega)} \ddPPomega\nonumber\\
-&\leq \int_\Omega \cthtilde(\omega) \homega^{-\gamma} \ddPPomega \text{ by \eqref{eq:singlecost}}\nonumber\\
-&\leq \int_{\Omega} \cthtilde(\omega) \mleft(h^{-\gamma} +  \mleft(\hmaxomega\mright)^{-\gamma} \mright) \ddPPomega \text{ as } \homega = \max\set{h,\hmaxomega} \leq h + \hmaxomega\nonumber\\
-&=\int_{\Omega} \cthtilde(\omega) \mleft(h^{-\gamma} + \Cmesh^{-\gamma} \mesh(k)^{-\gamma}\mright)\ddPPomega \text{ by \eqref{eq:hmaxomega}}\nonumber\\
-= h^{-\gamma} \NLoO{\cthtilde} + \mesh(k)^{-\gamma}\EXP{\cthtilde\Cmesh^{-\gamma}}\label{eq:cfinal}
-\end{align}
-As the assumptions \eqref{eq:cass} hold, the result follows.
-\epf
  
 % We write $\Vl$ for $\VAR{\Yl}.$
  
@@ -132,6 +224,14 @@ As the assumptions \eqref{eq:cass} hold, the result follows.
  \err{\QhatMLhL} \de \mleft(\EXP{\mleft(\QhatMLhL - \EXP{Q}\mright)^2}\mright)^{\half}
  \eeqs
  satisfies $\err{\QhatMLhL} \leq \eps,$ for some pre-defined $\eps > 0.$
+
+
+
+%\input{nice}
+
+
+
+\subsection{Lemma}
 
 The proof of the main \lcnamecref{thm:mlmccomp} will require the following \lcnamecref{lem:sumbound}.
 
@@ -177,8 +277,6 @@ We now observe that, for $\delta \neq 0,$
 since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumbound} with \eqref{eq:sdLpos} and \eqref{eq:sdLneg}, we obtain \eqref{eq:sumbound} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
 \epf
 
-
-%\input{nice}
 
 The following theorem describes the computational effort needed to obtain RMSE $\leq \eps$. It is exactly the same as \cite[Theorem 1]{ClGiScTe:11}, but with the dependence on all the parameters explicit.%, and with some additional cases enumerated. %\Cref{thm:mlmccomp} contains more cases than in \cite[Theorem 1]{ClGiScTe:11} because \cite[Theorem 1]{ClGiScTe:11} makes the assumption throughout that $\alpha \geq 1/2\min\set{\beta,\gamma}.$ This assumption does not always hold for the Helmholtz equation (see the cases of a direct solver in 3-D below), however, examining the proof of \cite[Theorem 1]{ClGiScTe:11}  shows that in any given case, one only needs the assumption $\alpha \geq \beta/2$ or the assumption $\alpha \geq \gamma2$, never both at the same time. Therefore, for convenience, we explicitly state when these conditions are needed, and for completeness, we give the results when these conditions are violated. 
 
@@ -408,4 +506,3 @@ We now observe that, for $\delta \neq 0,$
 \end{align}
 since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundLmo} with \eqref{eq:sdLmopos} and \eqref{eq:sdLmoneg}, we obtain \eqref{eq:sumboundLmo} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
 \epf
-
