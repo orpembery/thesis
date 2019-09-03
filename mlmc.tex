@@ -54,18 +54,15 @@ The following \lcnamecref{lem:c} shows how, provided the set $\Omegabad$\optodo{
 
 \bas[Assumptions on $\Omegabad$]\label{ass:omegabad}
 Assume:
-\bit
-\item $hk^a \leq 1$
-\item \beq\label{eq:cass}
-\cth \de 2\EXP{\cthtilde\mleft(1+\Co^{-\gamma}\mright)} < \infty
+\beq\label{eq:cass}
+\cth \de \EXP{\cthtilde}+ \EXP{\cthtilde\Co^{-\gamma}} < \infty
 \eeq
-\eit
 \eas
 
 \ble[Expected cost of one sample]\label{lem:c}
 If \cref{ass:omegabad} holds, then 
 \beq\label{eq:singlecost}
-\EXP{\Cost{\Qh}} \leq \cth h^{-\gamma}.
+\EXP{\Cost{\Qh}} \leq \cth \mleft(h^{-\gamma}+k^{a\gamma}\mright).
 \eeq
 \ele
 \optodo{Show/assume cost is RV}
@@ -79,7 +76,7 @@ by \cref{ass:costone,eq:homega}. Then using \cref{eq:hmaxomega}, the definition 
 \beq\label{eq:costpf2}
 \cthtilde(\omega)h^{-\gamma} + \mleft(\cthtilde\Co\mright)(\omega) k^{a\gamma},
 \eeq
-and since $hk^a \leq 1$ and \cref{eq:cass} holds, we obtain \cref{eq:singlecost}.
+and therefore as \cref{eq:cass} holds, we obtain \cref{eq:singlecost}.
 \epf
 
 \ble[Convergence of numerical method]\label{ass:a}
@@ -89,7 +86,11 @@ Under \cref{def:probdataacc}, there exist constant $\co, \alpha, \sigma> 0$, suc
 \eeqs
 \ele
 
+\bpf[Proof of \cref{ass:a}]
 The proof of \cref{ass:a} is immediate (with $\co = \EXP{\cotilde}$) from the definition of $\Qhtilde$ \cref{eq:Qhtilde}, \cref{def:probdataacc} and the fact that $\homega \leq h$ (by \cref{eq:homega}.
+\epf
+
+
 \optodo{Define RMSE}
 \section{Monte-Carlo methods}
 
@@ -112,7 +113,7 @@ h \sim \mleft(\sqrt{2}\co\mright)^{-\frac1{\alpha}}k^{-\frac\sigma\alpha}\eps^{\
 \eeq
 then $\err{\QhatMC} \leq \eps$ and the computational complexity of $\QhatMC$ satisfies
 \beqs
-\EXP{\CMC} \sim 2^{1+\frac\gamma{2\alpha}}\VAR{\Qhtilde}\co^{\frac\gamma{\alpha}}\eps^{-2-\frac{\gamma}{\alpha}}k^{\frac{\gamma\sigma}\alpha}.
+\EXP{\CMC} \sim \VAR{\Qhtilde}\mleft(\eps^{-2-\frac{\gamma}{\alpha}}k^{\frac{\gamma\sigma}\alpha} + \eps^{-2}k^{a\gamma}\mright).
 \eeqs
 \enth
 
@@ -137,7 +138,7 @@ By \cref{eq:NMC,eq:hMC}, each of the terms in \cref{eq:mccomp3} is bounded by  $
 
 All that remains is to estimate the (expected) computational complexity. We have
 \beqs
-\EXP{\Cost{\QhatMC}} = \NMC \EXP{\Cost{\uhtilde}} \leq \NMC \cth h^{-\gamma} \sim 2^{1+\frac\gamma{2\alpha}}\VAR{\Qhtilde}\co^{\frac{\gamma}{\alpha}}\eps^{-2-\frac{\gamma}{\alpha}}k^{\frac{\gamma\sigma}\alpha}
+\EXP{\Cost{\QhatMC}} = \NMC \EXP{\Cost{\uhtilde}} \leq \NMC \cth h^{-\gamma} \sim 2\VAR{\Qhtilde}\eps^{-2} \mleft(\cth \mleft(\sqrt{2} \co\mright)^{\frac\gamma\alpha}k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} + k^{a\gamma}\mright)
 \eeqs
 as required.
 \epf
