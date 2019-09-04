@@ -222,9 +222,10 @@ We define a set of levels$\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =
 
 \bas[Variance of correction operators]\label{ass:b}
 There exist $\ct, \beta, \tau > 0$, such that $\ct$ is independent of $h$ and $k,$ and
-\beqs
+\beq\label{eq:mlmcassb}
 \Vl \de \VAR{\Yl} \leq \ct k^\tau\hl^{\beta},
-\eeqs  where $\VAR{\cdot}$ denotes variance.
+\eeq
+where $\VAR{\cdot}$ denotes variance.
 \eas
 
 In order to obtain a nice expression for the cost of computing one sample of $\Qh,$ we require the following assumption on the coarse space:
@@ -494,8 +495,99 @@ We now observe that, for $\delta \neq 0,$
 since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} and \eqref{eq:sdLneggen}, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
 \epf
 
-\section{Application}
+\section{Application}\label{sec:mlmcapp}
 
-If $Q(\cdot) = \NHokDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p+1$. If $Q(\cdot) = \NLtDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p$. In both cases, $\beta = 2\alpha,$ $\tau = 2\sigma.$ Assume $\gamma = d$---optimal solver.
+We now apply the above results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation to two model QoIs, $\NLtD{u}$ and $\NHokD{u}$, where $u$ is the solution of the TEDP-analogue of \cref{prob:msedp} in \cref{chap:stochastic} (see \cref{rem:tedp}). We choose these two representative QoIs as
+\bit
+\item The errors in their approximation have different $k$-dependencies (see \cref{thm:fembound} and \optodo{Insert ref} below), and
+  \item We expect other QoIs to have a similar $k$-dependence to $\NHokD{u}$ or $\NLtD{u}$, depending on whether the QoI depends on $u$ and $\grad u$, or just on $u$, respectively.
+    \eit
 
-FINISH TOMORROW.
+    All that is left for us to determine are the values of $\alpha, \sigma, \beta, \tau, \gamma,$ and $a$ for each of these QoIs. The values of $\alpha$ and $\sigma$ are given by the convergence results for finite-element approximations of $u$; see \cref{thm:fembound} above and \optodo{ref} below. As we see in \optodo{ref} below, $\beta = 2\alpha$, and $\tau = 2\sigma$. In our calculations in this \lcnamecref{sec:mlmcapp} we assume $\gamma = d;$ i.e., we assume that we have a Helmholtz solver that scales optimally in the number of degrees of freedom; obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:18,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
+
+We use two different values of $a$ below, $a=-(2p+1)/2p$ (where $p$ is the polynomial degree of the finite-elements) and $a=-1$. Based on the finite-element result \cref{thm:fembound}, we should take $a=(2p+1)/2p = 1 + 1/2p;$ such a $k$-dependence is required in \cref{thm:fembound} for the finite-element solution to exist and be unique. However, such a choice of $a$ does not allow the number of levels $L$ to grow with $k$ for $Q = \NHokD{u}$: in \cref{eq:Ldef} above, $L$ depends on $k^{\sigma-a\alpha};$ if $a=(2p+1)/2p,$ $\alpha = 2p$, and $\sigma = 2p+1$ (see\optodo{ref} below for details of these values for $\alpha$ and $\sigma$) then $k^{\sigma-a\alpha} = 1$, and therefore $L$ is $k$-independent. However, if $a = 1,$ then $k^{\sigma-a\alpha} = k,$ and $L$ grows (log-linearly) with $k$. We observe that such a choice for $a$ (keeping the same values for $\alpha$ and $\sigma$ can be heuristically justified; in \cite[Theorem 3.2]{Ai:04} Ainsworth shows for grids with cube elements that if $h \ll 1/k,$ then the phase error (i.e., $k-\kh,$ where $\kh$ is the discrete wavenumber associated with the finite-element solution) is of the order $h^{2p}k^{2p+1}$. We therefore also investigate the beahviour of MC and MLMC under the assumption $a=-1$ and the finite-element errors are given by terms of the same leading order as \cref{eq:femltbound,eq:femhobound}.
+
+To summarise the results that we see below\optodo{ref}, in terms of $k$-dependence, the results for MC- and MLMC-methods are identical, and we also refer to the earlier remark\optodo{ref} for more discussion of this fact. We also see that, in terms of $\eps$-dependence, MLMC methods are consistently better than MC methods, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, MLMC out-performs MC, but if $\eps$ and/or $k$ are large, then MLMC is identical to MC (because there are no additional levels). See\optodo{ref below} for further discussion.
+\begin{table}
+  \centering
+\begin{tabular}{Sc Sc Sc Sc}
+  \toprule
+  $Q(u)$ & $a$ & Monte-Carlo & Multi-Level Monte-Carlo\\
+  \midrule
+      $\NHokD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-\frac{d}{2p}}$ \\
+  $\NLtD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & \makecell{$\displaystyle k^{d} \eps^{-\frac{d}{2p}}$ if $k\eps$ small,\\otherwise $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$} \\
+    $\NHokD{u}$ & 1 &$\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-\frac{d}{2p}}$ \\
+      $\NLtD{u}$ & 1 & $\displaystyle k^d \eps^{-2-\frac{d}{2p}}$ &$\displaystyle k^d \eps^{-\frac{d}{2p}}$\\
+  \bottomrule
+\end{tabular}
+\caption{Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo algorithms}
+\end{table}
+%% If $Q(\cdot) = \NHokDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p+1$. If $Q(\cdot) = \NLtDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p$. In both cases, $\beta = 2\alpha,$ $\tau = 2\sigma.$ Assume $\gamma = d$---optimal solver.
+
+%% FINISH TOMORROW.
+
+\section{Verifying the assumptions in \cref{sec:mlmcsetup}, and applying the MC and MLMC theory}
+
+We now let $u:\Omega\rightarrow\HokD$ solve the TEDP-analogue of \cref{prob:msedp}, and $\uhtilde:\Omega\rightarrow\Vhp$ solve the stochastic analogue of \cref{prob:fevtedp} (i.e., $\uhtilde$ solves \cref{prob:fevtedp} with coefficients $A(\omega)$ and $n(\omega)$, $\T = ik$, and meshsize $\homega$ pathwise). We assume\optodo{Make more prominent?} $\uhtilde$ is measurable.
+
+
+\ble[Verifying assumptions for $Q(u) = \NHokD{u}$]\label{lem:mlho}
+If \cref{ass:coarse} holds with $\Ccoarse$ bounded by $\Chcond \Condn(n) \CAnk^{-\frac1{2p}}$ (as defined in \cref{thm:fembound}) and $a = (2p+1)/2p$, and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
+\ele
+
+\bpf[Proof of \cref{lem:mlho}]
+By the assumptions of the \lcnamecref{lem:mlho}, it is immediate from \cref{eq:femhobound} that \cref{def:probdataacc} holds with $\alpha = 2p$ and $\sigma = 2p+1$. (See \cref{rem:higherorder} for why we can neglect the lower-order terms in \cref{eq:femhobound}.) To show \cref{ass:b}, we follow \cite[Proof of Proposition 4.2]{ChScTe:13} and use the triangle inequality and \cref{def:probdataacc} to show
+\beq\label{eq:Ylhatbound}
+\Ylhat(\omega) \leq \mleft(\Qhl - Q\mright)(\omega) + \mleft(Q- \Qhlmo\mright)(\omega) \leq \cotilde(\omega)\mleft(\hl^\alpha + \hlmo^\alpha\mright)k^\sigma \Cfg.
+\eeq
+We then use the fact that $\VAR{\Ylhat} = \EXP{\Ylhat^2} - \EXP{\Ylhat}^2 \leq \EXP{\Ylhat^2}$ and \cref{eq:Ylhatbound} to show \cref{eq:mlmcassb}, with $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
+\epf
+
+\ble[Verifying assumptions for $Q(u) = \NLtD{u}$]\label{lem:mllt}
+If \cref{ass:coarse} holds with $\Ccoarse$ bounded by $\Chcond \Condn(n) \CAnk^{-\frac1{2p}}$ (as defined in \cref{thm:fembound}) and $a = (2p+1)/2p$, and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
+\ele
+
+\bpf[Proof of \cref{lem:mllt}]
+The proof is exactly analagous to the proof of \cref{lem:mlho}, except we use \cref{eq:femltbound} instead of \cref{eq:femhobound}.
+\epf
+
+As stated in \cref{sec:mlmcapp}, whilst we cannot prove analogues of \cref{lem:mlho,lem:mllt} with $a=1$, we wish to study the behaviour of MLMC when $a=1.$ Therefore, we now state analogues of \cref{lem:mlho,lem:mllt} in the case $a=1.$
+
+\bas[Assumptions for $Q(u) = \NHokD{u}$ with $a=1$]\label{ass:mlho}
+There exists $\Ccoarse>0$ such that if \cref{ass:coarse} holds with $a = 1$ and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
+\eas
+
+\bas[Assumptions for $Q(u) = \NLtD{u}$ with $a=1$]\label{ass:mllt}
+There exists $\Ccoarse>0$ such that if \cref{ass:coarse} holds with $a = 1$ and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
+\eas
+
+We are now in a position to state our main \lcnamecref{thm:mcmlmchelmholtz} on the behaviour of MC and MLMC methods for the Helmholtz equation.
+
+To prove a bound on the complexity of the Monte-Carlo method, we require the following \lcnamecref{ass:variance}.
+
+\bas[Variance of $\Qhtilde$ constant]
+The variance $\VAR{\Qhtilde}$ is constant with respect to $h$.
+\eas
+
+\bth[Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation]
+Under \cref{ass:variance,ass:costone,ass:omegabad}, if the assumptions of \cref{lem:mllt,lem:mlho} hold, then the computational complexity of the Monte-Carlo and Multi-Level Monte Carlo methods for estimating $\EXP{Q(u)}$ is given by the first two lines of \cref{tab:mcresults}.
+
+If \cref{ass:mlho,ass:mllt} hold instead of the assumptions of \cref{lem:mllt,lem:mlho}, then then the computational complexity of the Monte-Carlo and Multi-Level Monte Carlo methods for estimating $\EXP{Q(u)}$ is given by the last two lines of \cref{tab:mcresults}, where `$k\eps$ small' means
+\beq\label{eq:kepscond}
+k\eps < \sqrt{2}\co \Ccoarse^{2p}.
+\eeq
+\enth
+
+\bpf[Proof of \cref{thm:mcmlmchelmholtz}]
+The proof follows immediately from \cref{thm:mlmccomp}, by substituting in the appropriate values of $\alpha,$ $\beta$, etc.. The only case that requires explaining is when $a=(2p+1)/2p$ and $Q(u) = \NLtD{u}$ (so $\alpha = \sigma = 2p.$) In this case, the expression for $L$ in \cref{eq:Ldef} evaluates as
+\beq\label{eq:specialL}
+L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
+\eeq
+Observe that for $k$ (or $\eps$) sufficiently large, the first term in the right-hand side of \cref{eq:specialL} may be negative (i.e. if $k^{-1}$ is suffciently close to 0). In such a case, the maximum of the two quantities on the right-hand side of \cref{eq:specialL} will be 0, and in such a case the MLMC algorithm reverts to the MC algorithm. The criterion for the first term to be positive (and so for MLMC to be distinct from MC) is
+\beqs
+\sqrt{2}co\Ccoarse^{2p}k^{-1}\eps^{-1} > 1,
+\eeqs
+which is equivalent to the condition \cref{eq:kepscond}, as required.
+\epf
+\optodo{Put somewhere that could do probabilistic results}
+\optodo{Put somewhere remark about not seeing coarse space in MLMC}
