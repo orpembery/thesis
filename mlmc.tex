@@ -1,3 +1,54 @@
+\section{Introduction}
+
+Having considered how to speed up the individual solves in UQ algorithms for the Helmholtz equation via nearby preconditioning, we now consider how one can reduce the total number of solves via a Multi-Level Monte-Carlo (MLMC) technique. For more details, we refer to the discussion and overview in\optodo{Ref} below, but informally, in MLMC one performs solves on a hierarchy of meshes, and obtains computational gains because of the reduced (statistical) variance between solutions on different meshes. Since the variance is reduced, fewer solves are needed to control the overall variance of the estimator. We rigorously quantify the computational effort required by MLMC (and a Monte-Carlo estimator), and compare and constrast their behaviour for different wavenumbers and tolerances; this analysis is in contrast to the the analysis of QMC methods in \cref{sec:nbpcqmcnumerics}, where the analysis was only based on numerical experiments, and the overall cost of the estimator was not directly addressed.
+\optodo{Insert chapter overview}
+
+\section{Overview and literature review}
+\subsection{Overview of the ideas of Monte-Carlo and Multi-Level Monte-Carlo}
+We now describe Monte-Carlo and Multi-Level Monte-Carlo estimators for the expectation of a quantity of interest $Q$ of the solution $u$ of a stochastic Helmholtz equation, that is, estimators for $\EXP{Q(u)}.$ Throughout this \cref{chap:mlmc} we let $\OFP$ be a complete probability space.
+
+The \defn{Monte-Carlo estimator $\QhatMC$} is the simplest possible estimator of $\EXP{Q(u)},$ given by
+\beqs
+\QhatMC \de \frac1{\NMC} \sum_{j=1}^{\NMC} Q\mleft(\uh\mleft(\omegasj\mright))\mright),
+\eeqs
+where the $\omegasj$ are independent and identically distributed samples from $\Omega$ according to $\PP.$ We measure the error in $\QhatMC$ (and the MLMC estimator) by the \defn{root-mean-squared error}
+\beqs
+\EXP{\mleft(Q-\QhatMC\mright)^2}^{\half}.
+\eeqs
+
+The error analysis for $\QhatMC$ then seeks to answer the question `How should we choose $h$ and $\NMC$ to ensure the root-mean-squared error is less than $\eps$ (with minimal computational work)?' (for some pre-chosen tolerance $\eps > 0$). We give this error analysis (and an expression for the resulting expected computational effort required) in \cref{sec:mc} below.
+
+In contrast to the Monte-Carlo estimator, where all of the numerical solutions $\uh(\omegasj)$ are performed for a single specified mesh size\footnote{However, for technical reasons due to the randomness of the coefficients, some of these meshes may be refined on a sample-by-sample basis, see \cref{sec:mlmcsetup} below.} $h$, the MLMC estimator computes the solutions for a hierarchy of specified mesh size $\hz \geq \ho \geq \cdots \geq \hL.$ The rationale for such a computation is an observation that the telescoping sum identity
+\beq\label{eq:mlmctelescope}
+\EXP{\uhL} = \EXP{\uhz} + \sum_{l=1}^L \EXP{\uhl-\uhlmo}
+\eeq
+holds. Moreover, one expects that the variance of the inter-level differences $\uhl-\uhlmo$ will be small, because these numerical approximations are similar, and these variances should decay as $l$ increases. This observation motivates the definition of the \defn{multi-level Monte-Carlo} estimator
+\beqs
+\QhatMLhL \de \Yzhat + \sum_{l=1}^L \Ylhat,
+\eeqs
+where $\Yzhat$ is a Monte-Carlo estimator of $\EXP{\uhz}$ using $\Nz$ samples of $\uhz$, and $\Ylhat$ is a Monte-Carlo estimator of $\EXP{\uhl-\uhlmo}$ using $\Nl$ samples.
+
+Because one expects the variance $\VAR{\uhl-\uhlmo}$ to decrease as $l$ increases, one expects that $\Nl$ can also be chosen to decrease as $l$ increases. Moreover, as the computational cost of performing numerical solves is higher for finer meshes (i.e., larger $l$), we expect that the MLMC estimator allows us to perform a large number of (cheap) solves on the coarser meshes, and a small number of (expensive) solves on the fine meshes. This should result in a considerable reduction in computational effort.
+
+The error analysis for $\QhatMLhL$ then seeks to answer the question `How should we choose $\hL$ and $\Nz,\No,\ldots,\NL$ to ensure the root-mean-squared error is less than $\eps$? (with minimal computational work)' (for some pre-chosen tolerance $\eps > 0$). We give this error analysis (and an expression for the resulting expected computational effort required) in \cref{sec:mlmcan} below.
+
+\subsection{Issues in MC and MLMC methods for the Helmholtz equation}
+
+Analysing MC and MLMC methods for the Helmholtz equation has two issues that are not present in the analysis of these methods for, e.g., the stationary diffusion equation. We discuss each of these in turn.
+
+Firstly, the behaviour of the methods for the Helmholtz equation will be $k$-dependent and we would like our analysis of these methods to be completely $k$-explicit. In particular, finite-element-error estimates for the Helmholtz equation are $k$-dependent (recall the extensive discussion in \cref{sec:helmfedisc} above), and therefore our proofs (especially for MLMC methods) will need to incorporate this $k$-dependence. As the standard results for MLMC methods (understandably) do not include any $k$-dependence, we will need to re-prove some of these results with the $k$-dependence incorporated explicitly.
+
+Secondly, the finite-element approximation $\uh$ of the solution of the Helmholtz equation may not exist for all $h > 0,$ and the criteria to prove its existence and uniqueness may be dependent on the coefficients $A$ and $n.$ Recall from the definitions of $\hk{a}{b}$-accuracy and -data-accuracy (\cref{def:hkacc,def:hkdataacc}) that the finite-element solution only exists for $h$ sufficiently small (with the notions of $\hk{a}{n}$-accuracy and -data-accuracy characterising `sufficiently small' in terms of $k$) and that the criteria for `sufficiently small' also depend on the coefficients $A$ and $n$ (see \cref{rem:accuracyhetero}). When $A$ and $n$ are stochastic, the fact that the criteria depend on $A$ and $n$ mean that the criteria are now path-dependent. This path-dependence poses an issue for MC and MLMC methods; our algorithm may require us to compute $\uh(\omegasj)$ (the approximation to $u(\omegasj)$ on the mesh with mesh size $h$), but there is no guarantee that $\uh(\omegasj)$ exists for this particular realisation $\omegasj.$ Therefore, we need to modify our approach to deal with this path-dependence. Such a modification to MC and MLMC methods for path-dependent existence criteria was given by Graham, Parkinson, and Scheichl in \cite{GrPaSc:19} (and in Parkinson's PhD thesis \cite{Pa:18}) in the context of the Radiative Transport Equation, an integro-differential equation with similar path-dependent existence and uniqueness criteria. We will adopt their approach for dealing with the path-dependence.
+
+\subsection{Literature Review}
+We now provide a short literature review of MLMC methods, with a particular focus on relevant results for our subsequent work on the stochastic Helmholtz equation. For a wider-ranging overview of the literature, we refer the reader to the review article \cite{Gi:15} and the webpage \cite{Gi}, which is kept up-to-date with a range of recent work on MLMC methods.
+
+Multi-level Monte Carlo methods were first introduced by Giles \cite{Gi:08} for time-dependent SDEs, with applications mostly arising in finance (although the ideas were present in earlier work by Heinrich \cite{He:98.He:01} using multilevel methods for parametric integration). MLMC methods were first applied to elliptic (i.e., non-time-dependent) PDEs by Cliffe, Giles, Scheichl, and Teckentrup in \cite{ClGiScTe:11} for the stationary diffusion equation, with an application in porous media flow. In particular, the statement of the MLMC complexity theorem \cite[Theorem 1]{ClGiScTe:11} is the basis for our statement of a complexity theorem for the Helmholtz equation in \cref{thm:mlmccomp} below. We highlight that a key result of \cite[Theorem 1]{ClGiScTe:11} is that Multi-Level Monte-Carlo \emph{always} outperforms Monte-Carlo, at least in the setting given in \cite{ClGiScTe:11}.
+
+MLMC methods were applied to linear wave-propagation problems (in the time-domain) by \v{S}ukys, Mishra, and Schwab in the works \cite{SuMiSc:13,SuMiSc:16} and in \v{S}ukys' PhD thesis \cite{Su:14}. They discretised the individual realisations of the wave problems using a finite-volume method in space and specialised time-stepping algorithms (see, e.g., \cite[Section 3.1]{SuMiSc:16}). A key issue in these works was that the coefficient-dependence of the CFL condition in the time-stepping algorithm causes the CFL condition to be random for the UQ problem. THerefore in \cite{SuMiSc:13} the authors analyse the error against the expected work (analagous to our analysis below, except in \cite{SuMiSc:13} \emph{all} of the levels are scaled in order to ensure a CFL condition is satisfied, see \cite[Text following Theorem 5]{SuMiSc:13}; in our analysis below, only those meshes that are `too large' are scaled). In \cite{SuMiSc:16} the authors present more realisatic test cases, and a load-balancing algorithm for applying the MLMC method on high-performance computers. The authors see that the MLMC algorithm consistently outperforms the MC algorithm.
+
+Another collection of relevant work is that of Graham, Scheichl, and Parkinson \cite{GrScPa:17,Pa:18,GrScPa:19} on UQ methods (including MLMC methods) for the Radiative Transport Equation (RTE) as mentioned above. The key methodology in these papers is the technique the authors use to deal with path-dependent existence and uniqueness results for the numerical discretisations (see \cite[Chapter 4]{Pa:18}, \cite[Definition 5.5 ff.]{GrScPa:19}; \cite{GrScPa:17} contains initial numerical results). We adopt this methodology in \cref{sec:mlmcsetup} below to tackle similar issues for the Helmholtz equation.
+
 %% In this \lcnamecref{sec:comp} we state and prove an abstract result on the convergence of multi-level Monte Carlo methods, laregly following the proof of \cite[Theorem 1]{ClGiScTe:11}. Our result is a generalisation of \cite[Theorem 1]{ClGiScTe:11} in the following three ways:
 %% \ben
 %% \item In \cite{ClGiScTe:11} it is assumed that the convergence of the approximate QoIs $\Qhl$, and the cost of producing samples of these QoIs, only depends on the parameter $\hl$ (where, in stochastic PDE applications, $\hl$ is the mesh size for the finite-element discretisation). However, in this work, we assume that the convergence and cost also depend on another parameter $k,$ and we make the dependence of the final computational cost of the MLMC method explicit in $k.$ In our application to the Helmholtz equation, $k$ will be the wavenumber of the problem.
@@ -6,7 +57,7 @@
 %% \een
 %% We now proceed to prove our abstract MLMC convergence result, comtaining the generalisations metioned above.
 
-\section{Set up}
+\section{Set up}\label{sec:mlmcsetup}
 
 We work in the framework of \cref{chap:stochastic}. For $h>0,$ define the random field\optodo{Assume or show it is one} $\uh:\Omega \rightarrow \Vhp$ by letting $\uh(\omega)$ solve \cref{prob:fevgen} (with $\T = \TR$) with coefficients $A(\omega)$ and $n(\omega)$ (if it exists). Let $Q:\HozDDR\rightarrow\RR$ be a (measurable) \defn{quantity of interest} (QoI) of the solution $u$ (so that $Q(u)$ is a random variable). As an abuse of notation, we also use $Q$ to denote $Q \circ u,$ where the context means this notation is unambiguous. If $\uh(\omega)$ exists, we let $\Qh$ denote $Q \circ \uh.$
 
@@ -92,7 +143,7 @@ The proof of \cref{ass:a} is immediate (with $\co = \EXP{\cotilde}$) from the de
 
 
 \optodo{Define RMSE}
-\section{Monte-Carlo methods}
+\section{Monte-Carlo methods}\label{sec:mc}
 
 We now define the Monte-Carlo estimator of $Q$,
 \beqs
@@ -143,7 +194,7 @@ All that remains is to estimate the (expected) computational complexity. We have
 as required.
 \epf
 
-\section{Multi-level Monte-Carlo}
+\section{Multi-level Monte-Carlo}\label{sec:mlmcan}
 
 We define a set of levels$\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =\frac{\hlmo}s$ for $l \geq 1$. We then define the correction operators between the levels by $\Yl \de \Qhltilde - \Qhlmotilde, l \geq 1,$ $\Yz = \Qhztilde.$ We let $\Ylhat$ be the Monte-Carlo estimator of $\Yl$,
  \beqs
@@ -258,38 +309,38 @@ The following theorem describes the computational effort needed to obtain RMSE $
 %%  \eas
 
 
-\bas[Assumptions on $\eps$ and $k$ to simplify expressions in the case $\beta=\gamma$]\label{ass:epsk}
-\beqs
-\eps \leq \min\set{\frac{\sqrt{2}\co\Ccoarse^\alpha}{s^{2\alpha}},\frac1{\sqrt{2}\co\Ccoarse^\alpha}},
-\eeqs
-and
-\beqs
-k^{\sigma-a\alpha} \geq 1.
-\eeqs
-\eas
-
+%% \bas[Assumptions on $\eps$ and $k$ to simplify expressions in the case $\beta=\gamma$]\label{ass:epsk}
+%% \beqs
+%% \eps \leq \min\set{\frac{\sqrt{2}\co\Ccoarse^\alpha}{s^{2\alpha}},\frac1{\sqrt{2}\co\Ccoarse^\alpha}},
+%% \eeqs
+%% and
+%% \beqs
+%% k^{\sigma-a\alpha} \geq 1.
+%% \eeqs
+%% \eas
 \bth[MLMC Complexity Theorem]\label{thm:mlmccomp}
-If \cref{ass:epsk} holds,  $L$ is given by
+The number of levels $L$ is given by
 \beq\label{eq:Ldef}
-L = \ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-a\alpha} \eps^{-1}\mright)},
+L = \max\set{\ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-a\alpha} \eps^{-1}\mright)},0},
 \eeq
 that is,
 \beq\label{eq:hLcond}
-\hL \leq \mleft(\frac\eps{\sqrt{2}\co k^{\sigma}}\mright)^{\frac1\alpha},
+\hL \leq \min\set{\mleft(\frac\eps{\sqrt{2}\co k^{\sigma}}\mright)^{\frac1\alpha},\hz},
 \eeq
 and the number of samples on each computational level is given by
 \beq\label{eq:Nl}
 \Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
 \eeq
-where $\Cl \de \cth\hl^{-\gamma}$, then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ satisfies the bounds
+where $\Cl \de \cth\hl^{-\gamma}$. In this case, if $L=0$, then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ is given by \cref{thm:hhmc}. Otherwise, $\CMLhL(\eps)$ satisfies the bounds
  
  \begin{numcases}{ \CMLhL(\eps) \lesssim}
-k^\tau \mleft(\loge\mleft(\frac{k^{\sigma-a\alpha}}\eps\mright)\mright)^2 \eps^{-2} + k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
+k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
 k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & otherwise.\label{eq:mlmchhoth}
 \end{numcases}
  \enth
+ \optodo{Say why maximum may be needed}
  \bpf[Proof of \cref{thm:mlmccomp}]
-We recall the decomposition of the (squared) mean-squared error into the bias error and the sampling error analagous to \cref{eq:mccomp1}
+Throughout the proof, we assume $L>0,$ as the case $L=0$ is given by \cref{thm:hhmc}. We recall the decomposition of the (squared) mean-squared error into the bias error and the sampling error analagous to \cref{eq:mccomp1}
 \beqs\label{eq:mlmcdecomp}
 \errQhatMLhL^2 = \VAR{\QhatMLhL} + \mleft(\EXP{\QhatMLhL - Q}\mright)^2.
 \eeqs
@@ -331,7 +382,7 @@ From \cref{eq:Cboundformin}
 %% &\leq2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} \text{ (since }\gamma>0,\text{ by \cref{lem:sumbound})}.\label{eq:complexitymidway}
 \end{align}
 
-Using \cref{lem:sumboundnew} with $\Lconst = 1/\alpha,$ $\func = \sqrt{2}\co\Ccoarse^\alpha k^{\sigma - a\alpha}$, and $\delta = \gamma$, the second sum in \eqref{eq:complexitymidway} can be bounded (as $\gamma > 0$) by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
+Using \cref{lem:sumboundnew} with $\Lconst = 1/\alpha,$ $\func = \sqrt{2}\co\Ccoarse^\alpha k^{\sigma - a\alpha}$, and $\delta = \gamma$, the second term in \eqref{eq:complexitymidway} can be bounded (as $\gamma > 0$) by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
 \beq\label{eq:firstterm}
 \cth\frac{\mleft(1+s^{-\gamma}\mright)  \hz^{-\gamma} s^\gamma \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha-a\gamma} \eps^{-\frac\gamma\alpha}
 = \frac{\mleft(1+s^{-\gamma}\mright)\cth \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}
@@ -342,10 +393,11 @@ To bound the sum in the first part of \eqref{eq:complexitymidway}, we must disti
 
 If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, and $\delta = 0$ and \cref{eq:Ldef})
 \beq
-2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2.
+2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2,
 \label{eq:gammaequal}
 \eeq
-We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
+which gives \cref{eq:mlmchheq}.
+%We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
 \beqs
 2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
 \eeqs
@@ -441,3 +493,9 @@ We now observe that, for $\delta \neq 0,$
 \end{align}
 since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} and \eqref{eq:sdLneggen}, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
 \epf
+
+\section{Application}
+
+If $Q(\cdot) = \NHokDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p+1$. If $Q(\cdot) = \NLtDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p$. In both cases, $\beta = 2\alpha,$ $\tau = 2\sigma.$ Assume $\gamma = d$---optimal solver.
+
+FINISH TOMORROW.
