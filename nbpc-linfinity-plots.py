@@ -4,7 +4,7 @@ from fnmatch import fnmatch
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
-
+import colorcet as cc
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
@@ -32,7 +32,9 @@ all_csvs_df = utils.csv_list_to_dataframe(csv_list,names_list)
 
 def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename,things_for_plotting):
 
-    styles = 'ovXdP'
+    styles = 'o^v>P'
+
+    colours = cc.glasbey_bw
     
     fig = plt.figure()
 
@@ -82,10 +84,10 @@ def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename,things_for_plotting)
 
         print(y_data)
                 
-        plt.plot(x_data,y_data,'k'+styles[ii]+'--',label=label)
+        plt.plot(x_data,y_data,styles[ii]+'--',label=label,c=colours[ii])
                      
     plt.xlabel(r'$k$')
-    plt.ylabel('Number of GMRES Iterations')
+    plt.ylabel('Maximum Number of GMRES Iterations')
 
     plt.legend()
 

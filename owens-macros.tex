@@ -213,7 +213,7 @@
 %\newcommand{\nmin}{n_{\min}}
 %\newcommand{\nmax}{n_{\max}}
 %\newcommand{\tfae}{\text{ for almost every }}
-\newcommand{\CzoDpRRdtd}{\Czo{\Dp;\RR^{d\times d}}}
+\newcommand{\CzoDpRRdtd}{\Czo{\Dp;\RRdtd}}
 %\newcommand{\Amin}{A_{\min}}
 \newcommand{\vtb}{\overline{\vt}}
 \newcommand{\LtOHozDDR}{\Lt{\Omega;\HozDDR}}
@@ -222,13 +222,15 @@
 \newcommand{\CzoDp}{\Czo{\Dp}}
 %\newcommand{\Czo}[1]{C^{0,1}\mleft(#1\mright)}
 \newcommand{\solSol}{\sol_{\textrm{Sol}}}
-\newcommand{\WoiDRRRdtd}{W^{1,\infty}\mleft(\DR;\RR^{d\times d}\mright)}
-\newcommand{\WoiDRRRdtdsmall}{W^{1,\infty}(\DR;\RR^{d\times d})}
+\newcommand{\WoiDRRRdtd}{\Woi{\DR;\RRdtd}}
+\newcommand{\WoiDRRRdtdsmall}{W^{1,\infty}(\DR;\RRdtd)}
+\newcommand{\WoiDRRRdtdsmallop}{W^{1,\infty}(\DR;\op)}
 %\newcommand{\LiDRRR}{\Li{\DR;\RR}}
 %\newcommand{\LtDR}{\Lt{\DR}}
 \newcommand{\CzoDpRR}{\Czo{\Dp;\RR}}
-\newcommand{\NLiDRRRdtd}[1]{\N{#1}_{\LiDRRRdtd}}
-\newcommand{\LiDRRRdtd}{\Li{\DR;\RR^{d\times d}}}
+\newcommand{\NLiDRRRdtd}[1]{\N{#1}_{\LiDRRRdtdop}}
+\newcommand{\LiDRRRdtd}{\Li{\DR;\RRdtd}}
+\newcommand{\LiDRRRdtdop}{\Li{\DR;\op}}
 %\newcommand{\NLiDRRR}[1]{\N{#1}_{\LiDRRR}}
 %\newcommand{\NLtDR}[1]{\N{#1}_{\LtDR}}
 \newcommand{\NHozDDR}[1]{\N{#1}_{\HozDDR}}
@@ -468,7 +470,7 @@
 \newcommand{\WoiDpRR}{\Woi{\Dp;\RR}}
 \newcommand{\adiff}{\tilde{a}}
 \newcommand{\sadiff}{\tilde{\as}}
-\newcommand{\NWoiDRRRdtd}[1]{\N{#1}_{\WoiDRRRdtdsmall}}
+\newcommand{\NWoiDRRRdtd}[1]{\N{#1}_{\WoiDRRRdtdsmallop}}
 \newcommand{\WoiRDRRRdtd}{W^{1,\infty}_{R}\mleft(\DR;\RRdtd\mright)}
 \newcommand{\LiRDRRR}{L^{\infty}_{R}\mleft(\DR;\RR\mright)}
 \newcommand{\LiRminDRRR}{L^{\infty}_{R,\min}\mleft(\DR;\RR\mright)}
@@ -504,5 +506,5 @@
 \newcommand{\Omegatilde}{\widetilde{\Omega}}
 \newcommand{\zetatilde}{\zeta}
 \newcommand{\LtOHozDDRnormal}{L^2(\Omega,\HozDDR)}
-\newcommand{\NLiDpRRdtd}[1]{\N{#1}_{\LiDpRRdtd}}
+\newcommand{\NLiDpRRdtd}[1]{\N{#1}_{\LiDpRRdtdop}}
 \newcommand{\NLiDpRR}[1]{\N{#1}_{\LiDpRR}}

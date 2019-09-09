@@ -19,7 +19,7 @@ Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp
 % Inspired by the usage of enumitem here: https://tex.stackexchange.com/a/58714
 \ben[label=Q1., ref=Q1]
 \item\label[itemblank]{it:nbpcq1} How small must $\N{\Aso - \Ast}$ and 
-$\N{\nso - \nst}$ be (in some norm, in terms of $k$-dependence) for GMRES 
+$\N{\nso - \nst}$ be (in some norm to be defined, in terms of $k$-dependence) for GMRES 
 applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent number of iterations
 %$ to be a good preconditioner for $\Amat^{(2)}$
  for arbitrarily large $k$? 
@@ -43,18 +43,17 @@ Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor
 \eeq
 where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-matrices by \cref{eq:Dk2} below and $\vh =\sum_i \vi \phii$, where the $\phii$ are the finite-element basis functions.
 
-As described in \cref{sec:wpdisc}, the PDE analysis of the Helmholtz equation naturally takes place in the norm $\NHokD{\cdot}$, and \cref{eq:Dk} shows that the norm $\NDmatk{\cdot}$ is
-the discrete analogue of the norm $\NHokD{\cdot}$. %See \cref{eq:Dk2} and \cref{eq:Dk3} below for this norm expressed in terms of the Euc
+As described in \cref{sec:wpdisc}, the PDE analysis of the Helmholtz equation naturally takes place in the norm $\NHokD{\cdot}$, and \cref{eq:Dk} shows that the norm $\NDmatk{\cdot}$ is simply the norm on the finite-element space induced by  $\NHokD{\cdot}$. %See \cref{eq:Dk2} and \cref{eq:Dk3} below for this norm expressed in terms of the Euc
 The norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$ recently appeared in results about the convergence of domain-decomposition methods %in this norm are proved 
-for the Helmholtz equation \cite{GrSpVa:17,GrSpZo:18}, and for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:19}. 
+for the Helmholtz equation \cite{GrSpVa:17,GrSpZo:18}, and a related norm appeared in similar results for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:19}. 
 
 \Cref{cor:1,cor:1a} are proved under the \Cref{cond:1nbpc,cond:2} below. These \lcnamecrefs{cond:1nbpc} can be informally stated as 
 \bit
 \item the obstacle $\Dm$ and the coefficients $\Aso$ and $\nso$ are such that $u^{(1)}$ exists and the problem is \emph{nontrapping} (in the sense described in  \cref{sec:wpdisc} above), and
 \item the meshsize $h$ and polynomial degree $p$ in the finite-element method are chosen to depend on $k$ to ensure that the 
-finite-element solution to the problem with coefficients $\Aso$ and $\nso$ exists, is unique, and 
+finite-element solution to the problem with coefficients $\Aso$ and $\nso$ exists, is unique, and has bounded error in the $H^1_k$-norm
 %Galerkin method (with coefficients $\Aso$ and $\no$) 
-is uniformly accurate as $k\tendi$. 
+$k\tendi$. 
 \eit 
 
 
@@ -84,7 +83,7 @@ The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} be
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
 Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$,
-let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{\pm}$ and $m_{\pm}$ be as in \cref{lem:normequiv} below (note that all these constants are independent of $k$, $h$, and $p$). Then if 
+let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{+}>0$ and $m_{\pm}>0$ be as in \cref{lem:normequiv} below (note that all these constants are independent of $k$, $h$, and $p$). Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:conda}
@@ -98,18 +97,18 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
-
-Two notes regarding \cref{cor:1,cor:1a}: (i)The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by weaker norms, and the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $L^\infty(D)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
+\optodo{`Proofs on pages' everywhere}
+Two notes regarding \cref{cor:1,cor:1a}: (i)The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $L^\infty(D)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
 \NLiDRRdtd{A}\de \esssup_{\bx\in D}\N{A(\bx)}_2.
 \eeqs
-(iii) The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations is then larger -- but still independent of $k$.
+(iii) The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations may then be different---but is still independent of $k$.
 %In \cref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
 
 The proofs of \cref{cor:1,cor:1a} are in \cref{sec:mainproofs} below.
 
 \bre
-When $h\sim  k^{-1}$, the bounds \cref{eq:main1} and \cref{eq:main1a} (and hence also \cref{eq:cond} and \cref{eq:conda}) are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect, as discussed in \cref{sec:helmfedisc}) the bound \cref{eq:main1a} for standard GMRES is more pessimistic than the bound \cref{eq:main1} for weighted GMRES.
+When $h\sim  k^{-1}$, the bounds \cref{eq:cond,eq:conda} are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect, as discussed in \cref{sec:helmfedisc}) the bound \cref{eq:conda} for standard GMRES is more pessimistic than the bound \cref{eq:cond} for weighted GMRES.
 \ere
 
 
@@ -144,7 +143,7 @@ To state these PDE results, we use the notation for $a,b>0$ that $a\lesssim b$ w
 
 \begin{theorem}[Answer to \cref{it:nbpcq2} (the PDE analogue of \cref{it:nbpcq1})]\label{thm:2}
 %Given $f\in L^2(D)$ such that $\supp \, f \subset \BR$, 
-Let $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and let $\Dm$, $\Ast$, and $\nst$ be such that $u^{(2)}$ exists
+Let $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below (so that $\uso$ exists, is unique, and satisfies a $k$-independent a priori bound), and let $\Dm$, $\Ast$, and $\nst$ be such that $u^{(2)}$ exists
 for any $f\in L^2(D)$ such that $\supp \, f \subset \BR$. 
 Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicitly in terms of $\Dm$, $\Aso$, and $\nso$ in \cref{eq:C3} below, such that
 \beq\label{eq:PDEbound}
@@ -189,7 +188,7 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\As
 Proofs of \cref{thm:2,lem:sharp} are in \cref{sec:pdeproofs} below.
 
 \bre[Physical interpretation for $k$-dependence]\label{rem:physical1k}
-It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both \cref{it:nbpcq1} and \cref{it:nbpcq2}. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$ one expects perturbations of size up to $1/k$ to be `unseen' by the PDE or numerical method. This is exactly what we see; perturbations of size (up to) $1/k$ give bounded relative difference (in \cref{it:nbpcq2}) and bounded GMRES iterations for the nearby-preconditioned linear system (in \cref{it:nbpcq1}). Also, on a PDE leve, perturbations of order $1/k$ being `unseen' by the PDE can also be seen in bounds proved for $u$ where $n = \no + \eta,$ with $\no$ nontrapping and $\NLiDRR{\eta} \lesssim 1/k,$ see \cref{rem:kdep} above.
+It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both \cref{it:nbpcq1} and \cref{it:nbpcq2}. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$, one expects perturbations of magnitude up to $\cO(1/k)$ to be `unseen' by the PDE or numerical method. This is exactly what we see; perturbations of size (up to) $1/k$ give bounded relative difference (in \cref{it:nbpcq2}) and bounded GMRES iterations for the nearby-preconditioned linear system (in \cref{it:nbpcq1}). Also, on a PDE level, perturbations of order $1/k$ being `unseen' by the PDE can also be seen in bounds proved for $u$ where $n = \no + \eta,$ with $\no$ nontrapping and $\NLiDRR{\eta} \lesssim 1/k,$ see \cref{rem:kdep} above.
 \ere
 
 
@@ -204,49 +203,49 @@ The numerical experiments in this section seek to verify the analogues of \cref{
 
 Based on the PDE results \cref{thm:2,lem:sharp} above, we expect that the condition \cref{eq:sufficientlysmall} is a necessary and sufficient condition for standard GMRES applied to \cref{eq:pcsystem1} to converge in a $k$-independent number of iterations, even though we can only prove this is a sufficient condition for \emph{weighted} GMRES. We expect this because \cref{eq:sufficientlysmall} is a sufficient condition for \cref{it:nbpcq2}, the PDE analogue of \cref{it:nbpcq1}. Indeed, this is exactly the behaviour we observe in numerical experiments; we see that if \cref{eq:sufficientlysmall} holds, then standard GMRES applied to \cref{eq:pcsystem1} converges in a $k$-independent number of iterations, and moreover, \cref{eq:sufficientlysmall} appears to be sharp. We now describe our numerical experiments in more detail.
 
-To verify this expected behaviour, we perform numerical experiments for the setup described in \cref{app:compsetup} with $\Aso = I$ and $\nso = 1$. We define $f$ and $\gI$ to correspond to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$. We perform experiments for $A$ and $n$ separately, i.e., first we perform experiments with $\Ast=I$ and $\nst$ varying, and then we perform experiments with $\Ast$ varying and $\nst=1.$
+To verify this expected behaviour, we perform numerical experiments with the setup described in \cref{app:compsetup} with $\Aso = I$ and $\nso = 1$. We define $f$ and $\gI$ to correspond to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$. We perform experiments for $A$ and $n$ separately, i.e., first we perform experiments with $\Ast=I$ and $\nst$ varying, and then we perform experiments with $\Ast$ varying and $\nst=1.$
 
-We define $\Ast$ and $\nst$ to be piecewise constant on a $10\times10$ square grid, with their values on each square chosen independently at random from a $\Unif\mleft(1-\alpha,1+\alpha\mright)$ distribution, with $\alpha \in (0,1)$ chosen as described below. For $\Ast,$ we also impose the restriction that $\Ast$ is (piecewise) positive-definite almost surely. We solve the linear systems \cref{eq:pcsystem1} for $k = 20,40,60,80,100$ using standard GMRES and record the number of GMRES iterations taken to achieve a (relative) tolerance of $10^{-5}$ (relative to $\Nt{\bfb}$).
+We define $\Ast$ and $\nst$ to be piecewise constant (matrix-valued and real-valued respectively) on a $10\times10$ square grid, with their values on each square chosen independently at random from a $\Unif\mleft(1-\alpha,1+\alpha\mright)$ distribution, with $\alpha \in (0,1)$ chosen as described below. For $\Ast,$ we impose the restriction that on each square $\Ast$ is positive-definite almost surely. We solve the linear systems \cref{eq:pcsystem1} for $k = 20,40,60,80,100$ using standard GMRES and record the number of GMRES iterations taken to achieve a (relative) tolerance of $10^{-5}$ (relative to $\Nt{\bfb}$).
 
-We perform experiments for three different forms of $\alpha$  taking $\alpha = 0.5 \times k^\beta$ for $\beta \in 0,0.1,\ldots,0.9,1.$ We expect that when $\beta \neq 1$  the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\beta = 1$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour has only been proven for $\NLiDRRdtd{\Aso-\Ast}$ for weighted GMRES.
+We perform experiments taking $\alpha = 0.5 \times k^{-\beta}$ for $\beta \in 0,0.1,\ldots,0.9,1.$ We expect that when $\beta \neq 1$  the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\beta = 1$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour for $\beta=1$ has only been proved for $\NLiDRRdtd{\Aso-\Ast}$ for weighted GMRES (compare the restrictions on $\NLiDRRdtd{\Aso-\Ast}$ in \cref{cor:1,cor:1a}).
 
 
- When $\beta in \set{0,\ldots,0.3}$ (for $\NLiDRRdtd{\Aso-\Ast}$) and $\beta \in \set{0,\ldots,0.5}$ (for $\NLiDRR{\nso-\nst}$) we see growth in the maximum number of GMRES iterations needed (over all realisations) to achieve convergence, otherwise we see that the number of GMRES iterations is bounded as $k$ increases. This behaviour is better than expected; as the number of GMRES iterations is apparently bounded for a range of $\beta < 1.$ However, we note that this behaviour could be (i) because we are in a pre-asymptotic regime, and the number of GMRES iterations would grow if we increased $k$ further, or (ii) the particular structure of $\nst$ (being piecewise constant, with the pieces independently, randomly chosen) could result in some kind of `averaging' behaviour, meaning the preconditioner is better than would otherwise be expected.
+In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:linfinityn1,fig:linfinityn2}, when $\beta \in \set{0,\ldots,0.3}$ (for $\NLiDRRdtd{\Aso-\Ast}$) and $\beta \in \set{0,\ldots,0.5}$ (for $\NLiDRR{\nso-\nst}$) we see growth in the maximum number of GMRES iterations needed (over all realisations) to achieve convergence, otherwise we see that the number of GMRES iterations is bounded as $k$ increases. This behaviour is better than expected; as the number of GMRES iterations is apparently bounded for a range of $\beta < 1.$ However, we note that this behaviour could be (i) because we are in a pre-asymptotic regime, and the number of GMRES iterations would grow if we increased $k$ further, or (ii) the particular structure of $\nst$ (being piecewise constant, with the pieces independently, randomly chosen) could result in some kind of `averaging' behaviour, meaning the preconditioner is better than would otherwise be expected.
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-0.pgf}
-  \caption{Maximum GMRES iteration counts for $\AmatoI\Amatt$ where $\nso=\nst=1$ and $\NLiDRR{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityA0}
+  \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityA0}
     \end{figure}
     
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-1.pgf}
-   \caption{Maximum GMRES iteration counts for $\AmatoI\Amatt$ where $\nso=\nst=1$ and $\NLiDRR{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5 ,0.6,0.7.$}\label{fig:linfinityA1}
+   \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5 ,0.6,0.7.$}\label{fig:linfinityA1}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-2.pgf}
-    \caption{Maximum GMRES iteration counts for $\AmatoI\Amatt$ where $\nso=\nst=1$ and $\NLiDRR{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityA2}
+    \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityA2}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-0.pgf}
-  \caption{Maximum GMRES iteration counts for $\AmatoI\Amatt$ where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityn0}
+  \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityn0}
     \end{figure}
     
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-1.pgf}
-   \caption{Maximum GMRES iteration counts for $\AmatoI\Amatt$ where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:linfinityn1}
+   \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:linfinityn1}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-2.pgf}
-   \caption{Maximum GMRES iteration counts for $\AmatoI\Amatt$ where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
+   \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
 \end{figure}
 
   \optodo{Need to figure out how to get computer modern consistently in axis labels. Some bookmarks saved that may help.}
@@ -1186,23 +1185,23 @@ If we compare our numerical results with the theory results in \cref{cor:1aalt},
 
 \begin{figure}
 \input{l1-low.pgf}
-  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^\beta,$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:l1low}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^{-\beta},$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:l1low}
 \end{figure}
 
 \begin{figure}
   \input{l1-med.pgf}
-    \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^\beta,$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:l1med}
+    \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^{-\beta},$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:l1med}
 \end{figure}
     
     \begin{figure}
     \input{l1-high.pgf}
-      \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^\beta,$ for $\beta = 0.8,0.9,1.$}\label{fig:l1high}
+      \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^{-\beta},$ for $\beta = 0.8,0.9,1.$}\label{fig:l1high}
 \end{figure}
     \optodo{Remove border on plots - frameon argument to fig?}
 \begin{table}
   \centering
   \input{l1-table}
-  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^\beta.$}\label{tab:l1}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2/k^{-\beta}.$}\label{tab:l1}
   \end{table}
 
 
