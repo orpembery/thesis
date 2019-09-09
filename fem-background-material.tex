@@ -279,7 +279,7 @@ It is not immediately clear why we require two distinct mesh conditions \cref{eq
 However, this distinction may be slightly misleading; although (in the case of data-accuracy) one uses \cref{eq:hkdataacca} to show existence and uniqueness of the finite-element solution; the steps that lead to existence and uniqueness are also part of the argument used to show the finite-element error is bounded; see `Modified Schatz arguments' in \cref{sec:prooftechniques} below. Therefore, even if one knows a priori that the finite-element solution exists and is unique, it is not obvious how one can show the finite-element error is bounded without both the mesh conditions \cref{eq:hkdataacca,eq:hkdataaccb}.
 \ere
 
-\bre[The above conditions for heterogeneous problems]
+\bre[The above conditions for heterogeneous problems]\label{rem:accuracyhetero}
 Observe that for heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in \cref{sec:fem} below we prove that the $h$-finite-element method with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ is completely known.
 \ere
 
@@ -1254,7 +1254,7 @@ where the polynomial $\Pfn{j}(x)$ is defined in \cref{eq:p} below, and the $n$-d
 
 The proof of \cref{thm:fembound} is on \cpageref{page:thmfembound} below.
 
-\bre[\Cref{thm:fembound} is a higher-order result]
+\bre[\Cref{thm:fembound} is a higher-order result]\label{rem:higherorder}
 At first glance, \cref{thm:fembound} appears not to be a higher-order result, because the lowest-order terms in \cref{eq:femltbound,eq:femhobound} are $h^2$ and $h,$  respectively. However, we make two observations:
 \ben
 \item In general the solution $u$ is only in $\HtD$ (as in \cref{ass:htwo}), and so we do not expect a typical higher-order error bound (involving $h^{p+1}$ for $\NLtD{u-\uh}$ or $h^p$ for $\NHokD{u-\uh}$), as $u$ may not have higher-order derivatives.
