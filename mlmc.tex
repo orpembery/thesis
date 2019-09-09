@@ -51,10 +51,11 @@ Secondly, the finite-element approximation $\uh$ of the solution $u$ of the stoc
 This sample-dependence poses an issue for Monte-Carlo and Multi-Level Monte-Carlo methods. The method may require us to compute $\Qh(\omegasj)$, but there is no guarantee that $\Qh(\omegasj)$ exists. Therefore, we need to modify our methods to deal with this sample-dependence. Such a modification to Monte-Carlo and Multi-Level Monte-Carlo methods for sample-dependent existence and uniqueness criteria was given by Graham, Parkinson, and Scheichl in \cite{GrPaSc:19} (and in Parkinson's PhD thesis \cite{Pa:18}), in the context of the Radiative Transport Equation (RTE). The RTE is an integro-differential equation whose numerical approximations have similar sample-dependent existence and uniqueness criteria to the Helmholtz equation. We adopt their approach for dealing with the sample-dependence, this approach is discussed in \cref{sec:mlmcsetup} below.
 
 \subsection{Literature Review of Multi-Level Monte-Carlo methods}
-\optodo{Scarabosio! Need to highlight, but work in a small frequency setting, so everything is $k$-independent}
-We focus our literature review on (i) foundational works in Multi-Level Monte-Carlo methods, to provide a little context for our work on the Helmholtz equation, and (ii) applications of Multi-Level Monte-Carlo methods to problems sharing the challenges outlined in \cref{sec:challenges} above. As far as we are aware, there is no prior work on Multi-Level Monte-Carlo methods explicitly incorporating the dependence on an additional parameter, and so we just mention works dealing with sample-dependent criteria for the numerical approximation. For a wider-ranging overview of the literature, we refer the reader to the review article \cite{Gi:15} and the webpage \cite{Gi}, the latter of which is kept up-to-date with a range of recent work on Multi-Level Monte-Carlo methods.
+We focus our literature review on (i) foundational works in Multi-Level Monte-Carlo methods, to provide a little context for our work on the Helmholtz equation, and (ii) applications of Multi-Level Monte-Carlo methods to problems sharing the challenges outlined in \cref{sec:mlmcchallenges} above. As far as we are aware, there is no prior work on Multi-Level Monte-Carlo methods explicitly incorporating the dependence on an additional parameter, and so we just mention works dealing with sample-dependent criteria for the numerical approximation. For a wider-ranging overview of the literature, we refer the reader to the review article \cite{Gi:15} and the webpage \cite{Gi}, the latter of which is kept up-to-date with a range of recent work on Multi-Level Monte-Carlo methods.
 
 Multi-level Monte Carlo methods for stochastic differential equations were first introduced by Giles \cite{Gi:08} for time-dependent SDEs, with applications mostly arising in finance, although the ideas were present in earlier work by Heinrich \cite{He:98,He:01} on multilevel methods for parametric integration. Multi-Level Monte-Carlo methods were first applied to elliptic (i.e., non-time-dependent) PDEs by Cliffe, Giles, Scheichl, and Teckentrup in \cite{ClGiScTe:11} for the stationary diffusion equation, with an application in porous media flow. In particular, the statement of the Multi-Level Monte-Carlo complexity theorem in \cite[Theorem 1]{ClGiScTe:11} is the basis for our statement of a Multi-Level Monte-Carlo complexity theorem for the Helmholtz equation in \cref{thm:mlmccomp} below. We highlight that a key result of \cite[Theorem 1]{ClGiScTe:11} is that Multi-Level Monte-Carlo methods \emph{always} outperform Monte-Carlo methods, at least in the setting given in \cite{ClGiScTe:11}.
+
+We mention the work of Scarabosio \cite{Sc:17}, who applied the Multi-Level Monte-Carlo method to a Helmholtz transmission problems with an uncertain boundary (i.e. a Helmholtz problem where $A$ and $n$ piecewise constant, both jumping across a random interface). Her particular emphasis was on quantities of interest given by point evaluations of the solution; other UQ algorithms do not behave well for such QoIs, see \cite[Section 3.3]{Sc:17}. She works under a `large wavelength assumption' \cite[Assumption 3.1]{Sc:17}, i.e., an assumption that $k$ is small.  In this setting she shows that the Multi-Level Monte-Carlo method for the transmission problem fits into the standard framework of Multi-Level Monte-Carlo methods \cite[Proposition 4.2]{Sc:17} (as in, e.g., \cite{ClGiScTe:11,Gi:15}) and that the numerical behaviour of the method is as predicted by the theory \cite[Section 6]{Sc:17}. The analysis in this paper is \emph{not} $k$-explicit, but given the author works in a small-$k$ regime, the lack of $k$-explictness is not an issue, as one cannot use the work to consider the behaviour of the Multi-Level Monte-Carlo method for large $k.$
 
 We now highlight two bodies of work on Multi-Level Monte-Carlo methods with sample-dependent criteria; the work of Mishra, Schwab, and \v{s}ukys on Monte-Carlo and Multi-Level Monte-Carlo methods for time-domain wave propagation and the work of Graham, Parkinson, and Scheichl on Monte-Carlo and Multi-Level Monte-Carlo methods for the Radiative Transport Equation.
 
@@ -73,7 +74,7 @@ The remedy proposed for this sample-dependence by Graham, Parkinson, and Scheich
 %% We now proceed to prove our abstract MLMC convergence result, comtaining the generalisations metioned above.
 
 \section{Abstract Monte-Carlo and Multi-Level Monte-Carlo setting, motivated by the Helmholtz equation}\label{sec:mlmcsetup}
-We now define the concepts and quantities needed to define and discuss Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. However, at this stage we work at an abstract level, i.e., we consider random variables $Q$ and $\Qh$ rather than the solution $u$ of a stochastic Helmholtz equation and its approximations $\uh.$ This abstraction will help simplify the presentation of the additional challenges one has for the Helmholtz equation. However, when constructing this abstract setting, our definitions will be motivated by properties of the finite-element solution of the Helmholtz equation. Therefore in \cref{sec:mlmcapp} below, we will show that the Helmholtz equation fits into our abstract setting, and therefore our abstract results are applicable to the Helmholtz equation itself.
+We now define the concepts and quantities needed to define and discuss Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. However, at this stage we work at an abstract level, i.e., we consider random variables $Q$ and $\Qh$ rather than the solution $u$ of a stochastic Helmholtz equation and its approximations $\uh.$ This abstraction will help simplify the presentation of the additional challenges one has for the Helmholtz equation. However, when constructing this abstract setting, our definitions will be motivated by properties of the finite-element solution of the Helmholtz equation. Therefore in \cref{sec:mlmcappplying} below, we will show that the Helmholtz equation fits into our abstract setting, and therefore our abstract results are applicable to the Helmholtz equation itself.
 
 We assume that we have a parameter $k>0$ (corresponding to the wavenumber in the Helmholtz equation), that there exists a random variable $Q:\Omega\rightarrow\RR$, and that our goal is to approximate $\EXP{Q}.$ Our first aim would be to define a family of random variables $\mleft(\Qh\mright)_{h>0}$ (corresponding to the finite-element approximations $\uh$). However, as has been discussed in \cref{sec:mlmcchallenges}, the existence and uniqueness of finite-element approximations on the Helmholtz equation is sample-dependent, and therefore we want our abstract setting to reflect this dependence.
 
@@ -90,7 +91,7 @@ then $\Qh(\omega)$ exists, is unique, and satisfies
 \eeq
 \eas
 
-\bre[Comments on \cref{ass:probdataacc}]
+\bre[Comments on \cref{def:probdataacc}]
 \bit
 \item In principle, one can obtain explicit formulae for $\Co$ and $\cotilde$ \cref{eq:hfemcond,eq:femltbound,eq:femhobound}. However, as noted in \cref{rem:nsharp,rem:explicita}, \cref{eq:hfemcond,eq:femltbound,eq:femhobound} may not depend optimally on $n$, and are not completely explicit in their $A$-dependence. Therefore, using \cref{eq:hfemcond,eq:femltbound,eq:femhobound} to define $\Co$ and $\cotilde$ would mean $\Co$ and $\cotilde$ may not depend optimally on $\omega,$ nor be completely explicit in their $\omega$-dependence. Therefore we do not specifiy (here, on in \cref{sec:mlmcapplying} below) the form of $\Co$ or $\cotilde.$
 \item It is not immediately clear that \cref{eq:Qhbound} is implied by the bounds \cref{eq:femltbound,eq:femhobound} (when $\Cdata = \Cfg$), as \cref{eq:femltbound,eq:femhobound} contain additional terms in $h$ and $k.$ However, as discussed in \cref{rem:higherorder}, the final terms in the bounds \cref{eq:femltbound,eq:femhobound} are the dominant terms for $h \lesssim 1/k,$ and so one can (for suitable quantities of interest) obtain bounds of the form \cref{eq:Qhbound} for the stochastic Helmholtz equation.
@@ -109,9 +110,9 @@ that is, $\hmaxomega$ is the largest mesh size that satisfies \cref{eq:probdataa
 \homega = \min\set{h,\hmaxomega},
 \eeq
 that is, the behaviour of $\homega$ as $h\downarrow 0$ is governed by $h$, but $\homega$ is always small enough so that it always satisfies \cref{eq:probdataacc}. We can now define the random variable
-\beqs
+\beq\label{eq:Qhtilde}
 \Qhtilde(\omega) = \Qhomega(\omega).
-\eeqs
+\eeq
 Observe that, by construction, $\Qhtilde(\omega)$ exists for all $\omega \in \Omega,$ in contrast to $\Qh(\omega)$.
 
 \bre[Is $\Qhtilde$ a random variable?]\label{rem:Qhtilderandom}
@@ -156,7 +157,7 @@ by \cref{ass:costone,eq:homega}. Then using  the definition of $\hmaxomega,$ \cr
 \beq\label{eq:costpf2}
 \Cost{\Qhtilde(\omega)} \leq \cthtilde(\omega)h^{-\gamma} + \mleft(\cthtilde\Co\mright)(\omega) k^{a\gamma},
 \eeq
-and therefore as \cref{eq:omegabad} holds, we obtain \cref{eq:singlecost}.
+and therefore as \cref{ass:omegabad} holds, we obtain \cref{eq:singlecost}.
 \epf
 
 To prove results on the expected computational cost and convergence of Monte-Carlo and Multi-Level Monte-Carlo methods, we need not only the previous \lcnamecref{lem:c} on the expected computational cost of a single sample of $\Qhtilde,$ but also the following \lcnamecref{ass:a} on the convergence of $\Qhtilde$ to $Q$.
@@ -240,19 +241,19 @@ as required.
 \epf
 
 \section{Multi-level Monte-Carlo}\label{sec:mlmcan}
-We now analyse the Multi-Level Monte-Carlo method in the $k$-dependent abstract setting given above. Aside from the $k$-dependence and the sample-dependent existence and uniqueness criterion (the latter of which has been discussed and dealt with through introducing the random variables $\Qhtilde$ above), our approach and final result is analogous to the standard Multi-Level Monte-Carlo complexity result given in, e.g., \cite[Theorem 1]{ClGiScTe:11}. Although all of the details are contained in our main result, \cref{thm:mlmccomp} below, we mention here that the goal in \cref{thm:mlmkccomp} is to choose the number of levels $L$ and the numbers of samples on each level $\Nl$ to acheive a root-mean-squared error of at most $\epsilon$ with minimal cost.
+We now analyse the Multi-Level Monte-Carlo method in the $k$-dependent abstract setting given above. Aside from the $k$-dependence and the sample-dependent existence and uniqueness criterion (the latter of which has been discussed and dealt with through introducing the random variables $\Qhtilde$ above), our approach and final result is analogous to the standard Multi-Level Monte-Carlo complexity result given in, e.g., \cite[Theorem 1]{ClGiScTe:11}. Although all of the details are contained in our main result, \cref{thm:mlmccomp} below, we mention here that the goal in \cref{thm:mlmccomp} is to choose the number of levels $L$ and the numbers of samples on each level $\Nl$ to acheive a root-mean-squared error of at most $\epsilon$ with minimal cost.
 
 We first give the precise details of the setup for Multi-Level Monte-Carlo. We define a set of levels $\set{\hl}_{l=0}^L$ (with $L$ to be chosen) such that
-\be\label{eq:hl}
+\beq\label{eq:hl}
 \hl =\frac{\hlmo}s
 \eeq
 for $l \geq 1$. (Observe that when $\hl$ corresponds to the mesh width of a finite-element mesh, then \cref{eq:hl} is achieved if we obtain successive meshes by uniform refinement.) We then define the correction operators between the levels by
 \beqs
-\Yl \de \Qhltilde - \Qhlmotilde, l \geq 1,$ $\Yz = \Qhztilde.
+\Yl \de \Qhltilde - \Qhlmotilde, l \geq 1,\quad \Yz = \Qhztilde.
 \eeqs
 Observe that by construction
-\beq\label{eq:expecationtelescope}
-\EXP{\Yz + \sum_{l=1}^L \EXP{\Yl} = \EXP{\Qztilde + \sum_{l=1}^L \Qhltilde - \Qhlmotilde} = \EXP{\QhLtilde}.
+\beq\label{eq:expectationtelescope}
+\EXP{\Yz} + \sum_{l=1}^L \EXP{\Yl} = \EXP{\Qhztilde + \sum_{l=1}^L \Qhltilde - \Qhlmotilde} = \EXP{\QhLtilde}.
 \eeq
 We let $\Ylhat$ be the Monte-Carlo estimator of $\Yl$, i.e.,
  \beqs
@@ -264,7 +265,7 @@ We let $\Ylhat$ be the Monte-Carlo estimator of $\Yl$, i.e.,
  \eeqs
  where we emphasise that the $\Ylhat$ are independent.
 
- As we discussed in \cref{sec:mlmcideasoverview} above, the reason the Multi-Level Monte-Carlo method delivers a lower computational cost that the Monte-Carlo method is that the variance of the estimators $\Ylhat$ decreases as $l$ increases. Therefore the more expensive simulations (for higher $l$) need fewer samples. To quantify the behaviour of these variances, we assume $\VAR{\Yl}$ has the following property, c.f. the behaviour of the error in \cref{eq:Qhbound}. (The similarity in the form of \cref{eq:mlmcassb} below and \crefr{eq:Qhbound} is no coincidence, one usually proves bounds of the form \cref{eq:mlmcassb} via bounds of the form \cref{eq:Qhbound}; see the proof of \cref{lem:mlho} below for an example of this proof technique.
+ As we discussed in \cref{sec:mlmcideasoverview} above, the reason the Multi-Level Monte-Carlo method delivers a lower computational cost that the Monte-Carlo method is that the variance of the estimators $\Ylhat$ decreases as $l$ increases. Therefore the more expensive simulations (for higher $l$) need fewer samples. To quantify the behaviour of these variances, we assume $\VAR{\Yl}$ has the following property, c.f. the behaviour of the error in \cref{eq:Qhbound}. (The similarity in the form of \cref{eq:mlmcassb} below and \cref{eq:Qhbound} is no coincidence, one usually proves bounds of the form \cref{eq:mlmcassb} via bounds of the form \cref{eq:Qhbound}; see the proof of \cref{lem:mlho} below for an example of this proof technique.
 
   %% The following assumptions
   %% % \lcnamecrefs{ass:coarse}
@@ -292,7 +293,7 @@ As we will see in \cref{thm:mlmccomp} below, the interplay between $\beta$ and $
 To simplify the expression in \cref{thm:mlmccomp} below, we make the following \lcnamecref{ass:coarse}, that the coarse mesh $\hz$ has the same $k$-dependence as the criterion for existence and uniqueness \cref{eq:probdataacc}. If we did not make this \lcnamecref{ass:coarse}, then the relationship between $\hz$ and $\hzomega$ would be $k$-dependent, making the analysis of the Multi-Level Monte-Carlo method more involved. Moreover, not making this \lcnamecref{ass:coarse} would not give any additional computational gains, as the mesh on which we compute (with mesh size $\hzomega$) would be considerably finer than the specified mesh (with mesh size $\hz$).
 
 \bas[Dependence of coarse space on $k$]\label{ass:coarse}
-Let $\Ccoaese > 0$ be independent of $k$ and 
+Let $\Ccoarse > 0$ be independent of $k$ and 
 \beqs
 \hz = \Ccoarse k^{-a}.
 \eeqs
@@ -379,7 +380,7 @@ We can now state our main theorem on the complexity of the Multi-Level Monte-Car
 \item How the number of levels $L$ should be chosen, and
   \item How the number of samples $\Nl$ on each level should be chosen
     \eit
-    so that the root-mean-squared error of the Multi-Level Monte-Carlo estimator is of the order $\eps$ with minimal work. Observe that \cref{thm:mlmccomp} is analagous to the standard Multi-Level Monte-Carlo complexity theorem, see, e.g., \cite[Theorem 1]{CliGiScTe:11}, but adapted for our $k$-dependent setting.
+    so that the root-mean-squared error of the Multi-Level Monte-Carlo estimator is of the order $\eps$ with minimal work. Observe that \cref{thm:mlmccomp} is analagous to the standard Multi-Level Monte-Carlo complexity theorem, see, e.g., \cite[Theorem 1]{ClGiScTe:11}, but adapted for our $k$-dependent setting.
 
     Recall that $\Vl = \VAR{\Yl},$ the variance of the correction operator. We let
     \beqs
@@ -396,12 +397,12 @@ and the number of samples on each computational level is given by
 \beq\label{eq:Nl}
 \Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
 \eeq
-then $\err{\QhatMLhL} \leq \eps$$ and, if $L \geq 1$, the computational cost of $\QhatMLhL$ satisfies 
+then $\err{\QhatMLhL} \leq \eps$ and, if $L \geq 1$, the computational cost of $\QhatMLhL$ satisfies 
  \begin{numcases}{ \Cost{\QhatMLhL} \lesssim}
 k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
 k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & otherwise.\label{eq:mlmchhoth}
  \end{numcases}
- However, if $L=0$, then $\Cost{\QhatMLhL}$ is given by \cref{thm:mc}.
+ However, if $L=0$, then $\Cost{\QhatMLhL}$ is given by \cref{thm:hhmc}.
  \enth
  The proof of \cref{thm:mlmccomp} is given on \cpageref{page:mlmccompproof} below. For an explanation of when the first term in \cref{eq:Ldef} may be negative, i.e., why one must include the maximum in \cref{eq:Ldef}, see the proof of \cref{thm:mcmlmchelmholtz} below.
  
@@ -509,7 +510,7 @@ The task is now to bound the variance term \cref{eq:mlmcvariance} by $\eps^2/2$ 
 
 Find $\Nz,\No,\ldots,\NL > 0$ to minimise \cref{eq:Cboundformin} subject to
 \beqs
-\sum_{l=0}^L \frac{\vL}{\Nl} = \frac{\eps^2}2.
+\sum_{l=0}^L \frac{\Vl}{\Nl} = \frac{\eps^2}2.
 \eeqs
 This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers. Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
 
@@ -581,16 +582,13 @@ We now combine \cref{eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammaless,eq:gamm
 %Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
 \epf
 
-
-\section{Kept for now}\label{sec:mlmcapp}
-
 %% If $Q(\cdot) = \NHokDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p+1$. If $Q(\cdot) = \NLtDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p$. In both cases, $\beta = 2\alpha,$ $\tau = 2\sigma.$ Assume $\gamma = d$---optimal solver.
 
 %% FINISH TOMORROW.
 
 \section{Applying the abstract $k$-dependent Monte-Carlo and Multi-Level Monte-Carlo theory to the stochastic Helmholtz equation}\label{sec:mlmcapplying}
 
-We now show that the stochastic Helmholtz equation fits into the abstract $k$-dependent setting given above. We use the abstract results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods in \cref{thm:mc,thm:mlmccomp} to derive fully $k$-explicit complexity bounds for Monte-Carlo and Multi-Level Monte-Carlo methods for the stochastic Helmholtz equation.
+We now show that the stochastic Helmholtz equation fits into the abstract $k$-dependent setting given above. We use the abstract results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods in \cref{thm:hhmc,thm:mlmccomp} to derive fully $k$-explicit complexity bounds for Monte-Carlo and Multi-Level Monte-Carlo methods for the stochastic Helmholtz equation.
 
 \subsection{Model problem and quantities of interest}
 
@@ -605,13 +603,13 @@ We consider the norms $\NLtD{u}$ and $\NHokD{u}$ as QoIs for two main reasons.
 \ere
 
 \subsubsection{The values of $\alpha,$ $\sigma,$ $\beta,$ $\tau,$ $\gamma,$ and $a$}
-For the two QoIs $\NLtD{u}$ and $\NHokD{u},$ the values of $\alpha,$ $\sigma,$ $\beta,$ and $\tau$ are given in \cref{eq:lem:mlho,lem:mllt} below. We now discuss our choices for the values of $\gamma$ and $a$.
+For the two QoIs $\NLtD{u}$ and $\NHokD{u},$ the values of $\alpha,$ $\sigma,$ $\beta,$ and $\tau$ are given in \cref{lem:mlho,lem:mllt} below. We now discuss our choices for the values of $\gamma$ and $a$.
 
 \paragraph{The values of $\gamma$} The value of $\gamma$ represents the efficiency of the solver one uses to solve the linear systems arising fomr the finite-element discretisations of the individual Helmholtz problems. Recall that the number of degrees of freedom in the lienar systems is of the order $h^{-d}$ (if the mesh size for the finite-element mesh is $h$). In the following analysis we take $\gamma = d,$ i.e. we assume that we have access to an optimal Helmholtz solver, that can solve linear systems with $N$ unknowns arising from finite-element discretisations of Helmholtz problems in $\cO(N)$ time. Obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
 
 \paragraph{The values of $a$} In our analysis below, we consider two different values of $a$, $a=-(2p+1)/2p$ (where $p$ is the polynomial degree of the finite-elements) and $a=-1$. We now explain why $a=(2p+1)/2p$ is the natural choice, but has some limitations in the Multi-Level Monte-Carlo method. We then go on to explain how the choice $a=1$ removes these limitations, and we the discuss whether the choice $a=1$ is reasonable.
 
-The first choice of $a$ is motivated by the finite-element results \cref{thm:fembound} above. Recall from \cref{eq:hfemcond} that if $h \lesssim k^{-(2p+1)/2p}$ (if $\Cstab \sim 1,$ with hidden constant dependent on $A$ and $n$), then the finite-eolement solution $\uh$ exists, is unique, and satisfies the error bounds in both the $L^2$- and $\H^1_k$-norms. Therefore, since \cref{ass:probdataacc} is concerned with existence, uniqueness, and error bounds for $\Qh,$ the choice $a=(2p+1)/2p$ is natural.
+The first choice of $a$ is motivated by the finite-element results \cref{thm:fembound} above. Recall from \cref{eq:hfemcond} that if $h \lesssim k^{-(2p+1)/2p}$ (if $\CAnk \sim 1,$ with hidden constant dependent on $A$ and $n$), then the finite-eolement solution $\uh$ exists, is unique, and satisfies the error bounds in both the $L^2$- and $H^1_k$-norms. Therefore, since \cref{def:probdataacc} is concerned with existence, uniqueness, and error bounds for $\Qh,$ the choice $a=(2p+1)/2p$ is natural.
 
 However, taking $a=(2p+1)/2p$ and $Q = \NHokD{u}$ means that the number of levels $L$ will not grow with $k.$ In \cref{eq:Ldef} above, $L$ depends on $k^{\sigma-a\alpha};$ if $a=(2p+1)/2p,$ $\alpha = 2p$, and $\sigma = 2p+1$ (see \cref{lem:mlho} below for details of why these values for $\alpha$ and $\sigma$ are correct) then $k^{\sigma-a\alpha} = 1$, and therefore $L$ is $k$-independent. In addition, for $a=(2p+1)/2p$ and $Q = \NLtD{u}$, for fixed $\eps > 0$ the number of levels $L$ will \emph{decrease} with increasing $k.$ This decrease is because in this setting $\alpha=\sigma=2p$ (see \cref{lem:mllt} below) and so $k^{\sigma - a\alpha} = k^{-1} \rightarrow 0$ and $k \rightarrow \infty.$ The explanation for this decrease is that the mesh constraint required for the finite-element solution to exist and be unique \cref{eq:hfemcond} is \emph{more} restrictive than the mesh condition required for the error in the $L^2$-norm to be bounded (see \cref{eq:femltbound}). Because the number of levels decreases as $k \rightarrow \infty,$ at some point only one level is used, and the Multi-Level Monte-Carlo estimator is identical to the Monte-Carlo estimator (i.e., the first term in \cref{eq:Ldef} is negative).
 
@@ -619,7 +617,7 @@ If however we instead choose $a=1$ (i.e., the condition for existence and unique
 
 Therefore, the question arises, `Is the choice $a=1$ (with $\alpha$ and $\sigma$ still given by \cref{thm:fembound}) reasonable?'
 
-Recall from \cref{sec:numsolve} that the choice $a=1$ is a reasonable choice to keep the best approximation error in the finite-element space bounded with respect to $k$. Therefore one may reasonable assume that a finite-element approximation $\uh$ exists if $a=1.$ With regards to the error bounds on the finite-element solution, in \cite[Theorem 3.2]{Ai:04} Ainsworth shows for grids with cube-shaped elements that if $h \ll 1/k,$ then the phase error (i.e., $k-\kh,$ where $\kh$ is the discrete wavenumber associated with the finite-element solution) is of the order $h^{2p}k^{2p+1}$. Given the phase error in this case is of the same order as the error in the $H^1_k$-norm in \cref{thm:fembound}, we consider that it is a reasonable assumption that the values of $\alpha$ and $\sigma$ outlined above for $\Q=\NLtD{u}$ and $Q=\NHokD{u}$ are reasonable when $a=1$, and we will formulate these as assumptions when we prove our main result on Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation, \cref{thm:mcmlmchelmholtz} below.
+Recall from \cref{sec:numsolve} that the choice $a=1$ is a reasonable choice to keep the best approximation error in the finite-element space bounded with respect to $k$. Therefore one may reasonable assume that a finite-element approximation $\uh$ exists if $a=1.$ With regards to the error bounds on the finite-element solution, in \cite[Theorem 3.2]{Ai:04} Ainsworth shows for grids with cube-shaped elements that if $h \ll 1/k,$ then the phase error (i.e., $k-\kh,$ where $\kh$ is the discrete wavenumber associated with the finite-element solution) is of the order $h^{2p}k^{2p+1}$. Given the phase error in this case is of the same order as the error in the $H^1_k$-norm in \cref{thm:fembound}, we consider that it is a reasonable assumption that the values of $\alpha$ and $\sigma$ outlined above for $Q=\NLtD{u}$ and $Q=\NHokD{u}$ are reasonable when $a=1$, and we will formulate these as assumptions when we prove our main result on Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation, \cref{thm:mcmlmchelmholtz} below.
 
 \subsection{Main result on Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation}
 We now state our main result on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods applied to the Helmholtz equation.
@@ -663,7 +661,7 @@ for some function $M$, where $\Qhat$ is the Monte-Carlo or Multi-Level Monte-Car
 We could apply these proof techniques to prove a probabilistic bound of the form \cref{eq:mcprobbound} for Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. However, the calculations for the Helmholtz equation would be conceptually similar to those in \cite{GrPaSc:19}, albeit more involved, as we would need to keep track of the $k$-dependence. Given we expect the results we obtain would be similar to those in \cite{GrPaSc:19}, we elect not to pursue them.
 \ere
 \subsection{Proof of \cref{thm:mcmlmchelmholtz}}
-We first prove that the assumptions in the abstract setting of \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} hold for the stochastic Helmholtz equation, before applying the theory develop in \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} to prove \cref{thm:mcmlmchelmholtz}. Recall that we have assumed the stochastic Helmholtz problem is almost-surely nontrapping. In particular, when we apply \cref{thm:fembound}, the constant $\Cstab$ will be independent of $k.$
+We first prove that the assumptions in the abstract setting of \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} hold for the stochastic Helmholtz equation, before applying the theory develop in \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} to prove \cref{thm:mcmlmchelmholtz}. Recall that we have assumed the stochastic Helmholtz problem is almost-surely nontrapping. In particular, when we apply \cref{thm:fembound}, the constant $\CAnk$ will be independent of $k.$
 
 \ble[Verifying assumptions for $Q(u) = \NHokD{u}$]\label{lem:mlho}
 If \cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (as defined in \cref{thm:fembound}), $a = (2p+1)/2p$, and $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
@@ -678,7 +676,7 @@ We then use \cref{eq:Ylhatbound} and the fact that $\VAR{\Ylhat} = \EXP{\Ylhat^2
 \epf
 
 \ble[Verifying assumptions for $Q(u) = \NLtD{u}$]\label{lem:mllt}
-If \cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (as defined in \cref{thm:fembound}), $a = (2p+1)/2p$, and $Q(u) = \NLt{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
+If \cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (as defined in \cref{thm:fembound}), $a = (2p+1)/2p$, and $Q(u) = \NLtD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
 \ele
 
 \bpf[Proof of \cref{lem:mllt}]
@@ -686,7 +684,7 @@ The proof is exactly analagous to the proof of \cref{lem:mlho}, except we use \c
 \epf
 
 \bre[The $\omega$-dependence of $\Ccoarse$ in \cref{lem:mlho,lem:mllt}]
-THe $\omega$-dependence of the terms in the bound on $\Ccoarse(\omega)$ in \cref{lem:mlho,lem:mllt} come from the fact that the terms $\Chcond,$ $\Condn(n),$ and $\CAnk$ in \cref{thm:fembound} may depend on $A$ and $n$. As $A$ and $n$ are random fields, $\Chcond,$ $\Condn(n),$ and $\CAnk$ are now random variables.
+The $\omega$-dependence of the terms in the bound on $\Ccoarse(\omega)$ in \cref{lem:mlho,lem:mllt} come from the fact that the terms $\Chcond,$ $\Condn(n),$ and $\CAnk$ in \cref{thm:fembound} may depend on $A$ and $n$. As $A$ and $n$ are random fields, $\Chcond,$ $\Condn(n),$ and $\CAnk$ are now random variables.
 \ere
 
 As stated above, we want to analyse the behaviour of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation when $a=1.$ However, as stated above, we cannot prove results on the behaviour of finite-element discretisations of the Helmholtz equation analogous to \cref{lem:mlho,lem:mllt} when $a=1.$ Therefore we state the analogues of \cref{lem:mlho,lem:mllt} in the case $a=1$ as assumptions, under which we will investigate the behaviour of Monte-Carlo and Multi-Level Monte-Carlo methods.
