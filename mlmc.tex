@@ -114,7 +114,7 @@ that is, the behaviour of $\homega$ as $h\downarrow 0$ is governed by $h$, but $
 \eeqs
 Observe that, by construction, $\Qhtilde(\omega)$ exists for all $\omega \in \Omega,$ in contrast to $\Qh(\omega)$.
 
-\bre[Is $\Qhtilde$ a random variable?]
+\bre[Is $\Qhtilde$ a random variable?]\label{rem:Qhtilderandom}
 Throughout this \lcnamecref{chap:mlmc}, we assume $\Qhtilde$ is a random variable. One could, in principle, prove this fact, but the proof would likely be very involved. One would need to show the map $(\omega,h) \mapsto \Qh(\omega)$ is measurable (for all pairs $(\omega,h)$ such that this map is defined) with respect to a suitable $\sigma$-algebra, and then combine this fact with the fact that $\homega$ is a random variable (and thus measurable) to the map $\omega \mapsto \Qhtilde$ is measurable. Proving that the map $(\omega,h) \mapsto \Qh(\omega)$ is measurable in the context of finite-element discretisations of the Helmholtz equation would be very technical, and would contribute little to the discussion of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. Therefore, we instead assume $\Qhtilde$ is a random variable.
 \ere
 
@@ -240,16 +240,31 @@ as required.
 \epf
 
 \section{Multi-level Monte-Carlo}\label{sec:mlmcan}
+We now analyse the Multi-Level Monte-Carlo method in the $k$-dependent abstract setting given above. Aside from the $k$-dependence and the sample-dependent existence and uniqueness criterion (the latter of which has been discussed and dealt with through introducing the random variables $\Qhtilde$ above), our approach and final result is analogous to the standard Multi-Level Monte-Carlo complexity result given in, e.g., \cite[Theorem 1]{ClGiScTe:11}. Although all of the details are contained in our main result, \cref{thm:mlmccomp} below, we mention here that the goal in \cref{thm:mlmkccomp} is to choose the number of levels $L$ and the numbers of samples on each level $\Nl$ to acheive a root-mean-squared error of at most $\epsilon$ with minimal cost.
 
-We define a set of levels$\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =\frac{\hlmo}s$ for $l \geq 1$. We then define the correction operators between the levels by $\Yl \de \Qhltilde - \Qhlmotilde, l \geq 1,$ $\Yz = \Qhztilde.$ We let $\Ylhat$ be the Monte-Carlo estimator of $\Yl$,
+We first give the precise details of the setup for Multi-Level Monte-Carlo. We define a set of levels $\set{\hl}_{l=0}^L$ (with $L$ to be chosen) such that
+\be\label{eq:hl}
+\hl =\frac{\hlmo}s
+\eeq
+for $l \geq 1$. (Observe that when $\hl$ corresponds to the mesh width of a finite-element mesh, then \cref{eq:hl} is achieved if we obtain successive meshes by uniform refinement.) We then define the correction operators between the levels by
+\beqs
+\Yl \de \Qhltilde - \Qhlmotilde, l \geq 1,$ $\Yz = \Qhztilde.
+\eeqs
+Observe that by construction
+\beq\label{eq:expecationtelescope}
+\EXP{\Yz + \sum_{l=1}^L \EXP{\Yl} = \EXP{\Qztilde + \sum_{l=1}^L \Qhltilde - \Qhlmotilde} = \EXP{\QhLtilde}.
+\eeq
+We let $\Ylhat$ be the Monte-Carlo estimator of $\Yl$, i.e.,
  \beqs
-\Ylhat \de \frac1{\Nl}\sum_{i=1}^{\Nl} \Yli,
+\Ylhat \de \frac1{\Nl}\sum_{j=1}^{\Nl} \Ylj,
  \eeqs
- with $\Nl$ to be chosen, where $\Yli$ denotes independent samples of $\Yl$. Finally we are able to define the \defn{multi-level Monte Carlo estimator}
+ with $\Nl$ to be chosen, where the $\Ylj$ are independent samples of $\Yl$. (To simplify the notation, we do note include $\Nl$ in the notation for $\Ylhat$.) Finally we define the \defn{multi-level Monte Carlo estimator} of $Q$
  \beqs
  \QhatMLhL \de \sum_{l=1}^L \Ylhat,
  \eeqs
- where the $\Ylhat$ are independent.
+ where we emphasise that the $\Ylhat$ are independent.
+
+ As we discussed in \cref{sec:mlmcideasoverview} above, the reason the Multi-Level Monte-Carlo method delivers a lower computational cost that the Monte-Carlo method is that the variance of the estimators $\Ylhat$ decreases as $l$ increases. Therefore the more expensive simulations (for higher $l$) need fewer samples. To quantify the behaviour of these variances, we assume $\VAR{\Yl}$ has the following property, c.f. the behaviour of the error in \cref{eq:Qhbound}. (The similarity in the form of \cref{eq:mlmcassb} below and \crefr{eq:Qhbound} is no coincidence, one usually proves bounds of the form \cref{eq:mlmcassb} via bounds of the form \cref{eq:Qhbound}; see the proof of \cref{lem:mlho} below for an example of this proof technique.
 
   %% The following assumptions
   %% % \lcnamecrefs{ass:coarse}
@@ -268,30 +283,24 @@ We define a set of levels$\set{\hl}_{l=0}^L$ ($L$ to be chosen) such that $\hl =
 \bas[Variance of correction operators]\label{ass:b}
 There exist $\ct, \beta, \tau > 0$, such that $\ct$ is independent of $h$ and $k,$ and
 \beq\label{eq:mlmcassb}
-\Vl \de \VAR{\Yl} \leq \ct k^\tau\hl^{\beta},
+\Vl \de \VAR{\Yl} \leq \ct k^\tau\hl^{\beta}.
 \eeq
-where $\VAR{\cdot}$ denotes variance.
 \eas
 
-In order to obtain a nice expression for the cost of computing one sample of $\Qh,$ we require the following assumption on the coarse space:
+As we will see in \cref{thm:mlmccomp} below, the interplay between $\beta$ and $\gamma$ (i.e., the interplay between the variances and the cost of computing a single samples) governs the behaviour of the cost of the Multi-Level Monte-Carlo method.
+
+To simplify the expression in \cref{thm:mlmccomp} below, we make the following \lcnamecref{ass:coarse}, that the coarse mesh $\hz$ has the same $k$-dependence as the criterion for existence and uniqueness \cref{eq:probdataacc}. If we did not make this \lcnamecref{ass:coarse}, then the relationship between $\hz$ and $\hzomega$ would be $k$-dependent, making the analysis of the Multi-Level Monte-Carlo method more involved. Moreover, not making this \lcnamecref{ass:coarse} would not give any additional computational gains, as the mesh on which we compute (with mesh size $\hzomega$) would be considerably finer than the specified mesh (with mesh size $\hz$).
 
 \bas[Dependence of coarse space on $k$]\label{ass:coarse}
-We let
+Let $\Ccoaese > 0$ be independent of $k$ and 
 \beqs
 \hz = \Ccoarse k^{-a}.
 \eeqs
-for some chosen constant $\Ccoarse > 0.$
 \eas
 
  
 % We write $\Vl$ for $\VAR{\Yl}.$
  
- We want to determine the choices of $L$ and $\Nl, l = 0,\ldots,L,$ such that the root-mean-squared eror (RMSE)
- \beqs
- \err{\QhatMLhL} \de \mleft(\EXP{\mleft(\QhatMLhL - \EXP{Q}\mright)^2}\mright)^{\half}
- \eeqs
- satisfies $\err{\QhatMLhL} \leq \eps,$ for some pre-defined $\eps > 0.$
-
 
 
 %\input{nice}
@@ -343,7 +352,7 @@ for some chosen constant $\Ccoarse > 0.$
 %% \epf
 
 
-The following theorem describes the computational effort needed to obtain RMSE $\leq \eps$. It is exactly the same as \cite[Theorem 1]{ClGiScTe:11}, but with the dependence on all the parameters explicit.%, and with some additional cases enumerated. %\Cref{thm:mlmccomp} contains more cases than in \cite[Theorem 1]{ClGiScTe:11} because \cite[Theorem 1]{ClGiScTe:11} makes the assumption throughout that $\alpha \geq 1/2\min\set{\beta,\gamma}.$ This assumption does not always hold for the Helmholtz equation (see the cases of a direct solver in 3-D below), however, examining the proof of \cite[Theorem 1]{ClGiScTe:11}  shows that in any given case, one only needs the assumption $\alpha \geq \beta/2$ or the assumption $\alpha \geq \gamma2$, never both at the same time. Therefore, for convenience, we explicitly state when these conditions are needed, and for completeness, we give the results when these conditions are violated. 
+%, and with some additional cases enumerated. %\Cref{thm:mlmccomp} contains more cases than in \cite[Theorem 1]{ClGiScTe:11} because \cite[Theorem 1]{ClGiScTe:11} makes the assumption throughout that $\alpha \geq 1/2\min\set{\beta,\gamma}.$ This assumption does not always hold for the Helmholtz equation (see the cases of a direct solver in 3-D below), however, examining the proof of \cite[Theorem 1]{ClGiScTe:11}  shows that in any given case, one only needs the assumption $\alpha \geq \beta/2$ or the assumption $\alpha \geq \gamma2$, never both at the same time. Therefore, for convenience, we explicitly state when these conditions are needed, and for completeness, we give the results when these conditions are violated. 
 
 %% The following \lcnamecref{ass:constants3} will ensure that \cref{ass:qoie} is satisfied.
 
@@ -364,145 +373,59 @@ The following theorem describes the computational effort needed to obtain RMSE $
 %% k^{\sigma-a\alpha} \geq 1.
 %% \eeqs
 %% \eas
-\bth[Multi-Level Monte-Carlo Complexity Theorem]\label{thm:mlmccomp}
-The number of levels $L$ is given by
+
+We can now state our main theorem on the complexity of the Multi-Level Monte-Carlo mthod in the $k$-dependent abstract setting above. In particular, we show
+\bit
+\item How the number of levels $L$ should be chosen, and
+  \item How the number of samples $\Nl$ on each level should be chosen
+    \eit
+    so that the root-mean-squared error of the Multi-Level Monte-Carlo estimator is of the order $\eps$ with minimal work. Observe that \cref{thm:mlmccomp} is analagous to the standard Multi-Level Monte-Carlo complexity theorem, see, e.g., \cite[Theorem 1]{CliGiScTe:11}, but adapted for our $k$-dependent setting.
+
+    Recall that $\Vl = \VAR{\Yl},$ the variance of the correction operator. We let
+    \beqs
+\Cl \de \cth\mleft(\hl^{-\gamma} + k^{a\gamma}\mright),
+\eeqs
+the bound on the expected cost of computing one sample of $\Qhltilde$ (see \cref{lem:c}).
+
+\bth[Complexity of Multi-Level Monte-Carlo]\label{thm:mlmccomp}
+If the number of additional levels $L$ is given by
 \beq\label{eq:Ldef}
 L = \max\set{\ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-a\alpha} \eps^{-1}\mright)},0},
-\eeq
-that is,
-\beq\label{eq:hLcond}
-\hL \leq \min\set{\mleft(\frac\eps{\sqrt{2}\co k^{\sigma}}\mright)^{\frac1\alpha},\hz},
 \eeq
 and the number of samples on each computational level is given by
 \beq\label{eq:Nl}
 \Nl = \ceil{\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^{L} \mleft(\Vj\Cj\mright)^{\half}},
 \eeq
-where $\Cl \de \cth\hl^{-\gamma}$. In this case, if $L=0$, then computational effort $\CMLhL(\eps)$ required to obtain $\err{\QhatMLhL} \leq \eps$ is given by \cref{thm:hhmc}. Otherwise, $\CMLhL(\eps)$ satisfies the bounds
- 
- \begin{numcases}{ \CMLhL(\eps) \lesssim}
+then $\err{\QhatMLhL} \leq \eps$$ and, if $L \geq 1$, the computational cost of $\QhatMLhL$ satisfies 
+ \begin{numcases}{ \Cost{\QhatMLhL} \lesssim}
 k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & if $\beta = \gamma$,\label{eq:mlmchheq}\\ 
 k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & otherwise.\label{eq:mlmchhoth}
-\end{numcases}
+ \end{numcases}
+ However, if $L=0$, then $\Cost{\QhatMLhL}$ is given by \cref{thm:mc}.
  \enth
-
-For an explanation of why one must include the maximum in \cref{eq:Ldef}, see the proof of \cref{thm:mlmchelmholtz} below.
+ The proof of \cref{thm:mlmccomp} is given on \cpageref{page:mlmccompproof} below. For an explanation of when the first term in \cref{eq:Ldef} may be negative, i.e., why one must include the maximum in \cref{eq:Ldef}, see the proof of \cref{thm:mcmlmchelmholtz} below.
  
- \bpf[Proof of \cref{thm:mlmccomp}]
-Throughout the proof, we assume $L>0,$ as the case $L=0$ is given by \cref{thm:hhmc}. We recall the decomposition of the (squared) mean-squared error into the bias error and the sampling error analagous to \cref{eq:mccomp1}
-\beqs\label{eq:mlmcdecomp}
-\errQhatMLhL^2 = \VAR{\QhatMLhL} + \mleft(\EXP{\QhatMLhL - Q}\mright)^2.
-\eeqs
-We now proceed to choose the parameters $L$ and $\Nl, l = 0,\ldots,L$ such that we can bound both the bias and the variance by $\eps^2/2.$
-
-We first bound the bias, to do this, we only need to choose $L.$ One can show that the bias is equal to $\abs{\EXP{\QhL - Q}}^2.$ Therefore by \cref{ass:a} a sufficient condition for the bias to be $\leq \eps^2/2$ is (by \cref{ass:a})
-\beqs
-\co k^\sigma \hL^\alpha \leq \frac{\eps}{\sqrt{2}},
-\eeqs
-that is, \eqref{eq:hLcond}. As $\hL = \hz s^{-L},$ it follows from \eqref{eq:hLcond} that a sufficient condition for the bias to be $\leq \eps^2/2$ is
-\beq\label{eq:Lcondpart}
-L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co k^\sigma \hz^\alpha \eps^{-1}\mright)}.
+ \bre[The finest mesh size in \cref{thm:mlmccomp}]
+Observe that if the number of additional levels $L$ is given by \cref{eq:Ldef}, then
+\beq\label{eq:hLcond}
+\hL = \min\set{\mleft(\frac\eps{\sqrt{2}\co k^{\sigma}}\mright)^{\frac1\alpha},\hz}.
 \eeq
-As $\hz = \Ccoarse k^{-a},$ we can simplify \eqref{eq:Lcondpart} to obtain \eqref{eq:Ldef}.
-% \beqs
-% L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
-% \eeqs
+ \ere
 
-We now seek to bound the variance. One can show similarly to \cref{eq:mccomp2} that the variance $\VAR{\QhatMLhL} = \sum_{l=0}^L \Nl^{-1} \Vl,$ and the cost is: (following \cite{GrPaSc:19})
-\begin{align}
-\EXP{\Cost{\QhatMLhL}}&\leq \sum_{l=0}^L \EXP{\Cost{\Ylhat}}\nonumber\\
-&= \sum_{l=0}^L \sum_{i=1}^{\Nl} \EXP{\Cost{\Yli}}\nonumber\\
-&\leq \sum_{l=0}^L \sum_{i=0}^{\Nl} \mleft(\EXP{\Cost{\Qhltilde}} + \EXP{\Cost{\Qhlmotilde}}\mright)\nonumber\\
-%% &\leq \sum_{l=0}^L \Nl \mleft(\cth \hl^{-\gamma} + \cth \hlmo^{-\gamma}\mright)\nonumber\\
-&=\sum_{l=0}^L \Nl\mleft(1+s^{-\gamma}\mright) \cth \hl^{-\gamma}\nonumber\\
-&= \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \Nl\Cl\label{eq:Cboundformin}
-\end{align}
-
-To find the optimal number of samples per level (the values of $\Nl, l=0,\ldots,L$) we formulate this as an optimisation problem to find the numbers $\Nl$ that minimise \eqref{eq:Cboundformin}, subject to $\VAR{\QhatMLhL}=\eps/2.$ This can be solved using a Lagrange multiplier as in \cite{Gi:15}, and we obtain \cref{eq:Nl}. We now need to infer the computational complexity for Multi-Level Monte-Carlo with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}.
-
-From \cref{eq:Cboundformin}
-\begin{align}
-\EXP{\Cost{\QhatMLhL}} &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^{L} \Cl \Nl\nonumber\\
-&\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl \mleft(\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half} + 1\mright) \text{ (by \eqref{eq:Nl})}\nonumber\\
-&= 2\eps^{-2}\mleft(1+s^{-\gamma}\mright)\mleft(\sum_{l=0}^L\mleft(\Vl\Cl\mright)^{\half}\mright)^2 + \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl\nonumber\\
-&= 2 \ct \cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \hl^{-\gamma} \text{ (by \cref{ass:b,ass:costone})}\nonumber\\
-&= 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\hz^{\beta-\gamma}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\mleft(1+s^{-\gamma}\mright) \hz^{-\gamma} \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hl\text{ )}\label{eq:complexitymidway}\\
-%% &=2 \ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\Cppw^{-\gamma} k^{\rho + \gamma\coarseexp}  \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hz\text{ )}\nonumber\\
-%% &\leq2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} \text{ (since }\gamma>0,\text{ by \cref{lem:sumbound})}.\label{eq:complexitymidway}
-\end{align}
-
-Using \cref{lem:sumboundnew} with $\Lconst = 1/\alpha,$ $\func = \sqrt{2}\co\Ccoarse^\alpha k^{\sigma - a\alpha}$, and $\delta = \gamma$, the second term in \eqref{eq:complexitymidway} can be bounded (as $\gamma > 0$) by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
-\beq\label{eq:firstterm}
-\cth\frac{\mleft(1+s^{-\gamma}\mright)  \hz^{-\gamma} s^\gamma \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha-a\gamma} \eps^{-\frac\gamma\alpha}
-= \frac{\mleft(1+s^{-\gamma}\mright)\cth \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}
-\eeq
-
-To bound the sum in the first part of \eqref{eq:complexitymidway}, we must distinguish three cases based on $\gamma - \beta.$
-
-
-If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, and $\delta = 0$ and \cref{eq:Ldef})
-\beq
-2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2,
-\label{eq:gammaequal}
-\eeq
-which gives \cref{eq:mlmchheq}.
-%We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
-%% \beqs
-%% 2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
-%% \eeqs
-%% and thus \eqref{eq:gammaequal} can be bounded by
-%% \beq\label{eq:gammaequalpart1}
-%% 8 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2.
-%% \eeq
-%% As $k^\sigma k^{-a\alpha} \geq 1$ and $\eps \leq 1/\mleft(\sqrt{2}\co\Ccoarse^\alpha\mright),$ we can bound \eqref{eq:gammaequalpart1} by (including a change of base in the logarithm)
-%% \beq\label{eq:gammaequalfinal}
-%% \frac{32 \ct\cth \mleft(1+s^{-\gamma}\mright)}{\alpha^2 \mleft(\loge(s)\mright)^2} k^\tau \mleft(\loge\mleft(\frac{k^{\sigma-a\alpha}}\eps\mright)\mright)^2
-%% \eeq
-%% and obtain \cref{eq:mlmchheq}.
-
-For simplicity in the proof of \cref{eq:mlmchhoth}, we define
-\beqs
-\csumdelta \de \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}.
-\eeqs
-
-If $\gamma > \beta$ then using \cref{lem:sumboundnew} as above, but with $\delta = (\gamma-\beta)/2$, the first term in \eqref{eq:complexitymidway} becomes
-\beq
-\eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
-\eeq
-where
-\beqs
-\Cgammagtrbeta \de 2\ct\cth\mleft(1+s^{-\gamma}\mright)\csumgammambetat^2 s^{\gamma-\beta} \Ccoarse^{\beta-\gamma},
-\eeqs
-that is, an expression of the form \cref{eq:mlmchhoth}. The second equality in \cref{eq:gammagtr} follows from the definition of $\hz$ in \cref{ass:coarse}.
-If $\gamma < \beta,$ then analagously the first term in \eqref{eq:complexitymidway} is
-\beqs
-\Cgammalessbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},
-\eeqs
-where
-\beq\label{eq:gammaless}
-\Cgammalessbeta \de \frac{\Cgammagtrbeta}{s^{\gamma-\beta}}.
-\eeq
-
-We now combine \eqref{eq:firstterm}, \eqref{eq:gammaequalfinal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless} and supress all the constants to obtain the result.
-%Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
-\epf
-
-
-%\input{nasty}
-
-\subsection{Technical lemma}
-
-\ble\label{lem:sumboundnew}
+ In the proof of \cref{thm:mlmccomp}, we will need to bound sums of the form $\sum_{l=0}^L s^{\delta l}$, where $L$ is given by \cref{eq:Ldef}. Therefore, we frist prove these bounds in the following \lcnamecref{lem:sumboundnew}, before proceeding to the proof of \cref{thm:mlmccomp}.
+ 
+\ble[Bounds on sums occuring in the proof of \cref{thm:mlmccomp}]\label{lem:sumboundnew}
 If $L$ is given by
 \beq\label{eq:Ldefgen}
 L = \ceil{\Lconst\log_{s}\mleft( \func \eps^{-1}\mright)},
 \eeq
-for some $\Lconst, \func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the bound
+for some $\Lconst, \func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the bounds
 \beq\label{eq:sumboundgen}
 \sum_{l=0}^{L} s^{\delta l} \leq
 \begin{cases}
 L+1 & \tif \delta = 0,\\
-\frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0\\
-\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0
+\frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0,\\
+\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0.
 \end{cases}
 \eeq
 %% \beq\label{eq:sumboundLmo}
@@ -517,13 +440,13 @@ L+1 & \tif \delta = 0,\\
 \ele
 
 \bpf[Proof of \cref{lem:sumboundnew}]
-The proof follows that in \cite{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that
+ The case $\delta=0$ is immediate. We now assume $\delta \neq 0.$ The proof follows that in \cite[Appendix A]{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that the bounds
 \beq\label{eq:Lboundsgen}
-\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1.
+\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1
 \eeq
-Rearranging \eqref{eq:Lboundsgen}, we obtain the bounds
+hold. Rearranging \eqref{eq:Lboundsgen}, we obtain the bounds
 \beq\label{eq:saLboundsgen}
-\mleft( \func\eps^{-1}\mright)^{\alpha \Lconst} \leq s^{\alpha L} < \mleft( \func\eps^{-1}\mright)^{\alpha \Lconst}s^\alpha.
+\mleft( \func\eps^{-1}\mright)^{\Lconst} \leq s^{L} < \mleft( \func\eps^{-1}\mright)^{\Lconst}s.
 \eeq
 If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLboundsgen} to obtain
 \beq\label{eq:sdLposgen}
@@ -539,23 +462,180 @@ We now observe that, for $\delta \neq 0,$
 &= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
 &\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumboundgen}
 \end{align}
-since $s^{-\delta} > 0,$ as $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} and \eqref{eq:sdLneggen}, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$ The case $\delta=0$ is straightforward.
+since $s^{-\delta} > 0,$ because $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} or \eqref{eq:sdLneggen} as appropriate, depending on the value of $\delta$, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$
 \epf
 
-\section{Application}\label{sec:mlmcapp}
+We are now in a position to prove \cref{thm:mlmccomp}.
 
-We now apply the above results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation to two model QoIs, $\NLtD{u}$ and $\NHokD{u}$, where $u$ is the solution of the TEDP-analogue of \cref{prob:msedp} in \cref{chap:stochastic} (see \cref{rem:tedp}). We choose these two representative QoIs as
-\bit
-\item The errors in their approximation have different $k$-dependencies (see \cref{lem:mlho,lem:mllt} below), and
-  \item We expect other QoIs to have a similar $k$-dependence to $\NHokD{u}$ or $\NLtD{u}$, depending on whether the QoI depends on $u$ and $\grad u$, or just on $u$, respectively.
-    \eit
+\bpf[Proof of \cref{thm:mlmccomp}]
+\label{page:mlmccompproof}
+Throughout the proof, we assume $L>0.$ In the case $L=0,$, the Multi-Level Monte-Carlo estimator becomes the Monte-Carlo estimator, whose beahviour is given by \cref{thm:hhmc}.
 
-    All that is left for us to determine are the values of $\alpha, \sigma, \beta, \tau, \gamma,$ and $a$ for each of these QoIs. The values of $\alpha$ and $\sigma$ are given by the convergence results for finite-element approximations of $u$; see \cref{thm:fembound} above and \cref{lem:mlho,lem:mllt} below. As we see in \cref{lem:mlho,lem:mllt} below, $\beta = 2\alpha$, and $\tau = 2\sigma$. In our calculations in this \lcnamecref{sec:mlmcapp} we assume $\gamma = d;$ i.e., we assume that we have a Helmholtz solver that scales optimally in the number of degrees of freedom; obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
+as the case $L=0$ is given by \cref{thm:hhmc}. We recall the bias--variance decomposition of the (squared) mean-squared error analagous to \cref{eq:mccomp1}
+\beq\label{eq:mlmcdecomp}
+\errQhatMLhL^2 = \mleft(\EXP{\QhatMLhL - Q}\mright)^2 + \VAR{\QhatMLhL},
+\eeq
+where the first term in \cref{eq:mlmcdecomp} is the bias and the second term is the variance.
+We now proceed to choose the parameters $L$ and $\Nl, l = 0,\ldots,L$ such that we can bound both the bias and the variance by $\eps^2/2,$ thereby making $\err{\QhatMLhL} \leq \eps.$
 
-We use two different values of $a$ below, $a=-(2p+1)/2p$ (where $p$ is the polynomial degree of the finite-elements) and $a=-1$. Based on the finite-element result \cref{thm:fembound}, we should take $a=(2p+1)/2p = 1 + 1/2p;$ such a $k$-dependence is required in \cref{thm:fembound} for the finite-element solution to exist and be unique. However, such a choice of $a$ does not allow the number of levels $L$ to grow with $k$ for $Q = \NHokD{u}$: in \cref{eq:Ldef} above, $L$ depends on $k^{\sigma-a\alpha};$ if $a=(2p+1)/2p,$ $\alpha = 2p$, and $\sigma = 2p+1$ (see \cref{lem:mlho} below for details of these values for $\alpha$ and $\sigma$) then $k^{\sigma-a\alpha} = 1$, and therefore $L$ is $k$-independent. However, if $a = 1,$ then $k^{\sigma-a\alpha} = k,$ and $L$ grows (log-linearly) with $k$. We observe that such a choice for $a$ (keeping the same values for $\alpha$ and $\sigma$ can be heuristically justified; in \cite[Theorem 3.2]{Ai:04} Ainsworth shows for grids with cube elements that if $h \ll 1/k,$ then the phase error (i.e., $k-\kh,$ where $\kh$ is the discrete wavenumber associated with the finite-element solution) is of the order $h^{2p}k^{2p+1}$. We therefore also investigate the beahviour of Monte-Carlo and Multi-Level Monte-Carlo under the assumption $a=-1$ and the finite-element errors are given by terms of the same leading order as \cref{eq:femltbound,eq:femhobound}.
+We first bound the bias. To do this, we only need to choose $L$ large enough, i.e., choose $\hL$ small enough. By the construction of the Multi-Level Monte-Carlo estimator $\QhatMLhL,$ $\EXP{\QhatMLhL} = \EXP{\QhLtilde},$ see \cref{eq:expectationtelescope}. Therefore the bias term in \cref{eq:mlmcdecomp} is equal to $\mleft(\EXP{\QhLtilde - Q}\mright)^2.$ By \cref{ass:a} with $h=\hL,$ a sufficient condition for the biasterm to be $\leq \eps^2/2$ is
+\beq\label{eq:biascondition}
+\co k^\sigma \hL^\alpha \leq \frac{\eps}{\sqrt{2}},
+\eeq
+which, when rearranged, gives the first term in \eqref{eq:hLcond}. As $\hL = \hz s^{-L},$ it follows from rearranging \cref{eq:biascondition} that a sufficient condition for the bias term to be $\leq \eps^2/2$ is
+\beq\label{eq:Lcondpart}
+L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co k^\sigma \hz^\alpha \eps^{-1}\mright)}.
+\eeq
+Under \cref{ass:coarse}, As $\hz = \Ccoarse k^{-a},$ we can simplify \eqref{eq:Lcondpart} to obtain the first term in \eqref{eq:Ldef}, as required.
+% \beqs
+% L = \ceil{\frac1\alpha\log_s\mleft(\sqrt{2}\co\Ccoarse^\alpha k^{\sigma-\coarseexp\alpha} \eps^{-1}\mright)}.
+% \eeqs
 
-To summarise the results that we see in \cref{thm:mlmchelmholtz} below, in terms of $k$-dependence, the results for Monte-Carlo- and Multi-Level Monte-Carlo-methods are identical. We also see that, in terms of $\eps$-dependence, Multi-Level Monte-Carlo methods are consistently better than Monte-Carlo methods, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, Multi-Level Monte-Carlo out-performs Monte-Carlo, but if $\eps$ and/or $k$ are large, then Multi-Level Monte-Carlo is identical to Monte-Carlo (because there are no additional levels).
-\begin{table}
+We now seek to bound the variance term in \cref{eq:mlmcdecomp} with minimal cost. I.e., we choose the numbers of samples $\Nl$ such that the variance term is at most $\eps^2/2$ and the computational cost is minimised. Similar to the expression \cref{eq:mccomp2} for the variance of the Monte-Carlo estimator, one can show that the variance of the Multi-Level Monte-Carlo estimator is given by
+\beq\label{eq:mlmcvariance}
+\VAR{\QhatMLhL} = \sum_{l=0}^L \frac{\Vl}{\Nl},
+\eeq
+and the expected cost of $\QhatMLhL$ is: (following \cite{GrPaSc:19})
+\begin{align}
+\EXP{\Cost{\QhatMLhL}}&\leq \sum_{l=0}^L \EXP{\Cost{\Ylhat}}\nonumber\\
+&= \sum_{l=0}^L \sum_{j=1}^{\Nl} \EXP{\Cost{\Ylj}}\nonumber\\
+&\leq \sum_{l=0}^L \sum_{j=0}^{\Nl} \mleft(\EXP{\Cost{\Qhltilde}} + \EXP{\Cost{\Qhlmotilde}}\mright)\nonumber\\
+%% &\leq \sum_{l=0}^L \Nl \mleft(\cth \hl^{-\gamma} + \cth \hlmo^{-\gamma}\mright)\nonumber\\
+&=\sum_{l=0}^L \Nl\mleft(1+s^{-\gamma}\mright) \cth \mleft(\hl^{-\gamma}+k^{a\gamma}\mright) \text{ by \cref{lem:c},}\nonumber\\
+&= \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \Nl\Cl.\label{eq:Cboundformin}
+\end{align}
+
+The task is now to bound the variance term \cref{eq:mlmcvariance} by $\eps^2/2$ whilst incurring minimial computational cost. We achieve this by choosing an optimal number of samples for each level. To find this optimal number of samples we formulate this task as an optimisation problem:
+
+Find $\Nz,\No,\ldots,\NL > 0$ to minimise \cref{eq:Cboundformin} subject to
+\beqs
+\sum_{l=0}^L \frac{\vL}{\Nl} = \frac{\eps^2}2.
+\eeqs
+This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers. Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
+
+We now infer the expected computational complexity of the Multi-Level Monte-Carlo method with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}.
+
+From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
+\begin{align}
+\EXP{\Cost{\QhatMLhL}} &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^{L} \Cl \Nl\nonumber\\
+&\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl \mleft(\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half} + 1\mright) \text{ (by \eqref{eq:Nl})}\nonumber\\
+&= 2\eps^{-2}\mleft(1+s^{-\gamma}\mright)\mleft(\sum_{l=0}^L\mleft(\Vl\Cl\mright)^{\half}\mright)^2 + \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl\nonumber\\
+&= 2 \ct \cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \hl^{-\gamma} \text{ (by \cref{ass:b,ass:costone})}\nonumber\\
+&= 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\hz^{\beta-\gamma}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\mleft(1+s^{-\gamma}\mright) \hz^{-\gamma} \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hl\text{).}\label{eq:complexitymidway}
+%% &=2 \ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\Cppw^{-\gamma} k^{\rho + \gamma\coarseexp}  \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hz\text{ )}\nonumber\\
+%% &\leq2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} \text{ (since }\gamma>0,\text{ by \cref{lem:sumbound})}.\label{eq:complexitymidway}
+\end{align}
+
+We now bound the two sums in \cref{eq:complexitymidway} using \cref{lem:sumboundnew}. Using \cref{lem:sumboundnew} with $\Lconst = 1/\alpha,$ $\func = \sqrt{2}\co\Ccoarse^\alpha k^{\sigma - a\alpha}$, and $\delta = \gamma$>0, the second term in \eqref{eq:complexitymidway} can be bounded by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
+\beq\label{eq:firstterm}
+\cth\frac{\mleft(1+s^{-\gamma}\mright)  \hz^{-\gamma} s^\gamma \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} \Ccoarse^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha-a\gamma} \eps^{-\frac\gamma\alpha}
+= \frac{\mleft(1+s^{-\gamma}\mright)\cth \mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha} s^\gamma}{1-s^{-\gamma}} k^{\frac{\gamma\sigma}\alpha} \eps^{-\frac\gamma\alpha}
+\eeq
+
+To bound the first sum in \eqref{eq:complexitymidway}, we must distinguish three cases based on $\gamma - \beta.$
+
+
+If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, and $\delta = 0$ and \cref{eq:Ldef})
+\beq
+2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\eps^{-1}\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}\mright)+2\mright)^2.
+\label{eq:gammaequal}
+\eeq
+To simplify the notation in the other two cases, we let
+%We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
+%% \beqs
+%% 2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
+%% \eeqs
+%% and thus \eqref{eq:gammaequal} can be bounded by
+%% \beq\label{eq:gammaequalpart1}
+%% 8 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright)\mright)^2.
+%% \eeq
+%% As $k^\sigma k^{-a\alpha} \geq 1$ and $\eps \leq 1/\mleft(\sqrt{2}\co\Ccoarse^\alpha\mright),$ we can bound \eqref{eq:gammaequalpart1} by (including a change of base in the logarithm)
+%% \beq\label{eq:gammaequalfinal}
+%% \frac{32 \ct\cth \mleft(1+s^{-\gamma}\mright)}{\alpha^2 \mleft(\loge(s)\mright)^2} k^\tau \mleft(\loge\mleft(\frac{k^{\sigma-a\alpha}}\eps\mright)\mright)^2
+%% \eeq
+%% and obtain \cref{eq:mlmchheq}.
+\beqs
+\csumdelta \de \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}.
+\eeqs
+\optodo{Why don't we get three separate cases}
+If $\gamma > \beta$ then using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, but $\delta = (\gamma-\beta)/2$, the first term in \eqref{eq:complexitymidway} becomes
+\beq
+\eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
+\eeq
+where
+\beqs
+\Cgammagtrbeta \de 2\ct\cth\mleft(1+s^{-\gamma}\mright)\csumgammambetat^2 s^{\gamma-\beta} \Ccoarse^{\beta-\gamma};
+\eeqs
+and the second equality in \cref{eq:gammagtr} follows from the definition of $\hz$ in \cref{ass:coarse}.
+
+If $\gamma < \beta,$ then using \cref{lem:sumboundnew} as in the cases $\gamma > \beta$ the first term in \eqref{eq:complexitymidway} is
+\beq\label{eq:gammalessbeta}
+\Cgammalessbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},
+\eeq
+where
+\beq\label{eq:gammaless}
+\Cgammalessbeta \de \frac{\Cgammagtrbeta}{s^{\gamma-\beta}}.
+\eeq
+
+We now combine \cref{eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammaless,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchheq,eq:mlmchhoth}.
+%Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
+\epf
+
+
+\section{Kept for now}\label{sec:mlmcapp}
+
+%% If $Q(\cdot) = \NHokDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p+1$. If $Q(\cdot) = \NLtDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p$. In both cases, $\beta = 2\alpha,$ $\tau = 2\sigma.$ Assume $\gamma = d$---optimal solver.
+
+%% FINISH TOMORROW.
+
+\section{Applying the abstract $k$-dependent Monte-Carlo and Multi-Level Monte-Carlo theory to the stochastic Helmholtz equation}\label{sec:mlmcapplying}
+
+We now show that the stochastic Helmholtz equation fits into the abstract $k$-dependent setting given above. We use the abstract results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods in \cref{thm:mc,thm:mlmccomp} to derive fully $k$-explicit complexity bounds for Monte-Carlo and Multi-Level Monte-Carlo methods for the stochastic Helmholtz equation.
+
+\subsection{Model problem and quantities of interest}
+
+We let $u:\Omega\rightarrow\HokD$ solve the TEDP-analogue of \cref{prob:msedp} (see \cref{rem:tedp}), and $\uhtilde:\Omega\rightarrow\Vhp$ solve the stochastic analogue of \cref{prob:fevtedp}. (I.e., $\uhtilde$ solves \cref{prob:fevtedp} sample-wise with coefficients $A(\omega)$ and $n(\omega)$, $\T = ik$, and meshsize $\homega$.) We assume $\uhtilde$ is measurable, see \cref{rem:Qhtilderandom}. Further, we assume that the stochastic Helmholtz equation is nontrapping almost surely, i.e., the TEDP-analogues of \cref{con:hh-fAn,con:hh-hetero,thm:hh-hetero} hold. We consider two quantities of interest (QoIs) of the solution $u$; the two norms $\NLtD{u}$ and $\NHokD{u},$ where $D$ is the computational domain.
+
+\bre[Why consider these QoIs?]
+We consider the norms $\NLtD{u}$ and $\NHokD{u}$ as QoIs for two main reasons.
+\ben
+\item The errors in approximating $\NLtD{u}$ by $\NLtD{\uh}$ and $\NHokD{u}$ by $\NHokD{\uh}$ (where $\uh$ is the finite-element approximation) have different $k$-dependencies (see \cref{lem:mlho,lem:mllt} below). Therefore considering both of these QoIs will allow us to see how the different $k$-dependencies are manifested in the overall computational complexity of the Monte-Carlo and Multi-Level Monte-Carlo methods.
+  \item Because $\NLtD{u}$ only depends on $u,$ whereas $\NHokD{u}$ depends on both $u$ and $\grad u,$ we expect the $k$-dependency of these two QoIs to be similar to the $k$-dependence of other QoIs (depending on whether the other QoIs depend only on $u$, or on both $u$ and $\grad u$). Therefore we expect that these two QoIs are, in some sense, representative of other QoIs.
+\een
+\ere
+
+\subsubsection{The values of $\alpha,$ $\sigma,$ $\beta,$ $\tau,$ $\gamma,$ and $a$}
+For the two QoIs $\NLtD{u}$ and $\NHokD{u},$ the values of $\alpha,$ $\sigma,$ $\beta,$ and $\tau$ are given in \cref{eq:lem:mlho,lem:mllt} below. We now discuss our choices for the values of $\gamma$ and $a$.
+
+\paragraph{The values of $\gamma$} The value of $\gamma$ represents the efficiency of the solver one uses to solve the linear systems arising fomr the finite-element discretisations of the individual Helmholtz problems. Recall that the number of degrees of freedom in the lienar systems is of the order $h^{-d}$ (if the mesh size for the finite-element mesh is $h$). In the following analysis we take $\gamma = d,$ i.e. we assume that we have access to an optimal Helmholtz solver, that can solve linear systems with $N$ unknowns arising from finite-element discretisations of Helmholtz problems in $\cO(N)$ time. Obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
+
+\paragraph{The values of $a$} In our analysis below, we consider two different values of $a$, $a=-(2p+1)/2p$ (where $p$ is the polynomial degree of the finite-elements) and $a=-1$. We now explain why $a=(2p+1)/2p$ is the natural choice, but has some limitations in the Multi-Level Monte-Carlo method. We then go on to explain how the choice $a=1$ removes these limitations, and we the discuss whether the choice $a=1$ is reasonable.
+
+The first choice of $a$ is motivated by the finite-element results \cref{thm:fembound} above. Recall from \cref{eq:hfemcond} that if $h \lesssim k^{-(2p+1)/2p}$ (if $\Cstab \sim 1,$ with hidden constant dependent on $A$ and $n$), then the finite-eolement solution $\uh$ exists, is unique, and satisfies the error bounds in both the $L^2$- and $\H^1_k$-norms. Therefore, since \cref{ass:probdataacc} is concerned with existence, uniqueness, and error bounds for $\Qh,$ the choice $a=(2p+1)/2p$ is natural.
+
+However, taking $a=(2p+1)/2p$ and $Q = \NHokD{u}$ means that the number of levels $L$ will not grow with $k.$ In \cref{eq:Ldef} above, $L$ depends on $k^{\sigma-a\alpha};$ if $a=(2p+1)/2p,$ $\alpha = 2p$, and $\sigma = 2p+1$ (see \cref{lem:mlho} below for details of why these values for $\alpha$ and $\sigma$ are correct) then $k^{\sigma-a\alpha} = 1$, and therefore $L$ is $k$-independent. In addition, for $a=(2p+1)/2p$ and $Q = \NLtD{u}$, for fixed $\eps > 0$ the number of levels $L$ will \emph{decrease} with increasing $k.$ This decrease is because in this setting $\alpha=\sigma=2p$ (see \cref{lem:mllt} below) and so $k^{\sigma - a\alpha} = k^{-1} \rightarrow 0$ and $k \rightarrow \infty.$ The explanation for this decrease is that the mesh constraint required for the finite-element solution to exist and be unique \cref{eq:hfemcond} is \emph{more} restrictive than the mesh condition required for the error in the $L^2$-norm to be bounded (see \cref{eq:femltbound}). Because the number of levels decreases as $k \rightarrow \infty,$ at some point only one level is used, and the Multi-Level Monte-Carlo estimator is identical to the Monte-Carlo estimator (i.e., the first term in \cref{eq:Ldef} is negative).
+
+If however we instead choose $a=1$ (i.e., the condition for existence and uniqueness \cref{eq:probdataacc} simply required a fixed number of points per wavelength), then both of the above issues would go away. For $Q = \NHokD{u},$ we would have $k^{\sigma - a\alpha} = k,$ and so the number of levels $L$ would increase with $k.$ Similarly, for $Q=  \NLtD{u},$ we would have $k^{\sigma - a\alpha} = 1,$ and so the number of levels would be constant in $k$.
+
+Therefore, the question arises, `Is the choice $a=1$ (with $\alpha$ and $\sigma$ still given by \cref{thm:fembound}) reasonable?'
+
+Recall from \cref{sec:numsolve} that the choice $a=1$ is a reasonable choice to keep the best approximation error in the finite-element space bounded with respect to $k$. Therefore one may reasonable assume that a finite-element approximation $\uh$ exists if $a=1.$ With regards to the error bounds on the finite-element solution, in \cite[Theorem 3.2]{Ai:04} Ainsworth shows for grids with cube-shaped elements that if $h \ll 1/k,$ then the phase error (i.e., $k-\kh,$ where $\kh$ is the discrete wavenumber associated with the finite-element solution) is of the order $h^{2p}k^{2p+1}$. Given the phase error in this case is of the same order as the error in the $H^1_k$-norm in \cref{thm:fembound}, we consider that it is a reasonable assumption that the values of $\alpha$ and $\sigma$ outlined above for $\Q=\NLtD{u}$ and $Q=\NHokD{u}$ are reasonable when $a=1$, and we will formulate these as assumptions when we prove our main result on Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation, \cref{thm:mcmlmchelmholtz} below.
+
+\subsection{Main result on Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation}
+We now state our main result on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods applied to the Helmholtz equation.
+
+\bth[Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation]\label{thm:mcmlmchelmholtz}
+Suppose \cref{ass:costone,ass:omegabad} and \cref{ass:variance} below hold. If the assumptions of \cref{lem:mllt,lem:mlho} below hold, then the Monte-Carlo and Multi-Level Monte-Carlo methods achieve a root-mean-squared error of at most $\eps$, and their computational complexity is given by  the first two lines of \cref{tab:mcresults}.
+
+If \cref{ass:mlho,ass:mllt} hold instead of the assumptions of \cref{lem:mllt,lem:mlho}, then then the Monte-Carlo and Multi-Level Monte-Carlo methods achieve a root-mean-squared error of at most $\eps$, and their computational complexity is given by the last two lines of \cref{tab:mcresults}, where `$k\eps$ small' means
+\beq\label{eq:kepscond}
+k\eps < \sqrt{2}\co \Ccoarse^{2p}.
+\eeq
+\enth
+
+The proof of \cref{thm:mlmccomp} is given on \cpageref{page:mlmccompproof} below.
+
+\begin{table}[h]
   \centering
 \begin{tabular}{Sc Sc Sc Sc}
   \toprule
@@ -569,89 +649,83 @@ To summarise the results that we see in \cref{thm:mlmchelmholtz} below, in terms
 \end{tabular}
 \caption{Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo algorithms\label{tab:mcresults}}
 \end{table}
-%% If $Q(\cdot) = \NHokDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p+1$. If $Q(\cdot) = \NLtDR{\cdot},$ then $\alpha = 2p,$ $\sigma = 2p$. In both cases, $\beta = 2\alpha,$ $\tau = 2\sigma.$ Assume $\gamma = d$---optimal solver.
 
-%% FINISH TOMORROW.
+We briefly summarise the results in \cref{thm:mcmlmchelmholtz}. The results for Monte-Carlo methods and Multi-Level Monte-Carlo-methods are identical, in terms of their $k$-dependence. However, Multi-Level Monte-Carlo methods are consistently better than Monte-Carlo methods in terms of $\eps$-dependence, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this scenario only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, Multi-Level Monte-Carlo out-performs Monte-Carlo, but if $\eps$ and/or $k$ are large, then Multi-Level Monte-Carlo is identical to Monte-Carlo (because there are no additional levels).
 
-\section{Verifying the assumptions in \cref{sec:mlmcsetup}, and applying the Monte-Carlo and Multi-Level Monte-Carlo theory}\label{sec:mlmcapplying}
 
-We now let $u:\Omega\rightarrow\HokD$ solve the TEDP-analogue of \cref{prob:msedp}, and $\uhtilde:\Omega\rightarrow\Vhp$ solve the stochastic analogue of \cref{prob:fevtedp} (i.e., $\uhtilde$ solves \cref{prob:fevtedp} with coefficients $A(\omega)$ and $n(\omega)$, $\T = ik$, and meshsize $\homega$ pathwise). We assume $\uhtilde$ is measurable.
+\bre[Proving probabilistic bounds on the cost]
+In \cite{GrPaSc:19}, the authors extend their bounds on the \emph{expectation} of the computational cost for Monte-Carlo and Multi-Level Monte-Carlo methods for the radiative transport equation to bounds on the \emph{exceedance probabilities} of the computational cost. I.e., they prove bounds of the form
+\beq\label{eq:mcprobbound}
+\PP\mleft(\Cost{\Qhat} < M(\eps,\delta,\Qhat)\mright) > 1-\delta^2,
+\eeq
+for some function $M$, where $\Qhat$ is the Monte-Carlo or Multi-Level Monte-Carlo estimator (see \cite[Theorems 5.12 and 5.13]{GrPaSc:19}). They make only mild additional assumptions on the randomness to prove bounds of the form \cref{eq:mcprobbound}; these assumptions mean they can bound $\VAR{\Qhtilde}$ and hence $\VAR{\Cost{\Qhat}}.$ The probabilistic bounds \cref{eq:mcprobbound} then follow from bounds on $\VAR{\Cost{\Qhat}}$ using Chebyshev's inequality.
 
+We could apply these proof techniques to prove a probabilistic bound of the form \cref{eq:mcprobbound} for Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. However, the calculations for the Helmholtz equation would be conceptually similar to those in \cite{GrPaSc:19}, albeit more involved, as we would need to keep track of the $k$-dependence. Given we expect the results we obtain would be similar to those in \cite{GrPaSc:19}, we elect not to pursue them.
+\ere
+\subsection{Proof of \cref{thm:mcmlmchelmholtz}}
+We first prove that the assumptions in the abstract setting of \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} hold for the stochastic Helmholtz equation, before applying the theory develop in \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} to prove \cref{thm:mcmlmchelmholtz}. Recall that we have assumed the stochastic Helmholtz problem is almost-surely nontrapping. In particular, when we apply \cref{thm:fembound}, the constant $\Cstab$ will be independent of $k.$
 
 \ble[Verifying assumptions for $Q(u) = \NHokD{u}$]\label{lem:mlho}
-If \cref{ass:coarse} holds with $\Ccoarse$ bounded by $\Chcond \Condn(n) \CAnk^{-\frac1{2p}}$ (as defined in \cref{thm:fembound}) and $a = (2p+1)/2p$, and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
+If \cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (as defined in \cref{thm:fembound}), $a = (2p+1)/2p$, and $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
 \ele
 
 \bpf[Proof of \cref{lem:mlho}]
-By the assumptions of the \lcnamecref{lem:mlho}, it is immediate from \cref{eq:femhobound} that \cref{def:probdataacc} holds with $\alpha = 2p$ and $\sigma = 2p+1$. (See \cref{rem:higherorder} for why we can neglect the lower-order terms in \cref{eq:femhobound}.) To show \cref{ass:b}, we follow \cite[Proof of Proposition 4.2]{ChScTe:13} and use the triangle inequality and \cref{def:probdataacc} to show
+By the assumptions of this \lcnamecref{lem:mlho}, it is immediate from \cref{eq:femhobound} that \cref{def:probdataacc} holds with $\alpha = 2p$ and $\sigma = 2p+1$. (See \cref{rem:higherorder} for why we can neglect the lower-order terms in \cref{eq:femhobound}.) To show \cref{ass:b}, we follow \cite[Proof of Proposition 4.2]{ChScTe:13} and use the triangle inequality and \cref{def:probdataacc} to show
 \beq\label{eq:Ylhatbound}
-\Ylhat(\omega) \leq \mleft(\Qhl - Q\mright)(\omega) + \mleft(Q- \Qhlmo\mright)(\omega) \leq \cotilde(\omega)\mleft(\hl^\alpha + \hlmo^\alpha\mright)k^\sigma \Cfg.
+\Ylhat(\omega) \leq \mleft(\Qhltilde - Q\mright)(\omega) + \mleft(Q- \Qhlmotilde\mright)(\omega) \leq \cotilde(\omega)\mleft(\hl^\alpha + \hlmo^\alpha\mright)k^\sigma \Cfg.
 \eeq
-We then use the fact that $\VAR{\Ylhat} = \EXP{\Ylhat^2} - \EXP{\Ylhat}^2 \leq \EXP{\Ylhat^2}$ and \cref{eq:Ylhatbound} to show \cref{eq:mlmcassb}, with $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
+We then use \cref{eq:Ylhatbound} and the fact that $\VAR{\Ylhat} = \EXP{\Ylhat^2} - \EXP{\Ylhat}^2 \leq \EXP{\Ylhat^2}$ to show \cref{eq:mlmcassb}, with $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
 \epf
 
 \ble[Verifying assumptions for $Q(u) = \NLtD{u}$]\label{lem:mllt}
-If \cref{ass:coarse} holds with $\Ccoarse$ bounded by $\Chcond \Condn(n) \CAnk^{-\frac1{2p}}$ (as defined in \cref{thm:fembound}) and $a = (2p+1)/2p$, and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
+If \cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (as defined in \cref{thm:fembound}), $a = (2p+1)/2p$, and $Q(u) = \NLt{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
 \ele
 
 \bpf[Proof of \cref{lem:mllt}]
 The proof is exactly analagous to the proof of \cref{lem:mlho}, except we use \cref{eq:femltbound} instead of \cref{eq:femhobound}.
 \epf
 
-As stated in \cref{sec:mlmcapp}, whilst we cannot prove analogues of \cref{lem:mlho,lem:mllt} with $a=1$, we wish to study the behaviour of Multi-Level Monte-Carlo when $a=1.$ Therefore, we now state analogues of \cref{lem:mlho,lem:mllt} in the case $a=1.$
+\bre[The $\omega$-dependence of $\Ccoarse$ in \cref{lem:mlho,lem:mllt}]
+THe $\omega$-dependence of the terms in the bound on $\Ccoarse(\omega)$ in \cref{lem:mlho,lem:mllt} come from the fact that the terms $\Chcond,$ $\Condn(n),$ and $\CAnk$ in \cref{thm:fembound} may depend on $A$ and $n$. As $A$ and $n$ are random fields, $\Chcond,$ $\Condn(n),$ and $\CAnk$ are now random variables.
+\ere
+
+As stated above, we want to analyse the behaviour of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation when $a=1.$ However, as stated above, we cannot prove results on the behaviour of finite-element discretisations of the Helmholtz equation analogous to \cref{lem:mlho,lem:mllt} when $a=1.$ Therefore we state the analogues of \cref{lem:mlho,lem:mllt} in the case $a=1$ as assumptions, under which we will investigate the behaviour of Monte-Carlo and Multi-Level Monte-Carlo methods.
 
 \bas[Assumptions for $Q(u) = \NHokD{u}$ with $a=1$]\label{ass:mlho}
-There exists $\Ccoarse>0$ such that if \cref{ass:coarse} holds with $a = 1$ and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
+There exists a random variable $\Ccoarse$ such that if \cref{ass:coarse} holds with $a = 1$ and $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+2$.
 \eas
 
 \bas[Assumptions for $Q(u) = \NLtD{u}$ with $a=1$]\label{ass:mllt}
-There exists $\Ccoarse>0$ such that if \cref{ass:coarse} holds with $a = 1$ and if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
+There exists random variable $\Ccoarse$ such that if \cref{ass:coarse} holds with $a = 1$ and $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
 \eas
 
-We are now in a position to state our main \lcnamecref{thm:mcmlmchelmholtz} on the behaviour of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation.
-
-To prove a bound on the complexity of the Monte-Carlo method, we require the following \lcnamecref{ass:variance}.
+Finally, to prove a bound on the complexity of the Monte-Carlo method, we require the following \lcnamecref{ass:variance} on the variance of the approximations $\Qhtilde.$ Such an assumption is standard, see, e.g., \cite[Text below equation (3)]{ClGiScTe:11}.
 
 \bas[Variance of $\Qhtilde$ constant]\label{ass:variance}
 The variance $\VAR{\Qhtilde}$ is constant with respect to $h$.
 \eas
 
-\bth[Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation]\label{thm:mcmlmchelmholtz}
-Under \cref{ass:variance,ass:costone,ass:omegabad}, if the assumptions of \cref{lem:mllt,lem:mlho} hold, then the computational complexity of the Monte-Carlo and Multi-Level Monte Carlo methods for estimating $\EXP{Q(u)}$ is given by the first two lines of \cref{tab:mcresults}.
-
-If \cref{ass:mlho,ass:mllt} hold instead of the assumptions of \cref{lem:mllt,lem:mlho}, then then the computational complexity of the Monte-Carlo and Multi-Level Monte Carlo methods for estimating $\EXP{Q(u)}$ is given by the last two lines of \cref{tab:mcresults}, where `$k\eps$ small' means
-\beq\label{eq:kepscond}
-k\eps < \sqrt{2}\co \Ccoarse^{2p}.
-\eeq
-\enth
 
 \bpf[Proof of \cref{thm:mcmlmchelmholtz}]
+\label{page:mcmlmchelmholtzproof}
 The proof follows immediately from \cref{thm:mlmccomp}, by substituting in the appropriate values of $\alpha,$ $\beta$, etc.. The only case that requires explaining is when $a=(2p+1)/2p$ and $Q(u) = \NLtD{u}$ (so $\alpha = \sigma = 2p.$) In this case, the expression for $L$ in \cref{eq:Ldef} evaluates as
 \beq\label{eq:specialL}
-L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
+L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
 \eeq
-Observe that for $k$ (or $\eps$) sufficiently large, the first term in the right-hand side of \cref{eq:specialL} may be negative (i.e. if $k^{-1}$ is suffciently close to 0). In such a case, the maximum of the two quantities on the right-hand side of \cref{eq:specialL} will be 0, and in such a case the Multi-Level Monte-Carlo algorithm reverts to the Monte-Carlo algorithm. The criterion for the first term to be positive (and so for Multi-Level Monte-Carlo to be distinct from Monte-Carlo) is
+Observe that for $k$ (or $\eps$) sufficiently large, the first term in the right-hand side of \cref{eq:specialL} may be negative (i.e. if $\mleft(\eps k\mright)^{-1}$ is suffciently close to 0, then the logarithm will be negative). In such a case, the maximum of the two quantities on the right-hand side of \cref{eq:specialL} will be 0, and in such a case the Multi-Level Monte-Carlo method reverts to the Monte-Carlo algorithm as $L=0,$ i.e., there are no additional levels of refinement. The criterion for the first term to be positive (and so for the Multi-Level Monte-Carlo method to be distinct from the Monte-Carlo method) is
 \beqs
-\sqrt{2}co\Ccoarse^{2p}k^{-1}\eps^{-1} > 1,
+\sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1} > 1,
 \eeqs
 which is equivalent to the condition \cref{eq:kepscond}, as required.
 \epf
 
 \bre[No coarse-space dependence in Multi-Level Monte-Carlo cost bounds]
-Observe that there is no dependence on the coarse space (with mesh size $\hz$) in the Multi-Level Monte-Carlo results in \cref{thm:mcmlmchelmholtz}, i.e., the quantity $a$ does not appear when $\beta \neq \gamma$. (Recall from \cref{ass:coarse} that the coarse space is chosen to be proportional to $k^{-a}$.) This lack of $a$-dependence is surprising at first glance. If $a < \sigma/\alpha,$ then the number of levels $L$ grows with $k$ (as the term $k^{\sigma - a\alpha}$ in \cref{eq:Ldef} will grow with $k$), and one would expect to see this growing number of levels affect the overall computational complexity. However, it seems that whilst the number of levels grows with $k$, reducing the computational cost, on the other hand the growing number of samples (growing because there are more levels on which to compute) offsets the gains from extra levels.
+Observe that there is no dependence on the coarse space (which has mesh size $\hz$) in the Multi-Level Monte-Carlo results in \cref{thm:mcmlmchelmholtz}. I.e., the quantity $a$ does not appear when $\beta \neq \gamma$. (Recall from \cref{ass:coarse} that the coarse space is chosen to be proportional to $k^{-a}$.)
 
-One can see this offsetting in the proof; the terms $\hz^{\beta-\gamma}$ and $\hz^{-\gamma}$ in \cref{eq:complexitymidway} are exactly cancelled by the appearence of $\hz$ in the application of \cref{lem:sumboundnew}. Observe that in \cref{eq:firstterm} the quantity $\hz^{-\gamma}$ ancels with the term $\Ccoarse^{\gamma}k^{-a\gamma}$ arising from \cref{lem:sumboundnew}. Similarly the $k$-dependence of the term $\hz^{\beta-\gamma}$ in \cref{eq:gammagtr} cancels with the term $\mleft(k^{-a(\gamma-\beta)/2}\mright)^2$ arising from \ref{lem:sumbound}.
+This lack of $a$-dependence is surprising at first glance. If $a < \sigma/\alpha,$ then the number of levels $L$ grows with $k$ (as the term $k^{\sigma - a\alpha}$ in \cref{eq:Ldef} will grow with $k$), and one would expect to see this growing number of levels affect the overall computational complexity. However, it seems that whilst the number of levels grows with $k$, reducing the computational cost, on the other hand the growing number of samples (growing because there are more levels on which to compute) offsets the gains from extra levels.
 
-It remains to be seen whether this coarse-mesh independence is borne out in numerical computations. Such an investigation could be the subject of future work on Multi-Level Monte-Carlo methods for the Helmholtz equation.
-\ere
+One can see this offsetting in the proof; the terms $\hz^{\beta-\gamma}$ and $\hz^{-\gamma}$ on the left-hand sides of  \cref{eq:complexitymidway,eq:gammagtr} respectively are cancelled by the terms involving $\hz$ from the application of \cref{lem:sumboundnew}, see the right-hand sides of \cref{eq:complexitymidway,eq:gammagtr}. (Observe that in \cref{eq:firstterm} the quantity $\hz^{-\gamma}$ ancels with the term $\Ccoarse^{\gamma}k^{-a\gamma}$ arising from \cref{lem:sumboundnew}. Similarly the $k$-dependence of the term $\hz^{\beta-\gamma}$ in \cref{eq:gammagtr} cancels with the term $\mleft(k^{-a(\gamma-\beta)/2}\mright)^2$ arising from \ref{lem:sumboundnew}.)
 
-\bre[Proving probabilistic bounds on the cost]
-In \cite{GrPaSc:19}, the authors extend their bounds on the expectation of the computational cost for Monte-Carlo and Multi-Level Monte-Carlo methods to bounds on the \emph{exceedance probabilities} of the computational cost. I.e., they prove bounds of the form
-\beq\label{eq:mcprobbound}
-\PP\mleft(\Cost{\Qhat} < M(\eps,\delta,\Qhat)\mright) > 1-\delta^2,
-\eeq
-for some function $M$, where $\Qhat$ is the Monte-Carlo or Multi-Level Monte-Carlo estimator (see \cite[Theorems 5.12 and 5.13]{GrPaSc:19}). They make only mild additional assumptions on the randomness to prove bounds of the form \cref{eq:mcprobbound}; these assumptions mean they can bound $\VAR{\Qhtilde}$ and hence $\VAR{\Cost{\Qhat}}.$ The probabilistic bounds \cref{eq:mcprobbound} then follow from bounds on $\VAR{\Cost{\Qhat}}$ using Chebyshev's inequality.
-
-We could apply these proof techniques to prove a probabilistic bound of the form \cref{eq:mcprobbound} for Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. However, the calculations for the Helmholtz equation would be conceptually similar to those in \cite{GrPaSc:19}, albeit more involved, as we would need to keep track of the $k$-dependence. Given we expect the results we obtained would be similar to those in \cite{GrPaSc:19}, we elect not to pursue them.
+It remains to be seen whether this coarse-mesh independence is seen in numerical computations. Such an investigation could be the subject of future work on Multi-Level Monte-Carlo methods for the Helmholtz equation.
 \ere
 \optodo{Make sure bibfile displays DOIs}
