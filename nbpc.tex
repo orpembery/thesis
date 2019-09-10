@@ -1027,7 +1027,7 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 %\section{Proof of \cref{lem:2}}
 
 \section{Extension of nearby preconditioning results to weaker norms}\label{sec:weaknorm}
-Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the \emph{magnitude}  of the difference between $\nso$ and $\nst$. However, this result does not say anything about the \emph{spatial} variability between $\nso$ and $\nst$. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
+Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the maximum norm of the difference between $\nso$ and $\nst$. However, this result does not say anything if $\nso-\nst$ is merely small in some integral norm. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
 \beq\label{eq:noweak}
 \nso(\bx) =
 \begin{dcases}
@@ -1043,11 +1043,11 @@ and
   2  &\tif \bx_1 > \half+\alpha
   \end{dcases}
 \eeq
-for some $0 < \alpha < 1/2,$ then $\NLiDRR{\nso-\nst} = 1$ for all $\alpha$, but one would expect that for small $\alpha$ the corresponding solutions of \cref{prob:edp} satisfy $\uso \approx \ust.$ In addition, one might expect that GMRES applied to $\AmatoI\Amatt$ would converge in a $k$-independent number of iterations. Therefore, in this \lcnamecref{sec:weaknorm} we seek to obtain analogues of \cref{thm:1,cor:1,cor:1a} with the difference in $\nso-\nst$ and $\Aso-\Ast$ measured in weaker norms than the $L^\infty$ norm.
+for some $0 < \alpha < 1/2,$ then $\NLiDRR{\nso-\nst} = 1$ for all $\alpha$, but one would expect that for small $\alpha$ the corresponding solutions of \cref{prob:edp} would satisfy $\uso \approx \ust.$ In addition, one might expect that GMRES applied to $\AmatoI\Amatt$ would converge in a $k$-independent number of iterations. Therefore, in this \lcnamecref{sec:weaknorm} we seek to obtain analogues of \cref{thm:1,cor:1,cor:1a} with the difference in $\nso-\nst$ and $\Aso-\Ast$ measured in weaker norms than the $L^\infty$ norm.
 
-The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that the length scale $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' with regards to the norm used to measure $\nso-\nst$. When we measure $\nso-\nst$ in the $L^\infty$ norm as above, we are able to control the magnitude of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, and $\nso-\nst=1$ on this small set, then $\NLiDRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
+The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' with regards to the norm used to measure $\nso-\nst$. When we measure $\nso-\nst$ in the $L^\infty$ norm as above, we are able to control the magnitude of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, and $\nso-\nst=1$ on this small set, then $\NLiDRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
 
-We will give numerical results indicating that this best-case result is sharp (our results actually indicate that we obtain $k$-independent convergence if $\NLqDRR{\nso-\nst}\sim 1/k$ for any $1 \leq q < \infty$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
+We will give numerical results indicating that this theoretical best-case result can be achieved (our numerical results actually indicate that we obtain $k$-independent convergence if $\NLqDRR{\nso-\nst}\sim 1/k$ for any $1 \leq q < \infty$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
 
 
 \subsection{Theory in weaker norms}\label{sec:weakertheory}
@@ -1059,7 +1059,7 @@ and
 \beq\label{eq:keyAbound}
 \NLtD{A \grad \ftilde} \leq \NLiDRRdtd{A}\NLtD{\grad \ftilde}
 \eeq
-respectively, for some function $\ftilde,$ and these bounds are carried through the rest of the proof.
+respectively, for an arbitrary function $\ftilde \in \Vhp,$ and these bounds are carried through the rest of the proof.
 
 However, we observe that we have the following generalisation of H\"older's inequality: If $q,s > 2$ such that $1/2 = 1/q+1/s,$ then
 \beq\label{eq:genholder}
@@ -1180,6 +1180,8 @@ for all $k\geq k_0$, where
 \eeq
 where $\Co$ is given by \cref{eq:C1nbpc} and $1/s = 1/2 - 1/q.$
 \ele
+
+The proofs of \cref{lem:keylemma1a,lem:keylemma2a} are virtually identical to the proofs of \cref{lem:keylemma1,lem:keylemma2}, with the modifications for $L^q$ norms detailed at the beginning of \cref{sec:weakertheory}.
 
 \bre[Reduction to \cref{lem:keylemma1,lem:keylemma2}]
 Observe that in the case $s=2$ and $q=\infty$ \cref{lem:keylemma1a,lem:keylemma2a} reduce to the our previous results \cref{lem:keylemma1,lem:keylemma2}.
