@@ -7,12 +7,22 @@ Consider the stochastic Helmholtz equation
 \eeq
 as defined in \cref{chap:stochastic}. If $Q(u)$ is some quantity of interest of the solution, then the simplest way to approximate $\EXP{Q(u)}$ is via a sampling-based method, i.e. using the approximation
 \beq\label{eq:samplingexp}
-\EXP{Q(u)} \approx \frac1N \sum_{l=1}^N Q(u(\omega^{l})),
+\EXP{Q(u)} \approx \frac1N \sum_{l=1}^N Q(u(\omegasl)),
 \eeq
-where the $\omega^l$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega^l,\cdot)$ and $n(\omega^l,\cdot)$.
-Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above.
+where the $\omegasl$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega^l,\cdot)$ and $n(\omega^l,\cdot)$.
+Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above. In particular, direct solvers involving the LU decomposition of the linear system have a computational cost of the order $\cO\mleft(n^{3/2}\mright)$ in 2-d and $\cO\mleft(N^2\mright)$ in 3-d.
 
-Therefore, in this \lcnamecref{chap:nbpc} we consider whether one can reuse the preconditioner from one solve for subsequent solves, and thereby reduce the overall computational effort. This idea of reusing preconditioners for `nearby' (in some sense) linear systems is the `nearby preconditioning' strategy proposed in this \lcnamecref{chap:nbpc}. To analyse this strategy rigorously, we first consider the following problem and question.
+However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d and $\cO\mleft(N^{4/3}\mright)$ in 3-d\optodo{ref}. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the folowing question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
+
+This question of reusing preconditioners is more widely applicable than just for LU decompositions. For \emph{any} preconditioner for the Helmholtz equation, one could ask when the preconditioner corresponding to one realisation of \cref{eq:nbpchh} can be re-used for other realisations. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition.
+
+One expects this reuse of the preconditioner to work well if the two realisations are `nearby' in some sense. This idea of reusing preconditioners is the `nearby preconditioning' strategy proposed in this \lcnamecref{chap:nbpc}. To analyse this `nearby preconditioning' strategy rigorously, we first consider the following problem and question.
+
+%% Therefore, in this \lcnamecref{chap:nbpc} we consider whether one can reuse the preconditioner from one solve for subsequent solves, and thereby reduce the overall computational effort.  
+
+%%  We note that the above suggestion of re-using preconditioners should, at first glance, reduce the computational effort needed because Helmholtz preconditioners typically require more effort to \emph{construct} than they do to \emph{apply}.
+
+%%  For example, if we calculate the action of $\AmatI$ exactly (say via an $LU$ factorisation) then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}. This relationship between the cost of construction and application is also seen in recent Helmholtz preconditioners such as a sweeping preconditioners and a domain-decompostion preconditioners (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners). For these preconditioners one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings. .
 
 Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp} or \cref{prob:vtedp} (we will prove results for both problems), with $\uj$ the corresponding solution and $\Dm,$ $f$, etc. as in \cref{prob:vedp} or \cref{prob:vtedp}. Let $\Amatj$, $j=1,2,$ be the Galerkin matrices for the corresponding $h$-finite-element discretisations (see \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$).
 
@@ -24,10 +34,6 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
 %$ to be a good preconditioner for $\Amat^{(2)}$
  for arbitrarily large $k$? 
  \een
-
- We note that the above suggestion of re-using preconditioners should, at first glance, reduce the computational effort needed because Helmholtz preconditioners typically require more effort to \emph{construct} than they do to \emph{apply}.
-
- For example, if we calculate the action of $\AmatI$ exactly (say via an $LU$ factorisation) then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}. This relationship between the cost of construction and application is also seen in recent Helmholtz preconditioners such as a sweeping preconditioners and a domain-decompostion preconditioners (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners). For these preconditioners one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition.
 
  \subsection{Outline of the chapter}% Don't know why cleveref didn't work here
 In \cref{sec:main} we state the main results of this \lcnamecref{chap:nbpc} on the effectiveness of nearby preconditioning, and give their analogues on the PDE level. In \cref{sec:num} we describe numerical experiments investigating the sharpness of the nearby-preconditioning results in \cref{sec:main}. In \cref{sec:3} we prove the results in \cref{sec:main}. In \cref{sec:weaknorm} we extend the results in \cref{sec:main} to hold in weaker spatial norms, and we describe numerical experiments investigating the sharpness of these new results. In \cref{sec:nbpcqmc} we then apply the idea of nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the stochastic Helmholtz equation; in \cref{sec:nbpcqmcnum} we describe two algorithms for applying nearby preconditioning to QMC methods and in \cref{sec:nbpcqmcnumerics} we describe numerical experiments on the effectiveness of nearby preconditioning applied to QMC methods. In \cref{sec:nbpclitreview} we briefly review the related literature. Finally, in \cref{sec:nbpcstochastic}, we show how one can prove probabalistic results about the behaviour of nearby preconditioning, and we describe numerical experiments that investigate these probabalistic results.
@@ -210,7 +216,7 @@ We define $\Ast$ and $\nst$ to be piecewise constant (matrix-valued and real-val
 We perform experiments taking $\alpha = 0.5 \times k^{-\beta}$ for $\beta \in 0,0.1,\ldots,0.9,1.$ We expect that when $\beta \neq 1$  the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\beta = 1$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour for $\beta=1$ has only been proved for $\NLiDRRdtd{\Aso-\Ast}$ for weighted GMRES (compare the restrictions on $\NLiDRRdtd{\Aso-\Ast}$ in \cref{cor:1,cor:1a}).
 
 
-In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:linfinityn1,fig:linfinityn2}, when $\beta \in \set{0,\ldots,0.3}$ (for $\NLiDRRdtd{\Aso-\Ast}$) and $\beta \in \set{0,\ldots,0.5}$ (for $\NLiDRR{\nso-\nst}$) we see growth in the maximum number of GMRES iterations needed (over all realisations) to achieve convergence, otherwise we see that the number of GMRES iterations is bounded as $k$ increases. This behaviour is better than expected; as the number of GMRES iterations is apparently bounded for a range of $\beta < 1.$ However, we note that this behaviour could be (i) because we are in a pre-asymptotic regime, and the number of GMRES iterations would grow if we increased $k$ further, or (ii) the particular structure of $\nst$ (being piecewise constant, with the pieces independently, randomly chosen) could result in some kind of `averaging' behaviour, meaning the preconditioner is better than would otherwise be expected.
+In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:linfinityn1,fig:linfinityn2}, when $\beta \in \set{0,\ldots,0.3}$ (for $\NLiDRRdtd{\Aso-\Ast}$) and $\beta \in \set{0,\ldots,0.5}$ (for $\NLiDRR{\nso-\nst}$) we see growth in the maximum number of GMRES iterations needed (over all realisations) to achieve convergence, otherwise we see that the number of GMRES iterations is bounded as $k$ increases. This behaviour is better than expected; as the number of GMRES iterations is apparently bounded for a range of $\beta < 1.$ However, we note that this behaviour could be (i) because we are in a pre-asymptotic regime, and the number of GMRES iterations would grow if we increased $k$ further, or (ii) the particular structure of $\nst$ (being piecewise constant, with the pieces independently, randomly chosen) could result in some kind of `averaging' behaviour, meaning the preconditioner is better than would otherwise be expected. However, we do not investigate these issues further in this thesis.
 
     \begin{figure}
       \centering
@@ -260,7 +266,7 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} above.
 
 \subsection{Definition of variational problems and conditions used to prove main results}\label{sec:vpGm}
-As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP \cref{prob:vedp} and TEDP \cref{prob:vtedp} above.
+As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP (\cref{prob:vedp}) and TEDP (\cref{prob:vtedp}) above.
 
 \bprob[General variational Helmholtz problem]\label{prob:vgen}
 Let $D, A,$ and $n$ be as in \cref{prob:tedp}. We say $u \in \HozDD$ satisfies the \defn{variational formulation of the truncated exterior Dirichlet problem} with $\gD = 0$ if
@@ -271,7 +277,7 @@ where
 \beq\label{eq:agen}
 \aG(w,v) \de \int_{D} \mleft(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\mright) - \DPGI{\T \trGI w}{\trGI v},
 \eeq
-where $\T:\HhGI\rightarrow \HmhGI$ is a bounded linear map and  $\DPGI{\cdot}{\cdot}$ is the duality pairing on $\GI,$ and $\LG  \in \HozDDs.$
+$\T:\HhGI\rightarrow \HmhGI$ is a bounded linear map,  $\DPGI{\cdot}{\cdot}$ is the duality pairing on $\GI,$ and $\LG  \in \HozDDs.$
 \eprob
 
 \bre[\Cref{prob:vgen} is a generalisation of \cref{prob:vedp,prob:vtedp}]
@@ -282,11 +288,11 @@ With the exception of some overlap in notation, it is straightforward to see tha
 The strength of the general formulation \cref{prob:vgen} is that it allows us to treat a wide variety of Helmholtz problems at once. Indeed, \emph{any} Helmholtz problem that can be written in the form \cref{eq:vgen,eq:agen} and satisfies \cref{cond:1nbpc,cond:2} below can be treated using the analysis in this \namecref{chap:nbpc}.
 \ere 
 
-For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional, nested subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
+For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
 %\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
-and fixed polynomial degree $p$. (Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
+and fixed polynomial degree $p$. Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$, with hidden constant dependent on $p$. (The assumption of quasi-uniformity can, in principle, be relaxed, see \cref{rem:ggsqu} below.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
 \bprob[Finite-element approximation of \cref{prob:vgen}]\label{prob:fevgen}
-We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vgen}if
+We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vgen} if
 \beq\label{eq:galerkin}
 \aG(\uh,\vh) = \LG(\vh) \tforall \vh \in \Vhp.
 \eeq
@@ -316,11 +322,6 @@ Similar to above we let
 \beq\label{eq:matrixAjdef}
 \Amatj \de \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
 \eeq
-Finally, let 
-\beq\label{eq:Dk2}
-\Dmat_k\de \Smat_I + k^2 \Mmat_1;
-\eeq
-so that \cref{eq:Dk} holds.
 %then the weighted norm $\|\cdot\|_{\Dmat_k}$ is given by 
 %\beq\label{eq:Dk3}
 %\N{\vvec}_{\Dmat_k}^2\de   \N{v_h}^2_{\HokD}=\big( \Dmat_k \vvec,\vvec\big)_2,
@@ -329,19 +330,41 @@ so that \cref{eq:Dk} holds.
 %$v_h =\sum_i v_i \phi_i$.
 
 \ble[Norm equivalences of FE functions]\label{lem:normequiv}
-If $\set{{\cTh}_{h>0}}$ is quasi-uniform with a nodal basis, then
-there exist $m_\pm$ and $s_\pm$, independent of $h$ and $p$, such that
+There exist $m_\pm >0$ and $s_+>0$, independent of $h$ (but dependent on $p$), such that
 \beq\label{eq:normequiv1}
 m_- h^{d/2} \N{\vvec}_2 \leq \N{v_h}_{\LtD} \leq m_+ h^{d/2} \N{\vvec}_2,
 \eeq
 and
 \beq\label{eq:normequiv2}
-s_- h^{d/2} \N{\vvec}_2 \leq \N{\nabla v_h}_{\LtD} \leq s_+ h^{d/2-1} \N{\vvec}_2,
+\N{\nabla v_h}_{\LtD} \leq s_+ h^{d/2-1} \N{\vvec}_2,
 \eeq
 for all finite-element functions $v_h =\sum_i v_i \phi_i \in \Vhp$.
 \ele
 
-Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the familiar bounds
+\bpf[Proof of \cref{lem:normequiv}]
+We first show \cref{eq:normequiv1} by direct computation, before concluding \cref{eq:normequiv2} from \cref{eq:normequiv1} and a standard inverse inequality. Throughout this proof, when we use the notation $\sim$ the hidden constants are independent of $\tau \in \Th,$ the mesh size $h$, and $\vh \in \Vhp,$ but may depend on $p.$
+
+For any $\vh \in \Vhp$ we have (letting $\bnj$ denote the nodes of $\Th$)
+\begin{align}
+  \NLtD{\vh}^2 &= \sum_{\tau \in \Th} \int_\tau \abs{\vh}^2\label{eq:twiddlenumber1}\\
+  &\sim \sum_{\tau \in \Th} \abs{\tau} \sum_{\bnj \in \tau} \abs{\vh(\bnj)}^2 \label{eq:twiddlenumber2}\\
+  &\sim h^d \sum_{\tau \in \Th} \sum_{\bnj \in \tau} \abs{\vh(\bnj)}^2, \text{ by quasi-uniformity,}\nonumber\\
+  &\sim h^2 \Nt{\bu},
+\end{align}
+i.e., \cref{eq:normequiv1}. The expression \cref{eq:twiddlenumber2} follows from \cref{eq:twiddlenumber1} because the terms defined on $\tau$ are equivalent norms on $\tau$ of functions in $\Vhp.$
+
+To show \cref{eq:normequiv2} we recall the standard inverse inequality (see, e.g., \cite[Theorem 4.5.11 and Remark 4.5.20]{BrSc:08})
+\beq\label{eq:twiddleinverse}
+\NHoD{\vh} \lesssim h^{-1} \NLtD{\vh}.
+\eeq
+By combining \cref{eq:twiddleinverse} and the right-hand side of \cref{eq:normequiv1}, we obtain \cref{eq:normequiv2}.
+\epf
+
+\bre[Relaxing the assumption of quasi-uniformity]\label{rem:ggsqu}
+We assume the family of meshes $\set{\Th}_{h>0}$ is quasi-uniform so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Section 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analagous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
+\ere
+
+Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the bounds
 \beqs
 (\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad h^{d}\N{\vvec}^2_2 \lesssim (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
 \eeqs
@@ -379,17 +402,17 @@ Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form,
 (where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
 
 \ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
-If $\LE$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem,
+If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem, the boundary operaor $\T$ satisfies
 \beq\label{eq:DPconj}
 \DPGI{\T \psi}{\phibar} = \DPGI{\T \phi}{\psibar} \tfa \phi,\psi \in \HhGI,
 \eeq
 and
 \beq\label{eq:adjoint1}
-\aGs(u,v)= \LE(v) \quad\tfa v\in \HozDD,
+\aGs(u,v)= \LG(v) \quad\tfa v\in \HozDD,
 \eeq
 then $\overline{u}$ satisfies
 \beq\label{eq:adjoint2}
-a(\overline{u},v)= \overline{\LE(\overline{v})} \quad\tfa v\in \HozDD.
+a(\overline{u},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
 \eeq
 \ele
 
@@ -451,7 +474,7 @@ exists, and is unique for all $k\geq k_0$.
 Furthermore, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in L^\infty(D, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
 \beq\label{eq:bound4}
-\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LE}_{\HokDs} \quad\tfa k\geq k_0, 
+\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LG}_{\HokDs} \quad\tfa k\geq k_0, 
 \eeq
 where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, R, k_0$, and $p$.
 \end{condition}
@@ -459,9 +482,9 @@ where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\As
 For details of when \cref{cond:1nbpc,cond:2} are satisfied (for \cref{prob:vedp,prob:vtedp}), see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2}).
 
 \bre[\Cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3}]\label{rem:yesitis}
-Note that \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LE(v) = \int_{D} f\vbar,$ then
+Note that \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LG(v) = \int_{D} f\vbar,$ then
 \beqs
-\NHokDs{\LE} = \sup_{v \in \HozDD} \frac{\abs{\LE(v)}}{\NHokD{v}} \leq\sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NHokD{vz}} \lesssim \frac1k \sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NLtD{vz}} = \frac{\NLtD{f}}k.
+\NHokDs{\LG} = \sup_{v \in \HozDD} \frac{\abs{\LG(v)}}{\NHokD{v}} \leq\sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NHokD{vz}} \lesssim \frac1k \sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NLtD{vz}} = \frac{\NLtD{f}}k.
 \eeqs
 The factor $k$ appears in \cref{eq:bound4} because the weighted norm $\NHokD{\cdot}$ is used in the definition of $\NHokDs{\cdot},$ rather than the unweighted norm $\NHoD{\cdot}.$
 \ere
@@ -469,7 +492,11 @@ The factor $k$ appears in \cref{eq:bound4} because the weighted norm $\NHokD{\cd
 
 \subsection{Proof of the main ingredient of the proofs of \cref{cor:1,cor:1a}}\label{sec:proofs}
 
-The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{thm:1}.
+The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{thm:1}, where we work in the weighted norm
+\beq\label{eq:Dk2}
+\Dmat_k\de \Smat_I + k^2 \Mmat_1;
+\eeq
+which defines the norm on $\Vhp$ induced by $\NHokD{\cdot},$ see \cref{eq:Dk}.
 
 \begin{theorem}[Main ingredient of the answer to \cref{it:nbpcq1}]\label{thm:1}
 Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. 
@@ -674,14 +701,14 @@ The proof of \cref{lem:keylemma2} uses the following \lcnamecref{lem:H1}, which 
 
 \ble[Bound for data in $\HozDDs$]\label{lem:H1}
 %With the sesquilinear form $a(\cdot,\cdot)$ defined by \cref{eq:EDPa} with $A=\Aso$ and $n=\nso$, 
-Given $\widetilde{\LE}\in \HozDDs$, let $\widetilde{u}$ be the solution of the variational problem
+Given $\widetilde{\LG}\in \HozDDs$, let $\widetilde{u}$ be the solution of the variational problem
 \beqs
 \text{ find } \,\,\widetilde{u} \in H^1_{0,D}(D) \,\,\tst \,\,
-a^{(1)}(\widetilde{u},v)=\widetilde{\LE}(v) \,\, \tfa v\in H^1_{0,D}(D).
+a^{(1)}(\widetilde{u},v)=\widetilde{\LG}(v) \,\, \tfa v\in H^1_{0,D}(D).
 \eeqs
 If \cref{cond:1nbpc} holds, then $\widetilde{u}$ exists, is unique, and satisfies the bound
 \beq\label{eq:bound2}
-\N{\widetilde{u}}_{\HokD} \leq \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right) \big\|\widetilde{\LE}\big\|_{(\HokD)^*}
+\N{\widetilde{u}}_{\HokD} \leq \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right) \big\|\widetilde{\LG}\big\|_{(\HokD)^*}
 \eeq
 for all $k\geq k_0$.
 \ele
@@ -691,19 +718,19 @@ for all $k\geq k_0$.
 \bpf[Proof of \cref{lem:keylemma2}]
 In a similar way to the proof of \cref{lem:keylemma1}, given $\fvec \in \CC^N$ and a symmetric $A\in L^\infty(D, \RR^{d\times d})$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDD$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
-a^{(1)}(\widetilde{u},v)= \widetilde{\LE}(v) \quad\text{ for all } v\in H^1(\Omega),
+a^{(1)}(\widetilde{u},v)= \widetilde{\LG}(v) \quad\text{ for all } v\in H^1(\Omega),
 \quad\text{ where } \quad
- \widetilde{\LE}(v) \de(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
+ \widetilde{\LG}(v) \de(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
 \eeq
 Observe that the definition of the norms $\|\cdot\|_{(\HokD)^*}$ and $\|\cdot\|_{\HokD}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
 \begin{align}
-\big\| \widetilde{\LE}\big\|_{(\HokD)^*}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtD}\nonumber\\
+\big\| \widetilde{\LG}\big\|_{(\HokD)^*}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtD}\nonumber\\
 &\leq \NLiDRRdtd{A} \big\|\nabla \widetilde{f}\big\|_{\LtD}\label{eq:Fbounda}\\
 &\leq \NLiDRRdtd{A} \big\| \widetilde{f}\big\|_{\HokD}.\label{eq:Fbound}
 \end{align}
 Let $\tu_h$ be the solution of the finite element approximation of \cref{eq:411a}, i.e.,
 \beq\label{eq:41a}
-a^{(1)}(\tu_h,v_h)= \widetilde{\LE}(v_h) \quad\text{ for all } v_h\in \Vhp,
+a^{(1)}(\tu_h,v_h)= \widetilde{\LG}(v_h) \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41a} is equivalent to $\Amato \tbu = \Smat_A\,\fvec$. 
 
@@ -719,7 +746,7 @@ we find
 \N{\tu-\tu_h}_{\HokD} + \N{\tu}_{\HokD},\nonumber \\ \nonumber
 & \leq \left[ C^{(1)}_{\rm FEM2} k + 
 \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax k  \right) 
-\right]\big\|\widetilde{\LE}\big\|_{(\HokD)^*},\\
+\right]\big\|\widetilde{\LG}\big\|_{(\HokD)^*},\\
 &\leq C_1 \, k\, 
 %\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) \right]
 \NLiDRRdtd{A} \big\|\nabla\widetilde{f}\big\|_{\LtD},\label{eq:mainevent2}\\
@@ -865,17 +892,17 @@ A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES 
 
 \bpf[Proof of \cref{thm:2}]
 %We first prove the upper bound \cref{eq:PDEbound}.
-By the assumptions on $\Aso,\, \Ast,\, \nso,\,\st$, and $\Dm$, $u^{(1)}$ and $u^{(2)}$ exist, are unique, satisfy $a^{(1)}(u^{(1)}, v) = \LE(v)$ for all $v \in \HozDD$ and $a^{(2)}(u^{(2)}, v) = \LE(v)$ respectively, where $\LE$ is given by \cref{eq:Ledp}. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
+By the assumptions on $\Aso,\, \Ast,\, \nso,\,\st$, and $\Dm$, $u^{(1)}$ and $u^{(2)}$ exist, are unique, satisfy $a^{(1)}(u^{(1)}, v) = \LG(v)$ for all $v \in \HozDD$ and $a^{(2)}(u^{(2)}, v) = \LG(v)$ respectively, where $\LG$ is given by \cref{eq:Ledp}. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
 \beq\label{eq:vp1}
-a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{\LE}(v) \quad\tfa v\in H^1_{0,D}(D)
+a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{\LG}(v) \quad\tfa v\in H^1_{0,D}(D)
 \eeq
 where
 \beqs
- \widetilde{\LE}(v)\de \int_{D} \left((\Ast-\Aso) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\nso-\nst) u^{(2)}\overline{v}.
+ \widetilde{\LG}(v)\de \int_{D} \left((\Ast-\Aso) \nabla u^{(2)}\right) \cdot\overline{\nabla v} + k^2 (\nso-\nst) u^{(2)}\overline{v}.
 \eeqs
 Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HokD}$ (see \cref{eq:weightednorm}), we have
 \begin{align*}
-| \widetilde{\LE}(v)| &\leq \NLiDRRdtd{\Aso-\Ast} \big\|\nabla u^{(2)}\big\|_{L^2(D)}
+| \widetilde{\LG}(v)| &\leq \NLiDRRdtd{\Aso-\Ast} \big\|\nabla u^{(2)}\big\|_{L^2(D)}
 \N{\nabla v}_{L^2(D)} 
 \\& \hspace{5cm}+ k^2 
 \NLiDRR{\nso-\nst} \big\| u^{(2)}\big\|_{L^2(D)}
@@ -885,7 +912,7 @@ Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_
 \end{align*}
 (by Cauchy--Schwarz in $\RR^2$). Therefore, by the definition of the norm $\|\cdot\|_{(\HokD)^*}$
 \beqs
-\big\|\widetilde{\LE}\big\|_{(\HokD)^*}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(D)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(D)}\Big\}
+\big\|\widetilde{\LG}\big\|_{(\HokD)^*}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(D)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(D)}\Big\}
 \big\| u^{(2)}\big\|_{\HokD}.
 \eeqs
 Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
@@ -1430,7 +1457,7 @@ We now briefly list the main differences in the two algorithms given above.
 \paragraph{Choice of preconditioning points} Neither algorithm will necessarily pick the optimal set of preconditioning points (optimal in the sense of the minimal number of preconditioning points needed).. In the sequential algorithm, there is no guarantee that this method for exploring the sample space and choosing the preconditioning points will give an optimal collection of preconditioning points. Also, whilst for the parallel algorithm the preconditioning points should fill the parameter space `well' (given the points are chosen a priori to be well spaced according to the $\dapprox$ metric), the number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. Therefore, even in the parallel case, one may not end up with an optimal set of preconditioning points.
 
 \subsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
-We now describe numerical experiments demonstrating the effectiveness of nearby preconditioning for tackling Helmholtz problems.
+We now describe numerical experiments demonstrating the effectiveness of nearby preconditioning for tackling Helmholtz problems. For the computational setup, including the algorithm we use to generate our QMC points, see \cref{app:compsetup}.
 
 As described above, before we perform our numerical experiments, we need to determine:
 \bit
