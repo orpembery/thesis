@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import numpy as np
 import fileinput
+import colorcet as cc
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/'
 
@@ -56,7 +57,9 @@ def make_plot(locs,filename):
 
     fig = plt.figure(frameon=False)
 
-    styles = 'ovXdP'
+    styles = 'o^v>P'
+
+    colours = cc.glasbey_bw
 
     for ii_loc in range(len(locs)):
 
@@ -78,7 +81,7 @@ def make_plot(locs,filename):
 
         
         
-        df.loc[loc,:].T.plot(style='k'+styles[ii_loc]+'--',label=label)
+        df.loc[loc,:].T.plot(style='k'+styles[ii_loc]+'--',label=label,c=colours[ii_loc])
 
     plt.xlabel('$k$')
 

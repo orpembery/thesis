@@ -192,7 +192,11 @@ for ii_qoi in range(num_qois):
 
     fig = plt.figure()
     
-    plt.loglog(k_list,qoi_C_alpha[0],'ko')
+    plt.semilogx(k_list,qoi_C_alpha[0],'ko')
+
+    # ax = fig.gca()
+    
+    # ax.yaxis.set_major_locator(LogLocator(subs='all'))
 
     plt.xlabel(r'$k$')
     plt.ylabel(r'$C$',rotation='90')
@@ -200,6 +204,8 @@ for ii_qoi in range(num_qois):
     fig_name = qoi+'-C-plot'
 
     fig.set_size_inches((5,4))
+
+    plt.tight_layout()
     
     plt.savefig(fig_name+'.pgf')
 

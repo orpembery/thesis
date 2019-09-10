@@ -11,6 +11,9 @@ df_master = pd.DataFrame(index=[int(k) for k in k_list],columns=['num_lu','total
 
 this_directory = './data/data-for-nbpc-qmc/'
 
+float_format = '{:.2f}'.format # Based on formatting described at https://pyformat.info/#number
+# Helped debug using https://stackoverflow.com/a/20937592
+
 for k in k_list:
     print(k)
     # Find the right directory
@@ -29,7 +32,7 @@ for k in k_list:
 
     df_master.loc[k,'total_solves'] = len(GMRES_its)
 
-    df_master.loc[k,'lu_as_percentage'] = 100.0*df_master.loc[k,'num_lu']/df_master.loc[k,'total_solves']
+    df_master.loc[k,'lu_as_percentage'] = r'{\bf ' + float_format(100.0*df_master.loc[k,'num_lu']/df_master.loc[k,'total_solves']) + r'}'
 
     df_master.loc[k,'av_gmres'] = np.mean(GMRES_its)
 
@@ -37,15 +40,12 @@ for k in k_list:
 
 column_names = [r'\# LU factorisations',r'\makecell{Total \#\\linear systems}',r'\makecell{\# LU factorisations$/$\\\# linear systems}(\%)',r'\makecell{Average \#\\GMRES iterations}',r'\makecell{Max. \#\\GMRES iterations}']
 
-float_format = '{:.2f}'.format # Based on formatting described at https://pyformat.info/#number
-# Helped debug using https://stackoverflow.com/a/20937592
-
 column_format = 'Sc Sc Sc Sc Sc'
 
 table_name = 'nbpc-qmc-parallel-table.tex'
 
 with open(table_name,mode='w') as table:
-    df_master.to_latex(table,header=column_names,float_format=float_format,column_format=column_format)
+    df_master.to_latex(table,header=column_names,float_format=float_format,column_format=column_format,escape=False)
 
 # This is a hack to get the table to print like I want
 
@@ -61,6 +61,3 @@ with fileinput.input(files=(table_name),inplace=True) as table:
             print(r'$k$' +columns + r'\\')
         else:
             print(line)
-
-            
-
