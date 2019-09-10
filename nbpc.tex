@@ -1545,7 +1545,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
                 \centering
       \input{integral-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
 \end{figure}
 \optodo{Figure out how to rotate plot labels}
 \begin{figure}[h]
@@ -1559,7 +1559,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
 \input{origin-alpha-plot.pgf}
     \end{subfigure}
 
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1572,7 +1572,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
             \centering
 \input{top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1585,7 +1585,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
             \centering 
 \input{gradient_top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the dependence of $C$ and $\alpha$ on $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
 \end{figure}
 
 
@@ -1643,7 +1643,7 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
 
     The results for the sequential algorithm are summarised in \cref{tab:nbpcqmcseq}, for $k = 10,\,20,\,30$. The results show that nearby preconditioning is effective, with the number of preconditioners growing (approximately) linearly in $k$, but at a very low percentage of the total number of solves. Performing a linear fit for the percentage of LU-factorisations, we obtain the the percentage of LU-factorisations grows like $-0.04 + 0.02k$ (see \cref{fig:lu}). This result indicates that although the radius of the balls in which nearby preconditioning is effective decreases with $\cO\mleft(1/k\mright)$, the fact that the number of QMC points increases with $k$ means that a large proportion of the solves are computed using a previously-calculated LU decomposition. Observe that if the number of QMC points remained constant in $k$, we would expect the number of preconditioners to (potentially) increase like $k^J$, because the number of balls of radius $\sim 1/k$ in $\cube{J}$ is $\sim k^J.$
 
-    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of ($-0.04 + 0.02k$)\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:nbpcqmcspar}. We observe that the fraction of preconditioners is approximately $-0.04 + 0.02k$, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This growth (which did not occur with the sequential algorithm) may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of ($0.05k$)\%) may result in a bounded number of GMRES iterations\ednote{Both---Should I run these computations?} Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditioners that must be calculated.
+    Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of ($-0.04 + 0.02k$)\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:nbpcqmcspar}. We observe that the fraction of preconditioners is approximately $-0.04 + 0.02k$, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This growth (which did not occur with the sequential algorithm) may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of ($0.05k$)\%) may result in a bounded number of GMRES iterations Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditioners that must be calculated.
 
     \begin{figure}
       \input{lu-graph.pgf}
@@ -1777,13 +1777,13 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
 
 \section{Review of related techniques in the literature}\label{sec:nbpclitreview}
    
-Having proved rigorous results on the effectiveness of nearby preconditioning, and also applied to it a UQ algorithm, we now review similar computational techniques in the literature. Whilst the idea of \emph{nearby} preconditioning in UQ (that is, choosing \emph{multiple} realisations for which we calculate the preconditioner) is novel, as far as we are aware, there has been a body of work on the closely-related idea of \emph{mean-based} preconditioning. In mean-based preconditioning a \emph{single} preconditioner is calculated corresponding to the mean of the random coefficients. Mean-based preconditioning has been most extensively studied for the stationary diffusion equation
+Having proved rigorous results on the effectiveness of nearby preconditioning, and also applied to it a UQ algorithm, we now review similar computational techniques (applied to other problems) which can be found in the literature. Whilst the idea of \emph{nearby} preconditioning introduced here is, as far as we are aware, novel, there has been a body of work on the closely-related idea of \emph{mean-based} preconditioning. In mean-based preconditioning a \emph{single} preconditioner is calculated corresponding to the mean of the random coefficient. This is in contrast to nearby preconditioning, where \emph{multiple} preconditioners are calculated, corresponding to each realisation in a particular subset of all the realisations. Mean-based preconditioning has been most extensively studied for the stationary diffusion equation
     \beqs
 \grad \cdot \mleft(a\grad u\mright)  = -f,
 \eeqs
-with a small number of works analysing other PDEs, including two works on the Helmholtz equation. We will first explain the idea of mean-based preconditioning before we review the literature for mean-based preconditioning for the stationary diffusion equation and other PDEs, and finally turning our attention to mean-based preconditioning for the Helmholtz equation. In general, the computational and mathematical results in the literature show that mean-based preconditioning  is effective if the variance of the random parameters are small enough, i.e.,  if most of the samples are sufficiently close to the mean.
+with a small number of works analysing other PDEs, including two works on the Helmholtz equation. We will first explain the idea of mean-based preconditioning before we review the literature applying it to the stationary diffusion equation and other PDEs, and finally turning our attention to mean-based preconditioning for the Helmholtz equation. In general, the computational and mathematical results in the literature show that mean-based preconditioning  is effective if the variance of the random parameters are small enough, i.e.,  if most of the samples are sufficiently close to the mean.
 
-Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEM). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is given by a Polynomial Chaos expansion (see, e.g., \cite{GhSp:12}\ednote{Ivan---can I borrow your copy of Ghanem and Spanos to get a correct section reference for this?}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
+Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEM). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is computed using a Polynomial Chaos expansion (see, e.g., \cite{GhSp:12}\optodo{Get Ghanem and Spanos from Ivan}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
 \beq\label{eq:sgmatrix}
 \Amat \otimes \Gmat,
 \eeq
@@ -1805,13 +1805,13 @@ The works applying mean-based preconditioning to many individual systems (for th
 
 We now turn our attention to mean-based preconditioning for the Helmholtz equation. The first work we discuss is the recent work of Wang and Liao \cite{WaLi:19}. They discretise a stochastic Helmholtz problem with $k=10$ and $n$ given by a truncated Karhunen--Lo\`eve expansion (with either 4 terms or 1 term) and use a generalised polynomial chaos (gPC) expansion (see, e.g., \cite{XiKa:02}) for the solution $u$. Whilst they use mean-based preconditioning (in the `Kronecker product' sense) they are more interested in investigating the effect of the number of terms in the gPC expansion on the accuracy of the discrete solution. Nonetheless, they see convergence using the mean-based preconditioner, although more iterations are needed when the random field is `close to' exciting a resonant frequency (see \cite[Example 4.2]{WaLi:19}).
 
-The work most similar to ours is the work of Jin and Cai \cite{JiCa:09}, who use a stochastic Galerkin discretisation with a doubly-orthogonal basis for a stochastic Helmholtz equation, resulting in around 5000 linear systems. They take $k = 225$ and a Karhunen--Lo\`eve expansion with 4 terms for both (scalar-valued) $A$ and $n$. The random variables in the Karhunen--Lo\`eve expansions are $\Unif(-\sqrt{3},\sqrt{3})$ and $\Unif(-45\sqrt{3},45\sqrt{3})$ for $A$ and $n$ respectively. Their mean-based preconditioner is a 1-level additive Schwarz preconditioner, and they compare resuing the preconditioner with reusing the Krylov subspaces (an idea first introduced by Parks, De Sturler, Mackey, Johnson, and Maiti in \cite{PadeMaJoMa:06}), as well as combining both techniques. Intriguingly, they see no additional benefit from reusing the preconditione, but considerable benefit from recycling the Krylov subspaces. Based on our results in this \lcnamecref{chap:nbpc}, we conjecture that they see no benefit from a single mean-based preconditioner because $k$ is reasonably large, and therefore for most of the realisations, $k\NLiDRR{\EXP{n}-\nsj}$ and $k\NLiDRRdtd{\EXP{A}-\Asj}$ are not sufficiently small. and so there is little-to-no effect on the number of GMRES iteration from mean-based preconditioning.We conjecture that if they had used multiple preconditioners distributed around the stochastic parameter space, they would have seen computational improvements, as described in this \lcnamecref{chap:nbpc}.
+The work most similar to ours is the work of Jin and Cai \cite{JiCa:09}, who use a stochastic Galerkin discretisation with a doubly-orthogonal basis for a stochastic Helmholtz equation, resulting in around 5000 linear systems. They take $k = 225$ and a Karhunen--Lo\`eve expansion with 4 terms for both (scalar-valued) $A$ and $n$. The random variables in the Karhunen--Lo\`eve expansions are $\Unif(-\sqrt{3},\sqrt{3})$ and $\Unif(-45\sqrt{3},45\sqrt{3})$ for $A$ and $n$ respectively. Their mean-based preconditioner is a 1-level additive Schwarz preconditioner, and they compare resuing the preconditioner with reusing the Krylov subspaces (an idea first introduced by Parks, De Sturler, Mackey, Johnson, and Maiti in \cite{PadeMaJoMa:06}), as well as combining both techniques. Intriguingly, they see no additional benefit from reusing the preconditione, but considerable benefit from recycling the Krylov subspaces. Based on our results in this \lcnamecref{chap:nbpc}, we conjecture that they see no benefit from a single mean-based preconditioner because $k$ is reasonably large, and therefore for most of the realisations, $k\NLiDRR{\EXP{n}-\nsj}$ and $k\NLiDRRdtd{\EXP{A}-\Asj}$ are not sufficiently small. and so there is little-to-no effect on the number of GMRES iterations from mean-based preconditioning. We conjecture that if they had used multiple preconditioners distributed around the stochastic parameter space, they would have seen computational improvements, as described in this \lcnamecref{chap:nbpc}.
     
 \section{Probabilistic nearby preconditioning results}\label{sec:nbpcstochastic}
 
 We now briefly overview how one can prove probabalistic results on the effectiveness of nearby preconditioning. All of the results in \cref{sec:intronbpc,sec:num,sec:3,sec:weaknorm} above have been for deterministic (as opposed to stochastic) coefficients $A$ and $n$ (and we then applied these deterministic results to QMC methods for the Helmholtz equation in \cref{sec:nbpcqmc}. Therefore we now turn our attention to obtaining results on the effectiveness of nearby preconditioning for stochastic Helmholtz problems, i.e., \cref{prob:msedp,prob:somsedp,prob:svsedp} from \cref{chap:stochastic}. Firstly, in \cref{cor:stonbpcas} below, we prove an `essentially deterministic' result on the effectiveness of nearby preconditioning, before proving probabilistic results on the effectiveness of nearby preconditioning applied to stochastic problems. However, we will see that our efforts to prove probabalistic results are restricted by the applicability of the Elman estimate \cref{thm:GMRES1_intro} above.
 
-Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$, i.e., for simplicity we only consider the case of random $n$, although everything we say could be easily extended to random $A$. To maintain consistent notation with the rest of this \lcnamecref{chap:nbpc} we will use a superscript $(2)$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.). We let $\nso \in \LiDRR$ define a \emph{deterministic} Helmholtz problem. We will use the discretisation of this deterministic Helmholtz problem to precondition the discretisations of the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
+Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$, i.e., for simplicity we only consider the case of random $n$, although everything we say could be easily extended to include random $A$. To maintain consistent notation with the rest of this \lcnamecref{chap:nbpc} we will use a superscript $(2)$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.). We let $\nso \in \LiDRR$ define a \emph{deterministic} Helmholtz problem. We will use the discretisation of this deterministic Helmholtz problem to precondition the discretisations of the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
 \beq\label{eq:stopc}
 \AmatoI\Amatt(\omega)\uvec = \AmatoI \fvec.
 \eeq
@@ -1827,9 +1827,11 @@ to converge to within a tolerance $\eps,$ i.e., to achieve
 \beqs
 \frac{\Nt{\rvecm}}{\Nt{\fvec}} < \eps.
 \eeqs
-    \ede
+\ede
 
-If we apply \cref{cor:1a} to the \cref{eq:stopc} we can straightforwardly conclude the following \lcnamecref{cor:stonbpcas}
+Note that $\GMRES{\eps}{\nso}{\nst}$ is a random variable, see \cref{lem:randomvariable} below.
+
+If we apply \cref{cor:1a} to the problem \cref{eq:stopc} we can straightforwardly conclude the following \lcnamecref{cor:stonbpcas}
 
 \bco[Almost-sure nearby preconditioning]\label{cor:stonbpcas}
 Let $0 < \eps < 1,$ $\nst:\Omega \rightarrow \LiDRR$ satisfy the assumptions at the start of \cref{sec:hh-results}, $\no, \,\Dm,$ and $f$ be as in \cref{prob:vgen}, and let the assumptions of \cref{cor:1a} hold. Then $\GMRES{\eps}{\nso}{\nst}$ is bounded independently of $k$ almost surely if
@@ -1839,7 +1841,7 @@ Let $0 < \eps < 1,$ $\nst:\Omega \rightarrow \LiDRR$ satisfy the assumptions at 
 almost surely.
 \eco
 
-Observe that implicit in \cref{cor:stonbpcas} is the fact that $\GMRES{\eps}{\nso}{\nst}$ is a random variable; we sketch a proof of this fact now.
+%Observe that implicit in \cref{cor:stonbpcas} is the fact that $\GMRES{\eps}{\nso}{\nst}$ is a random variable; we sketch a proof of this fact now.
 
 \ble[$\GMRES{\eps}{\no}{\nt}$ is a random variable]\label{lem:randomvariable}
 Under the assumptions of \cref{lem:probgmres1}, $\GMRES{\eps}{\nso}{\nst}$ is a random variable, i.e., $\GMRES{\eps}{\nso}{\nst}:\Omega\rightarrow \RR$ is measurable.
@@ -1855,12 +1857,12 @@ The numerical results in \cref{sec:num} above can be seen (in part) as confirmin
 There are two drawbacks of \cref{cor:stonbpcas}:
 \ben
 \item\label[itemdrawback]{it:notideal1} The condition \cref{eq:nbpcas} must hold almost surely, and
-  \item\label[itemdrawback]{it:notideal2} \Cref{cor:stonbpcas} does not give any explicit information on the distribution of the number of GMRES iterations depends on the distribution of $\NLiDRR{\nso-\nst}.$
+  \item\label[itemdrawback]{it:notideal2} \Cref{cor:stonbpcas} does not give any explicit information on how the distribution of the number of GMRES iterations depends on the distribution of $\NLiDRR{\nso-\nst}.$
     \een
     \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely.% \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRR{\nso-\nst(\omega)}.$
     \ere
 
-    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this is that the Elman estimate \cref{cor:GMRES_intro} above (when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information of how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed}). In summary, current results on GMRES convergence will only allow us to prove very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
+    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this is that the Elman estimate \cref{cor:GMRES_intro} above (when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information of how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed}). In summary, current results on GMRES convergence will only allow us to prove what are likely to be very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
 
 
 
@@ -1883,13 +1885,13 @@ There are two drawbacks of \cref{cor:stonbpcas}:
 
 \subsection{Numerical probabalistic results for nearby preconditioning}\label{sec:qualgmres}
 
-Notwithstanding the fact that we are limited in the probabilistic results we can \emph{prove} about nearby preconditioning, we will now see that we observe reasonable probabailistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A sensible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of ther order $1/k$. We can expect this result as the standard deviation of a random variable has the same units as the random variable itself, and therefore it is reasonable to assume that the same scaling as in \cref{cor:stonbpcas} will give a bounded average number of GMREs iterations. Will we see exactly this behaviour in our numerical experiments.
+Notwithstanding the fact that we are limited in the probabilistic results that we can \emph{prove} about nearby preconditioning, we will now see that we observe reasonable probabailistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A plausible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of the order $1/k$. We expect this result because the standard deviation of a random variable is a (probabilistic) measure of its variation. In \cref{cor:stonbpcas} we show that the number of GMRES iterations is bounded almost surely if the variation in $\NLiDRR{\nso-\nst}$ is bou(of the order $1/k$) almost surely. Therefore, it reasonable to assume that the probabilistic analogue of the number of GMRES iterations (the average) is bounded if the probabilistic analogue of the variation in $\NLiDRR{\nso-\nst}$ (the standard deviation) is bounded (of the order $1/k$). Will we see exactly this behaviour in our numerical experiments.
 
-In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0.$ we consider three cases:
+In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0,$ $\Aso=\Ast=I$ and $\NLiDRR{\nso-\nst}$ given by an exponential random variables with standard deviation $\sigma.$  we consider three cases:
 \ben
 \item\label[itemcase]{it:sigma1} $\displaystyle \sigma  = 1,$
 \item\label[itemcase]{it:sigma2} $\displaystyle \sigma  = \frac{1}k,$ and
-  \item\label[itemcase]{it:sigma3} $\displaystyle \sigma  = \frac{1}{k^2}.$
+  \item\label[itemcase]{it:sigma3} $\displaystyle \sigma  = \frac{1}{k^2}$.
     \een
 
     For each of these cases we calculate
@@ -1897,7 +1899,7 @@ In our numerical experiments we use the computational setup described in \cref{a
     \PP\mleft(\GMRES{\eps}{\no}{\nt} \leq 12\mright).
     \eeq
 
-    Based on the reasoning above we expect that in \cref{it:sigma2} the probability \cref{eq:gmresprob} \emph{is constant} as $k$ increases, and using similar reasoning, we expect that in \cref{it:sigma1} the probability \cref{eq:gmresprob} \emph{decreases} as $k$ increases and in \cref{it:sigma3} the probability \cref{eq:gmresprob} \emph{increases} as $k$ increases.   This is exactly the behaviour we observe in \cref{fig:prob-plot-0.0,fig:prob-plot-1.0,fig:prob-plot-2.0}. This behaviour demonstrates that whilst the theory developed in the rest of this \lcnamecref{chap:nbpc} does not allow us to \emph{prove} results about the probabalistic behaviour of nearby preconditioning, the theory does give us \emph{intuition} as to what the probabilistic behavour will be.
+    Based on the reasoning above we expect that in \cref{it:sigma2} the probability \cref{eq:gmresprob} \emph{is constant} as $k$ increases, and using similar reasoning, we expect that in \cref{it:sigma1} the probability \cref{eq:gmresprob} \emph{decreases} as $k$ increases and in \cref{it:sigma3} the probability \cref{eq:gmresprob} \emph{increases} as $k$ increases.   This is exactly the behaviour we observe in \cref{fig:prob-plot-0.0,fig:prob-plot-1.0,fig:prob-plot-2.0}. This behaviour demonstrates that whilst the theory developed in the rest of this \lcnamecref{chap:nbpc} does not allow us to easily prove useful results about the probabalistic behaviour of nearby preconditioning, the theory does give us \emph{intuition} as to what the probabilistic behavour will be.
 
 %% \begin{figure}[p]
 %%   \centering

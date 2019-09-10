@@ -29,7 +29,7 @@ for k in k_list:
 
     df_master.loc[k,'total_solves'] = len(GMRES_its)
 
-    df_master.loc[k,'lu_as_percentage'] = 100.0*df_master.loc[k,'num_lu']/df_master.loc[k,'total_solves']
+    df_master.loc[k,'lu_as_percentage'] = '{bf ' + str(100.0*df_master.loc[k,'num_lu']/df_master.loc[k,'total_solves']) + '}'
 
     df_master.loc[k,'av_gmres'] = np.mean(GMRES_its)
 
@@ -61,6 +61,3 @@ with fileinput.input(files=(table_name),inplace=True) as table:
             print(r'$k$' +columns + r'\\')
         else:
             print(line)
-
-            
-
