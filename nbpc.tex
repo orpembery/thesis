@@ -71,7 +71,7 @@ Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
-C_1 \,k \,\NLiDRRdtd{\Aso-\Ast} +C_2 \, k\, \NLiDR{\nso-\nst}
+C_1 \,k \,\NLiDRRdtd{\Aso-\Ast} +C_2 \, k\, \NLiDRR{\nso-\nst}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
@@ -94,7 +94,7 @@ let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{+}>0$ and $m_{\pm}>0$ be 
 % such that if 
 \beq\label{eq:conda}
  C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\NLiDRRdtd{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDR{\nso-\nst}
+\NLiDRRdtd{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
@@ -123,7 +123,7 @@ Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:con
  shows that the condition
 \beq\label{eq:sufficientlysmall}
 k\,
-\NLiDRRdtd{\Aso-\Ast} \quad\text{ and } \quad k\,\NLiDR{\nso-\nst}
+\NLiDRRdtd{\Aso-\Ast} \quad\text{ and } \quad k\,\NLiDRR{\nso-\nst}
 %\Big) 
 \quad\text{ both sufficiently small}
 \eeq
@@ -131,11 +131,11 @@ is not only an answer to \cref{it:nbpcq1} (about finite-element discretisations)
 \ben[label=Q2., ref=Q2]
 \item\label[itemblank]{it:nbpcq2}
 How small must $\NLiDRRdtd{\Aso - \Ast}$ and 
-$\NLiDR{\nso - \nst}$ be (in terms of $k$-dependence) for the relative error in approximating 
+$\NLiDRR{\nso - \nst}$ be (in terms of $k$-dependence) for the relative error in approximating 
 %$u^{(1)}$ to be a good approximation to 
 $u^{(2)}$ by $u^{(1)}$ to be bounded independently of $k$ for arbitrarily-large $k$? 
 \een
-\cref{lem:sharp} then shows that the condition ``$k\NLiDR{\nso - \nst}$ sufficiently small" is the \emph{provably-sharp} answer to \cref{it:nbpcq2} when $\Aso= \Ast= I$.
+\cref{lem:sharp} then shows that the condition ``$k\NLiDRR{\nso - \nst}$ sufficiently small" is the \emph{provably-sharp} answer to \cref{it:nbpcq2} when $\Aso= \Ast= I$.
 
 %Before stating these PDE results, we define the weighted $H^1$ norm
 %\beq\label{eq:1knorm}
@@ -149,14 +149,14 @@ To state these PDE results, we use the notation for $a,b>0$ that $a\lesssim b$ w
 
 \begin{theorem}[Answer to \cref{it:nbpcq2} (the PDE analogue of \cref{it:nbpcq1})]\label{thm:2}
 %Given $f\in L^2(D)$ such that $\supp \, f \subset \BR$, 
-Let $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below (so that $\uso$ exists, is unique, and satisfies a $k$-independent a priori bound), and let $\Dm$, $\Ast$, and $\nst$ be such that $u^{(2)}$ exists
+Let $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below applied to \cref{prob:vedp} (so that the solution of \cref{prob:vedp} $\uso$ exists, is unique, and satisfies a $k$-independent a priori bound). Let $\Dm$, $\Ast$, and $\nst$ be such that $u^{(2)}$ exists
 for any $f\in L^2(D)$ such that $\supp \, f \subset \BR$. 
 Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicitly in terms of $\Dm$, $\Aso$, and $\nso$ in \cref{eq:C3} below, such that
 \beq\label{eq:PDEbound}
 \frac{\big\|u^{(1)}-u^{(2)}\big\|_{\HokD}
 }{
 \N{u^{(2)}}_{\HokD}
-}\leq C_3 \,k\, \max\set{\NLiDRRdtd{\Aso-\Ast}\,,\, \NLiDR{\nso-\nst}}
+}\leq C_3 \,k\, \max\set{\NLiDRRdtd{\Aso-\Ast}\,,\, \NLiDRR{\nso-\nst}}
 \eeq
 for all $k\geq k_0$. 
 \end{theorem}
@@ -173,7 +173,7 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\As
 \frac{\N{u^{(1)}-u^{(2)}}_{L^2(D)}
 }{
 \N{u^{(2)}}_{L^2(D)}
-}\sim k \NLiDR{\nso-\nst}.
+}\sim k \NLiDRR{\nso-\nst}.
 \eeq
 %\noi (ii) There exist $f, \Aso, \Ast$, (with $\Aso\not\equiv \Ast$), such that 
 %the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of the exterior Dirichlet problem with $\nso \equiv \nst\equiv 1$ exist, are unique, and satisfy
@@ -303,8 +303,8 @@ We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (th
 We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
 Let 
 \beq\label{eq:matrixSjdef}
-\big(\Smat_{A}\big)_{ij}\de \int_\Omega \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
-\big(\Mmat_{n}\big)_{ij}\de \int_\Omega n\,\phi_i\, \phi_j,
+\big(\Smat_{A}\big)_{ij}\de \int_D \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
+\big(\Mmat_{n}\big)_{ij}\de \int_D n\,\phi_i\, \phi_j,
 \quad\tand\quad
 \big(\Nmat\big)_{ij}\de \int_{\GR} \T (\gamma\phi_j) \,\gamma \phi_i
 \eeq
@@ -342,9 +342,9 @@ for all finite-element functions $v_h =\sum_i v_i \phi_i \in \Vhp$.
 \ele
 
 \bpf[Proof of \cref{lem:normequiv}]
-We first show \cref{eq:normequiv1} by direct computation, before concluding \cref{eq:normequiv2} from \cref{eq:normequiv1} and a standard inverse inequality. Throughout this proof, when we use the notation $\sim$ the hidden constants are independent of $\tau \in \Th,$ the mesh size $h$, and $\vh \in \Vhp,$ but may depend on $p.$
+We first show \cref{eq:normequiv1} by direct computation, before concluding \cref{eq:normequiv2} from \cref{eq:normequiv1} and a standard inverse inequality. Throughout this proof, when we use $\sim$ the hidden constants are independent of $\tau \in \Th,$ the mesh size $h$, and $\vh \in \Vhp,$ but may depend on $p.$
 
-For any $\vh \in \Vhp$ we have (letting $\bnj$ denote the nodes of $\Th$)
+For any $\vh \in \Vhp$ we have (letting $\bnj$ denote a node of $\Th$)
 \begin{align}
   \NLtD{\vh}^2 &= \sum_{\tau \in \Th} \int_\tau \abs{\vh}^2\label{eq:twiddlenumber1}\\
   &\sim \sum_{\tau \in \Th} \abs{\tau} \sum_{\bnj \in \tau} \abs{\vh(\bnj)}^2 \label{eq:twiddlenumber2}\\
@@ -366,7 +366,7 @@ We assume the family of meshes $\set{\Th}_{h>0}$ is quasi-uniform so that the pr
 
 Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the bounds
 \beqs
-(\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad h^{d}\N{\vvec}^2_2 \lesssim (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
+(\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
 \eeqs
 
 For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]{Br:07} the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.
@@ -440,7 +440,7 @@ This property follows from the fact that, if $\uo$ and $\ut$ are solutions of th
 see, e.g., \cite[Lemma 6.13]{Sp:15}.
 \epf
 
-\Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}.
+\Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}, which are the minimal conditions needed for the proof of \cref{cor:1,cor:1a}. Therefore, in particular, \cref{cond:2} is a very weak condition on the finite-element space $\Vhp.$
 
 \begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
 $\Aso, \nso,$ and $D$ are such that, given $f\in L^2(D)$
@@ -460,26 +460,31 @@ where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso,
 
 \
 
-(i) Given $k_0>0$, $h$ and $p$ are such that, given $f\in \LtD$, the solution $u_h$ of \cref{prob:fevgen} with $\aG = \aGo$ (and with $\LG(v)$ as defined in \cref{eq:LGf}) exists and is unique for all $k\geq k_0$. % (so that the matrix $\Amato$ is invertible). 
-Furthermore, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then
-\beq\label{eq:bound3}
+\ben
+
+\item\label[itempart]{it:femasspt1} Given $\kz>0$, $h$ and $p$ are such that, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then for all $k\geq k_0$,
+  \bit
+\item The solution $u_h$ of \cref{prob:fevgen} (with $\aG = \aGo$, and $\LG(v)$ given by \cref{eq:LGf}) exists and is unique, and
+\item The error bound
+  \beq\label{eq:bound3}
 \N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtD} \quad\tfa k\geq k_0, 
 \eeq
-where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, \Dm, R, k_0$, and $p$.
+holds, where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.
+  \eit
 
-(ii) Given $k_0>0$, $h$ and $p$ are such that, given $\LG\in \HozDDs$, the solution $u_h$ of the Galerkin method \cref{eq:galerkin} 
-with $\aG = \aGo$
-exists, and is unique for all $k\geq k_0$.
-%(so that the matrix $\Amato$ is invertible). 
-Furthermore, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in L^\infty(D, \RR^{d\times d})$, $A$ is symmetric, and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$
- (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then
+\item Given $k_0>0$, $h$ and $p$ are such that, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in \LiDRRdtd$ and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then for all $k \geq \kz$,
+  \bit
+\item The solution $u_h$ of \cref{prob:fevgen} with $\aG = \aGo$ exists and is unique, and
+\item The error bound
 \beq\label{eq:bound4}
 \N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LG}_{\HokDs} \quad\tfa k\geq k_0, 
 \eeq
-where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, R, k_0$, and $p$.
+holds, where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.  
+  \eit
+\een
 \end{condition}
 
-For details of when \cref{cond:1nbpc,cond:2} are satisfied (for \cref{prob:vedp,prob:vtedp}), see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2}).
+For details of when \cref{cond:1nbpc,cond:2} are satisfied (for \cref{prob:vedp,prob:vtedp}), see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2} \cref{it:femasspt1}).
 
 \bre[\Cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3}]\label{rem:yesitis}
 Note that \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LG(v) = \int_{D} f\vbar,$ then
@@ -536,7 +541,7 @@ Assume that \cref{cond:1nbpc} holds, and assume that Part (i) of \cref{cond:2} h
 \Big\}\leq 
 C_2
 %\frac{m_+}{m_-} \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right] 
-\frac{\N{n}_{L^\infty(D)}}{k}
+\frac{\NLiDRR{n}}{k}
 \eeq
 and 
 \beq\label{eq:keybound1a}
@@ -545,7 +550,7 @@ and
 \Big\}\leq 
 C_2 
 %\frac{m_+}{m_-} \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right] 
-\left(\frac{m_+}{m_-}\right) \frac{\N{n}_{L^\infty(D)}}{k}
+\left(\frac{m_+}{m_-}\right) \frac{\NLiDRR{n}}{k}
 \eeq
 for all $k\geq k_0$,
 where
@@ -557,15 +562,15 @@ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}.%\right].
 \ele
 
 \ble[Bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2}
-Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in L^\infty(D,\RR^{d\times d})$,
+Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in \LiDRRdtd$,
 \beq\label{eq:keybound2}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_{(\Dmat_k)^{-1}}, \,\,
-\big\| \Smat_A (\Amato)^{-1} \big\|_{\Dmat_k}\Big\} \leq C_1\, k\N{A}_{L^\infty(D)}
+\big\| \Smat_A (\Amato)^{-1} \big\|_{\Dmat_k}\Big\} \leq C_1\, k\NLiDRRdtd{A}
 \eeq
 and
 \beq\label{eq:keybound2a}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
-\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\N{A}_{L^\infty(D)}
+\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\NLiDRRdtd{A}
 \eeq
 %\begin{align}\nonumber
 %&\max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
@@ -593,7 +598,7 @@ and similarly
 \beq\label{eq:idea2}
 \Imat -\Amatt  (\Amato)^{-1}= \left( \Smat_{A^{(1)}-A^{(2)}} - k^2 \Mmat_{n^{(1)}-n^{(2)}}\right)(\Amato)^{-1}.
 \eeq
-The bounds  \cref{eq:main1} on $\|\Imat - (\Amato)^{-1}\Amatt\|_2$ and  $\|\Imat - \Amatt(\Amato)^{-1}\|_2$ then follow from using the bounds \cref{eq:keybound1} and \cref{eq:keybound2} in \cref{eq:idea1} and \cref{eq:idea2}.
+The bounds in  \cref{eq:main1} on $\NDk{\Imat - (\Amato)^{-1}\Amatt}$ and  $\NDkI{\Imat - \Amatt(\Amato)^{-1}}$ then follow from using the bounds \cref{eq:keybound1,eq:keybound2} in \cref{eq:idea1,eq:idea2}. The bounds in \Cref{eq:main1a} on $\Nt{\Imat - (\Amato)^{-1}\Amatt}$ and  $\Nt{\Imat - \Amatt(\Amato)^{-1}}$ follow completely analagously, except we use the bounds \cref{eq:keybound1a,eq:keybound2a} instead of the bounds \cref{eq:keybound1,eq:keybound2}.
 %
 %, and $C_1$, $C_2$ in \cref{eq:main1} are given explicitly by
 %\beq\label{eq:C1nbpc}
@@ -612,11 +617,11 @@ We first concentrate on proving \cref{eq:keybound1}.
 Given $\fvec \in \CC^N$ and $n\in \LiDRR$, we create a variational problem whose Galerkin discretisation leads to the equation $\Amato \tbu = \Mmat_n\,\fvec$.
 Indeed, let $\widetilde{f} \de \sum_j f_j \phi_j\in \HozDD$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411}
-a^{(1)}(\widetilde{u},v)= (n\widetilde{f},v)_{L^2(\Omega)} \quad\text{ for all } v\in H^1(\Omega),
+a^{(1)}(\widetilde{u},v)= \IPLtD{n\widetilde{f}}{v} \quad\text{ for all } v\in \HozDD,
 \eeq
 and let $\tu_h$ be the solution of the finite-element approximation of \cref{eq:411}, i.e.,
 \beq\label{eq:41}
-a^{(1)}(\tu_h,v_h)= (n\widetilde{f},v_h)_{L^2(\Omega)} \quad\text{ for all } v_h\in \Vhp,
+a^{(1)}(\tu_h,v_h)= \IPLtD{(n\widetilde{f}}{v_h} \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\fvec$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\fvec\|_{\Dmat_k}$. (Recall $\fvec \in \CCN$ was arbitrary.) Because of the definition 
 of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is bound equivalent to bounding $\|\tu_h\|_{\HokD}$ in terms of $\|\widetilde{f}\|_{\HokD}$.
@@ -716,11 +721,11 @@ for all $k\geq k_0$.
 
 
 \bpf[Proof of \cref{lem:keylemma2}]
-In a similar way to the proof of \cref{lem:keylemma1}, given $\fvec \in \CC^N$ and a symmetric $A\in L^\infty(D, \RR^{d\times d})$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDD$. Define $\widetilde{u}$ to be the solution of the variational problem 
+In a similar way to the proof of \cref{lem:keylemma1}, given $\fvec \in \CC^N$ and $A\in \LiDRRdtd$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDD$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
-a^{(1)}(\widetilde{u},v)= \widetilde{\LG}(v) \quad\text{ for all } v\in H^1(\Omega),
+a^{(1)}(\widetilde{u},v)= \widetilde{\LG}(v) \quad\text{ for all } v\in \HozDD,
 \quad\text{ where } \quad
- \widetilde{\LG}(v) \de(A\nabla\widetilde{f},\nabla v)_{L^2(\Omega)}.
+ \widetilde{\LG}(v) \de \IPLtD{(A\nabla\widetilde{f}}{\nabla v}.
 \eeq
 Observe that the definition of the norms $\|\cdot\|_{(\HokD)^*}$ and $\|\cdot\|_{\HokD}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
 \begin{align}
@@ -786,10 +791,10 @@ $\|\Smat_A((\Amato)^\dagger)^{-1}\|_{2}$ in \cref{eq:keybound2a} follows in a si
 \bre[Link to the results of \cite{GaGrSp:15}]
 A result analogous to the Euclidean-norm bounds in \cref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Aso= \Ast= I$, $\nst= 1$, and $\nso = 1 + i\eps/k^2$, with the `absorption parameter' or `shift' $\eps$ satisfying $0<\eps\lesssim k^2$. The motivation for proving this result was that the so-called `shifted Laplacian preconditioning' of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to \cref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
 $\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
- then give upper bounds on large the `shift' $\eps$ can be for GMRES to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
+ then give upper bounds on how large the `shift' $\eps$ can be for GMRES for $\AmatoI\Amatt$ to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
 
 %\cite[Lemma 4.1]{GaGrSp:15}
-The main differences between \cite{GaGrSp:15} and the present paper are that (i)  \cite{GaGrSp:15} focused on the TEDP, not the EDP,
+The main differences between \cite{GaGrSp:15} and this work are that (i)  \cite{GaGrSp:15} focused on the TEDP, not the EDP,
 (ii) \cite{GaGrSp:15} focused on the particular case that $\Dm$ is star-shaped with respect to a ball, finding a $k$- and $\eps$-explicit expression for $C^{(1)}_{\rm bound}$ in this case using Morawetz identities, whereas we assume the existence of $\Cboundo,$
 (iii) \cite{GaGrSp:15} required a bound on 
 $(\Amato)^{-1}\Mmat_{n}$, analogous to the bounds in \cref{lem:keylemma1} along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $i k$), but \emph{not} on 
@@ -871,7 +876,7 @@ and
 \end{corollary}
 
 \bpf[Proof of \cref{cor:1}]
-This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\alpha=1/2$.
+This follows from \cref{thm:1} by applying \cref{thm:GMRES1_intro,cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\alpha=1/2$.
 \epf
 
 \
@@ -892,7 +897,7 @@ A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES 
 
 \bpf[Proof of \cref{thm:2}]
 %We first prove the upper bound \cref{eq:PDEbound}.
-By the assumptions on $\Aso,\, \Ast,\, \nso,\,\st$, and $\Dm$, $u^{(1)}$ and $u^{(2)}$ exist, are unique, satisfy $a^{(1)}(u^{(1)}, v) = \LG(v)$ for all $v \in \HozDD$ and $a^{(2)}(u^{(2)}, v) = \LG(v)$ respectively, where $\LG$ is given by \cref{eq:Ledp}. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
+Because we assumed \cref{cond:1nbpc} holds for the EDP (\cref{prob:vedp}), $u^{(1)}$ and $u^{(2)}$ exist, are unique, satisfy $a^{(1)}(u^{(1)}, v) = \LG(v)$ for all $v \in \HozDD$ and $a^{(2)}(u^{(2)}, v) = \LG(v)$ respectively, where $\LG$ is given by \cref{eq:Ledp}. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
 \beq\label{eq:vp1}
 a^{(1)}(u^{(1)}-u^{(2)},v) = \widetilde{\LG}(v) \quad\tfa v\in H^1_{0,D}(D)
 \eeq
@@ -912,7 +917,7 @@ Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_
 \end{align*}
 (by Cauchy--Schwarz in $\RR^2$). Therefore, by the definition of the norm $\|\cdot\|_{(\HokD)^*}$
 \beqs
-\big\|\widetilde{\LG}\big\|_{(\HokD)^*}\leq \max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(D)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(D)}\Big\}
+\big\|\widetilde{\LG}\big\|_{(\HokD)^*}\leq \max\set{\NLiDop{\Aso-\Ast},\NLiDRR{\nso-\nst}}.
 \big\| u^{(2)}\big\|_{\HokD}.
 \eeqs
 Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
@@ -923,7 +928,7 @@ Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \
  \leq 
 \,&\frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomax  k\right)
 \\
-&\quad \left(\max\Big\{\big\|\Aso-\Ast\big\|_{L^\infty(D)}\,,\, \big\|\nso-\nst\big\|_{L^\infty(D)}\Big\}\right),
+&\quad \mleft(\max\set{\NLiDop{\Aso-\Ast},\NLiDRR{\nso-\nst}}\mright),
 \end{align*}
 and then the result \cref{eq:PDEbound} follows with 
 \beq\label{eq:C3}
@@ -934,49 +939,59 @@ C_3\de \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}
 \bpf[Proof of \cref{lem:sharp}]
 We actually prove the stronger result that given any function $c(k)$ such that $c(k)>0$ for all $k>0$, there exist 
 $f, \nso,$ and $ \nst$ (with $\nso\not= \nst$) with
-\beqs
-\big\|\nso-\nst\big\|_{L^\infty(D)} \sim c(k)
-\eeqs
+\beq\label{eq:nck}
+\NLiDRR{\nso-\nst} \sim c(k)
+\eeq
 such that the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:vedp} with $\Aso = \Ast= I$ exist, are unique, and satisfy \cref{eq:sharp1}. 
 
 The heart of the proof is the equation
 \beq\label{eq:obs1}
-(\Delta + k^2) \big(e^{i k r}\chi(r)\big) =  e^{i k r}\left(i k \frac{d-1}{r} \chi(r) + \Delta \chi(r)\right)=: -\widetilde{f}(r),
+(\Delta + k^2) \big(e^{i k r}\chi(r)\big) =  e^{i k r}\mleft(\Delta \chi(r) + 2ik\frac{\partial \chi}{\partial r}(r) + i k \frac{d-1}{r} \chi(r)\mright)=: -\widetilde{f}(r),
 \eeq
-where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:obs1} is the Helmholtz operator applied to a circular wave $e^{ikr}$, with the added factor $\chi$ to ensure the function has compact support. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates\ednote{Both---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....} and observing that $e^{ikr} \chi(r)$ has angular derivatives equal to zero.
+where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:obs1} is the Helmholtz operator applied to a circular wave $e^{ikr}$, with the added factor $\chi$ which can be chosen to have compact support. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates
+\beqs
+\Delta \chi = \frac{1}{r^{d-1}} \frac{\partial}{\partial r}\mleft(r^{d-1} \frac{\partial \chi}{\partial r} \mright) + \frac1{r^2} \LapBel \chi,
+\eeqs
+where $\LapBel$ is Laplace--Beltrami operator on the $d-1$-dimensional sphere\ednote{Both---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....}. Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
 
-Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since both the $L^2(D)$ norm of $\widetilde{f}$ and the $\HokD$ norm of $e^{i kr}\chi(r)$ are proportional to $k$, and hence each to other (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}). Also, recall that the proof of the PDE bound \cref{eq:PDEbound} used the nontrapping resolvent estimate \cref{eq:bound1} applied to $\uso-\ust.$ Therefore we expect that if we set things up so that
+We expect that \cref{eq:obs1} will be key in the proof of the sharpness of \cref{eq:PDEbound}, for the following reasons. Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since $\NLtD{\ftilde}\sim k$ and $\NHokD{e^{ikr}\chi(r)}\sim k$  and hence $\NHokD{e^{ikr}\chi(r)} \sim \NLtD{\ftilde}$ (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
+
+Also, recall that  the nontrapping resolvent estimate \cref{eq:bound1} was used in the proof of the PDE bound \cref{eq:PDEbound} applied to $\uso-\ust.$ Therefore we expect that if we set things up so that
 \beq\label{eq:sharpdiff}
 \uso-\ust = e^{ikr}\chi(r),
 \eeq
-because \cref{eq:obs1} shows the sharpness of the resolvent estimate \cref{eq:bound1} we expect that combining \cref{eq:obs1} and \cref{eq:sharpdiff} will show the sharpness of the PDE bound \cref{eq:PDEbound}. Moreover, the function $e^{ikr} \chi(r)$ was used to prove the sharpness of resolvent estimates in \cite[Discussion on p. 1445 and Lemma 3.10]{ChMo:08} and \cite[Lemma 4.12]{Sp:14}, and so we can expect it will also be effective for proving sharpness in our setting.
+then  combining \cref{eq:obs1} and \cref{eq:sharpdiff} will show the sharpness of the PDE bound \cref{eq:PDEbound}. Moreover, the function $e^{ikr} \chi(r)$ was used to prove the sharpness of resolvent estimates in \cite[Discussion on p. 1445 and Lemma 3.10]{ChMo:08} and \cite[Lemma 4.12]{Sp:14}, and so we can expect it will also be effective for proving sharpness in our setting.
 
-We now set things up so that \cref{eq:sharpdiff} holds. We define $\nso = 1$ and $\nst = \nso + c(k) \chitilde(r),$ for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(D)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \subset D$, and $\NLiDRR{\chitilde} = 1$ (so that $\NLiDRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(D)$ and $\supp \,\chi$ a compact subset of $D$. We will specify $\chitilde$ and $\chi$ in more detail later. Let $\ftilde(r)$ be as defined in \cref{eq:obs1}, and define
+We now set things up so that \cref{eq:sharpdiff} holds. We define $\nso = 1$ and $\nst = \nso + c(k) \chitilde(r),$ for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(D)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \subset D$, and $\NLiDRR{\chitilde} = 1$ (so that $\NLiDRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(D)$ and $\supp \,\chi$ a compact subset of $D$. We will specify $\chitilde$ and $\chi$ in more detail later.
+
+Let $\ftilde(r)$ be as defined in \cref{eq:obs1}, and define
 \beq\label{eq:obs3}
 u^{(2)}(\bx)\de -\frac{1}{k^2 c(k)}\frac{\widetilde{f}(r)}{\widetilde{\chi}(r)}
 \eeq
 and
-\beqs
+\beq\label{eq:fiddlyf}
 f(\bx)\de -\big(\Delta +k^2 \nst(\bx)\big) u^{(2)}(\bx).
-\eeqs
-We will define $\chi$ and $\chitilde$ below in such a way that if $\chitilde=0,$ then $\chi = 0$. This relation means we understand the right-hand side of \cref{eq:obs3} to be zero if $\chitilde$ is zero. In addition, since $\widetilde{\chi}(r)$ has compact support and $\ftilde$ depends on $\chi,$ we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined. As the final part of the setup, let $\uso$ solve
+\eeq
+I.e., $\ust$ solves \cref{prob:vedp} with coefficients $\Ast = I$ and $\nst$ given by \cref{eq:obs3}, and right-hand side $f.$ We will define $\chi$ and $\chitilde$ below in such a way that $\ust \in \HoD$ and $f \in \LtD.$ In particular, we choose $\chi$ and $\chitilde$ so that if $\chitilde=0,$ then $\chi = 0$. Since $\ftilde$ depends on $\chi,$ this relation means we understand the right-hand side of \cref{eq:obs3} to be zero if $\chitilde$ is zero. In addition, since $\widetilde{\chi}(r)$ has compact support and $\ftilde$ depends on $\chi,$ we need to tie both the support of $\widetilde{\chi}$ and how fast $\widetilde{\chi}$ vanishes in a neighbourhood of its support to the definition of $\chi$ for both $u^{(2)}$ and $f$ to be well defined. As the final part of the setup, let $\uso$ solve
 \beqs
-\mleft(\Delta + k^2\mright) \uso = -f,
+\mleft(\Delta + k^2\mright) \uso = -f.
 \eeqs
-i.e., \cref{prob:vedp} with coefficients $\Aso = I$ and $\nso =1$ and right-hand side $f$.
+I.e., $\uso$ solves \cref{prob:vedp} with coefficients $\Aso = I$ and $\nso =1$ and right-hand side $f$.
 
-Now observe that by construction
+Now observe that by construction (as $\nst = 1 + c(k) \chitilde(r)$)
 
 \begin{align*}
-  \mleft(\Delta + k^2\mright) \mleft(\uso-\ust\mright) &= -k^2 \mleft(1-\nst\mright)\ust\\
-  &= -k^2 c(k) \chitilde \frac{-1}{k^2 c(k)} \frac{\ftilde}{\chitilde}\\
-  &= \ftilde\\
+  \mleft(\Delta + k^2\mright) \mleft(\uso-\ust\mright) &= \mleft(\Delta + k^2\mright)\uso - \mleft(\Delta _ k^2 \nst - k^2\mleft(nst - 1\mright)\mright)\ust\\
+  &= -f + f + k^2\mleft(\nst-1\mright)\ust\\
+   &= k^2 \mleft(\nst-1\mright)\ust\\
+  &= k^2 c(k) \chitilde \frac{-1}{k^2 c(k)} \frac{\ftilde}{\chitilde}\\
+  &= -\ftilde\\
   &= \mleft(\Delta + k^2 \mright)\mleft(e^{ikr}\chi(r)\mright).
 \end{align*}
 Therefore, by uniqueness of the solution of \cref{prob:vedp} \beq\label{eq:obs4}
-u^{(1)}(\bx)- u^{(2)}(\bx) = e^{i k r}\chi(r),
+u^{(1)}(\bx)- u^{(2)}(\bx) = e^{i k r}\chi(r).
 \eeq
-and therefore \cref{eq:obs4} we have
+Therefore, by \cref{eq:obs4} and the properties of $e^{ikr} \chi(r)$ discussed above,  we have
 \beqs
 \big\|u^{(1)}-u^{(2)}\big\|_{L^2(D)} \sim 1
 \quad \tand \quad
@@ -987,12 +1002,12 @@ Furthermore, the definitions of $u^{(2)}$ and $\widetilde{f}$ imply that
 \big\| u^{(2)}\big\|_{L^2(D)} \sim \frac{1}{k\, c(k)} \quad\tand \quad 
 \big\| u^{(2)}\big\|_{\HokD} \sim \frac{1}{c(k)},
 \eeqs 
-and, since $\|\nso- \nst\|_{L^\infty(D)} = c(k)$, \cref{eq:sharp1} holds, as required.
+and, since $\|\nso- \nst\|_{L^\infty(D)} = c(k)$, \cref{eq:nck} holds, as required.
 
-Therefore, to complete the proof, we only need to show that there exists a choice of $\chi$ and $\widetilde{\chi}$ for which $u^{(2)}$ and $f$ defined by \cref{eq:obs3} are 
+Therefore, to complete the proof, we only need to show that there exists a choice of $\chi$ and $\widetilde{\chi}$ for which $u^{(2)}$ and $f$ defined by \cref{eq:obs3,eq:fiddlyf} are 
 in $H^{1}(D)$ and $\LtD$ respectively (in fact, we prove that they are in $W^{1,\infty}(D)$ and $L^\infty(D)$ respectively).
 %well-defined. 
-Because $\chi$ and $\widetilde{\chi}$ are in $C^\infty(D)$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
+Because $\chi$ and $\widetilde{\chi}$ are in $C^\infty(D)$ and we choose $\chi$ and $\chitilde$ so that if $\chitilde=0,$ then $\chi=0$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
 Since $\clos{\Dm} \subset \BR$, there exist $0<R_1<R_2<R$ such that $\overline{\Dm} \subset B_{R_2}\setminus B_{R_1} \subset \BR$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \downarrow R_1$ and 
 $\chi(r) \sim (R_2-r)^m$ as $r \uparrow R_2$. The definition of $\widetilde{f}$ \cref{eq:obs3} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $\mtilde$ at $r= R_1$ and $r=R_2$. 
 We now claim that if $m >\mtilde+4$, then $u^{(2)}\in W^{1,\infty}(D)$ and $f$ $\in L^\infty(D)$. Indeed,  
