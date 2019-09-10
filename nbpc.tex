@@ -1545,7 +1545,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
                 \centering
       \input{integral-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
 \end{figure}
 \optodo{Figure out how to rotate plot labels}
 \begin{figure}[h]
@@ -1559,7 +1559,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
 \input{origin-alpha-plot.pgf}
     \end{subfigure}
 
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1572,7 +1572,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
             \centering
 \input{top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1585,7 +1585,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
             \centering 
 \input{gradient_top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axis is on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
+\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
 \end{figure}
 
 
@@ -1622,7 +1622,7 @@ In our numerical experiments with increasing $\NQMC(k)$ below, we choose $\Ctild
 M(k) = \round{\logtwo\mleft(\exp\mleft(\Ctilde \alpha(k)^{-1}\mright)\mright)}.
 \eeqs
 
-Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results for the QoI being the integral of the solution, as this seems to display slightly different convergence characteristics), in our numerical experiments below we take $\alpha(k) = 1.38 - 0.19  \loge(k).$ The resulting values of $\NQMC$ are summarised in \cref{tab:qmcpoints}.
+Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results for the QoI being the integral of $u$ and $\grad u((1,1))$, as these seem to display slightly different convergence characteristics), in our numerical experiments below we take $\alpha(k) = 1.38 - 0.19  \loge(k).$ The resulting values of $\NQMC$ are summarised in \cref{tab:qmcpoints}.
 
 \begin{table}[h]
   \centering
@@ -1659,7 +1659,7 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
 \begin{table}
   \centering
   \input{nbpc-qmc-parallel-table}
-  \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $0.2$\%.}\label{tab:nbpcqmcpar}
+  \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $(-0.04+0.02k)$\%.}\label{tab:nbpcqmcpar}
   \end{table}
 
     In conclusion, we see that nearby preconditioning gives a significant speedup when applied to a QMC model problem.%, with around 98\% of solves being computed using a previously-calculated LU decomposition.% We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
@@ -1885,7 +1885,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
 
 \subsection{Numerical probabalistic results for nearby preconditioning}\label{sec:qualgmres}
 
-Notwithstanding the fact that we are limited in the probabilistic results that we can \emph{prove} about nearby preconditioning, we will now see that we observe reasonable probabailistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A plausible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of the order $1/k$. We expect this result because the standard deviation of a random variable is a (probabilistic) measure of its variation. In \cref{cor:stonbpcas} we show that the number of GMRES iterations is bounded almost surely if the variation in $\NLiDRR{\nso-\nst}$ is bou(of the order $1/k$) almost surely. Therefore, it reasonable to assume that the probabilistic analogue of the number of GMRES iterations (the average) is bounded if the probabilistic analogue of the variation in $\NLiDRR{\nso-\nst}$ (the standard deviation) is bounded (of the order $1/k$). Will we see exactly this behaviour in our numerical experiments.
+Notwithstanding the fact that we are limited in the probabilistic results that we can \emph{prove} about nearby preconditioning, we will now see that we observe reasonable probabailistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A plausible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of the order $1/k$. We expect this result because the standard deviation of a random variable is a (probabilistic) measure of its variation. In \cref{cor:stonbpcas} we show that the number of GMRES iterations is bounded almost surely if the variation in $\NLiDRR{\nso-\nst}$ is bounded (of the order $1/k$) almost surely. Therefore, it reasonable to assume that the probabilistic analogue of the number of GMRES iterations (the average) is bounded if the probabilistic analogue of the variation in $\NLiDRR{\nso-\nst}$ (the standard deviation) is bounded (of the order $1/k$). Will we see exactly this behaviour in our numerical experiments.
 
 In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0,$ $\Aso=\Ast=I$ and $\NLiDRR{\nso-\nst}$ given by an exponential random variables with standard deviation $\sigma.$  we consider three cases:
 \ben
