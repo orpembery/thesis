@@ -1,6 +1,6 @@
-\section{Theory of the finite-element discretisation of the Helmholtz equation}\label{sec:helmfe}
+\section{Theory of the $h$-finite-element discretisation of the Helmholtz equation}\label{sec:helmfe}
 
-We now shift our attention to the numerical analysis of the Helmholtz equation in heterogeneous media; in particular, we  study the conforming finite-element method for the Helmholtz equation. We first state the variational formulations of the Helmholtz equation, define the finite element method, and recall results on the approximation properties of finite-element spaces. we then prove our main result, error bounds for the finite-element method for the heterogeneous Helmholtz equation, where the bounds hold for arbitrary (fixed) degree finite elements, and are explicit in $A$ and $n$ in a sense made clear in \cref{sec:} below.
+We now shift our attention to the numerical analysis of the Helmholtz equation in heterogeneous media; in particular, we  study the conforming finite-element method for the Helmholtz equation. We first state the variational formulations of the Helmholtz equation, define the finite element method, and recall results on the approximation properties of finite-element spaces. we then prove our main result, error bounds for the finite-element method for the heterogeneous Helmholtz equation, where the bounds hold for arbitrary (fixed) degree finite elements, and are explicit in $A$ and $n$ in a sense made clear in \cref{sec:fem} below.
 
   \subsection{Variational formulations for the Helmholtz equation}\label{sec:varform}
   The finite element method is based on the variational formulation of the Helmholtz equation; for simplicity of exposition, we state the variational formulation of \cref{prob:edp,prob:tedp} in the case $\gD = 0,$ although these can be generalised to the case $\gD \neq 0.$
@@ -52,7 +52,7 @@ For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
   
 \subsection{Background concepts in finite-element theory}\label{sec:fetheory}
 
-We now give a brief summary of elementary concepts in finite-element theory. In the interest of brevity, we focus only on those concepts that we need to prove the new error bound for finite-element discretisations of the Helmholtz equation in \cref{sec:fem} below.
+We now give a brief summary of elementary concepts in finite-element theory. For brevity, we focus only on those concepts that we need to prove the new error bound for finite-element discretisations of the Helmholtz equation in \cref{sec:fem} below.
 
 Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91}. Similarly, we use $h$ to denote the diameter of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of continuous piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
   %%   triangulation of the domain. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
@@ -85,7 +85,12 @@ Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to 
 %%     \eeqs
 %%     \ede
 
-Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$ This is in contrast to the $p$-finite-element method, where $h$ is fixed and $p$ is increased, and the $hp$-finite-element method, where $h$ is decreased and $p$ is increased according to some rule. $hp$-finite-element methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}; however, their analysis relies on a fully $p$-explicit analysis of the best approximation error of the Helmholtz equation in $hp$-finite-element spaces; such analysis is currently not available for the heterogeneous problem. Throughout this \lcnamecref{sec:fetheory} we use finite-element method to refer to the $h$-finite-element method.
+Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$ This is in contrast to the $p$-finite-element method, where $h$ is fixed and $p$ is increased, and the $hp$-finite-element method, where $h$ is decreased and $p$ is increased according to some rule.Throughout this \lcnamecref{sec:fetheory} we use `finite-element method' to refer to the $h$-finite-element method.
+
+\bre[Why not consider the $hp$-finite element method?]
+$hp$-finite-element methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}, who showed that the $hp$-finite-element method is quasi-optimal if $kh/p$ is sufficiently small, and $p \gtrsim 1 + \log(k)$ (i.e., we take $p$ growing logarithmically with $k$, and a ($p$-dependent) fixed number of points per wavelength). Such methods can be very effective; the error for such methods can converge exponentially with respect to the number of degrees of freedom (see, e.g., \cite[Theorem 4.51]{Sc:98}). However, their analysis relies on a fully $p$-explicit analysis of the best approximation error of the Helmholtz equation in $hp$-finite-element spaces; such analysis is currently not available for the heterogeneous problem.
+\ere
+
 %\ednote{I couldn't immediately see in these results that one obtains exponential convergence with respect to the number of DOFs---have I missed something, or is this result contained somewhere else?}, where they showed one can obtain an exponential rate of convergence with respect to the number of degrees of freedom.
 %\opntodo{Get Schwab's hp book and look this up}
 
@@ -105,18 +110,30 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
     The finite-element approximation of \cref{prob:vedp} is defined analagously.
     \eprob
 
+    To state an approximation bound for $\Vhp,$ we first need to define the notion of a shape-regular mesh.
+
+    \bde[Shape-regular]
+    For $h>0$ and $\tau \in \Th,$ let $\Btau$ be the largest ball contained in $\tau.$ The mesh family $\mleft(\Th\mright)_{h>0}$ is \defn{shape-regular} if there exists $\rho > 0$ such that for all $h>0$ and for all $\tau \in \Th$
+    \beqs
+\diam \Btau \geq \rho \diam \tau.
+    \eeqs
+    \ede
+
     The following \lcnamecref{lem:scottzhang} shows how the approximation properties of the space $\Vhp$ depend on $h$ and $p$:
-    \ble[Existence of best approximation]\label{lem:scottzhang}
-    Let $v \in \HmD$, $m \geq 1,$ and $p \in \set{1,\ldots,m}$. Then there exist a constant $\CSZm>0$ independent of $v$ and $\vhptilde \in \Vhp$ (but dependent on $p$) such that
+    \ble[Existence of approximation]\label{lem:scottzhang}
+    Let the mesh family $\mleft(\Th\mright)_{h>0}$ underlying $\mleft(\Vhp\mright)_{h>0}$ be shape-regular. Let $v \in \HmD$, $m \geq 1,$ and $p \in \set{1,\ldots,m}$. Then there exist a constant $\CSZm>0$ independent of $v$ and $\vhptilde \in \Vhp$ such that
 
     \beqs
-\NLtD{v - \vhptilde} \leq \CSZm h^m \NHmD{v}
+\NLtD{v - \vhptilde} \leq \CSZm h^s \NHsD{v}
     \eeqs
      and
     \beqs
-\NHoD{v - \vhptilde} \leq \CSZm h^{m-1} \NHmD{v} \tfor m \geq 1.
-    \eeqs
+\NHoD{v - \vhptilde} \leq \CSZm h^{s-1} \NHsD{v}
+\eeqs
+for $1 \leq s \leq \min\set{p+1,m}.$
     \ele
+
+    For a proof of \cref{lem:scottzhang} see, e.g., \cite[Theorems 4.4.4 and 4.4.20 and Remark 4.4.26]{BrSc:08}.
 
     
     \bre[Not considering variational crimes]\label{rem:crimes}
@@ -132,7 +149,7 @@ Throughout this thesis, we only consider the $h$-finite-element method, i.e., th
 
 \subsection{Discussion of the finite-element method for the Helmholtz equation}\label{sec:helmfedisc}
 
-We now discuss three possible properties of the $h$-finite-element method for the Helmholtz equation which we wish to investigate:
+We now discuss three possible properties of the $h$-finite-element method for the Helmholtz equation that we wish to investigate:
 \bit
 \item The relative error $\displaystyle \frac{\NHokD{u-\uh}}{\NHokD{u}}$ is bounded,
 \item The error $\NHokD{u-\uh}$ is bounded in terms of norms of the data $f$ and $\gI$, and
@@ -150,11 +167,14 @@ We now discuss three possible properties of the $h$-finite-element method for th
     \item\label{it:sum4} Give a detailed discussion of proof techniques for each of the three properties.
       \een
 
-We do \cref{it:sum2,it:sum3} because to our knowledge there is not a complete overview of all of these three properties anywhere in the literature. Moreover, research interest in these three properties has recently increased (e.g., the recent papers \cite{ChNi:18,ChGaNiTo:18,ChNi:19,LiWu:19} are all concerned with one or more of these properties, and have all been completed within the last two years), and so we believe it will be helpful and timely to provide a complete overview of the state of the literature. We do \cref{it:sum4} because collection of the proof techniques used for each of these properties are different to those used for standard finite-element proofs for, e.g., the stationary diffusion equation. Moreover, the different proof techniques are different but related, and we do not know of anywhere in the literature where these techniques are expounded, compared, and contrasted. In view of the resurgence in interest in the properties above, we hope that such a review will be valuable for the research community.
+Regarding \cref{it:sum2,it:sum3}:there is not a complete overview of all of these three properties anywhere in the literature. Moreover, research interest in these three properties has recently increased (e.g., the recent papers \cite{ChNi:18,ChGaNiTo:18,ChNi:19,LiWu:19} are all concerned with one or more of these properties, and have all been completed within the last two years), and so we believe it will be helpful and timely to provide a complete overview of the state of the literature. Regarding \cref{it:sum4}: although the different proof techniques arerelated, we do not know of anywhere in the literature where these techniques are expounded, compared, and contrasted. We therefore hope that such a review will be valuable for the research community.
 
       
 
-\paragraph{Intuition for fixed number of points per wavelength} Before discussing the three properties listed above, we first give a brief discussion of the commonly-used heuristic `take a fixed number of points (or elements) per wavelength'.  Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$, then one expects the interpolation (or best approximation) error is bounded uniformly in $k$. More rigorously, as solutions of the Helmholtz equation typically\footnote{If $f$ and $\gD$ are independent of $k$, and $D$ is smooth enough, or a convex polygon  combining \cref{thm:edp} and standard elliptic regularity results, gives the fact that $\NHtD{u} \lesssim k$, see, e.g., \cite[Lemma 2.12]{GaGrSp:15}.} have $\NHtD{u} \sim k,$ one can bound the $H^1$-norm of the interpolation error if $h \sim 1/k$ using \cref{lem:scottzhang}.  As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solution, since the wavelength $\lambda = 2\pi/k.$
+\paragraph{Intuition for fixed number of points per wavelength}\label{page:ppw} Before discussing the three properties listed above, we first give a brief discussion of the commonly-used heuristic `take a fixed number of points (or elements) per wavelength'.  Recall from \cref{sec:numsolve} that if one takes the mesh size in the finite element method $h \sim 1/k$, then one expects the interpolation (or best approximation) error is bounded uniformly in $k$. More rigorously, as solutions of the Helmholtz equation typically\footnote{If $f$ and $\gD$ are independent of $k$, and $D$ is smooth enough, or a convex polygon, combining \cref{thm:edp} and standard elliptic regularity results, gives the fact that $\NHtD{u} \lesssim k$, see, e.g., \cite[Lemma 2.12]{GaGrSp:15}.} have $\NHtD{u} \sim k,$ one can bound the $H^1$-norm of the interpolation error independently of $k$ if $h \sim 1/k$ using \cref{lem:scottzhang}:
+\beqs
+\NHoD{u-\uhptilde} \lesssim h \NHtD{u} \lesssim hk \sim 1.
+\eeqs  As explained in \cref{sec:numsolve}, this restriction ensures there are a fixed number of discretisation points per wavelength of the solution, since the wavelength $\lambda = 2\pi/k.$
 
 An alternative motivation for taking $h \sim 1/k$ is the Nyquist--Shannon sampling theorem (proved by Shannon in his seminal paper in information theory \cite[Theorem 1]{Sh:49}). The theorem states that any function $v$ (in 1-d) whose Fourier transform lies inside $[-k,k]$, for some $k>0$, is completely determined (via its Fourier series) by the point values $v(0)$, $v(\pm \mu),$ $v(\pm2\mu),  \ldots$, for any $\mu < 1/\mleft(2k\mright).$ Observe that $k$ is then the highest frequency present in $v$.  That is, if we interpolate $v$ at points spaced less than $ \lambda/(4\pi)=1/(2k)$ apart, where $\lambda = 2\pi/k$ is the wavelength associated with oscillations of frequency $k$, we can reconstruct $v$ from its Fourier transform. See, e.g., \cite[\S 5.21]{BaNaBe:00} for an explicit formula for reconstructioning $v$. Therefore, in the 1-d case we may reasonably expect that interpolating $v$ with points spaced less than $\lambda/(4\pi)$ apart will be a good approximation of $v$, as the Nyquist--Shannon theorem suggests such a spacing of points `captures' all of the oscillations in $v.$
 %% The solution of the one-dimensional Helmholtz equation with constant coefficients is
@@ -184,11 +204,11 @@ An alternative motivation for taking $h \sim 1/k$ is the Nyquist--Shannon sampli
 
  %% In $d=2$ or $3$ with $D$ a convex polygon or polyhedron,  \cite[Theorem 6.1]{Wu:14} showed that the error (but not the relative error) in both the $H^1$ seminorm and the $L^2$ norm is bounded uniformly in $k$ if $h \lesssim k^{-3/2}$. The proof of \cite[Theorem 6.1]{Wu:14} showed an analagous result for a continuous interior-penalty method, and then took the limit as the penalty parameter tends to 0 to obtain the result for the continuous piecewise-linear finite-element method. In summary, the mesh condition $h \lesssim k^{-3/2}$ seems to be sufficient for the (relative) error to be bounded uniformly in $k.$
 
-\subsubsection{Formal definition of properties of the finite-element method}\label{sec:femprops}
+\subsubsection{Formal definition of the properties of the finite-element method above}\label{sec:femprops}
 
-We now formally define the three properties mentioned above. These definitions may seem overly technical, however we believe their technical definition is necessary to capture the, at times, complex behaviour of finite-element methods for the Helmholtz equation. After stating the definitions, we give some examples of what they mean for finite-element discretisations of the Helmholtz equation. These definitions are based on, and developed from, \cite[Definition 2.3]{DiMoSp:19}. We define all of these properties for \cref{prob:vtedp} only, although one could define them completely analogously for \cref{prob:vedp}.
+These definitions may seem overly technical, however their technical definition is necessary to capture the, at times, complicated behaviour of finite-element methods for the Helmholtz equation. After stating the definitions, we give some examples of what they mean for finite-element discretisations of the Helmholtz equation. These definitions are based on, and developed from, \cite[Definition 2.3]{DiMoSp:19}. We define all of these properties for \cref{prob:vtedp} only, although one could define them completely analogously for \cref{prob:vedp}.
 
-In the following definitions, we consider the Helmholtz problems \cref{prob:vtedp}, and their discretisations \cref{prob:fevtedp} as parameterised by the wavenumber $k,$ that is, we write $u(k)$ for the solution of \cref{prob:vtedp} with wavenumber $k$, and $\uh(k)$ for its finite-element approximation, the solution of \cref{prob:fevtedp}.
+In the following definitions, we consider the Helmholtz problem \cref{prob:vtedp}, and its discretisation \cref{prob:fevtedp}, as parameterised by the wavenumber $k,$ that is, we write $u(k)$ for the solution of \cref{prob:vtedp} with wavenumber $k$, and $\uh(k)$ for its finite-element approximation, the solution of \cref{prob:fevtedp}.
 
 \bde[$\hka{a}$-quasi-optimal]\label{def:hkqo}
 Given $a > 0,$ we say that an $h$-finite-element method for the Helmholtz equation is \defn{$\hka{a}$-quasi-optimal} if, given $\kz > 0$, there exist $\Co(\kz), \Cqo(\kz) > 0$ such that if
@@ -220,7 +240,7 @@ for all $k \geq \kz.$
 If $a=b$ we say the $h$-finite-element method is $\hka{a}$-data-accurate.
 \ede
 
-To aid understanding of the above definition, and to see how it connects with the usual presentation of finite-element results for the Helmholtz equation, we give the following illustrative example.
+To aid understanding of the above definition, we give the following illustrative example.
 
 \bre[Example achieving $\hk{a}{b}$-data-accuracy]\label{rem:dataacc}
 In \cite[Corollary 4.2]{ZhWu:13}, Zhu and Wu proved that if $u$ is the solution of \cref{prob:vtedp}, $\uh$ is the solution of \cref{prob:fevtedp}, $k \geq \kz$ and $h^{p+1}k^{p+2} \leq \Co$,  then
@@ -235,12 +255,12 @@ For $0 < \eps < 1,$ if we take
 \eeq
 then the $h$-finite-element method is $\hk{(p+2)/(p+1)}{(2p+1)/(2p)}$-accurate.
 
-When $hk^{(2p+1)/2p} \leq \Ct,$ the first term in \cref{eq:egmin} ensures $h \leq \eps/\mleft(3\Cttilde\mright),$ the second term in \cref{eq:egmin} ensures $h^pk^p \leq \eps/\mleft(3\Cttilde\mright),$ and the third term in \cref{eq:egmin} ensures $h^{2p}k^{2p+1} \leq \eps/\mleft(3\Cttilde\mright).$ Therefore by \cref{eq:hkacceg} the bound \cref{eq:hkdataacc} holds.
+When $hk^{(2p+1)/2p} \leq \Ct,$ the first term in the minimum \cref{eq:egmin} ensures $h \leq \eps/\mleft(3\Cttilde\mright),$ the second term in \cref{eq:egmin} ensures $h^pk^p \leq \eps/\mleft(3\Cttilde\mright),$ and the third term in \cref{eq:egmin} ensures $h^{2p}k^{2p+1} \leq \eps/\mleft(3\Cttilde\mright).$ Therefore by \cref{eq:hkacceg} the bound \cref{eq:hkdataacc} holds.
 
 We choose this example to illustrate:
 \bit
-\item That it is not always the case that $a=b$; here $a > b.$
-\item That sometimes (as in this case) $a > b.$ I.e., whilst the mesh constraint `$hk^b$ sufficiently small' makes the finite-element error small, one can only apply this mesh constraint under the more restrictive mesh constraint `$hk^a$ sufficiently small'. Therefore, this result is somewhat limited in its practical applicability.
+\item Many results in the literature have $a \neq b$; here $a > b.$
+\item Often (as in this case) $a > b.$ I.e., whilst the mesh constraint `$hk^b$ sufficiently small' makes the finite-element error small, one can only apply this mesh constraint under the more restrictive mesh constraint `$hk^a$ sufficiently small'.
 \eit
 \ere
 
@@ -262,25 +282,46 @@ for all $k \geq \kz.$
 If $a=b$ we say the $h$-finite-element method is $\hka{a}$-accurate.
 \ede
 
+\bre[Why have two mesh conditions in \cref{def:hkacc,def:hkdataacc}?]
+Frequently a more restrictive mesh condition is needed to show existence and uniqueness of a finite-element solution, but once one has shown existence and uniqueness, the finite-element error can be bounded under a less restrictive mesh condition. Therefore, as will be made clear in \cref{sec:prooftechniques} below, the first mesh conditions (\cref{eq:hkdataacca,eq:hkacca}) are needed to show existence and uniqueness of the finite-element solution, and the second mesh conditions (\cref{eq:hkdataaccb,eq:hkaccb}) are needed to show that the finite-element error is bounded.
+\ere
 
-\bre[Relationship between $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy]
-Observe that the only difference between the definitions of $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy is that in \cref{eq:hkacc} the error is measured relative to the solution $u$, whereas in \cref{eq:hkdataacc} the error is measured relative to the `data' $f$ and $\gI$. However, if an a priori bound such as \cref{eq:tedpbound} holds, then $\hk{a}{b}$-accuracy implies $\hk{a}b$-data-accuracy, as $\NHokD{u} \lesssim \NLtD{f} + \NLtGI{\gI}$.
+\bre[$\hka{a}$-Quasi-optimality implies (better than) $\hka{a}$-data-accuracy]
+Observe that, under standard assumptions on $u$, if the finite-element method is $\hka{a}$-quasi-optimal, then it is $\hka{a}$-data-accurate. We show this fact in the first order case, i.e., we take $p=1,$ $m=2$, and $a=2.$ We assume $\NHtD{u} \leq\CHt k\NLtD{f}$ for some $k$-indpendent constant $\CHt>0$ (see, e.g., \cite[Lemma 2.12]{GaGrSp:15} for a setting in which this bound holds), and refer to  \cref{tab:qo} below for references for the fact that the first-order finite-element method is usually $\hka{2}$-quasi-optimal.
 
-On the other hand, to conclude $\hk{a}{b}$-accuracy from $\hk{a}b$-data-accuracy, one would need to show
+We show, in fact, that the finite-element method is $\hk{2}{1}$-data-accurate. If $hk^2 \leq \Co$ (where $\Co$ is given in the definition of $\hka{2}$-quasi optimality)
+\begin{align}
+  \NHokD{u-\uh} &\leq \Cqo \NHokD{u-\uhptilde}\text{ where } \uhptilde \text{ is the approximation in \cref{lem:scottzhang},}\nonumber\\
+  &\leq \Cqo \mleft(\NHoD{u-\uhptilde} + k\NLtD{u-\uhptilde}\mright)\nonumber\\
+  &\leq \Cqo \CSZfn{2} \mleft(h\NHtD{u} + h^2k\NHtD{u}\mright) \text{ by \cref{lem:scottzhang},}\nonumber\\
+    &\leq \Cqo \CSZfn{2}\CHt\mleft(hk + h^2k^2\mright)\NLtD{f}.\label{eq:qobetter}
+\end{align}
+Therefore, for $\eps \in (0,1)$ we define
+\beqs
+\Ct(\eps) = \frac1{\Cqo \CSZfn{2}\CHt} \min\set{\eps,\sqrt{\eps}}.
+\eeqs
+\ere
+Hence if $hk^2 \leq \Co$ and $hk \leq \Ct,$ then $\NHokD{u-\uh}/\NLtD{f} \leq \eps,$ i.e. the finite-element method is $\hk{2}{1}$-data-accurate (and therefore if $k \geq\kz>0$ the finite-element method is $\hka{2}$-data-accurate, because $hk\lesssim hk^2$).
+
+Observe, however, that the finite-element method is actually \emph{better than} $\hka{2}$-data-accurate, because the finite-element error \emph{decreases} as $k$ increases. With the above choices for $\Co,$ $\Ct,$ and $h$, from \cref{eq:qobetter} we have
+\beqs
+\NHokD{u-\uh} \leq \Cqo \CSZfn{2} \mleft(\frac{\Co}{k} + \frac{\Co^2}{k^2}\mright)\NLtD{f} \rightarrow 0 \quad\tas k \rightarrow \infty.
+\eeqs
+I.e., because we only need $hk$ sufficiently small to bound the interpolation error, but have taken $hk^2$ sufficiently small to ensure quasi-optimality, the finite-element error decreases as $k \rightarrow \infty.$
+
+
+\bre[Relationship between $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy]\label{rem:accuracy}
+The only difference between the definitions of $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy is that in \cref{eq:hkacc} the error is measured relative to the solution $u$, whereas in \cref{eq:hkdataacc} the error is measured relative to the `data' $f$ and $\gI$. However, if an a priori bound such as \cref{eq:tedpbound} holds, then $\hk{a}{b}$-accuracy implies $\hk{a}b$-data-accuracy, as $\NHokD{u} \lesssim \NLtD{f} + \NLtGI{\gI}$.
+
+On the other hand, to conclude $\hk{a}{b}$-accuracy from $\hk{a}b$-data-accuracy, one would need to show the physically realistic criterion
 \beq\label{eq:reversebound}
 \NLtD{f} \lesssim \NHokD{u}.
 \eeq
-However, in general \cref{eq:reversebound} does not hold\ednote{Euan---can one write down an example of this \emph{easily}?}, and so one cannot, in general, conclude $\hk{a}{b}$-accuracy from $\hk{a}{b}$-data-accuracy.
-\ere
-
-\bre[Why have two mesh conditions in \cref{def:hkacc,def:hkdataacc}?]
-It is not immediately clear why we require two distinct mesh conditions \cref{eq:hkdataacca,eq:hkdataaccb} or \cref{eq:hkacca,eq:hkaccb} in \cref{def:hkdataacc,def:hkacc} respectively. As will be made clear in \cref{sec:prooftechniques} below, the first mesh conditions (\cref{eq:hkdataacca,eq:hkacca}) are needed to show existence and uniqueness of the finite-element solution, and the second mesh conditions (\cref{eq:hkdataccb,eq:hkaccb}) are needed to show that the finite-element error is bounded. This distinction also explains why the first mesh conditions are frequently more restrictive than the second (see \cref{tab:acc,tab:dataacc} below). Frequently a more restrictive mesh condition is needed to show existence and uniqueness of a finite-element solution, but once one has shown existence and uniqueness, the finite-element error can be bounded under a less restrictive mesh condition.
-
-However, this distinction may be slightly misleading; although (in the case of data-accuracy) one uses \cref{eq:hkdataacca} to show existence and uniqueness of the finite-element solution; the steps that lead to existence and uniqueness are also part of the argument used to show the finite-element error is bounded; see `Modified Schatz arguments' in \cref{sec:prooftechniques} below. Therefore, even if one knows a priori that the finite-element solution exists and is unique, it is not obvious how one can show the finite-element error is bounded without both the mesh conditions \cref{eq:hkdataacca,eq:hkdataaccb}.
+However, in general \cref{eq:reversebound} does not hold (as one can see by taking the unphysical solution $u=e^{ik^2 \bx}\chi,$ where $\chi$ is a smooth cut-off function; in this case $f = -\mleft(\Lap u + k^2 u\mright) \sim k^4,$ but $\NHokD{u} \sim k^2$). Therefore one cannot, in general, conclude $\hk{a}{b}$-accuracy from $\hk{a}{b}$-data-accuracy.
 \ere
 
 \bre[The above conditions for heterogeneous problems]\label{rem:accuracyhetero}
-Observe that for heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in \cref{sec:fem} below we prove that the $h$-finite-element method with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ is completely known.
+For heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in \cref{sec:fem} below we prove that the $h$-finite-element method with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ is completely known.
 \ere
 
 \bre[Generalisations of $\hk{a}{b}$-data-accuracy]
@@ -288,13 +329,26 @@ For discretisations of other Helmholtz problems (e.g., full-space problems with 
 \ere
 
 
+
+
 \subsubsection{Optimal mesh conditions for the finite-element method}
 
-We now provide a brief overview of the optimal values of $a$ and $b$ for $\hk{a}{b}$-accuracy, $\hk{a}{b}$-data-accuracy, and $\hka{a}$-quasi-optimality. By `optimal', we mean the values of $a$ and $b$ that are smallest; these will correspond to the least restrictive conditions on the mesh size $h$. We will also, where possible, comment on whether these optimal conditions have been shown to be sharp. The literature reviews in this, and the next, section draw heavily on the literature reviews in \cite[pp. 182--183]{GrLoMeSp:14} and \cite[p. 112]{DiMoSp:19}. Unless otherwise stated, all the problems treated in this literature review are nontrapping (in the wider sense discussed under `\techtitle' in \cref{sec:wpdisc}), have constant coefficients, and and have a impedance boundary condition on at least part of the boundary.
+We now provide a brief overview of the optimal values of $a$ and $b$ for $\hk{a}{b}$-accuracy, $\hk{a}{b}$-data-accuracy, and $\hka{a}$-quasi-optimality. By `optimal', we mean the values of $a$ and $b$ that are smallest, corresponding to the least restrictive conditions on the mesh size $h$. We also, where possible, comment on whether these optimal conditions have been shown to be sharp. The literature reviews in this, and the next, section draw heavily on the literature reviews in \cite[pp. 182--183]{GrLoMeSp:14} and \cite[p. 112]{DiMoSp:19}. Unless otherwise stated, all the problems treated in this literature review are nontrapping (in the wider sense discussed under `\techtitle' in \cref{sec:wpdisc}), have constant coefficients, and have a impedance boundary condition on at least part of the boundary.
 
-\paragraph{$\hk{a}b$-accuracy} In 1-d the $h$-finite-element method has been proved to be $\hka{3/2}$-accurate for first-order finite elements by Ihlenburg and Babu\v{s}ka in \cite[Theorem 5 and Equation (3.25)]{IhBa:95a} and \cite[Equation (4.5.15)]{Ih:98}. For higher-order finite-elements (still in 1-d) they proved the $h$-finite-element method is $\hka{(2p+1)/(2p)}$-accurate in \cite[Corollary 3.2]{IhBa:97} and \cite[Theorem 4.27 and Equation 4.7.41]{Ih:98}. However, all the above results were only measured in the $H^1$ seminorm (and so we are slightly abusing the notation of $\hka{a}$-accuracy here), and the higher-order results were proved under the assumptions that $f \in \HpmoD,$ $u \in \HppoD,$ and $\SNHppoD{u} \sim k^p \SNHoD{u}.$ In addition, these results were proved using the properties of the `discrete Green's function' for the Helmholtz equation. This function was used to first prove an a priori bound on the finite-element approximation of the solution, and the error bounds were then concluded from this a priori bound. As the discrete Green's function is only known explicitly in 1-d, these results have not been generalised to higher dimensions.
+\bre[$hp$-methods for the Helmholtz equation]
+We briefly mention the mesh conditions one obtains for $hp$-finite-element methods, even though they are not the focus of this thesis. The landmark results on $hp$-finite-element methods for the Helmholtz equation were achieved by Melenk and Sauter \cite{MeSa:10,MeSa:11} who used a novel splitting of the solution of the Helmholtz equation (see the comments underneath \cref{rem:osc} below) to show that the $hp$-finite-element method is quasi-optimal if $hk/p \leq \co$ and $p \geq \ct \ln k$ (for some constants $\co,\ct>0$). Melenk and Sauter proved this result for the full-space problem in \cite{MeSa:10} and for: (i) the exterior Dirichlet problem, and (ii) the interior impedance problem in an analytic domain or a 2-d convex polygon in \cite{MeSa:11}. These results were generalised to an arbitrary 2-d Lipschitz polygon by Esterhazy and Melenk in \cite[Theorem 4.2]{EsMe:12}. Other results in the literature for $hp$-finite-element methods are those of Zhu and Wu \cite[Equation (1.7)]{ZhWu:13} who showed the $hp$-finite-element method for the Helmholtz equation is data-accurate\footnote{We do not use the $\hk{a}b$-accurate, etc., terminology for $hp$-methods, as it does not represent the interplay between the polynomial degree $p$ and the wavenumber $k$.} provided
+\beqs
+\frac{kh}p \leq C_0\mleft(\frac{p}k\mright)^{\frac1{p+1}},
+\eeqs
+where $C_0>0$ is some constant.% Finally, in \cite[Corollary 3.2]{IhBa:97} Ihlenburg and Babu\v{s}ka proved a bound on the error for the finite-element method in 1-d that is explicit in $k,$ $h$, and $p$, although the bound is probably not sharp in $p,$ and therefore could not be used to prove results on $hp$-finite-element methods.
+\ere
 
-These $\hk{a}b$-accuracy results were confirmed numerically (for $p=1$) by \cite[Figure 11]{IhBa:95a} and \cite[Figure 4.13]{Ih:98}, which showed that the relative error is bounded if $h \sim k^{-3/2}$ and by \cite[Figure 4.10]{Ih:98}, which showed that the relative error is not bounded if $h \sim k^{-1}.$ We note that the proofs in \cite{IhBa:95a,Ih:98} showed the finite-element error was bounded by $\SNHppoD{u}$, and then used the fact that
+
+\paragraph{$\hk{a}b$-accuracy} In 1-d the $h$-finite-element method has been proved to be $\hka{3/2}$-accurate for first-order finite elements by Ihlenburg and Babu\v{s}ka in \cite[Theorem 5 and Equation (3.25)]{IhBa:95a} and \cite[Equation (4.5.15)]{Ih:98}. For higher-order finite-elements (still in 1-d) they proved the $h$-finite-element method is $\hka{(2p+1)/(2p)}$-accurate in \cite[Corollary 3.2]{IhBa:97} and \cite[Theorem 4.27 and Equation 4.7.41]{Ih:98}. However, all the above results were only measured in the $H^1$ seminorm (and so we are slightly abusing the notation of $\hka{a}$-accuracy here), and the higher-order results were proved under the assumptions that $f \in \HpmoD,$ $u \in \HppoD,$ and $\SNHppoD{u} \sim k^p \SNHoD{u}.$
+
+These $\hka{a}$-accuracy results were confirmed numerically (for $p=1$) to be sharp by \cite[Figure 11]{IhBa:95a} and \cite[Figure 4.13]{Ih:98}, which showed that the relative error is bounded if $h \sim k^{-3/2}$ and by \cite[Figure 4.10]{Ih:98}, which showed that the relative error is not bounded if $h \sim k^{-1}.$
+
+These results were proved using the properties of the `discrete Green's function' for the Helmholtz equation. This function was used to first prove an a priori bound on the finite-element approximation of the solution, and the error bounds were then concluded from this a priori bound. Furthermore, the higher-order proofs in \cite{IhBa:97,Ih:98} showed the finite-element error was bounded by $\SNHppoD{u}$, and then used the fact that
 \beq\label{eq:ratio1d}
 \frac{\SNHppoD{u}}{\SNHoD{u}} \sim k^p
 \eeq
@@ -304,36 +358,38 @@ The relation \cref{eq:ratio1d} follows because the solution of the Helmholtz equ
 \beq\label{eq:soln1d}
 A \cos(kx) + B \sin(kx)
 \eeq
-(for some constants $A$ and $B$). Because \cref{eq:soln1d} only holds in 1-d, and therefore one can, in general, only prove \cref{eq:ratio1d} in 1-d, the proofs of $\hka{(2p+1)/(2p)}$-accuracy have not been extended to higher dimensions, although we conjecture they are true. The only computational results for higher dimensions are those by Bayliss, Goldstein, and Turkel, who showed in \cite[Section 3, Tables 1--3]{BaGoTu:85} that, for low wavenumbers $k \in (4.16,8.32)$ the relative error for first-order finite-elements is bounded if $h \sim k^{-3/2}$, but is not bounded if $h \sim k^{-1}.$
+(for some constants $A$ and $B$).
 
-\paragraph{$\hk{a}b$-data-accuracy} In contrast to $\hk{a}b$-accuracy, there are many proofs (for different polynomial degrees and for different Helmholtz problems) of $\hk{a}b$-data-accuracy. The reason for far more proofs in the case of $\hk{a}b$-data-accuracy is that one can usually show (if the solution $u$ has enough regularity) that the interpolation error $\NHokD{u -\Ih u}$ is bounded by the data, and one can use this bound when bounding the finite-element error to conclude the finite-element error is bounded by the data.
+As the discrete Green's function is only known explicitly in 1-d, and because \cref{eq:soln1d} only holds in 1-d (and therefore one can, in general, only prove \cref{eq:ratio1d} in 1-d), the proofs of $\hka{a}$-accuracy have not been extended to higher dimensions, although we conjecture they are true.  The only computational results for higher dimensions are those by Bayliss, Goldstein, and Turkel, who observing in \cite[Section 3, Tables 1--3]{BaGoTu:85} that, for low wavenumbers $k \in (4.16,8.32)$ the relative error for first-order finite-elements is bounded if $h \sim k^{-3/2}$, but is not bounded if $h \sim k^{-1}.$
 
-The best results known to date are the same (in terms of $a$ and $b$) as those for $\hk{a}b$-accuracy, except results for $\hk{a}b$-data-accuracy hold in higher dimensions. In \cite[Theorem 5.1, Corollary 5.2]{DuWu:15} Du and Wu proved that the $h$-finite-element method for the IIP is $\hka{(2p+1)/(2p)}$-data-accurate for arbitrary (fixed) polynomial degree $p$ and $d = 2$ or $3$, provided $u \in \HppoD$ (although this result can be shown for lower-regularity solutions by combining \cite[Theorem 5.1]{DuWu:15} with \cite[Lemma 3.5]{DuWu:15}). This result was proved for the IIP in $d = 2$ or $3$ for $p=1$ by Wu in \cite{Wu:14}. The only computational evidence we know that in some way  confirms the sharpness of this result is that of Chaumont-Frelet and Nicaise \cite[Section 6.3, Figure 9]{ChNi:18}. They show that for scattering by a re-entrant corner, the relative $L^2$-error is bounded independently of $k$ provided $h^{2p}k^{2p+1}$ is bounded, for $p = 1,2,$ and $6.$ However, in general the result for $\hk{a}b$-data-accuracy coincides with the (sharp) best case for $\hk{a}b$-accuracy (in terms of the valuyes of $a$ and $b$), and so we expect the result for $\hk{a}b$-data-accuracy is also sharp.
+\paragraph{$\hk{a}b$-data-accuracy} The best results known to date are the same (in terms of $a$ and $b$) as those for $\hk{a}b$-accuracy, except results for $\hk{a}b$-data-accuracy hold in higher dimensions. In \cite[Theorem 5.1, Corollary 5.2]{DuWu:15} Du and Wu essentially proved that the $h$-finite-element method for the IIP is $\hka{(2p+1)/(2p)}$-data-accurate for arbitrary (fixed) polynomial degree $p$ and $d = 2$ or $3$, provided $u \in \HppoD$ (although this result can be shown for lower-regularity solutions by combining \cite[Theorem 5.1]{DuWu:15} with \cite[Lemma 3.5]{DuWu:15}). This result was proved for the IIP in $d = 2$ or $3$ for $p=1$ by Wu in \cite{Wu:14}. We recall from \cref{rem:accuracy} that in physically realistic cases where \cref{eq:reversebound} holds, $\hk{a}{b}$-data-accuracy implies $\hk{a}{b}$-accuracy.
+
+%The only computational evidence we know that in some way  confirms the sharpness of this result is that of Chaumont-Frelet and Nicaise \cite[Section 6.3, Figure 9]{ChNi:18}. They show that for scattering by a re-entrant corner, the relative $L^2$-error is bounded independently of $k$ provided $h^{2p}k^{2p+1}$ is bounded, for $p = 1,2,$ and $6.$ However, in general the result for $\hk{a}b$-data-accuracy coincides with the (sharp) best case for $\hk{a}b$-accuracy (in terms of the valuyes of $a$ and $b$), and so we expect the result for $\hk{a}b$-data-accuracy is also sharp.
 \optodo{Update This ref and check all other instances}
 
-\paragraph{$\hka{a}$-quasi-optimality} Finally, the best known result for $\hka{a}$-quasi-optimality for the Helmholtz equation is that the $h$-finite-element method is $\hka{(p+1)/p}$-quasi-optimal. This was first proved for $p=1$ in 1-d by Aziz, Kellog, and Stevens in \cite[Theorem 3.1]{AzKeSt:88} and Ihlenburg and Babu\v{s}ka in \cite[Theorem 3]{IhBa:95a} and \cite[Theorems 4.9 and 4.13]{Ih:98}, with \cite[Figures 7-9]{IhBa:95a} and \cite[Section 4.5.4 and Figures 4.11-4.12]{Ih:98} showing this result is sharp in 1-d (although Ihlenburg and Babu\v{s}ka only work in the $H^1$-semi norm). The result was proved for $p=1$ and $d=2$ for the IIP by Melenk \cite[Proposition 8.2.7]{Me:95}, and for higher-order finite elements (for the full-space problem, IIP, and EDP) by Melenk and Sauter in \cite[Corollary 5.6]{MeSa:10} and \cite[Theorem 5.8]{MeSa:11} respectively. This result was shown for a PML problem by Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk in \cite[Theorem 5.1]{ChGaNiTo:18}, and extended to arbitrary time-harmonic wave propagation problems by Chaumont-Frelet and Nicaise in \cite[Theorem 2.15]{ChNi:19}, who showed that if the constant in the a priori bound \cref{eq:bgbound} grows like $k^\alpha,$ then the $h$-finite-element method is $\hka{(p+\alpha+1)/p}$-accurate. They give numerical experiments in \cite[Figure 8]{ChNi:19} showing the sharpness of $\hka{(p+1)/p}$-quasi-optimality for $p=1, 2$ for a heterogeneous IIP.
+\paragraph{$\hka{a}$-quasi-optimality} The best known result for $\hka{a}$-quasi-optimality for the Helmholtz equation is that the $h$-finite-element method is $\hka{(p+1)/p}$-quasi-optimal. This was first proved for $p=1$ in 1-d by Aziz, Kellog, and Stevens in \cite[Theorem 3.1]{AzKeSt:88} and Ihlenburg and Babu\v{s}ka in \cite[Theorem 3]{IhBa:95a} and \cite[Theorems 4.9 and 4.13]{Ih:98}, with \cite[Figures 7-9]{IhBa:95a} and \cite[Section 4.5.4 and Figures 4.11-4.12]{Ih:98} showing this result is sharp in 1-d (although Ihlenburg and Babu\v{s}ka only work in the $H^1$-semi norm). The result was proved for $p=1$ and $d=2$ for the IIP by Melenk \cite[Proposition 8.2.7]{Me:95}, and for higher-order finite elements (for the full-space problem, IIP, and EDP) by Melenk and Sauter in \cite[Corollary 5.6]{MeSa:10} and \cite[Theorem 5.8]{MeSa:11} respectively. This result was shown for a PML problem by Chaumont-Frelet, Gallistl, Nicaise, and Tomezyk in \cite[Theorem 5.1]{ChGaNiTo:18}, and extended to a class of time-harmonic wave propagation problems by Chaumont-Frelet and Nicaise in \cite[Theorem 2.15]{ChNi:19}, who showed that if the constant in the a priori bound \cref{eq:bgbound} grows like $k^\alpha,$ then the $h$-finite-element method is $\hka{(p+\alpha+1)/p}$-accurate. They give numerical experiments in \cite[Figure 8]{ChNi:19} showing the sharpness of $\hka{(p+1)/p}$-quasi-optimality for $p=1, 2$ for a heterogeneous IIP.
 
 \paragraph{Link with dispersion error} When computing on regular grids, one can mathemtically analyse the `dispersion error' of the finite-element method for the Helmholtz equation; i.e., the difference between the wavenumber of the true solution $u$ (i.e., $k$) and the wavenumber of the approximation $\uh.$ We mention briefly that Ainsworth  analysed the dispersion error for the $hp$-finite-element method for the Helmholtz equation and proved the dispersion error is of the order $h^{2p}k^{2p+1}$ \cite[Equation (3.5)]{Ai:04}. Observe that this is the same order as the best-available results for $\hka{a}$-accuracy and $\hka{a}$-data-accuracy discussed above. Therefore, results from finite-element error analysis and dispersion analysis both suggest that the error (measured in a suitable sense in each case) is bounded if $h^{2p}k^{2p+1}$ is sufficiently small. See, e.g., \cite[Remark 5.3(a)]{DuWu:15} for more references on dispersion error analysis for the Helmholtz equation.
 
-\paragraph{Observations} Observe that, in general, the mesh conditions required for quasi-optimality are more restrictive than those required for the error to be bounded. I.e., in general, if the finite-element method is both $\hka{\ao}$-quasi-optimal and $\hka{\at}$-data-accurate, then one sees that $\ao > \at$ (compare the entries in \cref{tab:acc,tab:dataacc} with those in \cref{tab:qo}). Therefore, whilst one can show the finite-element method is $\hka{a}$-data-accurate (for some $a$) by first showing quasi-optimality, this approach will result in a more restrictive mesh condition than proving $\hka{a}$-data-accuracy directly. Also observe that the results for higher-order finite elements become less stringent as $p$ increases, i.e., the finite-element method is $\hka{(2p+1)/(2p)}$-data-accurate, and $(2p+1)/(2p) \downarrow 1$ as $p \rightarrow \infty.$
+\bre[Comparison with $hp$-finite-element methods]
+Observe that the optimal results for higher-order finite elements become less stringent as $p$ increases, i.e., the finite-element method is $\hka{(2p+1)/(2p)}$-data-accurate, and $(2p+1)/(2p) \downarrow 1$ as $p \rightarrow \infty.$ Therefore, in the $p\rightarrow \infty$ limit, we recover the mesh condition `$hk$ is sufficiently small'; that is, a fixed number of points per wavelength (recall the discussion on \cpageref{page:ppw} above).
 
-\paragraph{Complete summary of results in the literature} In \cref{tab:acc,tab:dataacc,tab:qo} we list all of the mathematical (as opposed to computational) results in the literature for $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, and $\hka{a}$-quasi-optimality. We list these in chronological order, with any relevant comments in the `Notes' column. The `Proof technique' column details the method used in the proof; see \cref{sec:prooftechniques} below for an extended discussion of these techniques. However, we now make a few general comments on the history of these results.
+Observe that the mesh condition `$hk$ is sufficiently small' implies that the number of degrees of freedom in the resulting linear systems is of the order $k^d.$ This same scaling for the number of degrees of freedom is obtained for $hp$-methods for the Helmholtz equation, see \cite[Remark 5.9]{MeSa:11}. Therefore, in the $p\rightarrow\infty$ limit, the number of degrees of freedom required for the $h$-finite-element method scales optimally, as for the $hp$-finite-element method.
+\ere
 
-Recall that proving quasi-optimality (or an error bound) for the finite-element method for the Helmholtz equation is more tricky than for the stationary diffusion equation \cref{eq:stdiff}. For the stationary diffusion equation, one immediately obtains quasi-optimality for \emph{any} mesh by C\'ea's Lemma (and one then obtains that the relative error is bounded by \cref{lem:scottzhang}). We emphasise again that this result holds for any mesh, with no restriction on $h.$
+%\paragraph{Observations} Observe that, in general, the mesh conditions required for quasi-optimality are more restrictive than those required for the error to be bounded. I.e., in general, if the finite-element method is both $\hka{\ao}$-quasi-optimal and $\hka{\at}$-data-accurate, then one sees that $\ao > \at$ (compare the entries in \cref{tab:acc,tab:dataacc} with those in \cref{tab:qo}). Therefore, whilst one can show the finite-element method is $\hka{a}$-data-accurate (for some $a$) by first showing quasi-optimality, this approach will result in a more restrictive mesh condition than proving $\hka{a}$-data-accuracy directly. Also 
+
+\subsubsection{Complete summary of results in the literature}
+
+In \cref{tab:acc,tab:dataacc,tab:qo} we list all of the mathematical (as opposed to computational) results in the literature for $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, and $\hka{a}$-quasi-optimality. We list these in chronological order, with any relevant comments in the `Notes' column. The `Proof technique' column details the method used in the proof; see \cref{sec:prooftechniques} below for an extended discussion of these techniques. However, we now make a few general comments on the history of these results.
+
+\paragraph{Lack of coercivity} Recall that proving quasi-optimality (or an error bound) for the finite-element method for the Helmholtz equation is more difficult than for the stationary diffusion equation \cref{eq:stdiff}. For the stationary diffusion equation, one immediately obtains quasi-optimality for \emph{any} mesh by C\'ea's Lemma (and one then obtains that the relative error is bounded by \cref{lem:scottzhang}). We emphasise again that this result holds for any mesh, with no restriction on $h.$
 
 However, C\'ea's Lemma relies on the coercivity of the sesquilinear form, and the sesquilinear forms arising from standard discretisations of the Helmholtz equation are not coercive for large $k$. Therefore, to prove quasi-optimality, one instead uses the so-called Schatz argument, a modification of the standard Aubin--Nitsche duality argument\footnote{First introduced by Aubin \cite{Au:67} and Nitsche \cite{Ni:68} for coercive problems.} However, using the Schatz argument, one only obtains quasi-optimality under some $k$-dependent restriction on the mesh size $h.$
 
-The Schatz argument was first used for problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74} and first used for Helmholtz problems by Aziz, Kellogg, and Stephens \cite{AzKeSt:88}. In \cite{AzKeSt:88} they proved that in 1-d the finite-element method for the Helmholtz equation is $\hka{2}$-quasi-optimal, and this result was extended to $d=2$ by Melenk \cite{Me:95} in his PhD thesis. However, the Schatz argument was first presented in the framework we use below by Sauter \cite[Section 2]{Sa:06}. Observe that for large values of $k,$ $\hka{2}$-quasi-optimality and the related mesh restriction `$hk^2$ is sufficiently small' is computationally prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-d.
+\paragraph{Quasi-optimality using the Schatz argument} The Schatz argument was first used for problems satisfying a G\r{a}rding inequality by Schatz \cite{Sc:74} and first used for Helmholtz problems by Aziz, Kellogg, and Stephens \cite{AzKeSt:88}. In \cite{AzKeSt:88} they proved that in 1-d the finite-element method for the Helmholtz equation is $\hka{2}$-quasi-optimal, and this result was extended to $d=2$ by Melenk \cite{Me:95} in his PhD thesis. However, the Schatz argument was first presented in the framework we use below by Sauter \cite[Section 2]{Sa:06}. Observe that for large values of $k,$ $\hka{2}$-quasi-optimality and the related mesh restriction `$hk^2$ is sufficiently small' is computationally prohibitive---it would result in linear systems of size, e.g., $~10^{12}$, for the Helmholtz equation with $k=100$ in 3-d.
 
-Because of the severe mesh restrictions required for quasi-optimality for Helmholtz problems, recent research efforts have been focused on directly proving error bounds for the finite-element method. The key proof techniques are so-called elliptic projection ideas; these ideas are at the heart of our results in \cref{sec:fem} below, and are discussed in more detail in \cref{sec:prooftechniques} below. To our knowledge, the first use of elliptic projections to prove error estimates for Galerkin approximations was by Wheeler\footnote{Mentioned in \cite{MaNo:03}.} \cite[Theorem 3.1 ff.]{Wh:73}, who proved bounds on the error for a nonlinear parabolic problem by splitting the error into the error from an elliptic projection and the remaining error between the elliptic projection and the Galerkin approximation. The idea of using elliptic projections for Helmholtz problems was first introduced to prove error bounds for discontinuous Galerkin methods for \cref{prob:tedp} by Feng and Wu \cite{FeWu:09,FeWu:11}, and then used for standard finite-element methods (or closely-related continuous-interior-penalty methods) beginning with the work of Wu and Zhu \cite{ZhWu:13,Wu:14}.
-
-In this review we do not address $hp$-finite-element methods for the Helmholtz equation, that is, finite-element methods where one refines both $h$ and $p$ for fixed $k.$ Such methods can be very effective; the error for such methods can converge exponentially with respect to the number of degrees of freedom (see, e.g., \cite[Theorem 4.51]{Sc:98}). However, rigorous error analysis for these methods requires finite-element-error bounds that are completely explicit in both $h$ and $p$.
-
-The landmark results on $hp$-finite-element methods for the Helmholtz equation were achieved by Melenk and Sauter \cite{MeSa:10,MeSa:11} who used a novel splitting of the solution of the Helmholtz equation (see the comments underneath \cref{rem:osc} below) to show that the $hp$-finite-element method is quasi-optimal if $hk/p \leq \co$ and $p \geq \ct \ln k$ (for some constants $\co,\ct>0$). Melenk and Sauter proved this result for the full-space problem in \cite{MeSa:10} and for: (i) the exterior Dirichlet problem, and (ii) the interior impedance problem in an analytic domain or a 2-d convex polygon in \cite{MeSa:11}. These results were generalised to an arbitrary 2-d Lipschitz domain by Esterhazy and Melenk in \cite[Theorem 4.2]{EsMe:12}. Other results in the literature for $hp$-finite-element methods are those of Zhu and Wu \cite[Equation (1.7)]{ZhWu:13} who showed the $hp$-finite-element method for the Helmholtz equation is data-accurate\footnote{We do not use the $\hk{a}b$-accurate, etc., terminology for $hp$-methods, as it does not represent the interplay between the polynomial degree $p$ and the wavenumber $k$.} provided
-\beqs
-\frac{kh}p \leq C_0\mleft(\frac{p}k\mright)^{\frac1{p+1}},
-\eeqs
-where $C_0>0$ is some constant. Finally, in \cite[Corollary 3.2]{IhBa:97} Ihlenburg and Babu\v{s}ka proved a bound on the error for the finite-element method in 1-d that is explicit in $k,$ $h$, and $p$, although the bound is probably not sharp in $p,$ and therefore could not be used to prove results on $hp$-finite-element methods.
+\paragraph{Error bounds using elliptic projections} Because of the severe mesh restrictions required for quasi-optimality for Helmholtz problems, recent research efforts have been focused on directly proving error bounds for the finite-element method. The key proof techniques are so-called elliptic projection ideas; these ideas are at the heart of our results in \cref{sec:fem} below, and are discussed in more detail in \cref{sec:prooftechniques} below. To our knowledge, the first use of elliptic projections to prove error estimates for Galerkin approximations was by Wheeler\footnote{Mentioned in \cite{MaNo:03}.} \cite[Theorem 3.1 ff.]{Wh:73}, who proved bounds on the error for a nonlinear parabolic problem by splitting the error into the error from an elliptic projection and the remaining error between the elliptic projection and the Galerkin approximation. The idea of using elliptic projections for Helmholtz problems was first introduced to prove error bounds for discontinuous Galerkin methods for \cref{prob:tedp} by Feng and Wu \cite{FeWu:09,FeWu:11}, and then used for standard finite-element methods (or closely-related continuous-interior-penalty methods) beginning with the work of Wu and Zhu \cite{ZhWu:13,Wu:14}.
 
 \afterpage{% Heard about from https://tex.stackexchange.com/questions/11471/how-to-wrap-text-around-landscape-page
 \begin{landscape} % Heard about from https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t/19021#19021 and https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table 
@@ -406,16 +462,14 @@ where $C_0>0$ is some constant. Finally, in \cite[Corollary 3.2]{IhBa:97} Ihlenb
 }
 
 \subsection{Extended discussion of proof techniques for finite-element errors for the Helmholtz equation}\label{sec:prooftechniques}
-We now discuss in some detail the proof techniques used to obtain $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, or $\hka{a}$-quasi-optimality.  We discuss these techniques because they are related, but different, and we hope that discussing the details, and comparing and contrasting these techniques will prove helpful to the research community, and will increase understanding of proofs that are, at times, a little technical. However, we also discuss these results to set the coefficient-explicit bounds in \cref{sec:fem} below in context.
+We now discuss in some detail the proof techniques used to obtain $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, or $\hka{a}$-quasi-optimality. We note that frequently quasi-optimality results are refereed to as \defn{asymptotic} error estimates, and accuracy or data-accuract results (when they are proved under weaker mesh constraints than asymptotic estimates) are referred to as \defn{pre-asymptotic} error estimates. This terminology is used because the mesh conditions to ensure quasi-optimality are more restrictive than those for bounded error, and therefore they hold only for smaller values of $h.$
 
-We note that frequently quasi-optimality results are refereed to as \defn{asymptotic} error estimates, and accuracy or data-accuract results (when they are proved under weaker mesh constraints than asymptotic estimates) are referred to as \defn{pre-asymptotic} error estimates. This terminology is used because the mesh conditions to ensure quasi-optimality are more restrictive than those for bounded error, and therefore they hold only for smaller values of $h.$
-
-For simplicity's sake, our exposition below will assume that we are treating \cref{prob:vtedp} with homogeneous coefficients (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if we have a $k$-independent a priori bound, i.e., $C$ in \cref{eq:bgbound} is independent of $k.$}, and therefore in particular the solution $u$ of \cref{prob:vtedp} is unique. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k$ and $h$. The new results we present in \cref{sec:fem} consider heterogeneous problems that may be trapping, and state all of the constants involved explicitly, at the price of being more technical to state.
+For simplicity, our exposition below will assume that we are treating \cref{prob:vtedp} with homogeneous coefficients (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if we have a $k$-independent a priori bound, i.e., $C$ in \cref{eq:bgbound} is independent of $k.$}, and therefore in particular the solution $u$ of \cref{prob:vtedp} is unique. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k$ and $h$. The new results we present in \cref{sec:fem} consider heterogeneous problems that may be trapping, and state all of the constants involved explicitly, at the price of being more technical to state.
 
 \subsubsection{Comparison of the different classes of argument}
 We first briefly discuss the positive and negative points for each of the two classes of argument we will outline below: (modified) duality arguments and error-splitting arguments.
 
-The merits of duality arguments are their simplicity---we will state the arguments in their entirety below. In addition, using these arguments for higher-order finite elements (or $hp$-finite-elements) one can easily conclude error bounds under certain mesh conditions, where both the bounds and the conditions are completely $h$-, $p$-, and $k$-explicit.% Such an analysis was performed for quasi-optimality of $hp$-finite-element methods for the Helmholtz equation in homogeneous media by Melenk and Sauter \cite{MeSa:10,MeSa:11}.
+The merits of duality arguments are their simplicity---we will state the arguments in their entirety in this overview section. In addition, using these arguments for higher-order finite elements (or $hp$-finite-elements) one can easily conclude error bounds under certain mesh conditions, where both the bounds and the conditions are completely $h$-, $p$-, and $k$-explicit.% Such an analysis was performed for quasi-optimality of $hp$-finite-element methods for the Helmholtz equation in homogeneous media by Melenk and Sauter \cite{MeSa:10,MeSa:11}.
 
 However, the main drawback of duality arguments (when used to prove data-accuracy) is their lack of sharpness in the conditions imposed on $h$. For example, as detailed in \cref{rem:dataacc}, Chaumont-Frelet, Gallistl, Nicaise and Tomezyk used a duality argument in \cite{ChGaNiTo:18} to prove that for a given Helmholtz problem the pollution term is of the order $h^2k + h^{2p}k^{2p+1}$ provided $h^{p+1}k^{p+2}$ is sufficiently small. I.e., the mesh restriction under which they prove a finite-element error bound (`$h^{p+1}k^{p+2}$ is sufficiently small') is \emph{more restrictive} than the mesh restriction needed to bound the pollution error uniformly in $k$ (namely `$h^{2p}k^{2p+1}$ is sufficiently small').
 
