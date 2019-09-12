@@ -369,7 +369,7 @@ Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:mat
 (\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
 \eeqs
 
-For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]{Br:07} the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.
+%For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]{Br:07} the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.
 
 %% \bpf[Sketch proof of \cref{lem:normequiv}]\opntodo{can omit this if can find a good reference. One possibility . Need to check basis scaling business.}
 %% The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtD}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
@@ -387,11 +387,11 @@ For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]
 
 Finally, we need the concept of the \emph{adjoint} sesquilinear form to $a(\cdot,\cdot)$.
 \begin{definition}[The adjoint sesquilinear form $\aGs(\cdot,\cdot)$]\label{def:adjoint}
-Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form, $\aGs(\cdot,\cdot)$, to $\aG(\cdot,\cdot)$ defined in \cref{eq:aedp} is given by
+Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form, $\aGs(\cdot,\cdot)$, to $\aG(\cdot,\cdot)$ defined in \cref{eq:agen} is given by
 \beq\label{eq:EDPadjoint}
-\aGs(\vo,\vt) \de \int_{D} 
-\Big((A \grad \vo)\cdot\grad \vtb
- - k^2 n \vo\vtb\Big) -  \DPGI{\gamma \vo}{\T(\gamma \vt)}.
+\aGs(w,v) \de \int_{D} 
+\Big((A \grad w)\cdot\grad \vb
+ - k^2 n w\vb\Big) -  \DPGI{\trI w}{\T(\trI v)}.
 \eeq
 \end{definition}
 
@@ -402,7 +402,7 @@ Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form,
 (where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
 
 \ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
-If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem, the boundary operaor $\T$ satisfies
+If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem \cref{prob:vgen}, the boundary operator $\T$ satisfies
 \beq\label{eq:DPconj}
 \DPGI{\T \psi}{\phibar} = \DPGI{\T \phi}{\psibar} \tfa \phi,\psi \in \HhGI,
 \eeq
@@ -412,7 +412,7 @@ and
 \eeq
 then $\overline{u}$ satisfies
 \beq\label{eq:adjoint2}
-a(\overline{u},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
+\aG(\overline{u},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
 \eeq
 \ele
 
@@ -431,7 +431,7 @@ If \cref{prob:vgen} is chosen to represent \cref{prob:vedp} or \cref{prob:vtedp}
 \bpf[Proof of \cref{cor:adjoint}]
 The only thing we need to check is that \cref{eq:DPconj} holds for both \cref{prob:vedp,prob:vtedp}. For \cref{prob:vtedp}, when $\T = ik$, the proof is straightforward. For \cref{prob:vedp} when $\T = \DtN$ we need the following property of the DtN map $\DtN$:
 \beq\label{eq:DtN}
-\big\langle \DPGR{\DtN\psi}{\phibar} = \DPGR{\DtN \phi}{\psibar} \quad\tfa \phi,\psi \in H^{1/2}(\GR).
+\DPGR{\DtN\psi}{\phibar} = \DPGR{\DtN \phi}{\psibar} \quad\tfa \phi,\psi \in H^{1/2}(\GR).
 \eeq
 This property follows from the fact that, if $\uo$ and $\ut$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{\BR}$, both satisfying the Sommerfeld radiation condition \cref{eq:src}, then
 \beqs
