@@ -1,5 +1,5 @@
 \section{Proofs of \cref{thm:hh-gen,thm:hh-hetero}}\label{sec:hhproof}
-In \cref{sec:placing} we place the Helmholtz stochastic EDP into the framework developed in \cref{sec:gen-framework}. In \cref{sec:hh-cond} we give sufficient conditions for the Helmholtz stochastic EDP to satisfy \cref{con:coeffstoform,,con:coeffstofunc,,con:cborel}, etc.. In \cref{sec:applying} we apply the general theory developed in \cref{sec:gen-framework} to prove \cref{thm:hh-gen,,thm:hh-hetero}.
+In \cref{sec:placing} we place the Helmholtz stochastic EDP into the framework developed in \cref{sec:gen-framework}. In \cref{sec:hh-cond} we give sufficient conditions for the Helmholtz stochastic EDP to satisfy \namecrefs{con:coeffstoform} \ref{con:coeffstoform}, \ref{con:coeffstofunc}, \ref{con:cborel}, etc.. In \cref{sec:applying} we apply the general theory developed in \cref{sec:gen-framework} to prove \cref{thm:hh-gen,,thm:hh-hetero}.
 
 \subsection{Placing the Helmholtz stochastic EDP into the framework of \cref{sec:gen-framework}}\label{sec:placing}
 Recall $R>0$ is fixed. We let $X=Y=\HozDDR$ and define the norm $\NHokDR{v}^2 \de \NLtDR{\grad v}^2 + k^2 \NLtDR{v}^2$ on $\HozDDR.$ Throughout this section, $\Az,\nz,$ and $\fz$ will be deterministic functions. Recall that since the supports of $1-n,$ $I-A,$ and $f$ are compactly contained in $\BR$, we can consider $A, n,$ and $f$ as functions on $\DR$ rather than on $\Dp$. In order to define the space $\cC$ and the maps $\coeff,\toform,$ and $\rhs$ we define the following function spaces on $\DR$.
@@ -12,9 +12,7 @@ Let
 \begin{align*}
 \LiRminDRRR \de \big\{&\nz \in \LiDRRR \st\supp\mleft(1-\nz\mright) \compcont \BR,\\
 &\text{there exists } \alphanz > 0 \text{ such that } \nz(\bx) \geq \alphanz \text{ almost everywhere }\big\},\\
-\hspace{-3cm}\LiRminDRRRdtd \de \Big\{&\Az \in \LiDRRRdtd \st\Az(\bx) \text{ is symmetric almost everywhere,}\\
-&\supp\mleft(I-\Az\mright) \compcont \BR, \text{there exists } \alphaAz>0 \text{ s.~t.~}\alphaAz \leq \Az(\bx)\\
-&\text{almost everywhere, in the sense of quadratic forms}\Big\},\text{ and}\\
+\hspace{-3cm}\LiRminDRRRdtd \de \Big\{&\Az \in \LiDRRRdtd \st \supp\mleft(I-\Az\mright) \compcont \BR\Big\},\text{ and}\\
 %\end{align*}
 %\begin{align*}
 &\hspace{-3cm}\WoiRminDRRRdtd \de \set{\Az \in \LiRminDRRRdtd \st\Az \in \WoiDRRRdtd}.

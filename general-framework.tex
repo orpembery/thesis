@@ -1,5 +1,5 @@
 \section{General results on proving a priori bounds and well-posedness of stochastic variational formulations}\label{sec:gen-framework}\label{sec:general}
-In this section we state general results for proving a priori bounds and well-posedness results for variational formulations of linear elliptic SPDEs.
+In this section we state general results for proving a priori bounds and well-posedness results for variational formulations of linear time-independent SPDEs.
 
 \subsection{Notation and definitions of the variational formulations}\label{sec:notdef}
 Let $\OFP$ be a complete probability space. Let $X$ and $Y$ be separable Banach spaces over a field $\FF,$ (where $\FF = \RR$ or $\CC$).
@@ -89,7 +89,7 @@ The map $\coeff:\Omega\rightarrow\cC$  is $\PP$-essentially separably valued.
 \econvar
 
 \bre[Why do we need \cref{con:C}?]
-The theory of Bochner spaces requires strong measurability of functions (see \cref{def:strongmeas,def:bochnerspace} below). However, the proof techniques used in this paper rely heavily on the measurability of functions (see \cref{def:meas} below). In separable spaces these two notions are equivalent (see \cref{cor:pettis}). However, some of the spaces we encounter (such as $\LiDRRR$) are not separable. Therefore, in our arguments we use \cref{con:C} along with the Pettis Measurability Theorem (\cref{thm:pettis} below) to conclude that measurable functions are strongly measurable.
+The theory of Bochner spaces requires strong measurability of functions (see \cref{def:strongmeas,def:bochnerspace} below). However, the proof techniques used in this \lcnamecref{chap:stochastic} rely heavily on the measurability of functions (see \cref{def:meas} below). In separable spaces these two notions are equivalent (see \cref{cor:pettis}). However, some of the spaces we encounter (such as $\LiDRRR$) are not separable. Therefore, in our arguments we use \cref{con:C} along with the Pettis Measurability Theorem (\cref{thm:pettis} below) to conclude that measurable functions are strongly measurable.
 \ere
 
 \bconB[A priori bound almost surely]\label{con:B}
@@ -109,7 +109,7 @@ We use the notation $f_j$ in the right-hand side of \eqref{eq:sbe1} to emphasise
 $\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely.
 \econvar
 
-The condition  $\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely can be stated as: given $\cG \in \LtOYas,$ for $\PP$-almost every $\omega \in \Omega$ the deterministic problem $\Acomega \uz = \cG$ has a unique solution,
+The condition  $\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely can be stated as: given $\L \in \Ys,$ for $\PP$-almost every $\omega \in \Omega$ the deterministic problem $\Acomega \uz = L$ has a unique solution,
 
 \subsection{Results on the equivalence of \cref{prob:meas,,prob:lt,,prob:svar}}
 

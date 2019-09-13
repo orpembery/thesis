@@ -1,5 +1,5 @@
 \subsection{Random fields satisfying \cref{con:hh-hetero}}\label{sec:generating}
-The main focus of this paper is proving well-posedness of the variational formulations of the stochastic Helmholtz equation, and a priori bounds on the solution, for the most-general class of $A$ and $n$ allowed by the deterministic bounds in \cite{GrPeSp:19}. However, in this section, motivated by the Karhunen-Lo\`eve expansion (see e.g.~\cite[p.~201ff.]{LoPoSh:14}) and similar expansions of material coefficients for the stationary diffusion equation \cite[Section 2.1]{KuNu:16}, we consider $A$ and $n$ as series expansions around known non-random fields $\Az$ and $\nz$ satisfying \cref{con:hh-hetero} (i.e., \cref{con:hh-hetero} is satisfied for $\nz, \Az$ independent of $\omega \in \Omega$, and therefore $\muo,\mut$ independent of $\omega$).
+The main focus of this \lcnamecref{chap:stochastic} is proving well-posedness of the variational formulations of the stochastic Helmholtz equation, and a priori bounds on the solution, for the most-general class of $A$ and $n$ allowed by the deterministic bounds in \cite{GrPeSp:19}. However, in this section, motivated by the Karhunen-Lo\`eve expansion (see e.g.~\cite[p.~201ff.]{LoPoSh:14}) and similar expansions of material coefficients for the stationary diffusion equation \cite[Section 2.1]{KuNu:16}, we consider $A$ and $n$ as series expansions around known non-random fields $\Az$ and $\nz$ satisfying \cref{con:hh-hetero} (i.e., \cref{con:hh-hetero} is satisfied for $\nz, \Az$ independent of $\omega \in \Omega$, and therefore $\muo,\mut$ independent of $\omega$).
 Define
 \beq\label{eq:nseries}
 A(\omega,\bx) = \Az(\bx) + \sum_{j=1}^\infty \Yj(\omega) \Psij(\bx)\quad\text{and}\quad n(\omega,\bx) = \nz(\bx) + \sum_{j=1}^\infty\Zj(\omega) \psij(\bx) ,
@@ -16,7 +16,7 @@ where:
 \beq\label{eq:Apsipos}
 \sum_{j=1}^\infty \esssup_{\bx \in \DR} \NopCCd{\Psij} < 2\Azmin,
 \eeq
-where $\Azmin > 0$ is such that $\Azmin\abs{\bxi}^2 \leq \big(A(\bx)\bxi\big)\cdot \bxi$ for almost every $\bx \in \Dp$ and for all $\bxi \in \CCd$, and where $\NopCCd{\cdot}$ is the operator norm induced by the Euclidean vector norm on $\CCd$ (i.e., $\NopCCd{\cdot}$ is the spectral norm).
+where $\Azmin > 0$ is such that $\Azmin\abs{\bxi}^2 \leq \big(A(\bx)\bxi\big)\cdot \bxi$ for almost every $\bx \in \Dp$ and for all $\bxi \in \CCd$.
 \item $\psij \in \WoiDRRR$ with $\supp \psij \compcont \BR$ for all $j = 1,\ldots,m$,
 \beq\label{eq:npsimeas}
 \sum_{j=1}^\infty \NWoiDRRR{\psij} < \infty, \tand
@@ -24,7 +24,7 @@ where $\Azmin > 0$ is such that $\Azmin\abs{\bxi}^2 \leq \big(A(\bx)\bxi\big)\cd
 \beq\label{eq:npsipos}
 \sum_{j=1}^\infty \NLiDRRR{\psij} < 2 \nzmin,
 \eeq
-where $\nzmin \de \essinf_{\bx \in \DR} \nz(\bx),$ and
+where $\nzmin \de \essinf_{\bx \in \DR} \nz(\bx).$
 \eit
 %Regarding the measurability of $n$ and $A$ defined by \eqref{eq:nseries}: the proof for this particular setting of mappings into a separable subspace of a general normed vector space is analagous to the proof in the case of a sum of real-valued measurable mappings, and so we do not give it here.
 
