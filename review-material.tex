@@ -15,7 +15,7 @@ If $(S,\TS)$ is a topological space, the \defn{Borel $\sigma$-algebra} $\Borel{S
 \ede
 
 
-If $V$ is any topological space (including a Hilbert, Banach, metric, or normed vector space) then we will take always the Borel $\sigma$-algebra on $V$ unless stated otherwise.
+If $V$ is any topological space (including a Hilbert, Banach, metric, or normed vector space) then we will always take the Borel $\sigma$-algebra on $V$ unless stated otherwise.
 
 
 \ble[Continuous maps are measurable { \cite[Theorem 2.1.2]{Bo:07}}] \label{lem:contmeas}
@@ -55,9 +55,7 @@ $\cP \de \set{C \subseteq \M_1 \times \cdots \times \M_m \st \Prodf^{-1}\mleft(C
 The proof of the lemma consists of the following straightforward steps, whose proofs are omitted:
 %\ben
 %\item 
-(i) Show 
-
-\noindent $\measrectmany{\FM_1,\ldots,\FM_m} \subseteq \cP.$
+(i) Show $\measrectmany{\FM_1,\ldots,\FM_m} \subseteq \cP.$
 %\item 
 (ii) Show $\cP$ is a $\sigma$-algebra.
 %\item 
@@ -84,8 +82,7 @@ where $\chi_{E_{i}}$ is the indicator function on $E_{i}.$
 \ede
 
 \bde[Strongly measurable]\label{def:strongmeas}
-A function $v:\Omega \rightarrow V$ is \defn{strongly measurable}
-\footnote{In \cite{DiUh:77} the authors use the term \defn{$\mu$-measurable} instead of \defn{strongly measurable} (where $\mu$ is the measure on the domain of the functions under consideration).} 
+A function $v:\Omega \rightarrow V$ is \defn{strongly measurable}\footnote{In \cite{DiUh:77} the authors use the term \defn{$\mu$-measurable} instead of \defn{strongly measurable} (where $\mu$ is the measure on the domain of the functions under consideration).} 
 if there exists a sequence of simple functions $(\vn)_{n \in \NN}$ such that
 %\beqs
 $\lim_{n \rightarrow \infty} \NV{\vn - v} = 0$, %\quad
@@ -136,7 +133,7 @@ A topological space is \defn{separable} if it contains a countable, dense subset
 \ede
 
 \bde[$\sigma$-finite]
-A probability space $\OFP$ is \defn{$\sigma$-finite} if there exist $E_1,E_2,\ldots \in \cF$ with $\PP(E_m) < \infty$ for all $m \in \NN$ such that $\Omega = \cup_{m=1}^\infty E_m.$
+A probability space $\OFP$ is \defn{$\sigma$-finite} if there exist $E_1,E_2,\ldots \in \cF$ such that $\Omega = \cup_{m=1}^\infty E_m.$
 \ede
 
 \bth[Pettis measurability theorem {\cite[Proposition 2.15]{Ry:02}}]\label{thm:pettis}

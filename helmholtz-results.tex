@@ -10,7 +10,9 @@ Let $\TrR: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ be the Dirichlet-to
 see \cite[Section 2.6.3]{Ne:01} and \cite[Equations 3.5 and 3.6]{ChMo:08} for an explicit expression for $\TrR$  in terms of Hankel functions and Fourier series ($d=2$)/spherical harmonics ($d=3$). Let $\IPGR{\cdot}{\cdot}$ be the duality pairing on $\GR$ between $\HmhGR$ and $\HhGR$ and write $\dd\Leb$ for Lebesgue measure. Throughout this \lcnamecref{chap:stochastic} we explicitly include the measure when writing integrals, to help distinguish between integrals over the spatial domain (using $\dd\lambda$) and integrals over the probability space (using $\dd\PP).$
 
 %Let $\LiDpRRdtd$ be the set of all matrix-valued functions $A:\Dp\rightarrow\RRdtd$ such that $A_{i,j} \in \LiDpRR$ for all $i,j = 1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~we write $\LiDp$ for $\LiDpCC.$
-For $\Az \in \spd,$ we write $\NopCCd{\Az}$ for the operator norm induced by the Euclidean vector norm on $\CCd$ (i.e., $\NopCCd{\cdot}$ is the spectral norm), and for $\Az:\DR \rightarrow \spd,$ we write $\NLiDRRRdtd{A}$ for $\NLiDRRRsmall{\Nop{A(\bx)}}.$ We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Let $\OFP$ be a complete probability space. Throughout this \lcnamecref{chap:stochastic}, unless stated otherwise we equip a topological space with its Borel $\sigma$-algebra. See \cref{app:mtBs} for a summary of the measure-theoretic concepts used in this \lcnamecref{chap:stochastic}. Let
+For $\Az \in \spd,$ we write $\NopCCd{\Az}$ for the operator norm induced by the Euclidean vector norm on $\CCd$ (i.e., $\NopCCd{\cdot}$ is the spectral norm), and for $\Az:\DR \rightarrow \spd,$ we write $\NLiDRRRdtd{\Az}$ for $\NLiDRRRsmall{\Nop{\Az(\bx)}}.$ Observe that $\NLiDRRRdtd{\cdot}$ is a slight abuse of notation, as $\LiDRRRdtd$ is not a vector space. Nevertheless $\NLiDRRRdtd{\cdot}$ still fulfils the properties of a norm on $\LiDRRRdtd.$ We define $\NWoiDRRRdtd{\cdot}$ similarly.
+
+We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Let $\OFP$ be a complete probability space. Throughout this \lcnamecref{chap:stochastic}, unless stated otherwise we equip a topological space with its Borel $\sigma$-algebra. See \cref{app:mtBs} for a summary of the measure-theoretic concepts used in this \lcnamecref{chap:stochastic}. Let
 \bit
 \item $f:\Omega\rightarrow\LtDp$ be such that $\supp f \compcont \BR$ almost surely
 \item $n:\Omega\rightarrow \LiDpRR$ be such that $\supp(1-n) \compcont \BR$ almost surely and there exist $\nmin, \nmax:\Omega\rightarrow \RR$ such that
@@ -146,20 +148,20 @@ solves \cref{prob:somsedp}, then any member of the equivalence class of $u$ solv
 Observe that the only relationship between formulations not proved in \cref{thm:hh-gen} is: if $u:\Omega\rightarrow \HozDDR$  solves \cref{prob:msedp} then $u \in 
 L^2\big(\Omega;H_{0,D}^1(D_R)\big)$
 %\LtOHozDDR$ 
-and $u$ solves \cref{prob:somsedp}. \cref{thm:hh-hetero} below includes this relationship, but we need additional assumptions on $A,n,$ and $\Dm.$
+and $u$ solves \cref{prob:somsedp}. \cref{thm:hh-hetero} below includes this relationship, but we need additional assumptions on $A,n,$ and $\Dm.$ We use the notation established in \cref{def:NT}.
 
-\bde[A particular class of (deterministic) nontrapping coefficients]\label{def:hh-nontrapping}
-Let $\muo,\mut >0,$ $\Az \in \WoiDRRRdtd$ with $\supp(I-\Az) \compcont \BR$, and $\nz \in \WoiDRRR$ with $\supp(1-\nz) \compcont \BR.$ We write $\Az \in \NTA{\muo}$ and $\nz \in \NTn{\mut}$ if
-\beq\label{eq:hh-Acond}
-\Az(\bx) - \mleft(\bx\cdot\grad\mright)\Az(\bx) \geq \muo \quad \tand \quad \nz(\bx) + \bx\cdot\grad \nz(\bx) \geq \mut
-\eeq
-for almost every $\bx \in \DR,$ where the first inequality holds in the sense of quadratic forms.
-\ede
+%% \bde[A particular class of (deterministic) nontrapping coefficients]\label{def:hh-nontrapping}
+%% Let $\muo,\mut >0,$ $\Az \in \WoiDRRRdtd$ with $\supp(I-\Az) \compcont \BR$, and $\nz \in \WoiDRRR$ with $\supp(1-\nz) \compcont \BR.$ We write $\Az \in \NTA{\muo}$ and $\nz \in \NTn{\mut}$ if
+%% \beq\label{eq:hh-Acond}
+%% \Az(\bx) - \mleft(\bx\cdot\grad\mright)\Az(\bx) \geq \muo \quad \tand \quad \nz(\bx) + \bx\cdot\grad \nz(\bx) \geq \mut
+%% \eeq
+%% for almost every $\bx \in \DR,$ where the first inequality holds in the sense of quadratic forms.
+%% \ede
 
-The significance of the class of coefficients in \cref{def:hh-nontrapping} is that \cref{thm:edp} proves bounds on the solution of \eqref{eq:hh-intro} for such $A$ and $n,$ where the constant in the bound only depends on $\muo, \mut, k, R, $ and $d.$
+%The significance of the class of coefficients in \cref{def:hh-nontrapping} is that \cref{thm:edp} proves bounds on the solution of \eqref{eq:hh-intro} for such $A$ and $n,$ where the constant in the bound only depends on $\muo, \mut, k, R, $ and $d.$
 
 \bcon[{$k$-independent nontrapping conditions on (random) $A$ and $n$}]\label{con:hh-hetero}
-The random fields $A$ and $n$ satisfy $A:\Omega\rightarrow\WoiDRRRdtd$ and $n:\Omega\rightarrow \WoiDRRR.$ Furthermore, there exist $\muo, \mut:\Omega\rightarrow \RR,$ independent of $f,$ with $\muo(\omega),\mut(\omega) > 0$ almost surely and $1/\muo,1/\mut \in \LtORR$  such that $A(\omega) \in \NTA{\muo(\omega)}$ almost surely and $n(\omega) \in \NTn{\mut(\omega)}$ almost surely.
+The random fields $A$ and $n$ satisfy $A:\Omega\rightarrow\WoiDRRRdtd$ and $n:\Omega\rightarrow \WoiDRRR$ with $\supp(I-A(\omega)) \compcont \BR$ and $\supp(1-n(\omega)) \compcont \BR$ almost surely.  Furthermore, there exist $\muo, \mut:\Omega\rightarrow \RR,$ independent of $f,$ with $\muo(\omega),\mut(\omega) > 0$ almost surely and $1/\muo,1/\mut \in \LtORR$  such that $A(\omega) \in \NTA{\muo(\omega)}$ almost surely and $n(\omega) \in \NTn{\mut(\omega)}$ almost surely.
 \econ
 
 

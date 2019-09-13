@@ -4,9 +4,9 @@ If $U$ is a separable normed vector space, $m \in \NN,$ and $\phi_j:\Omega\right
 \ele
 
 \bpf[Sketch proof of \cref{lem:sepsum}]
-By induction, it is sufficient to show the result for $m=2.$ We let $\Ballspace{U}{r}{v}$ denote the ball of radius $r>0$ about $v \in U$. To show $\phio+\phit$ is measurable, we let $v \in U, r>0$ and we show $\mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright) \in \cF.$ Let $\QQU$ denote a countable dense subset of $U,$ which exists as $U$ is separable.
+By induction, it is sufficient to show the result for $m=2.$ We let $\Ballspace{U}{r}{v}$ denote the ball of radius $r>0$ about $v \in U$. To show $\phio+\phit$ is measurable, we let $v \in U, r>0$ and we show $\mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright) \in \cF.$ Let $\QQU$ denote a countable dense subset of $U,$ which exists as $U$ is separable. Let $\QQFF$ denote a countable dense subset of the field $\FF$, which exists as $\FF = \RR$ or $\CC.$
 
-For $s \in \QQ, q \in \QQU$ let
+For $s \in \QQFF, q \in \QQU$ let
 \beqs
 \setsq = \set{\omega \in \Omega \st \NU{\phio(\omega)-\half v - q} < s} \cap \set{\omega \in \Omega \st \NU{\phit(\omega)-\half v + q} < r-s}.
 \eeqs
@@ -14,8 +14,8 @@ We claim
 \beq\label{eq:sumseteq}
 \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright) = \bigcup_{s \in \QQFF} \bigcup_{q \in \QQU} \setsq,
 \eeq
-and the result then follows as the right-hand side is an element of the $\sigma$-algebra $\cF.$ To show \eqref{eq:sumseteq}, let $\omega \in \cup_{s \in \QQ}\cup_{q \in \QQU} \setsq,$ and let $s \in \QQ, q \in \QQU$ be such that $\omega \in \setsq.$ Then it follows from the triangle inequality that $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright).$
-Now let $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright),$ define $\dw \de r - \NU{\phio(\omega)+\phit(\omega)-v} > 0,$ fix $s \in \QQ \cap (0,\dw/2),$ and choose $q \in \QQU$ such that $\NU{\phi(\omega) - v/2 -q} < s.$ Then again it follows from the triangle inequality that $\omega \in \setsq,$ and thus \eqref{eq:sumseteq} holds, as required.
+and the result then follows as the right-hand side is an element of the $\sigma$-algebra $\cF.$ To show \eqref{eq:sumseteq}, let $\omega \in \cup_{s \in \QQFF}\cup_{q \in \QQU} \setsq,$ and let $s \in \QQFF, q \in \QQU$ be such that $\omega \in \setsq.$ Then it follows from the triangle inequality that $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright).$
+Now let $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright),$ define $\dw \de r - \NU{\phio(\omega)+\phit(\omega)-v} > 0,$ fix $s \in \QQFF \cap (0,\dw/2),$ and choose $q \in \QQU$ such that $\NU{\phi(\omega) - v/2 -q} < s.$ Then again it follows from the triangle inequality that $\omega \in \setsq,$ and thus \eqref{eq:sumseteq} holds, as required.
 \epf
 
 % Corollary: finite sums lying in a separable subspace of a normed vector space are measurable
@@ -75,9 +75,9 @@ is measurable.
 The subspace $U=\spanset{\phi_0,\phi_1,\ldots,\phi_m}$ is separable by \cref{lem:spansep}, and it is clear that the image of $\phi$ lies in $U.$ By \cref{lem:scalarmultmeas} and \cref{cor:sepsubsum}, $\phi:\Omega\rightarrow U$ is measurable, and therefore $\phi:\Omega\rightarrow V$ is measurable by \cref{cor:meassubmeansmeas}.
 \epf
 
-We now prove that almost-surely convergent sequences of measurable functions are measurable, and we then apply this result to the partial sums of the definitions of $A$ and $n$ in \eqref{eq:nseries}. %In order to prove this, from this point onwards we make the assumption that the space $V$ is complete. This assumption is satisfied by the spaces involved in the definitions of $A$ and $n$ ($\WoiDRRRdtd$ and $\WoiDRRR$ respectively).
+We now prove that almost-surely convergent sequences of measurable functions are measurable, and we then apply this result to the partial sums in the definitions of $A$ and $n$ in \eqref{eq:nseries}. %In order to prove this, from this point onwards we make the assumption that the space $V$ is complete. This assumption is satisfied by the spaces involved in the definitions of $A$ and $n$ ($\WoiDRRRdtd$ and $\WoiDRRR$ respectively).
 
-We will use the following theorem to establish that the almost-surely limit of a sequence of measurable functions is measurable.
+We will use the following theorem to establish that the almost-sure limit of a sequence of measurable functions is measurable.
 
 \bth[{\cite[Theorem 4.2.2]{Du:02}}]\label{thm:dudley}
 Let $(\metsp,\metric)$ be a metric space. Suppose the functions $\zeta_j:\Omega \rightarrow \metsp$ are measurable, for all $j \in \NN.$ If the limit
@@ -128,9 +128,9 @@ The series expansions for $A$ and $n$ defined by \eqref{eq:nseries} exist almost
 \ele
 
 \bpf[Proof of \cref{lem:seriesexistsas}]
-The spaces $\WoiDRRRdtd$ and $\WoiDRRR$ are Banach spaces, by definition of their norms (see, e.g., \eqref{eq:normsdef}). Therefore it suffices to show that the partial sums of the series expansions for $A$ and $n$ in \eqref{eq:nseries} for Cauchy sequences. As the proofs for $A$ and $n$ are completely analogous, we only give the proof for $A$ here.
+The spaces $\WoiDRRRdtd$ and $\WoiDRRR$ are Banach spaces, by definition of their norms (see, e.g., \eqref{eq:normsdef}). Therefore it suffices to show that the partial sums of the series expansions for $A$ and $n$ in \eqref{eq:nseries} fare Cauchy sequences. As the proofs for $A$ and $n$ are completely analogous, we only give the proof for $A$ here.
 
-First observe that as the random variables $\Yj$ in \eqref{eq:nseries} are uniformly distributed on $[-1/2,1/2],$ it follows that for all $j \in \NN$, $\esssup_{\omega \in \Omega} \abs{\Yj(\omega)} = \frac12.$
+First observe that since the random variables $\Yj$ in \eqref{eq:nseries} are uniformly distributed on $[-1/2,1/2],$ it follows that for all $j \in \NN$, $\esssup_{\omega \in \Omega} \abs{\Yj(\omega)} = \frac12.$
 Therefore, we can conclude that the bound $\esssup_{\omega \in \Omega} \sup_{j \in \NN} \abs{\Yj(\omega)} \leq \half$ holds.
 (For if not, then, there would exist $\Omegahat \subseteq \Omega$ with $\PP(\Omegahat) > 0$ such that for all $\omega \in \Omegahat$, $\sup_{j \in \NN} \abs{\Yj(\omega)} > \half.$
 Then there would exist $\jhat \in \NN$ such that $\abs{\Yj(\omega)} > 1/2$ for all $\omega \in \Omegahat,$ which would give the contradiction $\esssup_{\omega \in \Omega} |\Yjhat(\omega)| > \half$.)
