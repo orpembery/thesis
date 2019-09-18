@@ -3,6 +3,7 @@
 - Implement Euan's comments on Chapter 5
 - Implement Euan's comments on Chapter 3
 - Implement Euan's comments on Summary
+- Get and Implement Ivan's comments on summary?
 - OPTODOS
 - Make graphs better
 - Formatting like Bath thesis incl. margins, line breaks in stochastic
