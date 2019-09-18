@@ -10,9 +10,12 @@
 - Formatting:
  * Make graphs better
  * List of ... titles (incl. widetilde error)
+ * Page titles - far enough down?
  * fncychap?
- * FOnt sizes
+ * Font sizes
  * Section numbering
+ * really big paragraph spaces
+ * hyperref has stopped working
 
 Proof reading:
 Summary - y
