@@ -13,7 +13,6 @@
  * Page titles - far enough down?
  * fncychap?
  * Font sizes
- * Section numbering
  * really big paragraph spaces
  * Split lines in stochastic chapter
  * Overrunning lines - use draft mode
