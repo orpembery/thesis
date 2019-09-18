@@ -1,9 +1,18 @@
 - Implement Euan's comments on 2nd part of Chap 2
-- Implement Ivan's comments on Chapter 5 (when I get them)
-- Get and implement Euan's comments on Chapter 5
-- Edit the 'overview' in chapter 1 (the introductory chapter) to reflect what is actually in my thesis
+- Implement Ivan's comments on Chapter 5
+- Implement Euan's comments on Chapter 5
+- Implement Euan's comments on Chapter 3
+- Implement Euan's comments on Summary
 - OPTODOS
 - Make graphs better
 - Formatting like Bath thesis incl. margins, line breaks in stochastic
 - Proof read the entire thesis, checking mainly for notational slip-ups and nonsensical English
-- Summary/abstract
+- spell check?
+
+Proof reading:
+Summary -
+Chap 1 - y
+Chap 2 - 
+Chap 3 - y
+Chap 4 - 
+Chap 5 - 
