@@ -49,7 +49,7 @@ i.e., a single realisation of \eqref{eq:introhh}, numerically; we now provide so
 \item\label[itemblank]{it:indef} indefinite, and
   \item\label[itemblank]{it:large} large.
 \een
-    We will now briefly discuss each of these properties in turn, outlining why the matrices $\Amat$ have these properties, and how these properties affetc the numerical solution of \eqref{eq:intromat}.
+    We will now briefly discuss each of these properties in turn, outlining why the matrices $\Amat$ have these properties, and how these properties affect the numerical solution of \eqref{eq:intromat}.
 
     For \cref{it:nonh}, the matrices $\Amat$ are non-Hermitian because the underlying boundary-value problems are not self-adjoint (see \cite[Section 4.2]{Sp:15} for a discussion of the non-selfadjointness of exterior-boundary-value problems for the Helmholtz equation). This lack of self-adjointness means the sesquilinear forms arising in standard variational formulations of \eqref{eq:introhh} are not conjugate symmetric, and this lack of conjugate symmetry is inherited by the discretisation matrices $\Amat$. If one uses an iterative solver for the linear system \cref{eq:intromat}, then the non-Hermitian nature of the matrices means that a solver that is is suitable for such matrices, such as GMRES, must be used.
 

@@ -4,10 +4,15 @@
 - Implement Euan's comments on Chapter 3
 - Get and Implement Ivan's comments on summary?
 - OPTODOS
-- Make graphs better
-- Formatting like Bath thesis incl. margins, line breaks in stochastic
 - Proof read the entire thesis, checking mainly for notational slip-ups and nonsensical English
 - spell check?
+
+- Formatting:
+ * Make graphs better
+ * List of ... titles (incl. widetilde error)
+ * fncychap?
+ * FOnt sizes
+ * Section numbering
 
 Proof reading:
 Summary - y

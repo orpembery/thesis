@@ -90,7 +90,7 @@
 
 \RequirePackage{geometry}
 %\geometry{a4paper, inner=40mm, outer=20mm, textheight=8.5in, textwidth=5.7in, foot=.4in, head=13.6pt}
-\geometry{a4paper, inner=40mm, outer=20mm, top=30mm, bottom=30mm, head=10mm, foot=10mm}
+\geometry{a4paper, inner=40mm, outer=20mm, top=20mm, bottom=20mm, includefoot, includehead}%, includehead, includefoot}%head=10mm, foot=10mm}
 
 
 %% The regs allow single or one-and-a-half line spacing.
@@ -203,12 +203,11 @@
 \null\vspace*{\stretch{1}}
 
 \begin{center}
-\sffamily{
 \large
 \vspace{3em}
 \def\baselinestretch{1.2}
 \vspace{3em}
-{\def\baselinestretch{1.2}\Huge\bf\sffamily \@title \par}
+{\def\baselinestretch{1.2}\Huge\bf \@title \par}
 \vspace{3em}
 {\huge \@author}
 
@@ -223,7 +222,7 @@
 {\Large \@degreemonthyear}
 
 \vfill
-}
+
 \end{center} 
 
 % If there is no \copyrightpage, then \@copyrightpage just puts \vfill,
