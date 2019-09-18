@@ -1,0 +1,90 @@
+\ble[Maximum number of GMRES iterations]\label{lem:probgmres1}
+Let $0 < \eps < 1,$ $\nst:\Omega \rightarrow \LiDRR$ be a random field, and $\no, \,\Dm,$ and $f$ be as in \cref{prob:vgen}, and let $\dofs$ denote the number of degrees of freedom, i.e. the size of the matrices $\Amato$ and $\Amatt$. Then there exists a function $\Gfnname:\RRp\rightarrow [0,\dofs]$ such that
+\beqs
+\GMRES{\eps}{\nso}{\nst} \leq \Gfn{\nso-\nst}.
+\eeqs
+
+Moreover, $\Gfnname$ is given by
+\beq\label{eq:gdef}
+\Gfn{\NLiDRR{\nso-\nst}} =
+\begin{dcases}
+\min\set{N,\frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1} & \tif \alpha < 1\\
+N & \tif \alpha \geq 1,
+\end{dcases}
+\eeq
+
+where $\alpha = \Ct k \NLiDRR{\nso-\nst},$ where $\Ct$ is given by \cref{eq:C2}.
+\ele
+
+See \cref{fig:G} for some examples of the function $\Gfnname$.
+
+The proof of \cref{lem:probgmres1} uses the following corollary \cite[Corollary 3]{SaSc:86} of \cite[Proposition 2]{SaSc:86} on the `lucky breakdown' of GMRES.
+\bco[Guaranteed convergence of GMRES]\label{cor:gmresguaranteed}
+For an $N \times N$ problem GMRES converges in at most $N$ iterations.
+\eco
+
+\bpf[Proof of \cref{lem:probgmres1}]
+For $\alpha \geq 1$, the result is immediate from \cref{cor:gmresguaranteed}. For $\alpha < 1,$ if we insert \cref{eq:gmressin} (the corollary of the Elman estimate) into the Elman estimate \cref{eq:Elman} (with $\Dmat=\Imat,$ so $\NDmat{\cdot} = \Nt{\cdot}$), we obtain, for $m \in \NN$
+\beq\label{eq:gmressub}
+\frac{\Nt{\rvecm}}{\Nt{\rvecz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
+\eeq
+To obtain a bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\rvecz} = 1$) if
+\beq\label{eq:mlower}
+m \geq \frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
+\eeq
+Hence, if $\ms$ is the smallest integer satisfying \cref{eq:mlower}, then
+\beq\label{eq:gmressub2}
+\ms  \leq\frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}+1.
+\eeq
+The result for $\alpha < 1$ therefore follows from \cref{eq:gmressub2,cor:gmresguaranteed}, since GMRES will have converged to within a tolerance $\eps$ within $\ms$ iterations.
+\epf
+
+\bre[Why not use the ceiling in \cref{eq:gmressub2}?]
+One could replace the bound \cref{eq:gmressub2} by the equality
+\beqs
+\ms  =\ceil{\frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}}.
+\eeqs
+However, the change in the definition of $\Gfnname$ \cref{eq:gdef} would mean $\Gfnname$ would only be piecewise continuous. As we must use numerical methods to calculate probabilities associated with $\Gfnname$ (see \cref{thm:probgmres,rem:computable} below), it is convenient if $\Gfnname$ is continuous, and so we use \cref{eq:gmressub2}.
+\ere
+
+\bre[Why the dependence on $\alpha$ in \cref{lem:probgmres1}?]
+The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDRR{\nso-\nst}$ is because \cref{cor:GMRES_intro} only holds if $\alpha < 1$. Therefore if $\alpha \geq 1$ the only result available to us is \cref{cor:gmresguaranteed}.
+\ere
+
+\begin{figure}
+  \centering
+  \input{G.pgf}
+  \caption{Plot of $\Gfnname$ for $\NLiDRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,40,100$ $\Ct = 0.1,$ $N=\ceil{k^3},$ and $\eps = 10^{-5}$.\label{fig:G}}
+    \end{figure}
+
+
+\Cref{lem:probgmres1} gives us the relationship between the (bound on the) number of GMRES iterations required for convergence and $\NLiDRR{\nso-\nst(\omega)}.$ We can use this relationship to infer probabalistic properties of the number of GMRES iterations required for convergence from the probability distribution of $\NLiDRR{\nso-\nst(\omega)}.$ (For the probabalistic notation, we refer the reader to \cref{chap:stochastic}.)
+
+\bth[Probabilistic GMRES convergence]\label{thm:probgmres}
+Let $\nso \in \LiDRR$ be fixed, and let $\nst:\Omega\rightarrow\LiDRR$ be a random field. Let $\eps$ and $\dofs$ be as in \cref{lem:probgmres1}, and let $\Aso = \Ast = I.$ Fix $ R \in \NN.$ Then
+\beq\label{eq:GMRESprob}
+\PP\mleft(\Gfn{\NLiDRR{\nso-\nst}} \leq R\mright)\leq\PP\mleft(\GMRES{\eps}{\nso}{\nst} \leq R\mright) .
+\eeq
+\enth
+
+\bpf[Proof of \cref{thm:probgmres}]
+By \cref{lem:probgmres1} we have the implication: if $\Gfn{\nso-\nst(\omega)} \leq R$, then $\GMRES{\eps}{\nso}{\nst(\omega)} \leq R.$ Therefore we have the set inclusion
+\beqs
+\set{\omega \in \Omega \st \Gfn{\nso-\nst(\omega)} \leq R} \subseteq \set{\omega \in \Omega \st \GMRES{\eps}{\nso}{\nst(\omega)} \leq R}.
+\eeqs
+The result immediately follows.
+\epf
+
+
+
+\bre[The expression \cref{eq:GMRESprob} is computable]\label{rem:computable}
+Because the function $\Gfnname$ is not invertible (as is clear from \cref{fig:G}), one cannot write the left-hand side of \cref{eq:GMRESprob} as
+\beqs
+\PP\mleft(\NLiDRR{\nso-\nst} \leq \GfnnameI\mleft(\mleft[0,R\mright]\mright)\mright).
+\eeqs
+However, one can still compute the set
+\beq\label{eq:inverseset}
+\GfnnameI\mleft(\mleft[0,R\mright]\mright) = \set{\alpha \st \Gfn{\alpha} \in \mleft[0,R\mright]}
+\eeq
+(where $\GfnnameI$ in \cref{eq:inverseset} denotes the pullback), and therefore one can compute the probabilities in \cref{eq:GMRESprob}. The main effort in computing $\GfnI{\mleft[0,R\mright]}$ is finding if there are any values of $\alpha < 1$ such that $\Gfn{\alpha} = R$, since the existence, or not, of such values determines the range of $\alpha$ over which we must integrate. However, these values can be computed numerically using standard root-finding algorithms.
+\ere

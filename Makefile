@@ -3,23 +3,24 @@
 all: thesis.pdf 
 
 
-thesis.pdf: *tex *pgf 
-	pdflatex thesis.tex
+
+thesis.pdf: *tex *pgf *bib
+	pdflatex -shell-escape thesis.tex
 	bibtex thesis.aux # This is a hack
-	pdflatex thesis.tex
-	pdflatex thesis.tex
+	pdflatex -shell-escape thesis.tex
+	pdflatex -shell-escape thesis.tex
 	evince thesis.pdf &
 
 clean:
-	rm *~
 	rm *aux	
-	rm *pdf
 	rm *log
 	rm *bbl
 	rm *blg
 	rm *out
 	rm *toc
+	rm *pdf
 	rm *dvi
+	rm *~
 
 supervisor:
 	# Based on https://tex.stackexchange.com/a/1495
@@ -28,7 +29,7 @@ supervisor:
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}"
 	pdflatex  "\def\supervisorversion{1}\def\revisionversion{1} \input{thesis.tex}" 
 
-	touch thesis.tex # This means next time I try and make the thesis, make runs
+
 
 	evince thesis.pdf &
 
@@ -38,8 +39,6 @@ revision:
 	bibtex thesis.aux
 	pdflatex  "\def\revisionversion{1} \input{thesis.tex}"
 	pdflatex  "\def\revisionversion{1} \input{thesis.tex}" 
-
-	touch thesis.tex # This means next time I try and make the thesis, make runs
 
 	evince thesis.pdf &
 
@@ -75,3 +74,39 @@ interpolation*.pgf: interpolation-figure.py
 
 GMRES.pgf: GMRES.pickle gmres-blow-up-plot.py
 	python gmres-blow-up-plot.py
+
+nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
+	python nbpc-qmc-sequential-table.py
+
+lu-graph.pgf: nbpc-qmc-sequential-table.py
+	python nbpc-qmc-sequential-table.py
+
+nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*/*pickle
+	python nbpc-qmc-parallel-table.py
+
+nbpc-linfinity-plot-*pgf: nbpc-linfinity-plots.py
+	python nbpc-linfinity-plots.py # Takes a couple of minutes.
+
+*error-plot.pgf: calculate-qmc-error.py
+	python calculate-qmc-error.py # Takes ~20 seconds
+
+*C-plot.pgf: calculate-qmc-error.py
+	python calculate-qmc-error.py # Takes ~20 seconds
+
+*alpha-plot.pgf: calculate-qmc-error.py
+	python calculate-qmc-error.py # Takes ~20 seconds
+
+num-qmc-points-table.tex: n_actual.py
+	python n_actual.py
+
+prob-plot-rate-*.pgf: plot-probabalistic-runs.py
+	python plot-probabalistic-runs.py
+
+prob-gmres-theory*pgf: prob-gmres-theory-plots.py
+	python prob-gmres-theory-plots.py
+
+sample-mesh.pgf: sample-grid.py
+	python sample-grid.py
+
+G.pgf: plot-G.py
+	python plot-G.py

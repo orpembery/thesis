@@ -18,6 +18,10 @@
 
 \input{settings}
 
+\chapter*{Summary}
+
+\input{summary}
+
 \tableofcontents
 
 \listoffigures
@@ -27,8 +31,9 @@
 \chapter{Introduction}\label{chap:intro}
 \input{introduction}
 
-\chapter{PDE Theory of the Deterministic Helmholtz Equation and Theory of its Finite-Element Discretisation}\label{chap:background}
+\chapter{PDE theory of the deterministic Helmholtz equation and theory of its finite-element discretisation}\label{chap:background}
 \chaptermark{PDE and FE Theory}
+
 \input{background}
 
 \input{fem-background-material}
@@ -40,8 +45,9 @@
 
 %\input{new-fem-bounds}
 
-\chapter{Well-posedness of Formulations of the Stochastic Helmholtz Equation}\label{chap:stochastic}
+\chapter{Well-posedness of formulations of the stochastic Helmholtz equation}\label{chap:stochastic}
 \chaptermark{The Stochastic Helmholtz Equation}
+
 \input{new-introduction} 
 
 \input{helmholtz-results}
@@ -56,28 +62,20 @@
 
 \input{proofs-helmholtz}
 
-
-
-
-\chapter{Nearby Preconditioning for the Helmholtz Equation}\label{chap:nbpc}
+\chapter{Nearby preconditioning for the Helmholtz equation}\label{chap:nbpc}
 \chaptermark{Nearby Preconditioning}
 \input{nbpc}
 
-\chapter{Multi-Level Monte Carlo for the Helmholtz Equation}\label{chap:mlmc}
+\chapter{Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation}\label{chap:mlmc}
 \chaptermark{Multi-Level Monte Carlo}
 
-\section[MLMC Complexity Theorem for the Helmholtz Equation]{The Multi-Level Monte Carlo Complexity Theorem for the Helmholtz equation}\label{sec:comp}
+\input{mlmc}
 
-\input{complexity-theorem}
 
-\subsection{The lemma in generality}
-
-\input{lemma-general}
+%% \chapter{Conclusion and future work}\label{sec:future}
+%% \input{conclusion}
 
 \appendix
-
-%\chapter{A Simple Example of an Oscillatory Bayesian Posterior}\label{app:osc}
-%\input{osc-post}
 
 \chapter{Failure of Fredholm theory for the stochastic variational formulation of Helmholtz problems}\label{sec:federico}
 \chaptermark{Failure of Fredholm Theory for stochastic Helmholtz problems}
@@ -90,6 +88,18 @@
 \chapter{Measurability of series expansions (used in \cref{sec:generating})}\label{app:meas}
 \chaptermark{Measurability of series expansions}
 \input{measurable-sums}
+
+\chapter{Error estimators for complex random variables}\label{app:complexerror}
+\input{complex-error-estimators}
+
+\chapter{Numerical investigation of QMC convergence for the Helmholtz equation}\label{app:hhqmcconv}
+\input{qmc-convergence-plots}
+
+\chapter{Additional probablistic results for nearby preconditioning}\label{app:probnbpc}
+\input{prob-nbpc}
+
+\chapter{Computational set-up}\label{app:compsetup}
+\input{comp-setup}
 
 \bibliographystyle{plain}
 \bibliography{biblio_thesis}
