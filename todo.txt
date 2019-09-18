@@ -15,7 +15,8 @@
  * Font sizes
  * Section numbering
  * really big paragraph spaces
- * hyperref has stopped working
+ * Split lines in stochastic chapter
+ * Overrunning lines - use draft mode
 
 Proof reading:
 Summary - y
