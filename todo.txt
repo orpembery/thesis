@@ -2,7 +2,6 @@
 - Implement Ivan's comments on Chapter 5
 - Implement Euan's comments on Chapter 5
 - Implement Euan's comments on Chapter 3
-- Implement Euan's comments on Summary
 - Get and Implement Ivan's comments on summary?
 - OPTODOS
 - Make graphs better
@@ -11,7 +10,7 @@
 - spell check?
 
 Proof reading:
-Summary -
+Summary - y
 Chap 1 - y
 Chap 2 - 
 Chap 3 - y
