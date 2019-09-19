@@ -35,10 +35,6 @@
 % * Required the entry of the Faculty/School (with \faculty) so that this may be included in the new declaration.
 % * Changed the signature line to reflect that this is now the signature of a member of the faculty, not the author.
 
-% Edited (somehow) by Jack Betteridge in 2019
-
-% Lots of old stuff cleared out by Owen Pembery (also in 2019), also hacked to work with the book document class
-
 %% Announce ourselves
 
 \ProvidesPackage{jackbaththesis}
@@ -64,20 +60,37 @@
 }
 
 
-
+%% -- This is how we used to set the page layout. Replaced by the geometry
+%% -- package below.
 %% Page layout: the regs ask for a margin of at least 40mm on the
 %% binding edge (left hand margin) and at least 15mm on all other
 %% margins.  The following does the job
+%\oddsidemargin 15mm
+%\evensidemargin 0pt
+%\textwidth 5.7in
+%\textheight 234mm
+%\topmargin 0in
+%\headheight 0in                 % no header
+%\textheight 8.5in                       
+%\headsep \headheight
+%\footskip .4in
+
 
 %% Set page layout with the (more flexible) geometry package. This also
-%% accommodates two-sided printing.
+%% accommodates two-sided printing. I have used the same height and width
+%% as the original package authors.
+%%
+%% For me this produces the following margins:
+%% inner=40mm, outer=26mm, top=21mm, bottom=39mm.
+%% - ARW.
 
 %% If you want to use the fancyhdr package, include
 % \geometry{head=x}
 %% in your premable, with x >= 13.6pt.
 
 \RequirePackage{geometry}
-\geometry{a4paper, inner=40mm, outer=20mm, top=20mm, bottom=20mm, includefoot, includehead}%, includehead, includefoot}%head=10mm, foot=10mm}
+%\geometry{a4paper, inner=40mm, outer=20mm, textheight=8.5in, textwidth=5.7in, foot=.4in, head=13.6pt}
+\geometry{a4paper, inner=40mm, outer=20mm, top=20mm, bottom=20mm, includefoot, includehead}
 
 
 %% The regs allow single or one-and-a-half line spacing.
@@ -112,10 +125,7 @@
 % input faculty/school name
 \def\faculty#1{\gdef\@faculty{#1}}
 
-\def\@standardcopyright{Attention is drawn to the fact that copyright of this thesis/portfolio rests with the author and copyright of any previously published materials included may rest with third parties. A copy of this thesis/portfolio has been supplied on condition that anyone who consults it understands that they must not copy it or use material from it except as licenced, permitted by law or with the consent of the author or other copyright owners, as applicable.}
-
-\def\@authorship{I am the author of this thesis, and the work described therein was carried out by
-  myself personally, with the exception of \cref{chap:nbpc} where 20\% of the work was carried out by Dr. Euan Spence; who proved \cref{cor:1} (generalising my proof of \cref{cor:1a}), \cref{thm:2}, and \cref{lem:sharp}.}
+\def\@standardcopyright{Attention is drawn to the fact that copyright of this thesis/portfolio rests with the author and copyright of any previously published materials included may rest with third  parties. A copy of this thesis/portfolio has been supplied on condition that anyone who consults it understands that they must not copy it or use material from it except as licenced, permitted by law or with the consent of the author or other copyright owners, as applicable.}
 
 
 %% New statement of restrictions requires a space for the date from which the thesis may be made available.
@@ -123,7 +133,19 @@
 %\def\@restriction{This thesis may be made available for consultation within the University Library and may be photocopied 
 %or lent to other libraries for the purposes of consultation with effect from\dotfill\break \hbox{}\dotfill}
 
-% I have no idea what this next part does. I presume it's something to do with the copyright page - ORP
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Old statement of restrictions now redundant - PJH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \def\norestrictions{\gdef\@restriction{This thesis may be made available 
+%% for consultation within the University Library and may be photocopied 
+%% or lent to other libraries for the purposes of consultation.}}
+%% 
+%% \def\restrictions#1{\gdef\@restriction{This thesis may not be consulted,
+%% photocopied or lent to other libraries without the permission of the
+%% author for #1 years from the date of acceptance of the thesis.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \gdef\@iscopyrightpage{0}
 \gdef\@copyrightpage{\vfill}
@@ -160,12 +182,11 @@
 
 \if@twoside
   % The title page and the copyright page (if applicable) should be odd
-% pages outside the page numbering system. This does the trick.
-% I've hacked at this to make it work when you also insert a declaration of authorship - ORP
+  % pages outside the page numbering system. This does the trick.
   \if\@iscopyrightpage 0
-    \setcounter{page}{-3}
+    \setcounter{page}{-1}
   \else
-    \setcounter{page}{-5}
+    \setcounter{page}{-3}
   \fi
 \else
   \if\@iscopyrightpage 0
@@ -182,6 +203,7 @@
 \null\vspace*{\stretch{1}}
 
 \begin{center}
+%\sffamily{
 \large
 \vspace{3em}
 \def\baselinestretch{1.2}
@@ -201,7 +223,7 @@
 {\Large \@degreemonthyear}
 
 \vfill
-
+%}
 \end{center} 
 
 % If there is no \copyrightpage, then \@copyrightpage just puts \vfill,
@@ -220,7 +242,7 @@
 
 %% The invocation of \signature previously included the name of the signatory, i.e the author, as the second parameter.  The signatory is now a member of the faculty and hence their name may not be known in advance.  As such, \signature's second argument is now left blank. - PJH, 2013
 
-%
+%\signature{Signed on behalf of the \@faculty}{}
 %\@copyrightpageafter
 
 %\end{center}
@@ -244,22 +266,24 @@
 \noindent
 \@standardcopyright
 
-\newpage
-
-\thispagestyle{empty}
-
-\vfill
 \begin{center}
 
-\bf Declaration of authorship
+\bf LICENSE
 
 \end{center}
 \noindent
-\@authorship
+This thesis is licensed under a \href{https://creativecommons.org/licenses/by/4.0/legalcode}{Creative Commons Attribution 4.0 International License} (CC BY 4.0).
 
-\
 
-\signature{Owen Rhys Pembery}{}
+%~ \begin{center}
+
+%~ \bf INCLUSION OF PUBLISHED MATERIAL
+
+%~ \end{center}
+
+%~ \noindent
+%~ This thesis includes material from the following published articles:\\
+
 }
 
 
@@ -282,6 +306,7 @@
 
 \def\abstract{%
   \cleardoublepage[empty]%
+%  \null \vfil
   \thispagestyle{plain}
   \begin{center}%
     \Large\bfseries \abstractname%

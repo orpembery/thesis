@@ -4,7 +4,7 @@ all: thesis.pdf
 
 
 
-thesis.pdf: *tex *pgf *bib
+thesis.pdf: *tex *pgf *bib *sty
 	pdflatex -shell-escape thesis.tex
 	bibtex thesis.aux # This is a hack
 	pdflatex -shell-escape thesis.tex

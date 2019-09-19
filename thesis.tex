@@ -1,4 +1,6 @@
-\documentclass{report}
+\documentclass[11pt]{book}
+
+\listfiles
 
 \input{versions}
 
@@ -8,28 +10,34 @@
 
 \title{The Helmholtz Equation in Heterogeneous and Random Media: Analysis and Numerics}
 \author{Owen Rhys Pembery}
-%\degree{Doctor of Philosophy}
-%\department{Department of Mathematical Sciences}
-%\degreemonthyear{September 2019}
+\degree{Doctor of Philosophy}
+\department{Department of Mathematical Sciences}
+\degreemonthyear{September 2019}
 
 \begin{document}
 
-\maketitle
-
 \input{settings}
 
-\chapter*{Summary}
+\maketitle
+
+\makeaftertitle
 
 \input{summary}
 
+%\section*{Acknowledgements}
+
 \tableofcontents
 
-
+\listoffigures
+\listoftables
+\listofalgorithms
 
 \chapter{Introduction}\label{chap:intro}
 \input{introduction}
 
 \chapter{PDE theory of the deterministic Helmholtz equation and theory of its finite-element discretisation}\label{chap:background}
+\chaptermark{PDE and FE Theory}
+
 \input{background}
 
 \input{fem-background-material}
@@ -42,6 +50,8 @@
 %\input{new-fem-bounds}
 
 \chapter{Well-posedness of formulations of the stochastic Helmholtz equation}\label{chap:stochastic}
+\chaptermark{The Stochastic Helmholtz Equation}
+
 \input{new-introduction} 
 
 \input{helmholtz-results}
@@ -56,13 +66,12 @@
 
 \input{proofs-helmholtz}
 
-
-
-
 \chapter{Nearby preconditioning for the Helmholtz equation}\label{chap:nbpc}
+\chaptermark{Nearby Preconditioning}
 \input{nbpc}
 
 \chapter{Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation}\label{chap:mlmc}
+\chaptermark{Multi-Level Monte Carlo}
 
 \input{mlmc}
 
@@ -72,16 +81,16 @@
 
 \appendix
 
-%% \chapter{A simple example of an oscillatory Bayesian posterior}\label{app:osc}
-%% \input{osc-post}
-
 \chapter{Failure of Fredholm theory for the stochastic variational formulation of Helmholtz problems}\label{sec:federico}
+\chaptermark{Failure of Fredholm Theory for stochastic Helmholtz problems}
 \input{federico} 	
 
 \chapter{Recap of basic material on measure theory and Bochner spaces}\label{app:mtBs}
+\chaptermark{Recap of measure theory and Bochner spaces}
 \input{review-material}
 
 \chapter{Measurability of series expansions (used in \cref{sec:generating})}\label{app:meas}
+\chaptermark{Measurability of series expansions}
 \input{measurable-sums}
 
 \chapter{Error estimators for complex random variables}\label{app:complexerror}

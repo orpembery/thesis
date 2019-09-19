@@ -1,4 +1,4 @@
-\section{Theory of the $h$-finite-element discretisation of the Helmholtz equation}\label{sec:helmfe}
+\section[FE Theory for the Helmholtz Equation]{Theory of the $h$-finite-element discretisation of the Helmholtz equation}\label{sec:helmfe}
 
 We now shift our attention to the numerical analysis of the Helmholtz equation in heterogeneous media; in particular, we  study the conforming finite-element method for the Helmholtz equation. We first state the variational formulations of the Helmholtz equation, define the finite element method, and recall results on the approximation properties of finite-element spaces. we then prove our main result, error bounds for the finite-element method for the heterogeneous Helmholtz equation, where the bounds hold for arbitrary (fixed) degree finite elements, and are explicit in $A$ and $n$ in a sense made clear in \cref{sec:fem} below.
 
@@ -1200,7 +1200,7 @@ When using the elliptic projection in such a error-splitting argument, there are
 %% To show that $\uh$ exists, as in the proof of \cref{lem:ellprojbounds} we can use the error bound \eqref{eq:hherrltbound} to show that $\uh$ is unique, and we can then use the fact that $\Vhp$ is finite-dimensional to show that $\uh$ exists.
 %% \epf
 
-\section{New finite-element-error bounds for the heterogeneous Helmholtz equation}\label{sec:fem}
+\section[FE Bounds for the Heterogeneous Helmholtz Equation]{New finite-element-error bounds for the heterogeneous Helmholtz equation}\label{sec:fem}
 
 We now prove our new error bounds for higher-order finite-element approximations of the solution of the Helmholtz equation in heterogeneous media--- we show that (for nontrapping media) the finite-element method applied to \cref{prob:tedp} is $\hka{(2p+1)/(2p)}$-data-accurate, with constants depending on the medium. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the main differences that:
 \ben
