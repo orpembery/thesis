@@ -58,7 +58,7 @@ i.e., a single realisation of \eqref{eq:introhh}, numerically; we now provide so
         \begin{figure}[h]
       \centering
       \input{GMRES.pgf}
-      \caption{Number of unpreconditioned GMRES iterations for the homogeneous Helmholtz equation on the unit square, with zero impedance boundary condition and $f=1$.\label{fig:GMRES}}
+      \caption[Number of unpreconditioned GMRES iterations for the homogeneous Helmholtz equation]{Number of unpreconditioned GMRES iterations for the homogeneous Helmholtz equation on the unit square, with zero impedance boundary condition and $f=1$.\label{fig:GMRES}}
       \end{figure}
     
     For \cref{it:large}, the matrices $\Amat$ are large because the number of degrees of freedom must increase as $k$ increases. One can see this from interpolating the solution of \eqref{eq:introdet}; solutions $u$ of \eqref{eq:introdet} oscillate on a scale $1/k$, and therefore the number of degrees of freedom (interpolation points) must increase like $k^d$ (where $d$ is the spatial dimension) in order to keep the interpolation error for $u$ bounded. This need for increasing degrees of freedom with $k$ is illustrated in \cref{fig:introinterp}, where we see the interpolation error grows if the number of degrees of freedom is not increased with $k$. In practice one typically chooses to use 6--10 discretisation points in each dimension for each wavelength in the domain---this choice  empirically keeps the interpolation error at a reasonable size, but means the linear systems \eqref{eq:intromat} will have $k^d$ unknowns.
@@ -71,7 +71,7 @@ i.e., a single realisation of \eqref{eq:introhh}, numerically; we now provide so
     \begin{subfigure}{0.45\textwidth}
 \input{interpolation-right.pgf}
     \end{subfigure}
-\caption{\label{fig:introinterp} Figure showing increasing interpolation error if the mesh is not refined with increasing frequency. The left-hand plot show the interpolant of $\sin(10x)$ on a mesh with 10 points per wavelength. The right-hand plot shows the interpolant of $\sin(50x)$ on the same mesh.}
+\caption[The increasing interpolation error if the mesh is not refined with increasing frequency.]{\label{fig:introinterp} The increasing interpolation error if the mesh is not refined with increasing frequency. The left-hand plot show the interpolant of $\sin(10x)$ on a mesh with 10 points per wavelength. The right-hand plot shows the interpolant of $\sin(50x)$ on the same mesh.}
 \end{figure}
 \optodo{Figure font sizes}
 However, discretising \eqref{eq:introdet} with a fixed number of points per wavelength is \emph{not} enough to keep the error in the finite-element solution of \eqref{eq:introdet} bounded as $k\rightarrow \infty$ when using fixed-order methods. This is because standard-finite-element methods applied to the Helmholtz equation suffer from pollution, where the numerically calculated wave has a different wavelength to the true solution $u$, and so `drifts' away from $u$; moreover, this error increases as $k$ increases. See \cref{fig:intropoll} for an illustration of this phenomenon, and \cref{sec:helmfedisc} for an extended discussion how this phenomenon is reflected in the accuracy of finite-element methods for the Helmholtz equation.
@@ -84,7 +84,7 @@ However, discretising \eqref{eq:introdet} with a fixed number of points per wave
     \begin{subfigure}{0.45\textwidth}
 \input{pollution-right.pgf}
     \end{subfigure}
-\caption{\label{fig:intropoll} Figure showing the pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. The solid line denotes the true solution, the dashed line denotes the finite-element approximation with 10 points per wavelength.}
+\caption[The pollution effect for the 1-d Helmholtz equation.]{\label{fig:intropoll} The pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. The solid line denotes the true solution, the dashed line denotes the finite-element approximation with 10 points per wavelength.}
 \end{figure}\optodo{Figure out how to make $-1$ yticks work}\optodo{Remove boxes on this and other plots}
 
 
@@ -104,7 +104,7 @@ $100$&$\approx 2.5\times 10^4$&$\approx 4 \times 10^6$&$10^6$&$10^9$&$10^8$&$10^
 $1000$&$\approx 2.5\times 10^6$&$\approx 4 \times 10^9$&$10^9$&$\approx 3 \times 10^{13}$&$10^{12}$&$10^{18}$\\
 \bottomrule
 \end{tabular}
-\caption{\label{tab:introlinsys}The number of degrees of freedom that would be required to obtain various properties of finite-dimensional approximations of the solution $u$ of \eqref{eq:introdet}, for various values of $k$, in 2-D and 3-D. All errors etc. would be measured in the weighted $H^1$ norm $\mleft(\SN{\cdot}_{H^1}^2 + k^2 \N{\cdot}_{L^2}^2\mright)^{1/2}.$ See \cref{sec:helmfe} for discussion of why one chooses the mesh conditions used here.}
+\caption[The number of degrees of freedom required to obtain various properties of finite-element approximations of the solution of the Helmholtz equation.]{\label{tab:introlinsys}The number of degrees of freedom that would be required to obtain various properties of finite-element approximations of the solution $u$ of \eqref{eq:introdet}, for various values of $k$, in 2-D and 3-D. All errors etc. would be measured in the weighted $H^1$ norm $\mleft(\SN{\cdot}_{H^1}^2 + k^2 \N{\cdot}_{L^2}^2\mright)^{1/2}.$ See \cref{sec:helmfe} for discussion of why one chooses the mesh conditions used here.}
 \end{table}
 
 
