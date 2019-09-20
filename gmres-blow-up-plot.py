@@ -18,6 +18,11 @@ GMRES_its = dumped[1]
 
 plt.plot(k_list,GMRES_its,'s--k')
 
+ax = plt.gca()
+
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+
 plt.xlabel('$k$')
 
 plt.ylabel('Number of GMRES iterations')

@@ -85,7 +85,7 @@ However, discretising \eqref{eq:introdet} with a fixed number of points per wave
 \input{pollution-right.pgf}
     \end{subfigure}
 \caption[The pollution effect for the 1-d Helmholtz equation.]{\label{fig:intropoll} The pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. The solid line denotes the true solution, the dashed line denotes the finite-element approximation with 10 points per wavelength.}
-\end{figure}\optodo{Figure out how to make $-1$ yticks work}\optodo{Remove boxes on this and other plots}
+\end{figure}
 
 
 In summary, numerically solving the Helmholtz equation gives rise to large (size at least $ \sim k^d$) linear systems, and the size of these linear systems increases as $k$ increases. The table \cref{tab:introlinsys} presents the sizes of the linear systems one obtains for different values of $k$, depending on the spatial dimension, and the properties of the finite-element solution that one requires.

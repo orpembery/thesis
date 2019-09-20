@@ -55,6 +55,11 @@ for beta in betas:
     fig = plt.figure()
 
     fig.set_size_inches((6,2.5))
+
+    ax = fig.gca()
+        
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
     
     filename = 'prob-plot-rate-'+str(beta)
 

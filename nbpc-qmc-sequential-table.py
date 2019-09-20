@@ -75,6 +75,10 @@ plt.plot(k_list,df_master['lu_as_percentage'],'ok',label='_irrelvanet')
 
 plt.plot(k_list,fit_0 + fit_1*np.array(k_list),'--k',label=r'$'+str(fit_0)[:5]+' + '+str(fit_1)[:4]+r'k$')
 
+ax = plt.gca()
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+
 plt.xlabel(r'$k$')
 
 plt.legend()

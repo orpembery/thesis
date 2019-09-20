@@ -99,6 +99,9 @@ def make_plot(locs,filename):
     ax = fig.gca()
     
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
         
     plt.legend(loc='upper left')
 

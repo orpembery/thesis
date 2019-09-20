@@ -157,6 +157,10 @@ for ii_qoi in range(num_qois):
         qoi_C_alpha[1].append(alpha)
 
         fig = plt.figure()
+
+        ax = fig.gca()
+        ax.spines['right'].set_color('none')
+        ax.spines['top'].set_color('none')
         
         # Do a loglog plot of the error for each k and each qoi
         loglog = plt.loglog(N_list,error_list,'ok')
@@ -177,6 +181,10 @@ for ii_qoi in range(num_qois):
 
         plt.loglog(x_for_fit,y_for_fit,'--',color='k',label= r'$' + str(C)[:num_sig_fig] + r'N_{\mathrm{QMC}}^{-' + str(alpha)[:num_sig_fig] + r'}$')
 
+        ax = plt.gca()
+        ax.spines['right'].set_color('none')
+        ax.spines['top'].set_color('none')
+
         plt.xlabel(r'$N_\mathrm{QMC}$')
 
         plt.ylabel('QMC Error')
@@ -194,6 +202,11 @@ for ii_qoi in range(num_qois):
     # Now investigate dependence of C and alpha on k (for each qoi)
 
     fig = plt.figure()
+
+    ax = plt.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
     
     plt.semilogx(k_list,qoi_C_alpha[0],'ko')
 
@@ -237,6 +250,11 @@ for ii_qoi in range(num_qois):
 
 
     fig = plt.figure()
+
+    ax = plt.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
     
     plt.semilogx(k_list,alpha_logk_best_fit,'k--',label=r'$\alpha = '+str(alpha_0)[:num_sig_fig]+r' - '+str(alpha_1)[:num_sig_fig]+r'\mathrm{ln}(k)$',basex=np.e)
 

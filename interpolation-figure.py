@@ -50,13 +50,18 @@ for ii_k in range(2):
 
     fig = plt.figure()
 
+    ax = fig.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    # Based on plotting code in https://github.com/rougier/ten-rules/blob/master/figure-4-right.py
+
     plt.plot(coord_fine.dat.data_ro,np.sin(k*coord_fine.dat.data_ro),'0.7')
 
     plt.plot(coord_interpolate.dat.data_ro,u_interpolate.dat.data_ro,'k--')
 
     fig.set_size_inches((3,3))
 
-    plt.yticks([-1,0,1])#,['$-1$','$0$','$1$'])
+    plt.yticks([-1,0,1])
 
     plt.xticks([0,0.5,1])
 

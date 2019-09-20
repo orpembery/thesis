@@ -8,4 +8,13 @@ mesh = fd.UnitSquareMesh(10,10)
 
 fd.plot(mesh,colors='k')
 
+ax = plt.gca()
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['left'].set_color('none')
+ax.spines['bottom'].set_color('none')
+
+plt.xticks([])
+plt.yticks([])
+
 plt.savefig('sample-mesh.pgf')

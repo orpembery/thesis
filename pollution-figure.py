@@ -70,6 +70,10 @@ for ii_plot in range(2):
     filename = filenames[ii_plot]
 
     fig = plt.figure()
+
+    ax = fig.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
     
     plot1 = plt.plot(coords_fine.dat.data_ro,sin_fn,'-k',label='True solution')
 

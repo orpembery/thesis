@@ -9,7 +9,7 @@
 - Formatting:
  * Make graphs better
  * List of ... titles (incl. widetilde error)
- * Page titles - far enough down?
+ * Page titles - far enough down? & ?????
  * fncychap?
  * Font sizes
  * really big paragraph spaces

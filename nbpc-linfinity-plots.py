@@ -89,6 +89,10 @@ def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename,things_for_plotting)
         print(y_data)
                 
         plt.plot(x_data,y_data,styles[ii]+'--',label=label,c=colours[ii])
+
+        ax = fig.gca()
+        ax.spines['right'].set_color('none')
+        ax.spines['top'].set_color('none')
                      
     plt.xlabel(r'$k$')
     plt.ylabel('Maximum Number of GMRES Iterations')

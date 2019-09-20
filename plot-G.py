@@ -34,6 +34,10 @@ for ii_k in range(len(k_list)):
 
     plt.semilogy(diffs,Gs,'k'+lines[ii_k],label=r'$k = '+str(int(k))+r'$')
 
+    ax = plt.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    
     plt.xlabel(r'$\|n_{1} - n_{2}\|_{L^{\infty}\mleft(D_{R},\mathbb{R}\mright)}$')
 
     plt.ylabel(r'$G_{\varepsilon}$')
