@@ -198,7 +198,7 @@ It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a s
 \ere
 
 
-\section{Numerical experiments investigating the sharpness of \cref{thm:1} and \cref{cor:1}}\label{sec:num}
+\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of \cref{thm:1,cor:1}}\label{sec:num}
 
 The numerical experiments in this section seek to verify the analogues of \cref{thm:1,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
 \ben
@@ -259,7 +259,7 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
 
-\section{Proofs of \cref{cor:1,cor:1a,thm:2,lem:sharp}}\label{sec:3}
+\section[Proofs of Theorems \MakeLowercase{\ref{cor:1}, \ref{cor:1a}, and \ref{thm:2}} and Lemma \MakeLowercase{\ref{lem:sharp}}]{Proofs of \cref{cor:1,cor:1a,thm:2,lem:sharp}}\label{sec:3}
 
 We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} above.
 
@@ -1024,7 +1024,7 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 
 %\section{Proof of \cref{lem:2}}
 
-\section{Extension of nearby preconditioning results to weaker norms}\label{sec:weaknorm}
+\section[Extension to weaker norms]{Extension of nearby preconditioning results to weaker norms}\label{sec:weaknorm}
 Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the maximum norm of the difference between $\nso$ and $\nst$. However, this result does not say anything if $\nso-\nst$ is merely small in some integral norm. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
 \beq\label{eq:noweak}
 \nso(\bx) =
@@ -1248,7 +1248,7 @@ If we compare our numerical results with the theory results in \cref{cor:1aalt},
 
 
 
-\section{Applying nearby preconditioning to Quasi-Monte-Carlo methods for the Helmholtz equation}\label{sec:nbpcqmc}
+\section[Applying nearby preconditioning to QMC]{Applying nearby preconditioning to Quasi-Monte-Carlo methods for the Helmholtz equation}\label{sec:nbpcqmc}
 
 We now apply nearby preconditioning in the implementation of a Quasi-Monte-Carlo (QMC) method for the Helmholtz equation. We begin with a brief description of QMC methods, before detailing two ways in which we apply nearby preconditioning to these methods. Finally, we give computational results illustrating this.
 
