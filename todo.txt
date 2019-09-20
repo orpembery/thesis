@@ -1,10 +1,10 @@
 - Implement Euan's comments on 2nd part of Chap 2
 - Implement Ivan's comments on Chapter 5
-- Implement Euan's comments on Chapter 5
 - Get and Implement Ivan's comments on summary?
 - OPTODOS
 - Proof read the entire thesis, checking mainly for notational slip-ups and nonsensical English
 - spell check?
+- Get Euan's feedback on declaration of authorship
 
 - Formatting:
  * Make graphs better
@@ -15,6 +15,7 @@
  * really big paragraph spaces
  * Split lines in stochastic chapter
  * Overrunning lines - use draft mode
+ * all tables overrunning - horizontal pages may fix some
 
 Proof reading:
 Summary - y

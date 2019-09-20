@@ -1,5 +1,8 @@
 from matplotlib import pyplot as plt
 import pickle
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
 filename = 'GMRES'
 

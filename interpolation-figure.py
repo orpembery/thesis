@@ -1,8 +1,10 @@
 from helmholtz_firedrake.utils import h_to_num_cells
 import firedrake as fd
 from matplotlib import pyplot as plt
+from matplotlib import rc
 import numpy as np
 
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
 k_list = [10.0,50.0]
 
@@ -54,11 +56,11 @@ for ii_k in range(2):
 
     fig.set_size_inches((3,3))
 
-    plt.yticks([-1,0,1])
+    plt.yticks([-1,0,1])#,['$-1$','$0$','$1$'])
 
     plt.xticks([0,0.5,1])
 
     filename = filenames[ii_k]
-
+    
     plt.savefig(filename+'.pgf')
 

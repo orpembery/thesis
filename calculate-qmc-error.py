@@ -8,6 +8,9 @@ from glob import glob
 from matplotlib import pyplot as plt
 from matplotlib.ticker import LogLocator
 import pandas as pd
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
 # This script plots (and calculates) how the quasi-monte carlo error depends on the wavenumber k.
 

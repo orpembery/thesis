@@ -6,6 +6,10 @@ import fileinput
 from matplotlib import pyplot as plt
 from running_helmholtz_monte_carlo.nbpc_percentage_fit import make_fits
 import numpy as np
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 #import pdb; pdb.set_trace()
 
