@@ -5,9 +5,22 @@
 - Proof read the entire thesis, checking mainly for notational slip-ups and nonsensical English
 - spell check?
 - Get Euan's feedback on declaration of authorship
+- Check Bibtex/latex errors
+- See Evans and Gariepy from Euan and Popov and Vodev 99b
+- Euan MLMC edit
+- Check with Ivan about Duff, Erisman, and Reid reference
+- Find other LU applying cost references and add in to start of nbpc
+- Proofs on pages
+- Get Ghanem and SPanos from Ivan, and check reference for PC
+- (Time depending) DOIs in references
+- Find reference for Laplace in radial coords - Evans?
+- Why don't we get three separate cases in MLMC - c.f. Matt?
+- References for complex error estimators,  incl. Bessel's correction
+- Redo Bessel Correction proof
 
 - Formatting:
- * Make graphs better
+ * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
+ * Rotate plot labels
  * List of ... titles (incl. widetilde error)
  * Page titles - far enough down? & ?????
  * fncychap?
@@ -24,3 +37,5 @@ Chap 2 -
 Chap 3 - y
 Chap 4 - 
 Chap 5 - 
+
+App A

@@ -69,7 +69,7 @@ The remedy proposed for this sample-dependence by Graham, Parkinson, and Scheich
 %% \ben
 %% \item In \cite{ClGiScTe:11} it is assumed that the convergence of the approximate QoIs $\Qhl$, and the cost of producing samples of these QoIs, only depends on the parameter $\hl$ (where, in stochastic PDE applications, $\hl$ is the mesh size for the finite-element discretisation). However, in this work, we assume that the convergence and cost also depend on another parameter $k,$ and we make the dependence of the final computational cost of the MLMC method explicit in $k.$ In our application to the Helmholtz equation, $k$ will be the wavenumber of the problem.
 %% \item In \cite{ClGiScTe:11} it is assumed that the approximating QoIS $\Qhl$ exist for all levels $l$. This corresponds to the finite-element solution of the PDE under investigation existing for all mesh sizes $h.$ Whilst this assumption is true for the stationary diffusion equation studied in \cite{ClGiScTe:11}, it is \emph{not} true for the Helmholtz equation that we study here. Therefore we make the additional assumption (\cref{ass:qoie} below) that $\Qhl$ only exists for sufficiently small $\hl.$
-%% \item In \cite{ClGiScTe:11} the error $\eps$ incurred in the MLMC method is equally divided between the bias and the variance of the MLMC method (see the Proof of \cref{thm:mlmccomp3}). However, in this work we assume that there is a quantity $\splitting \in (0,1)$ (see \cref{ass:splittingbounds}), possibly dependent on $k$ that allows a vairable `split' of the error between the bias and the variance. Our main use of this is in\optodo{Insert refs once it's done}, where we use this variable splitting to compensate for the fact that to bound the (squared) bias error by $\eps^2/2$ would mean we take $\hL \lesssim k^{-1},$ but to ensure the finite-element solution $\uh$ exists, we must take $\hL \lesssim k^{-3/2}.$
+%% \item In \cite{ClGiScTe:11} the error $\eps$ incurred in the MLMC method is equally divided between the bias and the variance of the MLMC method (see the Proof of \cref{thm:mlmccomp3}). However, in this work we assume that there is a quantity $\splitting \in (0,1)$ (see \cref{ass:splittingbounds}), possibly dependent on $k$ that allows a vairable `split' of the error between the bias and the variance. Our main use of this is in\opstodo{Insert refs once it's done}, where we use this variable splitting to compensate for the fact that to bound the (squared) bias error by $\eps^2/2$ would mean we take $\hL \lesssim k^{-1},$ but to ensure the finite-element solution $\uh$ exists, we must take $\hL \lesssim k^{-3/2}.$
 %% \een
 %% We now proceed to prove our abstract MLMC convergence result, comtaining the generalisations metioned above.
 
@@ -570,7 +570,7 @@ To simplify the notation in the other two cases, we let
 \beqs
 \csumdelta \de \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}.
 \eeqs
-\optodo{Why don't we get three separate cases}
+
 If $\gamma > \beta$ then using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, but $\delta = (\gamma-\beta)/2$, the first term in \eqref{eq:complexitymidway} becomes
 \beq
 \eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
@@ -740,4 +740,4 @@ One can see this offsetting in the proof; the terms $\hz^{\beta-\gamma}$ and $\h
 
 It remains to be seen whether this coarse-mesh independence is seen in numerical computations. Such an investigation could be the subject of future work on Multi-Level Monte-Carlo methods for the Helmholtz equation.
 \ere
-\optodo{Make sure bibfile displays DOIs}
+

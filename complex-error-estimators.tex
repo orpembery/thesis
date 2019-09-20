@@ -1,6 +1,5 @@
 In this \lcnamecref{app:complexerror}, we recall the definition of some elementary properties of \emph{complex-valued} random variables, properties that are slightly different to their analogues for real-valued random variables. We then prove that the standard unbiased estimator of the variance (with Bessel's correction) of a complex-valued random variable  is indeed an unbiased estimator of the variance.
-\optodo{Find refs for everything here, and say the proof is standard, similar to the real case - find a ref.}
-\ednote{Euan, I'll find references for everything in here (and say the proof of \cref{lem:unbiased} is similar to the real case)}
+
 \bde[Complex-valued random variable]
 If $\OFP$ is a probability space, then a \defn{complex-valued} random variable is a measurable map $Y:\Omega\rightarrow \CC,$ where $\CC$ is equipped with the Borel $\sigma$-algebra.
 \ede
@@ -58,7 +57,7 @@ Let $Y$ be a complex-valued random variable, and $\Yhat$ the Monte-Carlo estimat
 \eeq
 \ede
 
-The factor $1/(N-1)$ in \cref{eq:unbiased} is known as \defn{Bessel's correction}\optodo{Ref}, and ensures the estimator is unbiased, as we now prove.
+The factor $1/(N-1)$ in \cref{eq:unbiased} is known as \defn{Bessel's correction}, and ensures the estimator is unbiased, as we now prove.
 
 \ble[The unbiased estimator is unbiased]\label{lem:unbiased}
 Let $Y$ be a complex-valued random variable and  $\Yhat$ the Monte-Carlo estimator of $\EXP{Y}$. Then $\unbiased{\Yhat}{N}$ is unbiased, i.e.,
@@ -66,7 +65,7 @@ Let $Y$ be a complex-valued random variable and  $\Yhat$ the Monte-Carlo estimat
 \EXP{\unbiased{\Yhat}{N}} = \VAR{\Yhat}.
 \eeqs
 \ele
-\optodo{Consider coming back to the proof and rewriting it, as it's currently directly from Wikipedia.}
+
 \bpf[Proof of \cref{lem:unbiased}]
 We introduce the notation
 \beqs

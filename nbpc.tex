@@ -12,7 +12,7 @@ as defined in \cref{chap:stochastic}. If $Q(u)$ is some quantity of interest of 
 where the $\omegasl$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega^l,\cdot)$ and $n(\omega^l,\cdot)$.
 Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above. In particular, direct solvers involving the LU decomposition of the linear system have a computational cost of the order $\cO\mleft(N^{3/2}\mright)$ in 2-d and $\cO\mleft(N^2\mright)$ in 3-d.
 
-However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d and $\cO\mleft(N^{4/3}\mright)$ in 3-d\optodo{ref}. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the folowing question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
+However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d and $\cO\mleft(N^{4/3}\mright)$ in 3-d. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the folowing question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
 
 This question of reusing preconditioners is more widely applicable than just for LU decompositions. For \emph{any} preconditioner for the Helmholtz equation, one could ask when the preconditioner corresponding to one realisation of \cref{eq:nbpchh} can be re-used for other realisations. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact $LU$ decomposition.
 
@@ -103,7 +103,7 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
 \enth
-\optodo{`Proofs on pages' everywhere}
+
 Two notes regarding \cref{cor:1,cor:1a}: (i)The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $L^\infty(D)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
 \NLiDRRdtd{A}\de \esssup_{\bx\in D}\N{A(\bx)}_2.
@@ -253,8 +253,6 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 \input{nbpc-linfinity-plot-n-2.pgf}
    \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
 \end{figure}
-
-  \optodo{Need to figure out how to get computer modern consistently in axis labels. Some bookmarks saved that may help.}
   
 %  \ednote{Euan---I had to redo these computations, as there was a bug in my code, so we now don't see \emph{really} rapid growth in the number of GMRES iterations as $k$ inreases. I think the previous code may have may the variations in $n$ too large, meaning we got really rapid growth.}
 
@@ -952,7 +950,7 @@ where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:
 \beqs
 \Delta \chi = \frac{1}{r^{d-1}} \frac{\partial}{\partial r}\mleft(r^{d-1} \frac{\partial \chi}{\partial r} \mright) + \frac1{r^2} \LapBel \chi,
 \eeqs
-where $\LapBel$ is Laplace--Beltrami operator on the $d-1$-dimensional sphere\ednote{Both---do you know a good `standard' reference for something like this? Currently the best I've found is the Wikipedia article on the Laplacian....}. Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
+where $\LapBel$ is Laplace--Beltrami operator on the $d-1$-dimensional sphere. Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
 
 We expect that \cref{eq:obs1} will be key in the proof of the sharpness of \cref{eq:PDEbound}, for the following reasons. Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since $\NLtD{\ftilde}\sim k$ and $\NHokD{e^{ikr}\chi(r)}\sim k$  and hence $\NHokD{e^{ikr}\chi(r)} \sim \NLtD{\ftilde}$ (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
 
@@ -1241,7 +1239,7 @@ If we compare our numerical results with the theory results in \cref{cor:1aalt},
     \input{l1-high.pgf}
       \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2k^{-\beta},$ for $\beta = 0.8,0.9,1.$}\label{fig:l1high}
 \end{figure}
-    \optodo{Remove border on plots - frameon argument to fig?}
+
 \begin{table}
   \centering
   \input{l1-table}
@@ -1547,7 +1545,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
     \end{subfigure}
 \caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
 \end{figure}
-\optodo{Figure out how to rotate plot labels}
+
 \begin{figure}[h]
     \centering
     \begin{subfigure}{\textwidth}
@@ -1632,7 +1630,7 @@ Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results 
 
 \subsubsection{Numerical results for nearby preconditioning applied to QMC}
 
-Now that we have an estimate of how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points chosen as in \cref{tab:qmcpoints}) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$\ednote{Should I do the QMC calculations with multiple shifts, but this point scaling, again, and check that the estimate of the QMC error is roughly constant? It could take a while, and be rather expensive....}
+Now that we have an estimate of how the number of QMC points should scale with $k$ in order to keep the QMC error bounded, we apply nearby preconditioning to QMC (with the number of points chosen as in \cref{tab:qmcpoints}) and observe how the computational work of this nearby-preconditioning-QMC (NP-QMC) algorithm scales with $k.$
 
 As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\label{page:seqandpar}
 \bit
@@ -1783,7 +1781,7 @@ Having proved rigorous results on the effectiveness of nearby preconditioning, a
 \eeqs
 with a small number of works analysing other PDEs, including two works on the Helmholtz equation. We will first explain the idea of mean-based preconditioning before we review the literature applying it to the stationary diffusion equation and other PDEs, and finally turning our attention to mean-based preconditioning for the Helmholtz equation. In general, the computational and mathematical results in the literature show that mean-based preconditioning  is effective if the variance of the random parameters are small enough, i.e.,  if most of the samples are sufficiently close to the mean.
 
-Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEM). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is computed using a Polynomial Chaos expansion (see, e.g., \cite{GhSp:12}\optodo{Get Ghanem and Spanos from Ivan}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
+Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEM). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is computed using a Polynomial Chaos expansion (see, e.g., \cite{GhSp:12}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
 \beq\label{eq:sgmatrix}
 \Amat \otimes \Gmat,
 \eeq
@@ -1923,7 +1921,7 @@ In our numerical experiments we use the computational setup described in \cref{a
 %% \caption{The lower bound in \cref{eq:GMRESprob} for $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ for different functional forms of $\NLiDR{\no-\nt}$.}
 %% \end{figure}
 %% \ednote{Euan---the y axis on \cref{fig:prob-theory-plot-1.0} isn't correct. But basically, the values are all around 0.29, to within $10^{-11}$.}
-%% \optodo{Fix the plot.}
+
 \begin{figure}[p]
   \centering
   \begin{subfigure}{\textwidth}
