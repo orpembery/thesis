@@ -215,7 +215,7 @@ for ii_qoi in range(num_qois):
     # ax.yaxis.set_major_locator(LogLocator(subs='all'))
 
     plt.xlabel(r'$k$')
-    plt.ylabel(r'$C$',rotation='90')
+    plt.ylabel(r'$C$',rotation=0)
 
     fig_name = qoi+'-C-plot'
 
@@ -259,7 +259,7 @@ for ii_qoi in range(num_qois):
     plt.semilogx(k_list,alpha_logk_best_fit,'k--',label=r'$\alpha = '+str(alpha_0)[:num_sig_fig]+r' - '+str(alpha_1)[:num_sig_fig]+r'\mathrm{ln}(k)$',basex=np.e)
 
     plt.xlabel(r'$k$')
-    plt.ylabel(r'$\alpha$',rotation='90')
+    plt.ylabel(r'$\alpha$',rotation=0)
     plt.legend()
     plt.semilogx(k_list,qoi_C_alpha[1],'ko')
 

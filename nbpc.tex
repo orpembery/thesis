@@ -221,37 +221,37 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-0.pgf}
-  \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityA0}
+  \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityA0}
     \end{figure}
     
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-1.pgf}
-   \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5 ,0.6,0.7.$}\label{fig:linfinityA1}
+   \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5 ,0.6,0.7.$}\label{fig:linfinityA1}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-2.pgf}
-    \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityA2}
+    \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityA2}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-0.pgf}
-  \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityn0}
+  \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityn0}
     \end{figure}
     
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-1.pgf}
-   \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:linfinityn1}
+   \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:linfinityn1}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-2.pgf}
-   \caption{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
+   \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
 \end{figure}
   
 %  \ednote{Euan---I had to redo these computations, as there was a bug in my code, so we now don't see \emph{really} rapid growth in the number of GMRES iterations as $k$ inreases. I think the previous code may have may the variations in $n$ too large, meaning we got really rapid growth.}
@@ -1227,23 +1227,23 @@ If we compare our numerical results with the theory results in \cref{cor:1aalt},
 
 \begin{figure}
 \input{l1-low.pgf}
-  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2k^{-\beta},$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:l1low}
+  \caption[GMRES iteration counts when $\NLqDRR{\nso-\nst} = 0.2\times k^{-\beta},$ for any $1 \leq q < \infty$ and $\beta = 0,0.1,0.2,0.3$.]{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2\times k^{-\beta},$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:l1low}
 \end{figure}
 
 \begin{figure}
   \input{l1-med.pgf}
-    \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2k^{-\beta},$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:l1med}
+    \caption[GMRES iteration counts when $\NLqDRR{\nso-\nst} = 0.2\times k^{-\beta},$ for any $1 \leq q < \infty$ and $\beta = 0.4,0.5,0.6,0.7$.]{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2\times k^{-\beta},$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:l1med}
 \end{figure}
     
     \begin{figure}
     \input{l1-high.pgf}
-      \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2k^{-\beta},$ for $\beta = 0.8,0.9,1.$}\label{fig:l1high}
+      \caption[GMRES iteration counts when $\NLqDRR{\nso-\nst} = 0.2\times k^{-\beta},$ for any $1 \leq q < \infty$ and $\beta = 0.8,0.9,1$.]{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2\times k^{-\beta},$ for $\beta = 0.8,0.9,1.$}\label{fig:l1high}
 \end{figure}
 
 \begin{table}
   \centering
   \input{l1-table}
-  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2k^{-\beta}.$}\label{tab:l1}
+  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2\times k^{-\beta}.$}\label{tab:l1}
   \end{table}
 
 
@@ -1543,7 +1543,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
                 \centering
       \input{integral-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
+\caption[The computed Quasi-Monte-Carlo convergence rate for $Q(u) =  \int_D u$.]{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \int_D u$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:integralCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1557,7 +1557,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
 \input{origin-alpha-plot.pgf}
     \end{subfigure}
 
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
+\caption[The computed Quasi-Monte-Carlo convergence rate for $Q(u) =  u(\bzero)$.]{The computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) =  u(\bzero)$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm. \label{fig:originCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1570,7 +1570,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
             \centering
 \input{top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
+\caption[The computed Quasi-Monte-Carlo convergence rate for $Q(u) =  u(1,1)$.]{The computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = u((1,1))$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:toprightCalpha}}
 \end{figure}
 
 \begin{figure}[h]
@@ -1583,7 +1583,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
             \centering 
 \input{gradient_top_right-alpha-plot.pgf}
     \end{subfigure}
-\caption{Plots of the computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
+\caption[The computed Quasi-Monte-Carlo convergence rate for $Q(u) =  \gradu(1,1)$.]{The computed values of $C$ (top) and $\alpha$ (bottom) against $k$ in \cref{eq:qmcerrorform} for $Q(u) = \gradu((1,1))$. Observe the $x$-axes are on a $\log_{10}$ scale, but $\loge$ is the natural logarithm.  \label{fig:gradienttoprightCalpha}}
 \end{figure}
 
 
@@ -1645,7 +1645,7 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
 
     \begin{figure}
       \input{lu-graph.pgf}
-      \caption{The number of LU factorisations in the sequential algorithm as a percentage of the total number of solves.\label{fig:lu}}
+      \caption[The number of LU factorisations in the sequential nearby-preconditioning-QMC algorithm as a percentage of the total number of solves.]{The number of LU factorisations in the sequential algorithm as a percentage of the total number of solves.\label{fig:lu}}
       \end{figure}
     
     \begin{table}
@@ -1927,19 +1927,19 @@ In our numerical experiments we use the computational setup described in \cref{a
   \begin{subfigure}{\textwidth}
     \centering
 \input{prob-plot-rate-0.0.pgf}
-\caption{Empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1.$\label{fig:prob-plot-0.0}}
+\caption{The empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1.$\label{fig:prob-plot-0.0}}
 \end{subfigure}
 
 \begin{subfigure}{\textwidth}
     \centering
 \input{prob-plot-rate-1.0.pgf}
-\caption{Empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1/k$\label{fig:prob-plot-1.0}}
+\caption{The empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1/k$\label{fig:prob-plot-1.0}}
 \end{subfigure}
 
 \begin{subfigure}{\textwidth}
     \centering
 \input{prob-plot-rate-2.0.pgf}
-\caption{Empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1/k^2.$\label{fig:prob-plot-2.0}}
+\caption{The empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1/k^2.$\label{fig:prob-plot-2.0}}
 \end{subfigure}
-\caption{Empirical probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDR{\no-\nt} \sim \Exp{\sigma}$ for different functional forms of $\sigma.$}
+\caption[The empirical probability that GMRES applied to a nearby-preconditioned linear system converges in at most 12 iterations.]{The empirical probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDR{\no-\nt} \sim \Exp{\sigma}$ for different functional forms of $\sigma.$}
 \end{figure}

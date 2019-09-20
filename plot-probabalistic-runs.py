@@ -52,9 +52,7 @@ for file in csv_list:
 
 for beta in betas:
 
-    fig = plt.figure()
-
-    fig.set_size_inches((6,2.5))
+    fig = plt.figure(figsize=(6,2.5))
 
     ax = fig.gca()
         
@@ -93,6 +91,6 @@ for beta in betas:
     elif beta == 2.0:
         plt.yticks([1.0])
 
-    plt.savefig(filename+'.pgf')
+    plt.savefig(filename+'.pgf',bbox_inches='tight')
 
     plt.close()
