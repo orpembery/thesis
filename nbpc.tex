@@ -1243,7 +1243,7 @@ If we compare our numerical results with the theory results in \cref{cor:1aalt},
 \begin{table}
   \centering
   \input{l1-table}
-  \caption{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2\times k^{-\beta}.$}\label{tab:l1}
+  \caption[GMRES iteration counts when $\NLqDRR{\nso-\nst} = 0.2\times k^{-\beta},$ for any $1 \leq q < \infty$ and $\beta = 0,0.1,\ldots,1$.]{GMRES iteration counts for $\AmatoI\Amatt$ given by \cref{eq:noweak,eq:ntweak}, where $\alpha = 0.2\times k^{-\beta}.$}\label{tab:l1}
   \end{table}
 
 
@@ -1352,7 +1352,7 @@ $\bypre \defined \bycurrent$\;
 Calculate and store preconditioner $\Lmat\Umat = \AmatpreI$\;
 }
 }
-\caption{Algorithm to perform all solves in a QMC method using nearby preconditioning\label{alg:seq}. $\maxGMRES$ is the maximum allowed number of GMRES iterations and $\SQMC$ is the set of all QMC points. $\nearest(\bypre,\Sremaining)$ denotes the point in $\SQMC$ nearest to $\bypre$ in the $\dQMC$ metric.}
+\caption[The sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm]{The sequential nearby-preconditioning-Quasi-Monte-Carlo algorithm\label{alg:seq}. $\maxGMRES$ is the maximum allowed number of GMRES iterations and $\SQMC$ is the set of all QMC points. $\nearest(\bypre,\Sremaining)$ denotes the point in $\SQMC$ nearest to $\bypre$ in the $\dQMC$ metric.}
 \end{algorithm}
 \subsubsection{A parallel algorithm}
 
@@ -1464,7 +1464,7 @@ Define $\Spre$ by taking all possible tensor products of points in $\Sprej$, and
 \For{l $=1$ \KwTo $\NQMC$}{
 Calculate $\nearestpre\mleft(\by^{(l)}\mright)$\;
 }
-\caption{Algorithm to determine $\Spre$ and $\nearestpre$\label{alg:par}. $\Spre$ is the set of preconditioning points, and $\nearestpre:\SQMC\rightarrow\Spre$ maps each QMC points to its nearest preconditioning point.}
+\caption[The main part of the parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm.]{The main part of the parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm. This part of the algorithm determines $\Spre$ and $\nearestpre$. $\Spre$ is the set of preconditioning points, and $\nearestpre:\SQMC\rightarrow\Spre$ maps each QMC points to its nearest preconditioning point.\label{alg:par}}
 \end{algorithm}
 
 \subsubsection{Comparing and Constrasting the two algorithms}
@@ -1590,7 +1590,7 @@ We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We e
 \begin{table}[h!]
   \centering
   \input{qmc-alpha-table}
-  \caption{The quantities $\alphaz$ and $\alphao$ for differents QoIs, where the QMC error $Err \approx C \NQMC^{\alphaz - \alphao\loge(k)}$.}\label{tab:qmcalpha}
+  \caption{The quantities $\alphaz$ and $\alphao$ for different QoIs, where the QMC error $\approx C \NQMC^{\alphaz - \alphao\loge(k)}$.}\label{tab:qmcalpha}
   \end{table}
 
 Motivated by QMC theory for other applications, e.g., \cite[Equation 4.2]{GrKuNuScSl:11}, we test experimentally the assumption that the QMC error satisfies

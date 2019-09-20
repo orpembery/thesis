@@ -17,7 +17,6 @@
 
 - Formatting:
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
- * List of ... titles (incl. widetilde error)
  * Page titles - far enough down? & ?????
  * fncychap?
  * Font sizes
