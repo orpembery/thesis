@@ -2,6 +2,10 @@ import numpy as np
 import calc_G
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 def plot_k(threshold,beta):
     """threshold is GMRES its threshold. beta is power in k-dependence."""

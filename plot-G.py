@@ -2,6 +2,10 @@ from calc_G import G
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 import numpy as np
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 eps = 1e-5
 

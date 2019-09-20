@@ -7,6 +7,10 @@ from matplotlib.ticker import MaxNLocator
 import numpy as np
 import fileinput
 import colorcet as cc
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/'
 

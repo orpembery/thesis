@@ -2,6 +2,10 @@ import numpy as np
 from scipy.optimize import bisect
 from matplotlib import pyplot as plt
 from scipy.stats import expon
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 def G(diff,eps,C,k,N):
     """Defines the probabalistic GMRES bound function.

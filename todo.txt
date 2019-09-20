@@ -15,6 +15,7 @@
  * really big paragraph spaces
  * Split lines in stochastic chapter
  * Overrunning lines - use draft mode
+ * all tables overrunning - horizontal pages may fix some
 
 Proof reading:
 Summary - y

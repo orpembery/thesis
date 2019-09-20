@@ -2,6 +2,10 @@ from helmholtz_firedrake.utils import h_to_num_cells
 import firedrake as fd
 from matplotlib import pyplot as plt
 import numpy as np
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 k = 1000.0
 

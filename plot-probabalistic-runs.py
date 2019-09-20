@@ -5,6 +5,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib import rcParams
+from matplotlib import rc
+
+rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
 
 # Found out how to do this from https://tex.stackexchange.com/a/391078
 pgf_latex_dict  = { 'pgf.preamble' : [r'\usepackage{mleftright}']}
