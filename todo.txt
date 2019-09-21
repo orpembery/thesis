@@ -8,7 +8,6 @@
 - Euan MLMC edit - in email
 - Check with Ivan about Duff, Erisman, and Reid reference
 - Find other LU applying cost references and add in to start of nbpc
-- Proofs on pages
 - Get Ghanem and SPanos from Ivan, and check reference for PC
 - Find reference for Laplace in radial coords - Evans?
 - Why don't we get three separate cases in MLMC - c.f. Matt?

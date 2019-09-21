@@ -85,7 +85,7 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
  converge in a $k$-independent number of iterations for all $k\geq k_0$.
  \enth
 
-The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} below.
+The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} below. The proof of \cref{cor:1} is on \cpageref{page:cor1proof} below.
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
 Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$,
@@ -102,7 +102,9 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 %(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
-\enth
+ \enth
+
+ The proof of \cref{cor:1a} is on \cpageref{page:cor1aproof} below.
 
 Two notes regarding \cref{cor:1,cor:1a}: (i)The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $L^\infty(D)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
 \beqs
@@ -161,6 +163,8 @@ Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicit
 for all $k\geq k_0$. 
 \end{theorem}
 
+The proof of \cref{thm:2} is on \cpageref{page:thm2proof} below.
+
 \ble[Sharpness of the bound \cref{eq:PDEbound} when $\Aso = \Ast= I$]\label{lem:sharp}
 There exist $f, \,\nso$, and $\nst$ (with $\nso\neq \nst$ both continuous) such that 
 the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\Aso = \Ast= I$ exist, are unique, and satisfy
@@ -191,7 +195,7 @@ the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\As
 %\eeq
 \ele
 
-Proofs of \cref{thm:2,lem:sharp} are in \cref{sec:pdeproofs} below.
+The proof of \cref{lem:sharp} is on \cpageref{page:lemsharpproof} below.
 
 \bre[Physical interpretation for $k$-dependence]\label{rem:physical1k}
 It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a sufficient condition to answer both \cref{it:nbpcq1} and \cref{it:nbpcq2}. Recall that $1/k$ is proportional to the wavelength $2\pi/k$ of the wave $u$ (at least when $A=I$ and $n=1$). As the wavelength is the natural length scale associated with the wave $u$, one expects perturbations of magnitude up to $\cO(1/k)$ to be `unseen' by the PDE or numerical method. This is exactly what we see; perturbations of size (up to) $1/k$ give bounded relative difference (in \cref{it:nbpcq2}) and bounded GMRES iterations for the nearby-preconditioned linear system (in \cref{it:nbpcq1}). Also, on a PDE level, perturbations of order $1/k$ being `unseen' by the PDE can also be seen in bounds proved for $u$ where $n = \no + \eta,$ with $\no$ nontrapping and $\NLiDRR{\eta} \lesssim 1/k,$ see \cref{rem:kdep} above.
@@ -529,7 +533,7 @@ and
 for all $k\geq k_0$. 
 \end{theorem}
 
-The following two lemmas are the heart of the proof of \cref{thm:1}.
+The proof of \cref{thm:1} is given after the following two lemmas, that are the heart of the proof of \cref{thm:1}.
 
 \ble[Bounds on $(\Amato)^{-1} \Mmat_{n}$]\label{lem:keylemma1}
 Assume that \cref{cond:1nbpc} holds, and assume that Part (i) of \cref{cond:2} holds. Then, for $n\in \LiDRR$,
@@ -559,6 +563,8 @@ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}.%\right].
 \eeq
 \ele
 
+The proof of \cref{lem:keylemma1} is on \cpageref{page:lemkeylemma1proof} below.
+
 \ble[Bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2}
 Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in \LiDRRdtd$,
 \beq\label{eq:keybound2}
@@ -586,6 +592,8 @@ C_1\de%\frac{s_+}{s_-}
 \eeq
 \ele
 
+The proof of \cref{lem:keylemma2} is on \cpageref{page:lemkeylemma2proof} below.
+
 \bpf[Proof of \cref{thm:1} using \cref{lem:keylemma1,lem:keylemma2}]
 Using the definition of the matrices $\Amatj, \SmatA$, and $\Mmatn$ in \cref{eq:matrixAjdef} and \cref{eq:matrixSjdef}, we have
 \begin{align}\nonumber
@@ -611,6 +619,7 @@ The bounds in  \cref{eq:main1} on $\NDk{\Imat - (\Amato)^{-1}\Amatt}$ and  $\NDk
 \
 
 \bpf[Proof of \cref{lem:keylemma1}]
+\label{page:lemkeylemma1proof}
 We first concentrate on proving \cref{eq:keybound1}.
 Given $\fvec \in \CC^N$ and $n\in \LiDRR$, we create a variational problem whose Galerkin discretisation leads to the equation $\Amato \tbu = \Mmat_n\,\fvec$.
 Indeed, let $\widetilde{f} \de \sum_j f_j \phi_j\in \HozDD$. Define $\widetilde{u}$ to be the solution of the variational problem 
@@ -719,6 +728,7 @@ for all $k\geq k_0$.
 
 
 \bpf[Proof of \cref{lem:keylemma2}]
+\label{page:lemkeylemma2proof}
 In a similar way to the proof of \cref{lem:keylemma1}, given $\fvec \in \CC^N$ and $A\in \LiDRRdtd$, let $\widetilde{f} \de \sum_j f_j \phi_j$ and observe that $\widetilde{f} \in \HozDD$. Define $\widetilde{u}$ to be the solution of the variational problem 
 \beq\label{eq:411a}
 a^{(1)}(\widetilde{u},v)= \widetilde{\LG}(v) \quad\text{ for all } v\in \HozDD,
@@ -874,12 +884,14 @@ and
 \end{corollary}
 
 \bpf[Proof of \cref{cor:1}]
+\label{page:cor1proof}
 This follows from \cref{thm:1} by applying \cref{thm:GMRES1_intro,cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\alpha=1/2$.
 \epf
 
 \
 
 \bpf[Proof of \cref{cor:1a}]
+\label{page:cor1aproof}
 This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Imat$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=\Imat$, and $\alpha=1/2$.
 \epf
 
@@ -894,6 +906,7 @@ A stronger result than \cref{eq:Elman} is given for standard (unweighted) GMRES 
 \subsection{Proofs of the PDE results \cref{thm:2,lem:sharp}}\label{sec:pdeproofs}
 
 \bpf[Proof of \cref{thm:2}]
+\label{page:thm2proof}
 %We first prove the upper bound \cref{eq:PDEbound}.
 Because we assumed \cref{cond:1nbpc} holds for the EDP (\cref{prob:vedp}), $u^{(1)}$ and $u^{(2)}$ exist, are unique, satisfy $a^{(1)}(u^{(1)}, v) = \LG(v)$ for all $v \in \HozDD$ and $a^{(2)}(u^{(2)}, v) = \LG(v)$ respectively, where $\LG$ is given by \cref{eq:Ledp}. Subtracting these equations, we find that $u^{(1)}- u^{(2)}$ satisfies the variational problem
 \beq\label{eq:vp1}
@@ -935,6 +948,7 @@ C_3\de \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}
 \epf
 
 \bpf[Proof of \cref{lem:sharp}]
+\label{page:lemsharpproof}
 We actually prove the stronger result that given any function $c(k)$ such that $c(k)>0$ for all $k>0$, there exist 
 $f, \nso,$ and $ \nst$ (with $\nso\not= \nst$) with
 \beq\label{eq:nck}
@@ -1111,7 +1125,9 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 %(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 %\eeqs
  converges in a $k$-independent number of iterations for all $k\geq k_0$.
-\enth
+ \enth
+
+ A sketch proof of \cref{cor:1alt,cor:1aalt} is on \cpageref{page:cor1altcor1aaltproof} below.
 
 \bre[Trade off between the type of norm and powers of $h$ and $k$]
 Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\no-\nt$ and the restriction on the magnitude of this norm. E.g., the condition on $\no-\nt$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
@@ -1208,6 +1224,7 @@ for all $k\geq k_0$.
 %We can now use \cref{thm:1alt} to obtain the following analogues to \cref{cor:1,cor:1a} in weaker norms.
 
 \bpf[Sketch proof of \cref{cor:1alt,cor:1aalt}]
+\label{page:cor1altcor1aaltproof}
 The proofs of \cref{cor:1alt,cor:1aalt} are completely analagous to the proofs of \cref{cor:1,cor:1a}, with the exception that we use \cref{thm:1alt} in place of \cref{thm:1}.
 \epf
 

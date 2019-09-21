@@ -62,6 +62,7 @@ By \cref{lem:Pmeas} $\toprod$ is measurable
 
 \subsection{Proofs of \cref{thm:3,thm:11,thm:12,lem:svarwelldefined,lem:uniq}}
 \bpf[Proof of \cref{thm:3}]
+\label{page:thm3proof}
 We need to show $u:\Omega \rightarrow X$ is strongly measurable, satisfies the bound \eqref{eq:sbresult}, and therefore is Bochner integrable and is in the space $\LtOX.$ Our plan is to use \cref{cor:bochnersimple} to show $u$ is Bochner integrable, and establish \eqref{eq:sbresult} as a by-product. Since $u$ solves \cref{prob:meas}, $u$ is measurable. As $X$ is separable, it follows from \cref{cor:pettis} that $u$ is strongly measurable.
 Define $N:X \rightarrow \RR$ by
 $ N(v) \de \N{v}_X^2.$
@@ -74,6 +75,7 @@ the right-hand side of which is finite since \cref{con:B} includes that $\Cj\fj 
 \epf
 
 \bpf[Proof of \cref{lem:svarwelldefined}]
+\label{page:lemsvarwelldefinedproof}
 We must show that for any $\vo \in \LtOX$ and any $\vt \in \LtOY$:
 \bit
 \item The quantities $\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)$ and $\Lcomega\big(\vt(\omega)\big)$ are Bochner integrable, so that the definitions of $\SA$ and $\SL$ as integrals over $\Omega$ make sense.
@@ -100,6 +102,7 @@ We now show $\SL\in  \LtOYas$ and $\SA:\LtOX \rightarrow \LtOYas.$ Observe that
 \epf
 
 \bpf[Proof of \cref{thm:11}]
+\label{page:thm11proof}
 In order to show that $u$ solves \cref{prob:svar}, we must show:
 \ben
 \item\label[point]{it:111} either the functional $\SLc \in \LtOYas$ or the functional $\SA(u) \in \LtOYas$, and
@@ -142,6 +145,7 @@ Fix $y \in Y.$ By density of $\mleft(\yn\mright)_{n \in \NN}$, there exists a su
 \epf
 
 \bpf[Proof of \cref{thm:12}]
+\label{page:thm12proof}
 Let $u \in \LtOX$ solve \cref{prob:svar}. We need to show that $u$ solves \cref{prob:lt}. Observe that $u$ solving \cref{prob:lt} means $\Acomega(u(\omega)) = \mleft(\Lcomega\mright)(\omega)$ in $\Ys$ for almost every $\omega \in \Omega.$ We now use an idea from \cite[Theorem 3.3]{Gi:10}. Our plan is to use test functions of the form $y\Ind{E},$ where $y \in Y$ and $E \in \cF$ to reduce \cref{prob:svar} to the statement
 \beqs
 \int_E \mleft[\Acomega\big(u(\omega)\big)\mright]\big(y(\omega)\big) \dd\PP(\omega) = \int_E \mleft[\mleft(\Lcomega\mright)(\omega)\mright]\big(y(\omega)\big) \dd\PP(\omega)\quad \tforall E \in \cF
@@ -187,6 +191,7 @@ and \cite[Remark 2.2]{MuSt:11} shows an analogous result for the stationary diff
 \ere
 
 \bpf[Proof of \cref{lem:uniq}]
+\label{page:lemuniqproof}
 \emph{Proof of \cref{part:uniq1}.} Suppose $\uo,\ut:\Omega\rightarrow X$ solve \cref{prob:meas}. Let $E = \set{\omega \in \Omega \st \uo(\omega) \neq \ut(\omega)}.$ Denote by $\Eo$ and $\Et$ the sets (of measure zero) where the variational problems for $\uo$ and $\ut$ fail to hold, i.e. $\Eo,\Et \in \cF$ with $\PP(\Eo)=\PP(\Et)=0$ and %such that  and
 \beqs
 \Acomega\mleft(\uo(\omega)\mright) \neq \Lcomega \tiff \omega \in \Eo,\quad\text{and}\quad \Acomega\mleft(\ut(\omega)\mright) \neq \Lcomega \tiff \omega \in \Et.

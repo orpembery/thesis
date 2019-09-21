@@ -121,6 +121,8 @@ Under \cref{con:B}, if $u$ solves \cref{prob:meas} then $u$ solves \cref{prob:lt
 \eeq
 \enth
 
+The proof of \cref{thm:3} is on \cpageref{page:thm3proof} below.
+
 Note that the right-hand side of the stochastic a priori bound \eqref{eq:sbresult} is the expectation of the right-hand side of the bound \eqref{eq:sbe1}.
 
 \ble[Stochastic variational formulation well-defined]\label{lem:svarwelldefined}
@@ -130,13 +132,19 @@ Under \cref{con:coeffstoform,,con:A,,con:coeffstofunc,,con:L,,con:cborel,,con:C}
 \eeq
 \ele
 
+The proof of \cref{lem:svarwelldefined} is on \cpageref{page:lemsvarwelldefinedproof} below.
+
 \bth[Second-order solution implies stochastic variational solution]\label{thm:11}
 Under \cref{con:coeffstofunc,,con:L,,con:cborel,,con:C}, if $u$ solves \cref{prob:lt} then $u$ solves \cref{prob:svar}.
 \enth
 
+The proof of \cref{thm:11} is on \cpageref{page:thm11proof} below.
+
 \bth[Stochastic variational solution implies second-order solution]\label{thm:12}
 If \cref{prob:svar} is well-defined and $u$ solves \cref{prob:svar}, then $u$ solves \cref{prob:lt}.
 \enth
+
+The proof of \cref{thm:12} is on \cpageref{page:thm12proof} below.
 
 \Cref{thm:3,thm:11,thm:12,lem:svarwelldefined} are summarised in \cref{fig:ladder}.
 
@@ -154,6 +162,8 @@ If \cref{con:K} holds, then
 \item\label[part]{part:uniq3} if \cref{prob:svar} is well-defined, the solution to \cref{prob:svar} (if it exists) is unique in $\LtOX.$
 \een
 \ele
+
+The proof of \cref{lem:uniq} is on \cpageref{page:lemuniqproof} below.
 
 \bre[Informal discussion on the ideas behind the equivalence results]\label{rem:nontechnical}
 The diagram in \cref{fig:ladder} summarises the relationships between the variational formulations, and the conditions under which they hold. Moving `up' the left-hand side of the diagram, we prove a solution of \cref{prob:svar} is a solution of \cref{prob:lt} in \cref{thm:12}; the key idea in this theorem is to use a particular set of test functions and the general measure-theory result of \cref{lem:gotoae} below; this approach was used for the stationary diffusion equation \eqref{eq:diffusion} with log-normal coefficients in \cite{Gi:10}, and for a wider class of coefficients in \cite{MuSt:11}.
