@@ -1647,7 +1647,8 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
       \input{lu-graph.pgf}
       \caption[The number of LU factorisations in the sequential nearby-preconditioning-QMC algorithm as a percentage of the total number of solves.]{The number of LU factorisations in the sequential algorithm as a percentage of the total number of solves.\label{fig:lu}}
       \end{figure}
-    
+    \afterpage{% Heard about from https://tex.stackexchange.com/questions/11471/how-to-wrap-text-around-landscape-page
+\begin{landscape} % Heard about from https://tex.stackexchange.com/questions/19017/how-to-place-a-table-on-a-new-page-with-landscape-orientation-without-clearing-t/19021#19021 and https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table 
     \begin{table}
   \centering
   \input{nbpc-qmc-sequential-table}
@@ -1658,7 +1659,9 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
   \centering
   \input{nbpc-qmc-parallel-table}
   \caption{Results applying our parallel nearby-preconditioning-Quasi-Monte-Carlo algorithm with the target proportion of preconditioners as $(-0.04+0.02k)$\%.}\label{tab:nbpcqmcpar}
-  \end{table}
+\end{table}
+\end{landscape}
+}
 
     In conclusion, we see that nearby preconditioning gives a significant speedup when applied to a QMC model problem.%, with around 98\% of solves being computed using a previously-calculated LU decomposition.% We therefore expect that this technique will give significant speed up when applied to other, more realistic problems.
     
