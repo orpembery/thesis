@@ -8,8 +8,10 @@
 - Get other LU applying cost references and add in to start of nbpc
 - Get Ghanem and SPanos from Ivan, and check reference for PC
 / Biblio abbreviations/names
+/ Li and Wu - update
 
 / Formatting:
+ * Ask Paul about subsub and para
  * (If time) dashes in page headers like Paul
  * Big spaces in MLMC
  * Headers, titles, title page in accordance with what Paul did

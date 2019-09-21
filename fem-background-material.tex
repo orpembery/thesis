@@ -103,11 +103,11 @@ $hp$-finite-element methods for the homogeneous Helmholtz equation were analysed
     With the concept of a finite-element space established, we can now define the finite-element approximation to the variational problems \cref{prob:vedp,prob:vtedp}.
 
     \bprob[Finite-element approximation of \cref{prob:vtedp}]\label{prob:fevtedp}
-    We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vtedp}) if
+    Find $\uh \in \Vhp$ such that
     \beq\label{eq:fevtedp}
     \aT(\uh,\vh) = \LT(\vh) \tforall \vh \in \Vhp.
     \eeq
-    The finite-element approximation of \cref{prob:vedp} is defined analagously.
+    We say that $\uh$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vtedp}). The finite-element approximation of \cref{prob:vedp} is defined analagously.
     \eprob
 
     To state an approximation bound for $\Vhp,$ we first need to define the notion of a shape-regular mesh.
@@ -223,7 +223,7 @@ for all $k \geq \kz.$
 \ede
 
 \bde[$\hk{a}{b}$-data-accurate]\label{def:hkdataacc}
-Given $a,b>0$, we that an $h$-finite-element method for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
+Given $a,b>0$, we that an $h$-finite-element method for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
 \beq\label{eq:hkdataacca}
 hk^a \leq \Co
 \eeq
@@ -265,7 +265,7 @@ We choose this example to illustrate:
 \ere
 
 \bde[$\hk{a}{b}$-accurate]\label{def:hkacc}
-Given $a,b>0$, we that an $h$-finite-element method for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz), \Ct(\eps,\kz) > 0$ such that if
+Given $a,b>0$, we that an $h$-finite-element method for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
 \beq\label{eq:hkacca}
 hk^a \leq \Co
 \eeq
@@ -311,6 +311,9 @@ I.e., because we only need $hk$ sufficiently small to bound the interpolation er
 
 
 \bre[Relationship between $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy]\label{rem:accuracy}
+
+\
+
 The only difference between the definitions of $\hk{a}{b}$-accuracy and $\hk{a}{b}$-data-accuracy is that in \cref{eq:hkacc} the error is measured relative to the solution $u$, whereas in \cref{eq:hkdataacc} the error is measured relative to the `data' $f$ and $\gI$. However, if an a priori bound such as \cref{eq:tedpbound} holds, then $\hk{a}{b}$-accuracy implies $\hk{a}b$-data-accuracy, as $\NHokD{u} \lesssim \NLtD{f} + \NLtGI{\gI}$.
 
 On the other hand, to conclude $\hk{a}{b}$-accuracy from $\hk{a}b$-data-accuracy, one would need to show the physically realistic criterion
@@ -321,7 +324,7 @@ However, in general \cref{eq:reversebound} does not hold (as one can see by taki
 \ere
 
 \bre[The above conditions for heterogeneous problems]\label{rem:accuracyhetero}
-For heterogeneous problems, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in \cref{sec:fem} below we prove that the $h$-finite-element method with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ is completely known.
+For a heterogeneous problem, the constants $\Co, \Ct$, and $\Cqo$ in \cref{def:hkacc,def:hkdataacc,def:hkqo} will all depend on the coefficients $A$ and $n.$ In general, this dependence is unknown. However, in \cref{sec:fem} below we prove that the $h$-finite-element method with polynomial degree $p$ is $\hka{(2p+1)/(2p)}$-data-accurate, where the dependence of $\Co$ and $\Ct$ on $n$ is completely known.
 \ere
 
 \bre[Generalisations of $\hk{a}{b}$-data-accuracy]
@@ -463,7 +466,7 @@ However, C\'ea's Lemma relies on the coercivity of the sesquilinear form, and th
 }
 
 \subsection{Extended discussion of proof techniques for finite-element errors for the Helmholtz equation}\label{sec:prooftechniques}
-We now discuss in some detail the proof techniques used to obtain $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, or $\hka{a}$-quasi-optimality. We note that frequently quasi-optimality results are refereed to as \defn{asymptotic} error estimates, and accuracy or data-accuract results (when they are proved under weaker mesh constraints than asymptotic estimates) are referred to as \defn{pre-asymptotic} error estimates. This terminology is used because the mesh conditions to ensure quasi-optimality are more restrictive than those for bounded error, and therefore they hold only for smaller values of $h.$
+We now discuss in some detail the proof techniques used to obtain either $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, or $\hka{a}$-quasi-optimality. We note that frequently quasi-optimality results are refereed to as \defn{asymptotic} error estimates, and accuracy or data-accuract results (when they are proved under weaker mesh constraints than asymptotic estimates) are referred to as \defn{pre-asymptotic} error estimates. This terminology is used because the mesh conditions to ensure quasi-optimality are more restrictive than those for bounded error, and therefore they hold only for smaller values of $h.$
 
 For simplicity, our exposition below will assume that we are treating \cref{prob:vtedp} with homogeneous coefficients (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if $C$ in \cref{eq:bgbound} is bounded independent of $k,$ for $k \geq \kz$.}, and therefore in particular the solution $u$ of \cref{prob:vtedp} is unique. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k$ and $h$. The new results we present in \cref{sec:fem} consider heterogeneous problems that may be trapping, and state all of the constants involved explicitly, at the price of being more technical to state.
 
@@ -621,11 +624,14 @@ Combining \cref{eq:epho,eq:eplt} is a modification of the Schatz argument above.
 \begin{align}
   \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi-\Ph\xi)\nonumber\\
   &= \aep(u-\uh,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi}\text{ by \cref{eq:aepused},}\nonumber\\
-    &= \aep(u-\Ih u,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi} \text{ by Galerkin orthogonality for }\xi-\Ph\xi,\nonumber\\
+  &= \aep(u-\Ih u,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi}\nonumber\\
+  &\quad\quad\text{ by Galerkin orthogonality for }\xi-\Ph\xi,\nonumber\\
     & \lesssim \Nep{u-\Ih u}\Nep{\xi - \Ph\xi}- k^2\IPLtD{u-\uh}{\xi-\Ph\xi}\nonumber\\
   &\lesssim \wba \NLtD{f} \Nep{\xi-\Ph\xi} + k^2 \NLtD{u-\uh} \NLtD{\xi-\Ph\xi}\text{ by \cref{eq:aepnormequiv} and \cref{eq:wbaimpl},}\nonumber\\
-    &\lesssim \wba \NLtD{f} \wbaadj \NLtD{u-\uh} + k^2 \NLtD{u-\uh} \NLtD{\xi-\Ph\xi}\text{ by \cref{eq:epho}, \cref{eq:aepnormequiv}, \cref{eq:xidef}, and \cref{eq:wbaadjimpl}}\nonumber\\
-  &\lesssim \wba\wbaadj \NLtD{f}\NLtD{u-\uh} + k^2 \NLtD{u-\uh} h\wba \NLtD{u-\uh}\text{ by \cref{eq:epho}, \cref{eq:eplt}, \cref{eq:aepnormequiv}, and \cref{eq:wbaimpl}.}\label{eq:schatz2}
+  &\lesssim \wba \NLtD{f} \wbaadj \NLtD{u-\uh} + k^2 \NLtD{u-\uh} \NLtD{\xi-\Ph\xi}\nonumber\\
+  &\quad\quad\text{ by \cref{eq:epho}, \cref{eq:aepnormequiv}, \cref{eq:xidef}, and \cref{eq:wbaadjimpl}}\nonumber\\
+  &\lesssim \wba\wbaadj \NLtD{f}\NLtD{u-\uh} + k^2 \NLtD{u-\uh} h\wba \NLtD{u-\uh}\nonumber\\
+  &\quad\quad\text{ by \cref{eq:epho}, \cref{eq:eplt}, \cref{eq:aepnormequiv}, and \cref{eq:wbaimpl}.}\label{eq:schatz2}
 \end{align}
 Therefore if $hk^2\wba$ is sufficiently small, the second term on the right-hand side of \cref{eq:schatz2} can be absorbed into the left-hand side, and cancelling a factor of $\NLtD{u-\uh},$ we obtain
 \beq\label{eq:ep1}
@@ -1269,13 +1275,13 @@ where
 \beqs
 \aTadj(w,v) = \int_{D} \big(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\big) + ik\int_{\GI} \trGI w\minispace\trGI \vbar.
 \eeqs
-Therefore, by \cref{cor:adjoint} in \cref{chap:nbpc} below, $\utildebar$ satisfies \cref{prob:vtedp} with right-hand side $\overline{\FT(\vbar)} = \int_D \fbar \vbar + \int_{\GI} \gIbar \trI \vbar.$ That is, $\utildebar$ satisfies \cref{prob:vtedp} with right-hand sides $\fbar$ and $\gIbar.$ Therefore, by \cref{ass:htwo}, $\utildebar$ exists, is unique, is in $\HtD$ and satisfies \cref{eq:generalhtwo}, and hence all these properties also hold for $\utilde,$ i.e., for the adjoint problem.
+Therefore, by \cref{cor:adjoint} in \cref{chap:nbpc} below, we see $\utildebar$ satisfies \cref{prob:vtedp} with right-hand side $\overline{\FT(\vbar)} = \int_D \fbar \vbar + \int_{\GI} \gIbar \trI \vbar.$ That is, $\utildebar$ satisfies \cref{prob:vtedp} with right-hand sides $\fbar$ and $\gIbar.$ Therefore, by \cref{ass:htwo}, $\utildebar$ exists, is unique, is in $\HtD$ and satisfies \cref{eq:generalhtwo}, and hence all these properties also hold for $\utilde,$ i.e., for the adjoint problem.
 \ere
 
 Finally, we make the following \lcnamecref{ass:convenient} to simplify the proofs in this section. \Cref{ass:convenient} is by no means necessary, but greatly simplifies the proofs.
 
 \bas[Assumptions for convenience of proofs]\label{ass:convenient}
-Assume: $k \geq 1$, $\nmax \de \NLiDRR{n} \geq 1,$ $\nmin \leq 1$, $hk \leq 1$, and $\CAnk \geq 1.$
+Assume: $\nmax \de \NLiDRR{n} \geq 1,$ $k \geq 1$, $\nmin \leq 1$, $hk \leq 1$, and $\CAnk \geq 1.$
 \eas
 %Note that one could require $\NHhGI{\gI}$ on the right-hand side of \cref{eq:generalhtwo} (as $\gI \in \HhGI$); however, since the bound in \cref{thm:tedp} only has $\NLtGI{\gI}$, we use the form \cref{eq:generalhtwo} to include \cref{thm:tedp}.
 
@@ -1290,7 +1296,7 @@ Throughout this \lcnamecref{sec:fem}, we adopt the following piece of notation.
 %The quantity $\En$ arises from bounds on the `elliptic projection' mentioned above in weighted norms, see \cref{lem:ellprojerrw} below.
 
 Our main result is the following \lcnamecref{thm:fembound}.
-\bth[Error bound for higher-order finite-element approximation of the heterogeneous Helmholtz equation]\label{thm:fembound}
+\bth[Error bound for higher-order finite-element approximation of the heterogeneous Helmholtz equation]
 Let $u$ be the solution of \cref{prob:vtedp}. Under \cref{ass:highp,ass:htwo,ass:convenient}, there exist constants $\CFEMLt, \CFEMHo, \Chcond > 0$, independent of $h$, $k$ and $n$, such that if
 \beq\label{eq:hfemcond}
 h \leq \Chcond \Condn(n) \CAnk^{-\frac1{2p}}k^{-1-\frac1{2p}},
@@ -1314,7 +1320,7 @@ where
     &\mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}(\mleft(\nmax\mright),\\
     &\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\bigg\},
 \end{align*}
-where the polynomial $\Pfn{j}(x)$ is defined in \cref{eq:p} below, and the $n$-dependent constant $\En$ is defined in \cref{eq:en} below.
+where the polynomial $\Pfn{j}(x)$ is defined in \cref{eq:p} below, and the $n$-dependent constant $\En$ is defined in \cref{eq:en} below.\label{thm:fembound}
 \enth
 %\bco[Higher-order-finite-element bound]\label{cor:fembound}
 %Under the assumptions of \cref{thm:fembound},
@@ -1361,10 +1367,10 @@ This conversion is usually necessary because certain results (such as \cref{thm:
 \ere
 
 \bre[Bounds not sharp in $n$]\label{rem:nsharp}
-The $n$-dependence of the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ is almost certainly not sharp, because
+The $n$-dependence of the three constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ is almost certainly not sharp, because
 \ben
 \item The proof of \cref{thm:fembound} is complicated, and involves recursively applying bounds on finite-element functions (as in, e.g., the proof of \cref{lem:negdiscsum}, see \cref{eq:evenrecursivesum,eq:oddrecursive}). These arguments may well result in non-sharp $n$-dependence.
-  \item As described in \cref{rem:nvar} above, many of the appearances of $\nvar$ in the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ is purely due to changing to non-$n$-weighted norms, using results such as \cref{thm:shift}, then changing back, and so it is possible that the dependence of these constants on $\nvar$ (and therefore $n$) is not sharp. One could mitigate these appearances of $\nvar$ by proving versions of, e.g., \cref{thm:shift} in $n$-weighted norms, but it is not clear what $n$-dependence would result.
+  \item As described in \cref{rem:nvar} above, many of the appearances of $\nvar$ in the constants $\Condn(n),$ $\CLtn(n),$ and $\CHon(n)$ are purely due to changing to non-$n$-weighted norms, using results such as \cref{thm:shift}, then changing back, and so it is possible that the dependence of these constants on $\nvar$ (and therefore $n$) is not sharp. One could mitigate these appearances of $\nvar$ by proving versions of, e.g., \cref{thm:shift} in $n$-weighted norms, but it is not clear what $n$-dependence would result.
     \een
 Nevertheless, the result \cref{thm:fembound} is the first finite-element error bound for the heterogeneous Helmholtz equation that is completely explicit in $n.$
 \ere
@@ -1393,7 +1399,7 @@ In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it ma
 
 \subsection{Decomposition of solution and best approximation bound}\label{sec:decomp}
 
-For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound (\cref{lem:bestapprox} below) in $\Vhp$ for the solution of the Helmholtz equation, via a decomposition of the solution into functions of increasing regularity (\cref{thm:expansion} below). This technique was developed by Chaumont-Frelet and Nicaise in \cite{ChNi:19}, and we follow their presentation (although we explicitly keep track of the constants involved at each point).
+For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound (\namecref{lem:bestapprox} \ref{lem:bestapprox} below) in $\Vhp$ for the solution of the Helmholtz equation, via a decomposition of the solution into functions of increasing regularity (\cref{thm:expansion} below). This technique was developed by Chaumont-Frelet and Nicaise in \cite{ChNi:19}, and we follow their presentation (although we explicitly keep track of the constants involved at each point).
 
 In order to obtain bounds for high $p$, we require the following shift \lcnamecref{thm:shift}:
 
@@ -1606,15 +1612,18 @@ By \cref{thm:shift} we immediately conclude the bound
 \NHtD{\vz} \leq \CAz\Cfg \leq \Cefn{0}\Cfg,
 \eeq
 i.e., \cref{eq:expansionuj} for $j=0.$ By \cref{lem:domainshift,eq:expuz} we can conclude the bound
-\beqs
-\NHthD{\vo} \leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz} \leq \max\set{1,\CAo}\mleft(1+\CTrfn{2}\mright)\Cefn{0} \Cfg = \Cefn{1}\Cfg,
-\eeqs
+\begin{align*}
+  \NHthD{\vo} &\leq \CAo \mleft(1+\CTrt\mright)\NHtD{i\vz}\\
+  &\leq \max\set{1,\CAo}\mleft(1+\CTrfn{2}\mright)\Cefn{0} \Cfg\\
+  &= \Cefn{1}\Cfg,
+\end{align*}
 i.e., \cref{eq:expansionuj} for $j=1$.
 
 We prove the bound \cref{eq:expansionuj} for higher $j$ by induction. Let $j \in \mleft[2,p-2\mright]$ and suppose \cref{eq:expansionuj} holds for all $s \in [0,j-1].$ Using \cref{lem:domainshift}, we conclude that (using the observation that $\Cefn{j-1} = 2\max\set{1,\CAjmo}\mleft(1+\CTrj\mright)\Cefn{j-2}\geq \Cefn{j-2}$)
 \begin{align*}
 \NHfn{j+2}{D}{\vj} &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\nmax \NHfn{j}{D}{\vfn{j-2}} + \NHfn{j+1}{D}{\vfn{j-1}}\mright)\\
-&\leq \max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\mleft(\nmax \Cefn{j-2} \Pfn{j-2}\mleft(\nmax\mright) + \Cefn{j-1} \Pfn{j-1}\mleft(\nmax\mright)\mright)\Cfg\\
+&\leq \max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\big(\nmax \Cefn{j-2} \Pfn{j-2}\mleft(\nmax\mright)\\
+&\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+ \Cefn{j-1} \Pfn{j-1}\mleft(\nmax\mright)\big)\Cfg\\
 &\leq 2\max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\Cefn{j-1} \Pfn{j}(\nmax)\Cfg\\
 &= \Cefn{j} \Pfn{j}(\nmax)\Cfg.
 \end{align*}
@@ -1626,9 +1635,11 @@ Let $\ro \in \HthD$ solve
 \grad \cdot \mleft(A\grad \ro\mright) = -k^2 u \tand \dn \ro = ik\trGI u.
 \eeqs
 Then by \cref{lem:domainshift}
-\beqs%gin{align*}
-\NHthD{\ro} \leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\leq \frac{\Cefn{1}}{\max\set{1,\CAz}}k^2\CAnk \Cfg
-\eeqs%nd{align*}
+\begin{align*}
+  \NHthD{\ro} &\leq \CAo\mleft(1+\CTrt\mright)\mleft(k^2\NHoD{u} + k\NHtD{u}\mright)\\
+  &\leq \CAo\mleft(1+\CTrt\mright)k^2\CAnk\Cfg\\
+  &\leq \frac{\Cefn{1}}{\max\set{1,\CAz}}k^2\CAnk \Cfg
+\end{align*}
 by definition of $\Cefn{1}$.
 Let $\rt \in \HfD$ solve
 \beqs
@@ -1659,7 +1670,7 @@ Using the expansion in \cref{thm:expansion}, we can prove the following error bo
 %% \ele
 
 \ble[Best approximation error bound]\label{lem:bestapprox}
-Under \cref{ass:highp,ass:htwo}, there exist constants $\CFEMo, \CFEMt > 0$ independent of $k$ and $n$ (although dependent on $A$ and $p$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
+If \cref{ass:highp,ass:htwo} hold, there exist constants $\CFEMo, \CFEMt > 0$ independent of $k$ and $n$ (although dependent on $A$ and $p$) such that if $u$ solves \cref{prob:vtedp} or its adjoint, then there exists $\uhhat \in \Vhp$ such that
 \beq\label{eq:bestapproxL2}
 \NLtD{u-\uhhat} \leq \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo  h^2 + \CFEMt \CAnk h\mleft(hk\mright)^p \mright)\Cfg,
 \eeq
@@ -1710,7 +1721,7 @@ ab \leq \frac{a^p}p + \frac{b^q}q.
 
 
 \bth[Multiplicative Trace Inequality]\label{thm:multiplicativetrace}%BS THm 1.6.6
-There exists $\CMT > 0$ such that for all $v \in \HoD$
+There exists a constant $\CMT > 0$ such that for all $v \in \HoD$
 \beqs
 \NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{v}^\half.
 \eeqs
@@ -1734,14 +1745,14 @@ For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
 
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 \ben
-\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo, \vt \in \HmD$, $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
+\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo,$ $\vt \in \HmD$, the product $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
 \beqs
 \NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
 \eeqs
 \item\label[itempart]{it:ban2}For any $m \in \NN,$ if $\vo \in \CmD$, $\supp\mleft(1-\vo\mright)$ is compactly contained in $D,$ and  $\vt \in \HmD,$ then
   \bit
 \item$\vo \in \WmiD,$
-\item$\vo\vt \in \HmD$, and
+\item the product $\vo\vt \in \HmD$, and
   \item there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
 \beq\label{eq:ban2}
 \NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
@@ -1852,7 +1863,7 @@ The existence and uniqueness of $\Ph w$ and $\Qhn w$ follows from the Lax--Milgr
 Continuity and coercivity are immediate in the case of the $n$-weighted $L^2$ projection $\Qhn.$ For the elliptic projection $\Ph,$ continuity is immediate, and coercivity follows from the Poincar\'e inequality \cref{eq:poincare}, because we work in $\HozDD,$ and so all the functions we consider vanish on $\GD.$
 \epf
 
-\ble[Error bounds for elliptic projection]\label{lem:ellprojerr}
+\ble[Error bounds for the elliptic projection]\label{lem:ellprojerr}
 Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cmmo >0$ such that for all $w \in \HozDD$
 \beq\label{eq:ellprojerr}
 \NHmmD{w-\Ph w} \leq \Cmmo h^{m+1} \BAHoD{w}{\wh}.
@@ -1861,8 +1872,11 @@ Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constan
 
 Because $\Ph$ is defined in terms of a coercive and bounded sesquilinear form, the proof of \cref{lem:ellprojerr} is completely standard, see, e.g., \cite[Theorem 5.8.3]{BrSc:08}.
 
-\ble[Error bounds for elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
-Under \cref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
+\ble[Error bounds for the elliptic projection in $n$-weighted norms]\label{lem:ellprojerrw}
+
+\
+
+Under \namecref{ass:highp} \ref{ass:highp}, for any integer $m \in [-1,p-1],$ there exists a constant $\Cwmm >0$ such that for all $w \in \HozDD$
 \beqs
 \NHnfn{-m}{D}{w-\Ph w} \leq \Cwmm \errn{m} h^{m+1} \BAHoDn{w}{\wh},
 \eeqs
@@ -2040,9 +2054,10 @@ Under \cref{ass:highp}, for any integer $m \in [0,p-1],$ for all $w \in \HozDD$
 
 \bpf[Proof of \cref{lem:wltdprojerr}]
 Fix $\vtilde \in \HmD$. Then using Galerkin orthogonality for $w - \Qhn w$ we have
-\beqs%gin{align*}
-\IPLtDn{w-\Qhn w}{\vtilde} \leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\Ih\vtilde}\leq \CSZfn{m} \frac{\nmax}{\nmin}\NLtDn{w-\Qhn w} h^m \NHmDn{\vtilde}.
-\eeqs%nd{align*}
+\begin{align*}
+  \IPLtDn{w-\Qhn w}{\vtilde} &\leq \NLtDn{w-\Qhn w}\NLtDn{\vtilde-\Ih\vtilde}\\
+  &\leq \CSZfn{m} \frac{\nmax}{\nmin}\NLtDn{w-\Qhn w} h^m \NHmDn{\vtilde}.
+\end{align*}
 Taking the supremum over $\vtilde,$ we have
 \beqs
 \NHmmDn{w-\Qhn w} \leq \CSZfn{m} \frac{\nmax}{\nmin} h^m \NLtDn{w-\Qhn w},
@@ -2072,12 +2087,16 @@ Choose an orthonormal (in the $n$-weighted inner product) basis  $(\phij)_j$ for
 %% By\opntodo{McLean Thm 4.12 - double check and maybe write out in more detail---exactly what operator are we talking about, especially if we want weak derivatives?}, there exists a sequence of eigenfunctions $\phio,\phit,\ldots \in \HoD$ of $\DeltaA$\opntodo{What exactly does McLean mean here, if they don't have second-order derivatives?} and corresponding eigenvalues $0 < \lambdao<\lambdat < \cdots \rightarrow\infty$ such that the eigenfunctions form a complete orthonormal system in $\LtD.$\opntodo{Maybe define this}
 
 Since $A$ is real and symmetric, it is self-adjoint. Hence it follows that $\Deltah$ is self-adjoint in the $n$-weighted inner product, as
-\beqs
-\IPLtDn{\Deltah \wh}{\vh} = \IPLtD{A \grad \wh}{\grad \vh} = \IPLtD{\grad \wh}{A\grad \vh} = \overline{\IPLtDn{\Deltah \vh}{\wh}} = \IPLtDn{\wh}{\Deltah \vh}.
-\eeqs
+\begin{align*}
+  \IPLtDn{\Deltah \wh}{\vh} &= \IPLtD{A \grad \wh}{\grad \vh}\\
+  &= \IPLtD{\grad \wh}{A\grad \vh} = \overline{\IPLtDn{\Deltah \vh}{\wh}} = \IPLtDn{\wh}{\Deltah \vh}.
+\end{align*}
 Therefore $\Deltah$ is diagonalisable, i.e., there exists a set of eigenfunctions $\phioh,\ldots,\phidimVhph$  with corresponding real eigenvalues $\lambdaoh, \ldots, \lambdadimVhph$ such that the $\phimh$ form an orthonormal (in the $n$-weighted inner product) basis of $\Vhp$.
 
 \bde[Higher-order discrete derivative operators]\label{def:hodd}
+
+\
+
 For $\vh \in \Vhp$, if $\vh = \sum_{m=1}^{\dimVhp} \am \phimh,$ then for $j \in \RR$ define
 \beqs
 \Deltah^j \vh = \sum_{m=1}^{\dimVhp} \lambdamh^j \am \phimh.
@@ -2164,7 +2183,7 @@ and
 \eeq
 \ele
 \bpf[Proof of \cref{lem:intoip}]
-We only prove \cref{eq:feipsplit}, as the proof of \cref{eq:feiptrans} is analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$ and $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
+We only prove \cref{eq:feipsplit}, as the proof of \cref{eq:feiptrans} is analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$, $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
 \begin{align*}
 \IPLtDn{\Deltahmmt \vh}{\Deltahmt \wh} &= \int_D n\mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
 &= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D n \phij \philbar\quad \text{ as the } \lambdaj \text{ are real}\\
@@ -2230,9 +2249,10 @@ Let $\vh \in \Vhp$. Then
 
 \bpf[Proof of \cref{lem:h1contdisc}]
 We have, using \cref{eq:feiptrans},
-\beqs
-\Nohn{\vh}^2 = \IPLtDn{\Deltahh \vh}{\Deltahh \vh} = \IPLtDn{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2,
-\eeqs
+\begin{align*}
+  \Nohn{\vh}^2 &= \IPLtDn{\Deltahh \vh}{\Deltahh \vh}\\
+  &= \IPLtDn{\Deltah \vh}{\vh}= \IPLtD{A \grad \vh}{\grad \vh} \geq \Amin \NLtD{\grad \vh}^2,
+\end{align*}
 and the result follows.
 \epf
 
@@ -2264,7 +2284,7 @@ We first observe that the operator $\sdsolo$ is self-adjoint on $\LtD$. Let $\De
 \beq\label{eq:scomp}
 \DeltaA \circ \sdsolo \vo = \vo.
 \eeq
-Moreover, by Green's Theorem, $\DeltaA$ is self-adjoint on the set $\set{v \in \HtD \st v \text{ satisfies \cref{eq:sddbc,eq:sdnbc}}},$ this set contains the image of $\sdsolo.$ Therefore, for any $\vo,\vt \in \LtD,$ we have
+Moreover,  $\DeltaA$ is self-adjoint on the set $\set{v \in \HtD \st v \text{ satisfies \cref{eq:sddbc,eq:sdnbc}}}$ by Green's Theorem; this set contains the image of $\sdsolo.$ Therefore, for any $\vo,\vt \in \LtD,$ we have
 \beq\label{eq:solosa}
 \IPLtD{\sdsolo \vo}{\vt} =\IPLtD{\sdsolo \vo}{\DeltaA \circ \sdsolo \vt} = \IPLtD{\DeltaA \circ \sdsolo \vo}{\sdsolo \vt} = \IPLtD{\vo}{\sdsolo \vt},
 \eeq
@@ -2282,7 +2302,7 @@ Observe that by \cref{thm:banachalg}, if $v \in \HmD$ then $nv \in \HmD,$ and th
 %% &\leq \CBanfn{m+2}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m+2}{D}{\sdsol(nv)}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:banachalg}}\\
 %% &\leq \CBanfn{m+2}\CAfn{m}\sup_{v \in \HmD} \frac{\NHfn{-(m+2)}{D}{\ftilde}\NHfn{m}{D}{nv}\NHfn{m+2}{D}{\frac1n}}{\NHmD{v}} \text{ by \cref{thm:shift}}\\
 \end{align*}
-and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$ (or observing that $\NLtD{nv} \leq \nmax\NLtD{v}$ in the case $m=0$), the result follows, except for $m=-1.$
+and by applying \cref{thm:banachalg} to the term $\NHfn{m}{D}{nv}$ (or, in the case $m=0$, by observing that $\NLtD{nv} \leq \nmax\NLtD{v}$), the result follows, except for $m=-1.$
 
 For $m=-1,$ we have, by the Lax--Milgram Theorem in non-weighted norms,
 \beqs
@@ -2319,6 +2339,9 @@ and so the result follows.
 We can now prove the main result of this \lcnamecref{sec:discsob}.
 
 \ble[Relationship between discrete and continuous negative-order norms]\label{lem:negdiscsum}
+
+\
+
 Under \cref{ass:highp}, for any integer $j \in [0,p+1],$ there exists a constant $\Csumj > 0$ such that for all $\vh \in \Vhp,$
 \beq\label{eq:negdiscsum}
 \Nfn{-j,h,n}{\vh} \leq \Csumj\mleft(\En\nvar\mright)^{\floor{\frac{j}2}}\nmax \sum_{m=0}^j h^{m} \NHnfn{-(j-m)}{D}{\vh}.
@@ -2339,13 +2362,15 @@ We now have, for $m \in [-1,p-1]$
 \NHnfn{-m}{D}{\DeltahI \wh} &\leq \NHnfn{-m}{D}{z} + \NHnfn{-m}{D}{z-\zh}\nonumber\\
 &\leq \NHnfn{-m}{D}{z} + \Cwfn{-m}  \CAfn{0} \CSZfn{2} \errn{m} \nmax h^{m+2} \NLtD{\wh}\nonumber\\
 &\quad\quad\text{ by \cref{lem:ellprojerrw,lem:scottzhang,thm:shift}, since }\zh = \Ph z\nonumber\\
-&= \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\wh} + \Cm \errn{m} \frac{\nmax}{\nmin} h^{m+2} \NLtDn{\wh}\label{eq:sumforrecursion}
+&= \Cshiftfn{m} \shiftn{m} \NHnfn{-(m+2)}{D}{\wh}\nonumber\\
+&\quad\quad+ \Cm \errn{m} \frac{\nmax}{\nmin} h^{m+2} \NLtDn{\wh}\label{eq:sumforrecursion}
 \end{align}
 by \cref{lem:shiftnegativew}.
 From \cref{eq:sumforrecursion}, we can conclude that, for $l \in \NN$ and $\vh \in \Vhp$, writing $\wh = \Deltahmlpo \vh$,
-\beq\label{eq:lrecursion}
-\NHnfn{-m}{D}{\Deltahml \vh} \leq \Cshiftfn{m}\shiftn{m} \NHnfn{-(m+2)}{D}{\Deltahmlpo \vh} + \Cm \errn{m} \frac{\nmax}{\nmin} h^{m+2} \NLtDn{\Deltahmlpo \vh}
-\eeq
+\begin{align}
+  \NHnfn{-m}{D}{\Deltahml \vh} &\leq \Cshiftfn{m}\shiftn{m} \NHnfn{-(m+2)}{D}{\Deltahmlpo \vh}\nonumber\\
+  &\quad\quad+ \Cm \errn{m} \frac{\nmax}{\nmin} h^{m+2} \NLtDn{\Deltahmlpo \vh}\label{eq:lrecursion}
+\end{align}
 as $\Deltahml = \DeltahI \Deltahmlpo$. We now use \cref{eq:lrecursion} recursively to bound $\Nfn{j,h,n}{\vh}$.
 
 If $j = 2l,$ then one can show inductively using \cref{eq:lrecursion} that for any integer $t \in [0,l]$
@@ -2364,8 +2389,9 @@ To see this recurrence, we prove the inductive step: suppose
 \eeqs
 Then using \cref{eq:lrecursion}, we have
 \begin{align*}
-\Nfn{-2l,h,n}{\vh} &\leq \mleft(\En\nvar\mright)^{t-1}\sum_{m=0}^{t-1} \Efn{m,t-1} h^{2m} \mleft(\Cshiftfn{2(t-1-m)}\shiftn{2(t-1-m)} \NHnfn{-(2(t-1-m)+2}{D}{\Deltah^{-l+t} \vh}\mright.\\
-&\quad\quad\mleft.+ \Csumrecfn{2(t-1-m)} \errn{2(t-1-m)} \nvar h^{2(t-1-m)+2} \NLtDn{\Deltah^{-l+t} \vh}\mright),
+  \Nfn{-2l,h,n}{\vh} &\leq \mleft(\En\nvar\mright)^{t-1}\\
+  &\quad\sum_{m=0}^{t-1} \Efn{m,t-1} h^{2m} \mleft(\Cshiftfn{2(t-1-m)}\shiftn{2(t-1-m)} \NHnfn{-(2(t-1-m)+2}{D}{\Deltah^{-l+t} \vh}\mright.\\
+&\quad\quad\quad\mleft.+ \Csumrecfn{2(t-1-m)} \errn{2(t-1-m)} \nvar h^{2(t-1-m)+2} \NLtDn{\Deltah^{-l+t} \vh}\mright),
 \end{align*}
 which upon rearranging, and using the fact that $\shiftn{2(t-1-m)} \leq \errn{2(t-1-m)}$ and $\nvar \geq 1,$ yields \cref{eq:evenrecursivesum}, with the recurrence \cref{eq:Emt1,eq:Emt2,eq:Emt3}.
 
@@ -2379,7 +2405,8 @@ by the Lax--Milgram Theorem. Then
 \NLtDn{\Deltah^{-1/2}\wh} &= \NLtDn{\Deltah^{1/2} \zh}\nonumber\\
 &= \IPLtDn{\Deltah \zh}{\zh} \text{ by \cref{eq:feiptrans}}\\
 &= \IPLtD{A \grad \zh}{\grad \zh}\nonumber\\
-&= \NLiDop{A} \NHoD{\Ph z}\nonumber\text{ by the Cauchy--Schwartz inequality and the definition of } \zh\\
+&= \NLiDop{A} \NHoD{\Ph z}\nonumber\\
+&\quad\quad\text{ by the Cauchy--Schwartz inequality and the definition of } \zh\nonumber\\
 &\leq \NLiDop{A}\mleft(\NHoD{z} + \Cprojfn{1}\NHoD{0 - z}\mright) \text{ by \cref{lem:ellprojerr}}\nonumber\\
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}  \NHmoD{n\wh}\text{ by \cref{eq:LMHmo}}\label{eq:deltahhalf}\\
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\nmax  \NHnfn{-1}{D}{\wh}\text{ as in the proof of \cref{lem:shiftnegativew}}\nonumber
@@ -2393,9 +2420,10 @@ We now return to $\Njhn{\vh}$:
 by \cref{eq:deltahhalf}.
 
 Similarly to \cref{eq:evenrecursivesum}, one can use \cref{eq:lrecursion} recursively to show that, for any integer $t \in [0,l]$
-\beq\label{eq:oddrecursive}
-\NHnfn{-1}{D}{\Deltah^{-l}\vh} \leq \mleft(\En \nvar\mright)^t\mleft(\Etildefn{0,t} \NHnfn{-(2t+1)}{D}{\Deltah^{-l+t}\vh} + \sum_{m=0}^t \Etildefn{m,t} h^{2m+1}  \NHnfn{-2(t-m)}{D}{\Deltah^{-l+t}\vh}\mright),
-\eeq
+\begin{align}
+\NHnfn{-1}{D}{\Deltah^{-l}\vh} \leq \mleft(\En \nvar\mright)^t\Bigg(\Etildefn{0,t} \NHnfn{-(2t+1)}{D}{\Deltah^{-l+t}\vh}\nonumber\\
++ \sum_{m=0}^t \Etildefn{m,t} h^{2m+1}  \NHnfn{-2(t-m)}{D}{\Deltah^{-l+t}\vh}\Bigg),\label{eq:oddrecursive}
+\end{align}
 where  we define the $\Etildefn{m,t}$ inductively for $t \in [0,l]$ by
 \begin{align}
 \label{eq:Etilde1}\Etildefn{0,0} &= 1,\\
@@ -2414,11 +2442,9 @@ Then
   &\NHnfn{m}{D}{\Deltah^{-l}\vh} \leq\nonumber\\
   &\quad\mleft(\En \nvar\mright)^{t-1} \Etildefn{0,t-1}\bigg(\Cshiftfn{2(t-1)+1} \shiftn{2(t-1)+1}\NHnfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\nonumber\\
     &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+\Csumrecfn{2(t-1)t+1} \errn{2(t-1)+1}\nvar h^{2t+1} \NLtDn{\Deltah^{-l + t}\vh}\bigg)\nonumber\\
-  &\quad+ \mleft(\En \nvar\mright)^{t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1}\Big(\Cshiftfn{2(t-1-m)} \shiftn{2(t-1-m)}\NHnfn{-2(t-1-m)}{D}{\Deltah^{-l + t}\vh}\nonumber\\
-  &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+ h^{2(t-m)} \Csumrecfn{2(t-1-m)}\errn{2(t-1-m)}\nvar \NLtDn{\Deltah^{-l + t}\vh}\Big)\label{eq:verylongeq}
-%% &= \Etildefn{0,t-1} \CAfn{2t-1} \NHfn{-(2(t-1)+1)}{D}{\Deltah^{-l + t}\vh}\\
-%% &\quad\quad+ \mleft(\Csumrecfn{2t-1}\sum_{m=1}^{t-1} \Etildefn{m,t-1}\CAfn{2(t-1-m)}\mright) h^{2t+1}\NLtD{\Deltah^{-l + t}\vh}\\
-%% &\quad\quad+ \sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1} \CAfn{2(t-1-m)}\NHfn{-2(t-m)}{D}{\Deltah^{-l + t}\vh},
+  &+ \mleft(\En \nvar\mright)^{t-1}\nonumber\\
+  &\quad\quad\sum_{m=1}^{t-1} \Etildefn{m,t-1} h^{2m+1}\Big(\Cshiftfn{2(t-1-m)} \shiftn{2(t-1-m)}\NHnfn{-2(t-1-m)}{D}{\Deltah^{-l + t}\vh}\nonumber\\
+  &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+ h^{2(t-m)} \Csumrecfn{2(t-1-m)}\errn{2(t-1-m)}\nvar \NLtDn{\Deltah^{-l + t}\vh}\Big)\label{eq:verylongeq}
 \end{align}
 and rearranging \cref{eq:verylongeq}, and using the facts that $\shiftn{m} \leq \errn{m}$ for all $m$ and $\nvar \geq 1,$ we obtain \cref{eq:oddrecursive} with the constants $\Etildefn{m,t}$ given by \cref{eq:Etilde1,eq:Etilde3,eq:Etilde4,eq:Etilde5}. Therefore, we conclude that if $j = 2l+1$
 \begin{align}

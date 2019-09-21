@@ -59,7 +59,7 @@ and we can impose the radiation condition \cref{eq:sommerfeld} on $u$ even thoug
 
 One particular case of \cref{prob:edp} is the sound-soft scattering problem, where $u$ is the acoustic pressure field resulting from the scattering of an incoming wave $\ui$ by the scatterer\footnote{In the literature the scattered field is sometimes denoted $\us,$ in which case $u$ usually denotes the total field $\ui+ \us.$} $\Dm,$ c.f., \cite[Section 1.1]{Ih:98} and \cite[Section 1.1]{CoKr:13} In this problem, the total field $\uT = u + \ui$ satisfies $\Lap\uT + k^2n\uT = 0$ in $\Dp,$ with $\trGD \uT = 0.$ If there are no sources in the domain, and the incident field satisfies $\Lap \ui + k^2 \ui = 0$ in $\Dp,$ then $u$ satisfies \cref{prob:edp} with $f = \grad \cdot \mleft(\mleft(A-I\mright) \grad \ui\mright) + k^2 \mleft(n-1\mright)\ui,$ and $\gD = - \trGD \ui$.
 
-Physically, the Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the solutions of \cref{prob:edp} correspond to `outgoing' waves (see, e.g., \cite[Section 1.1.3]{Ih:98}), and mathematically, it guarantees the uniqueness of solution to \cref{prob:edp}, see, e.g., \cite[Corollary 2.9]{ChGrLaSp:12}. Observe that \cref{prob:edp} is defined on an infinite spatial domain; if one discretises \cref{prob:edp} using domain-based methods (such as FEMs) the infiniteness of the domain causes an issue. Therefore a common appproach is to truncate \cref{prob:edp} with an artificial boundary that is sufficiently large to contain $\Dm$ and all the inhomogeneities in $A$, $n,$ and $f.$
+Physically, the Sommerfeld radiation condition \eqref{eq:sommerfeld} ensures that the solutions of \namecref{prob:edp} \ref{prob:edp} correspond to `outgoing' waves (see, e.g., \cite[Section 1.1.3]{Ih:98}), and mathematically, it guarantees the uniqueness of solution to \cref{prob:edp}, see, e.g., \cite[Corollary 2.9]{ChGrLaSp:12}. Observe that \cref{prob:edp} is defined on an infinite spatial domain; if one discretises \cref{prob:edp} using domain-based methods (such as FEMs) the infiniteness of the domain causes an issue. Therefore a common appproach is to truncate \cref{prob:edp} with an artificial boundary that is sufficiently large to contain $\Dm$ and all the inhomogeneities in $A$, $n,$ and $f.$
 
 If one was able to compute the Dirichlet-to-Neumann operator for the \emph{homogeneous} Helmholtz equation in the exterior of the artificial boundary, then one could discretise \cref{prob:edp} exactly. See \cref{prob:vedp} for the variational formulation of \cref{prob:edp}, which is posed on a finite domain and includes the exact Dirichlet-to-Neumann operator. In practice, however, the Dirichlet-to-Neumann operator is expensive to compute, and so is approximated with a different boundary condition on the truncated boundary. Options for the truncated boundary condition include a perfectly matched layer, first introduced in \cite{Be:94} for Maxwell's equations, which mimics the whole of the external domain, or FEM-BEM coupling (a numerical method, where BEM stands for boundary-element method), as in, e.g., \cite{HiMe:06}, where a boundary element method is used to approximate the solution in the exterior of the truncated domain. However, in this thesis, as a model problem we consider imposing an \defn{impedance boundary condition}
 \beq\label{eq:imptext}
@@ -68,7 +68,7 @@ If one was able to compute the Dirichlet-to-Neumann operator for the \emph{homog
 on the truncated boundary. If $\gI = 0,$ then \eqref{eq:imptext} can be seen as a first-order approximation to \eqref{eq:sommerfeld} (see, e.g., \cite[p. 353]{GaMuSp:19}, where it is shown that in certain asymptotic limits, the Dirichlet-to-Neumann map for the homogeneous Helmholtz equation is equal to $ik$). Moreover, We note that a common Helmholtz model problem in the numerical-analysis community is the \defn{interior impedance problem (IIP)}, where an impedance boundary condition \cref{eq:imptext} is used, and it is assumed that $\Dm = \emptyset.$ Truncating \cref{prob:edp} with an impedance boundary condition gives rise to the following deterministic Helmholtz problem.
 
 \bprob[Truncated Exterior Dirichlet Problem (TEDP)]\label{prob:tedp}
- Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Let $\trI: \HoD\rightarrow\HhGI$ denote the Dirichlet trace operator on $\GI$, and $\dn:\HoD\rightarrow\HmhGI$ the Neumann trace operator. Given
+ Let $\Dm$ be an open bounded Lip\-schitz set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected. Let $\Dtilde$ be a bounded connected Lipschitz open set such that $\Dmclos \compcont \Dtilde.$ Let $D \de \Dtilde \setminus \Dmclos$, $\GD \de \partial \Dm,$ and $\GI \de \partial \Dtilde.$ Let $\trI: \HoD\rightarrow\HhGI$ denote the Dirichlet trace operator on $\GI$, and $\dn:\HoD\rightarrow\HmhGI$ the Neumann trace operator. Given
   \bit
   \item $k > 0,$
 \item $f \in \LtD$
@@ -110,7 +110,7 @@ Whilst the impedance boundary condition \eqref{eq:ibc} is only an approximation 
   %%   \ede
   
 \bde[Class of nontrapping media]\label{def:NT}
-Let $A \in \CzoDpclosRRdtd, n \in \CzoDpclosRR,$ and $\muo, \mut > 0.$ We say that $A \in \NTADp{\muo}$ if
+Let $A \in \CzoDpclosRRdtd, n \in \CzoDpclosRR,$ and $\muo,$ $\mut > 0.$ We say that $A \in \NTADp{\muo}$ if
 \beq\label{eq:ANT}
 A(\bx) - \mleft(\bx \cdot \grad\mright)A(\bx) \geq \muo,
 \eeq
@@ -162,9 +162,10 @@ If $\Dm, A, n, f,$ and $\gI$ satisfy the requirements in \cref{prob:tedp}, $\gD 
 \item $a\LI$ be the radius of the ball with respect to which $\Dtilde$ is star-shaped.
     \eit
 Then
-\beq\label{eq:tedpbound}
-  \muo \NLtD{\grad u}^2 + \mut k^2 \NLtD{u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2 + 2\LI k^2 \NLtGI{\trGI u}^2\leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2
-\eeq
+\begin{align}
+  \muo \NLtD{\grad u}^2 + \mut k^2 \NLtD{u}^2 + a\LI\NLtGI{\gradGI \trGI u}^2& + 2\LI k^2 \NLtGI{\trGI u}^2\nonumber\\
+&\quad\quad  \leq \Ct \NLtDR{f}^2 + \Cttilde \NLtGI{\gI}^2\label{eq:tedpbound}
+\end{align}
 for all $k>0,$ where $\gradGI$ is the surface gradient on $\GI,$
 \beqs
 \Ct \de 4\mleft(\frac{\LI^2}{\muo} + \frac1{\mut}\mleft(\beta + \frac{d-1}{2k}\mright)^2\mright),
