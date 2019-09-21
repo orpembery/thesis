@@ -1,7 +1,7 @@
 - Implement Euan's comments on 2nd part of Chap 2
 - Implement Ivan's comments on Chapter 5
 - Get and Implement Ivan's comments on summary?
-- Get Euan's feedback on declaration of authorship
+- Get Euan/Ivan's feedback on declaration of authorship
 / Check Bibtex/latex errors
 - See Evans and Gariepy from Euan and Popov and Vodev 99b
 - Check with Ivan about Duff, Erisman, and Reid reference
@@ -10,9 +10,7 @@
 / Biblio abbreviations/names
 
 / Formatting:
- * and the fact that n_min not in line
  * Big spaces in MLMC
- * change back to CM depending on what Euan says
  * Headers, titles, title page in accordance with what Paul did
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
  * Overrunning lines - use draft mode
