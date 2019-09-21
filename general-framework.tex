@@ -35,6 +35,9 @@ almost surely.
 \eprobvar
 
 \bprobLT[Second-order moment variational formulation almost surely]\label{prob:lt}
+
+\
+
 Find $u \in \LtOX$ such that \eqref{eq:aeeq} holds almost surely.
 \eprobvar
 
@@ -51,7 +54,7 @@ it is immediate that if $u$ solves \cref{prob:lt} then every member of the equiv
 \ere
 
 \subsection{Conditions on $\toform,$ $\rhs,$ and $\coeff$}\label{sec:cons}
-We now state the conditions under which we prove results about the equivalence of \cref{prob:meas,prob:lt,prob:svar}.
+We now state all the conditions under which we prove results about the equivalence of \cref{prob:meas,prob:lt,prob:svar}.
 
 
 \bconAo[$\toform$ is continuous] \label{con:coeffstoform}
@@ -115,6 +118,9 @@ The condition  $\ker\mleft(\Acomega\mright) = \set{0}$ $\PP$-almost surely can b
 
 
 \bth[Measurable solution implies second-order solution]\label{thm:3}
+
+\
+
 Under \cref{con:B}, if $u$ solves \cref{prob:meas} then $u$ solves \cref{prob:lt}  and satisfies the stochastic a priori bound
 \beq\label{eq:sbresult}
 \NLtOX{u}^2 \leq\sum_{j=1}^m \NLoO{C_jf_j}.
@@ -126,7 +132,10 @@ The proof of \cref{thm:3} is on \cpageref{page:thm3proof} below.
 Note that the right-hand side of the stochastic a priori bound \eqref{eq:sbresult} is the expectation of the right-hand side of the bound \eqref{eq:sbe1}.
 
 \ble[Stochastic variational formulation well-defined]\label{lem:svarwelldefined}
-Under \cref{con:coeffstoform,,con:A,,con:coeffstofunc,,con:L,,con:cborel,,con:C},  the maps $\SA$ and $\SL$ defined by \eqref{eq:SA} are well-defined in the sense that
+
+\
+
+Under \namecrefs{con:coeffstoform} \ref{con:coeffstoform}, \ref{con:A}, \ref{con:coeffstofunc}, \ref{con:L}, \ref{con:cborel}, and \ref{con:C},  the maps $\SA$ and $\SL$ defined by \eqref{eq:SA} are well-defined in the sense that
 \beq\label{eq:finite}
 \mleft[\SA(\vo)\mright](\vt),\, \SL(\vt) < \infty \quad\text{for all } \vo \in \LtOX, \text{ for all }\vt \in \LtOY.
 \eeq
@@ -135,6 +144,9 @@ Under \cref{con:coeffstoform,,con:A,,con:coeffstofunc,,con:L,,con:cborel,,con:C}
 The proof of \cref{lem:svarwelldefined} is on \cpageref{page:lemsvarwelldefinedproof} below.
 
 \bth[Second-order solution implies stochastic variational solution]\label{thm:11}
+
+\
+
 Under \cref{con:coeffstofunc,,con:L,,con:cborel,,con:C}, if $u$ solves \cref{prob:lt} then $u$ solves \cref{prob:svar}.
 \enth
 
@@ -155,6 +167,9 @@ In \Cref{thm:11} we could replace \cref{con:L} with \cref{con:A}, and the result
 \ere
 
 \ble[Showing uniqueness of the solution to \cref{prob:meas,prob:lt,prob:svar}]\label{lem:uniq}
+
+\
+
 If \cref{con:K} holds, then
 \ben
 \item\label[part]{part:uniq1} the solution to \cref{prob:meas} (if it exists) is unique up to modification on a set of $\PP$-measure 0 in $\Omega$, 

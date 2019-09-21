@@ -10,12 +10,12 @@ Let $\TrR: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ be the Dirichlet-to
 see \cite[Section 2.6.3]{Ne:01} and \cite[Equations 3.5 and 3.6]{ChMo:08} for an explicit expression for $\TrR$  in terms of Hankel functions and Fourier series ($d=2$)/spherical harmonics ($d=3$). Let $\IPGR{\cdot}{\cdot}$ be the duality pairing on $\GR$ between $\HmhGR$ and $\HhGR$ and write $\dd\Leb$ for Lebesgue measure. Throughout this \lcnamecref{chap:stochastic} we explicitly include the measure when writing integrals, to help distinguish between integrals over the spatial domain (using $\dd\lambda$) and integrals over the probability space (using $\dd\PP).$
 
 %Let $\LiDpRRdtd$ be the set of all matrix-valued functions $A:\Dp\rightarrow\RRdtd$ such that $A_{i,j} \in \LiDpRR$ for all $i,j = 1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~we write $\LiDp$ for $\LiDpCC.$
-For $\Az \in \spd,$ we write $\NopCCd{\Az}$ for the operator norm induced by the Euclidean vector norm on $\CCd$ (i.e., $\NopCCd{\cdot}$ is the spectral norm), and for $\Az:\DR \rightarrow \spd,$ we write $\NLiDRRRdtd{\Az}$ for $\NLiDRRRsmall{\Nop{\Az(\bx)}}.$ Observe that $\NLiDRRRdtd{\cdot}$ is a slight abuse of notation, as $\LiDRRRdtd$ is not a vector space. Nevertheless $\NLiDRRRdtd{\cdot}$ still fulfils the properties of a norm on $\LiDRRRdtd.$ We define $\NWoiDRRRdtd{\cdot}$ similarly.
+For $\Az \in \spd,$ we write $\NopCCd{\Az}$ for the operator norm induced by the Euclidean vector norm on $\CCd$ (i.e., $\NopCCd{\cdot}$ is the spectral norm), and for $\Az:\DR \rightarrow \spd,$ we write $\NLiDRRRdtd{\Az}$ for the norm $\NLiDRRR{\Nop{\Az(\bx)}}.$ Observe that $\NLiDRRRdtd{\cdot}$ is a slight abuse of notation, as $\LiDRRRdtd$ is not a vector space. Nevertheless $\NLiDRRRdtd{\cdot}$ still fulfils the properties of a norm on $\LiDRRRdtd.$ We define $\NWoiDRRRdtd{\cdot}$ similarly.
 
 We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Let $\OFP$ be a complete probability space. Throughout this \lcnamecref{chap:stochastic}, unless stated otherwise we equip a topological space with its Borel $\sigma$-algebra. See \cref{app:mtBs} for a summary of the measure-theoretic concepts used in this \lcnamecref{chap:stochastic}. Let
 \bit
 \item $f:\Omega\rightarrow\LtDp$ be such that $\supp f \compcont \BR$ almost surely
-\item $n:\Omega\rightarrow \LiDpRR$ be such that $\supp(1-n) \compcont \BR$ almost surely and there exist $\nmin, \nmax:\Omega\rightarrow \RR$ such that
+\item $n:\Omega\rightarrow \LiDpRR$ be such that $\supp(1-n) \compcont \BR$ almost surely and there exist $\nmin,$ $\nmax:\Omega\rightarrow \RR$ such that
 %\beqs
 $0 < \nmin(\omega) \leq n(\omega)(\bx) \leq \nmax(\omega)$
 %\eeqs
@@ -93,13 +93,13 @@ Find $u\in L^2\big(\Omega;H_{0,D}^1(D_R)\big)$ such that
 
 \bre[Why consider \cref{prob:msedp}?]\label{rem:whyone}
 
-The difference between \cref{prob:msedp,prob:somsedp} is that \cref{prob:msedp} requires no integrability of $u$ over $\Omega$, whereas \cref{prob:somsedp} requires $u \in \LtOHozDDRnormal$. Since all the theory for sampling-based UQ methods assume some integrability of the solution, the natural question is: why consider \cref{prob:msedp} at all?
+The difference between \cref{prob:msedp,prob:somsedp} is that \cref{prob:msedp} requires no integrability of $u$ over $\Omega$, but \cref{prob:somsedp} requires $u \in \LtOHozDDRnormal$. Since all the theory for sampling-based UQ methods assume some integrability of the solution, the natural question is: why consider \cref{prob:msedp} at all?
 
 The main reason we consider \cref{prob:msedp} is that, given the existing PDE theory for the Helmholtz equation, we can prove existence of a solution to \cref{prob:msedp} under general conditions on $A$ and $n$, but there is no current prospect of proving existence of a solution to \cref{prob:somsedp} under general conditions on $A$ and $n$. The explanation for this consists of the following three points:
 \ben
 \item The only two known ways to obtain a solution to \cref{prob:somsedp} are: (i) obtain a deterministic a priori bound, explicit in all parameters, and integrate (followed, e.g., in \cite{ChScTe:13} for \eqref{eq:diffusion} with lognormal coefficients) and (ii) obtain a solution to \cref{prob:svsedp} and show this is a solution to \cref{prob:somsedp}. In the Helmholtz case, doing (ii) is difficult as neither the Lax--Milgram theorem nor Fredholm theory is applicable (as explained in the introduction), and so we follow the approach in (i).
 \item The only known bounds on the solution of the Helmholtz equation explicit in all parameters are those recently obtained for nontrapping scenarios in \cite{GrPeSp:19,GaSpWu:18}.
-\item Obtaining a bound explicit in all parameters for a general class of $A$ and $n$, e.g., $A \in \WoiDRRRdtd$ and $n \in \LiDRRR$ is well beyond current techniques. Indeed, a general class of $A$ and $n$ will include both trapping and nontrapping scenarios, and such a bound would need to capture the exponential blow-up in $k$ for trapping $A$ and $n$, the uniform boundedness in $k$ for nontrapping $A$ and $n$, and be explicit in $A$ and $n$.
+\item Obtaining a bound explicit in all the parameters for any general class of $A$ and $n$, e.g., $A \in \WoiDRRRdtd$ and $n \in \LiDRRR$ is well beyond current techniques. Indeed, a general class of $A$ and $n$ will include both trapping and nontrapping scenarios, and such a bound would need to capture the exponential blow-up in $k$ for trapping $A$ and $n$, the uniform boundedness in $k$ for nontrapping $A$ and $n$, and be explicit in $A$ and $n$.
 \een
 Given this fact that there is no current prospect of proving existence of a solution to \cref{prob:somsedp} under general conditions on $A$ and $n$ we keep \cref{prob:msedp} so that we prove an (albeit weaker) existence result for the Helmholtz equation with general coefficients.
 
@@ -163,6 +163,9 @@ and $u$ solves \cref{prob:somsedp}. \cref{thm:hh-hetero} below includes this rel
 %The significance of the class of coefficients in \cref{def:hh-nontrapping} is that \cref{thm:edp} proves bounds on the solution of \eqref{eq:hh-intro} for such $A$ and $n,$ where the constant in the bound only depends on $\muo, \mut, k, R, $ and $d.$
 
 \bcon[{$k$-independent nontrapping conditions on (random) $A$ and $n$}]\label{con:hh-hetero}
+
+\
+
 The random fields $A$ and $n$ satisfy $A:\Omega\rightarrow\WoiDRRRdtd$ and $n:\Omega\rightarrow \WoiDRRR$ with $\supp(I-A(\omega)) \compcont \BR$ and $\supp(1-n(\omega)) \compcont \BR$ almost surely.  Furthermore, there exist $\muo, \mut:\Omega\rightarrow \RR,$ independent of $f,$ with $\muo(\omega),\mut(\omega) > 0$ almost surely and $1/\muo,1/\mut \in \LtORR$  such that $A(\omega) \in \NTA{\muo(\omega)}$ almost surely and $n(\omega) \in \NTn{\mut(\omega)}$ almost surely.
 \econ
 
@@ -172,6 +175,9 @@ The set $D \subseteq \RRd$ is \defn{star-shaped with respect to} the point $\bxz
 \ede
 
 \bth[{Equivalence of variational problems in a nontrapping case}]\label{thm:hh-hetero}
+
+\
+
 Let $\Dm$ be star-shaped with respect to the origin. Under \cref{con:hh-fAn,con:hh-hetero}:
 \bit
 \item The maps $\as$ and $\Ls$ (defined by \eqref{eq:SEDPas}) are well-defined.
@@ -191,16 +197,19 @@ for all $k\geq\kz$, where $\Co:\Omega\rightarrow\RR$ is given by
 
 The proof of \cref{thm:hh-hetero} is on \cpageref{page:thmhhheteroproof} below.
 
-As highlighted above, \cref{thm:hh-hetero} is obtained from combining
+As highlighted above, \cref{thm:hh-hetero} is obtained by combining
 deterministic a priori bounds from \cref{thm:edp} with the general
 arguments in \cref{sec:general} about well-posedness of variational
 formulations of stochastic PDEs. \cref{thm:hh-hetero} uses the most basic a priori bound proved
 in \cite{GrPeSp:19} (from \cite[Theorem 2.5]{GrPeSp:19}), but \cite{GrPeSp:19}
 contains several extensions of this bound. \cref{rem:planewave,rem:ones,rem:tedp,rem:jumps,rem:kdep}
-outline the implications that these (deterministic) extensions have for
+outline the implications of these (deterministic) extensions for
 the stochastic Helmholtz equation.
 
 \bre[Dirichlet boundary conditions on $\GD$ and plane-wave incidence]\label{rem:planewave}
+
+\
+
 The formulations of the stochastic EDP above assume that $u=0$ on the boundary $\GD.$ An important scattering problem for which $u \neq 0$ on $\GD$ is when $u$ is the field scattered by an incident plane wave; in this case $\gamma u = -\gamma \uI,$ where $\uI$ is the incident plane wave \cite[p. 107]{ChGrLaSp:12}.
 
 The results in this \lcnamecref{chap:stochastic} can be easily extended to the case when $u\neq0$ on $\pDm$ using \cite[Theorem 2.19(ii)]{GrPeSp:19}  which proves a priori (deterministic) bounds in this case. One subtlety, however, is that $f$ is then not necessarily independent of $\muo$ and $\mut.$ Indeed in this case
@@ -249,6 +258,9 @@ for almost every $\bx\in \Dp,$ almost surely.
 %% \ere
 
 \bre[The Helmholtz stochastic truncated exterior Dirichlet problem]\label{rem:tedp}
+
+\
+
 When applying the Galerkin method to \cref{prob:msedp,prob:somsedp,prob:svsedp}, the Dirichlet-to-Neumann map $\TrR$ is expensive to compute. Therefore, it is
 common to approximate the DtN map on $\GR$ by an `absorbing
 boundary condition' (see, e.g., \cite[Section 3.3]{Ih:98} and the references

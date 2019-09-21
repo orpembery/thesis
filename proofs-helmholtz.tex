@@ -24,7 +24,7 @@ Observe that the norm on $\LiDRRR$ induces a metric on $\LiRminDRRR,$ and simila
 
 \bde[Deterministic form and functional]
 
-\noindent For $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRminDRRR \times \LtRDR$ let the sesquilinear form $\aGm$ on $\HozDDR \times \HozDDR$  and the antilinear functional $\Lh$ on $\HozDDR$ be given by
+For any choice of $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRminDRRR \times \LtRDR$, let the sesquilinear form $\aGm$ on $\HozDDR \times \HozDDR$  and the antilinear functional $\Lh$ on $\HozDDR$ be given by
 \begin{align*}
 \aGm\mleft(\vo,\vt\mright) &\de \int_{D_R} \Big(\mleft(\Az \grad \vo\mright)\cdot \grad \vtb \rangle 
  - k^2 \nz\, \vo\,\vtb \Big)\dd\Leb- \big\langle T_R \gamma \vo,\gamma \vt\big\rangle_{\Gamma_R}, \quad\text{and}\\
@@ -83,11 +83,11 @@ Since $A,n,$ and $f$ are strongly measurable, by \cref{thm:pettis} they are meas
 \epf
 
 \ble[\Cref{con:coeffstoform,con:coeffstofunc} for Helmholtz stochastic EDP]\label{lem:hh-AL}
-The maps $\toform$ and $\rhs$ given by \eqref{eq:hhform} satisfy \cref{con:coeffstoform,con:coeffstofunc}.
+The two maps $\toform$ and $\rhs$ given by \eqref{eq:hhform} satisfy \cref{con:coeffstoform,con:coeffstofunc}.
 \ele
 
 \bpf[Proof of \cref{lem:hh-AL}]
-We need to show that if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC$ then $\toform((\Am,\nm,\fm)) \rightarrow \toform((\Az,\nz,\fz))$ in $\homspace,$ and similarly for $\rhs.$ We have, for $\vo \in X,\vt \in Y,$
+We need to show that if we have $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC$, then $\toform((\Am,\nm,\fm)) \rightarrow \toform((\Az,\nz,\fz))$ in $\homspace,$ and similarly for $\rhs.$ We have, for $\vo \in X,\vt \in Y,$
 \begin{align*}
 &\biggabs{\Big[\big[\toform\mleft(\Am,\nm,\fm\mright) - \toform\mleft(\Az,\nz,\fz\mright)\big]\mleft(\vo\mright)\Big]\mleft(\vt\mright)}\\
 &\quad\quad\quad\,\,= \abs{\int_{\DR} \Big(\big(\mleft(\Am-\Az\mright)\grad \vo\big)\cdot\grad\vtb- k^2 \mleft(\nm-\nz\mright) \vo\vtb\Big)\dd\Leb}\\
@@ -110,7 +110,7 @@ Hence if $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\cC,$ then $\rhs((\Am,\nm
 \epf
 
 \bde[The solution operator $\sol$]
-Define $\sol:\cC\rightarrow \HozDDR$ by letting $\sol\mleft(\Az,\nz,\fz\mright) \in \HozDDR$ be the solution of the Helmholtz EDP (\cref{prob:edpstoch}).
+Define the operator $\sol:\cC\rightarrow \HozDDR$ by letting $\sol\mleft(\Az,\nz,\fz\mright) \in \HozDDR$ be the solution of the Helmholtz EDP (\cref{prob:edpstoch}).
 \ede
 
 \bth[$\sol$ is well defined]\label{thm:deteu}
@@ -130,7 +130,7 @@ For the
 \ele
 
 \bpf[Sketch Proof of \cref{lem:solcont}]
-Let $(\Az,\nz,\fz), (\Ao,\no,\fo) \in \cC,$ with $\sol((\Az,\nz,\fz)) = \uz$ and $\sol((\Ao,\no,\fo)) = \uo.$
+Let $(\Az,\nz,\fz), (\Ao,\no,\fo) \in \cC,$ such that $\sol((\Az,\nz,\fz)) = \uz$ and $\sol((\Ao,\no,\fo)) = \uo.$
 Then for any $v \in \HozDDR$ we have, for $j=0,1,$
 
 \beqs\label{eq:S1}
@@ -148,7 +148,7 @@ Continuity of $\sol$ then follows from:
   $\NHokDR{\ud} \leq C(\Az,\nz) \NHozDDRas{F}.$
 %  \eeqs
 
-\item Showing $\NHozDDRas{F}$ depends on $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRRRdtd{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
+\item Showing $\NHozDDRas{F}$ depends on each of $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRRRdtd{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
 \item Eliminating the dependence on $\uo$ by writing $\uo = \uz-\ud$ and moving terms in $\ud$ to the left-hand side, to obtain a bound on $\ud$ of the form
   \begin{align*}
 &\NLtDR{\grad \ud} + k\NLtDR{\ud} \\
@@ -158,6 +158,9 @@ Continuity of $\sol$ then follows from:
 \een\epf
 
 \ble[\Cref{con:K} for the Helmholtz stochastic EDP]\label{lem:hh-K}
+
+\
+
 The Helmholtz stochastic EDP satisfies \cref{con:K}.
 \ele
 
@@ -180,6 +183,9 @@ To prove that \cref{con:B} holds for the Helmholtz stochastic EDP, we first stat
 %% \econ
 
 \bth[Well-posedness of the Helmholtz EDP {\cite[Theorem 2.5]{GrPeSp:19}}]\label{thm:eubedp}
+
+\
+
 Let $(\Az,\nz,\fz) \in \cC$ and suppose $\Az \in \NTA{\consto}$ and $\nz \in \NTn{\constt}$. Then the solution of the Helmholtz EDP (\cref{prob:edpstoch}) exists and is unique. Furthermore, given $\kz > 0$ for all $k \geq \kz,$ the solution $\uz$ of the Helmholtz EDP satisfies the bound 
 \beq\label{eq:heterobound1}
 \consto \NLtDR{\grad \uz}^2 + \constt k^2 \NLtDR{\uz}^2\leq \Co \NLtDR{\fz}^2,\,\, \text{where} \,\, \Co := 4\mleft[\frac{R^2}{\consto} + \frac{1}{\constt}\mleft(R+ \frac{d-1}{2\kz}\mright)^2\mright].
@@ -197,7 +203,7 @@ As \cref{con:hh-hetero} holds,  the conditions of \cref{thm:eubedp} hold for $\P
 \beqs
 \Co(\omega) = \frac4{\min\set{\muo(\omega),\mut(\omega)}}\mleft[\frac{R^2}{\muo(\omega)} + \frac{1}{\mut(\omega)}\mleft(R+ \frac{d-1}{2\kz}\mright)^2\mright],
 \eeqs
-and $\fo = \NLtDR{f(\omega)}^2.$ It now remains to show that $\Co\,\NLtDR{f}^2 \in \LoO.$ We first show $\Co\,\NLtDR{f}^2$ is measurable and then show that it lies in $\LoO.$ To show measurability, we rewrite $\Co(\omega)$ as 
+and $\fo = \NLtDR{f(\omega)}^2.$ It now remains to show that $\Co\,\NLtDR{f}^2 \in \LoO.$ We first show that $\Co\,\NLtDR{f}^2$ is measurable and then show that it lies in $\LoO.$ To show measurability, we rewrite $\Co(\omega)$ as 
 \beqs
 \Co(\omega) =  \max\left\{\frac{2 R^2}{\mu_1^2(\omega)} + \frac{2}{\mu_1(\omega)\mu_2(\omega)}\left(R+ \frac{d-1}{2\kz}\right)^2,\frac{2 R^2}{\mu_1(\omega)\mu_2(\omega)} + \frac{2}{\mu_2^2(\omega)}\left(R+ \frac{d-1}{2\kz}\right)^2\right\}.
 \eeqs
@@ -218,7 +224,7 @@ Therefore $\Co\NLtD{f}^2 \in \LoO$ as required. We take the expectation (equival
 \epf
 
 \bre[The case when $f,$ $\muo,$ and $\mut$ are not independent]\label{rem:notindep}
-\Cref{rem:planewave} shows that for the physically relevant example of scattering by a plane wave, $f,$ $\muo,$ and $\mut$ may not be independent. In this case, if we replace the requirements in \cref{con:hh-hetero} that $f \in \LtOLtD$ and $1/\muo,\,1/\mut \in \LtO$ with the stronger requirements $f \in \LfOLtD$ and $1/\muo,\,1/\mut \in \LfO$, then one can obtain the bound
+\Cref{rem:planewave} shows that in the physically relevant case of scattering by a plane wave, $f,$ $\muo,$ and $\mut$ may not be independent. In this case, if we replace the requirements in \cref{con:hh-hetero} that $f \in \LtOLtD$ and $1/\muo,\,1/\mut \in \LtO$ with the stronger requirements $f \in \LfOLtD$ and $1/\muo,\,1/\mut \in \LfO$, then one can obtain the bound
 \beqs
 \NLtOHozDDR{\grad u}^2 + k^2\NLtOHozDDR{ u}^2\leq \NLtO{\Co} \NLfOLtDR{f}^2.
 \eeqs
@@ -242,11 +248,13 @@ and thus $\rhs\circ\coeff \in \LtOYs$ since $f \in \LtOLtDR,$ i.e.~\cref{con:L} 
 
 \ble[\Cref{con:A} for the Helmholtz stochastic EDP]\label{lem:hh-A}
 
-\noindent If $A \in \LiOLiDRRRdtd,$ $n \in \LiOLiDRRR,$ and $f$ is strongly measurable, then \cref{con:A} holds for the Helmholtz stochastic EDP.
+\
+
+If $A \in \LiOLiDRRRdtd,$ $n \in \LiOLiDRRR,$ and $f$ is strongly measurable, then \cref{con:A} holds for the Helmholtz stochastic EDP.
 \ele
 
 \bpf[Proof of \cref{lem:hh-A}]
-A near-identical argument to that at the beginning of the proof of \cref{lem:hh-L} shows $\toform\circ\coeff$ is strongly measurable. Recall that the Dirichlet-to-Neumann operator $\TrR$ is continuous from $\HhGR$ to $\HmhGR,$ see e.g.~\cite[Theorem 2.6.4]{Ne:01}. Let $\vo \in X, \vt \in Y,$ and observe that the Cauchy--Schwartz inequality and these properties of $\TrR$
+A near-identical argument to the argument at the beginning of the proof of \cref{lem:hh-L} shows $\toform\circ\coeff$ is strongly measurable. Recall that the Dirichlet-to-Neumann operator $\TrR$ is continuous from $\HhGR$ to $\HmhGR,$ see e.g.~\cite[Theorem 2.6.4]{Ne:01}. Let $\vo \in X, \vt \in Y,$ and observe that the Cauchy--Schwartz inequality and these properties of $\TrR$
 %, and the fact that the norm on $\LiDRRRdtd$ is defined as 
 %\beqs
 %\NLiDRRRdtd{\Az} = \esssup_{\bx \in \DR}\NopCCd{\Az(\bx)}
@@ -279,7 +287,7 @@ We construct a solution of \cref{prob:msedp} by letting $u = \sol\circ\coeff$ (w
 \cref{con:A} holds by \cref{lem:hh-A};
 \cref{con:L} holds by \cref{lem:hh-L};
  \cref{con:cborel,con:C} hold by \cref{lem:hh-borelC,con:hh-fAn};
-and \cref{con:K} holds by \cref{lem:hh-K}. Therefore we can apply \cref{thm:11,thm:12,lem:svarwelldefined,lem:uniq} to conclude the results.
+and \cref{con:K} holds by \cref{lem:hh-K}. Hence we can apply \cref{thm:11,thm:12,lem:svarwelldefined,lem:uniq} to conclude the results.
 \epf
 
 \bpf[Proof of \cref{thm:hh-hetero}]

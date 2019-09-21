@@ -9,7 +9,7 @@ For fixed $\coeff:\Omega\rightarrow\cC,\,\toform:\Omega\rightarrow\homspace,$ gi
 \eeq
 \ede
 
-A key ingredient in proving that the stochastic variational formulation is well-defined (\cref{lem:svarwelldefined}) is showing that the maps $\compu$ and $\fullrhs$ are measurable. Showing that $\fullrhs $ is measurable is straightforward (see \cref{lem:thetaborel} below), but showing that $\compu$ is measurable is not. This is because $\fullrhs$ depends on $\omega$ only through its dependence on $\coeff,$ but $\compu$ depends on $\omega$ through both the dependence of $\toform\circ\coeff$ on $\omega$ and the dependence of $u$ on $\omega;$ it is this dual dependence that causes the extra complication.
+A key ingredient in proving that the stochastic variational formulation is well-defined (see \cref{lem:svarwelldefined}) is showing that the maps $\compu$ and $\fullrhs$ are measurable. Showing that $\fullrhs $ is measurable is straightforward (see \cref{lem:thetaborel} below), but showing that $\compu$ is measurable is not. This is because $\fullrhs$ depends on $\omega$ only through its dependence on $\coeff,$ but $\compu$ depends on $\omega$ through both the dependence of $\toform\circ\coeff$ on $\omega$ and the dependence of $u$ on $\omega;$ it is this dual dependence that causes the extra complication.
 
 \ble[$\fullrhs$ is measurable] \label{lem:thetaborel}
 Under \cref{con:coeffstofunc,con:cborel} the function $\fullrhs$ is measurable.
@@ -27,7 +27,7 @@ For $v:\Omega\rightarrow X,$ let $\toprod:\Omega\rightarrow \homspace \times X$ 
 \ede
 
 \ble[Product map is measurable]\label{lem:Pmeas}
-When $\homspace \times X$ is equipped with the product topology,  if \cref{con:coeffstoform,con:cborel} hold, and if $v:\Omega\rightarrow X$ is measurable, then $\toprod:\Omega\rightarrow \homspace\times X$ is measurable.
+When $\homspace \times X$ is equipped with the product top\-ol\-ogy,  if \cref{con:coeffstoform,con:cborel} hold, and if $v:\Omega\rightarrow X$ is measurable, then $\toprod:\Omega\rightarrow \homspace\times X$ is measurable.
 \ele
 
 \bpf[Proof of \cref{lem:Pmeas}]
@@ -35,7 +35,7 @@ By the result on the measurability of the Cartesian product of measureable funct
 \epf
 
 \bde[Evaluation map]
-Let $Z$ be a separable Banach space. The function $\eval:\homspaceZ \times X \rightarrow \Zs$ is defined by
+Let $Z$ be a separable Banach space. Define $\eval:\homspaceZ \times X \rightarrow \Zs$ by
 \beq\label{eq:evaldef}
 \eval\big(\mleft(\cH,v\mright)\big) \de \cH(v) \quad\tfor \cH \in \homspaceZ \tand v \in X.
 \eeq
