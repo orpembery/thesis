@@ -1571,7 +1571,7 @@ Recall that a higher power of $k$ appearing in an a priori bound indicates that 
 
 \Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:19} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:19} are stated for a wider class of time-harmonic wave propagation problems, but the dependence on all of the constants is not made explicit.
 
-We also point out (as in \cite[Section 7]{ChNi:19}) that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11}who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA$ is analytic but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{m+\beta}$ for all $m\geq 0$ and some $\beta \in \RR$, where $\beta$ depends on the problem being considered)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-d polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively. In the former case the proof is under an assumption of a polynomial growth of the a priori bound \cite[Assumption 4.8]{MeSa:11}, i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. %We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+We also point out (as in \cite[Section 7]{ChNi:19}) that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11} who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA$ is analytic but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{m+\beta}$ for all $m\geq 0$ and some $\beta \in \RR$, where $\beta$ depends on the problem being considered)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-d polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively. In the former case the proof is under an assumption of a polynomial growth of the a priori bound \cite[Assumption 4.8]{MeSa:11}, i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. %We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
 
 \bpf[Proof of \cref{thm:expansion}]
 The idea of the proof is as follows. We write $u$ as a formal series expansion
@@ -1689,7 +1689,6 @@ Observe that the bounds \cref{eq:bestapproxL2,eq:bestapproxW} are not fully $p$-
 \subsection{Routine analysis results}\label{sec:anbackground}
 In this \lcnamecref{sec:anbackground} we collect together routine results that we use throughout the following proofs.
 
-The following inequalities are straightforward to prove
 \bit
 \item For $N \in \NN$ and $a_1,\ldots,a_N > 0$
 \beq\label{eq:simple}
@@ -1715,6 +1714,8 @@ There exists $\CMT > 0$ such that for all $v \in \HoD$
 \NLtdD{v} \leq \CMT \NLtD{v}^\half \NHoD{v}^\half.
 \eeqs
 \enth
+
+A proof of \cref{thm:multiplicativetrace} can be found in \cite[Last formula on p. 41]{Gr:85}.
 
 \ble[Poincar\'{e}--Friedrichs Inequality]\label{lem:poincare}
 Let $\Gamma \subseteq D$ have nonvanishing $d-1$-dimensional measure. There exist constants $\CP,\Ctilde > 0$ depending only on $D$ and $\Gamma$ such that for all $v \in \HoD$
@@ -1763,7 +1764,7 @@ In this \lcnamecref{sec:errgalerkin} we state a sequence of error bounds in nega
 %\ednote{Both-should I write out at least one of these modified proofs?}. % Note to self, I have these proofs sketched out, but just use the argument from Brenner and Scott and use an L^2 inner product on the function, not their gradients, for the elliptic projection.
 We first define the projections we use.
 
-Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD$
+Given $w \in \HozDD$, define $\Ph w$ as the solution of the variational problem: Find $\Ph w \in \Vhp$ such that.
 \beq\label{eq:epdef}
 \aep(\Ph w,\vh) = \aep(w,\vh) \tforall \vh \in \Vhp,
   \eeq
@@ -1775,7 +1776,7 @@ Define the elliptic projection $\Ph:\HozDD\rightarrow\Vhp$ by, for $w \in \HozDD
 %% \beqs
 %% \IPLtD{A\grad\vh}{\grad\Phn w} = \IPLtDn{A\grad\vh}{\grad w} \tforall \vh \in \Vhp.
 %% \eeqs
-  Observe that $\Ph w$ is the finite-element approximation of the solution of the stationary diffusion problem with `diffusion coefficient' $A$ and right-hand side in $\HozDD'$ given by $\aep(w,\cdot).$
+  Observe that this construction defines the map $\Ph:\HozDD \rightarrow \Vhp.$ Also, observe that $\Ph w$ is the finite-element approximation of the solution of the stationary diffusion problem with `diffusion coefficient' $A$ and right-hand side in $\HozDDs$ given by $\aep(w,\cdot).$
   
 %% We define the $\LtD$-projection $\Qh:\HozDD\rightarrow \Vhp$ by, for $w \in \HozDD$
 %% \beqs
