@@ -2,11 +2,17 @@ To summarise the constants used in \cref{sec:fem}, we use the following table, w
 
 
 Where a constant is only used inside a proof (and not in the statement of a theorem, or similar) then it will typically be numbered using the equation number of its first appearance.
-
+\afterpage{% Heard about from https://tex.stackexchange.com/questions/11471/how-to-wrap-text-around-landscape-page
 % Give rows more spacing
+\begin{landscape}
 \renewcommand{\arraystretch}{2.0}
-
 \begin{longtabu}{Sc Sc Sc}
+\caption{The constants from \cref{sec:fem}}\\
+  \toprule
+  Constant & Definition & Defined/Introduced\\
+  \midrule
+\endfirsthead
+\caption[]{(continued)}\\
   \toprule
   Constant & Definition & Defined/Introduced\\
   \midrule
@@ -91,3 +97,5 @@ $\CcorHo$&$\max\set{2\mleft(\Cmmofn{-1}+\Cmmofn{0}\mright)\max\set{\CFEMo,\CFEMt
     $\Chcond$ & $\displaystyle\frac1{4^{2p}} \mleft(\Csecond\Chighfn{p-1,1}\mright)^{-\frac1{2p}} \min\set{\CFEMo^{-\frac1{2p}},\CFEMt^{-\frac1{p+1}}}$ & \cref{thm:fembound}\\
 \bottomrule
 \end{longtabu}
+\end{landscape}
+}
