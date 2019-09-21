@@ -2790,29 +2790,31 @@ and therefore
 We can now bound $\NLtD{u-\uh}$:
 \begin{align*}
   \NLtD{u-\uh} &\leq  \NLtD{\rho} + \NLtD{\thetah}\\
-  &\leq \Cmmofn{0} \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^{p}\mright)\Cfg + \NLtD{\thetah}, \text{ by \cref{lem:ellprojerr,lem:bestapprox}}\\
+  &\leq \Cmmofn{0} \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h^2 + \CFEMt \CAnk h\mleft(hk\mright)^{p}\mright)\Cfg + \NLtD{\thetah},\\
+  &\quad\quad\text{ by \cref{lem:ellprojerr,lem:bestapprox}}\\
   &\leq \Cmmofn{0} \max\set{\CFEMo,\CFEMt}\Pfn{p-2}\mleft(\nmax\mright)\mleft(h^2 +  \CAnk h\mleft(hk\mright)^{p}+ \mleft(hk\mright)^{2p}\mright)\Cfg\\
   &\quad+ \mleft(\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\mright) \CthetahLt \mleft(h^2 + \CAnk h\mleft(hk\mright)^p + \CAnk^2 \mleft(hk\mright)^{2p}\mright)\Cfg,
 \end{align*}
 which gives \cref{eq:femltbound}, as required.
 
-We can now proceed similarly as above to bound $\SNHoD{\thetah},$ and hence to bound $\NHokD{u-\uh}.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
+We can now proceed similarly as above to bound $\SNHoD{\thetah},$ and hence to bound the error $\NHokD{u-\uh}.$ By \cref{lem:h1contdisc,lem:higherbound} (with $m=1$) we have
 \begin{align}
 \SNHoD{\thetah} &\leq \Amin^{\half} \mleft[\Chighfn{1,1} \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)k \NLtD{\thetah}\mright.\nonumber\\
 &\mleft.\quad\quad+ \Chighfn{1,2} \nvar^3\nmax \NHokD{\rho}\mright],\label{eq:sntheta}
 \end{align}
 
 and by combining \cref{eq:sntheta,eq:ltboundwithrho2} we obtain (as $hk \leq 1$)%(as $hk \leq 1$ and $\nvar,\nmax \geq 1$)
-\beq\label{eq:hoboundwithrho}
-\SNHoD{\thetah} \leq \CHobound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)\mleft( 1 +  \CAnk k(hk)^p\mright)+  \nvar^3\nmax \mright]\NHokD{\rho}.
-\eeq
+\begin{align}
+  \SNHoD{\thetah} &\leq \CHobound \Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nonumber\\
+    &\quad\quad\quad\quad\quad\quad\mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)\mleft( 1 +  \CAnk k(hk)^p\mright)+  \nvar^3\nmax \Bigg]\NHokD{\rho}.\label{eq:hoboundwithrho}
+\end{align}
 
 Substituting \cref{eq:rhoendbound} into \cref{eq:hoboundwithrho} we have
 \begin{align}
-\SNHoD{\thetah} &\leq \CHobound\Crhoendbound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
-&\quad\quad\mleft( 1 +  \CAnk k(hk)^p\mright)   \mleft( h +  \CAnk \mleft(hk\mright)^p\mright) \Cfg\nonumber\\
- &\leq 2\CHobound\Crhoendbound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
-&\quad\quad\cdot\mleft( h +  \CAnk (hk)^p + \CAnk^2 k\mleft(hk\mright)^{2p}\mright)\Cfg.\label{eq:thetahhonearly}
+\SNHoD{\thetah} &\leq \CHobound\Crhoendbound \Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)\nonumber\\
+&\quad\quad\quad\quad\quad\quad\quad\quad+  \nvar^3\nmax \Bigg]\Pfn{p-2}\mleft(\nmax\mright)\mleft( 1 +  \CAnk k(hk)^p\mright)   \mleft( h +  \CAnk \mleft(hk\mright)^p\mright) \Cfg\nonumber\\
+ &\leq 2\CHobound\Crhoendbound \Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)\nonumber\\
+&\quad\quad\quad\quad\quad\quad\quad\quad+  \nvar^3\nmax \Bigg]\Pfn{p-2}\mleft(\nmax\mright)\mleft( h +  \CAnk (hk)^p + \CAnk^2 k\mleft(hk\mright)^{2p}\mright)\Cfg.\label{eq:thetahhonearly}
 \end{align}
 
 We can now proceed to bound $\NHokD{u-\uh}$:
@@ -2822,9 +2824,9 @@ We can now proceed to bound $\NHokD{u-\uh}$:
   & \leq 2\mleft(\Cmmofn{-1} + \Cmmofn{0}\mright) \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p\mright) \Cfg\\
   &\quad\quad+ \SNHoD{\thetah} + k\NLtD{\thetah}, \text{ by \cref{lem:bestapprox,lem:ellprojerr},}\\
   &\leq2\mleft(\Cmmofn{-1} + \Cmmofn{0}\mright) \Pfn{p-2}\mleft(\nmax\mright)\mleft(\CFEMo h + \CFEMt \CAnk \mleft(hk\mright)^p\mright) \Cfg\\
-  &\quad\quad + 2\CHobound\Crhoendbound \mleft[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)+  \nvar^3\nmax \mright]\Pfn{p-2}\mleft(\nmax\mright)\nonumber\\
-  &\quad\quad\quad\quad\cdot\mleft( h +  \CAnk (hk)^p + \CAnk^2 k\mleft(hk\mright)^{2p}\mright)\Cfg\\
-  &\quad\quad+\mleft(\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\mright) \CthetahLt k\mleft(h^2 + \CAnk h\mleft(hk\mright)^p + \CAnk^2 \mleft(hk\mright)^{2p}\mright)\Cfg , \text{ by \cref{eq:thetahhonearly,eq:thetahLt}}.
+  &\quad\quad + 2\CHobound\Crhoendbound \Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(\nmax\mright)}-1\mright)  \nonumber\\
+  &\quad\quad\quad\quad\quad\quad\quad\quad+\nvar^3\nmax \Bigg]\Pfn{p-2}\mleft(\nmax\mright)\mleft( h +  \CAnk (hk)^p + \CAnk^2 k\mleft(hk\mright)^{2p}\mright)\Cfg\\
+  &\quad\quad+\mleft(\CLtn(n)-\Pfn{p-2}\mleft(\nmax\mright)\mright) \CthetahLt k\mleft(h^2 + \CAnk h\mleft(hk\mright)^p + \CAnk^2 \mleft(hk\mright)^{2p}\mright)\Cfg ,
 \end{align*}
-Using the fact that $hk \leq 1,$ and the definitions of $\CHon(n)$ and $\CcorHo,$ we then obtain \cref{eq:femhobound}, as required.
+by \cref{eq:thetahhonearly,eq:thetahLt}. Using the fact that $hk \leq 1,$ and the definitions of $\CHon(n)$ and $\CcorHo,$ we then obtain \cref{eq:femhobound}, as required.
 \epf
