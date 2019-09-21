@@ -93,7 +93,7 @@ Observe that, by construction, $\partial D = \GI \cup \GI$ and $\GD \cap \GI = \
 \begin{figure}
 \begin{centering}
 \input{domain-diagram}
-\caption[An example of the sets in the definitions of the Helmholtz Exterior Dirichlet Problem and Truncated Exterior Dirichlet Problem.]{An example of the sets $\Dm,$ $\GD$, $\BR$, {$\Dtilde$}, $D$, and $\GI$ and $\supp f$, $\supp(I-A)$, and $\supp(1-n)$ from \cref{prob:edp,prob:tedp}.}
+\caption[An example of the sets in the definitions of the Helmholtz Exterior Dirichlet Problem and Truncated Exterior Dirichlet Problem.]{An example of the sets $\Dm,$ $\GD$, $\BR$, {$\Dtilde$}, $D$, and $\GI$ and $\supp f$, $\supp(I-A)$, and $\supp(1-n)$ from \cref{prob:edp,prob:tedp}.\label{fig:domain}}
 \end{centering}
 \end{figure}
 
@@ -111,13 +111,13 @@ Whilst the impedance boundary condition \eqref{eq:ibc} is only an approximation 
   
 \bde[Class of nontrapping media]\label{def:NT}
 Let $A \in \CzoDpclosRRdtd, n \in \CzoDpclosRR,$ and $\muo, \mut > 0.$ We say that $A \in \NTADp{\muo}$ if
-\beqs
+\beq\label{eq:ANT}
 A(\bx) - \mleft(\bx \cdot \grad\mright)A(\bx) \geq \muo,
-\eeqs
+\eeq
 in the sense of quadratic forms, for almost every $\bx \in \Dp$. We say that $n \in \NTnDp{\mut}$ if
-\beqs
+\beq\label{eq:nNT}
 n(\bx) + \bx \cdot \grad n(\bx) \geq \mut
-\eeqs
+\eeq
 for almost every $\bx \in \Dp.$
 
 If $D$ is as in \cref{prob:tedp}, then we define $\NTAD{\muo}$ and $\NTnD{\mut}$ analagously.

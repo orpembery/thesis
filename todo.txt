@@ -17,11 +17,6 @@
 
 - Formatting:
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
- * Page titles - far enough down? & ?????
- * fncychap?
- * Font sizes
- * really big paragraph spaces
- * Split lines in stochastic chapter
  * Overrunning lines - use draft mode
  * all tables overrunning - horizontal pages may fix some
  * (If time) aligning probabilistic run graphs
@@ -41,3 +36,9 @@ App D
 App E
 App F
 App G
+
+
+Very final checks:
+-----------------
+
+- ??

@@ -227,22 +227,22 @@ for almost every $\bx\in \Dp,$ almost surely.
 \eit
 \ere
 
-\bre[Geometric interpretation of the conditions on $A$ and $n$ in \cref{def:hh-nontrapping}]
-Recall that the $k\tendi$ asymptotics of solutions of the Helmholtz
-equation are governed by the behaviour of rays (see, e.g.,
-\cite{BaBu:91}). Given (deterministic) $\Az$ and $\nz,$ the Helmholtz EDP is \defn{nontrapping} if all rays starting
-in $\DR$ and evolving according to the
-Hamiltonian flow defined by the symbol of $\grad\cdot\mleft(\Az\grad u\mright) + k^2\nz u = -\fz$  escape from $\DR$ after some uniform time (see, e.g., \cite[Definition 1.1]{Bu:02}); the EDP is \defn{trapping} otherwise.
-The $k$-dependence of the solution operator depends strongly on
-whether the problem is trapping, and the type of trapping present;
-see, e.g., the overview discussion in \cref{sec:wpdisc} above.
+%% \bre[Geometric interpretation of the conditions on $A$ and $n$ in \cref{def:hh-nontrapping}]
+%% Recall that the $k\tendi$ asymptotics of solutions of the Helmholtz
+%% equation are governed by the behaviour of rays (see, e.g.,
+%% \cite{BaBu:91}). Given (deterministic) $\Az$ and $\nz,$ the Helmholtz EDP is \defn{nontrapping} if all rays starting
+%% in $\DR$ and evolving according to the
+%% Hamiltonian flow defined by the symbol of $\grad\cdot\mleft(\Az\grad u\mright) + k^2\nz u = -\fz$  escape from $\DR$ after some uniform time (see, e.g., \cite[Definition 1.1]{Bu:02}); the EDP is \defn{trapping} otherwise.
+%% The $k$-dependence of the solution operator depends strongly on
+%% whether the problem is trapping, and the type of trapping present;
+%% see, e.g., the overview discussion in \cref{sec:wpdisc} above.
 
-The conditions on $A$ and $n$ in \cref{con:hh-hetero} and the star-shapedness restriction
-on $\Dm$ are sufficient for the Helmholtz stochastic EDP to be nontrapping almost surely. As noted in \cref{rem:ones}, when $A=I$ almost surely the condition on $n$  can be improved  from that in \eqref{eq:hh-Acond} to \eqref{eq:nimproved} using \cite[Theorem 2.19(ii)]{GrPeSp:19}.
-The condition \eqref{eq:nimproved} is equivalent  to nontrapping when $n$ is radial, i.e. $n(\omega,\bx)=
-n(\omega,\abs{\bx})$. Indeed, if $n$ is radial and $2n(\omega,\bx)+ \bx \cdot\nabla n(\omega,\bx)<0$ at a point $\bx \in \RRd$,
-then the deterministic Helmholtz EDP given by $n(\omega,\bx)$ is trapping; see \cite{Ra:71} and \cite[Theorem 7.7]{GrPeSp:19}.
-\ere
+%% The conditions on $A$ and $n$ in \cref{con:hh-hetero} and the star-shapedness restriction
+%% on $\Dm$ are sufficient for the Helmholtz stochastic EDP to be nontrapping almost surely. As noted in \cref{rem:ones}, when $A=I$ almost surely the condition on $n$  can be improved  from that in \eqref{eq:hh-Acond} to \eqref{eq:nimproved} using \cite[Theorem 2.19(ii)]{GrPeSp:19}.
+%% The condition \eqref{eq:nimproved} is equivalent  to nontrapping when $n$ is radial, i.e. $n(\omega,\bx)=
+%% n(\omega,\abs{\bx})$. Indeed, if $n$ is radial and $2n(\omega,\bx)+ \bx \cdot\nabla n(\omega,\bx)<0$ at a point $\bx \in \RRd$,
+%% then the deterministic Helmholtz EDP given by $n(\omega,\bx)$ is trapping; see \cite{Ra:71} and \cite[Theorem 7.7]{GrPeSp:19}.
+%% \ere
 
 \bre[The Helmholtz stochastic truncated exterior Dirichlet problem]\label{rem:tedp}
 When applying the Galerkin method to \cref{prob:msedp,prob:somsedp,prob:svsedp}, the Dirichlet-to-Neumann map $\TrR$ is expensive to compute. Therefore, it is
@@ -259,7 +259,7 @@ The results in this \lcnamecref{chap:stochastic} also hold for the stochastic TE
 \ere
 
 \bre[Discontinuous $A$ and $n$]\label{rem:jumps}
-The requirements on $A$ and $n$ in \cref{def:hh-nontrapping} require them to be continuous (since  $\WoiDR = \CzoDR$ as $\DR$ is Lipschitz; see, e.g., \cite[Section 4.2.3, Theorem 5]{EvGa:92}). In addition to proving deterministic a priori bounds for the class of $A$ and $n$ in \cref{def:hh-nontrapping}, the paper \cite{GrPeSp:19} proves deterministic bounds for discontinuous $A$ and $n$ satisfying \eqref{eq:hh-Acond} in a distributional sense; see \cite[Theorem 2.7]{GrPeSp:19}. In this case, when moving outward from the obstacle to infinity,  $A$ can jump downwards and $n$ can
+The requirements on $A$ and $n$ in \cref{con:hh-hetero} require them to be continuous (since  $\WoiDR = \CzoDR$ as $\DR$ is Lipschitz; see, e.g., \cite[Section 4.2.3, Theorem 5]{EvGa:92}). In addition to proving deterministic a priori bounds for the class of $A$ and $n$ in \cref{con:hh-hetero}, the paper \cite{GrPeSp:19} proves deterministic bounds for discontinuous $A$ and $n$ satisfying \cref{eq:ANT,eq:nNT} in a distributional sense; see \cite[Theorem 2.7]{GrPeSp:19}. In this case, when moving outward from the obstacle to infinity,  $A$ can jump downwards and $n$ can
 jump upwards on interfaces that are star-shaped. (When the jumps are in the opposite direction, the problem is trapping; see \cite{PoVo:99a} and \cite[Section 6]{MoSp:19}). The
 well-posedness results and a priori bounds in this \lcnamecref{chap:stochastic} can therefore be adapted to prove results about the stochastic Helmholtz equation
 for a class of random $A$ and $n$ that allows nontrapping jumps on randomly-placed star-shaped interfaces.
