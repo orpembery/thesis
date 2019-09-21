@@ -4,16 +4,16 @@
 - Get Euan's feedback on declaration of authorship
 - Check Bibtex/latex errors
 - See Evans and Gariepy from Euan and Popov and Vodev 99b
-- Euan MLMC edit - in email
 - Check with Ivan about Duff, Erisman, and Reid reference
-- Find other LU applying cost references and add in to start of nbpc
++ Find other LU applying cost references and add in to start of nbpc
 - Get Ghanem and SPanos from Ivan, and check reference for PC
-- Find reference for Laplace in radial coords - Evans?
-- References for complex error estimators,  incl. Bessel's correction (incl. proof?)
-- Redo Bessel Correction proof
-- Euan extra Chap 2 ref
++ Find reference for Laplace in radial coords - Evans?
++ References for complex error estimators,  incl. Bessel's correction (incl. proof?)
++ Redo Bessel Correction proof
+- Biblio abbreviations/names
 
 - Formatting:
+ * and the fact that n_min not in line
  * Big spaces in MLMC
  * change back to CM depending on what Euan says
  * Headers, titles, title page in accordance with what Paul did

@@ -420,12 +420,13 @@ However, C\'ea's Lemma relies on the coercivity of the sesquilinear form, and th
   \toprule
  & $\hk{a}b$-data-accuracy  & Notes & Proof technique\\
   \midrule
+  \cite[Lemma 2.6]{DoSaShBe:93} & $\displaystyle\hka{\frac32}$ & \makecell{$d=1$, unit interval,\\impedance boundary condition at both endpoints}&Modified Schatz \\
   \cite[Theorem 5]{IhBa:95a} & $\displaystyle\hk{1}{\frac32}$ & \makecell{$d=1$, unit interval, $u(0)=0,$\\impedance boundary condition at $1$}&\makecell{Discrete Green's function\\error splitting using interpolant}\\
       \cite[Corollary 4.2]{ZhWu:13}& $\displaystyle\hk{\frac{p+2}{p+1}}{\frac{2p+1}{2p}}$   &\makecell{$d=2,3$, IIP, $D$ smooth,\\bounds obtained for $hp$-finite-element method,\\so fully $p$-explicit}& Modified Schatz\\
       \cite[Theorem 5.1]{Wu:14} & $\hka{3/2}$  &\makecell{$d=2,3$, IIP,\\$D$ a star-shaped polygon/polyhedron}& Error splitting\\
       \cite[Corollary 5.2]{DuWu:15} & $\displaystyle\hka{\frac{2p+1}{2p}}$ &  $d=2,3$, IIP, $D$ smooth, star-shaped& Error splitting\\
         \cite[Theorem 5.5]{ChNi:18}& $\displaystyle\hk{\frac{3+\sigma}{1+\alpha}}{3/2}$   &\makecell{$d=2$, TEDP with re-entrant corners,\\a priori bound grows like $k^\sigma$, $\alpha \in (1/2,1)$\\related to strength of corner singularities}& Modified Schatz\\
-        \pbox{3.5cm}{\cite[Theorem 4.4 and Remark 4.5(iv)]{LiWu:19}}& $\hka{3/2}$   &\makecell{$d = 1,2,3$, full-space problem truncated with PML,\\posed in a ball}& Modified Schatz\\
+        \pbox{3.2cm}{\cite[Theorem 4.4 and Remark 4.5(iv)]{LiWu:19}}& $\hka{3/2}$   &\makecell{$d = 1,2,3$, full-space problem truncated with PML,\\posed in a ball}& Modified Schatz\\
         \cite[Lemma 3.3]{WuZo:18}&$\hka{3/2}$&\makecell{IIP, $D$ convex,\\$n$ heterogeneous with $\NLiDRR{n-1} \lesssim 1/k$,\\part of an argument for a\\nonlinear heterogeneous Helmholtz problem}&Error splitting\\
   \cite[Theorem 5.4]{ChGaNiTo:18}&$\displaystyle\hk{\frac{p+2}{p+1}}{\frac{2p+1}{2p}}$  & \makecell{$d=2$, EDP truncated with PML,\\posed in a ball}& Modified Schatz\\
 \bottomrule
@@ -2473,7 +2474,7 @@ Under the assumptions of \cref{thm:fembound}, we have
 \bpf[Proof of \cref{lem:boundarybound}]
 In \cref{eq:thetaform}, let $\vh = \thetah,$ and take the imaginary part to obtain
 \beq\label{eq:boundboundarybelow}
--k \NLtGI{\thetah}^2 \leq \Im k^2 \IPLtDn{\Qhn \rho}{\thetah} + \Re k \IPLtGI{\rho}{\thetah}.
+-k \NLtGI{\thetah}^2 = \Im k^2 \IPLtDn{\Qhn \rho}{\thetah} + \Re k \IPLtGI{\rho}{\thetah}.
 \eeq
 Therefore by \cref{cor:ipdiscbound}
 \beq
@@ -2594,7 +2595,7 @@ by \cref{lem:ellprojerrw}. Therefore by \cref{eq:qhnmmo,eq:firsttermbound,eq:sec
 \beq\label{eq:qhnnearly}
 k \Nfn{m-1,h}{\Qhn \rho} \leq \Chinv^{m-1}\Cwz \mleft(1+\CSZfn{0}\mright)\nvar^3\nmax\nmin^{1-m} h^{1-m}\NHokD{\rho}.
 \eeq
-Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\nmax, \nmin^{-1} \geq 1,$ and so $\En, \nvar \geq1$)  we obtain
+Therefore using \cref{eq:thetahighnearly,eq:qhnnearly} (and the fact that $\nmax,$ ${}\nmin^{-1} \geq 1,$ and so $\En, \nvar \geq1$)  we obtain
 
 \begin{align}
   \Nfn{m,h}{\thetah} &\leq \CRecofn{m} \mleft(1+\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)k \Nfn{m-1,h}{\thetah}\nonumber\\
@@ -2632,7 +2633,7 @@ Consider the adjoint variational problem: Find $w \in \HozDD$ such that for all 
 \eeqs
 (recalling the definition of $\aep$ in \cref{eq:aepdef}). By Galerkin orthogonality for $w-\Ph w,$ we have (recalling $\eh = \rho + \thetah$)
 \begin{align}
-  \IPLtD{\thetah}{\eh} &= \aep(w-\Ph w,\rho) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \NLtGI{w - \Ph w}{\eh}\nonumber\\
+  \IPLtD{\thetah}{\eh} &= \aep(w-\Ph w,\rho) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \IPLtGI{w - \Ph w}{\eh}\nonumber\\
 &= \overline{\aT(\rho,w-\Ph w)}  -k^2 \IPLtDn{w-\Ph w}{\thetah} -ik \IPLtGI{w-\Ph w}{\thetah}.\label{eq:doublego}
 %&=\aT(\rho,w-\Ph w) -k^2 \IPLtDn{\thetah}{w-\Ph w} -ik \IPLtGI{\thetah}{w-\Ph w}
 \end{align}
