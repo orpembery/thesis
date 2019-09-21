@@ -13,7 +13,7 @@
 / Formatting:
  * Ask Paul about subsub and para
  * (If time) dashes in page headers like Paul
- * Big spaces in MLMC
+ * Big spaces in MLMC and other chapters
  * Headers, titles, title page in accordance with what Paul did
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
  * Overrunning lines - use draft mode
