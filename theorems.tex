@@ -21,16 +21,18 @@
 %\newtheorem{problem}{Problem}
 \newtheorem{neverused}{Labelled Problems and Theorems}
 
+\newcounter{literallydoesntmatter}
+
 % The following is inspired by, but, I feel, not copied from 
 % https://tex.stackexchange.com/questions/53978/custom-theorem-numbering
 %\newsiamthm{convariable}[neverused]{Condition}
-\newtheorem{convariable}{Condition}
-\newcommand{\bconvar}[1]{\renewcommand{\theconvariable}{#1}\setcounter{theorem}{\value{theorem}-1}\begin{convariable}}
+\newtheorem{convariable}[literallydoesntmatter]{Condition}
+\newcommand{\bconvar}[1]{\renewcommand{\theconvariable}{#1}\begin{convariable}}%\setcounter{theorem}{\value{theorem}-1}
 %\newcommand{\bconvar}{\begin{convariable}}
 \newcommand{\econvar}{\end{convariable}}
 %\newsiamthm{probvariable}[neverused]{Problem}
-\newtheorem{probvariable}{Problem}
-\newcommand{\bprobvar}[1]{\renewcommand{\theprobvariable}{#1}\setcounter{theorem}{\value{theorem}-1}\begin{probvariable}}
+\newtheorem{probvariable}[literallydoesntmatter]{Problem}
+\newcommand{\bprobvar}[1]{\renewcommand{\theprobvariable}{#1}\begin{probvariable}}%\setcounter{theorem}{\value{theorem}-1}
 \newcommand{\eprobvar}{\end{probvariable}}
 
 

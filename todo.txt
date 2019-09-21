@@ -16,6 +16,8 @@
 - Redo Bessel Correction proof
 
 - Formatting:
+ * Constants table is overwide
+ * Big spaces in MLMC
  * change back to CM depending on what Euan says
  * Headers, titles, title page in accordance with what Paul did
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help

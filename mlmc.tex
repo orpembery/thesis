@@ -424,9 +424,7 @@ Observe that if the number of additional levels $L$ is given by \cref{eq:Ldef}, 
 \hL = \min\set{\mleft(\frac\eps{\sqrt{2}\co k^{\sigma}}\mright)^{\frac1\alpha},\hz}.
 \eeq
  \ere
-
- In the proof of \cref{thm:mlmccomp}, we will need to bound sums of the form $\sum_{l=0}^L s^{\delta l}$, where $L$ is given by \cref{eq:Ldef}. Therefore, we frist prove these bounds in the following \lcnamecref{lem:sumboundnew}, before proceeding to the proof of \cref{thm:mlmccomp}.
- 
+ In the proof of \cref{thm:mlmccomp}, we will need to bound sums of the form $\sum_{l=0}^L s^{\delta l}$, where $L$ is given by \cref{eq:Ldef}. Therefore, we first prove these bounds in the following \lcnamecref{lem:sumboundnew}, before proceeding to the proof of \cref{thm:mlmccomp}.
 \ble[Bounds on sums occuring in the proof of \cref{thm:mlmccomp}]\label{lem:sumboundnew}
 If $L$ is given by
 \beq\label{eq:Ldefgen}
@@ -517,18 +515,14 @@ and the expected cost of $\QhatMLhL$ is: (following \cite{GrPaSc:19})
 &=\sum_{l=0}^L \Nl\mleft(1+s^{-\gamma}\mright) \cth \mleft(\hl^{-\gamma}+k^{a\gamma}\mright) \text{ by \cref{lem:c},}\nonumber\\
 &= \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \Nl\Cl.\label{eq:Cboundformin}
 \end{align}
-
 The task is now to bound the variance term \cref{eq:mlmcvariance} by $\eps^2/2$ whilst incurring minimial computational cost. We achieve this by choosing an optimal number of samples for each level. To find this optimal number of samples we formulate this task as an optimisation problem:
-
 Find $\Nz,\No,\ldots,\NL > 0$ to minimise \cref{eq:Cboundformin} subject to
 \beqs
 \sum_{l=0}^L \frac{\Vl}{\Nl} = \frac{\eps^2}2.
 \eeqs
 This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers. Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
 
-We now infer the expected computational complexity of the Multi-Level Monte-Carlo method with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}.
-
-From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
+We now infer the expected computational complexity of the Multi-Level Monte-Carlo method with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}. From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
 \begin{align}
 \EXP{\Cost{\QhatMLhL}} &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^{L} \Cl \Nl\nonumber\\
 &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl \mleft(\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Cj\mright)^{\half} + 1\mright) \text{ (by \eqref{eq:Nl})}\nonumber\\
