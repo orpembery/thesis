@@ -2,17 +2,14 @@
 - Implement Ivan's comments on Chapter 5
 - Get and Implement Ivan's comments on summary?
 - Get Euan's feedback on declaration of authorship
-- Check Bibtex/latex errors
+/ Check Bibtex/latex errors
 - See Evans and Gariepy from Euan and Popov and Vodev 99b
 - Check with Ivan about Duff, Erisman, and Reid reference
-+ Find other LU applying cost references and add in to start of nbpc
+- Get other LU applying cost references and add in to start of nbpc
 - Get Ghanem and SPanos from Ivan, and check reference for PC
-+ Find reference for Laplace in radial coords - Evans?
-+ References for complex error estimators,  incl. Bessel's correction (incl. proof?)
-+ Redo Bessel Correction proof
-- Biblio abbreviations/names
+/ Biblio abbreviations/names
 
-- Formatting:
+/ Formatting:
  * and the fact that n_min not in line
  * Big spaces in MLMC
  * change back to CM depending on what Euan says
@@ -20,8 +17,9 @@
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
  * Overrunning lines - use draft mode
  * (If time) aligning probabilistic run graphs
+ * double check margins are OK in reality
 
--Proof reading:
+/Proof reading:
 Summary - y
 Chap 1 - y
 Chap 2 - 

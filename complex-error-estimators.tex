@@ -1,10 +1,10 @@
-In this \lcnamecref{app:complexerror}, we recall the definition of some elementary properties of \emph{complex-valued} random variables, properties that are slightly different to their analogues for real-valued random variables. We then prove that the standard unbiased estimator of the variance (with Bessel's correction) of a complex-valued random variable  is indeed an unbiased estimator of the variance.
+In this \lcnamecref{app:complexerror}, we recall the definition of some elementary properties of \emph{complex-valued} random variables, properties that are slightly different to their analogues for real-valued random variables. However, if one views complex-We then prove that the standard unbiased estimator of the variance (with Bessel's correction) of a complex-valued random variable  is indeed an unbiased estimator of the variance.
 
-\bde[Complex-valued random variable]
-If $\OFP$ is a probability space, then a \defn{complex-valued} random variable is a measurable map $Y:\Omega\rightarrow \CC,$ where $\CC$ is equipped with the Borel $\sigma$-algebra.
+\bde[Complex-valued random variable {\cite[Equation (4.2)]{Pa:18}}]
+If $\OFP$ is a probability space, then a \defn{complex-valued} random variable is a map $Y:\Omega\rightarrow \CC,$ such that $\Re Y$ and $\Im Y$ are real-valued random variables.
 \ede
 
-\bde[Mean and variance of a complex-valued random variable]
+\bde[Mean and variance of a complex-valued random variable {\cite[Equations (5.8) and (5.27)]{Pa:18}}]
 Let $Y$ be a complex-valued random variable. The \defn{expectation of $Y$} is
 \beqs
 \EXP{Y} \de \EXP{\Re{Y}} + i \EXP{\Im{Y}},
@@ -36,12 +36,14 @@ for all $\Eo \in \cFo$ and $\Et \in \cFt.$
 Two complex-valued random variables $\Yo$ and $\Yt$ are \defn{independent} if their respective generated $\sigma$-algebras are independent.
 \ede
 
-\ble[Independent implies uncorrelated]
+\ble[Independent implies uncorrelated]\label{lem:complexindep}
 If $\Yo$ and $\Yt$ are independent complex-valued random variables, then
 \beqs
 \EXP{\Yo\Ytbar} = \EXP{\Yo}\EXP{\Ytbar}.
 \eeqs
 \ele
+
+The proof of \cref{lem:complexindep} is identical to the real case.
 
 \bde[Monte-Carlo estimator for $\EXP{Y}.$]
 Let $Y$ be a complex-valued random variable, and $\Yo,\ldots,\YN$ be independent and identically distributed to $Y$. The \defn{Monte-Carlo estimator of $\EXP{Y}$} is
@@ -57,7 +59,7 @@ Let $Y$ be a complex-valued random variable, and $\Yhat$ the Monte-Carlo estimat
 \eeq
 \ede
 
-The factor $1/(N-1)$ in \cref{eq:unbiased} is known as \defn{Bessel's correction}, and ensures the estimator is unbiased, as we now prove.
+Observe that \cref{eq:unbiased} defines an estimator for the variance of \emph{the Monte-Carlo estimator $\Yhat$}; this is in contrast to more standard statistical settings, where one constructs an estimator of the variance of $Y$. `The factor $1/(N-1)$ in \cref{eq:unbiased} is known as \defn{Bessel's correction}, and ensures the estimator is unbiased, as we now prove.
 
 \ble[The unbiased estimator is unbiased]\label{lem:unbiased}
 Let $Y$ be a complex-valued random variable and  $\Yhat$ the Monte-Carlo estimator of $\EXP{Y}$. Then $\unbiased{\Yhat}{N}$ is unbiased, i.e.,
@@ -66,33 +68,50 @@ Let $Y$ be a complex-valued random variable and  $\Yhat$ the Monte-Carlo estimat
 \eeqs
 \ele
 
-\bpf[Proof of \cref{lem:unbiased}]
-We introduce the notation
-\beqs
-\mu \de \abs{\EXP{Y}}\quad\tand\quad\sigma \de \VAR{Y}
-\eeqs
-and we observe that
-\beq\label{eq:varrelation}
-\EXP{\abs{Y}^2} = \sigma^2 + \mu^2.
-\eeq
+The proof of \cref{lem:unbiased} is nearly identical to the proof for an unbiased estimator for $\VAR{Y}$ in the real-valued case. Nevertheless, we write the proof out in full, as we have not been able to find this exact result anywhere in the literature.
 
+\bpf[Proof of \cref{lem:unbiased}]
+%% We introduce the notation
+%% \beqs
+%% \mu \de \abs{\EXP{Y}}\quad\tand\quad\sigma \de \VAR{Y}
+%% \eeqs
+%% and we observe that
+%% \beq\label{eq:varrelation}
+%% \EXP{\abs{Y}^2} = \sigma^2 + \mu^2.
+%% \eeq
 Firstly, note that
 \beqs
 \VAR{\Yhat} = \VAR{\frac1N \sum_{l=1}^N \Yl} = \frac1{N^2} \VAR{\sum_{l=1}^N \Yl} = \frac1N \VAR{Y}.
 \eeqs
-Therefore, it is sufficient to show that $\unbiased{\Yhat}{N}$ is an unbiased estimator for $\VAR{Y}/N,$ or equivalently, $N\unbiased{\Yhat}{N}$ is an unbiased estimator for $\VAR{Y}.$ We show the latter by direct computation:
+Therefore, it is sufficient to show that $\unbiased{\Yhat}{N}$ is an unbiased estimator for $\VAR{Y}/N,$ or equivalently, $N\unbiased{\Yhat}{N}$ is an unbiased estimator for $\VAR{Y}$ (i.e. $\EXP{N\unbiased{\Yhat}{N}} = \VAR{Y}$). We show the latter by direct computation. Observe that
+\beqs
+\EXP{N\unbiased{\Yhat}{N}} = \frac1{N-1} \EXP{\sum_{j=1}^N \abs{\Yj - \Yhat}^2}= \frac1{N-1} \sum_{j=1}^N\EXP{ \abs{\Yj - \Yhat}^2},
+\eeqs
+therefore, it is sufficient for us to show
+\beq\label{eq:comperror1}
+\EXP{\abs{\Yj-\Yhat}^2} = \frac{N-1}N\VAR{Y},
+\eeq
+as the $\Yj$s are all independently and identically distributed. We show \cref{eq:comperror1} by direct computation.
+
+\begin{align}
+\EXP{\abs{\Yj-\Yhat}^2} &= \EXP{\abs{\Yj}^2 - \Yj \Yhatbar - \Yjbar \Yhat + \abs{\Yhat}^2}\nonumber\\
+&= \EXP{\abs{\Yj}^2} - \frac1N\sum_{l=1}^N \mleft(\EXP{\Yj\Ylbar + \Yjbar \Yl}\mright) + \EXP{\abs{\Yhat}^2}\nonumber\\
+&= \EXP{\abs{\Yj}^2} - \frac2N \EXP{\abs{\Yj}^2} - \frac1N \sum_{l \neq j} \mleft(\EXP{\Yj}\EXP{\Ylbar} + \EXP{\Yjbar}\EXP{\Yl}\mright) + \EXP{\abs{\Yhat}^2}\nonumber\\
+&= \frac{N-2}N \EXP{\abs{Y}^2} - \frac{2(N-1)}N \abs{\EXP{Y}}^2 + \EXP{\abs{\Yhat}^2},\label{eq:comperror2}
+  \end{align}
+since  $\Yj$ has the same distribution as $Y$. We now turn our attention to simplifying $\EXP{\abs{\Yhat}^2}.$ We have
+\begin{align}
+\EXP{\abs{\Yhat}^2} &= \EXP{\mleft(\frac1N \sum_{l=1}^N \Yl\mright)\overline{\mleft(\frac1N \sum_{m=1}^N \Ym\mright)}}\nonumber\\
+&= \frac1{N^2}\EXP{ \sum_{l=1}^N \abs{\Yl}^2 + \sum_{l=1}^N\sum_{l \neq m} \Yl\Ymbar}\nonumber\\
+&= \frac1N \EXP{\abs{Y}^2} + \frac{N(N-1)}{N^2}\abs{\EXP{Y}}^2,\label{eq:comperror3}
+\end{align}
+since the  $\Yl$ are i.i.d. Therefore combining \cref{eq:comperror2,eq:comperror3}, we obtain
+
 \begin{align*}
-  \EXP{N\unbiased{\Yhat}{N}} &= \frac1{N-1} \EXP{\sum_{j=1}^N \abs{\Yj - \Yhat}^2}\\
-  &= \frac1{N-1}\EXP{\sum_{j=1}^N \abs{\Yj  - \frac1{N} \sum_{l=1}^N \Yl}^2}\\
-  & = \frac1{N-1} \EXP{\sum_{j=1}^N\mleft(\abs{\Yj}^2 - \frac1N \sum_{l=1}^N \mleft(\Yj \Ylbar + \Yl\Yjbar\mright) + \frac1{N^2} \abs{\sum_{l=1}^N  \Yl}^2\mright)}\\
-  & = \frac1{N-1} \sum_{j=1}^N\mleft(\EXP{\abs{\Yj}^2} -\frac2N \EXP{\abs{\Yj}^2} -\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \abs{\sum_{l=1}^N  \Yl}^2}\mright)\\
-  & = \frac1{N-1} \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \mleft(\sum_{l=1}^N\Yl\mright)\mleft(\overline{\sum_{m=1}^N  \Ym}\mright)}\mright)\\
-  & = \frac1{N-1} \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \sum_{l=1}^N\mleft(\Yl\sum_{m=1}^N  \Ymbar\mright)}\mright)\\
-  & = \frac1{N-1} \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \sum_{l=1}^N\abs{\Yl}^2 + \sum_{l=1}^N \sum_{m\neq l} \Yl \Ymbar}\mright)\\
-  & = \frac1{N-1} \sum_{j=1}^N\mleft(\frac{N-2}N\EXP{\abs{\Yj}^2}-\frac1N \sum_{l\neq j} \EXP{\mleft(\Yj \Ylbar + \Yl\Yjbar\mright)} + \frac1{N^2}\EXP{ \sum_{l=1}^N\abs{\Yl}^2} +\frac1{N^2} \sum_{l=1}^N \sum_{m\neq l} \EXP{\Yl \Ymbar}\mright)\\
-  &= \frac1{N-1} \sum_{j=1}^N \mleft(\frac{N-2}N \mleft(\mu^2 + \sigma^2\mright) - \frac2N \mleft(N-1\mright) \mu^2 + \frac1{N^2} N \mleft(\mu^2 + \sigma^2\mright) + \frac1{N^2} N \mleft(N-1\mright) \mu^2\mright),\text{ by \cref{eq:varrelation}}\\
-  &= \frac1{N-1} \sum_{j=1}^N \mleft( \frac{N-1}N \mleft(\mu^2 + \sigma^2\mright) - \frac{N-1}{N} \mu^2\mright)\\
-  &= \frac1{N-1} \sum_{j=1}^N \frac{N-1}N \sigma^2\\
-  &= \sigma^2.
-  \end{align*}
+\EXP{\abs{\Yj-\Yhat}^2} &= \frac{N-2}N \EXP{\abs{Y}^2} - \frac{2(N-1)}N \abs{\EXP{Y}}^2 + \frac1N \EXP{\abs{Y}^2} + \frac{N-1}{N}\abs{\EXP{Y}}^2\\
+&= \frac{N-1}N \EXP{\abs{Y}^2} - \frac{N-1}N \abs{\EXP{Y}}^2\\
+&= \frac{N-1}N \mleft(\VAR{Y}+\abs{\EXP{Y}}^2\mright) - \frac{N-1}N \abs{\EXP{Y}}^2,
+\end{align*}
+which gives us \cref{eq:comperror1}, as required.
 \epf
+

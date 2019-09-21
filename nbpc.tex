@@ -961,10 +961,10 @@ The heart of the proof is the equation
 (\Delta + k^2) \big(e^{i k r}\chi(r)\big) =  e^{i k r}\mleft(\Delta \chi(r) + 2ik\frac{\partial \chi}{\partial r}(r) + i k \frac{d-1}{r} \chi(r)\mright)=: -\widetilde{f}(r),
 \eeq
 where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:obs1} is the Helmholtz operator applied to a circular wave $e^{ikr}$, with the added factor $\chi$ which can be chosen to have compact support. The equation \cref{eq:obs1} can be proved using the formula for the Laplacian in $d$-dimensional spherical coordinates
-\beqs
+\beq\label{eq:sphericallaplacian}
 \Delta \chi = \frac{1}{r^{d-1}} \frac{\partial}{\partial r}\mleft(r^{d-1} \frac{\partial \chi}{\partial r} \mright) + \frac1{r^2} \LapBel \chi,
-\eeqs
-where $\LapBel$ is Laplace--Beltrami operator on the $d-1$-dimensional sphere. Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
+\eeq
+where $\LapBel$ is Laplace--Beltrami operator on the $d-1$-dimensional sphere (see, e.g., \cite[Equations (17.23) and (17.25)]{RiHoBe:97} for \cref{eq:sphericallaplacian} in $d=2$ and $3.$). Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
 
 We expect that \cref{eq:obs1} will be key in the proof of the sharpness of \cref{eq:PDEbound}, for the following reasons. Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since $\NLtD{\ftilde}\sim k$ and $\NHokD{e^{ikr}\chi(r)}\sim k$  and hence $\NHokD{e^{ikr}\chi(r)} \sim \NLtD{\ftilde}$ (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
 
