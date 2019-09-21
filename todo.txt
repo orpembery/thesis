@@ -1,7 +1,6 @@
 - Implement Euan's comments on 2nd part of Chap 2
 - Implement Ivan's comments on Chapter 5
 - Get and Implement Ivan's comments on summary?
-- spell check?
 - Get Euan's feedback on declaration of authorship
 - Check Bibtex/latex errors
 - See Evans and Gariepy from Euan and Popov and Vodev 99b
@@ -10,9 +9,9 @@
 - Find other LU applying cost references and add in to start of nbpc
 - Get Ghanem and SPanos from Ivan, and check reference for PC
 - Find reference for Laplace in radial coords - Evans?
-- Why don't we get three separate cases in MLMC - c.f. Matt?
 - References for complex error estimators,  incl. Bessel's correction (incl. proof?)
 - Redo Bessel Correction proof
+- Euan extra Chap 2 ref
 
 - Formatting:
  * Big spaces in MLMC
