@@ -2,18 +2,16 @@
 - Implement Ivan's comments on Chapter 5
 - Get and Implement Ivan's comments on summary?
 - Get Euan/Ivan's feedback on declaration of authorship
-/ Check Bibtex/latex errors
-- See Evans and Gariepy from Euan and Popov and Vodev 99b
 - Check with Ivan about Duff, Erisman, and Reid reference
-- Get other LU applying cost references and add in to start of nbpc
-- Get Ghanem and SPanos from Ivan, and check reference for PC
+- Get other LU calculating and applying cost references and add in to start of nbpc
 
 
 / Formatting:
  * (If time) dashes in page headers like Paul
- * Big spaces in MLMC and other chapters???
+ * Big spaces in MLMC and other chapters (if present)
  * Overrunning lines - use draft mode (done up to end of Ch 4)
  * (If time) aligning probabilistic run graphs
+ * (If time) look at someone else's thesis for margins
 
 /Proof reading:
 Summary - y
