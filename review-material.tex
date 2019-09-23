@@ -26,8 +26,8 @@ Any continuous function between two topological spaces is measurable.
 
 
 
-\ble[The composition of a measurable and a continuous map is measurable {\cite[Text at top of p. 146]{Bo:07}}]\label{lem:contplusmeas}
-Let $(\M,\FM)$ be a measurable space and let $\mleft(S,\TS\mright)$ and $\mleft(T,\TopT\mright)$ be topological spaces. Let $f:M \rightarrow S$ be measurable and let $h : S \rightarrow T$ be continuous. Then $h \circ f$ is measurable.
+\ble[The composition of a measurable map with a continuous map is measurable {\cite[Text at the top of p. 146]{Bo:07}}]%{\cite[Text at top of p. 146]{Bo:07}}]
+Let $(\M,\FM)$ be a measurable space and let $\mleft(S,\TS\mright)$ and $\mleft(T,\TopT\mright)$ be topological spaces. Let $f:M \rightarrow S$ be measurable and let $h : S \rightarrow T$ be continuous. Then $h \circ f$ is measurable.\label{lem:contplusmeas}
 \ele
 
 \bde[Product $\sigma$-algebra {\cite[Section IV.11]{Do:94}}]\label{def:prodsigma}
@@ -39,7 +39,9 @@ $
 
 \ble[Measurability of the Cartesian product of measurable functions]\label{lem:measprod}
 
-Let $\mleft(\M_1,\FM_1\mright),\ldots,\mleft(\M_m,\FM_m\mright)$ be measurable spaces and $h_j:\Omega \rightarrow \M_j,\, j = 1,\ldots,m$ be measurable functions. Then the product map $\Prodf:\Omega \rightarrow \M_1 \times \cdots \times \M_m$ given by
+\
+
+\noindent Let $\mleft(\M_1,\FM_1\mright),\ldots,\mleft(\M_m,\FM_m\mright)$ be measurable spaces and $h_j:\Omega \rightarrow \M_j,\, j = 1,\ldots,m$ be measurable functions. Then the product map $\Prodf:\Omega \rightarrow \M_1 \times \cdots \times \M_m$ given by
 %\beqs
 $\Prodf(\omega) \de \mleft(h_1(\omega),\ldots,h_m(\omega)\mright)$
 %\eeqs
@@ -65,8 +67,8 @@ The proof of the lemma consists of the following straightforward steps, whose pr
 %\een
 \epf
 
-\ble[Product of Borel $\sigma$-algebras is Borel $\sigma$-algebra of the product {\cite[Lemma 6.2.1 (i)]{Bo:07}}]\label{lem:bogachev}
-Let $H_1,H_2$ be Hausdorff spaces and let $H_2$ have a countable base (e.g.~$H_2$ could be a separable metric space). Then $\Borel{H_1\times H_2} = \Borel{H_1} \otimes \Borel{H_2},$ where $\Borel{H_1\times H_2}$ is the Borel $\sigma$-algebra of the product topology on $H_1\times H_2.$
+\ble[The product of Borel $\sigma$-algebras is the Borel $\sigma$-algebra of the product {\cite[Lemma 6.2.1 (i)]{Bo:07}}]
+Let $H_1,H_2$ be Hausdorff spaces and let $H_2$ have a countable base (e.g.~$H_2$ could be a separable metric space). Then $\Borel{H_1\times H_2} = \Borel{H_1} \otimes \Borel{H_2},$ where $\Borel{H_1\times H_2}$ is the Borel $\sigma$-algebra of the product topology on $H_1\times H_2.$\label{lem:bogachev}
 \ele
 
 \section{Recap of results on Bochner spaces}
@@ -95,13 +97,16 @@ $\PP$-almost everywhere.
 
 \bde[Bochner integrable {\cite[p. 49]{DiUh:77}}]
 A strongly measurable function $v:\Omega \rightarrow V$ is called \defn{Bochner integrable} if there exists a sequence of simple functions $(\vn)_{n \in \NN}$ such that
-%\beqs
-$\lim_{n \rightarrow \infty} \int_{\Omega} \NV{\vn(\omega) - v(\omega)} \dd\PP(\omega) = 0.$
-%\eeqs
+\beqs
+\lim_{n \rightarrow \infty} \int_{\Omega} \NV{\vn(\omega) - v(\omega)} \dd\PP(\omega) = 0.
+\eeqs
 \ede
 
 \bth[Condition for Bochner integrability {\cite[Theorem II.2.2]{DiUh:77}}]\label{thm:bochnercond}
-A strongly measurable function $v:\Omega \rightarrow V$ is Bochner integrable if and only if $\int_\Omega \NV{v} \dd\PP < \infty.$
+
+\
+
+\noindent A strongly meas\-ur\-able function $v:\Omega \rightarrow V$ is Bochner integrable if and only if $\int_\Omega \NV{v} \dd\PP < \infty.$
 \enth
 
 \bco[Sufficient condition for Bochner integrability]\label{cor:bochnersimple}
@@ -146,12 +151,12 @@ Let $\OFP$ be a complete $\sigma$-finite measure space. The following are equiva
 %\een
 \enth
 
-\bco[Equivalence of measurable and strongly measurable when the image is separable]\label{cor:pettis}
-Let $\OFP$ be a $\sigma$-finite measure space. If $V$ is a separable Banach space, then a function $v:\Omega\rightarrow V$ is strongly measurable if, and only if, it is measurable.
+\bco[Equivalence of measurable and strongly measurable when the image is separable]
+Let $\OFP$ be a $\sigma$-finite measure space. If $V$ is a separable Banach space, then a function $v:\Omega\rightarrow V$ is strongly measurable if, and only if, it is measurable.\label{cor:pettis}
 \eco
 
-\ble[The composition of a continuous map and a {$\PP$}-essentially separably valued map]\label{lem:esssep}
-Let $\mleft(S,\TS\mright)$ and $\mleft(T,\TopT\mright)$ be topological spaces. If $f_1:\Omega \rightarrow S$ and $f_2:S\rightarrow T$ are such that $f_1$ is $\PP$-essentially separably valued and $f_2$ is continuous, then $f_2\circ f_1$ is $\PP$-essentially separably valued.
+\ble[The composition of a continuous map and a {$\PP$}-essentially separably valued map]
+Let $\mleft(S,\TS\mright)$ and $\mleft(T,\TopT\mright)$ be topological spaces. If $f_1:\Omega \rightarrow S$ and $f_2:S\rightarrow T$ are such that $f_1$ is $\PP$-essentially separably valued and $f_2$ is continuous, then $f_2\circ f_1$ is $\PP$-essentially separably valued.\label{lem:esssep}
 \ele
 
 \bpf[Proof of \cref{lem:esssep}]
@@ -161,7 +166,10 @@ As $f_1$ is $\PP$-essentially separably valued, there exists $E \in \cF$ such th
 
 
 \ble[The composition of a continuous map and a strongly measurable map]\label{lem:contplusstrong}
-If $\Bo$ and $\Bt$ are Banach spaces and there exist $f_1:\Omega \rightarrow \Bo$ and $f_2:\Bo\rightarrow \Bt$ such that $f_1$ is strongly measurable and $f_2$ is continuous, then $f_2\circ f_1$ is strongly measurable.
+
+\
+
+\noindent If $\Bo$ and $\Bt$ are Banach spaces and there exist $f_1:\Omega \rightarrow \Bo$ and $f_2:\Bo\rightarrow \Bt$ such that $f_1$ is strongly measurable and $f_2$ is continuous, then $f_2\circ f_1$ is strongly measurable.
 \ele
 
 \bpf[Proof of \cref{lem:contplusstrong}]
@@ -169,7 +177,10 @@ By \cref{thm:pettis}, $\fo$ is both measurable and $\PP$-essentially separably v
 \epf
 
 \ble[Zero in all integrals implies zero almost everywhere {\cite[Corollary II.2.5]{DiUh:77}}]\label{lem:gotoae}
-If $\alpha$ is  Bochner integrable and  $\int_E \alpha(\omega) \dd\PP(\omega) = 0 $ for each $E \in \cF$ then $\alpha=0$ $\PP$-almost everywhere.
+
+\
+
+\noindent If $\alpha$ is  Bochner integrable and  $\int_E \alpha(\omega) \dd\PP(\omega) = 0 $ for each $E \in \cF$ then $\alpha=0$ $\PP$-almost everywhere.
 \ele
 
 \ble[Cartesian product of $\PP$-essentially separably valued maps]\label{lem:prodsep}

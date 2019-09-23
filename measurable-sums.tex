@@ -92,7 +92,11 @@ Let $(\metsp,\metric)$ be a metric space. Suppose the functions $\zeta_m:\Omega 
 \beq\label{eq:zetalimit}
 \lim_{m \rightarrow \infty} \zeta_m(\omega)
 \eeq
-exists almost surely, then there exists a measurable function $\zeta:\Omega \rightarrow \metsp$ such that $\zeta(\omega) = \lim_{m \rightarrow \infty} \zeta_m(\omega)$ whenever the limit exists.
+exists almost surely, then there exists a measurable function $\zeta:\Omega \rightarrow \metsp$ such that
+\beqs
+\zeta(\omega) = \lim_{m \rightarrow \infty} \zeta_m(\omega)
+\eeqs
+whenever the limit exists.
 \eco
 
 \bpf[Proof of \cref{lem:paelimitmeas}]
@@ -124,13 +128,13 @@ By \cref{lem:summeas}, the partial sums $\phi_0 + \sum_{j=1}^m \Yj(\omega)\phi_j
 \epf
 
 \ble\label{lem:seriesexistsas}
-The series expansions for $A$ and $n$ defined by \eqref{eq:nseries} exist almost surely in $\WoiDRRRdtd$ and $\WoiDRRR$ respectively.
+The series expansions for both $A$ and $n$ defined by \eqref{eq:nseries} exist in $\WoiDRRRdtd$ and $\WoiDRRR$ almost surely, respectively.
 \ele
 
 \bpf[Proof of \cref{lem:seriesexistsas}]
 The spaces $\WoiDRRRdtd$ and $\WoiDRRR$ are Banach spaces, by definition of their norms (see, e.g., \eqref{eq:normsdef}). Therefore it suffices to show that the partial sums of the series expansions for $A$ and $n$ in \eqref{eq:nseries} are Cauchy sequences. As the proofs for $A$ and $n$ are completely analogous, we only give the proof for $A$ here.
 
-First observe that since the random variables $\Yj$ in \eqref{eq:nseries} are uniformly distributed on $[-1/2,1/2],$ it follows that for all $j \in \NN$, $\esssup_{\omega \in \Omega} \abs{\Yj(\omega)} = \frac12.$
+First observe that since each of the random variables $\Yj$ in \eqref{eq:nseries} is uniformly distributed on $[-1/2,1/2],$ it follows that for all $j \in \NN$, $\esssup_{\omega \in \Omega} \abs{\Yj(\omega)} = \frac12.$
 Therefore, we can conclude that the bound $\esssup_{\omega \in \Omega} \sup_{j \in \NN} \abs{\Yj(\omega)} \leq \half$ holds.
 (For if not, then, there would exist $\Omegahat \subseteq \Omega$ with $\PP(\Omegahat) > 0$ such that for all $\omega \in \Omegahat$, $\sup_{j \in \NN} \abs{\Yj(\omega)} > \half.$
 Then there would exist $\jhat \in \NN$ such that $\abs{\Yj(\omega)} > 1/2$ for all $\omega \in \Omegahat,$ which would give the contradiction $\esssup_{\omega \in \Omega} |\Yjhat(\omega)| > \half$.)
@@ -143,7 +147,7 @@ For such an $\omega$, and $m \in \NN,$ define the $m$th partial sum
 \beqs
 \Am(\omega) = \Az + \sum_{j=1}^m \Yj(\omega)\Psij.
 \eeqs
-It is straightforward to show that the sequence $\mleft(\Am(\omega)\mright)_{m \in \NN}$ forms a Cauchy sequence in $\WoiDRRRdtd$, using the assumption \eqref{eq:Apsimeas}; therefore, the series expansion for $A(\omega)$ in \eqref{eq:nseries} exists almost surely.
+It is straightforward to show the sequence $\mleft(\Am(\omega)\mright)_{m \in \NN}$ is a Cauchy sequence in $\WoiDRRRdtd$, using the assumption \eqref{eq:Apsimeas}; therefore, the series expansion for $A(\omega)$ in \eqref{eq:nseries} exists almost surely.
 \epf
 
 \ble\label{lem:seriesmeas}

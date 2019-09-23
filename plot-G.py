@@ -25,6 +25,10 @@ lines = ['--','-.',':']
 
 k_list = [20.0,40.0,100.0]
 
+fig = plt.figure()
+
+fig.set_size_inches((5.5,5.5))
+
 for ii_k in range(len(k_list)):
 
     k = k_list[ii_k]
