@@ -67,7 +67,10 @@ $k\tendi$.
 
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
+
+\
+
+\noindent Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
@@ -88,7 +91,10 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} below. The proof of \cref{cor:1} is on \cpageref{page:cor1proof} below.
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1a}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$,
+
+\
+
+\noindent Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$,
 let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{+}>0$ and $m_{\pm}>0$ be as in \cref{lem:normequiv} below (note that all these constants are independent of $k$, $h$, and $p$). Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
@@ -133,11 +139,11 @@ is not only an answer to \cref{it:nbpcq1} (about finite-element discretisations)
 \ben[label=Q2., ref=Q2]
 \item\label[itemblank]{it:nbpcq2}
 How small must $\NLiDRRdtd{\Aso - \Ast}$ and 
-$\NLiDRR{\nso - \nst}$ be (in terms of $k$-dependence) for the relative error in approximating 
+$\NLiDRR{\nso - \nst}$ be (in terms of their $k$-dependence) for the relative error in approximating 
 %$u^{(1)}$ to be a good approximation to 
 $u^{(2)}$ by $u^{(1)}$ to be bounded independently of $k$ for arbitrarily-large $k$? 
 \een
-\cref{lem:sharp} then shows that the condition ``$k\NLiDRR{\nso - \nst}$ sufficiently small" is the \emph{provably-sharp} answer to \cref{it:nbpcq2} when $\Aso= \Ast= I$.
+\Cref{lem:sharp} shows that the condition ``$k\NLiDRR{\nso - \nst}$ sufficiently small" is the \emph{provably-sharp} answer to \cref{it:nbpcq2} when $\Aso= \Ast= I$.
 
 %Before stating these PDE results, we define the weighted $H^1$ norm
 %\beq\label{eq:1knorm}
@@ -166,7 +172,7 @@ for all $k\geq k_0$.
 The proof of \cref{thm:2} is on \cpageref{page:thm2proof} below.
 
 \ble[Sharpness of the bound \cref{eq:PDEbound} when $\Aso = \Ast= I$]\label{lem:sharp}
-There exist $f, \,\nso$, and $\nst$ (with $\nso\neq \nst$ both continuous) such that 
+There exist particular choices of  $f, \,\nso$, and $\nst$ (with $\nso\neq \nst$ both continuous) such that 
 the corresponding solutions $u^{(1)}$ and $u^{(2)}$ of \cref{prob:edp} with $\Aso = \Ast= I$ exist, are unique, and satisfy
 \beq\label{eq:sharp1}
 \frac{\N{u^{(1)}-u^{(2)}}_{\HokD}
@@ -202,7 +208,7 @@ It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a s
 \ere
 
 
-\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of \cref{thm:1,cor:1}}\label{sec:num}
+\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of \namecrefs{thm:1} \ref{thm:1} and \ref{cor:1}}\label{sec:num}
 
 The numerical experiments in this section seek to verify the analogues of \cref{thm:1,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
 \ben
@@ -294,10 +300,11 @@ For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a fam
 %\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
 and fixed polynomial degree $p$. Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$, with hidden constant dependent on $p$. (The assumption of quasi-uniformity can, in principle, be relaxed, see \cref{rem:ggsqu} below.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
 \bprob[Finite-element approximation of \cref{prob:vgen}]\label{prob:fevgen}
-We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vgen} if
+    Find $\uh \in \Vhp$ such that
 \beq\label{eq:galerkin}
 \aG(\uh,\vh) = \LG(\vh) \tforall \vh \in \Vhp.
 \eeq
+We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vgen}).
 \eprob
 %Observe that implicit in our use of $\aE$ in \cref{eq:galerkin} is the fact that we are realising the Dirichlet-to-Neumann map $\TR$ exactly on $\GR.$
 %Definition of Galerkin method
@@ -363,7 +370,7 @@ By combining \cref{eq:twiddleinverse} and the right-hand side of \cref{eq:normeq
 \epf
 
 \bre[Relaxing the assumption of quasi-uniformity]\label{rem:ggsqu}
-We assume the family of meshes $\set{\Th}_{h>0}$ is quasi-uniform so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Section 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analagous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
+We assume that $\set{\Th}_{h>0}$ is a quasi-uniform family of meshes so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Section 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analagous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
 \ere
 
 Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the bounds
@@ -404,7 +411,10 @@ Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form,
 (where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
 
 \ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
-If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem \cref{prob:vgen}, the boundary operator $\T$ satisfies
+
+\
+
+\noindent If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem \cref{prob:vgen}, the boundary operator $\T$ satisfies
 \beq\label{eq:DPconj}
 \DPGI{\T \psi}{\phibar} = \DPGI{\T \phi}{\psibar} \tfa \phi,\psi \in \HhGI,
 \eeq
@@ -427,7 +437,7 @@ Using the definition of $\aGs(\cdot,\cdot)$ and the property \cref{eq:DPconj} in
 \epf
 
 \bco[\Cref{eq:adjoint2} holds for \cref{prob:vedp,prob:vtedp}]\label{cor:adjoint}
-If \cref{prob:vgen} is chosen to represent \cref{prob:vedp} or \cref{prob:vtedp}, then \cref{eq:adjoint2} holds.
+If \cref{prob:vgen} is chosen to represent either \cref{prob:vedp} or \cref{prob:vtedp}, then \cref{eq:adjoint2} holds.
 \eco
 
 \bpf[Proof of \cref{cor:adjoint}]
@@ -462,7 +472,7 @@ where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso,
 
 \
 
-\ben
+\noindent\ben
 
 \item\label[itempart]{it:femasspt1} Given $\kz>0$, $h$ and $p$ are such that, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then for all $k\geq k_0$,
   \bit
@@ -489,11 +499,13 @@ holds, where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent 
 For details of when \cref{cond:1nbpc,cond:2} are satisfied (for \cref{prob:vedp,prob:vtedp}), see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2} \cref{it:femasspt1}).
 
 \bre[\Cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3}]\label{rem:yesitis}
-Note that \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LG(v) = \int_{D} f\vbar,$ then
-\beqs
-\NHokDs{\LG} = \sup_{v \in \HozDD} \frac{\abs{\LG(v)}}{\NHokD{v}} \leq\sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NHokD{vz}} \lesssim \frac1k \sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NLtD{vz}} = \frac{\NLtD{f}}k.
-\eeqs
-The factor $k$ appears in \cref{eq:bound4} because the weighted norm $\NHokD{\cdot}$ is used in the definition of $\NHokDs{\cdot},$ rather than the unweighted norm $\NHoD{\cdot}.$
+Observe that the bound \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LG(v) = \int_{D} f\vbar,$ then
+\begin{align*}
+  \NHokDs{\LG} = \sup_{v \in \HozDD} \frac{\abs{\LG(v)}}{\NHokD{v}} &\leq\sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NHokD{vz}}\\
+  &\lesssim \frac1k \sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NLtD{vz}}\\
+  &= \frac{\NLtD{f}}k.
+\end{align*}
+The factor $k$ appears in \cref{eq:bound4} we use the weighted norm $\NHokD{\cdot}$ in the definition of $\NHokDs{\cdot},$ rather than the unweighted norm $\NHoD{\cdot}.$
 \ere
 
 
@@ -506,7 +518,7 @@ The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{
 which defines the norm on $\Vhp$ induced by $\NHokD{\cdot},$ see \cref{eq:Dk}.
 
 \begin{theorem}[Main ingredient of the answer to \cref{it:nbpcq1}]\label{thm:1}
-Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. 
+Assume $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. 
 Let the $k$- and $h$-independent constants $\mpm$ and $\spm$ be given as in \cref{lem:normequiv}.
 Then, given $\kz>0$, there exist $\Co, \Ct>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $\kz$) such that
 \begin{align}\nonumber
@@ -1039,7 +1051,7 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 %\section{Proof of \cref{lem:2}}
 
 \section[Extension to weaker norms]{Extension of nearby preconditioning results to weaker norms}\label{sec:weaknorm}
-Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-independent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the maximum norm of the difference between $\nso$ and $\nst$. However, this result does not say anything if $\nso-\nst$ is merely small in some integral norm. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
+Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-indepen\-dent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ is a sharp threshold when we consider the maximum norm of the difference between $\nso$ and $\nst$. However, this result does not say anything if $\nso-\nst$ is merely small in some integral norm. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
 \beq\label{eq:noweak}
 \nso(\bx) =
 \begin{dcases}
@@ -1059,7 +1071,7 @@ for some $0 < \alpha < 1/2,$ then $\NLiDRR{\nso-\nst} = 1$ for all $\alpha$, but
 
 The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' with regards to the norm used to measure $\nso-\nst$. When we measure $\nso-\nst$ in the $L^\infty$ norm as above, we are able to control the magnitude of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, and $\nso-\nst=1$ on this small set, then $\NLiDRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
 
-We will give numerical results indicating that this theoretical best-case result can be achieved (our numerical results actually indicate that we obtain $k$-independent convergence if $\NLqDRR{\nso-\nst}\sim 1/k$ for any $1 \leq q < \infty$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
+We will give numerical results indicating that this theoretical best-case result can be achieved (our numerical results actually indicate that we can obtain $k$-independent convergence when $\NLqDRR{\nso-\nst}\sim 1/k$ for any $1 \leq q < \infty$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
 
 
 \subsection{Theory in weaker norms}\label{sec:weakertheory}
@@ -1103,7 +1115,10 @@ and
 Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal}, as in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we can obtain the following \lcnamecrefs{cor:1alt}, the analogues of \cref{cor:1,cor:1a}.
 
 \bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1alt}
-Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+
+\
+
+\noindent Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
@@ -1114,7 +1129,10 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 \enth
 
 \bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
-Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+
+\
+
+\noindent Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condaalt}

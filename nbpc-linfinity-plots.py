@@ -105,7 +105,7 @@ def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename,things_for_plotting)
     # Found out about this from https://www.scivision.dev/matplotlib-force-integer-labeling-of-axis/
     ax = fig.gca()   
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # Maybe add an argument to MaxNLocator to give the number of intervals on the x axis
-    #fig.set_size_inches((5,2.5))
+    fig.set_size_inches((5.5,5.5))
     
     plt.savefig(filename+'.pgf')
 
