@@ -9,7 +9,7 @@
 / Formatting:
  * (If time) dashes in page headers like Paul
  * Big spaces in MLMC and other chapters (if present)
- * Overrunning lines - use draft mode (done up to end of Ch 4)
+ * Overrunning lines - use draft mode (done up to end of Ch 4) - don't forget appendix
  * (If time) aligning probabilistic run graphs
  * (If time) look at someone else's thesis for margins
 
@@ -18,16 +18,16 @@ Summary - y
 Chap 1 - y
 Chap 2 - 
 Chap 3 - y
-Chap 4 - 
+Chap 4 - y
 Chap 5 - 
 
-App A
-App B
-App C
-App D
-App E
-App F
-App G
+App A - y
+App B - y
+App C - y
+App D - y
+App E - y
+App F - y
+App G - y
 
 
 Very final checks:
