@@ -71,6 +71,10 @@ with fileinput.input(files=(table_name),inplace=True) as table:
 
 [fit_0,fit_1] = make_fits()
 
+fig = plt.figure()
+
+fig.set_size_inches((5.5,5.5))
+
 plt.plot(k_list,df_master['lu_as_percentage'],'ok',label='_irrelvanet')
 
 plt.plot(k_list,fit_0 + fit_1*np.array(k_list),'--k',label=r'$'+str(fit_0)[:5]+' + '+str(fit_1)[:4]+r'k$')

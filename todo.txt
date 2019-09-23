@@ -17,6 +17,7 @@
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
  * Overrunning lines - use draft mode
  * (If time) aligning probabilistic run graphs
+ * check for \L
 
 /Proof reading:
 Summary - y

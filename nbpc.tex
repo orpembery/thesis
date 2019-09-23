@@ -1222,18 +1222,18 @@ Observe that in the case $s=2$ and $q=\infty$ \cref{lem:keylemma1a,lem:keylemma2
 We can use \cref{lem:keylemma1a,lem:keylemma2a} in place of \cref{lem:keylemma1,lem:keylemma2} to obtain the following analogue of \cref{thm:1} in weaker norms. The proof of \cref{thm:1alt} is identical to the proof of \cref{thm:1}, with \cref{lem:keylemma1,lem:keylemma2} replaced by \cref{lem:keylemma1a,lem:keylemma2a}.
 
 \begin{theorem}[Alternative main ingredient to answer to \cref{it:nbpcq1}]\label{thm:1alt}
-Let the assumptions of \cref{thm:1} hold.   Then, given $\kz>0$ and $q >2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that
+If all the assumptions of \namecref{thm:1} \ref{thm:1} hold, then, given $\kz>0$ and $q >2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that
 \begin{align}\nonumber
 &\max\set{\NDk{\Imat - \AmatoI\Amatt},\NDkI{\Imat -\Amatt\AmatoI}}\\
 &\hspace{3cm} 
-\leq \Cotilde kh^{-\frac{s}q} \NLqDRRdtd{\Aso-\Ast} + \Cttilde  kh^{-\frac{s}q}  \NLqDRR{\nso-\nst}
+\leq \Cotilde kh^{-\frac{s}q} \NLqDRRdtd{\Aso-\Ast} + \Cttilde  kh^{-\frac{d}q}  \NLqDRR{\nso-\nst}
 \label{eq:main1alt}
 \end{align}
 and 
 \begin{align}\nonumber
 &\max\set{\Nt{\Imat - \AmatoI\Amatt}, \Nt{\Imat -\Amatt\AmatoI}}\\
 &\hspace{0cm}
-\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{s}q-1}\NLqDRRdtd{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{s}q}\NLqDRR{\nso-\nst}
+\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1}\NLqDRRdtd{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{s}q}\NLqDRR{\nso-\nst}
 \label{eq:main1aalt}
 \end{align}
 for all $k\geq k_0$. 
@@ -1310,7 +1310,7 @@ Any quadrature rule, or method for approximating $\EXP{Q}$, can then be seen as 
 \eeqs
 Monte-Carlo and Quasi-Monte-Carlo rules correspond to different choices of the points $\byl$. In a Monte-Carlo rule the points are chosen at random in accordance with the associated probability distribution. For example, in the case that the $\Uj$ are $\Unif(-1/2,1/2)$ random variables, the points $\byl$ are chosen according to the Uniform distribution on $\cube{J}$. Observe that Monte-Carlo rules do not need the dependence of $Q$ on $\omega$ to take the form prescribed in \cref{eq:qmcexp2}, indeed, they apply to any random variable.
 
-Quasi-Monte-Carlo rules, in contrast to Monte-Carlo rules, do require the dependence on $\omega$ to be via finitely- or countable-many random variables. This is because QMC rules are high-dimensional quadrature rules (in the simplest case performing quadrature on the high-dimensional cube $\cube{J}).$ In pure QMC rules the points $\byl$ are chosen deterministically, unlike Monte-Carlo rules.
+Quasi-Monte-Carlo rules, in contrast to Monte-Carlo rules, do require the dependence on $\omega$ to be via finitely- or countable-many random variables. This is because QMC rules are high-dimensional quadrature rules (in the simplest case performing quadrature on the high-dim\-en\-sion\-al cube $\cube{J}).$ In pure QMC rules the points $\byl$ are chosen deterministically, unlike Monte-Carlo rules.
 
 The main advantage of QMC rules is that they can exhibit higher rates of convergence compared to Monte-Carlo rules; Monte Carlo rules typically converge with rate $\Npoints^{-1/2}$ (see, e.g., \cite[Section 1.1]{Gi:15}), whereas QMC rules can converge with rates up to $\Npoints^{-1}$  or with even higher rates for higher-order QMC rules, see, e.g., \cite[Penultimate paragraph of Section 1.2]{KuNu:16}.
 
@@ -1446,7 +1446,7 @@ However, we face three immediate difficulties with  the above approach:
 
 Given we expect that the size of the balls over which nearby preconditioning is effective decreases with $\cO\mleft(1/k\mright)$, and the number of QMC points needed to keep the error bounded increases with $k$ (see \cref{sec:nbpcqmcnumerics} below), it is not obvious that we should know $\Npreideal$ in advance. See \cpageref{page:seqandpar} for how we use the sequential algorithm to determine how $\Npreideal$ scales with $k$ for the parallel algorithm.
 
-    Once we know $\rideal,$ we can calculate the numbers of centres in each dimension $\No(\rideal),\ldots,\NJ(\rideal)$ as above (recalling that the $\Nj(\rideal)$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Nj(\rideal)}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Nj(\rideal) \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
+    Once we know the value of $\rideal,$ we can then calculate the numbers of centres in each dimension $\No(\rideal),\ldots,\NJ(\rideal)$ as above (recalling that the $\Nj(\rideal)$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Nj(\rideal)}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Nj(\rideal) \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
 
 We then take $\Npreactualj$ centres in each dimension, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
 
@@ -1515,7 +1515,7 @@ We now briefly list the main differences in the two algorithms given above.
 \paragraph{Choice of preconditioning points} Neither algorithm will necessarily pick the optimal set of preconditioning points (optimal in the sense of the minimal number of preconditioning points needed). In the sequential algorithm, there is no guarantee that this method for exploring the sample space and choosing the preconditioning points will give an optimal collection of preconditioning points. Also, whilst for the parallel algorithm the preconditioning points should fill the parameter space `well' (given the points are chosen a priori to be well spaced according to the $\dapprox$ metric), the number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. Therefore, even in the parallel case, one may not end up with an optimal set of preconditioning points.
 
 \subsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
-We now describe numerical experiments demonstrating the effectiveness of the above algorithms. For the computational setup, including the algorithm we use to generate our QMC points, see \cref{app:compsetup}.
+We now describe numerical experiments that demostrate the effectiveness of the above algorithms. For the computational setup, including the algorithm we use to generate our QMC points, see \cref{app:compsetup}.
 
 Before we perform our numerical experiments, we need to determine:
 \bit
@@ -1540,7 +1540,7 @@ For a `shift' $\shift \in \cube{J}$ we define the shifted QMC rule
 \eeqs
 where $\by \oplus \shift$ denotes $\by + \shift$ `wrapped around' onto the hypercube $\cube{J}$. (Formally $\by \oplus \shift = \fracoperator{\mleft(\by + \bhalf\mright)+\shift} - \bhalf,$ where $\fracoperator{\cdot}$ denotes the fractional part and $\bhalf$ denotes the $J$-dimensional vector with every entry $1/2.$)
 
-We then define the randomly shifted QMC rule (with multiple randomly chosen shifts $\shifto,\ldots,\shiftNshifts$)
+We can then define the randomly-shifted QMC rule (with multiple randomly-chosen shifts $\shifto,\ldots,\shiftNshifts$)
 \beqs
 \QMCrandshift{Q}{\Nshifts} = \frac1{\Nshifts}\sum_{s=1}^{\Nshifts} \QMCshift{Q}{\shifts} = \frac1{\NQMC\Nshifts}\sum_{s=1}^{\Nshifts}\sum_{l=1}^{\NQMC} Q\mleft(u\mleft(\byl\oplus \shifts\mright)\mright).
 \eeqs
@@ -1553,7 +1553,7 @@ Having defined the randomly shifted QMC rule, one can use the standard statistic
 
 \subsubsection{$k$-dependence of the number of QMC points}
 
-We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We estimated $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup} with $\NQMC = 2048$ and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$), as then by \cref{thm:fembound} the finite-element error is of the order $h^2k^3 \sim (k/60)^3 \lesssim 1$ for all the values of $k$ we consider. The quantities of interest (QoIs) we considered were:
+We first seek to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We estimated the error $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup} with $\NQMC = 2048$ and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$), as then by \cref{thm:fembound} the finite-element error is of the order $h^2k^3 \sim (k/60)^3 \lesssim 1$ for all the values of $k$ we consider. The quantities of interest (QoIs) we considered were:
 \bit
 \item The integral of $u$ over the whole domain $\mleft[0,1\mright]^2$,
 \item The value of $u$ at the origin,
@@ -1650,7 +1650,7 @@ for some constant $\Ctilde > 0$, then substituting \cref{eq:Nform} into \cref{eq
 \eeqs
 Observe that, since $\alpha(k)$ decreases as $k$ increases, \cref{eq:Nform} will increase as $k$ increases.
 
-In our numerical experiments with increasing $\NQMC(k)$ below, we choose $\Ctilde$ so that $\NQMC(10) = 2048,$ because in our numerical experiments to determine the behaviour of the QMC error, we used $\NQMC = 2048$ (with 20 shifts). Also in our numerical experiments below we take the number of QMC points to be a power of 2, because the lattice rule we use to generate the points is a complete lattice rule if $\NQMC$ is a power of 2 (see \cite{NuREADME}). We choose $\NQMC$ to be a power of 2 by setting $\NQMC(k) = 2^{M(k)},$ where
+In our numerical experiments with increasing $\NQMC(k)$ below, we set $\Ctilde$ so that $\NQMC(10) = 2048,$ because in our numerical experiments to determine the behaviour of the QMC error, we used $\NQMC = 2048$ (with 20 shifts). Also in our numerical experiments below we take the number of QMC points to be a power of 2, because the lattice rule we use to generate the points is a complete lattice rule if $\NQMC$ is a power of 2 (see \cite{NuREADME}). We choose $\NQMC$ to be a power of 2 by setting $\NQMC(k) = 2^{M(k)},$ where
 \beqs
 M(k) = \round{\logtwo\mleft(\exp\mleft(\Ctilde \alpha(k)^{-1}\mright)\mright)}.
 \eeqs
@@ -1835,7 +1835,7 @@ The main insight gleaned from studies of mean-based preconditioning is that, as 
 
 The initial computational work on mean-based preconditioning for the stationary diffusion equation was carried out by Ghanem and Kruger \cite{GhKr:96}, Pellissetti and Ghanem \cite{PeGh:00}, and Keese \cite{Ke:04}, with theory (proving bounds on the eigenvalues of the preconditioned matrices) following from Powell and Elman \cite{PoEl:09} and Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}. These eigenvalue bounds are analagous to results in \cref{sec:main} above, as they allow one to infer convergence properties of the iterative method used. All of the above results were for $a$ given by a (real or artificial) Karhunen--Lo\`eve expansion; that is, in the case where $a$ depends linearly on the random parameter. In the case where $a$ is a lognormal random field (and so the dependence is no longer linear), Powell and Ullmann \cite{PoUl:10} declared mean-based preconditioners to be ineffective, and so developed more advanced preconditioners; in contrast, Ullmann, Elman and Ernst \cite{UlElEr:12} transformed a stationary diffusion problem with lognormal coefficient into a stationary convection-diffusion problem with a random coefficient depending linearly on the noise, before proving eigenvalue bounds as before. With a more computational slant, Tipireddy, Phipps and Ghanem \cite{TiPhGh:10} and Rosseel and Vandewalle \cite{RoVa:10} compared the computational properties of several mean-based preconditioners and Elman, Miller, Phipps and Tuminaro \cite{ElMiPhTu:11} compared the computational cost of mean-based preconditioners for stochastic Galerkin and stochastic collocation methods.
 
-Seeking to apply mean-based preconditioning to more challenging problems, Powell and Silvester \cite{PoSi:12} performed computational investigations into mean-based preconditioners for stochastic Galerkin discretisations of the steady-state Navier--Stokes equations, and Soused\'ik and Elman \cite{SoEl:16} introduced a Gauss--Seidel-type preconditioner, using mean-based ideas, for the steady-state Navier--Stokes equations. Finally, Khan, Powell, and Silvester \cite{KhPoSi:19} applied mean-based preconditioning to stochastic Galerkin discretisations of the equations for nearly-incompressible elasticity.
+Seeking to apply mean-based preconditioning to more challenging problems, Powell and Silvester \cite{PoSi:12} performed computational investigations for mean-based preconditioners applied to stochastic Galerkin discretisations of the steady-state Navier--Stokes equations, and Soused\'ik and Elman \cite{SoEl:16} introduced a Gauss--Seidel-type preconditioner, using mean-based ideas, for the steady-state Navier--Stokes equations. Finally, Khan, Powell, and Silvester \cite{KhPoSi:19} applied mean-based preconditioning to stochastic Galerkin discretisations of the equations for nearly-incompressible elasticity.
 
 The works applying mean-based preconditioning to many individual systems (for the stationary diffusion equation) are those of Eiermann, Ernst and Ullmann \cite{EiErUl:07}; Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}; and Gordon and Powell \cite{GoPo:12}. The first work contained computational results in a (decoupled) stochastic Galerkin setting; the second proved eigenvalue bounds in the same setting, and the last proved rigorous eigenvalue bounds in a stochastic collocation setting. All these works assume linear dependence on the noise, and show that mean-based preconditioning works well when the variance is sufficiently small.
 
@@ -1855,7 +1855,10 @@ For simplicity, in all that follows we will measure $\no-\nt$ in the $L^{\infty}
 
 \subsection{Probabilistic theory for nearby preconditioning}
 \bde[Number of GMRES iterations required for convergence]
-Let $\GMRES{\eps}{\nso}{\nst}$ denote the number of iterations required for GMRES in the unweighted norm $\Nt{\cdot}$ with $\Nt{\rvecz} = 1,$ applied to
+
+\
+
+\noindent Let $\GMRES{\eps}{\nso}{\nst}$ denote the number of iterations required for GMRES in the unweighted norm $\Nt{\cdot}$ with $\Nt{\rvecz} = 1,$ applied to
 \beqs
 \AmatoI\Amatt  \uvec = \AmatoI \fvec
 \eeqs
@@ -1880,7 +1883,7 @@ almost surely.
 %Observe that implicit in \cref{cor:stonbpcas} is the fact that $\GMRES{\eps}{\nso}{\nst}$ is a random variable; we sketch a proof of this fact now.
 
 \ble[$\GMRES{\eps}{\no}{\nt}$ is a random variable]\label{lem:randomvariable}
-Under the assumptions of \cref{lem:probgmres1}, $\GMRES{\eps}{\nso}{\nst}$ is a random variable, i.e., $\GMRES{\eps}{\nso}{\nst}:\Omega\rightarrow \RR$ is measurable.
+Under the assumptions of \cref{lem:probgmres1} below, $\GMRES{\eps}{\nso}{\nst}$ is a random variable, i.e., $\GMRES{\eps}{\nso}{\nst}:\Omega\rightarrow \RR$ is measurable.
 \ele
 
 \bpf[Sketch Proof of \cref{lem:randomvariable}]

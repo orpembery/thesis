@@ -61,6 +61,8 @@ def make_plot(locs,filename):
 
     fig = plt.figure(frameon=False)
 
+    fig.set_size_inches((5.5,5.5))
+
     styles = 'o^v>P'
 
     colours = cc.glasbey_bw
