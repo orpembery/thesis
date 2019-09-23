@@ -1,10 +1,12 @@
 from helmholtz_firedrake.utils import h_to_num_cells
 import firedrake as fd
 from matplotlib import pyplot as plt
-from matplotlib import rc
+from matplotlib import rc, rcParams
 import numpy as np
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}']})
 
 k_list = [10.0,50.0]
 

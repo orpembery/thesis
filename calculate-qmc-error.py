@@ -8,9 +8,11 @@ from glob import glob
 from matplotlib import pyplot as plt
 from matplotlib.ticker import LogLocator
 import pandas as pd
-from matplotlib import rc
+from matplotlib import rc, rcParams
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
+
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 
 # This script plots (and calculates) how the quasi-monte carlo error depends on the wavenumber k.
 
@@ -187,7 +189,7 @@ for ii_qoi in range(num_qois):
 
         plt.xlabel(r'$N_\mathrm{QMC}$')
 
-        plt.ylabel('QMC Error')
+        plt.ylabel(r'\textrm{QMC Error}')
 
         plt.legend()
 

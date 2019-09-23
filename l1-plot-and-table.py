@@ -7,10 +7,11 @@ from matplotlib.ticker import MaxNLocator
 import numpy as np
 import fileinput
 import colorcet as cc
-from matplotlib import rc
+from matplotlib import rc, rcParams
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/'
 
@@ -91,8 +92,6 @@ def make_plot(locs,filename):
 
     plt.xlabel('$k$')
 
-    plt.ylabel('Number of GMRES iterations')
-
     plt.xlim([0,110])
 
     plt.xticks([10,20,30,40,50,60,70,80,90,100])
@@ -106,6 +105,8 @@ def make_plot(locs,filename):
     ax.spines['top'].set_color('none')
         
     plt.legend(loc='upper left')
+
+    plt.ylabel(r'\textrm{Number of GMRES iterations}')
 
     plt.savefig(filename+'.pgf')
 

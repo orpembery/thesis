@@ -5,10 +5,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import colorcet as cc
-from matplotlib import rc
+from matplotlib import rc, rcParams
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 
 this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-linfinity/output/'
 
@@ -95,7 +96,7 @@ def plt_gmres(n_pre_type,noise_master,ks,modifiers,filename,things_for_plotting)
         ax.spines['top'].set_color('none')
                      
     plt.xlabel(r'$k$')
-    plt.ylabel('Maximum Number of GMRES Iterations')
+    plt.ylabel(r'\textrm{Maximum Number of GMRES Iterations}')
 
     plt.legend()
 

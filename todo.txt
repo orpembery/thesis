@@ -11,13 +11,11 @@
 / Li and Wu - update
 
 / Formatting:
- * Ask Paul about subsub and para
  * (If time) dashes in page headers like Paul
  * Big spaces in MLMC and other chapters
  * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
- * Overrunning lines - use draft mode
+ * Overrunning lines - use draft mode (done up to end of Ch 4)
  * (If time) aligning probabilistic run graphs
- * check for \L
 
 /Proof reading:
 Summary - y

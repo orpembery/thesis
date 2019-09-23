@@ -9,7 +9,7 @@ from matplotlib import rc
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
-
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 # Found out how to do this from https://tex.stackexchange.com/a/391078
 pgf_latex_dict  = { 'pgf.preamble' : [r'\usepackage{mleftright}']}
 
@@ -73,7 +73,7 @@ for beta in betas:
 
     plt.xlabel('$k$')
 
-    plt.ylabel('Empirical probability that\n$\mathrm{GMRES}\mleft(\epsilon, n^{(1)} n^{(2)}\mright) \leq 12$')
+    plt.ylabel(r'\textrm{Empirical probability that}'+'\n$\mathrm{GMRES}\mleft(\epsilon, n^{(1)} n^{(2)}\mright) \leq 12$')
 
     plt.xticks([int(k) for k in k_list])
 

@@ -2,10 +2,11 @@ from calc_G import G
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 import numpy as np
-from matplotlib import rc
+from matplotlib import rc, rcParams
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
 
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 
 eps = 1e-5
 
