@@ -7,9 +7,6 @@
 - Check with Ivan about Duff, Erisman, and Reid reference
 - Get other LU applying cost references and add in to start of nbpc
 - Get Ghanem and SPanos from Ivan, and check reference for PC
-/ Biblio abbreviations/names
-/ Multirid-  BRSC
-/ to appears
 
 
 / Formatting:
