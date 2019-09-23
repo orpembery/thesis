@@ -8,12 +8,13 @@
 - Get other LU applying cost references and add in to start of nbpc
 - Get Ghanem and SPanos from Ivan, and check reference for PC
 / Biblio abbreviations/names
-/ Li and Wu - update
+/ Multirid-  BRSC
+/ to appears
+
 
 / Formatting:
  * (If time) dashes in page headers like Paul
- * Big spaces in MLMC and other chapters
- * font sizes and computer modern (or whatever) in graphs - bookmarks saved that may help
+ * Big spaces in MLMC and other chapters???
  * Overrunning lines - use draft mode (done up to end of Ch 4)
  * (If time) aligning probabilistic run graphs
 
