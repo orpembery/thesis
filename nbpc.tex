@@ -10,9 +10,9 @@ as defined in \cref{chap:stochastic}. If $Q(u)$ is some quantity of interest of 
 \EXP{Q(u)} \approx \frac1N \sum_{l=1}^N Q(u(\omegasl)),
 \eeq
 where the $\omegasl$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
-Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above. In particular, direct solvers involving the LU decomposition of the linear system have a computational cost of the order $\cO\mleft(N^{3/2}\mright)$ in 2-d and $\cO\mleft(N^2\mright)$ in 3-d.
+Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above. In particular, direct solvers involving the LU decomposition of the linear system have a computational cost of the order $\cO\mleft(N^{3/2}\mright)$ in 2-d  and $\cO\mleft(N^2\mright)$ in 3-d (see \cite[Section 1]{DuErRe:76} and \cite[Equation 3]{DuErRe:76}, respectively for a particular regular grid).
 
-However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d and $\cO\mleft(N^{4/3}\mright)$ in 3-d. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the folowing question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
+However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d \cite[Section 1]{DuErRe:76} and $\cO\mleft(N^{4/3}\mright)$ in 3-d \cite[Equation 4]{DuErRe:76}. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the folowing question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
 
 This question of reusing preconditioners is more widely applicable than just for LU decompositions. For \emph{any} preconditioner for the Helmholtz equation, one could ask when the preconditioner corresponding to one realisation of \cref{eq:nbpchh} can be re-used for other realisations. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact LU decomposition.
 
@@ -206,7 +206,7 @@ It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a s
 \ere
 
 
-\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of \lcnamecrefs{cor:1} \ref{cor:1} and \ref{cor:1a}}\label{sec:num}
+\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of Theorems {\ref{cor:1}} and {\ref{cor:1a}}}\label{sec:num}
 
 The numerical experiments in this section seek to verify \cref{cor:1a,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
 \ben
