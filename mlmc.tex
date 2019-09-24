@@ -1,6 +1,6 @@
 \section{Introduction}
 
-In \cref{sec:nbpcqmc} we considered how to speed up solving the individual linear systems in UQ algorithms for the Helmholtz equation via nearby preconditioning. We now consider how, using a Multi-Level Monte-Carlo method, one can reduce the total number of linear systems we must solve. In particular, we prove bounds on the computational effort needed for Monte Carlo (MC) and Multi-Level Monte-Carlo (MLMC) methods for the stochastic Helmholtz equation. We compare and constrast the behaviour of these methods for different wavenumbers and tolerances and we show that Multi-Level Monte-Carlo methods asymptotically (as the prescribed tolerance goes to 0) require less work than Monte-Carlo methods.
+In \cref{sec:nbpcqmc} we considered how to speed up solving the individual linear systems in UQ algorithms for the Helmholtz equation via nearby preconditioning. We now consider how, using a Multi-Level Monte-Carlo method, one can reduce the total number of linear systems we must solve. In particular, we prove bounds on the computational effort needed for Monte Carlo (MC) and Multi-Level Monte-Carlo (MLMC) methods for the stochastic Helmholtz equation. We compare and constrast the behaviour of these methods for different wavenumbers and tolerances and we show that Multi-Level Monte-Carlo methods asymptotically (as the prescribed tolerance goes to 0) require less work than Monte-Carlo methods.\optodo{edit}
 
 We highlight that, in contrast to our empirical analysis of Quasi-Monte-Carlo (QMC) methods in \cref{sec:nbpcqmcnumerics}, in this \lcnamecref{chap:mlmc} we provide a rigorous analysis of Monte-Carlo and Multi-Level Monte Carlo methods. We prove how Monte-Carlo and Multi-Level Monte-Carlo methods must be adapted for increasing $k$ to ensure the overall error (both numerical and statistical) remains bounded, andwe prove bounds on the expected computational cost of both the Monte-Carlo and Multi-Level Monte-Carlo methods.
 
@@ -302,9 +302,9 @@ We make the following simplifying \lcnamecref{ass:coarse}, that the coarse mesh 
 
 \bas[Dependence of coarse space on $k$]\label{ass:coarse}
 Let $\Ccoarse > 0$ be independent of $k$ and 
-\beqs
+\beq\label{eq:coarse}
 \hz = \Ccoarse k^{-a}.
-\eeqs
+\eeq
 \eas
 
  
@@ -591,7 +591,7 @@ where
 \Cgammalessbeta \de 2\ct \cth \mleft(1+s^{-\gamma}\mright)\Ccoarse^{\beta-\gamma}\frac{s^{\beta-\gamma}}{\mleft(s^{\frac{\beta-\gamma}2}-1\mright)^2}.
 \eeqs
 
-DUNNO We now combine \cref{eq:complexitymidway,eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchhbounds}.
+We now combine \cref{eq:complexitymidway,eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchhbounds}.
 %Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
 \epf
 
@@ -686,16 +686,28 @@ The proof of \cref{thm:mcmlmchelmholtz} is given on \cpageref{page:mcmlmchelmhol
   \toprule
   $Q(u)$ & $a$ & Monte-Carlo & Multi-Level Monte-Carlo\\
   \midrule
-      $\NHokD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-\frac{d}{2p}}$ \\
-  $\NLtD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & \makecell{$\displaystyle k^{d} \eps^{-\frac{d}{2p}}$ if $k\eps$ small,\\otherwise $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$} \\
-    $\NHokD{u}$ & 1 &$\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-\frac{d}{2p}}$ \\
-      $\NLtD{u}$ & 1 & $\displaystyle k^d \eps^{-2-\frac{d}{2p}}$ &$\displaystyle k^d \eps^{-\frac{d}{2p}}$\\
+      $\NHokD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2}$ \\
+  $\NLtD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & \makecell{$\displaystyle k^{d} \eps^{-2}$ if $k\eps$ small,\\otherwise $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$} \\
+    $\NHokD{u}$ & 1 &$\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d+2} \eps^{-2}$ \\
+      $\NLtD{u}$ & 1 & $\displaystyle k^d \eps^{-2-\frac{d}{2p}}$ &$\displaystyle k^d \eps^{-2}$\\
   \bottomrule
 \end{tabular}
 \caption{Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo algorithms\label{tab:mcresults}}
 \end{table}
 
-We briefly highlight the results in \cref{thm:mcmlmchelmholtz}. The results for Monte-Carlo methods and Multi-Level Monte-Carlo-methods are identical, in terms of their $k$-dependence. However, Multi-Level Monte-Carlo methods are consistently better than Monte-Carlo methods in terms of $\eps$-dependence, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this scenario only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, Multi-Level Monte-Carlo out-performs Monte-Carlo, but if $\eps$ and/or $k$ are large, then Multi-Level Monte-Carlo is identical to Monte-Carlo (because there are no additional levels).
+We now discuss the results in \cref{thm:mcmlmchelmholtz}. The results for Multi-Level Monte-Carlo methods are consistently better than those for Monte-Carlo methods in terms of $\eps$-dependence, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this scenario only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, Multi-Level Monte-Carlo out-performs Monte-Carlo, but if $\eps$ and/or $k$ are large, then Multi-Level Monte-Carlo is identical to Monte-Carlo (because there are no additional levels).
+
+However, the $k$-dependence of the Multi-Level Monte-Carlo and Monte-Carlo methods (and which method has the more favourable $k$-dependence) is more complicated, and so we discuss it in more detail.
+
+Observe that in the cases (i) $a = (2p+1)/2p$ and $Q(u) = \NHokD{u}$ and (ii) $a=1$ and $Q(u) = \NLtD{u}$, the $k$-dependence of the Monte-Carlo and Multi-Level Monte-Carlo methods is the same. This is unsurprising; in each case the criterion on the coarse space \cref{eq:coarse} has the same $k$-dependence as the definition of $\hL$ \cref{eq:hLcond}, since $a = \sigma/\alpha.$ Consequently, the number of levels $L$ is independent of $k$ (see also that the factor $k^{\sigma - a\alpha}$ in \cref{eq:Ldef} is $k$-independent in each of these cases), and one can therefore believe that the computational complexity of the two estimators should have the same $k$-dependence.
+
+However, in the other two cases, the $k$-dependence of the complexity of the Multi-Level Monte-Carlo methodis different to that of the Monte-Carlo method. We consider each of these cases in turn.
+
+In the case $a=(2p+1)/2p$ and $Q(u) = \NLtD{u},$ we see that the $k$-dependence of the Multi-Level Monte-Carlo method is \emph{better} than that of the Monte-Carlo method. To understand this improvement, oserve that the $k$-dependence of the criterion \cref{eq:coarse} on the coarse space is \emph{more} restrictive than the $k$-dependence one would otherwise impose to ensure the bias error is small (i.e., the $k$-dependence of the right-hand side of \cref{eq:hLcond}). In this particular setting, the former criterion is $\hz \lesssim k^{-(2p+1)/2p},$ whereas the latter criterion is `$h^{2p}k^{2p}$ is sufficiently small'. Therefore, if we take $\hL \sim k^{-(2p+1)/2p},$ the bias error (of the order $\hL^{2p}k^{2p} = k^{-1}$) will \emph{decrease} as $k$ increases. Moreover, the variance of the Multi-Level Monte-Carlo estimator (given by \cref{eq:mlmcvariance}) will also decrease as $k$ increases; even on the coarsest level, the variance will be of the order $\hz^{4p}k^{4p} = k^{-2}$ (see \cref{ass:b}). Therefore, because the variance on each level decreases as $k$ increases, the number of samples on each level will also ecrease as $k$ increases, reducing the overall computational cost in a $k$-dependent way.
+
+Conversely, in the case  $a=!$ and $Q(u) = \NHokD{u},$ we see that the $k$-dependence of the cost of the Multi-Level Monte-Carlo estimator is \emph{worse} can that of the Monte-Carlo estimator. The reason for this worse dependence is, is essence, the converse of the reason for the improved dependence in the first case discussed above. The gap between the $k$-dependence of the criterion \cref{eq:coarse} for the coarse space (of the order $k^{-1}$) and the criterion on $\hL$ (of the order $k^{-(2p+1)/2p}$, see \cref{eq:hLcond}) increases as $k$ increases, and therefore the number of levels $L$ will increase as $k$ increases (see \cref{eq:Ldef}, and observe that in this case $k^{\sigma - a\alpha} = k$). Moreover, on any level $l$ where $\hl \gtrsim k^{-(2p+1)/2p},$ the variance $\Vl$ will increase as $k$ increases, since $\Vl \sim \hl^{4p}k^{4p+1}.$ Therefore, on each level the variance (and thus the number of samples) will increase as $k$ increases, resulting in an overall $k$-dependent increase in the computational cost.
+
+It remains to be seen how these theoretical predictions are borne out in numerical computations; such computations should be the subject of future research.
 
 
 \bre[Proving probabilistic bounds on the cost]
@@ -721,15 +733,29 @@ As stated above, we want to analyse the behaviour of Monte-Carlo and Multi-Level
 
 \bpf[Proof of \cref{thm:mcmlmchelmholtz}]
 \label{page:mcmlmchelmholtzproof}
-The proof follows immediately from \cref{thm:mlmccomp}, by substituting in the appropriate values of $\alpha,$ $\beta$, etc.. The only case that requires explaining is when $a=(2p+1)/2p$ and $Q(u) = \NLtD{u}$ (so $\alpha = \sigma = 2p.$) In this case, the expression for $L$ in \cref{eq:Ldef} evaluates as
-\beq\label{eq:specialL}
-L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
+The proof follows immediately from the case $\beta > \gamma$ in \cref{thm:mlmccomp}, because we have $\beta = 4p$ or $4p+1$  (depending on the QoI), for $p\geq 1$ and $\gamma=d.$ We then substitute the appropriate values of $a$, $\alpha,$ $\beta$, etc. into \cref{eq:mlmchhbounds}, and identify which of the terms $k^{\tau - a\mleft(\beta-\gamma\mright)}$ or $k^{\gamma\sigma/\alpha}$ dominates for large $k$, and which of the terms $\eps^{-2}$ or $\eps^{-\gamma/\alpha}$ dominates for small $\eps.$
+
+Two cases require explaining a little further. Firstly, when $a=(2p+1)/2p$ and $Q(u) = \NLtD{u}$ (so $\alpha = \sigma = 2p.$) In this case, the expression for $L$ in \cref{eq:Ldef} evaluates as
+  \beq\label{eq:specialL}
+  L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
 \eeq
 Observe that for $k$ (or $\eps$) sufficiently large, the first term in the maximum on the right-hand side of \cref{eq:specialL} may be negative (i.e. if $\mleft(\eps k\mright)^{-1}$ is suffciently close to 0, then the logarithm will be negative). In such a case, the maximum of the two quantities on the right-hand side of \cref{eq:specialL} will be 0, and in such a case the Multi-Level Monte-Carlo method reverts to the Monte-Carlo algorithm as $L=0,$ i.e., there are no additional levels of refinement. The criterion for the first term to be positive (and so for the Multi-Level Monte-Carlo method to be distinct from the Monte-Carlo method) is
 \beqs
 \sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1} > 1,
 \eeqs
-which is equivalent to the condition \cref{eq:kepscond}, as required.
+which is equivalent to the condition \cref{eq:kepscond}.
+
+In the case that the condition \cref{eq:kepscond} holds we can apply \cref{eq:mlmchhbounds}, and by substituting in the appropriate values of $a,$ $\alpha$, etc., the right-hand side of \cref{eq:mlmchhbounds} becomes
+\beqs
+k^{\mleft(\frac{2p+1}{2p}d\mright)-2}\eps^{-2} + k^d \eps^{-\frac{d}{2p}}.
+\eeqs
+To see which of the terms in $k$ dominates for large $k,$ observe that $d \geq (2p+1)d/(2p) -2 $ if, and only if, $p \geq d/4.$ As $p \geq 1$ and $d \leq 3,$ we always have $p \geq d/4,$ and hence the $k^d$ term dominates.
+
+Secondly, when $a=1$ and $Q(u) = \NHokD{u}$, on substituting the appropriate values of $a,$ $\alpha$, etc. into \cref{eq:mlmchhbounds}, the right-hand side of \cref{eq:mlmchhbounds} becomes
+\beqs
+k^{d+2}\eps^{-2} + k^{\frac{2p+1}{2p}d}\eps^{-\frac{d}{2p}}.
+\eeqs
+Observe that, analagously to above, $d + 2 \geq (2p+1)d/(2p)$ if, and only if, $p \geq d/4,$ and therefore the $k^{d+2}$ term dominates.
 \epf
 
 \bre[No coarse-space dependence in Multi-Level Monte-Carlo cost bounds]
