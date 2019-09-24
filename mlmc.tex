@@ -302,9 +302,9 @@ We make the following simplifying \lcnamecref{ass:coarse}, that the coarse mesh 
 
 \bas[Dependence of coarse space on $k$]\label{ass:coarse}
 Let $\Ccoarse > 0$ be independent of $k$ and 
-\beqs
+\beq\label{eq:coarse}
 \hz = \Ccoarse k^{-a}.
-\eeqs
+\eeq
 \eas
 
  
@@ -410,8 +410,9 @@ then $\err{\QhatMLhL} \leq \eps$ and, if $L \geq 1$, the computational cost of $
 \label{eq:mlmchhbounds}
 \Cost{\QhatMLhL} \lesssim
 \begin{cases}
-k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & \tif \beta = \gamma,\\ 
-k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & \text{ otherwise.}
+  k^{\tau-a\mleft(\beta-\gamma\mright)}\eps^{-2} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & \tif \beta > \gamma,\\
+k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & \tif \beta = \gamma,\tand\\ 
+k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & \tif \gamma > \beta.
 \end{cases}
 \eeq
  However, if $L=0$, then $\Cost{\QhatMLhL}$ is given by \cref{thm:hhmc}.
@@ -436,7 +437,7 @@ for some $\Lconst, \func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the
 \begin{cases}
 L+1 & \tif \delta = 0,\\
 \frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0,\\
-\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0.
+\frac{s^{-\delta}}{s^{-\delta}-1}&\tif \delta < 0.
 \end{cases}
 \eeq
 %% \beq\label{eq:sumboundLmo}
@@ -451,29 +452,35 @@ L+1 & \tif \delta = 0,\\
 \ele
 
 \bpf[Proof of \cref{lem:sumboundnew}]
- The case $\delta=0$ is immediate. We now assume $\delta \neq 0.$ The proof follows that in \cite[Appendix A]{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that the bounds
+ The case $\delta=0$ is immediate. For $\delta \neq 0$ the proof follows that in \cite[Appendix A]{ClGiScTe:11}. For the case $\delta > 0,$ we first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that the bound
 \beq\label{eq:Lboundsgen}
-\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1
+%\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq
+L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1
 \eeq
-hold. Rearranging \eqref{eq:Lboundsgen}, we obtain the bounds
+holds. Rearranging \eqref{eq:Lboundsgen}, we obtain the bound
 \beq\label{eq:saLboundsgen}
-\mleft( \func\eps^{-1}\mright)^{\Lconst} \leq s^{L} < \mleft( \func\eps^{-1}\mright)^{\Lconst}s.
+%\mleft( \func\eps^{-1}\mright)^{\Lconst} \leq
+s^{L} < \mleft( \func\eps^{-1}\mright)^{\Lconst}s.
 \eeq
-If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLboundsgen} to obtain
+From \eqref{eq:saLboundsgen} we can then obtain
 \beq\label{eq:sdLposgen}
-s^{\delta L} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{\delta},
+s^{\delta L} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{\delta}.
 \eeq
-and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLboundsgen} to obtain
-\beq\label{eq:sdLneggen}
-s^{\delta L} \leq \func^{\delta\Lconst}\eps^{-\delta\Lconst}.
-\eeq
-We now observe that, for $\delta \neq 0,$
+We now observe that, for $\delta > 0,$
 \begin{align}
 \sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
 &= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
 &\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumboundgen}
 \end{align}
-since $s^{-\delta} > 0,$ because $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} or \eqref{eq:sdLneggen} as appropriate, depending on the value of $\delta$, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$
+since $s^{\delta L} \geq  s^{-\delta}$. Combining \cref{eq:sdLposgen,eq:ssumboundgen}, we obtain \cref{eq:sumboundgen} in the case $\delta > 0.$
+
+For the case $\delta < 0$, we observe
+\begin{align*}
+\sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
+&= \frac{s^{-\delta} - s^{\delta L}}{s^{-\delta}-1}\nonumber\\
+&\leq \frac{s^{-\delta}}{s^{-\delta}-1},%\label{eq:ssumboundgen2}
+\end{align*}
+since $s^{-\delta} \geq  s^{\delta L}$, that is, \cref{eq:sumboundgen} in the case $\delta < 0.$
 \epf
 
 We are now in a position to prove \cref{thm:mlmccomp}.
@@ -520,7 +527,7 @@ Find $\Nz,\No,\ldots,\NL > 0$ to minimise \cref{eq:Cboundformin} subject to
 \beqs
 \sum_{l=0}^L \frac{\Vl}{\Nl} = \frac{\eps^2}2.
 \eeqs
-This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers. Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
+This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers.) Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
 
 We now infer the expected computational complexity of the Multi-Level Monte-Carlo method with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}. From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
 \begin{align}
@@ -547,7 +554,7 @@ If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (u
 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\eps^{-1}\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}\mright)+2\mright)^2.
 \label{eq:gammaequal}
 \eeq
-To simplify the notation in the other two cases, we let
+In the case $\gamma > \beta$, to simplify the notation, we let
 %We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
 %% \beqs
 %% 2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
@@ -565,7 +572,7 @@ To simplify the notation in the other two cases, we let
 \csumdelta \de \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}.
 \eeqs
 
-If $\gamma > \beta$ then using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, but $\delta = (\gamma-\beta)/2$, the first term in \eqref{eq:complexitymidway} becomes
+Then using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, but $\delta = (\gamma-\beta)/2 > 0$, the first term in \eqref{eq:complexitymidway} becomes
 \beq
 \eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
 \eeq
@@ -575,16 +582,16 @@ where
 \eeqs
 and the second equality in \cref{eq:gammagtr} follows from the definition of $\hz$ in \cref{ass:coarse}.
 
-If $\gamma < \beta,$ then using \cref{lem:sumboundnew} as in the cases $\gamma > \beta$ the first term in \eqref{eq:complexitymidway} is
+If $\gamma < \beta,$ then using \cref{lem:sumboundnew} $\Lconst$ and $\func$ as above, but with $\delta = (\gamma-\beta)/2 < 0$, the first term in \eqref{eq:complexitymidway} is
 \beq\label{eq:gammalessbeta}
-\Cgammalessbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},
+\Cgammalessbeta k^{\tau  -a\mleft(\beta-\gamma\mright)} \eps^{-2},
 \eeq
 where
-\beq\label{eq:gammaless}
-\Cgammalessbeta \de \frac{\Cgammagtrbeta}{s^{\gamma-\beta}}.
-\eeq
+\beqs\label{eq:gammaless}
+\Cgammalessbeta \de 2\ct \cth \mleft(1+s^{-\gamma}\mright)\Ccoarse^{\beta-\gamma}\frac{s^{\beta-\gamma}}{\mleft(s^{\frac{\beta-\gamma}2}-1\mright)^2}.
+\eeqs
 
-We now combine \cref{eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammaless,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchhbounds}.
+We now combine \cref{eq:complexitymidway,eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchhbounds}.
 %Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
 \epf
 
@@ -607,7 +614,7 @@ We consider the norms $\NLtD{u}$ and $\NHokD{u}$ as QoIs because the Helmholtz e
 \subsubsection{The values of $\alpha,$ $\sigma,$ $\beta,$ $\tau,$ $\gamma,$ and $a$}
 For the two QoIs $\NLtD{u}$ and $\NHokD{u},$ the values of $\alpha,$ $\sigma,$ $\beta,$ and $\tau$ are given in \cref{lem:mlho,lem:mllt} below. Their values are obtained straightforwardly from \cref{thm:fembound} above. However, determining the value of $\gamma$, and especially $\alpha$, is more involved.
 
-\paragraph{The values of $\gamma$} The value of $\gamma$ represents the efficiency of the solver one uses to solve the linear systems arising from the finite-element discretisations of the individual Helmholtz problems. Recall that the number of degrees of freedom in the linear systems is of the order $h^{-d}$ (if the mesh size for the finite-element mesh is $h$). In the following analysis we take $\gamma = d,$ i.e. we assume that we have access to an optimal Helmholtz solver, that can solve linear systems with $N$ unknowns arising from finite-element discretisations of Helmholtz problems in $\cO(N)$ time. Obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
+\paragraph{The value of $\gamma$} The value of $\gamma$ represents the efficiency of the solver one uses to solve the linear systems arising from the finite-element discretisations of the individual Helmholtz problems. Recall that the number of degrees of freedom in the linear systems is of the order $h^{-d}$ (if the mesh size for the finite-element mesh is $h$). In the following analysis we take $\gamma = d,$ i.e. we assume that we have access to an optimal Helmholtz solver, that can solve linear systems with $N$ unknowns arising from finite-element discretisations of Helmholtz problems in $\cO(N)$ time. Obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
 
 \paragraph{The values of $a$} In our analysis below, we consider two different values of $a$, $a=(2p+1)/2p$ (where $p$ is the polynomial degree of the finite-elements) and $a=-1$. We now explain why $a=(2p+1)/2p$ is the natural choice, but has some limitations in the Multi-Level Monte-Carlo method. We then go on to explain how the choice $a=1$ removes these limitations, and we the discuss whether the choice $a=1$ is reasonable.
 
@@ -679,16 +686,28 @@ The proof of \cref{thm:mcmlmchelmholtz} is given on \cpageref{page:mcmlmchelmhol
   \toprule
   $Q(u)$ & $a$ & Monte-Carlo & Multi-Level Monte-Carlo\\
   \midrule
-      $\NHokD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-\frac{d}{2p}}$ \\
-  $\NLtD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & \makecell{$\displaystyle k^{d} \eps^{-\frac{d}{2p}}$ if $k\eps$ small,\\otherwise $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$} \\
-    $\NHokD{u}$ & 1 &$\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-\frac{d}{2p}}$ \\
-      $\NLtD{u}$ & 1 & $\displaystyle k^d \eps^{-2-\frac{d}{2p}}$ &$\displaystyle k^d \eps^{-\frac{d}{2p}}$\\
+      $\NHokD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2}$ \\
+  $\NLtD{u}$ & $\displaystyle \frac{2p+1}{2p}$ & $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & \makecell{$\displaystyle k^{d} \eps^{-2}$ if $k\eps$ small,\\otherwise $\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$} \\
+    $\NHokD{u}$ & 1 &$\displaystyle k^{d\frac{2p+1}{2p}} \eps^{-2-\frac{d}{2p}}$ & $\displaystyle k^{d+2} \eps^{-2}$ \\
+      $\NLtD{u}$ & 1 & $\displaystyle k^d \eps^{-2-\frac{d}{2p}}$ &$\displaystyle k^d \eps^{-2}$\\
   \bottomrule
 \end{tabular}
 \caption{Computational complexity of Monte-Carlo and Multi-Level Monte-Carlo algorithms\label{tab:mcresults}}
 \end{table}
 
-We briefly highlight the results in \cref{thm:mcmlmchelmholtz}. The results for Monte-Carlo methods and Multi-Level Monte-Carlo-methods are identical, in terms of their $k$-dependence. However, Multi-Level Monte-Carlo methods are consistently better than Monte-Carlo methods in terms of $\eps$-dependence, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this scenario only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, Multi-Level Monte-Carlo out-performs Monte-Carlo, but if $\eps$ and/or $k$ are large, then Multi-Level Monte-Carlo is identical to Monte-Carlo (because there are no additional levels).
+We now discuss the results in \cref{thm:mcmlmchelmholtz}. The results for Multi-Level Monte-Carlo methods are consistently better than those for Monte-Carlo methods in terms of $\eps$-dependence, unless the condition for existence and uniqueness is more restrictive than the condition to keep the error bounded\footnote{In the cases we consider, this scenario only occurs when we take $a = (2p+1)/2p$ and $Q(u) = \NLtD{u},$ so $\alpha = \sigma = 2p.$}. In such a case, for $\eps$ small and/or $k$ small, Multi-Level Monte-Carlo out-performs Monte-Carlo, but if $\eps$ and/or $k$ are large, then Multi-Level Monte-Carlo is identical to Monte-Carlo (because there are no additional levels).
+
+However, the $k$-dependence of the Multi-Level Monte-Carlo and Monte-Carlo methods (and which method has the more favourable $k$-dependence) is more complicated, and so we discuss it in more detail.
+
+Observe that in the cases (i) $a = (2p+1)/2p$ and $Q(u) = \NHokD{u}$ and (ii) $a=1$ and $Q(u) = \NLtD{u}$, the $k$-dependence of the Monte-Carlo and Multi-Level Monte-Carlo methods is the same. This is unsurprising; in each case the criterion on the coarse space \cref{eq:coarse} has the same $k$-dependence as the definition of $\hL$ \cref{eq:hLcond}, since $a = \sigma/\alpha.$ Consequently, the number of levels $L$ is independent of $k$ (see also that the factor $k^{\sigma - a\alpha}$ in \cref{eq:Ldef} is $k$-independent in each of these cases), and one can therefore believe that the computational complexity of the two estimators should have the same $k$-dependence.
+
+However, in the other two cases, the $k$-dependence of the complexity of the Multi-Level Monte-Carlo methodis different to that of the Monte-Carlo method. We consider each of these cases in turn.
+
+In the case $a=(2p+1)/2p$ and $Q(u) = \NLtD{u},$ we see that the $k$-dependence of the Multi-Level Monte-Carlo method is \emph{better} than that of the Monte-Carlo method. To understand this improvement, oserve that the $k$-dependence of the criterion \cref{eq:coarse} on the coarse space is \emph{more} restrictive than the $k$-dependence one would otherwise impose to ensure the bias error is small (i.e., the $k$-dependence of the right-hand side of \cref{eq:hLcond}). In this particular setting, the former criterion is $\hz \lesssim k^{-(2p+1)/2p},$ whereas the latter criterion is `$h^{2p}k^{2p}$ is sufficiently small'. Therefore, if we take $\hL \sim k^{-(2p+1)/2p},$ the bias error (of the order $\hL^{2p}k^{2p} = k^{-1}$) will \emph{decrease} as $k$ increases. Moreover, the variance of the Multi-Level Monte-Carlo estimator (given by \cref{eq:mlmcvariance}) will also decrease as $k$ increases; even on the coarsest level, the variance will be of the order $\hz^{4p}k^{4p} = k^{-2}$ (see \cref{ass:b}). Therefore, because the variance on each level decreases as $k$ increases, the number of samples on each level will also ecrease as $k$ increases, reducing the overall computational cost in a $k$-dependent way.
+
+Conversely, in the case  $a=!$ and $Q(u) = \NHokD{u},$ we see that the $k$-dependence of the cost of the Multi-Level Monte-Carlo estimator is \emph{worse} can that of the Monte-Carlo estimator. The reason for this worse dependence is, is essence, the converse of the reason for the improved dependence in the first case discussed above. The gap between the $k$-dependence of the criterion \cref{eq:coarse} for the coarse space (of the order $k^{-1}$) and the criterion on $\hL$ (of the order $k^{-(2p+1)/2p}$, see \cref{eq:hLcond}) increases as $k$ increases, and therefore the number of levels $L$ will increase as $k$ increases (see \cref{eq:Ldef}, and observe that in this case $k^{\sigma - a\alpha} = k$). Moreover, on any level $l$ where $\hl \gtrsim k^{-(2p+1)/2p},$ the variance $\Vl$ will increase as $k$ increases, since $\Vl \sim \hl^{4p}k^{4p+1}.$ Therefore, on each level the variance (and thus the number of samples) will increase as $k$ increases, resulting in an overall $k$-dependent increase in the computational cost.
+
+It remains to be seen how these theoretical predictions are borne out in numerical computations; such computations should be the subject of future research.
 
 
 \bre[Proving probabilistic bounds on the cost]
@@ -714,15 +733,29 @@ As stated above, we want to analyse the behaviour of Monte-Carlo and Multi-Level
 
 \bpf[Proof of \cref{thm:mcmlmchelmholtz}]
 \label{page:mcmlmchelmholtzproof}
-The proof follows immediately from \cref{thm:mlmccomp}, by substituting in the appropriate values of $\alpha,$ $\beta$, etc.. The only case that requires explaining is when $a=(2p+1)/2p$ and $Q(u) = \NLtD{u}$ (so $\alpha = \sigma = 2p.$) In this case, the expression for $L$ in \cref{eq:Ldef} evaluates as
-\beq\label{eq:specialL}
-L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
+The proof follows immediately from the case $\beta > \gamma$ in \cref{thm:mlmccomp}, because we have $\beta = 4p$ or $4p+1$  (depending on the QoI), for $p\geq 1$ and $\gamma=d.$ We then substitute the appropriate values of $a$, $\alpha,$ $\beta$, etc. into \cref{eq:mlmchhbounds}, and identify which of the terms $k^{\tau - a\mleft(\beta-\gamma\mright)}$ or $k^{\gamma\sigma/\alpha}$ dominates for large $k$, and which of the terms $\eps^{-2}$ or $\eps^{-\gamma/\alpha}$ dominates for small $\eps.$
+
+Two cases require explaining a little further. Firstly, when $a=(2p+1)/2p$ and $Q(u) = \NLtD{u}$ (so $\alpha = \sigma = 2p.$) In this case, the expression for $L$ in \cref{eq:Ldef} evaluates as
+  \beq\label{eq:specialL}
+  L = \max\set{\ceil{\frac1{2p}\log_s\mleft(\sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1}\mright)},0}
 \eeq
 Observe that for $k$ (or $\eps$) sufficiently large, the first term in the maximum on the right-hand side of \cref{eq:specialL} may be negative (i.e. if $\mleft(\eps k\mright)^{-1}$ is suffciently close to 0, then the logarithm will be negative). In such a case, the maximum of the two quantities on the right-hand side of \cref{eq:specialL} will be 0, and in such a case the Multi-Level Monte-Carlo method reverts to the Monte-Carlo algorithm as $L=0,$ i.e., there are no additional levels of refinement. The criterion for the first term to be positive (and so for the Multi-Level Monte-Carlo method to be distinct from the Monte-Carlo method) is
 \beqs
 \sqrt{2}\co\Ccoarse^{2p}k^{-1}\eps^{-1} > 1,
 \eeqs
-which is equivalent to the condition \cref{eq:kepscond}, as required.
+which is equivalent to the condition \cref{eq:kepscond}.
+
+In the case that the condition \cref{eq:kepscond} holds we can apply \cref{eq:mlmchhbounds}, and by substituting in the appropriate values of $a,$ $\alpha$, etc., the right-hand side of \cref{eq:mlmchhbounds} becomes
+\beqs
+k^{\mleft(\frac{2p+1}{2p}d\mright)-2}\eps^{-2} + k^d \eps^{-\frac{d}{2p}}.
+\eeqs
+To see which of the terms in $k$ dominates for large $k,$ observe that $d \geq (2p+1)d/(2p) -2 $ if, and only if, $p \geq d/4.$ As $p \geq 1$ and $d \leq 3,$ we always have $p \geq d/4,$ and hence the $k^d$ term dominates.
+
+Secondly, when $a=1$ and $Q(u) = \NHokD{u}$, on substituting the appropriate values of $a,$ $\alpha$, etc. into \cref{eq:mlmchhbounds}, the right-hand side of \cref{eq:mlmchhbounds} becomes
+\beqs
+k^{d+2}\eps^{-2} + k^{\frac{2p+1}{2p}d}\eps^{-\frac{d}{2p}}.
+\eeqs
+Observe that, analagously to above, $d + 2 \geq (2p+1)d/(2p)$ if, and only if, $p \geq d/4,$ and therefore the $k^{d+2}$ term dominates.
 \epf
 
 \bre[No coarse-space dependence in Multi-Level Monte-Carlo cost bounds]
