@@ -5,11 +5,14 @@
 - Check with Ivan about Duff, Erisman, and Reid reference
 - Get other LU calculating and applying cost references and add in to start of nbpc (only place needed)
 
+- Cj in number of samples
+- 2 in numbber of samples
 
 / Formatting:
+ * Double check small caps/caps tracking has been set
  * (If time) dashes in page headers like Paul
  * Big spaces in MLMC and other chapters (if present)
- * Overrunning lines - use draft mode (done up to end of Ch 4) - don't forget appendix
+ * Overrunning lines - use draft mode (done up to end of Ch 4) - done appendix
  * (If time) aligning probabilistic run graphs
  * (If time) look at someone else's thesis for margins
 
@@ -34,3 +37,4 @@ Very final checks:
 -----------------
 
 - ??
+- line overrun

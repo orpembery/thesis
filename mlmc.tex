@@ -436,7 +436,7 @@ for some $\Lconst, \func > 0,$ then, for $s>1$ and $\delta \in \RR,$ we have the
 \begin{cases}
 L+1 & \tif \delta = 0,\\
 \frac{s^{\delta}}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst} &\tif \delta >0,\\
-\frac{1}{1-s^{-\delta}}\func^{\delta\Lconst}\eps^{-\delta\Lconst}&\tif \delta < 0.
+\frac{s^{-\delta}}{s^{-\delta}-1}&\tif \delta < 0.
 \end{cases}
 \eeq
 %% \beq\label{eq:sumboundLmo}
@@ -451,29 +451,35 @@ L+1 & \tif \delta = 0,\\
 \ele
 
 \bpf[Proof of \cref{lem:sumboundnew}]
- The case $\delta=0$ is immediate. We now assume $\delta \neq 0.$ The proof follows that in \cite[Appendix A]{ClGiScTe:11}. We first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that the bounds
+ The case $\delta=0$ is immediate. For $\delta \neq 0$ the proof follows that in \cite[Appendix A]{ClGiScTe:11}. For the case $\delta > 0,$ we first observe that, since $L$ is given by \eqref{eq:Ldefgen}, it follows that the bound
 \beq\label{eq:Lboundsgen}
-\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1
+%\Lconst\log_s\mleft(\func \eps^{-1}\mright) \leq
+L < \Lconst\log_s\mleft(\func \eps^{-1}\mright) + 1
 \eeq
-hold. Rearranging \eqref{eq:Lboundsgen}, we obtain the bounds
+holds. Rearranging \eqref{eq:Lboundsgen}, we obtain the bound
 \beq\label{eq:saLboundsgen}
-\mleft( \func\eps^{-1}\mright)^{\Lconst} \leq s^{L} < \mleft( \func\eps^{-1}\mright)^{\Lconst}s.
+%\mleft( \func\eps^{-1}\mright)^{\Lconst} \leq
+s^{L} < \mleft( \func\eps^{-1}\mright)^{\Lconst}s.
 \eeq
-If $\delta > 0,$ then we use the right-hand bound in \eqref{eq:saLboundsgen} to obtain
+From \eqref{eq:saLboundsgen} we can then obtain
 \beq\label{eq:sdLposgen}
-s^{\delta L} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{\delta},
+s^{\delta L} < \func^{\delta\Lconst}\eps^{-\delta\Lconst}s^{\delta}.
 \eeq
-and if $\delta < 0,$ we use the left-hand bound in \eqref{eq:saLboundsgen} to obtain
-\beq\label{eq:sdLneggen}
-s^{\delta L} \leq \func^{\delta\Lconst}\eps^{-\delta\Lconst}.
-\eeq
-We now observe that, for $\delta \neq 0,$
+We now observe that, for $\delta > 0,$
 \begin{align}
 \sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
 &= \frac{s^{\delta L} - s^{-\delta}}{1-s^{-\delta}}\nonumber\\
 &\leq \frac{s^{\delta L}}{1-s^{-\delta}},\label{eq:ssumboundgen}
 \end{align}
-since $s^{-\delta} > 0,$ because $s >0.$ Combining \eqref{eq:ssumboundgen} with \eqref{eq:sdLposgen} or \eqref{eq:sdLneggen} as appropriate, depending on the value of $\delta$, we obtain \eqref{eq:sumboundgen} in the cases $\delta \neq 0.$
+since $s^{\delta L} \geq  s^{-\delta}$. Combining \cref{eq:sdLposgen,eq:ssumboundgen}, we obtain \cref{eq:sumboundgen} in the case $\delta > 0.$
+
+For the case $\delta < 0$, we observe
+\begin{align*}
+\sum_{l=0}^L s^{\delta l} &= \frac{s^{\delta\mleft(L+1\mright)} -1}{s^{\delta}-1}\nonumber\\
+&= \frac{s^{-\delta} - s^{\delta L}}{s^{-\delta}-1}\nonumber\\
+&\leq \frac{s^{-\delta}}{s^{-\delta}-1},%\label{eq:ssumboundgen2}
+\end{align*}
+since $s^{-\delta} \geq  s^{\delta L}$, that is, \cref{eq:sumboundgen} in the case $\delta < 0.$
 \epf
 
 We are now in a position to prove \cref{thm:mlmccomp}.
@@ -520,7 +526,7 @@ Find $\Nz,\No,\ldots,\NL > 0$ to minimise \cref{eq:Cboundformin} subject to
 \beqs
 \sum_{l=0}^L \frac{\Vl}{\Nl} = \frac{\eps^2}2.
 \eeqs
-This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers. Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
+This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers.) Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
 
 We now infer the expected computational complexity of the Multi-Level Monte-Carlo method with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}. From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
 \begin{align}
@@ -575,7 +581,7 @@ where
 \eeqs
 and the second equality in \cref{eq:gammagtr} follows from the definition of $\hz$ in \cref{ass:coarse}.
 
-If $\gamma < \beta,$ then using \cref{lem:sumboundnew} as in the cases $\gamma > \beta$ the first term in \eqref{eq:complexitymidway} is
+If $\gamma < \beta,$ then using \cref{lem:sumboundnew} as in the case $\gamma > \beta$ the first term in \eqref{eq:complexitymidway} is
 \beq\label{eq:gammalessbeta}
 \Cgammalessbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},
 \eeq
@@ -607,7 +613,7 @@ We consider the norms $\NLtD{u}$ and $\NHokD{u}$ as QoIs because the Helmholtz e
 \subsubsection{The values of $\alpha,$ $\sigma,$ $\beta,$ $\tau,$ $\gamma,$ and $a$}
 For the two QoIs $\NLtD{u}$ and $\NHokD{u},$ the values of $\alpha,$ $\sigma,$ $\beta,$ and $\tau$ are given in \cref{lem:mlho,lem:mllt} below. Their values are obtained straightforwardly from \cref{thm:fembound} above. However, determining the value of $\gamma$, and especially $\alpha$, is more involved.
 
-\paragraph{The values of $\gamma$} The value of $\gamma$ represents the efficiency of the solver one uses to solve the linear systems arising from the finite-element discretisations of the individual Helmholtz problems. Recall that the number of degrees of freedom in the linear systems is of the order $h^{-d}$ (if the mesh size for the finite-element mesh is $h$). In the following analysis we take $\gamma = d,$ i.e. we assume that we have access to an optimal Helmholtz solver, that can solve linear systems with $N$ unknowns arising from finite-element discretisations of Helmholtz problems in $\cO(N)$ time. Obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
+\paragraph{The value of $\gamma$} The value of $\gamma$ represents the efficiency of the solver one uses to solve the linear systems arising from the finite-element discretisations of the individual Helmholtz problems. Recall that the number of degrees of freedom in the linear systems is of the order $h^{-d}$ (if the mesh size for the finite-element mesh is $h$). In the following analysis we take $\gamma = d,$ i.e. we assume that we have access to an optimal Helmholtz solver, that can solve linear systems with $N$ unknowns arising from finite-element discretisations of Helmholtz problems in $\cO(N)$ time. Obtaining such a solver is the subject of much current research, and we refer to, e.g., the recent works \cite{GrSpVa:17,ZeScHeDe:19,TaZeHeDe:19} for a selection of modern solvers achieving close to this optimal scaling.
 
 \paragraph{The values of $a$} In our analysis below, we consider two different values of $a$, $a=(2p+1)/2p$ (where $p$ is the polynomial degree of the finite-elements) and $a=-1$. We now explain why $a=(2p+1)/2p$ is the natural choice, but has some limitations in the Multi-Level Monte-Carlo method. We then go on to explain how the choice $a=1$ removes these limitations, and we the discuss whether the choice $a=1$ is reasonable.
 
