@@ -6,7 +6,7 @@ We highlight that, in contrast to our empirical analysis of Quasi-Monte-Carlo (Q
 
 We now provide a brief overview of this \lcnamecref{chap:mlmc}. In \cref{sec:overview} we give a brief introduction to Monte-Carlo and Multi-Level Monte-Carlo methods, and discuss some of the challenges in applying them to the Helmholtz equation. We then review literature on Multi-Level Monte-Carlo methods, focusing only on those works that are relevant for our study of Multi-Level Monte Carlo methods applied to the stochastic Helmholtz equation. In \cref{sec:mlmcsetup} we give an abstract setting for a $k$-dependent analysis of Multi-Level Monte Carlo methods. In \cref{sec:mc} we prove a bound on the computational work for the Monte-Carlo method in this abstract setting and in \cref{sec:mlmcan} we prove an analogous result for the Multi-Level Monte-Carlo method. Finally, in \cref{sec:mlmcapplying} we show that the stochastic Helmholtz equation fits into this abstract setting, and we then compare and contrast the behaviour of Monte-Carlo and Multi-Level Monte-Carlo methods for the stochastic Helmholtz equation.
 
-\section[Background on MC and MLMC]{Background on Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation}\label{sec:overview}
+\section[Background on MC and MLMC]{Background on Monte-Carlo and Multi-Level Monte-Carlo me\-th\-ods for the Helmholtz equation}\label{sec:overview}
 \subsection{The ideas of Monte-Carlo and Multi-Level Monte-Carlo methods}\label{sec:mlmcideasoverview}
 Throughout this \lcnamecref{sec:mlmcideasoverview} we assume our goal is to compute an approximation of $\EXP{Q},$ where $Q:\Omega\rightarrow\RR$ is a random variable. We assume we have access to a family of random variables $\Qh:\Omega\rightarrow\RR$, indexed by $h>0,$ where $\Qh$ approximates $Q$ in a sense made precise in \cref{def:probdataacc} below. We assume we can compute samples of $\Qh$, for any $h>0$. When we consider quantities of interest corresponding to the solution of a stochastic PDE, $Q$ will be a function of the true solution $u,$ and $\Qh$ will be a function of the finite-element approximation $\uh$ of $u.$ However, to explain the ideas behind Monte-Carlo and Multi-Level Monte-Carlo methods we will only occasionally need to mention $u$ and $\uh$. Therefore, for most of this chapter we will instead work with $Q$ and $\Qh.$ Our exposition throughout this \lcnamecref{chap:mlmc} is based on that of Cliffe, Giles, Scheichl, and Teckentrup \cite{ClGiScTe:11}, who proved the first results for Multi-Level Monte-Carlo methods for elliptic PDEs.
 
@@ -73,7 +73,7 @@ The remedy proposed for this sample-dependence by Graham, Parkinson, and Scheich
 %% \een
 %% We now proceed to prove our abstract MLMC convergence result, comtaining the generalisations metioned above.
 
-\section[Abstract MC and MLMC setting]{Abstract Monte-Carlo and Multi-Level Monte-Carlo setting, motivated by the Helmholtz equation}\label{sec:mlmcsetup}
+\section[Abstract MC and MLMC setting]{An abstract setting for both the Multi-Level Monte-Carlo and Monte-Carlo methods, motivated by the Helmholtz equation}\label{sec:mlmcsetup}
 We now define the concepts and quantities needed to define and discuss Monte-Carlo and Multi-Level Monte-Carlo methods for the Helmholtz equation. However, at this stage we work at an abstract level, i.e., we consider random variables $Q$ and $\Qh$ rather than the solution $u$ of a stochastic Helmholtz equation and its approximations $\uh.$ This abstraction will help simplify the presentation of the additional challenges one has for the Helmholtz equation. However, when constructing this abstract setting, our definitions will be motivated by properties of the finite-element solution of the Helmholtz equation. Therefore in \cref{sec:mlmcapplying} below, we will show that the Helmholtz equation fits into our abstract setting, and therefore our abstract results are applicable to the Helmholtz equation itself.
 
 We assume that we have a parameter $k>0$ (corresponding to the wavenumber in the Helmholtz equation), that there exists a random variable $Q:\Omega\rightarrow\RR$, and that our goal is to approximate $\EXP{Q}.$ Our first aim would be to define a family of random variables $\mleft(\Qh\mright)_{h>0}$ (corresponding to the finite-element approximations $\uh$). However, as has been discussed in \cref{sec:mlmcchallenges}, the existence and uniqueness of finite-element approximations on the Helmholtz equation is sample-dependent, and therefore we want our abstract setting to reflect this dependence.
@@ -533,16 +533,18 @@ Find $\Nz,\No,\ldots,\NL > 0$ to minimise \cref{eq:Cboundformin} subject to
 \eeqs
 This is exactly the formulation used in \cite[Section 1.3]{Gi:15}, and therefore as in \cite[Section 1.3]{Gi:15} we can use a Lagrange multiplier to solve this minimisation problem, resulting in the values of $\Nl$ as defined in \cref{eq:Nl}. (The ceiling function in \cref{eq:Nl} is introduced because the values of $\Nl$ solving the optimisation problem may not be integers, however, the number of samples in the Multi-Level Monte-Carlo method must be integers.) Increasing the optimal values of $\Nl$ slightly (by using the ceiling) will decrease the variance (as the variance is given by \cref{eq:mlmcvariance}), and so we will still have $\VAR{\QhatMLhL} \leq \eps^2/2.$
 
-We now infer the expected computational complexity of the Multi-Level Monte-Carlo method with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}. From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
+We now infer the expected computational complexity of the Multi-Level Monte-Carlo meth\-od with $L$ given by \eqref{eq:Ldef} and the $\Nl$ given by \eqref{eq:Nl}. From the expression for the expected computational complexity \cref{eq:Cboundformin}, we have
 \begin{align}
 \EXP{\Cost{\QhatMLhL}} &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^{L} \Cl \Nl\nonumber\\
 &\leq \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl \mleft(\frac2{\eps^{2}} \mleft(\frac{\Vl}{\Cl}\mright)^{\half}\sum_{j=0}^L \mleft(\Vj\Costj\mright)^{\half} + 1\mright) \text{ (by \eqref{eq:Nl})}\nonumber\\
 &= 2\eps^{-2}\mleft(1+s^{-\gamma}\mright)\mleft(\sum_{l=0}^L\mleft(\Vl\Cl\mright)^{\half}\mright)^2 + \mleft(1+s^{-\gamma}\mright)\sum_{l=0}^L \Cl\nonumber\\
-&= 2 \ct \cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \hl^{-\gamma} \text{ (by \cref{ass:b,ass:costone})}\nonumber\\
-&= 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\hz^{\beta-\gamma}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\mleft(1+s^{-\gamma}\mright) \hz^{-\gamma} \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hl\text{).}\label{eq:complexitymidway}
+&= 2 \ct \cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2} \mleft(\sum_{l=0}^L \hl^{\frac{\beta-\gamma}2}\mright)^2 + \cth \mleft(1+s^{-\gamma}\mright) \sum_{l=0}^L \hl^{-\gamma}\nonumber\\
+&\quad\quad\text{(by \cref{ass:b,ass:costone})}\nonumber\\
+&= 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\hz^{\beta-\gamma}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\mleft(1+s^{-\gamma}\mright) \hz^{-\gamma} \sum_{l=0}^L s^{\gamma l},\label{eq:complexitymidway}
 %% &=2 \ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 + \cth\Cppw^{-\gamma} k^{\rho + \gamma\coarseexp}  \sum_{l=0}^L s^{\gamma l} \text{ (by definition of } \hz\text{ )}\nonumber\\
 %% &\leq2\ct\cth \Cppw^{\beta-\gamma}k^{\tau + \rho+\coarseexp\mleft(\gamma - \beta\mright)}\eps^{-2}\mleft(\sum_{l=0}^L s^{l\mleft(\frac{\gamma-\beta}2\mright)}\mright)^2 +  \frac{\mleft(\sqrt{2}\co\mright)^{\frac\gamma\alpha}\cth s^{\gamma}}{1-s^{-\gamma}}k^{\rho +  \frac{\gamma\sigma}\alpha}\eps^{-\frac\gamma\alpha} \text{ (since }\gamma>0,\text{ by \cref{lem:sumbound})}.\label{eq:complexitymidway}
 \end{align}
+by definition of $\hl.$
 
 We now bound the two sums in \cref{eq:complexitymidway} using \cref{lem:sumboundnew}. Using \cref{lem:sumboundnew} with $\Lconst = 1/\alpha,$ $\func = \sqrt{2}\co\Ccoarse^\alpha k^{\sigma - a\alpha}$, and $\delta = \gamma$>0, the second term in \eqref{eq:complexitymidway} can be bounded by %(letting \csumdelta \de \mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha} \Ccoarse^\delta / \mleft(1-s^{-\delta}\mright)$)
 \beq\label{eq:firstterm}
@@ -603,7 +605,7 @@ We now combine \cref{eq:complexitymidway,eq:firstterm,eq:gammaequal,eq:gammagtr,
 
 %% FINISH TOMORROW.
 
-\section[Application to the stochastic Helmholtz equation]{Applying the abstract $k$-dependent Monte-Carlo and Multi-Level Monte-Carlo theory to the stochastic Helmholtz equation}\label{sec:mlmcapplying}
+\section[The Helmholtz equation in the abstract setting]{Placing the stochastic Helmholtz equation in the abstract $k$-dependent Monte-Carlo and Multi-Level Monte-Carlo setting}\label{sec:mlmcapplying}
 
 We now show that the stochastic Helmholtz equation fits into the abstract $k$-dependent setting given above. We use the abstract results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods in \cref{thm:hhmc,thm:mlmccomp} to derive fully $k$-explicit complexity bounds for Monte-Carlo and Multi-Level Monte-Carlo methods for the stochastic Helmholtz equation, given in \cref{thm:mcmlmchelmholtz}.
 
@@ -633,11 +635,11 @@ Therefore, the question arises, `Is the choice $a=1$ (with $\alpha$ and $\sigma$
 In 1-d, the answer is `yes'. In \cite[Corollary 3.2]{IhBa:97} and \cite[Theorem 4.27 and equation 4.7.41]{Ih:98} Ihlenburg and Babu\v{s}ka prove that the $h$-finite-element method for the homogeneous Helmholtz equation in 1-d is $\hk{1}{(2p+1)/2p}$-accurate; i.e., finite-element error bounds of a form similar to those in \cref{thm:fembound} hold if $hk$ is sufficiently small. Translated into the multi-level context, this result implies that for $d=1$, \cref{def:probdataacc} holds with $a=1$. We note that this result has \emph{not} been proved in higher dimensions (see the discussion in \cref{sec:helmfedisc}). However, we will assume that \cref{def:probdataacc} holds in higher dimensions with $a=1;$ i.e., we make the following \lcnamecrefs{ass:mlho}, and we will prove results on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo under these \lcnamecrefs{ass:mlho} (as well as when $a=(2p+1)/2p$).
 
 \bas[Assumptions for $Q(u) = \NHokD{u}$ with $a=1$]\label{ass:mlho}
-In the setting given at the start of \cref{sec:mlmcmodel}, if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=1,$ $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+1$, for some random variables $\Co$, $\cotilde$, and $\ct.$
+In the setting given at the beginning of \cref{sec:mlmcmodel}, if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=1,$ $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, and $\tau = 4p+1$, for some random variables $\Co$, $\cotilde$, and $\ct.$
 \eas
 
 \bas[Assumptions for $Q(u) = \NLtD{u}$ with $a=1$]\label{ass:mllt}
-In the setting given at the start of \cref{sec:mlmcmodel}, if $Q(u) = \NLtD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=1,$ $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$, for some random variables $\Co$, $\cotilde$, and $\ct.$
+In the setting given at the beginning of \cref{sec:mlmcmodel}, if $Q(u) = \NLtD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=1,$ $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$, for some random variables $\Co$, $\cotilde$, and $\ct.$
 \eas
 
 
@@ -645,7 +647,7 @@ In the setting given at the start of \cref{sec:mlmcmodel}, if $Q(u) = \NLtD{u}$,
 We are now in a position to state our main result on the computational complexity of Monte-Carlo and Multi-Level Monte-Carlo methods applied to the Helmholtz equation, \cref{thm:mcmlmchelmholtz} below. We first verify \cref{def:probdataacc} for each of our QoIs in the following two \lcnamecrefs{lem:mlho}.
 
 \ble[Verifying assumptions for $Q(u) = \NHokD{u}$]\label{lem:mlho}
-In the setting given at the start of \cref{sec:mlmcmodel}, if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=(2p+1)/2p,$ $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, $\tau = 4p+2$, and $\Co$ and $\cotilde$ given by the constants in \cref{eq:hfemcond,eq:femhobound} respectively, and $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
+In the setting given at the beginning of \cref{sec:mlmcmodel}, if $Q(u) = \NHokD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=(2p+1)/2p,$ $\alpha = 2p$, $\sigma = 2p+1,$ $\beta = 4p$, $\tau = 4p+2$, and $\Co$ and $\cotilde$ given by the constants in \cref{eq:hfemcond,eq:femhobound} respectively, and $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
 %$\Chcond(\omega) \Condn(n(\omega)\CAnk(\omega)^{-\frac1{2p}}$ and 
 %\cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (with $\Chcond$ and $\Condn$ as defined in \cref{thm:fembound}, and $\CAnk$ as defined in \cref{ass:htwo}), $a = (2p+1)/2p$, and
 
@@ -660,7 +662,7 @@ We then use \cref{eq:Ylhatbound} and the fact that $\VAR{\Ylhat} = \EXP{\abs{\Yl
 \epf
 
 \ble[Verifying assumptions for $Q(u) = \NLtD{u}$]\label{lem:mllt}
-In the setting given at the start of \cref{sec:mlmcmodel}, if $Q(u) = \NLtD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=(2p+1)/2p,$ $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, $\tau = 4p$, and $\Co$ and $\cotilde$ given by the constants in \cref{eq:hfemcond,eq:femltbound} respectively, and $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
+In the setting given at the beginning of \cref{sec:mlmcmodel}, if $Q(u) = \NLtD{u}$, then \cref{def:probdataacc,ass:b} hold with $a=(2p+1)/2p,$ $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, $\tau = 4p$, and $\Co$ and $\cotilde$ given by the constants in \cref{eq:hfemcond,eq:femltbound} respectively, and $\ct = \EXP{\cotilde^2}\mleft(1+s^\alpha\mright)^2.$
 %If \cref{ass:coarse} holds with $\Ccoarse(\omega)$ bounded sample-wise by $\Chcond(\omega) \Condn(n(\omega)) \CAnk^{-\frac1{2p}}(\omega)$ (with $\Chcond$ and $\Condn$ as defined in \cref{thm:fembound}, and $\CAnk$ as defined in \cref{ass:htwo}), $a = (2p+1)/2p$, and $Q(u) = \NLtD{u}$, then \cref{def:probdataacc,ass:b} hold with $\alpha = 2p$, $\sigma = 2p,$ $\beta = 4p$, and $\tau = 4p$.
 \ele
 
