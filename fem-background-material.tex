@@ -52,7 +52,7 @@ For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
   
 \subsection{Background concepts in finite-element theory}\label{sec:fetheory}
 
-We now give a brief summary of elementary concepts in finite-element theory. For brevity, we focus only on those concepts that we need to prove the new error bound for finite-element discretisations of the Helmholtz equation in \cref{sec:fem} below.
+We now give a brief summary of elementary concepts in finite-element theory. For brevity, we focus only on those concepts that we need to prove the new error bounds for finite-element discretisations of the Helmholtz equation in \cref{thm:fembound} below.
 
 Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91}. Similarly, we use $h$ to denote the diameter of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of continuous piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
   %%   triangulation of the domain. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
@@ -468,7 +468,7 @@ However, C\'ea's Lemma relies on the coercivity of the sesquilinear form, and th
 \subsection{Extended discussion of proof techniques for finite-element errors for the Helmholtz equation}\label{sec:prooftechniques}
 We now discuss in some detail the proof techniques used to obtain either $\hk{a}b$-accuracy, $\hk{a}b$-data-accuracy, or $\hka{a}$-quasi-optimality. We note that frequently quasi-optimality results are refereed to as \defn{asymptotic} error estimates, and accuracy or data-accuract results (when they are proved under weaker mesh constraints than asymptotic estimates) are referred to as \defn{pre-asymptotic} error estimates. This terminology is used because the mesh conditions to ensure quasi-optimality are more restrictive than those for bounded error, and therefore they hold only for smaller values of $h.$
 
-For simplicity, our exposition below will assume that we are treating \cref{prob:vtedp} with homogeneous coefficients (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if $C$ in \cref{eq:bgbound} is bounded independent of $k,$ for $k \geq \kz$.}, and therefore in particular the solution $u$ of \cref{prob:vtedp} is unique. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k$ and $h$. The new results we present in \cref{sec:fem} consider heterogeneous problems that may be trapping, and state all of the constants involved explicitly, at the price of being more technical to state.
+For simplicity, our exposition below will assume that we are treating \cref{prob:vtedp} with homogeneous coefficients (i.e., $A=I$ and $n=1$) with $\gI = 0,$ and that the problem is nontrapping\footnote{Recall that we say that the problem is nontrapping if $C$ in \cref{eq:bgbound} is bounded independent of $k,$ for $k \geq \kz$.}, and therefore in particular the solution $u$ of \cref{prob:vtedp} is unique. Also, we suppress all of the constants involved, instead opting to use $\lesssim$ notation, where $a \lesssim b$ if $a \leq C b,$ with $C$ independent of $k$ and $h$. The new results we present in \cref{thm:fembound} consider heterogeneous problems that may be trapping, and state all of the constants involved explicitly, at the price of being more technical to state.
 
 \subsubsection{Comparison of the different classes of argument}
 We first briefly discuss the positive and negative points for each of the two classes of argument we will outline below: (modified) duality arguments and error-splitting arguments.
@@ -555,7 +555,7 @@ i.e., showing $\uhtilde = 0.$ Clearly $\uhtilde$ is a finite-element approximati
 \beqs
 \aT\mleft(\utilde,v\mright) = 0 \tforall \vh \in \Vhp.
 \eeqs
-By the Fredholm alternative (see, e.g., \cite[Theorem 4.2.7]{SaSc:11}), $\utilde$ is unique (and it is easy to see that $\utilde = 0$). Therefore \cref{eq:qofinal} becomes
+By the Fredholm alternative (see, e.g., \cite[Theorem 4.2.7]{SaSc:11}), $\utilde$ is unique, and hence $\utilde = 0$. Therefore \cref{eq:qofinal} becomes
 \beq\label{eq:qofinaluniq}
 \NHokD{\uhtilde} \lesssim \inf_{\vh \in \Vhp} \NHokD{\vh} \tif k\wbaadj \text{ is sufficiently small}.
 \eeq
@@ -658,7 +658,7 @@ Taking $\eps$ sufficiently small, moving the first term on the right-hand side o
 
 Finally, we conclude existence and uniqueness of $\uh$ using a similar argument to the one used for the Schatz argument above, except now we use the bound \cref{eq:ep3} with $f = 0$ to conclude uniqueness of $\uhtilde$.
 
-By the definition of $\wba$ (\cref{eq:wbadef}), the term $\wba\NLtD{f}$ on the right-hand side of \cref{eq:ep3} is, up to a constant, the best-approximation error for $u$ (i.e., the error when one interpolates/quasi-interpolates $u$), and the term $k\wba^2$ is the \defn{pollution} term arising from the numerical method.%As for the quasi-optimality results above, we remark that different bounds on the finite-element error (for different finite-element space $\Vhp$ and different domains) can be thought of as proving bounds on $\eta$ in these different situations.
+By the definition of $\wba$ \cref{eq:wbadef}, the term $\wba\NLtD{f}$ on the right-hand side of \cref{eq:ep3} is, up to a constant, the best-approximation error for $u$ (i.e., the error when one interpolates/quasi-interpolates $u$), and the term $k\wba^2$ is the \defn{pollution} term arising from the numerical method.%As for the quasi-optimality results above, we remark that different bounds on the finite-element error (for different finite-element space $\Vhp$ and different domains) can be thought of as proving bounds on $\eta$ in these different situations.
 %\ednote{Both---I don't yet have a clear explanation of \emph{why} this works. Currently, it seems just like a trick to me. I don't know if that's an issue!}
 \subsubsection{Error-splitting arguments}\label{sec:errorsplit}
 The second class of arguments used in the literature are error-splitting arguments, used to prove accuracy and data-accuracy results. In these arguments the finite-element error is split using the elliptic projection of the solution $u$. To begin, we assume $\uh$ exists and make the observation that
@@ -1209,7 +1209,7 @@ When using the elliptic projection in such a error-splitting argument, there are
 
 \section[FE Bounds for the Heterogeneous Helmholtz Equation]{New finite-element-error bounds for the heterogeneous Helmholtz equation}\label{sec:fem}
 
-We now prove our new error bounds for higher-order finite-element approximations of the solution of the Helmholtz equation in heterogeneous media--- we show that (for nontrapping media) the finite-element method applied to \cref{prob:tedp} is $\hka{(2p+1)/(2p)}$-data-accurate, with constants depending on the medium. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the main differences that:
+We now prove our new error bounds for higher-order finite-element approximations of the solution of the Helmholtz equation in heterogeneous media (\cref{thm:fembound} below)--- we show that (for nontrapping media) the finite-element method applied to \cref{prob:tedp} is $\hka{(2p+1)/(2p)}$-data-accurate, with constants depending on the medium. Our results are a generalisation of results proved by Du and Wu \cite{DuWu:15} for higher-order finite-element approximations of the Helmholtz equation in homogeneous media; our results and proofs broadly follow those in \cite{DuWu:15}, with the main differences that:
 \ben
 \item We modify the proofs to cater for the heterogeneity of the coefficients, and
 \item The dependence of our results on $A$ and $n$ is explicit.
@@ -1223,7 +1223,7 @@ The proofs of our results have many parts, and appear technical, largely due to 
 \item Bound the error $\Ph u - \uh$ in higher-order `discrete' norms, using the fact that $\Ph u - \uh$ solves a discrete Helmholtz problem.
 \een
 
-The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \cref{sec:errbounds} we state our new finite-element-error bounds. In \cref{sec:decomp} we prove a decomposition of the solution that allows us to prove a higher-order analogue of \cref{lem:scottzhang}. In \cref{sec:anbackground} we collect together some routine analysis results needed for our proofs. In \cref{sec:errgalerkin} we prove error bounds for a number of different Galerkin projections (including the elliptic projection) that we use in subsequent proofs. In \cref{sec:discsob} we develop a notion of discrete derivatives and discrete norms, and prove properties of these norms. These norms will allow us to define higher-order discrete norms of functions in our finite-element space. Finally in \cref{sec:fembound} we prove our main finite-element error bounds.
+The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \cref{sec:errbounds} we state our new finite-element-error bounds, \cref{thm:fembound}. In \cref{sec:decomp} we prove a decomposition of the solution that allows us to prove a higher-order analogue of \cref{lem:scottzhang}. In \cref{sec:anbackground} we collect together some routine analysis results needed for our proofs. In \cref{sec:errgalerkin} we prove error bounds for a number of different Galerkin projections (including the elliptic projection) that we use in subsequent proofs. In \cref{sec:discsob} we develop a notion of discrete derivatives and discrete norms, and prove properties of these norms. These norms will allow us to define higher-order discrete norms of functions in our finite-element space. Finally in \cref{sec:fembound} we prove our main finite-element error bounds.
 
 
 
@@ -1263,7 +1263,10 @@ For any $f \in \LtD$ and $\gI \in \LtGI,$ \cref{prob:vtedp} (and its adjoint) ha
 \beq\label{eq:generalhtwo}
 k \NLtD{u} + \SNHoD{u} + \frac1k \SNHtD{u} \leq \CAnk \Cfg,
 \eeq
-where $\Cfg \de \NLtD{f} + \NLtGI{\gI}$.
+where
+\beqs
+\Cfg \de \NLtD{f} + \NLtGI{\gI}.
+\eeqs
 \eas
 
 \bre[One can derive \cref{ass:htwo} for the adjoint from \cref{ass:htwo} for \cref{prob:vtedp}]
@@ -1344,7 +1347,7 @@ Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the con
 
 
 
-\subsubsection{Discussion of new finite-element-error bounds}
+\subsubsection{Discussion of new finite-element-error bounds in \cref{thm:fembound}}
 
 \bre[Relationship of new bounds to the work of Du and Wu]
 In \cite{DuWu:15} Du and Wu proved that the $h$-finite-element method for the \emph{homogeneous} Helmholtz interior impedance problem is $\hka{(2p+1)/(2p)}$-data-accurate  Our proof follows theirs, and achieves analagous results---see \cref{cor:dataacc}. We note as above that our results and proof have the following modifications to those of Du and Wu (the modifications listed in order of their impact upon the proof).
