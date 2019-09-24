@@ -1,7 +1,6 @@
 - Implement Euan's comments on 2nd part of Chap 2
 - Implement Ivan's comments on Chapter 5
 - Get and Implement Ivan's comments on summary?
-- Get Euan/Ivan's feedback on declaration of authorship
 - Check with Ivan about Duff, Erisman, and Reid reference
 - Get other LU calculating and applying cost references and add in to start of nbpc (only place needed)
 
