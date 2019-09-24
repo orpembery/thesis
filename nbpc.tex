@@ -1052,7 +1052,7 @@ It is now much harder than in \cref{eq:obs2} to set things up so that $ u^{(1)}(
 
 %\section{Proof of \cref{lem:2}}
 
-\section[Extension to weaker norms]{Extension of nearby preconditioning results to weaker norms}\label{sec:weaknorm}
+\section[Extension to weaker norms]{Extension of the nearby preconditioning results to weaker norms}\label{sec:weaknorm}
 Recall from \cref{sec:num,sec:main} that GMRES applied to $\AmatoI \Amatt$ converges in a $k$-indepen\-dent number of iterations if $k\NLiDRR{\nso-\nst}$ is sufficiently small (with an analagous result for $\Aso-\Ast$). This result (and the related numerics) shows that $1/k$ may be a sharp threshold when we consider the maximum norm of the difference between $\nso$ and $\nst$. However, this result does not say anything if $\nso-\nst$ is merely small in some integral norm. For example if $\nso$ and $\nst$ (defined on the unit square) are given by
 \beq\label{eq:noweak}
 \nso(\bx) =
@@ -1287,7 +1287,7 @@ If we compare our numerical results with the theory results in \cref{cor:1aalt},
 
 
 
-\section[Applying nearby preconditioning to QMC]{Applying nearby preconditioning to Quasi-Monte-Carlo methods for the Helmholtz equation}\label{sec:nbpcqmc}
+\section[Applying nearby preconditioning to QMC]{Applying nearby preconditioning to a Quasi-Monte-Carlo method for the Helmholtz equation}\label{sec:nbpcqmc}
 
 We now apply nearby preconditioning in the implementation of a Quasi-Monte-Carlo (QMC) method for the Helmholtz equation. We begin with a brief description of QMC methods, before detailing two ways in which we apply nearby preconditioning to these methods. Finally, we give computational results illustrating this application.
 
