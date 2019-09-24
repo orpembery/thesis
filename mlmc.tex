@@ -410,8 +410,9 @@ then $\err{\QhatMLhL} \leq \eps$ and, if $L \geq 1$, the computational cost of $
 \label{eq:mlmchhbounds}
 \Cost{\QhatMLhL} \lesssim
 \begin{cases}
-k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & \tif \beta = \gamma,\\ 
-k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & \text{ otherwise.}
+  k^{\tau-a\mleft(\beta-\gamma\mright)}\eps^{-2} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & \tif \beta > \gamma,\\
+k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}}\eps\mright)+2\mright)^2  & \tif \beta = \gamma,\tand\\ 
+k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}} + k^{\frac{\gamma\sigma}{\alpha}}\eps^{-\frac\gamma\alpha} & \tif \gamma > \beta.
 \end{cases}
 \eeq
  However, if $L=0$, then $\Cost{\QhatMLhL}$ is given by \cref{thm:hhmc}.
@@ -553,7 +554,7 @@ If $\gamma=\beta,$ then the first part of \eqref{eq:complexitymidway} becomes (u
 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(L+1\mright)^2 \leq 2 \ct\cth \mleft(1+s^{-\gamma}\mright)k^{\tau}\eps^{-2}\mleft(\frac1\alpha \log_s \mleft(\eps^{-1}\sqrt{2} \co \Ccoarse^\alpha k^{\sigma-a\alpha}\mright)+2\mright)^2.
 \label{eq:gammaequal}
 \eeq
-To simplify the notation in the other two cases, we let
+In the case $\gamma > \beta$, to simplify the notation, we let
 %We wish to simplify \eqref{eq:gammaequal}, so that it is of the form Constant $\times$ `Terms involving $\eps$ and $k$'. To achieve this simplification, we use \cref{ass:epsk}. As $k^{\sigma-a\alpha} \geq 1$ and $\eps \leq \mleft(\sqrt{2} \co \Ccoarse^{\alpha}\mright)/s^{2\alpha},$ it follows that
 %% \beqs
 %% 2 \leq \frac1\alpha \log_s \mleft(\frac{\sqrt{2} \co \Ccoarse^\alpha k^\sigma k^{-a\alpha}}\eps\mright),
@@ -571,7 +572,7 @@ To simplify the notation in the other two cases, we let
 \csumdelta \de \frac{\mleft(\sqrt{2}\co\mright)^{\frac\delta\alpha}\Ccoarse^{\delta}}{1-s^{-\delta}}.
 \eeqs
 
-If $\gamma > \beta$ then using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, but $\delta = (\gamma-\beta)/2$, the first term in \eqref{eq:complexitymidway} becomes
+Then using \cref{lem:sumboundnew} with $\Lconst$ and $\func$ as above, but $\delta = (\gamma-\beta)/2 > 0$, the first term in \eqref{eq:complexitymidway} becomes
 \beq
 \eps^{-2}2\ct\cth \mleft(1+s^{-\gamma}\mright) k^\tau \hz^{\beta-\gamma}\mleft(\csumgammambetat s^{\frac{\gamma-\beta}2} k^{\frac{\gamma-\beta}2\frac\sigma\alpha} k^{-a\frac{\gamma-\beta}2} \eps^{-\frac{\gamma-\beta}{2\alpha}}\mright)^2 = \Cgammagtrbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},\label{eq:gammagtr}
 \eeq
@@ -581,16 +582,16 @@ where
 \eeqs
 and the second equality in \cref{eq:gammagtr} follows from the definition of $\hz$ in \cref{ass:coarse}.
 
-If $\gamma < \beta,$ then using \cref{lem:sumboundnew} as in the case $\gamma > \beta$ the first term in \eqref{eq:complexitymidway} is
+If $\gamma < \beta,$ then using \cref{lem:sumboundnew} $\Lconst$ and $\func$ as above, but with $\delta = (\gamma-\beta)/2 < 0$, the first term in \eqref{eq:complexitymidway} is
 \beq\label{eq:gammalessbeta}
-\Cgammalessbeta k^{\tau + \mleft(\gamma-\beta\mright)\frac\sigma\alpha} \eps^{-2-\frac{\gamma-\beta}{\alpha}},
+\Cgammalessbeta k^{\tau  -a\mleft(\beta-\gamma\mright)} \eps^{-2},
 \eeq
 where
-\beq\label{eq:gammaless}
-\Cgammalessbeta \de \frac{\Cgammagtrbeta}{s^{\gamma-\beta}}.
-\eeq
+\beqs\label{eq:gammaless}
+\Cgammalessbeta \de 2\ct \cth \mleft(1+s^{-\gamma}\mright)\Ccoarse^{\beta-\gamma}\frac{s^{\beta-\gamma}}{\mleft(s^{\frac{\beta-\gamma}2}-1\mright)^2}.
+\eeqs
 
-We now combine \cref{eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammaless,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchhbounds}.
+DUNNO We now combine \cref{eq:complexitymidway,eq:firstterm,eq:gammaequal,eq:gammagtr,eq:gammalessbeta} and supress all the constants to obtain \cref{eq:mlmchhbounds}.
 %Removing all the terms that are not of interest from \eqref{eq:gammaequal}, \eqref{eq:gammagtr}, and \eqref{eq:gammaless}, we obtain \eqref{eq:mlmchheq} and \eqref{eq:mlmchhoth}.
 \epf
 
