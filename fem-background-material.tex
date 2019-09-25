@@ -1767,7 +1767,7 @@ For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
 \enth
 
 \bpf[Proof of \cref{thm:banachalg}]
-\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \cref{it:ban2}, observe that as $1-\vo$ has compact support, $\vo \in \WmiD,$ and $1-\vo \in \CmcompD$. Therefore, by \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
+\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \Cref{it:ban2}, observe that as $1-\vo$ has compact support, $\vo \in \WmiD,$ and $1-\vo \in \CmcompD$. Therefore, by \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
 \beqs
 \NHmD{(1-\vo)\vt} \leq \Cmclean{m} \NWmiD{1-\vo}\NHmD{\vt}.
 \eeqs
@@ -1964,20 +1964,20 @@ If we consider the IIP (i.e., we remove the assumption $\GD \neq \emptyset$ in \
 
 This lack of coercivity stems from the fact that we cannot apply the Poincar\'e inequality \cref{eq:poincare} to functions in $\HoD,$ because such functions are no longer zero on a portion of $\partial D$ with non-zero $d-1$-dimensional measure. (Recall \cref{lem:poincare} requires such a property.) One can alternatively view this problem as arising from the fact that the stationary diffusion equation with Neumann boundary conditions does not have a unique solution (as one can simply add a constant to any solution and get another solution). In the case $\GD=\emptyset,$ the PDE corresponding to the elliptic projection is precisely such a stationary diffusion equation: \cref{eq:sda}.
 
-The remedy for this lack of coercivity/lack of uniqueness is to change the sesquilinear form $\aep$ from \cref{eq:aepho} to either \cref{eq:aeplower} or \cref{eq:aepused}. This change corresponds to changing the PDE underlying the elliptic projection from \cref{eq:sda} to either \cref{eq:sdb} or \cref{eq:sdc} respectively. Either of these alternatives for $\aep$ is coercive in the $k$-weighted $H^1$ norm, and so the proof of \cref{lem:eugp} goes through as before.
+The remedy for this lack of coercivity/lack of uniqueness is to change the sesquilinear form $\aep$ from \cref{eq:aepho} to either \cref{eq:aeplower} or \cref{eq:aepused} (both of which are coercive in the $k$-weighted $H^1$ norm, and so the proof of \cref{lem:eugp} goes through as before). This change corresponds to changing the PDE underlying the elliptic projection from \cref{eq:sda} to either \cref{eq:sdb} or \cref{eq:sdc} respectively.
 
-However, if one defines $\aep$ using \cref{eq:aepused}, then one encounters the additional problem that there does not exist a higher-order shift theorem (analagous to \cref{thm:shift}) for the underlying PDE \cref{eq:sdc}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. Whilst a first-order shift theorem for \cref{eq:sdc}  has been proved by Chaumont-Frelet, Nicaise, and Tomezyk \cite[Theorems 3.1, 4.3, and 5.1]{ChNiTo:18}, this is only a lowest-order shift theorem (i.e., the analogue of \cref{thm:shift} for $l=0$) and no mention is made in \cite{ChNiTo:18} of an extension to higher order. Alternatively, if one rewrote \cref{eq:sdc} as
+However, if one uses \cref{eq:aepused} to define $\aep$ (i.e., one incorporates the impedance boundary condition into the sesquilinear form), then one cannot obtain results with the same (sharp) $k$-dependence as we do in \cref{thm:fembound}.
+
+The reason for this lack of sharp $k$-dependence is that there does not exist a higher-order $k$-independent shift theorem (analagous to \cref{thm:shift}) for the underlying PDE \cref{eq:sdc}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. If one rewrote \cref{eq:sdc} as
 \beqs
 -\Delta w = F  \tin D \tand
 \eeqs
 \beqs
 \dn w = ikw \ton \GI
 \eeqs
-and then used \cref{thm:shift} (which is a higher-order shift theorem) to obtain results analagous to \cref{thm:shift}, the constants in the resulting bounds \cref{eq:shift} would be \emph{$k$-dependent}. This $k$-dependence would mean the resulting proof of $\hka{(2p+1)/(wp)}$-data-accuracy would not work. Therefore, if one defines $\aep$ using \cref{eq:aepused}, one cannot prove the higher-order result of $\hka{(2p+1)/(wp)}$-data-accuracy.
+and then used \cref{thm:shift} (which is a higher-order shift theorem) to obtain results analagous to \cref{thm:shift}, the constants in the resulting bounds \cref{eq:shift} would now be \emph{$k$-dependent}. Whilst a $k$-independent first-order shift theorem for \cref{eq:sdc}  has been proved by Chaumont-Frelet, Nicaise, and Tomezyk \cite[Theorems 3.1, 4.3, and 5.1]{ChNiTo:18}, this is only a lowest-order shift theorem (i.e., the analogue of \cref{thm:shift} for $l=0$) and no mention is made in \cite{ChNiTo:18} of an extension to higher order.
 
-Therefore, for proving higher-order results, one must define $\aep$ using \cref{eq:aeplower}. In this case one can then repeat the proof of \cref{thm:shift} almost verbatim (as the results from \cite{Mc:00} used in the proof of \cref{thm:shift} also hold for the PDE \cref{eq:sd4,eq:sd6}), and the proofs of \cref{lem:ellprojerr,lem:ellprojerrw} proceed as before.
-
-We observe in passing that defining $\aep$ using \cref{eq:aeplower} may not work when using modified Schatz techniques (see \cref{sec:prooftechniques}). When using \cref{eq:aeplower}, one must bound additional terms on the truncation boundary $\GI.$ An error-splitting technique allows us to bound these terms. However, it is not clear how one can bound these terms if one is using a modified Schatz technique.
+In summary, for the IIP, one cannot use \cref{eq:aepho} to define $\aep$, because $\aep$ is now not coercive, and one cannot use \cref{eq:aepused} to define $\aep,$ because it does not have a $k$-independent higher-order shift theorem. Therefore, for proving higher-order results, one must define $\aep$ using \cref{eq:aeplower}. In this case one can then repeat the proof of \cref{thm:shift} almost verbatim (as the results from \cite{Mc:00} used in the proof of \cref{thm:shift} also hold for the PDE \cref{eq:sd4,eq:sd6}), and the proofs of \cref{lem:ellprojerr,lem:ellprojerrw} proceed as before.
 \ere
 
 %% We also give the following error bounds for the weighted elliptic projection, and give the proof, even though it is conceptually similar to the proof of \cref{lem:ellprojw}.\{Check the original one is still needed.}
