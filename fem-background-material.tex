@@ -1381,11 +1381,11 @@ Nevertheless, the result \cref{thm:fembound} is the first finite-element error b
 \bre[$p$-dependence]
 To prove error bounds for $hp$-finite-element methods, one must know explicitly how the error bounds \cref{eq:femltbound,eq:femhobound} depend on $p$ as well as $h$ and $k$. 
 %Such an analysis was carried out for the Helmholtz equation in homogeneous media by Melenk and Sauter in \cite{MeSa:10,MeSa:11} and for the related time-harmonic Maxwell's equations in homogeneous media in \cite{MeSa:18}.
-In principle (as our results are explicit in all of the constants involved) one could calculate the $p$-dependence, however, such dependence is likely to be highly complicated, and may very well not be sharp, for similar reasons that the $n$-dependence of our results may not be sharp, as outlined in \cref{rem:nsharp} above.
+Establishing the $p$-dependence for our finite-element error bounds would be challenging, and moreover, the $p$-dependence may not be sharp. It would be challenging because several of the constants in our argument depend on $p$ in unknown ways (although this dependence could, in principle, be determined); e.g., the constants in \cref{thm:shift,thm:trace,thm:expansion,lem:bestapprox,thm:banachalg,lem:ellprojerr,lem:ellprojerrw}. Moreover, even if one knew the $p$-dependence of all these constants explicitly, the $p$-dependence may still not be sharp, for similar reasons that the $n$-dependence of our results may not be sharp, as outlined in \cref{rem:nsharp} above.
 \ere
 
 \bre[Special cases of $n$]
-In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it may be instructive to note their behaviour in the following three cases:
+In order to better understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it may be instructive to note their behaviour in the following three cases:
 \bit
 \item If $n=1,$ then $\Condn(n)=1, \CLtn(n)=1,$ and $\CHon(n)=2$.
 \item If either $\nmin$ is fixed, and $\nmax \rightarrow \infty,$ or $\nmax$ is fixed, and $\nmin \rightarrow 0,$ then $\Condn(n)\rightarrow 0,$ (i.e., the condition \cref{eq:hfemcond} becomes more restrictive), $\CLtn(n)\rightarrow \infty,$ and $\CHon(n)\rightarrow \infty$ (i.e., the right-hand sides of the error bounds \cref{eq:femltbound,eq:femhobound} become larger).
@@ -1402,7 +1402,73 @@ In order to understand the constants $\Condn(n), \CLtn(n),$ and $\CHon(n)$ it ma
 
 \subsection{Decomposition of solution and best approximation bound}\label{sec:decomp}
 
-For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound (\namecref{lem:bestapprox} \ref{lem:bestapprox} below) in $\Vhp$ for the solution of the Helmholtz equation, via a decomposition of the solution into functions of increasing regularity (\cref{thm:expansion} below). This technique was developed by Chaumont-Frelet and Nicaise in \cite{ChNi:19}, and we follow their presentation (although we explicitly keep track of the constants involved at each point).
+For the first part of the proof of \cref{thm:fembound}, we prove a best approximation bound (\namecref{lem:bestapprox} \ref{lem:bestapprox} below) in $\Vhp$ for the solution of the Helmholtz equation, via a decomposition of the solution into functions of increasing regularity (\cref{thm:expansion} below). This technique was developed by Chaumont-Frelet and Nicaise in \cite{ChNi:19}, and we follow their presentation (although we explicitly keep track of the constants involved at each point). Chaumont--Frelet and Nicaise were motivated by the work of Melenk and Sauter (see \cite[Section 7]{ChNi:19}) in \cite{MeSa:10,MeSa:11} who show for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA$ is analytic but is oscillatory ($\NHmD{\uA} \lesssim k^{m+\beta}$ for all $m\geq 0$ and some $\beta \in \RR$, where $\beta$ depends on the problem being considered)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-d polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively. In the former case the proof is under an assumption of a polynomial growth of the a priori bound \cite[Assumption 4.8]{MeSa:11}, i.e., $\CAnk$ is a polynomial in $k$.}. Melenk and Sauter use their decomposition in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. Whilst the work of Melenk and Sauter is very powerful, it is only valid for homogeneous media, and so Chaumont-Frelet and Nicaise developed their technique to handle heterogeneous media.%We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
+
+\bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
+Under \cref{ass:highp,ass:htwo} if $u$ is the solution of \cref{prob:tedp} or its adjoint then there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
+\beq\label{eq:expansionid}
+u = \uosc + \sum_{j=0}^{p-2} \usj.
+\eeq
+Furthermore,
+\beq\label{eq:expansionuj}
+\NHjptD{\usj} \leq \Cej \Pj(\nmax) k^j \Cfg,
+\eeq
+and
+\beq\label{eq:expansionuosc}
+\NHppoD{\uosc} \leq \Cosc \CAnk k^p \Cfg,
+\eeq
+where
+\beq\label{eq:p}
+\Pj(x) =
+\begin{dcases}
+1 & j = 0,1\\
+x^{\floor{j/2}}& j \geq 2
+\end{dcases}.
+\eeq
+%=\sum_{m=0}^{j-2}\pfn{j,m}x^m $
+%% are polynomials of degree
+%% \beq\label{eq:polydegree}
+%% \begin{dcases}
+%% \frac{j}2 & \tif  j \text{ is even}\\
+%% \frac{j-1}2 \tif j  \text{ is odd}.
+%% \end{dcases}
+%% \eeq
+%% (except for $j=0,1,$ where $\Pj$ is a polynomial of degree 0) given by the recurrence relation
+%% \beq\label{eq:pjdef}
+%% \Pj(x) = \CAj \mleft(1+\CTrjpo\mright)\mleft(x\Pfn{j-2}(x) + \Pfn{j-1}(x)\mright).
+%% \eeq
+% No idea if this coefficient stuf is right
+%% \begin{align}
+%% \label{eq:p1}\pfn{0,0}&= \CAz\\
+%% \label{eq:p2}\pfn{1,0}&  = \CAz\CAo\mleft(1+\CTrt\mright)\\
+%% \label{eq:p3}\pfn{j,m} &=
+%% \begin{dcases}
+%%  0, &\tif m \leq \floor{\frac{j-2}2}\\
+%% \CAj\mleft(1+\CTrjpo\mright) \mleft(\pfn{j-2,m-1} + \pfn{j-1,m-1}\mright),&\tif \floor{\frac{j-2}2} < m \leq j-3
+%% \end{dcases}\\
+%% \label{eq:p4}\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3},
+%% \end{align}
+%% and $\Cosc$ is given by the recurrence relations
+%% \begin{align}
+%% \label{eq:osc1}\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
+%% \label{eq:osc2}\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
+%% \label{eq:osc3}\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
+%% \end{align}
+%% and
+%% \beq\label{eq:cosc}
+%% \Cosc = \frac{\Cefn{p-1}}{\max\set{1,\CAz}}.
+%% \eeq
+\enth
+
+The proof of \cref{thm:expansion} is on \cpageref{page:thmexpansionproof} below.
+
+Recall that $\CAnk$ and $\Cfg$ are defined in \cref{ass:htwo}. The constants $\Cej$ and $\Cosc$ are defined in \cref{app:constants}. \Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:19} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:19} are stated for a wider class of time-harmonic wave propagation problems, but the dependence on all of the constants is not made explicit.  The main advantage of \cref{thm:expansion} is that it enables us to prove a higher-order best-approximation bound (\cref{lem:bestapprox} below) for solutions of the Helmholtz equation, \emph{even though} the solutions do not have high regularity.
+
+\bre[How oscillatory are the functions in \cref{thm:expansion}?]\label{rem:osc}
+Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is \emph{two} orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is \emph{one} order of magnitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
+\ere
+
+
 
 In order to obtain bounds for high $p$, we require the following shift \lcnamecref{thm:shift}:
 
@@ -1515,75 +1581,8 @@ By \cref{thm:shift,thm:trace}
 and the result follows.
 \epf
 
-We are now able to prove the following \lcnamecref{thm:expansion} that gives a decomposition of the solution $u$ of \cref{prob:vtedp} into lower-order, less oscillatory parts $\uj$ and a smoother, more-oscillatory part $\uosc$. The main advantage of this \lcnamecref{thm:expansion} is that it enables us to prove a higher-order best-approximation bound (\cref{lem:bestapprox} below) for solutions of the Helmholtz equation, \emph{even though} the solutions do not have high regularity.
-
-\bth[Expansion of the solution of the Helmholtz equation]\label{thm:expansion}
-Under \cref{ass:highp,ass:htwo} if $u$ is the solution of \cref{prob:tedp} or its adjoint then there exists $\uosc \in \HppoD$ and a sequence $\usj \in \HjptD,$ $j = 0,\ldots,p-2$ such that
-\beq\label{eq:expansionid}
-u = \uosc + \sum_{j=0}^{p-2} \usj.
-\eeq
-Furthermore,
-\beq\label{eq:expansionuj}
-\NHjptD{\usj} \leq \Cej \Pj(\nmax) k^j \Cfg,
-\eeq
-and
-\beq\label{eq:expansionuosc}
-\NHppoD{\uosc} \leq \Cosc \CAnk k^p \Cfg,
-\eeq
-where
-\beq\label{eq:p}
-\Pj(x) =
-\begin{dcases}
-1 & j = 0,1\\
-x^{\floor{j/2}}& j \geq 2
-\end{dcases}.
-\eeq
-%=\sum_{m=0}^{j-2}\pfn{j,m}x^m $
-%% are polynomials of degree
-%% \beq\label{eq:polydegree}
-%% \begin{dcases}
-%% \frac{j}2 & \tif  j \text{ is even}\\
-%% \frac{j-1}2 \tif j  \text{ is odd}.
-%% \end{dcases}
-%% \eeq
-%% (except for $j=0,1,$ where $\Pj$ is a polynomial of degree 0) given by the recurrence relation
-%% \beq\label{eq:pjdef}
-%% \Pj(x) = \CAj \mleft(1+\CTrjpo\mright)\mleft(x\Pfn{j-2}(x) + \Pfn{j-1}(x)\mright).
-%% \eeq
-% No idea if this coefficient stuf is right
-%% \begin{align}
-%% \label{eq:p1}\pfn{0,0}&= \CAz\\
-%% \label{eq:p2}\pfn{1,0}&  = \CAz\CAo\mleft(1+\CTrt\mright)\\
-%% \label{eq:p3}\pfn{j,m} &=
-%% \begin{dcases}
-%%  0, &\tif m \leq \floor{\frac{j-2}2}\\
-%% \CAj\mleft(1+\CTrjpo\mright) \mleft(\pfn{j-2,m-1} + \pfn{j-1,m-1}\mright),&\tif \floor{\frac{j-2}2} < m \leq j-3
-%% \end{dcases}\\
-%% \label{eq:p4}\pfn{j,j-2}& = \CAj\mleft(1+\CTrjpo\mright) \pfn{j-1,j-3},
-%% \end{align}
-%% and $\Cosc$ is given by the recurrence relations
-%% \begin{align}
-%% \label{eq:osc1}\Coscfn{1} &= \CAo\mleft(1+\CTrt\mright),\\
-%% \label{eq:osc2}\Coscfn{2} &= \CAt\mleft(1+\CTrth\mright)\mleft(1 + \CAo\mleft(1+\CTrt\mright)\mright)\tand\\
-%% \label{eq:osc3}\Coscfn{j} &= \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\mleft(\Coscfn{j-1} + \Coscfn{j-2}\mright),
-%% \end{align}
-%% and
-%% \beq\label{eq:cosc}
-%% \Cosc = \frac{\Cefn{p-1}}{\max\set{1,\CAz}}.
-%% \eeq
-\enth
-
-Recall that $\CAnk$ and $\Cfg$ are defined in \cref{ass:htwo}. The constants $\Cej$ and $\Cosc$ are defined in \cref{app:constants}.
-
-\bre[How oscillatory are the functions in \cref{thm:expansion}?]\label{rem:osc}
-Recall that a higher power of $k$ appearing in an a priori bound indicates that a function is more oscillatory. In \cref{eq:expansionuj} below, the $(j+2)$th-order norm of $\usj$ is of order $k^j$ (i.e., the power of $k$ is \emph{two} orders of magnitude less than the order of the norm) whereas in \cref{eq:expansionuosc} the $(p+1)$st-order norm of $\uosc$ is of order $k^p$ (the power of $k$ is \emph{one} order of mangitude less that the order of the norm). Therefore, in this sense, $\uosc$ is `more oscillatory' than $\usj.$
-\ere
-
-\Cref{thm:expansion} is essentially just \cite[Theorem 1]{ChNi:19} in the particular case of a Helmholtz problem, but with the dependence on all the constants kept track of. The results in \cite{ChNi:19} are stated for a wider class of time-harmonic wave propagation problems, but the dependence on all of the constants is not made explicit.
-
-We also point out (as in \cite[Section 7]{ChNi:19}) that \cref{thm:expansion} is reminiscent of results by Melenk and Sauter in \cite{MeSa:10,MeSa:11} who show, for the homogeneous Helmholtz equation that the solution $u$ can be decomposed as $u = \uHt + \uA,$ where $\uHt \in \HtD$ but is not oscillatory ($\NHtD{\uHt} \lesssim 1$), and $\uA$ is analytic but $\uA$ is oscillatory ($\NHmD{\uA} \lesssim k^{m+\beta}$ for all $m\geq 0$ and some $\beta \in \RR$, where $\beta$ depends on the problem being considered)\footnote{These results are proved with no obstacle and $f$ given by a Dirac delta function in \cite[Lemma 3.5]{MeSa:10} and for: (i) the IIP with a bounded Lipschitz boundary that is either a 2-d polygon or analytic, or (ii) the EDP with an analytic scatterer, in \cite[Theorems 4.10, 4.20]{MeSa:11} respectively. In the former case the proof is under an assumption of a polynomial growth of the a priori bound \cite[Assumption 4.8]{MeSa:11}, i.e., $\CAnk$ is a polynomial in $k$.}. This decomposition is used in \cite{MeSa:10,MeSa:11} to prove convergence results for $hp$-finite element methods for the Helmholtz equation. %We note that the results in this \lcnamecref{sec:fem} could, in principle, be used in the analysis of $hp$-methods, as it is, in principle, possible to track the dependence of the constants on the polynomial degree $p.$
-
 \bpf[Proof of \cref{thm:expansion}]
+\label{page:thmexpansionproof}
 The idea of the proof is as follows. We write $u$ as a formal series expansion
 \beq\label{eq:formalseries}
 u = \sum_{j=0}^\infty \usj,
