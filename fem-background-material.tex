@@ -1346,7 +1346,7 @@ Whilst the calculations in this \lcnamecref{sec:fem} are explicit in all the con
 \subsubsection{Discussion of new finite-element-error bounds in \cref{thm:fembound}}
 
 \bre[Relationship of new bounds to the work of Du and Wu]
-In \cite{DuWu:15} Du and Wu proved that the $h$-finite-element method for the \emph{homogeneous} Helmholtz interior impedance problem is $\hka{(2p+1)/(2p)}$-data-accurate.  Our proof follows theirs, and achieves analogous results---see \cref{cor:dataacc}. We note as above that our results and proof have the following modifications to those of Du and Wu (the modifications listed in order of their impact upon the proof).
+In \cite{DuWu:15} Du and Wu proved that the $h$-finite-element method for the \emph{homogeneous} Helmholtz interior impedance problem is $\hka{(2p+1)/(2p)}$-data-accurate.  Our proof follows theirs, and achieves analogous results, see \cref{cor:dataacc}. We note as above that our results and proof have the following modifications to those of Du and Wu (the modifications listed in order of their impact upon the proof).
 \ben
 \item We prove bounds for \emph{heterogeneous} coeffcients, whereas \cite{DuWu:15} only has bounds for \emph{homogeneous}  coefficients. In particular, \cite{DuWu:15} uses the splitting argument of Melenk and Sauter (developed in \cite{MeSa:10,MeSa:11}) to prove a bound on the interpolation error that is higher-order in $h$. However, such a splitting argument only works in the homogeneous case, and so we instead use the recent work of Chaumont-Frelet and Nicaise \cite{ChNi:19}, who provide a similar splitting in the heterogeneous case.
 \item  Because we work with heterogeneous coefficients, in several places in the proof we must work with $n$-weighted inner products and norms; see \cref{rem:why} for more details on why $n$-weighted inner products and norms are required.
@@ -1767,7 +1767,11 @@ For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
 \beqs
 \NHmD{(1-\vo)\vt} \leq \Cmclean{m} \NWmiD{1-\vo}\NHmD{\vt}.
 \eeqs
-Therefore since $\NHmD{\vo\vt} \leq \NHmD{\mleft(\vo-1\mright)\vt} + \NHmD{\vt} = \NHmD{(1-\vo)\vt} + \NHmD{\vt}$, we have \cref{eq:ban2}.
+Therefore since
+\beqs
+\NHmD{\vo\vt} \leq \NHmD{\mleft(\vo-1\mright)\vt} + \NHmD{\vt} = \NHmD{(1-\vo)\vt} + \NHmD{\vt},
+\eeqs
+we have \cref{eq:ban2}.
 \epf
 
 
@@ -1964,7 +1968,7 @@ The remedy for this lack of coercivity/lack of uniqueness is to change the sesqu
 
 However, if one uses \cref{eq:aepused} to define $\aep$ (i.e., one incorporates the impedance boundary condition into the sesquilinear form), then one cannot obtain results with the same (sharp) $k$-dependence as we do in \cref{thm:fembound}.
 
-The reason for this lack of sharp $k$-dependence is that there does not exist a higher-order $k$-independent shift theorem (analogous to \cref{thm:shift}) for the underlying PDE \cref{eq:sdc}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. If one rewrote \cref{eq:sdc} as
+The reason for this lack of sharp $k$-dependence is that there does not exist a higher-order $k$-indepen\-dent shift theorem (analogous to \cref{thm:shift}) for the underlying PDE \cref{eq:sdc}. Such a shift theorem is used in the proof of \cref{lem:ellprojerr,lem:ellprojerrw} to prove bounds in negative-order norms. If one rewrote \cref{eq:sdc} as
 \beqs
 -\Delta w = F  \tin D \tand
 \eeqs
@@ -2407,8 +2411,9 @@ by the Lax--Milgram Theorem. Then
 &\leq \NLiDop{A}\mleft(\NHoD{z} + \Cprojfn{1}\NHoD{0 - z}\mright) \text{ by \cref{lem:ellprojerr},}\nonumber\\
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}  \NHmoD{n\wh}\text{ by \cref{eq:LMHmo}}\label{eq:deltahhalf}\\
 &\leq \frac{\mleft(1+\Cprojfn{1}\mright)\NLiDop{A}}{\Amin}\nmax  \NHnfn{-1}{D}{\wh}\nonumber
-as in the proof of \cref{lem:shiftnegativew}.
 \end{align}
+as in the proof of \cref{lem:shiftnegativew}.
+
 We now return to $\Njhn{\vh}$:
 \begin{align*}
   \Nfn{j,h,n}{\vh} &= \NLtDn{\Deltah^{-l-1/2} \vh}\\
