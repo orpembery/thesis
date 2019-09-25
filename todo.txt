@@ -17,6 +17,8 @@ App G - y
 
 Very final checks:
 -----------------
-
+- showkeys
+- final
+- ed
 - ??
 - line overrun
