@@ -1,15 +1,7 @@
-- Implement Euan's comments on 2nd part of Chap 2
-
-/ Formatting:
- * (If time) dashes in page headers like Paul
- * Big spaces in MLMC and other chapters (if present)
- * (If time) aligning probabilistic run graphs
- * (If time) look at someone else's thesis for margins
-
 /Proof reading:
 Summary - y
 Chap 1 - y
-Chap 2 - 
+Chap 2 - y
 Chap 3 - y
 Chap 4 - y
 Chap 5 - 
