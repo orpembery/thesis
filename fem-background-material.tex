@@ -2165,7 +2165,7 @@ For $\vh \in \Vhp$ and $m \in \RR$, define
 %% \epf
 
 \bre[Related literature for higher-order discrete norms]
-To our knowledge, \cite{DuWu:15} is the only place in the literature where the above construction of higher-order discrete norms appears, although Thom\'{e}e defines these norms for negative integers $m$ in \cite[Equation above Lemma 1]{Th:80}. However, the idea of using a self-adjoint, coercive operator to define a norm can be found in, e.g., \cite[Section 6.2]{BrSc:08}, where mesh-dependent norms are used to analyse multigrid methods, and \cite[Section 2.1]{LiMa:72}, where the authors also observe \cite[Text at the bottom of page 9]{LiMa:72} that one can use a spectral decomposition to define arbitrary powers of such operators (analagous to \cref{def:hodd}). See \cite[Section 2.1]{BaKuMa:19} for a simpler exposition of defining a (fractional-order) Sobolev norm via an operator.
+To our knowledge, \cite{DuWu:15} is the only place in the literature where the above construction of higher-order discrete norms appears, although Thom\'{e}e defines these norms for negative integers $m$ in \cite[Equation above Lemma 1]{Th:80}. However, the idea of using a self-adjoint, coercive operator to define a norm can be found in, e.g., \cite[Section 6.2]{BrSc:08}, where mesh-dependent norms are used to analyse multigrid methods, and \cite[Section 2.1]{LiMa:72}, where \cite[Text at the bottom of page 9]{LiMa:72} observes that one can use a spectral decomposition to define arbitrary powers of such operators (analagous to \cref{def:hodd}). See \cite[Section 2.1]{BaKuMa:19} for a simpler exposition of defining a (fractional-order) Sobolev norm via an operator.
 
 We observe in passing that \cref{def:hodd} is analagous to the spectral definition of the fractional Laplacian $\mleft(-\Delta\mright)^m$; see the recent review article \cite[Section 2.5.1]{LiPaGuSoGlZhMaCaMeAiKa:18} for an overview of this idea.
 \ere
@@ -2189,13 +2189,13 @@ and
 \ele
 \bpf[Proof of \cref{lem:intoip}]
 We only prove \cref{eq:feipsplit}, as the proof of \cref{eq:feiptrans} is analagous. Since $\vh,\wh \in \Vhp,$ there exist sequences $(\aj)_{j =1,\ldots,\dimVhp}$, $(\bsl)_{l =1,\ldots,\dimVhp}$ such that $\vh = \sum_{j=1}^{\dimVhp} \aj\phij$ and $\wh = \sum_{l=1}^{\dimVhp} \bsl \phil.$ Then we have
-\begin{align*}
-\IPLtDn{\Deltahmmt \vh}{\Deltahmt \wh} &= \int_D n\mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\\
-&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D n \phij \philbar\quad \text{ as the } \lambdaj \text{ are real}\\
-& =\sum_{j}^{\dimVhp} \aj \bsj \int_D n\abs{\phij}^2\quad \text{ as the } \phij \text{ are orthonormal}\\
-&= \IPLtDn{\vh}{\wh},
-\end{align*}
-where the final line follows by repeating the above process in reverse without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
+\begin{align}
+\IPLtDn{\Deltahmmt \vh}{\Deltahmt \wh} &= \int_D n\mleft(\sum_{j=1}^{\dimVhp}\lambdaj^{-m/2} \aj\phij\mright)\overline{\mleft(\sum_{l=1}^{\dimVhp} \lambdal^{m/2}\bsl \phil\mright)}\nonumber\\
+&= \sum_{j,l=1}^{\dimVhp} \lambdaj^{-m/2} \lambdal^{m/2} \aj \bsl \int_D n \phij \philbar\quad \text{ as the } \lambdaj \text{ are real}\nonumber\\
+& =\sum_{j}^{\dimVhp} \aj \bsj \int_D n\abs{\phij}^2\quad \text{ as the } \phij \text{ are orthonormal}\label{eq:penultimateline}\\
+&= \IPLtDn{\vh}{\wh}\label{eq:finalline}
+\end{align}
+where \cref{eq:finalline} follows from \cref{eq:penultimateline} by repeating the above process in reverse without the factors $\lambdaj^{-m/2}$ and $\lambdal^{m/2}$.
 \epf
 The next \lcnamecref{cor:ipdiscbound} follows from \cref{lem:intoip} and the Cauchy--Schwarz inequality.
 
@@ -2355,7 +2355,6 @@ We can now prove the main result of this \lcnamecref{sec:discsob}.
 
 \bpf[Proof of \cref{lem:negdiscsum}]
 Let $\wh \in \Vhp,$ and define $\zh = \DeltahI \wh$ and $z = \DeltaAI \wh$ (observe $z$ is well-defined as $\Vhp \subseteq \LtD$). Then, for all $\vh \in \Vhp$, we have
-
 \begin{align*}
 \IPLtD{A \grad z}{\grad \vh} = \IPLtD{A \grad \mleft(\sdsol \wh\mright)}{\grad \vh} = \IPLtDn{\wh}{\vh},\quad \text{and}\\
 \IPLtD{A \grad \zh}{\grad \vh} = \IPLtDn{\Deltah \zh}{\vh} = \IPLtDn{\wh}{\vh},
