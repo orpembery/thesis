@@ -13,7 +13,7 @@ n \, \frac{\partial^2 U}{\partial t^2} - \grad \cdot\mleft(A\grad U\mright) = F,
 \eeq
 that is, solutions of the form $U(t,\bx) = e^{-ikt}u(\bx)$, where $F(t,\bx) = e^{-ikt}f(\bx)$, then the spatial part $u$ satisfies \eqref{eq:introhh}; equivalently, \eqref{eq:introhh} is the Fourier transform in time  of \eqref{eq:introwave}. In certain scenarios, the time-harmonic Maxwell's equations reduce to \eqref{eq:introhh}, see, e.g., \cite[Remark 2.1]{MoSp:19} for this derivation.
 
-The physical motivation for studying \eqref{eq:introhh} is, therefore, any physical scenario in which wave propagation can be modelled by either \eqref{eq:introwave} or Maxwell's equations. One prominent example of the usage of \eqref{eq:introwave} is in subsurface imaging, where the rock structures of the earth's crust are imaged by generating waves at the earth's surface, and recording the reflections of these waves from the rock structures. The waves within the earth's rock structures satisfy the elastic wave equation, but under the so-called acoustic approximation, this can be approximated by \eqref{eq:introwave}; see \cite[Section 1.2]{Ch:15} for a physical derivation of the elastic wave equation, and \cite[Section 1.2.6]{Ch:15} for a derivation and discussion of the acoustic approximation. Other physical scenarios involving waves modelled by either \eqref{eq:introwave} or Maxwell's equations are the propagation of sound in an inviscid fluid \cite[Section 2.1]{CoKr:13}, and Microwave imaging (see, e.g., \cite[Section 6.4]{BoDoGrSpTo:19}).
+The physical motivation for studying \eqref{eq:introhh} is, therefore, any physical scenario in which wave propagation can be modelled by either \eqref{eq:introwave} or Maxwell's equations. One prominent example of the usage of \eqref{eq:introwave} is in subsurface imaging, where the rock structures of the earth's crust are imaged by generating waves at the earth's surface, and recording the reflections of these waves from the rock structures. The waves within the earth's rock structures satisfy the elastic wave equation, but under the so-called acoustic approximation, this equation can be approximated by \eqref{eq:introwave}; see \cite[Section 1.2]{Ch:15} for a physical derivation of the elastic wave equation, and \cite[Section 1.2.6]{Ch:15} for a derivation and discussion of the acoustic approximation. Other physical scenarios involving waves modelled by either \eqref{eq:introwave} or Maxwell's equations are the propagation of sound in an inviscid fluid \cite[Section 2.1]{CoKr:13}, and Microwave imaging (see, e.g., \cite[Section 6.4]{BoDoGrSpTo:19}).
 
 A mathematical and computational motivation for studying \eqref{eq:introhh} is that many of the difficulties one encounters when studying and numerically solving more complex wave-propagation models, such as the elastic wave equation, are also encountered with \eqref{eq:introhh}. Therefore \eqref{eq:introhh} is an appropriate starting point for mathematical study of, and numerical algorithms for, wave propagation models.
 
@@ -51,7 +51,7 @@ i.e., a single realisation of \eqref{eq:introhh}, numerically; we now provide so
 \een
     We will now briefly discuss each of these properties in turn, outlining why the matrices $\Amat$ have these properties, and how these properties affect the numerical solution of \eqref{eq:intromat}.
 
-    For \cref{it:nonh}, the matrices $\Amat$ are non-Hermitian because the underlying boundary-value problems are not self-adjoint (see \cite[Section 4.2]{Sp:15} for a discussion of the non-selfadjointness of exterior-boundary-value problems for the Helmholtz equation). This lack of self-adjointness means the sesquilinear forms arising in standard variational formulations of \eqref{eq:introhh} are not conjugate symmetric, and this lack of conjugate symmetry is inherited by the discretisation matrices $\Amat$. If one uses an iterative solver for the linear system \cref{eq:intromat}, then the non-Hermitian nature of the matrices means that a solver that is suitable for such matrices, such as GMRES, must be used.
+    For \cref{it:nonh}, the matrices $\Amat$ are non-Hermitian because the underlying boundary-value problems are not self-adjoint (see \cite[Section 4.2]{Sp:15} for a discussion of the non-self-adjointness of exterior-boundary-value problems for the Helmholtz equation). This lack of self-adjointness means the sesquilinear forms arising in standard variational formulations of \eqref{eq:introhh} are not conjugate symmetric, and this lack of conjugate symmetry is inherited by the discretisation matrices $\Amat$. If one uses an iterative solver for the linear system \cref{eq:intromat}, then the non-Hermitian nature of the matrices means that a solver that is suitable for such matrices, such as GMRES, must be used.
 
     For \cref{it:indef}, the matrices $\Amat$ are indefinite because the sesquilinear forms arising from standard variational formulations of \eqref{eq:introhh} are not coercive. This indefiniteness means that GMRES applied to \eqref{eq:intromat} may exhibit poor convergence properties, especially as the wavenumber $k$ is increased---see \cref{fig:GMRES}. In addition, the standard convergence theory for GMRES does not apply to indefinite systems, and so proving convergence results is also challenging.%\edsdnote{Both---similar to the previous paragraph, I'm finding it hard to find anything else to say here, have I missed anything?}
 
@@ -74,7 +74,7 @@ i.e., a single realisation of \eqref{eq:introhh}, numerically; we now provide so
 \caption[The increasing interpolation error if the mesh is not refined with increasing frequency.]{\label{fig:introinterp} The increasing interpolation error if the mesh is not refined with increasing frequency. The left-hand plot show the interpolant of $\sin(10x)$ on a mesh with 10 points per wavelength. The right-hand plot shows the interpolant of $\sin(50x)$ on the same mesh.}
 \end{figure}
 
-However, discretising \eqref{eq:introdet} with a fixed number of points per wavelength is \emph{not} enough to keep the error in the finite-element solution of \eqref{eq:introdet} bounded as $k\rightarrow \infty$ when using fixed-order methods. This is because standard-finite-element methods applied to the Helmholtz equation suffer from pollution, where the numerically calculated wave has a different wavelength to the true solution $u$, and so `drifts' away from $u$; moreover, this error increases as $k$ increases. See \cref{fig:intropoll} for an illustration of this phenomenon, and \cref{sec:helmfedisc} for an extended discussion how this phenomenon is reflected in the accuracy of finite-element methods for the Helmholtz equation.
+However, discretising \eqref{eq:introdet} with a fixed number of points per wavelength is \emph{not} enough to keep the error in the finite-element solution of \eqref{eq:introdet} bounded as $k\rightarrow \infty$ when using fixed-order methods. This is because standard-finite-element methods applied to the Helmholtz equation suffer from pollution, where the numerically calculated wave has a different wavelength to the true solution $u$, and so `drifts' away from $u$; moreover, this error increases as $k$ increases. See \cref{fig:intropoll} for an illustration of this phenomenon, and \cref{sec:helmfedisc} for an extended discussion of how this phenomenon is reflected in the accuracy of finite-element methods for the Helmholtz equation.
 
 \begin{figure}[h]
   \centering
@@ -84,11 +84,11 @@ However, discretising \eqref{eq:introdet} with a fixed number of points per wave
     \begin{subfigure}{0.45\textwidth}
 \input{pollution-right.pgf}
     \end{subfigure}
-\caption[The pollution effect for the 1-d Helmholtz equation.]{\label{fig:intropoll} The pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint chosen so that the exact solution $u = \sin(kx)$. The solid line denotes the true solution, the dashed line denotes the finite-element approximation with 10 points per wavelength.}
+\caption[The pollution effect for the 1-d Helmholtz equation.]{\label{fig:intropoll} The pollution effect for the 1-d Helmholtz equation $u'' + k^2u = 0$ for $k=1000$, with a zero Dirichlet boundary condition on the left endpoint, and an impedance boundary condition on the right endpoint, chosen so that the exact solution $u = \sin(kx)$. The solid line denotes the true solution, the dashed line denotes the finite-element approximation with 10 points per wavelength.}
 \end{figure}
 
 
-In summary, numerically solving the Helmholtz equation gives rise to large (size at least $ \sim k^d$) linear systems, and the size of these linear systems increases as $k$ increases. The table \cref{tab:introlinsys} presents the sizes of the linear systems one obtains for different values of $k$, depending on the spatial dimension, and the properties of the finite-element solution that one requires.
+In summary, numerically solving the Helmholtz equation gives rise to large (size at least $ \sim k^d$) linear systems, and the size of these linear systems increases as $k$ increases. \cref{tab:introlinsys} presents the sizes of the linear systems one obtains for different values of $k$, depending on the spatial dimension, and the properties of the finite-element solution that one requires.
 \begin{table}
   \centering
   \begin{tabular}{Sc Sc Sc Sc Sc Sc Sc}
@@ -137,14 +137,14 @@ Observe that to compute the sample average, one needs to solve many (which we em
 
 
 
-\section{The Main Acheivements of the Thesis}
+\section{The Main Achievements of the Thesis}
 
-The main acheivements of the thesis are as follows:
+The main achievements of the thesis are as follows:
 
 
 \ben
 
-  \item\label[itemachievement]{it:achievements-error} New erro bounds for the higher-order $h$-finite-element method applied to the (deterministic) Helmholtz equation in heterogeneous media; these bounds are explicit in their dependence on the wavenumber $k$ and on the coefficient $n$.
+  \item\label[itemachievement]{it:achievements-error} New error bounds for the higher-order $h$-finite-element method applied to the (deterministic) Helmholtz equation in heterogeneous media; these bounds are explicit in their dependence on the wavenumber $k$ and on the coefficient $n$.
 \een
 
 These error bounds are the first for the Helmholtz equation in a heterogeneous medium; similar bounds have been proved for the Helmholtz equation in a homogeneous medium in, e.g., \cite{Wu:14,DuWu:15,ChNi:18} and for a homogeneous medium with a small, frequency-dependent nonlinear perturbation in \cite{WuZo:18}. These bounds (and their explicit dependence on $k$ and $n$) are crucial for the analysis of the numerical methods developed in this thesis.
@@ -196,9 +196,9 @@ This work is an advance on the only previous work in the literature, \cite{FeLiL
 
 \section{The Structure of the thesis}
 
-In \cref{chap:background} we give background material on the (deterministic) Helmholtz equation and its discretisation via finite elements; this material will be necessary to understand the rest of this thesis. We then present recent results in \cite{GrPeSp:19} concerning the well-posedness of the deterministic heterogeneous Helmholtz equation and a priori bounds on its solution of which the author of this thesis was a co-author. These results are used in some of the developments in this thesis, especially in \cref{chap:stochastic}. We also give an overview of the theory of finite-element discretiations of the Helmholtz equation, and prove the results in \cref{it:achievements-error}.
+In \cref{chap:background} we give background material on the (deterministic) Helmholtz equation and its discretisation via finite elements; this material will be necessary to understand the rest of this thesis. We present recent results in \cite{GrPeSp:19} concerning the well-posedness of the deterministic heterogeneous Helmholtz equation and a priori bounds on its solution of which the author of this thesis was a co-author. These results are used in some of the developments in this thesis, especially in \cref{chap:stochastic}. We also give an overview of the theory of finite-element discretiations of the Helmholtz equation, and prove the results in \cref{it:achievements-error}.
 
-In \cref{chap:stochastic} we prove the results in \cref{it:achievements-bounds} for three formulations of the stochastic exterior Dirichlet problem (SEDP) for the Helmholtz equation in random media. These results are underpinned by the well-posedness results and a priori bounds obtained in \cite{GrPeSp:19} for the heterogeneous (but non-random) Helmholtz equation. \Cref{chap:stochastic} is a lightly-edited version of \cite{PeSp:19}, accpeted for publication in the SIAM/ASA Journal on Uncertainty Quantification.
+In \cref{chap:stochastic} we prove the results in \cref{it:achievements-bounds} for three formulations of the stochastic exterior Dirichlet problem (SEDP) for the Helmholtz equation in random media. These results are underpinned by the well-posedness results and a priori bounds obtained in \cite{GrPeSp:19} for the heterogeneous (but non-random) Helmholtz equation. \Cref{chap:stochastic} is a lightly-edited version of \cite{PeSp:19}, accepted for publication in the SIAM/ASA Journal on Uncertainty Quantification.
 
 In \cref{chap:nbpc} we develop the nearby preconditioning strategy described in \cref{it:achievements-nbpc}, prove the results on its effectiveness, and perform the numerical investigation of its effectiveness as in \cref{it:achievements-nbpcnum}. We then provide preliminary numerical investigation into QMC methods for the Helmholtz equation, as in \cref{it:achievements-qmc} before applying nearby preconditioning to a QMC method for the Helmholtz equation, obtaining speedup, as in \cref{it:achievements-nbpcnum}.
 
