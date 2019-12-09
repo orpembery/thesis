@@ -14,12 +14,12 @@ This chapter has two main foci:
 In \cref{sec:detprobs} we  define two Helmholtz problems, one on an infinite exterior domain, and the other on a truncated domain, and discuss their physical relevance. In \cref{sec:wpbounds} we  recap in some detail the well-posedness results and a priori bounds from \cite{GrPeSp:19}; these results will be crucial for our analysis of stochastic Helmholtz problems in \cref{chap:stochastic}. Then in \cref{sec:wpdisc} we set these results in their wider context with a review of the related literature. We  then move on to the FEM for these problems; in \cref{sec:varform} we give the variational formulations of our two Helmholtz problems. In \cref{sec:fetheory} we recap basic concepts of the FEM, and in \cref{sec:helmfedisc,sec:prooftechniques} we  give an overview of the literature on error bounds and quasi-optimality for the Helmholtz equation, including an extended discussion of proof techniques for these results. Finally in \cref{sec:fem} we  prove new error bounds for the FEM for the heterogeneous Helmholtz equation. 
 
 
-\section[PDE theory of the Helmholtz Equation]{Wavenumber- and coefficient-explicit PDE theory of the deterministic Helmholtz equation}\label{sec:pdetheory}
+\section[PDE theory of the Helmholtz Equation]{Wavenumber- and coefficient-explicit PDE\newline theory of the deterministic Helmholtz\newline equation}\label{sec:pdetheory}
   We  begin by defining the two deterministic Helmholtz problems that we consider in this thesis; we  consider their stochastic counterparts in subsequent chapters.
 
 \subsection{Deterministic Helmholtz problems}\label{sec:detprobs}
 
-We first state our problems of interest, largely following the presentation in \cite{GrPeSp:19}. We let $\spd$ be the set of all symmetric-positive-definite matrices in $\RRdtd$. For $D \subseteq \RRd,$ let $\LiDRRdtd$ be the set of all matrix-valued functions $A:D\rightarrow\spd$ such that $A_{i,j} \in \LiDRR$ for all $i,j =   1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~writing $\LtD$ for $\LtDCC.$
+We first state our problems of interest, largely following the presentation in \cite{GrPeSp:19}. We let $\spd$ be the set of all symmetric-positive-definite matrices in $\RRdtd$. For $D \subseteq \RRd,$ let $\LiDRRdtd$ be the set of all matrix-valued functions $A:D\rightarrow\spd$ such that $A_{i,j} \in \LiDRR$ for all $i,j =   1,\ldots,d.$ We define other function spaces analogously. Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~writing $\LtD$ for $\LtDCC.$
 
   \bprob[Exterior Dirichlet Problem (EDP)]\label{prob:edp}
   Let $\Dm$ be a bounded Lipschitz open set such that the open complement $\Dp \de \RRd \setminus \Dmclos$ is connected and let $\GD \de \partial \Dm.$ Let $\trD:\HoD\rightarrow\HhGD$ denote the Dirichlet trace operator on $\GD$. Given
@@ -30,7 +30,8 @@ We first state our problems of interest, largely following the presentation in \
 \item $n \in \LiDpRR$ such that $1-n$ has compact support and there exist $0 < \nmin < \nmax < \infty$ such that
   \beq\label{eq:nbounds}
 \nmin \leq n(\bx) < \nmax \tfae \bx \in \Dp,
-  \eeq
+\eeq
+and
 \item $A \in \LiDpRRdtd$ such that $I-A$ has compact support, $A$ is symmetric, and there exist $0 < \Amin < \Amax < \infty$ such that
   \beq\label{eq:Abounds}
 \Amin \abs{\bxi}^2 \leq \mleft(A(\bx) \bxi \mright) \cdot \bxibar < \Amax \abs{\bxi}^2 \tfa \bxi \in \CCd \tfae \bx \in \Dp,
@@ -129,9 +130,9 @@ Both $A$ and $n$ are supported inside some bounded Lipschitz open set $D$, and o
 Our well-posedness results  require the scatterer $\Dm$ to be star-shaped, and our results for \cref{prob:tedp}  require the truncation domain $\Dtilde$ to be star-shaped with respect to a ball. We now recall these definitions.
 
   \bde[Star-shaped, star-shaped with respect to a ball]
-  We say that $\Dm$ is star-shaped with respect to the point $\bxz$ if for all $\bx \in \Dm,$ the line segment $\mleft[\bxz,\bx\mright] \in \Dm.$
+  We say that $\Dm$ is \defn{star-shaped with respect to the point $\bxz$} if for all $\bx \in \Dm,$ the line segment $\mleft[\bxz,\bx\mright] \in \Dm.$
 
-  We say that $\Dm$ is star-shaped with respect to the ball $B$ if $\Dm$ is star shaped with respect to $\bxz$, for all $\bxz \in B.$
+  We say that $\Dm$ is \defn{star-shaped with respect to the ball $B$} if $\Dm$ is star shaped with respect to $\bxz$, for all $\bxz \in B.$
   \ede
 
 We can now state well-posedness results and a priori bounds for the Helmholtz equation in the class of heterogeneous media we have just defined.  We denote the ball of radius $R$ about the point $\bxz$ by $\Ball{R}{\bxz}.$ We denote $\Ball{R}{\bfzero}$ by $\BR.$
@@ -139,7 +140,7 @@ We can now state well-posedness results and a priori bounds for the Helmholtz eq
 
 
 \bth[Well-posedness and bound for \cref{prob:edp}]\label{thm:edp}
-If $\Dm, A, n,$ and $f$ satisfy the requirements in \cref{prob:edp}, $\gD = 0,$ $\Dm$ is star-shaped with respect to the origin, and there exist $\muo, \mut > 0$ such that $A \in \NTADp{\muo}$ and $n \in \NTnDp{\mut}$, then the solution of \cref{prob:edp} exists and is unique. Furthermore, given $R>0$ such that $\supp\mleft(I-A\mright),$ $\supp(1-n),$ and $\supp f$ are compactly contained in $\DR, = D \cap \BR$, then
+If $\Dm, A, n,$ and $f$ satisfy the requirements in \cref{prob:edp}, $\gD = 0,$ $\Dm$ is star-shaped with respect to the origin, and there exist $\muo, \mut > 0$ such that $A \in \NTADp{\muo}$ and $n \in \NTnDp{\mut}$, then the solution of \cref{prob:edp} exists and is unique. Furthermore, given $R>0$ such that $\supp\mleft(I-A\mright),$ $\supp(1-n),$ and $\supp f$ are compactly contained in $\DR = D \cap \BR$, then
 \beqs
 \muo \NLtDR{\grad u}^2 + \mut k^2 \NLtDR{u}^2 \leq \Co \NLtDR{f}^2,
 \eeqs
@@ -207,15 +208,15 @@ However, for Helmholtz problems, the situation is much more subtle. Even if $A$ 
 \beq\label{eq:bgbound}
 \NHokDp{u} \leq C \NLtDp{f},
 \eeq
-where $C$ depends explicitly on $A$, $n$, and the wavenumber $k$. A fundamental cause of this difficulty is the fact that the sesquilinear form $a$ associated with the standard variational formulation of the Helmholtz equation is not coercive. However, $a$ does satisfy a G\r{a}rding inequality
-\beq\label{eq:gardingbrief}
-\Re{a(v,v)} + k^2 \mleft(\Amin + \nmax\mright) \NLtD{v}^2 \geq \Amin \NHokD{v}^2,
-\eeq
-where
+where $C$ depends explicitly on $A$, $n$, and the wavenumber $k$ and
 \beq\label{eq:weightednorm}
 \NHokD{v} \de \mleft(\NLtD{\grad v} + k^2 \NLtD{v}\mright)^{1/2}
 \eeq
-is the weighted $H^1$ norm used frequently when studying Helmholtz problems\footnote{The norm $\NHokD{\cdot}$ is used because solutions of the Helmholtz equation typically  have $\grad u \sim ku$; therefore the norm $\NHokD{\cdot}$ should contain terms of roughly the same size. This relationship between the solution and its gradient is exactly the case for plane waves $u = \exp(ik \bx \cdot \bd)$ (for some $\bd \in \RRd$), where $\grad u = ik \bd u.$} The G\r{a}rding inequality means $\Re{a(v,v)}$ is `coercive' if an appropriate multiple of the $L^2$-norm is added to it.
+is the weighted $H^1$ norm used frequently when studying Helmholtz problems\footnote{The norm $\NHokD{\cdot}$ is used because solutions of the Helmholtz equation typically  have $\grad u \sim ku$; therefore the norm $\NHokD{\cdot}$ should contain terms of roughly the same size. This relationship between the solution and its gradient is exactly the case for plane waves $u = \exp(ik \bx \cdot \bd)$ (for some $\bd \in \RRd$), where $\grad u = ik \bd u.$}. A fundamental cause of this difficulty is the fact that the sesquilinear form $a$ associated with the standard variational formulation of the Helmholtz equation is not coercive. However, $a$ does satisfy a G\r{a}rding inequality
+\beq\label{eq:gardingbrief}
+\Re{a(v,v)} + k^2 \mleft(\Amin + \nmax\mright) \NLtD{v}^2 \geq \Amin \NHokD{v}^2,
+\eeq
+ The G\r{a}rding inequality means $\Re{a(v,v)}$ is `coercive' if an appropriate multiple of the $L^2$-norm is added to it.
 
 Because of the G\r{a}rding inequality, if the solution of the Helmholtz equation is unique, then existence and an a priori bound on the solution follow from Fredholm Theory (see, e.g. \cite[Theorems 5.10 and 5.18]{Sp:15}; Fredholm theory can be applied because the sesquilinear form satisfies a G\r{a}rding inequality.) Therefore the challenge of proving well-posedness reduces to proving uniqueness. However, we note that the a priori bound one obtains using Fredholm theory is generally \emph{not} explicit in $k,$ $A$ or $n$.
 
@@ -227,7 +228,7 @@ For homogeneous problems (with $A=I$ and $n=1$) uniqueness follows from the Somm
 \def\techtitle{Techniques for proving a priori bounds}
 \paragraph{\techtitle} There are two main classes of techniques for proving a priori bounds on the Helmholtz equation. The first class uses techniques from semiclassical analysis (a branch of microlocal analysis), and studies the behaviour of rays through the medium. For this approach to be used $\Dm,$ $A$, and $n$ must all be smooth, so that rays and the notion of reflections from the scatterer $\Dm$ can be defined (the notion of a reflection is difficult to define rigorously if the scatterer has a corner).
 
-When one uses microlocal analysis tools, the key geometric condition on $A$, $n,$ and $\Dm$ is that of being nontrapping. The problem is \defn{nontrapping} if, for any bounded set $S \subseteq D$ there exists a time $t(S)$ such that any ray starting in $S$ and evolving according to the laws of geometrical optics leaves $S$ by time $t(S)$. The rigorous definition is more technical; see \cite[Section 6]{GrPeSp:19} for an overview. The problem is called \defn{trapping} if it is not nontrapping. Once one has proved the problem is nontrapping, one combines the paramatrix argument of Vainberg \cite{Va:75} with the propagation of singularities results of Melrose and Sj\"ostrand \cite{MeSj:82} to conclude a bound with the same $k$-dependence as \cref{thm:edp}.  Observe that trapping behaviour can be caused by an impenetrable obstacle (where, informally, rays `bounce' off the obstacle), a penetrable obstacle (where rays penetrate and are then `trapped' inside), or variations in the medium (that can also `trap' rays).
+When one uses microlocal analysis tools, the key geometric condition on $A$, $n,$ and $\Dm$ is that of being nontrapping. The problem is \defn{nontrapping} if, for any bounded set $S \subseteq \Dp$ there exists a time $t(S)$ such that any ray starting in $S$ and evolving according to the laws of geometrical optics leaves $S$ by time $t(S)$. The rigorous definition is more technical; see \cite[Section 6]{GrPeSp:19} for an overview. The problem is called \defn{trapping} if it is not nontrapping. Once one has proved the problem is nontrapping, one combines the paramatrix argument of Vainberg \cite{Va:75} with the propagation of singularities results of Melrose and Sj\"ostrand \cite{MeSj:82} to conclude a bound with the same $k$-dependence as \cref{thm:edp}.  Observe that trapping behaviour can be caused by an impenetrable obstacle (where, informally, rays `bounce' off the obstacle), a penetrable obstacle (where rays penetrate and are then `trapped' inside), or variations in the medium (that can also `trap' rays).
 
 
 We see below that one can prove $k$-independent bounds even when rays cannot be defined, typically when $\Dm,$ $A$, and $n$ are not smooth. In such situations, one usually uses the mutiplier techniques discussed below. In an abuse of terminology, we call all situations where a bound holds with the same $k$-dependence as \cref{thm:edp} `nontrapping'.\label{pg:informalnontrapping}
