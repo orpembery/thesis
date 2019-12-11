@@ -323,9 +323,9 @@
 \newcommand{\CBt}{\Cfn{\ref{eq:firstboundary},2}}
 \newcommand{\CBth}{\Cfn{\ref{eq:secondboundary}}}
 \newcommand{\CRecfn}[1]{\Cfn{\ref{eq:readytorecurse},#1}}%{\Cfn{\mathrm{Rec},#1}}
-\newcommand{\CRecofn}[1]{\CRecfn{1,#1}}
+%\newcommand{\CRecofn}[1]{\CRecfn{1,#1}}
 \newcommand{\CRectfn}[1]{\CRecfn{2,#1}}
-\newcommand{\CRect}{\CRecfn{2}}
+%\newcommand{\CRect}{\CRecfn{2}}
 \newcommand{\CReco}{\CRecfn{1}}
 \newcommand{\Cfirst}{\Cfn{\ref{eq:ltthetahbound},1}}%{\Cfn{\mathrm{first}}}
 \newcommand{\Csecond}{\Cfn{\ref{eq:ltthetahbound},2}}%{\Cfn{\mathrm{second}}}
@@ -529,10 +529,12 @@
 \newcommand{\Nmh}[1]{\N{#1}_{m,h}}
 \newcommand{\aj}{a_{j}}
 \newcommand{\phij}{\phifn{j}}
+\newcommand{\phijh}{\phifn{j,h}}
 \newcommand{\phil}{\phifn{l}}
+\newcommand{\philh}{\phifn{l,h}}
 \newcommand{\lambdaj}{\lambdafn{j}}
 \newcommand{\lambdal}{\lambdafn{l}}
-\newcommand{\philbar}{\overline{\phil}}
+\newcommand{\philhbar}{\overline{\philh}}
 \newcommand{\bsl}{b_{l}}
 \newcommand{\bsj}{b_{j}}
 \newcommand{\Njh}[1]{\N{#1}_{j,h}}
@@ -568,7 +570,7 @@
 \newcommand{\Nfn}[2]{\N{#2}_{#1}}
 \newcommand{\NHmoD}[1]{\N{#1}_{\HmoD}}
 \newcommand{\HmoD}{\Hfn{}{-1}{D}}
-\newcommand{\Etildefn}[1]{\widetilde{C}_{\ref{eq:oddrecursive},#1}}
+\newcommand{\Etildefn}[1]{C_{\ref{eq:oddrecursive},#1}}
 \newcommand{\thetah}{\theta_{h}}
 \newcommand{\IPLtGI}[2]{\IP{#1}{#2}_{\LtGI}}
 \newcommand{\Npmoh}[1]{\Nfn{p-1,h}{#1}}
@@ -837,3 +839,8 @@
 \newcommand{\Nop}[1]{\Nfn{\op}{#1}}
 \newcommand{\NLiDRRRsmall}[1]{\|#1\|_{\LiDRRR}}
 \newcommand{\Yhatbar}{\overline{\Yhat}}
+
+
+% From post-viva edits
+\newcommand{\bracketsans}{\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}}
+\newcommand{\bracket}{\mleft(\bracketsans\mright)}
