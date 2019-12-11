@@ -74,7 +74,7 @@ $k\tendi$.
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
-C_1 \,k \,\NLiDRRdtd{\Aso-\Ast} +C_2 \, k\, \NLiDRR{\nso-\nst}
+C_1 \,k \,\NLiDop{\Aso-\Ast} +C_2 \, k\, \NLiDRR{\nso-\nst}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
@@ -100,7 +100,7 @@ let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{+}>0$ and $m_{\pm}>0$ be 
 % such that if 
 \beq\label{eq:conda}
  C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\NLiDRRdtd{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
+\NLiDop{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
@@ -112,10 +112,7 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 
  The proof of \cref{cor:1a} is on \cpageref{page:cor1aproof} below.
 
-Three notes regarding \cref{cor:1,cor:1a}: (i) The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $L^\infty(D)$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by
-\beqs
-\NLiDRRdtd{A}\de \esssup_{\bx\in D}\N{A(\bx)}_2.
-\eeqs
+Three notes regarding \cref{cor:1,cor:1a}: (i) The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $\NLiDop{\cdot}$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by \cref{eq:ineditsnorm1}.
 (iii) The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations may then be different---but is still independent of $k$.
 %In \cref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
 
@@ -129,14 +126,14 @@ Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:con
  shows that the condition
 \beq\label{eq:sufficientlysmall}
 k\,
-\NLiDRRdtd{\Aso-\Ast} \quad\text{ and } \quad k\,\NLiDRR{\nso-\nst}
+\NLiDop{\Aso-\Ast} \quad\text{ and } \quad k\,\NLiDRR{\nso-\nst}
 %\Big) 
 \quad\text{ both sufficiently small}
 \eeq
 is not only an answer to \cref{it:nbpcq1} (about finite-element discretisations), but is also the natural answer to the analogue of \cref{it:nbpcq1} at the level of PDEs, namely 
 \ben[label=Q2., ref=Q2]
 \item\label[itemblank]{it:nbpcq2}
-How small must $\NLiDRRdtd{\Aso - \Ast}$ and 
+How small must $\NLiDop{\Aso - \Ast}$ and 
 $\NLiDRR{\nso - \nst}$ be (in terms of their $k$-dependence) for the relative error in approximating 
 %$u^{(1)}$ to be a good approximation to 
 $u^{(2)}$ by $u^{(1)}$ to be bounded independently of $k$ for arbitrarily-large $k$? 
@@ -162,7 +159,7 @@ Then, given $k_0>0$, there exists $C_3>0$, independent of $k$ and given explicit
 \frac{\big\|u^{(1)}-u^{(2)}\big\|_{\HokD}
 }{
 \N{u^{(2)}}_{\HokD}
-}\leq C_3 \,k\, \max\set{\NLiDRRdtd{\Aso-\Ast}\,,\, \NLiDRR{\nso-\nst}}
+}\leq C_3 \,k\, \max\set{\NLiDop{\Aso-\Ast}\,,\, \NLiDRR{\nso-\nst}}
 \eeq
 for all $k\geq k_0$. 
 \end{theorem}
@@ -217,11 +214,11 @@ The numerical experiments in this section seek to verify \cref{cor:1a,cor:1} for
 
 Based on the PDE results \cref{thm:2,lem:sharp} above, we expect that the condition \cref{eq:sufficientlysmall} is a necessary and sufficient condition for standard GMRES applied to \cref{eq:pcsystem1} to converge in a $k$-independent number of iterations, even though we can only prove this is a sufficient condition for \emph{weighted} GMRES. We expect this because \cref{eq:sufficientlysmall} is a sufficient condition for \cref{it:nbpcq2}, the PDE analogue of \cref{it:nbpcq1}. Indeed, this is exactly the behaviour we observe in numerical experiments; we see that if \cref{eq:sufficientlysmall} holds, then standard GMRES applied to \cref{eq:pcsystem1} converges in a $k$-independent number of iterations, and moreover, \cref{eq:sufficientlysmall} may be sharp. We now describe our numerical experiments in more detail.
 
-To verify this expected behaviour, we perform numerical experiments with the setup described in \cref{app:compsetup} with $\Aso = I$ and $\nso = 1$. We define $f$ and $\gI$ to correspond to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$. We perform experiments for $A$ and $n$ separately, i.e., first we perform experiments with $\Ast=I$ and $\nst$ varying, and then we perform experiments with $\Ast$ varying and $\nst=1.$
+To verify this expected behaviour, we perform numerical experiments with the setup described in \cref{app:compsetup} with $\Aso = I$ and $\nso = 1$. We define $f$ and $\gI$ to correspond to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$. We perform experiments for $A$ and $n$ separately, i.e., first we perform experiments with $\Ast=I$ and $\nst$ varying, and then we perform experiments with $\Ast$ varying and $\nst=1.$ When we vary $\Ast$ we measure $\Aso-\Ast$ in the $\NLiDRRdtd{\cdot}$ norm, as this norm is easier to control than the $\NLiDop{\cdot}$ norm. However, these two norms are equivalent on $\LiDRRdtd$ (see the comment above \cref{eq:ineditsnorm1}).
 
 We define $\Ast$ and $\nst$ to be piecewise constant (matrix-valued and real-valued respectively) on a $10\times10$ square grid, with their values on each square chosen independently at random from a $\Unif\mleft(1-\alpha,1+\alpha\mright)$ distribution, with $\alpha \in (0,1)$ chosen as described below. For $\Ast,$ we impose the restriction that on each square $\Ast$ is positive-definite almost surely. We solve the linear systems \cref{eq:pcsystem1} for $k = 20,40,60,80,100$ using standard GMRES and record the number of GMRES iterations taken to achieve a (relative) tolerance of $10^{-5}$ (relative to $\Nt{\bfb}$).
 
-We perform experiments taking $\alpha = 0.5 \times k^{-\beta}$ for $\beta \in 0,0.1,\ldots,0.9,1.$ We expect that when $\beta \neq 1$  the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\beta = 1$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour for $\beta=1$ has only been proved for $\NLiDRRdtd{\Aso-\Ast}$ for weighted GMRES (compare the restrictions on $\NLiDRRdtd{\Aso-\Ast}$ in \cref{cor:1,cor:1a}).
+We perform experiments taking $\alpha = 0.5 \times k^{-\beta}$ for $\beta \in 0,0.1,\ldots,0.9,1.$ We expect that when $\beta \neq 1$  the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\beta = 1$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour for $\beta=1$ has only been proved for $\NLiDop{\Aso-\Ast}$ for weighted GMRES (compare the restrictions on $\NLiDop{\Aso-\Ast}$ in \cref{cor:1,cor:1a}).
 
 
 In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:linfinityn1,fig:linfinityn2}, when $\beta \in \set{0,\ldots,0.3}$ (for $\NLiDRRdtd{\Aso-\Ast}$) and $\beta \in \set{0,\ldots,0.5}$ (for $\NLiDRR{\nso-\nst}$) we see growth in the maximum number of GMRES iterations needed (over all realisations) to achieve convergence, otherwise we see that the number of GMRES iterations is bounded as $k$ increases. This behaviour is better than expected; as the number of GMRES iterations is apparently bounded for a range of $\beta < 1.$ However, we note that this behaviour could be (i) because we are in a pre-asymptotic regime, and the number of GMRES iterations would grow if we increased $k$ further, or (ii) the particular structure of $\nst$ (being piecewise constant, with the pieces independently, randomly chosen) could result in some kind of `averaging' behaviour, meaning the preconditioner is better than would otherwise be expected. However, we do not investigate these issues further in this thesis.
@@ -229,37 +226,37 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-0.pgf}
-  \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0,0.1,0.2,0.3.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityA0}
+  \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0,0.1,0.2,0.3.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityA0}
     \end{figure}
     
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-1.pgf}
-   \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5 ,0.6,0.7.$}\label{fig:linfinityA1}
+   \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0.4,0.5 ,0.6,0.7.$}\label{fig:linfinityA1}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-A-2.pgf}
-    \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0.8,0.9,1.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityA2}
+    \caption[Maximum GMRES iteration counts when $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0.8,0.9,1.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\nso=\nst=1$ and $\NLiDRRdtd{\Aso-\Ast} = 0.5\times  k^{-\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityA2}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-0.pgf}
-  \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0,0.1,0.2,0.3.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityn0}
+  \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0,0.1,0.2,0.3.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0,0.1,0.2,0.3.$}\label{fig:linfinityn0}
     \end{figure}
     
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-1.pgf}
-   \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:linfinityn1}
+   \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0.4,0.5,0.6,0.7.$}\label{fig:linfinityn1}
 \end{figure}
 
     \begin{figure}
       \centering
 \input{nbpc-linfinity-plot-n-2.pgf}
-   \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0.8,0.9,1.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
+   \caption[Maximum GMRES iteration counts when $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0.8,0.9,1.$]{Maximum GMRES iteration counts for solving systems with matrix $\AmatoI\Amatt$, where $\Aso=\Ast=1$ and $\NLiDRR{\nso-\nst} = 0.5\times  k^{-\beta}$ for $\beta = 0.8,0.9,1.$}\label{fig:linfinityn2}
 \end{figure}
   
 %  \ednote{Euan---I had to redo these computations, as there was a bug in my code, so we now don't see \emph{really} rapid growth in the number of GMRES iterations as $k$ inreases. I think the previous code may have may the variations in $n$ too large, meaning we got really rapid growth.}
@@ -526,7 +523,7 @@ Then, given $\kz>0$, there exist $\Co, \Ct>0$, independent of $h$ and $k$ (but d
 \Big\}\\
 &\hspace{3cm} 
 \leq C_1 \,k \,
-\NLiDRRdtd{\Aso-\Ast} + C_2 \, k \, \NLiDRR{\nso-\nst}
+\NLiDop{\Aso-\Ast} + C_2 \, k \, \NLiDRR{\nso-\nst}
 \label{eq:main1}
 \end{align}
 and 
@@ -537,7 +534,7 @@ and
 \Big\}\\
 &\hspace{0cm} 
 \leq C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\NLiDRRdtd{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
+\NLiDop{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
 \label{eq:main1a}
 \end{align}
 for all $k\geq k_0$. 
@@ -579,12 +576,12 @@ The proof of \cref{lem:keylemma1} is on \cpageref{page:lemkeylemma1proof} below.
 Assume that \cref{cond:1nbpc} holds, and assume that part (ii) of \cref{cond:2} holds. Then, for $A\in \LiDRRdtd$,
 \beq\label{eq:keybound2}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_{(\Dmat_k)^{-1}}, \,\,
-\big\| \Smat_A (\Amato)^{-1} \big\|_{\Dmat_k}\Big\} \leq C_1\, k\NLiDRRdtd{A}
+\big\| \Smat_A (\Amato)^{-1} \big\|_{\Dmat_k}\Big\} \leq C_1\, k\NLiDop{A}
 \eeq
 and
 \beq\label{eq:keybound2a}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
-\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\NLiDRRdtd{A}
+\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\NLiDop{A}
 \eeq
 %\begin{align}\nonumber
 %&\max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
@@ -748,8 +745,8 @@ a^{(1)}(\widetilde{u},v)= \LGtilde(v) \quad\text{ for all } v\in \HozDD,
 Observe that the definition of the norms $\|\cdot\|_{(\HokD)^*}$ and $\|\cdot\|_{\HokD}$ \cref{eq:weightednorm} and the Cauchy-Schwarz inequality imply that
 \begin{align}
 \big\| \LGtilde\big\|_{(\HokD)^*}&\leq \big\|A\nabla \widetilde{f}\big\|_{\LtD}\nonumber\\
-&\leq \NLiDRRdtd{A} \big\|\nabla \widetilde{f}\big\|_{\LtD}\label{eq:Fbounda}\\
-&\leq \NLiDRRdtd{A} \big\| \widetilde{f}\big\|_{\HokD}.\label{eq:Fbound}
+&\leq \NLiDop{A} \big\|\nabla \widetilde{f}\big\|_{\LtD}\label{eq:Fbounda}\\
+&\leq \NLiDop{A} \big\| \widetilde{f}\big\|_{\HokD}.\label{eq:Fbound}
 \end{align}
 Let $\tu_h$ be the solution of the finite element approximation of \cref{eq:411a}, i.e.,
 \beq\label{eq:41a}
@@ -772,10 +769,10 @@ we find
 \right]\big\|\LGtilde\big\|_{(\HokD)^*},\\
 &\leq C_1 \, k\, 
 %\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) \right]
-\NLiDRRdtd{A} \big\|\nabla\widetilde{f}\big\|_{\LtD},\label{eq:mainevent2}\\
+\NLiDop{A} \big\|\nabla\widetilde{f}\big\|_{\LtD},\label{eq:mainevent2}\\
 &\leq C_1 \, k\, 
 %\left[C^{(1)}_{\rm FEM2} k + \frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) \right]
-\NLiDRRdtd{A} \big\|\widetilde{f}\big\|_{\HokD},\nonumber
+\NLiDop{A} \big\|\widetilde{f}\big\|_{\HokD},\nonumber
 %&\leq \left[ C^{(1)}_{\rm FEM2} k + 
 %\frac{1}{\min\{\Asomin,\nsomin\}}\left( 1 + 2 C^{(1)}_{\rm bound}\nsomaxk  \right) 
 %\right]\big\|A\big\|_{L^\infty(D)}s_+ h^{(d-2)/2} \N{\fvec}_2,
@@ -928,12 +925,12 @@ where
 \eeqs
 Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_{\HokD}$ (see \cref{eq:weightednorm}), we have
 \begin{align*}
-| \LGtilde(v)| &\leq \NLiDRRdtd{\Aso-\Ast} \big\|\nabla u^{(2)}\big\|_{L^2(D)}
+| \LGtilde(v)| &\leq \NLiDop{\Aso-\Ast} \big\|\nabla u^{(2)}\big\|_{L^2(D)}
 \N{\nabla v}_{L^2(D)} 
 \\& \hspace{5cm}+ k^2 
 \NLiDRR{\nso-\nst} \big\| u^{(2)}\big\|_{L^2(D)}
 \N{v}_{L^2(D)}\\
-&\leq\max\Big\{\NLiDRRdtd{\Aso-\Ast}\,,\, \NLiDRR{\nso-\nst}\Big\}
+&\leq\max\Big\{\NLiDop{\Aso-\Ast}\,,\, \NLiDRR{\nso-\nst}\Big\}
 \big\| u^{(2)}\big\|_{\HokD} \N{v}_{\HokD}
 \end{align*}
 (by Cauchy--Schwarz in $\RR^2$). Therefore, by the definition of the norm $\|\cdot\|_{(\HokD)^*}$
@@ -1078,13 +1075,13 @@ We will give numerical results indicating that this theoretical best-case result
 
 
 \subsection{Theory in weaker norms}\label{sec:weakertheory}
-Before we prove results analogous to \cref{cor:1,cor:1a} in weaker norms (using a result analogous to \cref{thm:1} in weaker norms), we first recap why the terms  $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ appear in \cref{thm:1}. These terms appear in \cref{thm:1} because the terms $\NLiDRR{n}$ and $\NLiDRRdtd{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear in these \lcnamecrefs{lem:keylemma1} because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
+Before we prove results analogous to \cref{cor:1,cor:1a} in weaker norms (using a result analogous to \cref{thm:1} in weaker norms), we first recap why the terms  $\NLiDop{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ appear in \cref{thm:1}. These terms appear in \cref{thm:1} because the terms $\NLiDRR{n}$ and $\NLiDop{A}$ appear in \cref{lem:keylemma1,lem:keylemma2}, respectively. These terms appear in these \lcnamecrefs{lem:keylemma1} because in \cref{eq:mainevent1a,eq:Fbounda} we use the bounds
 \beq\label{eq:keynbound}
 \NLtD{n\ftilde} \leq \NLiDRR{n}\NLtD{\ftilde}
 \eeq
 and
 \beq\label{eq:keyAbound}
-\NLtD{A \grad \ftilde} \leq \NLiDRRdtd{A}\NLtD{\grad \ftilde}
+\NLtD{A \grad \ftilde} \leq \NLiDop{A}\NLtD{\grad \ftilde}
 \eeq
 respectively, for an arbitrary function $\ftilde \in \Vhp,$ and these bounds are carried through the rest of the proof.
 
@@ -1099,7 +1096,7 @@ If we instead use \cref{eq:genholder} to bound \cref{eq:keynbound,eq:keyAbound} 
 \eeq
 and
 \beq\label{eq:keyAbound2}
-\NLtD{A\grad\ftilde} \leq \NLqDRRdtd{A}\NLsD{\ftilde}.
+\NLtD{A\grad\ftilde} \leq \NLqDop{A}\NLsD{\ftilde}.
 \eeq
 
 As $\ftilde \in \Vhp$, we can apply an inverse inequality to bound $\NLsD{\ftilde}$ by $\NLtD{\ftilde}$. The required inverse inequality is (see \cite[Theorem 4.5.11 and Remark 4.5.20]{BrSc:08}
@@ -1112,7 +1109,7 @@ If we then apply \cref{eq:inverses} to \cref{eq:keynbound2,eq:keyAbound2} we obt
 \eeq
 and
 \beq\label{eq:keyAboundfinal}
-\NLtD{A\grad\ftilde} \leq \Cinvs \NLqDRRdtd{A} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\grad\ftilde}.
+\NLtD{A\grad\ftilde} \leq \Cinvs \NLqDop{A} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\grad\ftilde}.
 \eeq
 
 Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal} in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we can obtain the following \lcnamecrefs{cor:1alt}, the analogues of \cref{cor:1,cor:1a}.
@@ -1125,7 +1122,7 @@ Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAb
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
-\Cotilde kh^{-\frac{d}{q}} \NLqDRRdtd{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst}
+\Cotilde kh^{-\frac{d}{q}} \NLqDop{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst}
 \leq \frac{1}{2}
 \eeq
 for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations for all $k\geq k_0$.
@@ -1139,7 +1136,7 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condaalt}
-\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{q}-1} \NLqDRRdtd{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst} \leq \half
+\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{q}-1} \NLqDop{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst} \leq \half
 \eeq
 for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
@@ -1195,7 +1192,7 @@ where $\Ct$ is defined by \cref{eq:C2} and $1/s = 1/2 - 1/q.$
 \ble[Alternative bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2a}
 Under the assumptions of \cref{lem:keylemma2}, for $A\in L^\infty(D,\RR^{d\times d})$ and for any $q > 2$
 \beq\label{eq:keybound22}
-\max\set{\NDk{\AmatoI \SmatA},\NDkI{\SmatA\AmatoI}} \leq \Cotilde h^{-\frac{d}q}k \NLqDRRdtd{A}
+\max\set{\NDk{\AmatoI \SmatA},\NDkI{\SmatA\AmatoI}} \leq \Cotilde h^{-\frac{d}q}k \NLqDop{A}
 \eeq
 and
 \beq\label{eq:keybound2a2}
@@ -1229,14 +1226,14 @@ If all the assumptions of \namecref{thm:1} \ref{thm:1} hold, then, given $\kz>0$
 \begin{align}\nonumber
 &\max\set{\NDk{\Imat - \AmatoI\Amatt},\NDkI{\Imat -\Amatt\AmatoI}}\\
 &\hspace{3cm} 
-\leq \Cotilde kh^{-\frac{d}q} \NLqDRRdtd{\Aso-\Ast} + \Cttilde  kh^{-\frac{d}q}  \NLqDRR{\nso-\nst}
+\leq \Cotilde kh^{-\frac{d}q} \NLqDop{\Aso-\Ast} + \Cttilde  kh^{-\frac{d}q}  \NLqDRR{\nso-\nst}
 \label{eq:main1alt}
 \end{align}
 and 
 \begin{align}\nonumber
 &\max\set{\Nt{\Imat - \AmatoI\Amatt}, \Nt{\Imat -\Amatt\AmatoI}}\\
 &\hspace{0cm}
-\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1}\NLqDRRdtd{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}q}\NLqDRR{\nso-\nst}
+\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1}\NLqDop{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}q}\NLqDRR{\nso-\nst}
 \label{eq:main1aalt}
 \end{align}
 for all $k\geq k_0$. 
@@ -1906,7 +1903,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
     \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely.% \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRR{\nso-\nst(\omega)}.$
     \ere
 
-    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabilistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this lack of information is that the Elman estimate (\cref{cor:GMRES_intro} above) when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information on how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed} below). In summary, current results on GMRES convergence will only allow us to prove what are likely to be very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
+    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabilistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this lack of information is that the Elman estimate (\cref{cor:GMRES_intro} above) when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDop{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information on how the number of GMRES iterations depends on $\NLiDop{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed} below). In summary, current results on GMRES convergence will only allow us to prove what are likely to be very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDop{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
 
 
 

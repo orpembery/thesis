@@ -11,10 +11,10 @@ What do we need to do to fix the spd fiasco?
 
 TODO: Check what conditions are needed on $D$ for LiDRRdtd to be a Bochner space
 TODO: Check what the Bochner norm would be - would it be \NLiDRRR{\NRRdtd{\cdot}}?
-
+TODO: In chap 4 make '3 notes' bit about norms commensurate with chap 3 - DONE
 
 Notes for chap 4:
-In numerics, RRdtd norm
-In proofs, op norm
-say somewhere that they're equivalent
-Need to double check all spaces
+In numerics, RRdtd norm - DONE
+In proofs, op norm - DONE
+say somewhere that they're equivalent - DONE
+Need to double check all spaces - DONE
