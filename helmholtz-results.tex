@@ -10,7 +10,14 @@ Let $\TrR: H^{1/2}(\Gamma_R) \rightarrow H^{-1/2}(\Gamma_R)$ be the Dirichlet-to
 see \cite[Section 2.6.3]{Ne:01} and \cite[Equations 3.5 and 3.6]{ChMo:08} for an explicit expression for $\TrR$  in terms of Hankel functions and Fourier series ($d=2$)/spherical harmonics ($d=3$). Let $\IPGR{\cdot}{\cdot}$ be the duality pairing on $\GR$ between $\HmhGR$ and $\HhGR$ and write $\dd\Leb$ for Lebesgue measure. Throughout this \lcnamecref{chap:stochastic} we explicitly include the measure when writing integrals, to help distinguish between integrals over the spatial domain (using $\dd\lambda$) and integrals over the probability space (using $\dd\PP).$
 
 %Let $\LiDpRRdtd$ be the set of all matrix-valued functions $A:\Dp\rightarrow\RRdtd$ such that $A_{i,j} \in \LiDpRR$ for all $i,j = 1,\ldots,d.$ Where the range of functions is $\CC$ we suppress the second argument in a function space, e.g.~we write $\LiDp$ for $\LiDpCC.$
-For $\Az \in \RRdtd,$ we write $\NopCCd{\Az}$ for the operator norm induced by the Euclidean vector norm on $\CCd$, and for $\Az:\DR \rightarrow \RRdtd,$ we write $\NLiDRRRdtd{\Az}$ for the norm $\NLiDRRR{\Nop{\Az(\bx)}}.$ We define $\NWoiDRRRdtd{\cdot}$ similarly.
+For $\Az \in \RRdtd,$ we write $\NopCCd{\Az}$ for the operator norm induced by the Euclidean vector norm on $\CCd$, and for $A:\DR \rightarrow \RRdtd,$ we write $\NLiDRop{A}$ for the norm $\NLiDRRR{\Nop{A(\bx)}}.$ Observe that, by the equivalence of all norms on the finite-dimensional space $\RRdtd,$ $\NLiDRop{\cdot}$ is equivalent to the more standard norm
+\beq\label{eq:ineditsnorm1}
+\NLiDRRRdtd{A} \de \sup_{i,j = 1,\ldots,d} \NLiDRRR{{A}_{i,j}}.
+\eeq
+We define $\NWoiDRRRdtd{\cdot}$ by
+\beq\label{eq:ineditsnorm2}
+\NWoiDRRRdtd{A} \de \sup_{i,j = 1,\ldots,d} \NWoiDRRR{{A}_{i,j}}.
+\eeq
 
 We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Let $\OFP$ be a complete probability space. Throughout this \lcnamecref{chap:stochastic}, unless stated otherwise we equip a topological space with its Borel $\sigma$-algebra. See \cref{app:mtBs} for a summary of the measure-theoretic concepts used in this \lcnamecref{chap:stochastic}. Let
 \bit
@@ -20,7 +27,7 @@ We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$
 $0 < \nmin(\omega) \leq n(\omega)(\bx) \leq \nmax(\omega)$
 %\eeqs
 for almost every $\bx \in \Dp$ almost surely, and
-\item $A:\Omega\rightarrow\LiDpRRdtd$ be such that $\supp(I-A) \compcont \BR$ and there exist $\Amin,\Amax:\Omega \rightarrow \RR$ such that $0 < \Amin(\omega) < \Amax(\omega)$ almost surely and
+\item $A:\Omega\rightarrow\LiDpspd$ be such that $\supp(I-A) \compcont \BR$ and there exist $\Amin,\Amax:\Omega \rightarrow \RR$ such that $0 < \Amin(\omega) < \Amax(\omega)$ almost surely and
 %\beqs
 $\Amin(\omega)\abs{\bxi}^2 \leq \big(A(\omega)(\bx)\bxi\big)\cdot\bxi \leq \Amax(\omega)\abs{\bxi}^2$
 %\eeqs
@@ -99,7 +106,7 @@ The main reason we consider \cref{prob:msedp} is that, given the existing PDE th
 \ben
 \item The only two known ways to obtain a solution to \cref{prob:somsedp} are: (i) obtain a deterministic a priori bound, explicit in all parameters, and integrate (followed, e.g., in \cite{ChScTe:13} for \eqref{eq:diffusion} with lognormal coefficients) and (ii) obtain a solution to \cref{prob:svsedp} and show this is a solution to \cref{prob:somsedp}. In the Helmholtz case, doing (ii) is difficult as neither the Lax--Milgram theorem nor Fredholm theory is applicable (as explained in the introduction), and so we follow the approach in (i).
 \item The only known bounds on the solution of the Helmholtz equation explicit in all parameters are those recently obtained for nontrapping scenarios in \cite{GrPeSp:19,GaSpWu:18}.
-\item Obtaining a bound explicit in all the parameters for any general class of $A$ and $n$, e.g., $A \in \WoiDRRRdtd$ and $n \in \LiDRRR$ is well beyond current techniques. Indeed, a general class of $A$ and $n$ will include both trapping and nontrapping scenarios, and such a bound would need to capture the exponential blow-up in $k$ for trapping $A$ and $n$, the uniform boundedness in $k$ for nontrapping $A$ and $n$, and be explicit in $A$ and $n$.
+\item Obtaining a bound explicit in all the parameters for any general class of $A$ and $n$, e.g., $A \in \WoiDRspd$ and $n \in \LiDRRR$ is well beyond current techniques. Indeed, a general class of $A$ and $n$ will include both trapping and nontrapping scenarios, and such a bound would need to capture the exponential blow-up in $k$ for trapping $A$ and $n$, the uniform boundedness in $k$ for nontrapping $A$ and $n$, and be explicit in $A$ and $n$.
 \een
 Given this fact that there is no current prospect of proving existence of a solution to \cref{prob:somsedp} under general conditions on $A$ and $n$ we keep \cref{prob:msedp} so that we prove an (albeit weaker) existence result for the Helmholtz equation with general coefficients.
 
@@ -126,7 +133,7 @@ In the proof of \cref{thm:hh-gen} below, we show that the measurability of $u$ f
 In \cref{thm:hh-gen,thm:hh-hetero} we prove results on the well-posedness of \cref{prob:msedp,prob:somsedp,prob:svsedp} under conditions on $A,$ $n,$ $f,$ and $\Dm.$ Although $A,n,$ and $f$ are defined on $\Dp,$ since $\supp(I-A),$ $\supp(1-n),$ and $\supp f$ are compactly contained in  $\DR$ we can consider $A,n,$ and $f$ as functions on $\DR.$
 
 \bcon[Regularity and stochastic regularity of $f,$ $A,$ and $n$]\label{con:hh-fAn}
-The random fields $f, A,$ and $n$ satisfy $f \in \LtOLtDR,$  $A:\Omega \rightarrow \WoiDRRRdtd$ with $A \in \LiOLiDRRRdtd,$ and $n \in \LiOLiDRRR.$
+The random fields $f, A,$ and $n$ satisfy $f \in \LtOLtDR,$  $A:\Omega \rightarrow \WoiDRspd$ with $A \in \LiOLiDRRRdtd,$ and $n \in \LiOLiDRRR.$
 \econ
 
 \bth[Equivalence of variational problems]\label{thm:hh-gen}
@@ -166,7 +173,7 @@ and $u$ solves \cref{prob:somsedp}. \cref{thm:hh-hetero} below includes this rel
 
 \
 
-\noindent The random fields $A$ and $n$ satisfy $A:\Omega\rightarrow\WoiDRRRdtd$ and $n:\Omega\rightarrow \WoiDRRR$ with $\supp(I-A(\omega)) \compcont \BR$ and $\supp(1-n(\omega)) \compcont \BR$ almost surely.  Furthermore, there exist $\muo, \mut:\Omega\rightarrow \RR,$ independent of $f,$ with $\muo(\omega),\mut(\omega) > 0$ almost surely and $1/\muo,1/\mut \in \LtORR$  such that $A(\omega) \in \NTA{\muo(\omega)}$ almost surely and $n(\omega) \in \NTn{\mut(\omega)}$ almost surely.
+\noindent The random fields $A$ and $n$ satisfy $A:\Omega\rightarrow\WoiDRspd$ and $n:\Omega\rightarrow \WoiDRRR$ with $\supp(I-A(\omega)) \compcont \BR$ and $\supp(1-n(\omega)) \compcont \BR$ almost surely.  Furthermore, there exist $\muo, \mut:\Omega\rightarrow \RR,$ independent of $f,$ with $\muo(\omega),\mut(\omega) > 0$ almost surely and $1/\muo,1/\mut \in \LtORR$  such that $A(\omega) \in \NTA{\muo(\omega)}$ almost surely and $n(\omega) \in \NTn{\mut(\omega)}$ almost surely.
 \econ
 
 

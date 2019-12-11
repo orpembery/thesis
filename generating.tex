@@ -9,12 +9,12 @@ where:
 \item $\supp\mleft(1-\Az\mright),\,\supp \mleft(I-\nz\mright) \compcont \BR,$
 \item $\Az$ and $\nz$ satisfy \cref{con:hh-hetero} with $\muo$ and $\mut$ independent of $\omega \in \Omega$
 \item $\Yj,\Zj \sim \Unif(-1/2,1/2)$ i.i.d.,
-\item $\Psij \in \WoiDRRRdtd$ with $\supp \Psij \compcont \BR$ for all $j =1,\ldots,m$,
+\item $\Psij \in \WoiDRspd$ with $\supp \Psij \compcont \BR$ for all $j =1,\ldots,m$,
 \beq\label{eq:Apsimeas}
 \sum_{j=1}^\infty \NWoiDRRRdtd{\Psij} < \infty, \tand
 \eeq
 \beq\label{eq:Apsipos}
-\sum_{j=1}^\infty \esssup_{\bx \in \DR} \NopCCd{\Psij} < 2\Azmin,
+\sum_{j=1}^\infty \NLiDRop{\Psij} < 2\Azmin,
 \eeq
 where $\Azmin > 0$ is such that $\Azmin\abs{\bxi}^2 \leq \big(A(\bx)\bxi\big)\cdot \bxi$ for almost every $\bx \in \Dp$ and for all $\bxi \in \CCd$.
 \item $\psij \in \WoiDRRR$ with $\supp \psij \compcont \BR$ for all $j = 1,\ldots,m$,
@@ -39,7 +39,7 @@ The following lemmas give sufficient conditions for the series in \eqref{eq:nser
 \ble[Series expansion of $A$ satisfies \cref{con:hh-hetero}]\label{lem:Agen}
 Let $\mu > 0$, $\delta \in \mleft(0,1\mright)$ be fixed. If $\Az \in \NTA{\mu},$ and
 \beq\label{eq:Aseriescond}
-\sum_{j=1}^\infty \esssup_{\bx \in \DR} \NopCCd{\Psij(\bx) - \mleft(\bx\cdot\grad\mright)\Psij(\bx)} \leq 2\delta\mu,
+\sum_{j=1}^\infty \NLiDRop{\Psij(\bx) - \mleft(\bx\cdot\grad\mright)\Psij(\bx)} \leq 2\delta\mu,
 \eeq
 then $A \in \NTA{(1-\delta)\mu}$ almost surely.
 \ele

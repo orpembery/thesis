@@ -39,7 +39,7 @@
 \newcommand{\gD}{g_{D}}
 \newcommand{\Hh}[1]{H^{1/2}\mleft(#1\mright)}
 \newcommand{\HhGD}{\Hh{\GD}}
-\newcommand{\LiDpRRdtd}{\Li{\Dp;\spd}}
+\newcommand{\LiDpRRdtd}{\Li{\Dp;\RRdtd}}
 \newcommand{\LiDpRR}{\Li{\Dp;\RR}}
 \newcommand{\Li}[1]{L^{\infty}\mleft(#1\mright)}
 \newcommand{\nmin}{n_{\min}}
@@ -65,7 +65,7 @@
 \newcommand{\LtGI}{\Lt{\GI}}
 \newcommand{\LiDRR}{\Li{D;\RR}}
 \DeclareMathOperator{\supp}{supp}
-\newcommand{\LiDRRdtd}{\Li{D;\spd}}
+\newcommand{\LiDRRdtd}{\Li{D;\RRdtd}}
 \newcommand{\LiDRRdtdop}{\Li{D;\op}}
 \DeclareMathOperator{\dist}{dist}
 \newcommand{\HoD}{\Ho{D}}
@@ -99,7 +99,7 @@
 \newcommand{\NTnD}[1]{\mathrm{NT}_{\mathrm{scal},D}\mleft(#1\mright)}
 \newcommand{\NTA}[1]{\mathrm{NT}_{\mathrm{mat},\DR}\mleft(#1\mright)}
 \newcommand{\NTn}[1]{\mathrm{NT}_{\mathrm{scal},\DR}\mleft(#1\mright)}
-\newcommand{\CzoDpclosRRdtd}{\Czo{\Dpclos;\spd}}
+\newcommand{\CzoDpclosRRdtd}{\Czo{\Dpclos;\RRdtd}}
 \newcommand{\Czo}[1]{C^{0,1}\mleft(#1\mright)}
 \newcommand{\Dpclos}{\clos{\Dp}}
 \newcommand{\CzoDpclosRR}{\Czo{\Dpclos;\RR}}
@@ -154,7 +154,7 @@
 \newcommand{\epsymb}{\star}
 \newcommand{\api}{a_{\epsymb}}
 \newcommand{\vtbar}{\overline{v}_{2}}
-\newcommand{\CzoDRRRdtd}{\Czo{\DR;\spd}}
+\newcommand{\CzoDRRRdtd}{\Czo{\DR;\RRdtd}}
 \newcommand{\IPLtDR}[2]{\IP{#1}{#2}_{\LtDR}}
 \newcommand{\HtDR}{\Ht{\DR}}
 \newcommand{\Ht}[1]{H^{2}\mleft(#1\mright)}
@@ -200,9 +200,9 @@
 \newcommand{\Woi}[1]{W^{1,\infty}\mleft(#1\mright)}
 \newcommand{\enlargement}[1]{#1_{+1}}
 \newcommand{\beps}{\boldsymbol{\eps}}
-\newcommand{\WoiDRRdtd}{\Woi{D;\spd}}
+\newcommand{\WoiDRRdtd}{\Woi{D;\RRdtd}}
 \newcommand{\WoiDRR}{\Woi{D;\RR}}
-\newcommand{\WoiDpclosRRdtd}{\Woi{\Dpclos;\spd}}
+\newcommand{\WoiDpclosRRdtd}{\Woi{\Dpclos;\RRdtd}}
 \newcommand{\WoiDpclosRR}{\Woi{\Dpclos;\RR}}
 \newcommand{\km}{k_{m}}
 \newcommand{\um}{u_{m}}
@@ -519,8 +519,6 @@
 \newcommand{\vhtilde}{\widetilde{v}_{h}}
 \newcommand{\add}{a_{L^{2}}}
 \newcommand{\Ldd}{L_{L^{2}}}
-\newcommand{\NLiDop}[1]{\N{#1}_{\LiDop}}
-\newcommand{\LiDop}{\Li{D;\mathrm{op}}}
 \newcommand{\DeltaAmmt}{\sdres^-{m/2}}
 %\newcommand{\DeltaAmt}{\DeltaA^{m/2}}
 \newcommand{\Deltahmmt}{\Deltah^{-m/2}}
@@ -779,9 +777,8 @@
 \newcommand{\LqD}{\Lq{D}}
 \newcommand{\LsD}{\Lsspace{D}}
 \newcommand{\Lsspace}[1]{L^{s}\mleft(#1\mright)}
-\newcommand{\LqDRRdtd}{\Lq{D,\spd}}
+\newcommand{\LqDRRdtd}{\Lq{D,\RRdtd}}
 \newcommand{\LqDRRdtdop}{\Lq{D,\op}}
-\newcommand{\NLqDRRdtd}[1]{\Nfn{\LqDRRdtdop}{#1}}
 \newcommand{\ceil}[1]{\mleft\lceil#1\mright\rceil}
 \newcommand{\ms}{m^{*}}
 \newcommand{\nearest}{\mathtt{nearest}}
@@ -809,7 +806,7 @@
 \newcommand{\LG}{L_{G}}
 \newcommand{\LGtilde}{\widetilde{L}_{G}}
 \newcommand{\psibar}{\overline{\psi}}
-\newcommand{\NLiDRRdtd}[1]{\N{#1}_{\LiDRRdtdop}}
+\newcommand{\NLiDop}[1]{\N{#1}_{\Li{D;\op}}}
 \newcommand{\aGo}{\aG^{(1)}}
 \newcommand{\HokDs}{\mleft(\HokD\mright)^{*}}
 \newcommand{\NHokDs}[1]{\N{#1}_{\HokDs}}
@@ -844,3 +841,12 @@
 % From post-viva edits
 \newcommand{\bracketsans}{\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}}
 \newcommand{\bracket}{\mleft(\bracketsans\mright)}
+\newcommand{\LiDspd}{\Li{D;\spd}}
+\newcommand{\WoiDspd}{\Woi{D;\spd}}
+\newcommand{\NLiDRop}[1]{\N{#1}_{\Li{\DR;\op}}}
+\newcommand{\LiDpspd}{\Li{\Dp;\spd}}
+\newcommand{\WoiDRspd}{\Woi{\DR;\spd}}
+\newcommand{\LiDRspd}{\Li{\DR;\spd}}
+\newcommand{\LiOLiDRspd}{\Li{\Omega;\LiDRspd}}
+\newcommand{\NLqDop}[1]{\N{#1}_{\Lq{D;\op}}}
+\newcommand{\NLiDRRdtd}[1]{\N{#1}_{\LiDRRdtd}}
