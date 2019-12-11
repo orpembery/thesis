@@ -1,6 +1,6 @@
 \section{Introduction and Motivation from UQ}\label{sec:intronbpc}
 
-\subsection{Motivation from uncertainty quantification of the Helmholtz equation} 
+\subsection{Motivation from uncertainty quantification for the Helmholtz equation} 
 Consider the stochastic Helmholtz equation 
 \beq\label{eq:nbpchh}
 \nabla\cdot\big(A(\omega,\bx) \nabla u(\omega,\bx) \big) + k^2 n(\omega,\bx) u(\omega,\bx) =-f(\bx), \quad \bx\in\Dp,
@@ -10,9 +10,9 @@ as defined in \cref{chap:stochastic}. If $Q(u)$ is some quantity of interest of 
 \EXP{Q(u)} \approx \frac1N \sum_{l=1}^N Q(u(\omegasl)),
 \eeq
 where the $\omegasl$ are elements of the sample space $\Omega.$ To calculate the right-hand side of \cref{eq:samplingexp},  one must solve many deterministic Helmholtz problems, corresponding to different samples $\omega^l$, i.e. corresponding to different realisations of the coefficients $A(\omega,\cdot)$ and $n(\omega,\cdot)$.
-Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above. In particular, direct solvers involving the LU decomposition of the linear system have a computational cost of the order $\cO\mleft(N^{3/2}\mright)$ in 2-d  and $\cO\mleft(N^2\mright)$ in 3-d (see \cite[Section 1]{DuErRe:76} and \cite[Equation 3]{DuErRe:76}, respectively for a particular regular grid).
+Solving all these deterministic problems is a very computationally-intensive task because linear systems arising from discretisations of the Helmholtz equation are notoriously difficult to solve; see the discussion in \cref{sec:numsolve} above. In particular, direct solvers involving the LU decomposition of the linear system have a computational cost of the order $\cO\mleft(N^{3/2}\mright)$ in 2-d  and $\cO\mleft(N^2\mright)$ in 3-d (see \cite[Section 1]{DuErRe:76} and \cite[Equation 3]{DuErRe:76}, respectively, for a particular regular grid).
 
-However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d \cite[Section 1]{DuErRe:76} and $\cO\mleft(N^{4/3}\mright)$ in 3-d \cite[Equation 4]{DuErRe:76}. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the folowing question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
+However, if one already has access to the LU decomposition, then the cost of applying a direct solver using the LU decomposition is much cheaper; $\cO\mleft(N\log N\mright)$ in 2-d \cite[Section 1]{DuErRe:76} and $\cO\mleft(N^{4/3}\mright)$ in 3-d \cite[Equation 4]{DuErRe:76}. In the context of Uncertainty Quantification for the Helmholtz equation this reduction in cost when one has access to an LU decomposition suggests the following question: When can the LU decomposition corresponding to a particular realisation of \cref{eq:nbpchh} be used as a preconditioner for other realisations of \cref{eq:nbpchh}?
 
 This question of reusing preconditioners is more widely applicable than just for LU decompositions. For \emph{any} preconditioner for the Helmholtz equation, one could ask when the preconditioner corresponding to one realisation of \cref{eq:nbpchh} can be re-used for other realisations. In this \lcnamecref{chap:nbpc}, for simplicity, we restrict our attention to the case where the preconditioner is an exact LU decomposition.
 
@@ -36,7 +36,7 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
  \een
 
  \subsection{Outline of the chapter}% Don't know why cleveref didn't work here
-In \cref{sec:main} we state the main results of this \lcnamecref{chap:nbpc} on the effectiveness of nearby preconditioning, and give their analogues on the PDE level. In \cref{sec:num} we describe numerical experiments investigating the sharpness of the nearby-preconditioning results in \cref{sec:main}. In \cref{sec:3} we prove the results in \cref{sec:main}. In \cref{sec:weaknorm} we extend the results in \cref{sec:main} to hold in weaker spatial norms, and we describe numerical experiments investigating the sharpness of these new results. In \cref{sec:nbpcqmc} we then apply the idea of nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the stochastic Helmholtz equation; in \cref{sec:nbpcqmcnum} we describe two algorithms for applying nearby preconditioning to QMC methods and in \cref{sec:nbpcqmcnumerics} we describe numerical experiments on the effectiveness of nearby preconditioning applied to QMC methods. In \cref{sec:nbpclitreview} we briefly review the related literature. Finally, in \cref{sec:nbpcstochastic}, we show how one can prove probabalistic results about the behaviour of nearby preconditioning, and we describe numerical experiments that investigate these probabalistic results.
+In \cref{sec:main} we state the main results of this \lcnamecref{chap:nbpc} on the effectiveness of nearby preconditioning, and give their analogues on the PDE level. In \cref{sec:num} we describe numerical experiments investigating the sharpness of the nearby-preconditioning results in \cref{sec:main}. In \cref{sec:3} we prove the results in \cref{sec:main}. In \cref{sec:weaknorm} we extend the results in \cref{sec:main} to hold in weaker spatial norms, and we describe numerical experiments investigating the sharpness of these new results. In \cref{sec:nbpcqmc} we then apply the idea of nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the stochastic Helmholtz equation; in \cref{sec:nbpcqmcnum} we describe two algorithms for applying nearby preconditioning to QMC methods and in \cref{sec:nbpcqmcnumerics} we describe numerical experiments on the effectiveness of nearby preconditioning applied to QMC methods. In \cref{sec:nbpclitreview} we briefly review the related literature. Finally, in \cref{sec:nbpcstochastic}, we show how one can prove probabilistic results about the behaviour of nearby preconditioning, and we describe numerical experiments that investigate these probabilistic results.
 
 \subsection{Statement of the main results}\label{sec:main}
 Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor:1a} gives results in the \emph{Euclidean} norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), whereas \Cref{cor:1} gives results in the \emph{weighted} norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$. These weighted norms are induced by the corresponding vector norms
@@ -55,9 +55,9 @@ for the Helmholtz equation \cite{GrSpVa:17,GrSpZo:18}, and a related norm appear
 
 \Cref{cor:1,cor:1a} are proved under the \Cref{cond:1nbpc,cond:2} below. These \lcnamecrefs{cond:1nbpc} can be informally stated as 
 \bit
-\item the obstacle $\Dm$ and the coefficients $\Aso$ and $\nso$ are such that $u^{(1)}$ exists,is unique, and the problem is \emph{nontrapping} (in the sense described in  \cref{sec:wpdisc} above), and
+\item the obstacle $\Dm$ and the coefficients $\Aso$ and $\nso$ are such that $u^{(1)}$ exists, is unique, and the problem is \emph{nontrapping} (in the sense described in  \cref{sec:wpdisc} above), and
 \item the meshsize $h$ and polynomial degree $p$ in the finite-element method are chosen to depend on $k$ to ensure that the 
-finite-element approximation to the solution of the problem with coefficients $\Aso$ and $\nso$ exists, is unique, and has bounded error in the $H^1_k$-norm
+finite-element approximation to the solution of the problem with coefficients $\Aso$ and $\nso$ exists, is unique, and has bounded error in the $H^1_k$-norm as
 %Galerkin method (with coefficients $\Aso$ and $\no$) 
 $k\tendi$. 
 \eit 
@@ -275,7 +275,7 @@ We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} ab
 As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP (\cref{prob:vedp}) and TEDP (\cref{prob:vtedp}) above.
 
 \bprob[General variational Helmholtz problem]\label{prob:vgen}
-Let $D, A,$ and $n$ be as in \cref{prob:tedp}. We say $u \in \HozDD$ satisfies the \defn{variational formulation of the truncated exterior Dirichlet problem} with $\gD = 0$ if
+Let $D, A,$ and $n$ be as in \cref{prob:tedp}. We say $u \in \HozDD$ satisfies the \defn{variational formulation of a general exterior Dirichlet problem} with $\gD = 0$ if
 \beq\label{eq:vgen}
 \aG(u,v) = \LG(v) \tfa v \in \HozDD,
 \eeq
@@ -368,7 +368,7 @@ By combining \cref{eq:twiddleinverse} and the right-hand side of \cref{eq:normeq
 \epf
 
 \bre[Relaxing the assumption of quasi-uniformity]\label{rem:ggsqu}
-We assume that $\set{\Th}_{h>0}$ is a quasi-uniform family of meshes so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Section 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analagous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
+We assume that $\set{\Th}_{h>0}$ is a quasi-uniform family of meshes so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Sections 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analogous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
 \ere
 
 Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the bounds
@@ -394,7 +394,7 @@ Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:mat
 
 Finally, we need the concept of the \emph{adjoint} sesquilinear form to $\aG(\cdot,\cdot)$.
 \begin{definition}[The adjoint sesquilinear form $\aGs(\cdot,\cdot)$]\label{def:adjoint}
-Let $D$, $A$, and $n$, be as in \cref{prob:vgen}. The adjoint sesquilinear form, $\aGs(\cdot,\cdot)$, to $\aG(\cdot,\cdot)$ defined in \cref{eq:agen} is given by
+Let $D$, $A$, and $n$ be as in \cref{prob:vgen}. The adjoint sesquilinear form, $\aGs(\cdot,\cdot)$, to $\aG(\cdot,\cdot)$ defined in \cref{eq:agen} is given by
 \beq\label{eq:EDPadjoint}
 \aGs(w,v) \de \int_{D} 
 \Big((A \grad w)\cdot\grad \vb
@@ -546,7 +546,7 @@ for all $k\geq k_0$.
 The proof of \cref{thm:1} is given after the following two lemmas, that are the heart of the proof of \cref{thm:1}.
 
 \ble[Bounds on $(\Amato)^{-1} \Mmat_{n}$]\label{lem:keylemma1}
-Assume that \cref{cond:1nbpc} holds, and assume that Part (i) of \cref{cond:2} holds. Then, for $n\in \LiDRR$,
+Assume that \cref{cond:1nbpc} holds, and assume that part (i) of \cref{cond:2} holds. Then, for $n\in \LiDRR$,
 \beq\label{eq:keybound1}
 \max\Big\{\big\| (\Amato)^{-1} \Mmat_{n} \big\|_{\Dmat_k}, \,\,
 \big\|  \Mmat_{n}(\Amato)^{-1} \big\|_{(\Dmat_k)^{-1}}
@@ -576,7 +576,7 @@ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}.%\right].
 The proof of \cref{lem:keylemma1} is on \cpageref{page:lemkeylemma1proof} below.
 
 \ble[Bounds on $(\Amato)^{-1} \Smat_A$]\label{lem:keylemma2}
-Assume that \cref{cond:1nbpc} holds, and assume that Part (ii) of \cref{cond:2} holds. Then, for $A\in \LiDRRdtd$,
+Assume that \cref{cond:1nbpc} holds, and assume that part (ii) of \cref{cond:2} holds. Then, for $A\in \LiDRRdtd$,
 \beq\label{eq:keybound2}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_{(\Dmat_k)^{-1}}, \,\,
 \big\| \Smat_A (\Amato)^{-1} \big\|_{\Dmat_k}\Big\} \leq C_1\, k\NLiDRRdtd{A}
@@ -598,7 +598,7 @@ for all $k\geq k_0$, where
 \beq\label{eq:C1nbpc}
 C_1\de%\frac{s_+}{s_-} 
 \left[ C_{\rm FEM2}^{(1)} + 
- \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right) \right]
+ \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right) \right].
 \eeq
 \ele
 
@@ -641,7 +641,7 @@ and let $\tu_h$ be the solution of the finite-element approximation of \cref{eq:
 a^{(1)}(\tu_h,v_h)= \IPLtD{(n\widetilde{f}}{v_h} \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\fvec$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\fvec\|_{\Dmat_k}$. (Recall $\fvec \in \CCN$ was arbitrary.) Because of the definition 
-of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is bound equivalent to bounding $\|\tu_h\|_{\HokD}$ in terms of $\|\widetilde{f}\|_{\HokD}$.
+of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this bound is equivalent to bounding $\|\tu_h\|_{\HokD}$ in terms of $\|\widetilde{f}\|_{\HokD}$.
 
 %First observe that the bound \cref{eq:bound3} from Part (i) of \cref{cond:2} holds for the solution of the variational problem
 %\beqs%\label{eq:411}
@@ -650,7 +650,7 @@ of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this is bound equivalent to bounding $
 %and hence, by linearity, it also holds for the solution $\widetilde{u}$ of the variational problem \cref{eq:411}.
 
 Using %the bounds in \cref{eq:normequiv1}, 
-the triangle inequality and the bounds \cref{eq:bound3} and \cref{eq:bound1} from \cref{cond:2,cond:1nbpc} respectively, we find
+the triangle inequality and the bounds \cref{eq:bound1} and \cref{eq:bound3} from \cref{cond:2,cond:1nbpc} respectively, we find
 %Note that the hypotheses imply that the bound on the solution operator 
 %\cref{eq:bound_unif} holds (by \cref{cor:uniform}), and also that if $h k\sqrt{|k^2-\eps|} \leq C_1$ then quasi-optimality \cref{eq:qoeps_lemma} holds (by \cref{lem:qo}).
 %Starting with \cref{eq:equiv} we then have 
@@ -895,7 +895,7 @@ and
 
 \bpf[Proof of \cref{cor:1}]
 \label{page:cor1proof}
-This follows from \cref{thm:1} by applying \cref{thm:GMRES1_intro,cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\alpha=1/2$.
+This follows from \cref{thm:1} by applying \cref{cor:GMRES_intro} first with $\matrixC= (\Amato)^{-1} \Amatt$, $\Dmat=\Dmat_k$, and $\alpha=1/2$, and then with $\matrixC= \Amatt(\Amato)^{-1} $, $\Dmat=(\Dmat_k)^{-1}$, and $\alpha=1/2$.
 \epf
 
 \
@@ -1014,7 +1014,8 @@ Now observe that by construction (since $\nst$ is given by \cref{eq:fiddlyntdone
   &= -\ftilde\\
   &= \mleft(\Delta + k^2 \mright)\mleft(e^{ikr}\chi(r)\mright).
 \end{align*}
-Therefore, by uniqueness of the solution of \cref{prob:vedp} \beq\label{eq:obs4}
+Therefore, by uniqueness of the solution of \cref{prob:vedp} (with constant coefficients)
+ \beq\label{eq:obs4}
 u^{(1)}(\bx)- u^{(2)}(\bx) = e^{i k r}\chi(r).
 \eeq
 Therefore, by \cref{eq:obs4} and the properties of $e^{ikr} \chi(r)$ discussed above,  we have
@@ -1043,7 +1044,7 @@ $m >\mtilde+4$ therefore implies that $u^{(2)}$, $\nabla u ^{(2)}$, and $\Delta 
 \epf
 
 \bre[Why doesn't \cref{lem:sharp} cover the case $\Aso\neq  \Ast$?]
-When $\nj\de1$, $j=1,2,$, $\Aso\de I$, and $\Ast\de I + c(k)\widetilde{\chi}$, the variational problem \cref{eq:vp1} implies that 
+When $\nj\de1$, $j=1,2,$ $\Aso\de I$, and $\Ast\de I + c(k)\widetilde{\chi}$, the variational problem \cref{eq:vp1} implies that 
 \beq\label{eq:obs2}
 \Delta \big( u^{(1)} - u^{(2)}\big) + k^2 \big( u^{(1)} - u^{(2)}\big) = c(k)\nabla\cdot \big(\widetilde{\chi}\nabla u^{(2)}\big).
 \eeq
@@ -1114,7 +1115,7 @@ and
 \NLtD{A\grad\ftilde} \leq \Cinvs \NLqDRRdtd{A} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\grad\ftilde}.
 \eeq
 
-Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal}, as in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we can obtain the following \lcnamecrefs{cor:1alt}, the analogues of \cref{cor:1,cor:1a}.
+Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal} in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we can obtain the following \lcnamecrefs{cor:1alt}, the analogues of \cref{cor:1,cor:1a}.
 
 \bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1alt}
 
@@ -1218,7 +1219,7 @@ where $\Co$ is given by \cref{eq:C1nbpc} and $1/s = 1/2 - 1/q.$
 The proofs of \cref{lem:keylemma1a,lem:keylemma2a} are virtually identical to the proofs of \cref{lem:keylemma1,lem:keylemma2}, with the modifications for $L^q$ norms detailed at the beginning of \cref{sec:weakertheory}.
 
 \bre[Reduction to \cref{lem:keylemma1,lem:keylemma2}]
-Observe that in the case $s=2$ and $q=\infty$ \cref{lem:keylemma1a,lem:keylemma2a} reduce to the our previous results \cref{lem:keylemma1,lem:keylemma2}.
+Observe that in the case $s=2$ and $q=\infty$ \cref{lem:keylemma1a,lem:keylemma2a} reduce to our previous results \cref{lem:keylemma1,lem:keylemma2}.
 \ere
 
 We can use \cref{lem:keylemma1a,lem:keylemma2a} in place of \cref{lem:keylemma1,lem:keylemma2} to obtain the following analogue of \cref{thm:1} in weaker norms.
@@ -1302,7 +1303,7 @@ If we now suppose $Q$ depends on the sample space $\Omega$ via a finite set of r
 \beq\label{eq:qmcexp2}
 \EXP{Q} = \int_\Omega Q\mleft((\Uo(\omega),\ldots,\UJ(\omega)\mright)\, \ddPPomega.
 \eeq
-If, for example, the $\Uj$ are all uniform random variables on $\mleft[-1/2,1/2\mright]$, then \cref{eq:qmcexp2} can be rewritten as
+If, for example, the $\Uj$ are all independant uniform random variables on $\mleft[-1/2,1/2\mright]$, then \cref{eq:qmcexp2} can be rewritten as
 \beq\label{eq:qmcexp3}
 \EXP{Q} = \int_{\cube{J}} \hspace{-3em}Q\mleft(\by\mright)\, \dd\lambda(\by),
 \eeq
@@ -1345,7 +1346,7 @@ Observe that $\NLiDR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ 
 \beqs
 n(\by) = 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
 \eeqs
-There is no a priori reason that one must have such an affine dependence of the random field on the randomness in order to apply nearby preconditioning to QMC methods. One could, for example, take $n$ to be a lognormal random field, in which case $n$ would take the form $n(\by) = \exp\mleft(\nz + \sum_j \Nj \sqrt{\lambdaj} \psij\mright)$ where the $\Nj$ are Normal$(0,1)$ random variables.. However, in the case of affine dependence there is a `parallelisable' nearby-preconditioning-QMC algorithm which we present below.
+There is no a priori reason that one must have such an affine dependence of the random field on the randomness in order to apply nearby preconditioning to QMC methods. One could, for example, take $n$ to be a lognormal random field, in which case $n$ would take the form $n(\by) = \exp\mleft(\nz + \sum_j \Nj \sqrt{\lambdaj} \psij\mright)$ where the $\Nj$ are Normal$(0,1)$ random variables. However, in the case of affine dependence there is a `parallelisable' nearby-preconditioning-QMC algorithm which we present below.
 
 We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly numerical; there is no current theory to support these calculations. In particular, we observe in \cref{sec:nbpcqmcnumerics} below that in these experiments, for the QMC error for Helmholtz problems to remain bounded as $k$ increases, one must increase the number of QMC points with $k.$ We again remark that there is currently no theoretical justification for this behaviour.
 
@@ -1360,7 +1361,7 @@ i.e., the metric on $\cube{J}$ induced by the spatial $L^\infty$ norm. (See \cre
 
 
 \subsubsection{A sequential algorithm}
-We first describe a straightforward algorithm that uses nearby preconditioning to speed up QMC calculation. We call this a `sequential' algorithm because, unlike the `parallel' algorithm that we describe below, it is intrinsically sequential and cannot be parallelised, i.e., finite-element solves for different realisations of the random field $n$ cannot be treated in parallel. Although, when performing the individual finite-element solves one is not restricted to a single core, i.e., one can use parallelisation for each finite-element solve  if the linear systems $\Amat$ are large enough to warrant this.
+We first describe a straightforward algorithm that uses nearby preconditioning to speed up a QMC calculation. We call this a `sequential' algorithm because, unlike the `parallel' algorithm that we describe below, it is intrinsically sequential and cannot be parallelised, i.e., finite-element solves for different realisations of the random field $n$ cannot be treated in parallel. Although, when performing the individual finite-element solves, one is not restricted to a single core, i.e., one can use parallelisation for each finite-element solve  if the linear systems $\Amat$ are large enough to warrant this.
 
 An overview of the algorithm is:
 \ben
@@ -1397,7 +1398,7 @@ Calculate and store preconditioner $\Lmat\Umat = \AmatpreI$\;
 
 The main disadvantage of the `sequential' algorithm described above is that the points at which preconditioners are calculated are identified as the algorithm progresses. The algorithm cannot be parallelised by sending different collections of QMC points to different processors (as one does not know  a priori which preconditioner to use for each QMC point). Therefore, we now suggest an alternative algorithm that allows one to specify the number of preconditioning points \emph{before} the algorithm begins. The algorithm then calculates which points to use as preconditioning points, before performing the linear solves. Because the preconditioners are known in advance, the solves can be computed in parallel if required. The most complicated part of the algorithm is deciding at which points to calculate the preconditioners, and so we describe this part of the algorithm in more detail here. A more formal pseudocode description of the algorithm is given in \cref{alg:par}.
 
-Suppose we are given a set $\SQMC = \set{\byo,\ldots,\byNQMC}$ of QMC points and a number $\Npretarget$; the target number of preconditioners to compute. The aim of this algorithm is to select (approximately) $\Npretarget$ QMC points that are (approximately) equally spaced with respect to the $\dQMC$ metric defined above. If such a goal is acheived, then one expects that the preconditioning points are best located to minimise the total number of GMRES iterations across the solves for all of the QMC points.
+Suppose we are given a set $\SQMC = \set{\byo,\ldots,\byNQMC}$ of QMC points and a number $\Npretarget$; the target number of preconditioners to compute. The aim of this algorithm is to select (approximately) $\Npretarget$ QMC points that are (approximately) equally spaced with respect to the $\dQMC$ metric defined above. If such a goal is achieved, then one expects that the preconditioning points are best located to minimise the total number of GMRES iterations across the solves for all of the QMC points.
 
 The algorithm contains two key ideas:
 \ben
@@ -1412,7 +1413,7 @@ The algorithm contains two key ideas:
 \eeq
 Observe that the structure of $\dapprox$ is similar to that of $\dQMC$ and for all $\byo,\byt \in \cube{J},$ the inequality $\dQMC\mleft(\byo,\byt\mright) \leq \dapprox\mleft(\byo,\byt\mright)$ holds. Also observe that $\dapprox$ is a weighted $L^1$ metric on $\cube{J}$, with the weights corresponding to the terms in \cref{eq:artificialkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
 
-\paragraph{Tensor-product algoritm for locating preconditioning points} We first describe the intuition behind our use of a tensor-product rule to locate the preconditioning points (even though we do not use this intuition in the final algorithm). Once we have described this intution, we will then show how it can be adapted to provide the final algorithm. To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric, and therefore have a similar geometry to balls on $\cube{J}$ in the $L^1$ metric). Therefore, given the centres $\bcone$ and $\bct$ of two adjacent balls, we will have
+\paragraph{Tensor-product algorithm for locating preconditioning points} We first describe the intuition behind our use of a tensor-product rule to locate the preconditioning points (even though we do not use this intuition in the final algorithm). Once we have described this intution, we will then show how it can be adapted to provide the final algorithm. To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric, and therefore have a similar geometry to balls on $\cube{J}$ in the $L^1$ metric). Therefore, given the centres $\bcone$ and $\bct$ of two adjacent balls, we will have
 \beq\label{eq:centres2r}
 \dapprox(\bcone,\bct) = 2r.
 \eeq
@@ -1432,7 +1433,7 @@ apart (where we include the minimum so that, for high dimensions, we include at 
 \beq\label{eq:Nj}
 \Nj \de \max\set{1,\frac{J\sqrt{\lambdaj}}{2r}}
 \eeq
-equally spaced points in the sets $\centresj = \set{c_{j,1},\ldots,c_{j,\Nj}},$ and then we form the centres $\bcone,\ldots,\bcNpre$ by taking tensor products of the points in $\centreso,\ldots,\centresJ,$ giving a total of
+equally spaced points in the sets $\centresj = \set{c_{j,1},\ldots,c_{j,\Nj}},$ and then we form the centres $\bcone,\ldots,\bcNpre$ by taking all possible tensor products of the points in $\centreso,\ldots,\centresJ,$ giving a total of
 \beq\label{eq:Npre}
 \Npre = \No \times \cdots \times \NJ
 \eeq
@@ -1514,12 +1515,12 @@ We now briefly list the main differences in the two algorithms given above.
 
 \paragraph{Heuristics} The sequential algorithm has very minimal heuristics; one only needs to specify the maximum number of GMRES iterations and this could be determined, for example, by the memory constraints of the machine one is using. In contrast, for the parallel algorithm one needs a heuristic for how many preconditioning points to choose, as this is not given by the algorithm. (In our numerical experiments below, we obtain this heuristic by using the sequential algorithm for low $k$, and then extrapolating the proportion of preconditioning points used for low values of $k$ to larger values of $k.$
 
-\paragraph{Parallelisability} Unsurprisingly (given the name) the sequential algorithm is inherently serial; one must see whether a given solve converges in the required number of GMRES iterations before knowing whether we must recalculate the preconditioner for subsequent solves. (In principle one could parallelise the algorithm by splitting the QMC points up onto different groups of processors, and then use the sequential algorithm on each group of processors. However, there is no guarantee one would split the QMC points up in a way that grouped nearby points, therefore this approach could lead to a substantial increase in computational work.) In contrast, the parallel algorithm is fully parallelisable; once the preconditioning points and the map $\nearestpre:\SQMC\rightarrow\Spre$ have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner several times, on different groups of processes\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.} However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
+\paragraph{Parallelisability} Unsurprisingly (given the name) the sequential algorithm is inherently serial; one must see whether a given solve converges in the required number of GMRES iterations before knowing whether we must recalculate the preconditioner for subsequent solves. (In principle one could parallelise the algorithm by splitting the QMC points up onto different groups of processors, and then use the sequential algorithm on each group of processors. However, there is no guarantee one would split the QMC points up in a way that grouped nearby points, therefore this approach could lead to a substantial increase in computational work.) In contrast, the parallel algorithm is fully parallelisable; once the preconditioning points and the map $\nearestpre:\SQMC\rightarrow\Spre$ have been calculated, one can send different linear solves to different groups of processors as one chooses. (Although note that, unless one sends all of the QMC points corresponding to a single preconditioner to the \emph{same} group of processors, one may need to calculate the same preconditioner several times, on different groups of processors\footnote{In our code, we split up the points with respect to the order they are generated by the QMC code. This was purely to make the code simpler.} However, the decrease in computational time gained from parallelisation should more than offset this increase in computational effort.)
 
 \paragraph{Choice of preconditioning points} Neither algorithm will necessarily pick the optimal set of preconditioning points (optimal in the sense of the minimal number of preconditioning points needed). In the sequential algorithm, there is no guarantee that this method for exploring the sample space and choosing the preconditioning points will give an optimal collection of preconditioning points. Also, whilst for the parallel algorithm the preconditioning points should fill the parameter space `well' (given the points are chosen a priori to be well spaced according to the $\dapprox$ metric), the number of preconditioning points generated is not exactly $\Npretarget$ due to rounding the `ideal' number of centres in each dimension to the nearest integer. Therefore, even in the parallel case, one may not end up with an optimal set of preconditioning points.
 
 \subsection{Numerical Experiments}\label{sec:nbpcqmcnumerics}
-We now describe numerical experiments that demostrate the effectiveness of the above algorithms.         Our main result is that, for a particular QMC model problem nearby preconditioning gives a substantial speedup, with around 98\% of solves being computed using a previously-calculated LU decomposition.
+We now describe numerical experiments that demostrate the effectiveness of the above algorithms.         Our main result is that, for a particular QMC model problem, nearby preconditioning gives a substantial speedup, with around 98\% of solves being computed using a previously-calculated LU decomposition.
 
 For the computational setup, including the algorithm we use to generate our QMC points, see \cref{app:compsetup}.
 
@@ -1638,7 +1639,7 @@ Motivated by QMC theory for other applications, e.g., \cite[Equation 4.2]{GrKuNu
 \eeq
 for some $C, \alpha > 0.$ Using data for the values of $k$ listed above, \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} plot the computed values of $C$ and $\alpha$ against $k$. (In \cref{app:hhqmcconv}, we plot the QMC error for increasing $\NQMC$ for each $k \in \set{10,20,30,40,50,60}$ and for each QoI---these plots allow us to determine the values of $C$ and $\alpha$ for each value of $k.$) For the QoIs that are point evaluations (\cref{fig:originCalpha,fig:toprightCalpha}), $C$ appears not to vary very much; thus we assume $C$ is constant in all of the following calculations.
 
-The \cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} (bottom panes) show $\alpha$ decreasing at a rate proportional to $\log k$. Therefore we conjecture
+\cref{fig:integralCalpha,fig:originCalpha,fig:toprightCalpha,fig:gradienttoprightCalpha} (bottom panes) show $\alpha$ decreasing at a rate proportional to $\log k$. Therefore we conjecture
 \beq\label{eq:alphaform}
 \alpha(k) = \alphaz - \alphao\loge(k),
 \eeq
@@ -1821,7 +1822,7 @@ Having proved rigorous results on the effectiveness of nearby preconditioning, a
     \beqs
 \grad \cdot \mleft(a\grad u\mright)  = -f,
 \eeqs
-with a small number of works analysing other PDEs, including two works on the Helmholtz equation. We will first explain the idea of mean-based preconditioning before we review the literature applying it to the stationary diffusion equation and other PDEs, and finally turning our attention to mean-based preconditioning for the Helmholtz equation. In general, the computational and mathematical results in the literature show that mean-based preconditioning  is effective if the variance of the random parameters are small enough, i.e.,  if most of the samples are sufficiently close to the mean.
+with a small number of works analysing other PDEs, including two works on the Helmholtz equation. We will first explain the idea of mean-based preconditioning before we review the literature applying it to the stationary diffusion equation and other PDEs, and finally turning our attention to mean-based preconditioning for the Helmholtz equation. In general, the computational and mathematical results in the literature show that mean-based preconditioning  is effective if the variance of the random parameters is small enough, i.e.,  if most of the samples are sufficiently close to the mean.
 
 Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEM). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is computed using a Polynomial Chaos expansion (see, e.g., \cite[Section 2.4.2]{GhSp:12}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
 \beq\label{eq:sgmatrix}
@@ -1831,25 +1832,25 @@ where $\Amat$ is a standard finite-element matrix, $\Gmat$ is a matrix correspon
 \beq\label{eq:mbsg}
 \Amatmean \otimes \ImatOmega,
 \eeq
-where $\Amatmean$ is the standard finite-element matrix corresponding to the mean and $\ImatOmega$ is the identity matrix associated with the discretisation on $\Omega.$ Using a mean-based preconditioner of the form \cref{eq:mbsg} gives considerable computational savings, as only one preconditioner of a standard finite-element matrix need be calculated.
+where $\Amatmean$ is the standard finite-element matrix corresponding to the mean and $\ImatOmega$ is the identity matrix associated with the discretisation on $\Omega.$ Using a mean-based preconditioner of the form \cref{eq:mbsg} gives considerable computational savings, as only one preconditioner of a standard finite-element matrix needs to be calculated.
 
 When stochastic Galerkin methods are used with so-called `doubly-orthogonal bases' (see, e.g., \cite[Section 3.2]{ErPoSiUl:09}), then the linear system \cref{eq:sgmatrix} decouples into many distinct standard finite-element matrices; mean-based preconditioning has also been investigated in this context (and in the context of stochastic collocation methods (see, e.g., \cite{BaNoTe:07}), where one similarly obtains many different standard finite-element matrices) as will be discussed below.
 
 The main insight gleaned from studies of mean-based preconditioning is that, as stated above, if the variance of $a$ (or any other stochastic coefficients) is sufficiently small, then mean-based preconditioning is effective.
 
-The initial computational work on mean-based preconditioning for the stationary diffusion equation was carried out by Ghanem and Kruger \cite{GhKr:96}, Pellissetti and Ghanem \cite{PeGh:00}, and Keese \cite{Ke:04}, with theory (proving bounds on the eigenvalues of the preconditioned matrices) following from Powell and Elman \cite{PoEl:09} and Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}. These eigenvalue bounds are analagous to results in \cref{sec:main} above, as they allow one to infer convergence properties of the iterative method used. All of the above results were for $a$ given by a (real or artificial) Karhunen--Lo\`eve expansion; that is, in the case where $a$ depends linearly on the random parameter. In the case where $a$ is a lognormal random field (and so the dependence is no longer linear), Powell and Ullmann \cite{PoUl:10} declared mean-based preconditioners to be ineffective, and so developed more advanced preconditioners; in contrast, Ullmann, Elman and Ernst \cite{UlElEr:12} transformed a stationary diffusion problem with lognormal coefficient into a stationary convection-diffusion problem with a random coefficient depending linearly on the noise, before proving eigenvalue bounds as before. With a more computational slant, Tipireddy, Phipps and Ghanem \cite{TiPhGh:10} and Rosseel and Vandewalle \cite{RoVa:10} compared the computational properties of several mean-based preconditioners and Elman, Miller, Phipps and Tuminaro \cite{ElMiPhTu:11} compared the computational cost of mean-based preconditioners for stochastic Galerkin and stochastic collocation methods.
+The initial computational work on mean-based preconditioning for the stationary diffusion equation was carried out by Ghanem and Kruger \cite{GhKr:96}, Pellissetti and Ghanem \cite{PeGh:00}, and Keese \cite{Ke:04}, with theory (proving bounds on the eigenvalues of the preconditioned matrices) following from Powell and Elman \cite{PoEl:09} and Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}. These eigenvalue bounds are analagous to results in \cref{sec:main} above, as they allow one to infer convergence properties of the iterative method used. All of the above results were for $a$ given by a (real or artificial) Karhunen--Lo\`eve expansion; that is, in the case where $a$ depends linearly on the random parameter. In the case where $a$ is a lognormal random field (and so the dependence is no longer linear), Powell and Ullmann \cite{PoUl:10} declared mean-based preconditioners to be ineffective, and so developed more advanced preconditioners; in contrast, Ullmann, Elman and Ernst \cite{UlElEr:12} transformed a stationary diffusion problem with lognormal coefficient into a stationary convection-diffusion problem with a random coefficient depending linearly on the noise, before proving eigenvalue bounds as before. With a more computational slant, Tipireddy, Phipps, and Ghanem \cite{TiPhGh:10} and Rosseel and Vandewalle \cite{RoVa:10} compared the computational properties of several mean-based preconditioners and Elman, Miller, Phipps, and Tuminaro \cite{ElMiPhTu:11} compared the computational cost of mean-based preconditioners for stochastic Galerkin and stochastic collocation methods.
 
 Seeking to apply mean-based preconditioning to more challenging problems, Powell and Silvester \cite{PoSi:12} performed computational investigations for mean-based preconditioners applied to stochastic Galerkin discretisations of the steady-state Navier--Stokes equations, and Soused\'ik and Elman \cite{SoEl:16} introduced a Gauss--Seidel-type preconditioner, using mean-based ideas, for the steady-state Navier--Stokes equations. Finally, Khan, Powell, and Silvester \cite{KhPoSi:19} applied mean-based preconditioning to stochastic Galerkin discretisations of the equations for nearly-incompressible elasticity.
 
-The works applying mean-based preconditioning to many individual systems (for the stationary diffusion equation) are those of Eiermann, Ernst and Ullmann \cite{EiErUl:07}; Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}; and Gordon and Powell \cite{GoPo:12}. The first work contained computational results in a (decoupled) stochastic Galerkin setting; the second proved eigenvalue bounds in the same setting, and the last proved rigorous eigenvalue bounds in a stochastic collocation setting. All these works assume linear dependence on the noise, and show that mean-based preconditioning works well when the variance is sufficiently small.
+The works applying mean-based preconditioning to many individual systems (for the stationary diffusion equation) are those of Eiermann, Ernst and Ullmann \cite{EiErUl:07}; Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}; and Gordon and Powell \cite{GoPo:12}. \cite{EiErUl:07} contained computational results in a (decoupled) stochastic Galerkin setting; \cite{ErPoSiUl:09} proved eigenvalue bounds in the same setting, and \cite{GoPo:12} proved rigorous eigenvalue bounds in a stochastic collocation setting. All these works assume linear dependence on the noise, and show that mean-based preconditioning works well when the variance is sufficiently small.
 
 We now turn our attention to mean-based preconditioning for the Helmholtz equation. The first work we discuss is the recent work of Wang and Liao \cite{WaLi:19}. They discretise a stochastic Helmholtz problem with $k=10$ and $n$ given by a truncated Karhunen--Lo\`eve expansion (with either 4 terms or 1 term) and use a generalised polynomial chaos (gPC) expansion (see, e.g., \cite{XiKa:02}) for the solution $u$. Whilst they use mean-based preconditioning (in the `Kronecker product' sense) they are more interested in investigating the effect of the number of terms in the gPC expansion on the accuracy of the discrete solution. Nonetheless, they see convergence using the mean-based preconditioner, although more iterations are needed when the random field is `close to' exciting a resonant frequency (see \cite[Example 4.2]{WaLi:19}).
 
-The work most similar to ours is the work of Jin and Cai \cite{JiCa:09}, who use a stochastic Galerkin discretisation with a doubly-orthogonal basis for a stochastic Helmholtz equation, resulting in around 5000 linear systems. They take $k = 225$ and a Karhunen--Lo\`eve expansion with 4 terms for both (scalar-valued) $A$ and $n$. The random variables in the Karhunen--Lo\`eve expansions are $\Unif(-\sqrt{3},\sqrt{3})$ and $\Unif(-45\sqrt{3},45\sqrt{3})$ for $A$ and $n$ respectively. Their mean-based preconditioner is a 1-level additive Schwarz preconditioner, and they compare resuing the preconditioner with reusing the Krylov subspaces (an idea first introduced by Parks, De Sturler, Mackey, Johnson, and Maiti in \cite{PadeMaJoMa:06}), as well as combining both techniques. Intriguingly, they see no additional benefit from reusing the preconditioner, but considerable benefit from recycling the Krylov subspaces. Based on our results in this \lcnamecref{chap:nbpc}, we conjecture that they see no benefit from a single mean-based preconditioner because $k$ is reasonably large, and therefore for most of the realisations, $k\NLiDRR{\EXP{n}-\nsj}$ and $k\NLiDRRdtd{\EXP{A}-\Asj}$ are not sufficiently small. and so there is little-to-no effect on the number of GMRES iterations from mean-based preconditioning. We conjecture that if they had used multiple preconditioners distributed around the stochastic parameter space, they would have seen computational improvements, as described in this \lcnamecref{chap:nbpc}.
+The work most similar to ours is the work of Jin and Cai \cite{JiCa:09}, who use a stochastic Galerkin discretisation with a doubly-orthogonal basis for a stochastic Helmholtz equation, resulting in around 5000 linear systems. They take $k = 225$ and a Karhunen--Lo\`eve expansion with 4 terms for both (scalar-valued) $A$ and $n$. The random variables in the Karhunen--Lo\`eve expansions are $\Unif(-\sqrt{3},\sqrt{3})$ and $\Unif(-45\sqrt{3},45\sqrt{3})$ for $A$ and $n$ respectively. Their mean-based preconditioner is a 1-level additive Schwarz preconditioner, and they compare resuing the preconditioner with reusing the Krylov subspaces (an idea first introduced by Parks, De Sturler, Mackey, Johnson, and Maiti in \cite{PadeMaJoMa:06}), as well as combining both techniques. Intriguingly, they see no additional benefit from reusing the preconditioner, but considerable benefit from recycling the Krylov subspaces. Based on our results in this \lcnamecref{chap:nbpc}, we conjecture that they see no benefit from a single mean-based preconditioner because $k$ is reasonably large, and therefore for most of the realisations, $k\NLiDRR{\EXP{n}-\nsj}$ and $k\NLiDRRdtd{\EXP{A}-\Asj}$ are not sufficiently small, and so there is little-to-no effect on the number of GMRES iterations from mean-based preconditioning. We conjecture that if they had used multiple preconditioners distributed around the stochastic parameter space, they would have seen computational improvements, as described in this \lcnamecref{chap:nbpc}.
     
 \section{Probabilistic nearby preconditioning results}\label{sec:nbpcstochastic}
 
-We now briefly overview how one can prove probabalistic results on the effectiveness of nearby preconditioning. All of the results in \cref{sec:intronbpc,sec:num,sec:3,sec:weaknorm} above have been for deterministic (as opposed to stochastic) coefficients $A$ and $n$ (and we then applied these deterministic results to QMC methods for the Helmholtz equation in \cref{sec:nbpcqmc}). Therefore we now turn our attention to obtaining probabilistic results on the effectiveness of nearby preconditioning for stochastic Helmholtz problems, i.e., \cref{prob:msedp,prob:somsedp,prob:svsedp} from \cref{chap:stochastic}. Firstly, in \cref{cor:stonbpcas} below, we prove an `essentially deterministic' result on the effectiveness of nearby preconditioning, before proving probabilistic results on the effectiveness of nearby preconditioning applied to stochastic problems. However, we will see that our efforts to prove probabilistic results are restricted by the applicability of the Elman estimate (\cref{thm:GMRES1_intro} above).
+We now briefly overview how one can prove probabilistic results on the effectiveness of nearby preconditioning. All of the results in \cref{sec:intronbpc,sec:num,sec:3,sec:weaknorm} above have been for deterministic (as opposed to stochastic) coefficients $A$ and $n$ (and we then applied these deterministic results to QMC methods for the Helmholtz equation in \cref{sec:nbpcqmc}). Therefore we now turn our attention to obtaining probabilistic results on the effectiveness of nearby preconditioning for stochastic Helmholtz problems, i.e., \cref{prob:msedp,prob:somsedp,prob:svsedp} from \cref{chap:stochastic}. Firstly, in \cref{cor:stonbpcas} below, we prove an `essentially deterministic' result on the effectiveness of nearby preconditioning, before proving probabilistic results on the effectiveness of nearby preconditioning applied to stochastic problems. However, we will see that our efforts to prove probabilistic results are restricted by the applicability of the Elman estimate (\cref{thm:GMRES1_intro} above).
 
 Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$, i.e., for simplicity we only consider the case of random $n$, although everything we say could be easily extended to include random $A$. To maintain consistent notation with the rest of this \lcnamecref{chap:nbpc} we will use a superscript ${}^{(2)}$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.). We let $\nso \in \LiDRR$ define a \emph{deterministic} Helmholtz problem. We will use the discretisation of this deterministic Helmholtz problem to precondition the discretisations of the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
 \beq\label{eq:stopc}
@@ -1905,7 +1906,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
     \Cref{it:notideal1} is not ideal because in many physically realistic problems $\NLiDRR{\no-\nt(\omega)}$ may be unbounded (e.g., if $\nt$ is a lognormal random field) or even if bounded may not satisfy the condition \cref{eq:nbpcas} almost surely.% \Cref{it:notideal2} is not ideal because it means one cannot infer information about the distribution of the number of GMRES iterations from the distribution of$\NLiDRR{\nso-\nst(\omega)}.$
     \ere
 
-    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabalistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this lack of information is that the Elman estimate (\cref{cor:GMRES_intro} above) when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information on how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed} below). In summary, current results on GMRES convergence will only allow us to prove what are likely to be very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
+    To correct the deficiencies described in \cref{rem:notideal} one would aim to  prove a bound on the number of GMRES iterations depending explicitly on $\NLiDRR{\nso-\nst(\omega)}$, and then use this bound to prove a probabilistic estimate for the number of GMRES iterations. Such a bound is given in \cref{lem:probgmres1} in \cref{app:probnbpc}. However, such a bound will be highly pessimistic, and will impart little useful information. The reason for this lack of information is that the Elman estimate (\cref{cor:GMRES_intro} above) when applied to the nearby-preconditioned system $\AmatoI\Amatt$) only applies when $k\NLiDRRdtd{\Aso-\Ast}$ and $k\NLiDRR{\nso-\nst}$ are sufficiently small (as we saw in \cref{cor:1} above). Therefore one can only obtain detailed information on how the number of GMRES iterations depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$ when these quantities are small (informally, when they are $\lesssim 1/k$). In all other cases (again, informally, when these quantities are $\gtrsim 1/k$) the only statement one can make about the convergence of GMRES is that there will be at most $N$ iterations, where $N$ is the number of degrees of freedom (this result is recalled in \cref{cor:gmresguaranteed} below). In summary, current results on GMRES convergence will only allow us to prove what are likely to be very pessimistic bounds on how the number of GMRES iterations for $\AmatoI\Amatt$ depends on $\NLiDRRdtd{\Aso-\Ast}$ and $\NLiDRR{\nso-\nst}$. For completeness, we record these results in \cref{app:probnbpc}.
 
 
 
@@ -1928,7 +1929,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
 
 \subsection{Numerical probabalistic results for nearby preconditioning}\label{sec:qualgmres}
 
-Notwithstanding the fact that we are limited in the probabilistic results that we can \emph{prove} about nearby preconditioning, we will now see that we \emph{observe} reasonable probabailistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A plausible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of the order $1/k$. We expect this result because the standard deviation of a random variable is a (probabilistic) measure of its variation. In \cref{cor:stonbpcas} we show that the number of GMRES iterations is bounded almost surely if the variation in $\NLiDRR{\nso-\nst}$ is bounded (of the order $1/k$) almost surely. Therefore, it reasonable to assume that the probabilistic analogue of the number of GMRES iterations (the average) is bounded if the probabilistic analogue of the variation in $\NLiDRR{\nso-\nst}$ (the standard deviation) is bounded (of the order $1/k$). Will we see exactly this behaviour in our numerical experiments.
+Notwithstanding the fact that we are limited in the probabilistic results that we can \emph{prove} about nearby preconditioning, we will now see that we \emph{observe} reasonable probabilistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A plausible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of the order $1/k$. We expect this result because the standard deviation of a random variable is a (probabilistic) measure of its variation. In \cref{cor:stonbpcas} we show that the number of GMRES iterations is bounded almost surely if the variation in $\NLiDRR{\nso-\nst}$ is bounded (of the order $1/k$) almost surely. Therefore, it reasonable to assume that the probabilistic analogue of the number of GMRES iterations (the average) is bounded if the probabilistic analogue of the variation in $\NLiDRR{\nso-\nst}$ (the standard deviation) is bounded (of the order $1/k$). We will see exactly this behaviour in our numerical experiments.
 
 In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0,$ $\Aso=\Ast=I$, and $\NLiDRR{\nso-\nst}$ given by an exponential random variables with standard deviation $\sigma.$  We consider three cases:
 \ben
