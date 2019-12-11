@@ -1,0 +1,8 @@
+What do we need to do to fix the spd fiasco?
+
+1. Initially, go back to talking about WoiDRRRdtd, with the norm defined as the sup over the component-wise Woi norms
+1a. (Also need to do this for LiDRspd, but can still use the operator norm as as equivalent norm on this space.)
+2. If we want to be economical with notation, use WoiDRspd, but define it mathsily, and be very clear what the norm is (and isn't)
+2a. (Consider changing the L^\infty_{\DR,op} norm notation, as maybe this isn't helpful).
+3. Make sure these changes are done in chapters 2 and 3, and there's a clear explanation in Ch2 about what these different spaces are, and what the different norms are.
+3a. (This will require a grep on every instance of WoiDRRRdtd and WoiDRRdtd to double check its all clear).
