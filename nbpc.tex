@@ -24,7 +24,7 @@ One expects this reuse of the preconditioner to work well if the two realisation
 
 %%  For example, if we calculate the action of $\AmatI$ exactly (say via an $LU$ factorisation) then (in 3-d) the cost of calculating the preconditioner is $\cO\mleft(N^2\mright)$ and the cost of applying the preconditioner is $\cO\mleft(N^{4/3}\mright)$ (where $N$ is the number of unknowns), see, e.g., \cite[Section 4]{GaZh:19}. This relationship between the cost of construction and application is also seen in recent Helmholtz preconditioners such as a sweeping preconditioners and a domain-decompostion preconditioners (see the recent review article \cite{GaZh:19} for an overview of many types of Helmholtz preconditioners). For these preconditioners one still performs $LU$-factorisations (or direct solves) on subdomains of $\Dp$ (see, e.g., \cite[Section 2]{GaZh:19}). Therefore resuing preconditioners, and thereby calculating fewer $LU$ factorisations may still lead to considerable savings. .
 
-Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp} or \cref{prob:vtedp} (we will prove results for both problems), with $\uj$ the corresponding solution and $\Dm,$ $f$, etc. as in \cref{prob:vedp} or \cref{prob:vtedp}. Let $\Amatj$, $j=1,2,$ be the Galerkin matrices for the corresponding $h$-finite-element discretisations (see \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$).
+Let $\Aj, \nj$, $j=1,2$ satisfy the properties of $A$ and $n$ in \cref{prob:vedp} or \cref{prob:vtedp} (we will prove results for both problems), with $\uj$ the corresponding solution and $\Dm,$ $f$, etc. as in \cref{prob:vedp} or \cref{prob:vtedp}. Let $\Amatj$, $j=1,2,$ be the Galerkin matrices for the corresponding $h$-finite-element discretisations (see \cref{eq:matrixAjdef} below for a precise definition of $\Amatj$). We seek to answer:
 
 % Inspired by the usage of enumitem here: https://tex.stackexchange.com/a/58714
 \ben[label=Q1., ref=Q1]
@@ -47,7 +47,7 @@ Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor
 \quad \NDmatkI{\vvec}^2\de \big( \Dmatk^{-1} \vvec, \vvec\big)_2 %= %\big( (\Smat_I + k^2 \Mmat_1)\vvec,\vvec\big)_2 
 %\N{v_h}^2_{\HokD}
 \eeq
-where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-matrices by \cref{eq:Dk2} below and $\vh =\sum_i \vi \phii$, where the $\phii$ are the finite-element basis functions.
+where $\Dmatk$ is given in terms of familiar finite-element stiffness- and mass-matrices by \cref{eq:Dk2} below and $\vh =\sum_i \sfvi \phii$, where the $\phii$ are the finite-element basis functions.
 
 As described in \cref{sec:wpdisc}, the PDE analysis of the Helmholtz equation naturally takes place in the norm $\NHokD{\cdot}$, and \cref{eq:Dk} shows that the norm $\NDmatk{\cdot}$ is simply the norm on the finite-element space induced by  $\NHokD{\cdot}$. %See \cref{eq:Dk2} and \cref{eq:Dk3} below for this norm expressed in terms of the Euc
 The norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$ recently appeared in results about the convergence of domain-decomposition methods %in this norm are proved 
@@ -112,7 +112,7 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
 
  The proof of \cref{cor:1a} is on \cpageref{page:cor1aproof} below.
 
-Three notes regarding \cref{cor:1,cor:1a}: (i) The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $\NLiDop{\cdot}$ norm on a matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by \cref{eq:ineditsnorm1}.
+Three notes regarding \cref{cor:1,cor:1a}: (i) The $L^\infty$ norms of $\Ao-\At$ and $\no-\nt$ in \cref{cor:1,cor:1a} can be replaced by $L^p$ norms with $p < \infty$, at the price of making the conditions \cref{eq:cond,eq:conda} more restrictive; see \cref{sec:weaknorm} for more details. (ii) The $\NLiDop{\cdot}$ norm on matrix-valued functions appearing on the right-hand sides of \cref{eq:main1} and \cref{eq:main1a} is defined by \cref{eq:ineditsnorm1}.
 (iii) The factor $1/2$ on the right-hand sides of \cref{eq:cond} and \cref{eq:conda} can be replaced by any number $<1$ and the result still holds, although the number of GMRES iterations may then be different---but is still independent of $k$.
 %In \cref{sec:proofFEM}, the constant $C_2$ is expressed explicitly in terms of $C_1$.
 
@@ -203,7 +203,7 @@ It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a s
 \ere
 
 
-\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of Theorems {\ref{cor:1}} and {\ref{cor:1a}}}\label{sec:num}
+\section[Numerical experiments investigating sharpness]{Numerical experiments investigating the\newline sharpness of Theorems {\ref{cor:1}} and {\ref{cor:1a}}}\label{sec:num}
 
 The numerical experiments in this section seek to verify \cref{cor:1a,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
 \ben
@@ -216,7 +216,7 @@ Based on the PDE results \cref{thm:2,lem:sharp} above, we expect that the condit
 
 To verify this expected behaviour, we perform numerical experiments with the setup described in \cref{app:compsetup} with $\Aso = I$ and $\nso = 1$. We define $f$ and $\gI$ to correspond to a plane wave incident from the bottom left passing through a homogeneous medium given by coefficients $\Aso$ and $\nso$. We perform experiments for $A$ and $n$ separately, i.e., first we perform experiments with $\Ast=I$ and $\nst$ varying, and then we perform experiments with $\Ast$ varying and $\nst=1.$ When we vary $\Ast$ we measure $\Aso-\Ast$ in the $\NLiDRRdtd{\cdot}$ norm, as this norm is easier to control than the $\NLiDop{\cdot}$ norm. However, these two norms are equivalent on $\LiDRRdtd$ (see the comment above \cref{eq:ineditsnorm1}).
 
-We define $\Ast$ and $\nst$ to be piecewise constant (matrix-valued and real-valued respectively) on a $10\times10$ square grid, with their values on each square chosen independently at random from a $\Unif\mleft(1-\alpha,1+\alpha\mright)$ distribution, with $\alpha \in (0,1)$ chosen as described below. For $\Ast,$ we impose the restriction that on each square $\Ast$ is positive-definite almost surely. We solve the linear systems \cref{eq:pcsystem1} for $k = 20,40,60,80,100$ using standard GMRES and record the number of GMRES iterations taken to achieve a (relative) tolerance of $10^{-5}$ (relative to $\Nt{\bfb}$).
+We define $\Ast$ and $\nst$ to be piecewise constant (matrix-valued and real-valued respectively) on a $10\times10$ square grid, with their values on each square chosen independently at random from a $\Unif\mleft(1-\alpha,1+\alpha\mright)$ distribution, with $\alpha \in (0,1)$ chosen as described below. For $\Ast,$ we impose the restriction that on each square $\Ast$ is positive-definite almost surely. We solve the linear systems \cref{eq:pcsystem1} for $k = 20,40,60,80,100$ using standard GMRES and record the number of GMRES iterations taken to achieve a (relative) tolerance of $10^{-5}$ (relative to $\Nt{\bvec}$).
 
 We perform experiments taking $\alpha = 0.5 \times k^{-\beta}$ for $\beta \in 0,0.1,\ldots,0.9,1.$ We expect that when $\beta \neq 1$  the number of GMRES iterations required for convergence will increase as $k$ increases, whereas we expect that when $\beta = 1$ the number of GMRES iterations required for convergence will remain bounded as $k$ increases, even though this behaviour for $\beta=1$ has only been proved for $\NLiDop{\Aso-\Ast}$ for weighted GMRES (compare the restrictions on $\NLiDop{\Aso-\Ast}$ in \cref{cor:1,cor:1a}).
 
@@ -264,7 +264,7 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 
 %Say that these are for the TEDP defined in \cref{def:TEDP}.
 
-\section[Proofs of Theorems \MakeLowercase{\ref{cor:1}, \ref{cor:1a}, and \ref{thm:2}} and Lemma \MakeLowercase{\ref{lem:sharp}}]{Proofs of \cref{cor:1,cor:1a,thm:2,lem:sharp}}\label{sec:3}
+\section[Proofs of Theorems \MakeLowercase{\ref{cor:1}, \ref{cor:1a}, and \ref{thm:2}} and Lemma \MakeLowercase{\ref{lem:sharp}}]{Proofs of Theorems \ref{cor:1}, \ref{cor:1a}, and \ref{thm:2} and \newline Lemma \ref{lem:sharp}}\label{sec:3}
 
 We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} above.
 
@@ -284,14 +284,14 @@ $\T:\HhGI\rightarrow \HmhGI$ is a bounded linear map,  $\DPGI{\cdot}{\cdot}$ is 
 \eprob
 
 \bre[\Cref{prob:vgen} is a generalisation of \cref{prob:vedp,prob:vtedp}]
-With the exception of some overlap in notation, it is straightforward to see that appropriate choices of $D,$ $\GI$, $\T$ and $\LG$ allow \cref{prob:vgen} to be either \cref{prob:vedp} or \cref{prob:vtedp}. Taking $D = D$, $\GI = \GR$, $\T = \DtN$ and $\LG(v) = \int_{D} f\minispace\vbar$ (for $f$ as in \cref{prob:vedp}) in \cref{prob:vgen}, we see \cref{prob:vgen} becomes \cref{prob:vedp}. However taking $D$ and $\GI$ in \cref{prob:vgen} to be the same as the $D$ and $\GI$ in \cref{prob:vtedp}, taking $\T=ik,$ and $\LG(v) = \int_{D} f\minispace\vbar + \int_{\GI} \gI \minispace\trGI \vbar$ (for $f$ and $\gI$ as in \cref{prob:vtedp}), \cref{prob:vgen} becomes \cref{prob:vtedp}.
+With the exception of some overlap in notation, it is straightforward to see that appropriate choices of $D,$ $\GI$, $\T$, and $\LG$ allow \cref{prob:vgen} to be either \cref{prob:vedp} or \cref{prob:vtedp}. Taking $D = D$, $\GI = \GR$, $\T = \DtN$ and $\LG(v) = \int_{D} f\minispace\vbar$ (for $f$ as in \cref{prob:vedp}) in \cref{prob:vgen}, we see \cref{prob:vgen} becomes \cref{prob:vedp}. However taking $D$ and $\GI$ in \cref{prob:vgen} to be the same as the $D$ and $\GI$ in \cref{prob:vtedp}, taking $\T=ik,$ and $\LG(v) = \int_{D} f\minispace\vbar + \int_{\GI} \gI \minispace\trGI \vbar$ (for $f$ and $\gI$ as in \cref{prob:vtedp}), \cref{prob:vgen} becomes \cref{prob:vtedp}.
 \ere
 
 \bre[\Cref{prob:vgen} allows for other boundary conditions]
 The strength of the general formulation \cref{prob:vgen} is that it allows us to treat a wide variety of Helmholtz problems at once. Indeed, \emph{any} Helmholtz problem that can be written in the form \cref{eq:vgen,eq:agen} and satisfies \cref{cond:1nbpc,cond:2} below can be treated using the analysis in this \lcnamecref{chap:nbpc}.
 \ere 
 
-For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
+For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of nodal finite-element functions given by piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
 %\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
 and fixed polynomial degree $p$. Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$, with hidden constant dependent on $p$. (The assumption of quasi-uniformity can, in principle, be relaxed, see \cref{rem:ggsqu} below.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
 \bprob[Finite-element approximation of \cref{prob:vgen}]\label{prob:fevgen}
@@ -317,7 +317,7 @@ Let
 \beq\label{eq:matrixAdef}
 \Amat \de \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
 \eeq
-and let $u_h\de \sum_j u_j \phi_j$. Then \cref{eq:galerkin} implies that
+and let $u_h\de \sum_j \uvec_j \phi_j$. Then \cref{eq:galerkin} implies that
 \beqs
 \Amat \uvec = \fvec,
 \eeqs
@@ -342,7 +342,7 @@ and
 \beq\label{eq:normequiv2}
 \N{\nabla v_h}_{\LtD} \leq s_+ h^{d/2-1} \N{\vvec}_2,
 \eeq
-for all finite-element functions $v_h =\sum_i v_i \phi_i \in \Vhp$.
+for all finite-element functions $v_h =\sum_i \vvec_i \phi_i \in \Vhp$.
 \ele
 
 \bpf[Proof of \cref{lem:normequiv}]
@@ -353,7 +353,7 @@ For any $\vh \in \Vhp$ we have (letting $\bnj$ denote a node of $\Th$)
   \NLtD{\vh}^2 &= \sum_{\tau \in \Th} \int_\tau \abs{\vh}^2\label{eq:twiddlenumber1}\\
   &\sim \sum_{\tau \in \Th} \abs{\tau} \sum_{\bnj \in \tau} \abs{\vh(\bnj)}^2 \label{eq:twiddlenumber2}\\
   &\sim h^d \sum_{\tau \in \Th} \sum_{\bnj \in \tau} \abs{\vh(\bnj)}^2, \text{ by quasi-uniformity,}\nonumber\\
-  &\sim h^2 \Nt{\bu},
+  &\sim h^2 \Nt{\uvec},
 \end{align}
 i.e., \cref{eq:normequiv1}. The expression \cref{eq:twiddlenumber2} follows from \cref{eq:twiddlenumber1} because the terms defined on $\tau$ are equivalent norms on $\tau$ of functions in $\Vhp.$
 
@@ -442,7 +442,7 @@ The only thing we need to check is that \cref{eq:DPconj} holds for both \cref{pr
 \eeq
 This property follows from the fact that, if $\uo$ and $\ut$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{\BR}$, both satisfying the Sommerfeld radiation condition \cref{eq:src}, then
 \beqs
-\int_{\GR} (\gamma \uo)\, \dn \ut = \int_{\GR} (\gamma \ut)\,\dn \uo;
+\int_{\GR} (\gamma \uo)\, \dn \utb = \int_{\GR} (\gamma \ut)\,\dn \uob;
 \eeqs
 which follows from Green's theorem and, e.g., \cite[Lemma 4.10]{Sp:15}.
 \epf
