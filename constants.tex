@@ -26,8 +26,8 @@ We recall that where a constant is only used inside a proof it will usually be n
   $\CAl$ & $\CintAl + \CscatAl + \CtruncAl.$ & \cref{thm:shift}\\
     $\CTrm$ &---& \cref{thm:trace}\\
   $\Cmclean{m}$&---&Proof of \cref{thm:banachalg}\\
-    $\CBanfn{m}$ & --- & \cref{thm:banachalg}\\
-  $\Cprod{m}$ &$1+\Cmclean{m}$&\cref{thm:banachalg} \\
+    $\CBanfn{m}{\mtilde}$ & --- & \cref{thm:banachalg}\\
+%  $\Cprod{m}$ &$1+\Cmclean{m}$&\cref{thm:banachalg} \\
   $\Cej$ & $\displaystyle \begin{dcases}
   \max\set{1,\CAz}, & j=0\\
   \mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1}, &j \geq 1
@@ -39,19 +39,16 @@ We recall that where a constant is only used inside a proof it will usually be n
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
   $\Cmmo$ &$\displaystyle
   \begin{dcases}
-    \frac{2\NLiDop{A}}{\min\set{1,1/\CP^2}\Amin}, & m = -1\\
-      \frac{2\NLiDop{A}^2\CSZfn{2}\CAfn{0}}{\min\set{1,1/\CP^2}\Amin}, & m = 0\\
-  \frac{4\CSZfn{m+2}\CAfn{m}\Cprod{m}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}, & m \in \mleft[1,\frac{d}2\mright]\\
-\frac{2\CSZfn{m+2}\CAfn{m}\CBanfn{m}\NLiDop{A}^2}{\min\set{1,\frac1{\CP^2}}\Amin}, & m \in \mleft(\frac{d}2,p-1\mright]
+    \frac{2\NLiDop{A}}{\min\set{1/\frac1{\CP^2}}\Amin}, & m = -1\\
+      \NLiDop{A}\CSZfn{2}\CAfn{0}\Cmmofn{-1}, & m = 0\\
+      \CSZfn{m+2} \CAfn{m} \NLiDop{A}\Cmmofn{-1}, & m \in \mleft[1,p-1\mright]
   \end{dcases}
   $
 & \cref{lem:ellprojerr} \\
   $\Cwmm$ &$\displaystyle
   \begin{dcases}
-\frac{2\NLiDop{A}}{\min\set{1/\frac1{\CP^2}}\Amin}, & m = -1\\
-\Cmmofn{0}, & m = 0\\
-2\CSZfn{m+2} \CAfn{m} \Cprod{m}\NLiDop{A}\Cwfn{-1}, & m \in \mleft[1,\frac{d}2\mright]\\
-\CSZfn{m+2} \CAfn{m} \CBanfn{m}\NLiDop{A}\Cwfn{-1}, & m \in \mleft(\frac{d}2,p-1\mright]
+\Cmmofn{m}, & m = -1,0\\
+\CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}}\Cmmofn{m}, & m \in \mleft[1,p-1\mright]
   \end{dcases}
   $
 & \cref{lem:ellprojerr} \\
@@ -62,8 +59,7 @@ We recall that where a constant is only used inside a proof it will usually be n
   \begin{dcases}
   1/\Amin, & m=-1\\
   \CAz, & m = 0\\
-  2\CAfn{m}\Cprod{m}, & m \in \mleft[1,\frac{d}2\mright]\\
-\CAfn{m}\CBanfn{m}, & m \in \mleft(\frac{d}2,p-1\mright]
+  2\CAfn{m}\CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}}, & m \in \mleft[1,p-1\mright]\\
 \end{dcases}
 $
 & \cref{lem:shiftnegativew}\\

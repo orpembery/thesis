@@ -351,7 +351,7 @@
 \newcommand{\CSZm}{\CSZfn{m}}
 \newcommand{\Cefn}[1]{\Cfn{\mathrm{expansion},#1}}
 \newcommand{\Cej}{\Cefn{j}}
-\newcommand{\CBanfn}[1]{\Cfn{\mathrm{mult},1,#1}}
+\newcommand{\CBanfn}[2]{\Cfn{\mathrm{mult},#1,#2}}
 \newcommand{\Cshiftfn}[1]{\Cfn{\mathrm{shift},-#1}}
 \newcommand{\Cshiftz}{\Cfn{\mathrm{shift},0}}
 \newcommand{\Cshiftmo}{\Cfn{\mathrm{shift},1}}
@@ -361,7 +361,7 @@
 \newcommand{\Cwz}{\Cwfn{0}}
 \newcommand{\Cwo}{\Cwfn{1}}
 %\newcommand{\Ccomprfn}[1]{\Cfn{\mathrm{comp},#1}}
-\newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
+%\newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
 \newcommand{\Cmclean}[1]{\Cfn{H^{#1},\mathrm{prod}}}
 \newcommand{\CP}{\Cfn{\mathrm{P}}}
 % Why is this defined like this?
@@ -601,7 +601,7 @@
 \newcommand{\Nmhn}[1]{\Nfn{m,h,n}{#1}}
 \newcommand{\Nmmhn}[1]{\Nfn{-m,h,n}{#1}}
 \newcommand{\sdsolo}{\sdsolfn{1}}
-\newcommand{\CfloordtD}{C^{\floor{d/2}}\mleft(D\mright)}
+%\newcommand{\CfloordtD}{C^{\floor{d/2}}\mleft(D\mright)}
 \newcommand{\Sn}{\sdsol}
 \newcommand{\uHt}{u_{H^{2}}}
 \newcommand{\uA}{u_{\cA}}
@@ -850,3 +850,10 @@
 \newcommand{\LiOLiDRspd}{\Li{\Omega;\LiDRspd}}
 \newcommand{\NLqDop}[1]{\N{#1}_{\Lq{D;\op}}}
 \newcommand{\NLiDRRdtd}[1]{\N{#1}_{\LiDRRdtd}}
+\newcommand{\SNtemp}[1]{\N{#1}_{(p-1,\ceil{d/2}+1)}}
+\newcommand{\NHpmoD}[1]{\Nfn{\HpmoD}{#1}}
+\newcommand{\NHceildtpoD}[1]{\Nfn{\HceildtpoDnofrac}{#1}}
+\newcommand{\HceildtpoD}{\Hfn{}{\ceil{\frac{d}{2}}+1}{D}}
+\newcommand{\HceildtpoDnofrac}{\Hfn{}{\ceil{d/2}+1}{D}}
+\newcommand{\HmtildeD}{\Hfn{}{\mtilde}{D}}
+\newcommand{\NHmtildeD}[1]{\Nfn{\HmtildeD}{#1}}

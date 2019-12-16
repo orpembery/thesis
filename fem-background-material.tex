@@ -1249,7 +1249,7 @@ Assume
 \item $\GD \neq \emptyset,$
 \item $\GD$ and $\GI$ are $\Cpo$,
 \item $\Aij \in \CpmooDclos$ for all $i,j$, and
-\item $n \in \HpmoD \cap \CfloordtD.$
+\item $n \in \HpmoD \cap \HceildtpoD.$
   \item $\Vhp$ is defined on a quasi-uniform family of meshes.
 %\item $f \in \HpmoD$
 %  \item $\gI \in \HpmhGI$
@@ -1416,7 +1416,7 @@ u = \uosc + \sum_{j=0}^{p-2} \usj.
 \eeq
 Furthermore,
 \beq\label{eq:expansionuj}
-\NHjptD{\usj} \leq \Cej \Pj(\nmax) k^j \Cfg,
+\NHjptD{\usj} \leq \Cej \Pj(n) k^j \Cfg,
 \eeq
 and
 \beq\label{eq:expansionuosc}
@@ -1424,12 +1424,18 @@ and
 \eeq
 where
 \beq\label{eq:p}
-\Pj(x) =
+\Pj(n) =
 \begin{dcases}
 1 & j = 0,1\\
-x^{\floor{j/2}}& j \geq 2
-\end{dcases}.
+\SNtemp{n} \Pfn{j-2}(n) + \Pfn{j-1}(n) & 2 \leq j \leq p-2,
+\end{dcases}
 \eeq
+where
+\beqs
+\SNtemp{n} = \max\set{\NHpmoD{n},1+\NHceildtpoD{n}}.
+\eeqs
+
+
 %=\sum_{m=0}^{j-2}\pfn{j,m}x^m $
 %% are polynomials of degree
 %% \beq\label{eq:polydegree}
@@ -1631,8 +1637,8 @@ We prove the bound \cref{eq:expansionuj} for higher $j$ by induction. Let $j \in
 \NHfn{j+2}{D}{\vj} &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\nmax \NHfn{j}{D}{\vfn{j-2}} + \NHfn{j+1}{D}{\vfn{j-1}}\mright)\\
 &\leq \max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\big(\nmax \Cefn{j-2} \Pfn{j-2}\mleft(\nmax\mright)\\
 &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad+ \Cefn{j-1} \Pfn{j-1}\mleft(\nmax\mright)\big)\Cfg\\
-&\leq 2\max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\Cefn{j-1} \Pfn{j}(\nmax)\Cfg\\
-&= \Cefn{j} \Pfn{j}(\nmax)\Cfg.
+&\leq 2\max\set{1,\CAj} \mleft(1+\CTrjpo\mright)\Cefn{j-1} \Pfn{j}(n)\Cfg\\
+&= \Cefn{j} \Pfn{j}(n)\Cfg.
 \end{align*}
 %% Therefore the definition of the polynomials $\Pj$ \cref{eq:pjdef} holds (and it is straightforward to see that $\deg\mleft(\Pj\mright) = \deg\mleft(\Pfn{j-2}\mright)+1$, where $\deg$ denotes polynomial degree, and therefore since $\deg\mleft(\Pfn{0}\mright) = \deg\mleft(\Pfn{1}\mright)=0,$ \cref{eq:polydegree} holds. Hence, by the relationship between $\usj$ and $\vj$, we have the bound \cref{eq:expansionuj}.
 
@@ -1700,7 +1706,7 @@ and
 \beqs
 \NLtD{\uosc - \uosch} + h\NHoD{\uosc - \uosch} \leq \Cinterpfn{p+1} \Cosc\CAnk h^{p+1}k^p \Cfg.
 \eeqs
-Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{eq:bestapproxL2,eq:bestapproxW} (using the facts that $hk \leq 1$ and $\Pfn{p-2}(\nmax) \geq \Pfn{j}(\nmax) \geq 1$ for all $j \leq p-2$ since $\nmax \geq 1$).
+Therefore, by letting $\uhhat = \uosch + \sum_{j=0}^{p-2} \ujh,$ we have \cref{eq:bestapproxL2,eq:bestapproxW} (using the facts that $hk \leq 1$ and $\Pfn{p-2}(n) \geq \Pfn{j}(n) \geq 1$ for all $j \leq p-2$ since $\SNtemp{n} \geq 1$).
 \epf
 
 Observe that the bounds \cref{eq:bestapproxL2,eq:bestapproxW} are not fully $p$-explicit, as the constants $\Cinterpfn{j}$ are dependent on $p$ in an unknown way.
@@ -1752,35 +1758,14 @@ For a proof of \cref{lem:poincare} see \cite[Lemma A.14]{ToWi:05}.
 
 \bth[Multiplication in $\HmD$]\label{thm:banachalg}
 
-\
-
-\ben
-\item\label[itempart]{it:ban1}If $m > d/2,$ then for all $\vo,$ $\vt \in \HmD$, the product $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m} > 0$ independent of $\vo$ and $\vt$ such that
+For $m \in \NN$ let $\mtilde \geq m$ and $\mtilde > d/2.$ For all $\vo \in \HmD,$ $\vt \in \HmtildeD$, the product $\vo\vt \in \HmD$ and there exists a constant $\CBanfn{m}{\mtilde} > 0$ independent of $\vo$ and $\vt$ such that
 \beqs
-\NHmD{\vo\vt} \leq \CBanfn{m} \NHmD{\vo}\NHmD{\vt}.
+\NHmD{\vo\vt} \leq \CBanfn{m}{\mtilde} \NHmD{\vo}\NHmtildeD{\vt}.
 \eeqs
-\item\label[itempart]{it:ban2}For any $m \in \NN,$ if $\vo \in \CmD$, $\supp\mleft(1-\vo\mright)$ is compactly contained in $D,$ and  $\vt \in \HmD,$ then
-  \bit
-\item$\vo \in \WmiD,$
-\item the product $\vo\vt \in \HmD$, and
-  \item there exists a constant $\Cprod{m} > 0$ independent of $\vo$ and $\vt$ such that%If $\vo \in \CrcompD$ for some $r \in \NN, r \geq m,$ and
-\beq\label{eq:ban2}
-\NHmD{\vo\vt} \leq \Cprod{m} \mleft(1+\NWmiD{\vo}\mright)\NHmD{\vt}.
-\eeq
-\eit
-\een
 \enth
 
 \bpf[Proof of \cref{thm:banachalg}]
-\Cref{it:ban1} is given in \cite[Section 1.8.1, Theorem]{Ma:11}. For \Cref{it:ban2}, observe that since $1-\vo$ has compact support, $\vo \in \WmiD,$ and $1-\vo \in \CmcompD$. Therefore, by \cite[Theorem 3.20]{Mc:00}, there exists $\Cmclean{m} > 0$ such that\footnote{In \cite[Theorem 3.20]{Mc:00} $\Cmclean{m}$ is denoted $C_{m}$.}
-\beqs
-\NHmD{(1-\vo)\vt} \leq \Cmclean{m} \NWmiD{1-\vo}\NHmD{\vt}.
-\eeqs
-Therefore since
-\beqs
-\NHmD{\vo\vt} \leq \NHmD{\mleft(\vo-1\mright)\vt} + \NHmD{\vt} = \NHmD{(1-\vo)\vt} + \NHmD{\vt},
-\eeqs
-we have \cref{eq:ban2}.
+The proof is immediate from the more general result on the multiplication of functions in Sobolev spaces defined on Lipschitz domains given in \cite[Theorem 6.1, Corollary 6.3]{BeHo:17}.
 \epf
 
 
@@ -1896,8 +1881,7 @@ where
 \beq\label{eq:errn}
 \errn{m} =
 \begin{dcases}
-\frac{\NHmD{n}}{\nmin^2}\nvar &\tif p > 1 \tand m \in \mleft(\frac{d}2,p-1\mright]\\
-\frac{\NWmiD{n}}{\nmin^2}\nvar &\tif p > 1 \tand m \in \mleft[1,\frac{d}2\mright]\\
+\frac{\SNtemp{n}}{\nmin^2}\nvar &\tif p > 1 \tand m \in \mleft[1,p-1\mright]\\
 \nvar &\tif m = -1,0.
 \end{dcases}
 \eeq
@@ -1947,23 +1931,25 @@ Taking $v = w-\Ph w$ in \cref{eq:vtilde}, we have (with $\Ih v$ as defined in \c
 &\leq \CSZfn{m+2} \CAfn{m} \NLiDop{A} \NHfn{m}{D}{n\phi} h^{m+1}\SNHoD{w-\Ph w}\text{ by \cref{thm:shift}.}\label{eq:ellprojwpart}
 \end{align}
 
-To bound the term $\NHfn{m}{D}{n\phi}$ in \cref{eq:ellprojwpart} we need to distinguish between the cases $m > d/2$ and $m \leq d/2$. If $m \in (d/2,p-1],$ by \cref{thm:banachalg,eq:nconv}, then \cref{eq:ellprojwpart} is bounded above by
-\beq\label{eq:wep1pt0}
-\CSZfn{m+2} \CAfn{m} \CBanfn{m} \NLiDop{A} \frac{\NHfn{m}{D}{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w}.
-\eeq
+To bound the term $\NHfn{m}{D}{n\phi}$ in \cref{eq:ellprojwpart} we use  \cref{thm:banachalg,eq:nconv} to bound \cref{eq:ellprojwpart} above by
+\begin{align}
+&  \CSZfn{m+2} \CAfn{m} \CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}}\nonumber\\
+  &\quad\quad\quad\quad\NLiDop{A} \frac{\SNtemp{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w}.\label{eq:wep1pt0}
+\end{align}
 
 Therefore we have, by definition of $\NHnfn{-m}{D}{\cdot}$ and $\NHoDn{\cdot}$,
-\beq\label{eq:wep1pt1}
-\NHnfn{-m}{D}{w-\Ph w} \leq \CSZfn{m+2}\CAfn{m} \CBanfn{m} \NLiDop{A} \frac{\NHmD{n}}{\nmin^2} h^{m+1} \NHoDn{w - \Ph w}.
-\eeq
+\begin{align}
+&  \NHnfn{-m}{D}{w-\Ph w} \leq\nonumber\\
+  &\quad\CSZfn{m+2}\CAfn{m} \CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}} \NLiDop{A} \frac{\SNtemp{n}}{\nmin^2} h^{m+1} \NHoDn{w - \Ph w}.\label{eq:wep1pt1}
+\end{align}
 
-Combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn} in the case $m > d/2$.
+Combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn}.
 
-For $m \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
-\beq\label{eq:wep2pt1}
-2\CSZfn{m+2} \CAfn{m} \Cprod{m} \NLiDop{A} \frac{\NWmiD{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w},
-\eeq
-(since $1 + \NWmiD{n} \leq 2\NWmiD{n},$ since $\nmax \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:errn}, in the case $m \in [1,d/2]$.
+%% For $m \in [1,d/2],$ \cref{thm:banachalg} yields, instead of \cref{eq:wep1pt0},
+%% \beq\label{eq:wep2pt1}
+%% 2\CSZfn{m+2} \CAfn{m} \Cprod{m} \NLiDop{A} \frac{\NWmiD{n}}{\nmin}\NHnfn{m}{D}{\phi} h^{m+1}\SNHoD{w-\Ph w},
+%% \eeq
+%% (since $1 + \NWmiD{n} \leq 2\NWmiD{n},$ since $\nmax \geq 1$) and by a similar reasoning to that before, we obtain \cref{eq:errn}, in the case $m \in [1,d/2]$.
 \epf
 
 \bre[Subtleties regarding $\Ph$ for the IIP]\label{rem:epdef}
@@ -2276,10 +2262,9 @@ where
 \beqs
 \shiftn{m} \de 
 \begin{dcases}
- \NHmD{n}\nvar &\tif m > \frac{d}2\\
-\NWmiD{n}\nvar  &\tif m \in \mleft[1,\frac{d}2\mright]\\
-\nmax\nvar &\tif m = 0\\
-\nmax^2 &\tif m = -1.
+\nmax^2 &\tif m = -1.\\
+  \nmax\nvar &\tif m = 0\\
+  \SNtemp{n}\nvar  &\tif m \in \mleft[1,p-1\mright]
 \end{dcases}
 \eeqs
 \ele
