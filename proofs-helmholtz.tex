@@ -6,10 +6,8 @@ Recall $R>0$ is fixed. We let $X=Y=\HozDDR$ and define the norm $\NHokDR{v}^2 \d
 
 \bde[Compact-support spaces]\label{def:compsuppspace}
 Let
-\beqs
-\LtRDR \de \set{\fz \in \LtDR \st \supp\mleft(\fz\mright) \compcont \BR}.
-\eeqs
 \begin{align*}
+  \LtRDR \de \big\{&\fz \in \LtDR \st \supp\mleft(\fz\mright) \compcont \BR\big\},\\
 \LiRminDRRR \de \big\{&\nz \in \LiDRRR \st\supp\mleft(1-\nz\mright) \compcont \BR,\\
 &\text{there exists } \alphanz > 0 \text{ such that } \nz(\bx) \geq \alphanz \text{ almost everywhere }\big\},\\
 \hspace{-3cm}\LiRminDRspd \de \Big\{&\Az \in \LiDRspd \st \supp\mleft(I-\Az\mright) \compcont \BR\Big\},\text{ and}\\
@@ -141,20 +139,20 @@ Then for any $v \in \HozDDR$ we have, for $j=0,1,$
 Continuity of $\sol$ then follows from:
 
 \ben
-\item Deriving the Helmholtz equation with coefficients $\Az$ and $\nz$ satisfied by $\ud\de\uz-\uo.$
+\item Deriving the Helmholtz equation with coefficients $\Az$ and $\nz$ satisfied by $\usd\de\uz-\uo.$
 \item\label[point]{it:contrecall} Recalling that the well-posedness result of \cref{thm:deteu} holds when $\fz \in \LtRDR$ is replaced by a right-hand side in $(\HozDDR)^*$; see, e.g., \cite[Theorem 2.34]{Mc:00}.
 \item Applying the result in \cref{it:contrecall} to obtain a bound
 %  \beqs
-  $\NHokDR{\ud} \leq C(\Az,\nz) \NHozDDRas{F}.$
+  $\NHokDR{\usd} \leq C(\Az,\nz) \NHozDDRas{F}.$
 %  \eeqs
 
 \item Showing $\NHozDDRas{F}$ depends on each of $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRop{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
-\item Eliminating the dependence on $\uo$ by writing $\uo = \uz-\ud$ and moving terms in $\ud$ to the left-hand side, to obtain a bound on $\ud$ of the form
+\item Eliminating the dependence on $\uo$ by writing $\uo = \uz-\usd$ and moving terms in $\usd$ to the left-hand side, to obtain a bound on $\usd$ of the form
   \begin{align*}
-&\NLtDR{\grad \ud} + k\NLtDR{\ud} \\
+&\NLtDR{\grad \usd} + k\NLtDR{\usd} \\
 &\qquad\leq \Ctilde\Big(\uz,\Az,\nz,\NLiDRop{\Ao-\Az},\NLiDRRR{\no-\nz},\NLtDR{\fz-\fo}\Big).
 \end{align*}
-\item Concluding that $\ud\rightarrow0$ in $\HozDDR$ as $(\Ao,\no,\fo) \rightarrow (\Az,\nz,\fz)$ in $\cC.$
+\item Concluding that $\usd\rightarrow0$ in $\HozDDR$ as $(\Ao,\no,\fo) \rightarrow (\Az,\nz,\fz)$ in $\cC.$
 \een\epf
 
 \ble[\Cref{con:K} for the Helmholtz stochastic EDP]\label{lem:hh-K}
@@ -263,9 +261,9 @@ imply that there exists $C(k) > 0$ such that
 \begin{align*}
 \bigg|\Big[\mleft[\Acomega\mright](\vo)\Big](\vt)\bigg| &= \abs{\int_{\DR} \Big(\mleft(A(\omega) \grad \vo\mright)\cdot\grad \vtb - k^2n(\omega) \vo\vtb \Big)\dd\Leb- \IPGRbig{\DtN \vo}{\vt}}\\
 &\hspace{-1cm}\leq \NLiDRop{A(\omega)}  \NLtDR{\grad \vo}\NLtDR{\grad \vt}\\
-&\hspace{-1cm}\quad+ k^2 \NLiDRRR{n(\omega)}\NLtDR{\vo}\NLtDR{\vt}+ C(k) \NHhGR{\gamma\vo}\NHhGR{\gamma\vt},
+&\hspace{-1cm}\quad+ k^2 \NLiDRRR{n(\omega)}\NLtDR{\vo}\NLtDR{\vt}+ C(k) \NHhGR{\gamma\vo}\NHhGR{\gamma\vt}.
 \end{align*}
-where we have used the fact that the two norms $\NLiDRRRdtd{\cdot}$ and $\NLiDRop{\cdot}$ are equivalent.
+%where we have used the fact that the two norms $\NLiDRRRdtd{\cdot}$ and $\NLiDRop{\cdot}$ are equivalent.
 
 Since the trace operator $\gamma$ is continuous from $\HoDR$ to $\HhGR$ (see, e.g.~\cite[Theorem 3.38]{Mc:00}), there exists $\Ctilde > 0$ such that
 \beqs
