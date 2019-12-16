@@ -28,13 +28,20 @@ We recall that where a constant is only used inside a proof it will usually be n
   $\Cmclean{m}$&---&Proof of \cref{thm:banachalg}\\
     $\CBanfn{m}{\mtilde}$ & --- & \cref{thm:banachalg}\\
 %  $\Cprod{m}$ &$1+\Cmclean{m}$&\cref{thm:banachalg} \\
+$\Cmult$ & $\max_{m=2,\ldots,p-2} \CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}}$ & Proof of \cref{thm:expansion}\\
   $\Cej$ & $\displaystyle \begin{dcases}
-  \max\set{1,\CAz}, & j=0\\
-  \mleft(\max\set{1,\CAz} \prod_{l=1}^j \max\set{1,\CAfn{l}} \mleft(1+\CTrfn{l+1}\mright)\mright)2^{j-1}, &j \geq 1
-  \end{dcases}$& \cref{thm:expansion}\\
+  \max\CAz, & j=0\\
+  \max\set{1,\CAo}\mleft(1+\CTrfn{2}\mright)\Cefn{0}, &j = 1\\
+  \CAfn{j}\mleft(1+\CTrfn{j+1}\mright)\max\set{\Cmult \Cefn{j-2},\Cefn{j-1}} & j \in [2,p-2]
+  \end{dcases}$& \Cref{thm:expansion}\\
 %  $\Pj$ & See \cref{eq:p}& \cref{thm:expansion}\\
 %  $\Coscfn{j}$ & See \cref{eq:osc1,eq:osc2,eq:osc3} & \cref{thm:expansion}\\
-  $\Cosc$ & $\Cefn{p-1}/\max\set{1,\CAz}$ & \cref{thm:expansion}\\
+$\Cremfn{j}$ & $ \displaystyle \begin{dcases}
+\CAfn{1}\mleft(1+\CTrfn{2}\mright), &j=1\\
+\CAfn{2}\mleft(1+\CTrfn{3}\mleft(1+\Cremfn{1}\mright)\mright), &j=2\\
+\CAfn{j}\mleft(1+\CTrfn{j+1}\mleft(\Cremfn{j-1}+\Cremfn{j-1}\mright)\mright), &j=3,\ldots,p-1
+\end{dcases}$& Proof of \cref{thm:expansion}\\
+  $\Cosc$ & $\Cremfn{p-1}$ & \cref{thm:expansion}\\
   $\CFEMo$ & $\sum_{j=0}^{p-2}\Cinterpfn{j+2}\Cefn{j} $ & \cref{lem:bestapprox}\\
   $\CFEMt$ & $\CFEMt = \Cinterpfn{p+1}\Cosc$ & \cref{lem:bestapprox}\\
   $\Cmmo$ &$\displaystyle
@@ -74,13 +81,13 @@ $
   $\CBo$&$\CMT \CinvVhp^{1/2} \Chinv^{p-1} \Cboundaryo^{\half} $&Proof of \cref{lem:higherbound}\\
   $\CBt$&$\CMT \CinvVhp^{1/2} \Chinv^{m-1} \Cboundaryt^{\half}$&Proof of \cref{lem:higherbound}\\
   $\CBth$&$\CMT^2 \CinvVhp^{\half} \Chinv^{m-1}\Cmmofn{0}^{\half}$&Proof of \cref{lem:higherbound}\\
-  $\CReco$&$\displaystyle\sqrt{\frac32} + \CBo^{\half} + \frac{\CBt^{\half}}{\sqrt{2}}+ \frac{\CBth^{\half}}{\sqrt{2}}$&Proof of \cref{lem:higherbound}\\
+  $\CReco$&$\displaystyle\sqrt{\frac32} + \CBo^{\half} + \frac{\CBt}{\sqrt{2}}+ \frac{\CBth}{\sqrt{2}}$&Proof of \cref{lem:higherbound}\\
   $\CRectfn{m}$&$\displaystyle\frac1{\sqrt{2}}\Chinv^{m-1}\Cwfn{0}\mleft(1+\CSZfn{0}\mright)+1$&Proof of \cref{lem:higherbound}\\
-  $\Chighmo$ & 2$\CReco^m$&Proof of \cref{lem:higherbound}\\
+  $\Chighmo$ & $\CReco^m$&Proof of \cref{lem:higherbound}\\
   $\Chighmt$ &$\sum_{j=1}^{m}\CReco^{m-j} \CRectfn{j}$&Proof of \cref{lem:higherbound}\\
-  $\Cfourteen$ &$\Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cmmofn{0} + \Cwfn{p-1-m} \Cmmofn{-1}\mright)$&Proof of \cref{lem:ltthetahbound}\\
+  $\Cfourteen$ &$2\Csumfn{p-1}\sum_{m=0}^{p-1} \mleft(\CSZfn{p-1-m}\Cmmofn{0} + \Cwfn{p-1-m} \Cmmofn{-1}\mright)$&Proof of \cref{lem:ltthetahbound}\\
     $\Cc$&$\displaystyle2\max\set{\NLiDop{A},1,\frac{\CMT^2}2}$&\cref{lem:continuity}\\
-  $\Cfirst$ &$\Cc\mleft(\Cmmofn{0} + 2\Cmmofn{1}\mright) + \CMT \CinvVhp \Cmmofn{0} \Cboundaryt^{\half} + \Cmmofn{0}$&Proof of \cref{lem:ltthetahbound}\\
+  $\Cfirst$ &$\Cc\mleft(\Cmmofn{0} + 2\Cmmofn{1}\mright) + \CMT \CinvVhp \Cmmofn{0} \Cboundaryt^{\half} + \frac{\Cmmofn{0}}{\CFEMo}$&Proof of \cref{lem:ltthetahbound}\\
     $\Csecond$ &$\Cfourteen  + \CMT \CinvVhp \Cmmofn{0}\Cboundaryo^{\half}$&Proof of \cref{lem:ltthetahbound}\\
   $\CLtboundo$&$ 2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMo$&Proof of \cref{thm:fembound}\\
   $\CLtboundt$&$2\mleft(\Cfirst + \Csecond\Chighfn{p-1,1}\mright)\CFEMt$&Proof of \cref{thm:fembound}\\

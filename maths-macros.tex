@@ -850,10 +850,14 @@
 \newcommand{\LiOLiDRspd}{\Li{\Omega;\LiDRspd}}
 \newcommand{\NLqDop}[1]{\N{#1}_{\Lq{D;\op}}}
 \newcommand{\NLiDRRdtd}[1]{\N{#1}_{\LiDRRdtd}}
-\newcommand{\SNtemp}[1]{\N{#1}_{(p-1,\ceil{d/2}+1)}}
+\newcommand{\SNtemp}[1]{\NHfn{\max{\set{p-1,\ceil{d/2}+1}}}{D}{#1}}%{\N{#1}_{(p-1,\ceil{d/2}+1)}}
 \newcommand{\NHpmoD}[1]{\Nfn{\HpmoD}{#1}}
 \newcommand{\NHceildtpoD}[1]{\Nfn{\HceildtpoDnofrac}{#1}}
 \newcommand{\HceildtpoD}{\Hfn{}{\ceil{\frac{d}{2}}+1}{D}}
 \newcommand{\HceildtpoDnofrac}{\Hfn{}{\ceil{d/2}+1}{D}}
 \newcommand{\HmtildeD}{\Hfn{}{\mtilde}{D}}
 \newcommand{\NHmtildeD}[1]{\Nfn{\HmtildeD}{#1}}
+\newcommand{\NHjD}[1]{\Nfn{\HjD}{#1}}
+\newcommand{\HjD}{\Hfn{}{j}{D}}
+\newcommand{\Cmult}{C_{\mathrm{mult}}}
+\newcommand{\Cremfn}[1]{C_{\mathrm{rem},#1}}
