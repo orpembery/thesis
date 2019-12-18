@@ -635,7 +635,7 @@ a^{(1)}(\widetilde{u},v)= \IPLtD{n\widetilde{f}}{v} \quad\text{ for all } v\in \
 \eeq
 and let $\tu_h$ be the solution of the finite-element approximation of \cref{eq:411}, i.e.,
 \beq\label{eq:41}
-a^{(1)}(\tu_h,v_h)= \IPLtD{(n\widetilde{f}}{v_h} \quad\text{ for all } v_h\in \Vhp,
+a^{(1)}(\tu_h,v_h)= \IPLtD{n\widetilde{f}}{v_h} \quad\text{ for all } v_h\in \Vhp,
 \eeq
 and let $\tbu$ be the vector of nodal values of $\tu_h$. The definition of $\widetilde{f}$ then implies that \cref{eq:41} is equivalent to the linear system $\Amato \tbu = \Mmat_{n}\,\fvec$, and so to obtain a bound on $\|(\Amato)^{-1}\Mmat_n\|_{\Dmat_k}$ we need to bound $\|\tbu\|_{\Dmat_k}$ in terms of $\|\fvec\|_{\Dmat_k}$. (Recall $\fvec \in \CCN$ was arbitrary.) Because of the definition 
 of $\|\cdot\|_{\Dmat_k}$ in \cref{eq:Dk}, this bound is equivalent to bounding $\|\tu_h\|_{\HokD}$ in terms of $\|\widetilde{f}\|_{\HokD}$.
@@ -809,7 +809,7 @@ $\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
  then give upper bounds on how large the `shift' $\eps$ can be for GMRES for $\AmatoI\Amatt$ to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
 
 %\cite[Lemma 4.1]{GaGrSp:15}
-The main differences between \cite{GaGrSp:15} and this work are that (i)  \cite{GaGrSp:15} focused on the TEDP, not the EDP,
+The main differences between \cite{GaGrSp:15} and this work are that: (i)  \cite{GaGrSp:15} focused on the TEDP, not both the TEDP and the EDP,
 (ii) \cite{GaGrSp:15} focused on the particular case that $\Dm$ is star-shaped with respect to a ball, finding a $k$- and $\eps$-explicit expression for $C^{(1)}_{\rm bound}$ in this case using Morawetz identities, whereas we assume the existence of $\Cboundo,$
 (iii) \cite{GaGrSp:15} required a bound on 
 $(\Amato)^{-1}\Mmat_{n}$, analogous to the bounds in \cref{lem:keylemma1} along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $i k$), but \emph{not} on 
@@ -838,7 +838,7 @@ We first give the set-up for weighted GMRES, first introduced in by Essai in \ci
 % \begin{equation*}
 $\matrixC \xvec = \dvec$
 %\end{equation*}
-in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\xvecz$ be the initial guess, and define the initial residual $\rvec^0 \de \dvec- C \xvec^0$ and the standard Krylov spaces:  
+in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\xvecz$ be the initial guess, and define the initial residual $\rvec^0 \de \dvec- \Cmat \xvec^0$ and the standard Krylov spaces:  
 \beqs  
 \cK^m(\Cmat, \rvec^0) \de \mathrm{span}\big\{\matrixC^j \rvec^0 : j = 0, \ldots, m-1\big\}.
 \eeqs
@@ -862,9 +862,9 @@ $W_\Dmat(\matrixC)$ is called the \emph{numerical range} or \emph{field of value
 %Recall the so-called ``Elman estimate" for GMRES
 
 \begin{theorem}[Elman estimate for weighted GMRES]\label{thm:GMRES1_intro} 
-Let $\matrixC$ be a matrix with $\zerovec\notin W(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
+Let $\matrixC$ be a matrix with $\zerovec\notin W_\Dmat(\matrixC)$. Let $\beta\in[0,\pi/2)$ be defined such that
 \beq\label{eq:cosbeta}
-\cos \beta \de \frac{\mathrm{dist}\big(\zerovec, W(\matrixC)\big)}{\N{\matrixC}_{2}}.
+\cos \beta \de \frac{\mathrm{dist}\big(\zerovec, W_\Dmat(\matrixC)\big)}{\N{\matrixC}_{\Dmat}}.
 \eeq
 If the matrix equation $\matrixC \xvec = \by$ is solved using weighted GMRES then, 
 for $m\in \mathbb{N}$, the GMRES residual $\rvecm$ %\de \matrixC \xvec_m - \by$ 
@@ -877,7 +877,7 @@ The bound \cref{eq:Elman} with $\Dmat=\Imat$ was first proved in \cite[Theorem 6
 
 
 
-\cref{thm:GMRES1_intro} has the following corollary, and the proofs of \cref{cor:1,cor:1a} follow from combining this with \cref{thm:1}.
+\cref{thm:GMRES1_intro} has the following \lcnamecref{cor:GMRES_intro} (see, e.g., , and the proofs of \cref{cor:1,cor:1a} follow from combining this with \cref{thm:1}.
 
 \begin{corollary}
 \label{cor:GMRES_intro} 
@@ -940,7 +940,7 @@ Now, by the Cauchy-Schwarz inequality and the definition of the norm $\|\cdot\|_
 \eeqs
 Since \cref{cond:1nbpc} holds, we can then apply \cref{lem:H1}, i.e.~the bound \cref{eq:bound2}, to the solution of the variational problem \cref{eq:vp1}  to find that 
 \begin{align*}
-\frac{\big\| u^{(1)} - u^{(1)}\big\|_{\HokD}}
+\frac{\big\| u^{(1)} - u^{(2)}\big\|_{\HokD}}
 {\big\| u^{(2)}\big\|_{\HokD}, 
 }
  \leq 
@@ -985,7 +985,7 @@ We now set things up so that \cref{eq:sharpdiff} holds. We define $\nso = 1$ and
 \beq\label{eq:fiddlyntdone}
 \nst = \nso + c(k) \chitilde(r),
 \eeq
-for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(D)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \subset D$, and $\NLiDRR{\chitilde} = 1$ (so that $\NLiDRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(D)$ and $\supp \,\chi$ a compact subset of $D$. We will specify $\chitilde$ and $\chi$ in more detail later.
+for some function $\chitilde(r)$ such that $\widetilde{\chi}\in C^{\infty}(D)$, $\widetilde{\chi}\not = 1$ (so that $\nst\not = \nso$), $\supp \, \widetilde{\chi} \compcont D$, and $\NLiDRR{\chitilde} = 1$ (so that $\NLiDRR{\nso-\nst} = c(k)$).   As above, let $\chi=\chi(r)$ with $\chi \in C^{\infty}(D)$ and $\supp \,\chi \compcont D$. We will specify $\chitilde$ and $\chi$ in more detail later.
 
 Let $\ftilde(r)$ be as defined in \cref{eq:obs1}, and define
 \beq\label{eq:obs3}
@@ -1004,7 +1004,7 @@ I.e., $\uso$ solves \cref{prob:vedp} with coefficients $\Aso = I$ and $\nso =1$ 
 Now observe that by construction (since $\nst$ is given by \cref{eq:fiddlyntdone})
 
 \begin{align*}
-  \mleft(\Delta + k^2\mright) \mleft(\uso-\ust\mright) &= \mleft(\Delta + k^2\mright)\uso - \mleft(\Delta - k^2 \nst - k^2\mleft(\nst - 1\mright)\mright)\ust\\
+  \mleft(\Delta + k^2\mright) \mleft(\uso-\ust\mright) &= \mleft(\Delta + k^2\mright)\uso - \mleft(\Delta + k^2 \nst - k^2\mleft(\nst - 1\mright)\mright)\ust\\
   &= -f + f + k^2\mleft(\nst-1\mright)\ust\\
    &= k^2 \mleft(\nst-1\mright)\ust\\
   &= k^2 c(k) \chitilde \frac{-1}{k^2 c(k)} \frac{\ftilde}{\chitilde}\\
@@ -1016,24 +1016,24 @@ Therefore, by uniqueness of the solution of \cref{prob:vedp} (with constant coef
 u^{(1)}(\bx)- u^{(2)}(\bx) = e^{i k r}\chi(r).
 \eeq
 Therefore, by \cref{eq:obs4} and the properties of $e^{ikr} \chi(r)$ discussed above,  we have
-\beqs
+\beq\label{eq:pdenumber1}
 \big\|u^{(1)}-u^{(2)}\big\|_{L^2(D)} \sim 1
 \quad \tand \quad
 \big\|u^{(1)}-u^{(2)}\big\|_{\HokD} \sim k.
-\eeqs
+\eeq
 Furthermore, the definitions of $u^{(2)}$ and $\widetilde{f}$ imply that
-\beqs
+\beq\label{eq:pdenumber2}
 \big\| u^{(2)}\big\|_{L^2(D)} \sim \frac{1}{k\, c(k)} \quad\tand \quad 
 \big\| u^{(2)}\big\|_{\HokD} \sim \frac{1}{c(k)},
-\eeqs 
-and, since $\|\nso- \nst\|_{L^\infty(D)} = c(k)$, \cref{eq:nck} holds, as required.
+\eeq
+and, since $\|\nso- \nst\|_{L^\infty(D)} = c(k)$, by combining \cref{eq:pdenumber1,eq:pdenumber2}, we see \cref{eq:nck} holds, as required.
 
 Therefore, to complete the proof, we only need to show that there exists a choice of $\chi$ and $\widetilde{\chi}$ for which $u^{(2)}$ and $f$ defined by \cref{eq:obs3,eq:fiddlyf} are 
 in $H^{1}(D)$ and $\LtD$ respectively (in fact, we prove that they are in $W^{1,\infty}(D)$ and $L^\infty(D)$ respectively).
 %well-defined. 
 Because $\chi$ and $\widetilde{\chi}$ are in $C^\infty(D)$ and we choose $\chi$ and $\chitilde$ so that if $\chitilde=0,$ then $\chi=0$, the only issue is what happens at the boundary of the support of $\widetilde{\chi}$, where $u^{(2)}$ has the potential to be singular.
 Since $\clos{\Dm} \subset \BR$, there exist $0<R_1<R_2<R$ such that $\overline{\Dm} \subset B_{R_2}\setminus B_{R_1} \subset \BR$. Let $\supp \chi = B_{R_2}\setminus B_{R_1}$ and let $\chi$ vanish to order $m$ at $r= R_1$ and $r=R_2$; i.e.~$\chi(r) \sim (r-R_1)^m$ as $r \downarrow R_1$ and 
-$\chi(r) \sim (R_2-r)^m$ as $r \uparrow R_2$. The definition of $\widetilde{f}$ \cref{eq:obs3} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $\mtilde$ at $r= R_1$ and $r=R_2$. 
+$\chi(r) \sim (R_2-r)^m$ as $r \uparrow R_2$. The definition of $\widetilde{f}$ \cref{eq:obs1} then implies that $\widetilde{f}$ vanishes to order $m-2$. Let $\widetilde{\chi}(r)$ vanish to order $\mtilde$ at $r= R_1$ and $r=R_2$. 
 We now claim that if $m >\mtilde+4$, then $u^{(2)}\in W^{1,\infty}(D)$ and $f$ $\in L^\infty(D)$. Indeed,  
 straightforward calculation from \cref{eq:obs3} shows that  $u^{(2)}(r) \sim (r-R_1)^{m-\mtilde-2}$, $\nabla u^{(2)}(r) \sim (r-R_1)^{m-\mtilde-3}$, and $\Delta u^{(2)}(r) \sim (r-R_1)^{m-\mtilde-4}$ as $r \downarrow R_1$, with analogous behaviour at $r=R_2$.
 The assumption 
@@ -1096,7 +1096,7 @@ If we instead use \cref{eq:genholder} to bound \cref{eq:keynbound,eq:keyAbound} 
 \eeq
 and
 \beq\label{eq:keyAbound2}
-\NLtD{A\grad\ftilde} \leq \NLqDop{A}\NLsD{\ftilde}.
+\NLtD{A\grad\ftilde} \leq \NLqDop{A}\NLsD{\grad\ftilde}.
 \eeq
 
 As $\ftilde \in \Vhp$, we can apply an inverse inequality to bound $\NLsD{\ftilde}$ by $\NLtD{\ftilde}$. The required inverse inequality is (see \cite[Theorem 4.5.11 and Remark 4.5.20]{BrSc:08}
@@ -1105,11 +1105,11 @@ As $\ftilde \in \Vhp$, we can apply an inverse inequality to bound $\NLsD{\ftild
 \eeq
 If we then apply \cref{eq:inverses} to \cref{eq:keynbound2,eq:keyAbound2} we obtain
 \beq\label{eq:keynboundfinal}
-\NLtD{n\ftilde} \leq \Cinvs \NLqDRR{n} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\ftilde}
+\NLtD{n\ftilde} \leq \Cinvs \NLqDRR{n} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\ftilde} = \Cinvs \NLqDRR{n} h^{-\frac{d}q} \NLtD{\ftilde}
 \eeq
 and
 \beq\label{eq:keyAboundfinal}
-\NLtD{A\grad\ftilde} \leq \Cinvs \NLqDop{A} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\grad\ftilde}.
+\NLtD{A\grad\ftilde} \leq \Cinvs \NLqDop{A} h^{d\mleft(\frac1{s} - \half\mright)} \NLtD{\grad\ftilde} = \Cinvs \NLqDop{A} h^{-\frac{d}q} \NLtD{\grad\ftilde}.
 \eeq
 
 Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAboundfinal} in the proofs of \cref{lem:keylemma1,lem:keylemma2}, and proceeding as in those proofs, we can obtain the following \lcnamecrefs{cor:1alt}, the analogues of \cref{cor:1,cor:1a}.
@@ -1118,7 +1118,7 @@ Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAb
 
 \
 
-\noindent Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+\noindent Let the assumptions of \cref{cor:1} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
@@ -1148,11 +1148,11 @@ for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inne
  A sketch proof of \cref{cor:1alt,cor:1aalt} is on \cpageref{page:cor1altcor1aaltproof} below.
 
 \bre[Trade off between the type of norm and powers of $h$ and $k$]
-Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\no-\nt$ and the restriction on the magnitude of this norm. E.g., the condition on $\no-\nt$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
+Observe that in \cref{cor:1alt,cor:1aalt} there is a trade-off between the norm that one uses to measure $\nso-\nst$ (or $\Aso-\Ast$) and the restriction on the magnitude of this norm. E.g., the condition on $\nso-\nst$ in both \cref{cor:1alt,cor:1aalt} can be summarised as
 \beq\label{eq:altsufficientlysmall}
-\NLqDRR{\no-\nt} k h^{-\frac{d}{q}} \text{ is sufficiently small}.
+\NLqDRR{\nso-\nst} k h^{-\frac{d}{q}} \text{ is sufficiently small}.
 \eeq
-Observe that as $q \downarrow 2,$ we measure $\no-\nt$ in a weaker norm, but the condition \cref{eq:altsufficientlysmall} becomes more restrictive; the power of $h$ increases. Conversely, as $q \uparrow \infty,$ we measure $\no-\nt$ in a stronger norm, but the condition \cref{eq:altsufficientlysmall} becomes less restrictive; the power of $h$ decreases. (Also observe that in the $q\uparrow\infty$ limit we recover the condition \cref{eq:sufficientlysmall} we previously proved for $\NLiDRR{\no-\nt}.$
+with analogous conditions on $\Aso-\Ast.$ Observe that as $q \downarrow 2,$ we measure $\nso-\nst$ in a weaker norm, but the condition \cref{eq:altsufficientlysmall} becomes more restrictive; the power of $h$ increases. Conversely, as $q \uparrow \infty,$ we measure $\nso-\nst$ in a stronger norm, but the condition \cref{eq:altsufficientlysmall} becomes less restrictive; the power of $h$ decreases. (Also observe that in the $q\uparrow\infty$ limit we recover the condition \cref{eq:sufficientlysmall} we previously proved for $\NLiDRR{\nso-\nst}.$
 \ere
 
 \bre[\Cref{cor:1,cor:1a} are a special case of \cref{cor:1alt,cor:1aalt}]
@@ -1252,7 +1252,7 @@ The proofs of \cref{cor:1alt,cor:1aalt} are completely analagous to the proofs o
 \subsection{Numerics in weaker norms}\label{sec:weakernumerics}
 For our computations, we use the computational setup as in \cref{app:compsetup}, with $f$ and $\gI$ corresponding to a plane wave passing through homogeneous media.  We let $\Aso=\Ast=I,$ and we define $\nso$ and $\nst$ by \cref{eq:noweak,eq:ntweak}. For $\alpha = 0.2k^{-\beta},$ $\beta = 0,0.1,\ldots,0.9,1$ and for $k=10,20,\ldots,100$ we used GMRES to solve $\AmatoI\Amatt = \AmatoI \fvec$ (for $\fvec$ given by the Helmholtz problem), and we record the number of GMRES iterations taken to achieve convergence.
 
-Our results in \cref{fig:l1low,fig:l1med,fig:l1high} (also displayed in \cref{tab:l1}) indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{\beta}$, for all $1 \leq q < \infty$:
+Our results in \cref{fig:l1low,fig:l1med,fig:l1high} (also displayed in \cref{tab:l1}) indicate the following conclusions for $\NLqDRR{\nso-\nst} \sim 0.1/k^{-\beta}$, for all $1 \leq q < \infty$:
 \bit
 \item For $\beta \in (0,0.6)$ there is clear growth of the number of GMRES iterations with $k$,
 \item For $\beta = 1$ there is clear boundedness of the number of GMRES iterations with $k$, and
@@ -1323,8 +1323,8 @@ In all of our previous uses of nearby preconditioning, we have fixed $\nso$, the
 
 Therefore, the algorithms presented in this \lcnamecref{sec:nbpcqmcnum} seek to answer the two questions:
 \ben
-\item For which realisations of $n$ should a preconditioner be calculated?
-  \item To which realisations of $n$ should each preconditioner be applied?
+\item \emph{For} which realisations of $n$ should a preconditioner be \emph{calculated}?
+  \item \emph{To} which realisations of $n$ should each preconditioner be \emph{applied}?
 \een
 
 We now detail two methods for using nearby preconditioning to speed up QMC methods for the Helmholtz equation. To apply these methods, we use the following model problem: We consider the Interior Impedance Problem in 2-d with $f=1$ and $\gI=0$, $A = I$, and $n$ given by
@@ -1354,7 +1354,7 @@ We also use the words `nearby' and `nearest' (when referring to QMC points) to m
 \beq\label{eq:dqmc}
 \dQMC(\byo,\byt) = \NLiDRR{n(\byo)-n(\byt)},
 \eeq
-i.e., the metric on $\cube{J}$ induced by the spatial $L^\infty$ norm. (See \cref{eq:dapprox} below for the approximation of $\dQMC$ that we use.) We use this metric to describe the geometry of our QMC points as the best rigorous results (in terms of $k$-dependence) are proved in \cref{sec:3} for the $L^\infty$-norm\footnote{Although, in line with the results in \cref{sec:weaknorm}, we could instead use a spatial $L^q$ norm, for some $q \geq 1$ in \cref{eq:dqmc}.}. Therefore, when considering which QMC points will give preconditioners suitable for use with other QMC points, this metric is a natural metric to use.
+i.e., the metric on $\cube{J}$ induced by the spatial $L^\infty$ norm. (See \cref{eq:dapprox} below for the approximation of $\dQMC$ that we use.) We use this metric to describe the geometry of our QMC points as the best rigorous results on the behaviour of nearby preconditioning (in terms of $k$-dependence) are proved in \cref{sec:3} for the $L^\infty$-norm\footnote{Although, in line with the results in \cref{sec:weaknorm}, we could instead use a spatial $L^q$ norm, for some $q \geq 1$ in \cref{eq:dqmc}.}. Therefore, when considering which QMC points will give preconditioners suitable for use with other QMC points, this metric is a natural metric to use.
 
 
 \subsubsection{A sequential algorithm}
@@ -1365,15 +1365,16 @@ An overview of the algorithm is:
 \item Choose a QMC point $\by$ for which to calculate a preconditioner
 \item\label[itemstep]{it:nearest} Find the nearest QMC point $\byp$ to $\by$ and attempt a GMRES solve of the problem at $\byp$ using the LU decomposition of the system at $\by$ as a preconditioner.
     \item If GMRES converges quickly (i.e., in fewer than a preset number of iterations), return to \cref{it:nearest}.
-\item If GMRES takes too long to converge, recalculate the preconditioner at the current point, and return to \cref{it:nearest}.
+\item If GMRES takes too long to converge, recalculate the preconditioner at $\byp,$ set $\by = \byp$, and return to \cref{it:nearest}.
   \een
   The algorithm is written in more formal pseudocode in \cref{alg:seq}.
 \begin{algorithm}[h]
 \DontPrintSemicolon
-\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\SetKwInOut{Input}{Input}
+%\SetKwInOut{Output}{Output}
 \SetKwFunction{Nearest}{nearest}
 
-\Input{$\maxGMRES$,$\SQMC$}
+\Input{$\maxGMRES$, $\SQMC$}
 \BlankLine
 Choose starting point $\bystart$\;
 $\bypre \defined \bystart$\;
@@ -1406,7 +1407,7 @@ The algorithm contains two key ideas:
 
 \paragraph{Surrogate metric} Whilst the metric $\dQMC$ is the metric in which  nearby preconditioning is analysed (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with, since the  geometry it induces on $\cube{J}$ is nontrivial as this geometry is dependent on the interaction between the functions $\psij$ in the expansion \cref{eq:artificialkl}. Therefore, we work in an alternative, although related metric
   \beq\label{eq:dapprox}
-\dapprox(\byo,\byt) \de \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}, \tfor \byo,\by \in \cube{J}.
+\dapprox(\byo,\byt) \de \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}, \tfor \byo,\byt \in \cube{J}.
 \eeq
 Observe that the structure of $\dapprox$ is similar to that of $\dQMC$ and for all $\byo,\byt \in \cube{J},$ the inequality $\dQMC\mleft(\byo,\byt\mright) \leq \dapprox\mleft(\byo,\byt\mright)$ holds. Also observe that $\dapprox$ is a weighted $L^1$ metric on $\cube{J}$, with the weights corresponding to the terms in \cref{eq:artificialkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
 
@@ -1446,7 +1447,7 @@ However, we face three immediate difficulties with  the above approach:
 
     \paragraph{Definition of the parallel algorithm} Recall that we assume that we are given a target number of preconditioners $\Npretarget$. The above procedure (amongst other things) defines a map $\Npreideal:\RRp \rightarrow \RRp$ given by $r \mapsto \Npre,$ where $\Npre$ is defined by \cref{eq:Npre} and the number of preconditioners in each dimension is given by \cref{eq:Nj}.  Therefore we can numerically invert this map (or more precisely, calculate numerically the value $\rideal$ such that $\Npreideal(\rideal) = \Npretarget$). (In our computations, we do this calculation via interval bisection.)
 
-Given we expect that the size of the balls over which nearby preconditioning is effective decreases with $\cO\mleft(1/k\mright)$ (in line with \cref{cor:1}), and the number of QMC points needed to keep the error bounded increases with $k$ (see \cref{sec:nbpcqmcnumerics} below), it is not obvious that we should know $\Npreideal$ in advance. See \cpageref{page:seqandpar} for how we use the sequential algorithm to determine how $\Npreideal$ scales with $k$ for the parallel algorithm.
+Given we expect that the size of the balls over which nearby preconditioning is effective decreases with $\cO\mleft(1/k\mright)$ (in line with \cref{cor:1}), and the number of QMC points needed to keep the error bounded increases with $k$ (see \cref{sec:nbpcqmcnumerics} below), it is not obvious that we should know $\Npreideal$ in advance. See \cpageref{page:seqandpar} for how we use the sequential algorithm to determine how $\Npreideal$ scales with $k$ for the parallel algorithm. We assume for now that we know $\Npreideal$ and hence $\rideal.$
 
     Once we know the value of $\rideal,$ we can then calculate the numbers of centres in each dimension $\No(\rideal),\ldots,\NJ(\rideal)$ as above (recalling that the $\Nj(\rideal)$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Nj(\rideal)}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Nj(\rideal) \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
 
