@@ -1,62 +1,71 @@
 \section[Proof of the results in Section \MakeLowercase{\ref{sec:general}}]{Proof of the results in \cref{sec:general}}\label{sec:genproof}
 
+A key ingredient in proving that the stochastic variational formulation is well-defined (\cref{lem:svarwelldefined}) is showing that the maps $\omega \mapsto \mleft[\mleft(\rhs\circ\coeff\mright)(\omega)\mright]\mleft(\vt(\omega)\mright)$ and $\omega \mapsto \mleft[\mleft[(\toform\circ\coeff(\omega)\mright]\mleft(\vo(\omega)\mright)\mright]\mleft(\vt(\omega)\mright)$ are measurable, for appropriate functions $\vo$ and $\vt$. Showing that these functions are measurable is not straightforward, because they both depend on $\omega$ in multiple places. However, the structure of the $\omega$-dependence in each case is similar, and so we first prove some general results that will be applicable to both of these cases.
+
+
 \subsection{Preliminary lemmas}\label{sec:prelemmanary}
-To simplify notation, we introduce the following definition.
+Throughout this \lcnamecref{sec:prelemmanary}, we assume we have two separable Banach spaces $\Zo$ and $\Zt$, and maps $\Pmap:\Omega\rightarrow \homspaceZoZt$ and $v:\Omega \rightarrow \Zo$. To simplify notation, we introduce the following definition.
 \bde[Pairing map]
-For fixed $\coeff:\Omega\rightarrow\cC$ and $\toform:\Omega\rightarrow\homspace,$ given $v:\Omega\rightarrow X$ we define the map $\comp:\Omega\rightarrow \Ys$ by
+We define the map $\compPv:\Omega\rightarrow \Zt$ by
 \beq\label{eq:comp}
-\comp(\omega) \de \mleft[\mleft(\toform\circ\coeff\mright)(\omega)\mright]\mleft(v(\omega)\mright).
+\compPv(\omega) \de \mleft[\Pmap(\omega)\mright]\mleft(v(\omega)\mright).
 \eeq
 \ede
 
-A key ingredient in proving that the stochastic variational formulation is well-defined (see \cref{lem:svarwelldefined}) is showing that the maps $\compu$ and $\fullrhs$ are measurable. Showing that $\fullrhs $ is measurable is straightforward (see \cref{lem:thetaborel} below), but showing that $\compu$ is measurable is not. This is because $\fullrhs$ depends on $\omega$ only through its dependence on $\coeff,$ but $\compu$ depends on $\omega$ through both the dependence of $\toform\circ\coeff$ on $\omega$ and the dependence of $u$ on $\omega;$ it is this dual dependence that causes the extra complication.
-
-\ble[$\fullrhs$ is measurable] \label{lem:thetaborel}
-Under \cref{con:coeffstofunc,con:cborel} the function $\fullrhs$ is measurable.
-\ele
-
-\begin{proof}[Proof of \cref{lem:thetaborel}]
-The map $\coeff$ is measurable (by \cref{con:cborel})
-  and $\rhs$ is continuous  (by \cref{con:coeffstofunc}), therefore \cref{lem:contplusmeas} implies that $\fullrhs $ is measurable.
-\end{proof}
-
-We now move on to the more-involved process of showing $\comp$ is measurable.
-
 \bde[Product map]
-For $v:\Omega\rightarrow X,$ let $\toprod:\Omega\rightarrow \homspace \times X$ be defined by $\toprod(\omega) = \big(\mleft(\toform\circ\coeff\mright)(\omega),v(\omega)\big).$
+Let $\toprodPv:\Omega\rightarrow \homspaceZoZt \times \Zo$ be defined by $\toprodPv(\omega) = \mleft(\Pmap(\omega),v(\omega)\mright).$
 \ede
 
 \ble[Product map is measurable]\label{lem:Pmeas}
-When $\homspace \times X$ is equipped with the product top\-ol\-ogy,  if \cref{con:coeffstoform,con:cborel} hold, and if $v:\Omega\rightarrow X$ is measurable, then $\toprod:\Omega\rightarrow \homspace\times X$ is measurable.
+When $\homspaceZoZt \times \Zo$ is equipped with the product topology, if $\Pmap$ and $v$ are measurable, then $\toprodPv:\Omega\rightarrow \homspaceZoZt\times \Zo$ is measurable.
 \ele
 
 \bpf[Proof of \cref{lem:Pmeas}]
-By the result on the measurability of the Cartesian product of measureable functions (\cref{lem:measprod}), $\toprod$ is measurable with respect to $\big(\cF,\bigBorel{\homspace}\otimes \Borel{X}\big)$ (where $\cB$ denotes the Borel $\sigma$-algebra---see \cref{def:borelsigma}), as both of the coordinate functions $\toform\circ c$ and $v$ are measurable. Since $\homspace$ and $X$ are both metric spaces, they are both Hausdorff. As $X$ is separable, \cref{lem:bogachev} on the product of Borel $\sigma$-algebras implies $\bigBorel{\homspace} \otimes \Borel{X} = \bigBorel{\homspace \times X}.$ Hence $\toprod$ is measurable with respect to $\big(\cF,\bigBorel{\homspace\times X}\big).$
+By the result on the measurability of the Cartesian product of measureable functions (\cref{lem:measprod}), $\toprodPv$ is measurable with respect to $\big(\cF,\bigBorel{\homspaceZoZt}\otimes \Borel{\Zo}\big)$ (where $\cB$ denotes the Borel $\sigma$-algebra---see \cref{def:borelsigma}), as both of the coordinate functions $\Pmap$ and $v$ are measurable. Since $\homspaceZoZt$ and $\Zo$ are both metric spaces, they are both Hausdorff. As $\Zo$ is separable, \cref{lem:bogachev} on the product of Borel $\sigma$-algebras implies $\bigBorel{\homspaceZoZt} \otimes \Borel{\Zo} = \bigBorel{\homspaceZoZt \times \Zo}.$ Hence $\toprodPv$ is measurable with respect to $\big(\cF,\bigBorel{\homspaceZoZt\times \Zo}\big).$
 \epf
 
 \bde[Evaluation map]
-Let $Z$ be a separable Banach space. Define $\eval:\homspaceZ \times X \rightarrow \Zs$ by
+The function $\evalZoZt:\homspaceZoZt \times \Zo \rightarrow \Zt$ is defined by
 \beq\label{eq:evaldef}
-\eval\big(\mleft(\cH,v\mright)\big) \de \cH(v) \quad\tfor \cH \in \homspaceZ \tand v \in X.
+\evalZoZt\big(\mleft(\cH,v\mright)\big) \de \cH(v) \quad\tfor \cH \in \homspaceZoZt \tand v \in \Zo.
 \eeq
 \ede
 
-Observe that the pairing, product, and evaluation maps ($\comp, \toprod,$ and, $\evalY$ respectively) are related by $\comp = \evalY \circ \toprod.$
+Observe that the pairing, product, and evaluation maps ($\compPv, \toprodPv,$ and $\evalZoZt$ respectively) are related by $\compPv = \evalZoZt \circ \toprodPv.$
 
 \ble[Evaluation map is continuous]\label{lem:vstarcont}
-Let $Z$ be a separable Banach space. The map $\eval$ is continuous with respect to the product topology on $\homspaceZ \times X$ and the dual norm topology on $\Zs.$
+The map $\evalZoZt$ is continuous with respect to the product topology on $\homspaceZoZt \times \Zo$ and the norm topology on $\Zt.$
 \ele
 
 The proof of \cref{lem:vstarcont} is straightforward and omitted.
 
-\ble[$\comp$ is measurable] \label{lem:gammaborel}
-If  \cref{con:coeffstoform,con:cborel} hold and $v$ is measurable, then the function $\comp$ as defined by \eqref{eq:comp} is measurable.
+\ble[Pairing map is measurable] \label{lem:abstractpairingborel}
+If  $\Pmap$ and $v$ are measurable, then $\compPv$ is measurable.
+\ele
+
+\begin{proof}[Proof of \cref{lem:abstractpairingborel}]
+By \cref{lem:Pmeas} $\toprodPv$ is measurable and by \cref{lem:vstarcont} $\evalZoZt$ is continuous. Therefore \cref{lem:contplusmeas} implies that $\compPv = \evalZoZt \circ \toprodPv$ is measurable.
+ \end{proof}
+
+
+\ble[$\mleft(\fullrhs\mright)(v)$ is measurable] \label{lem:thetaborel}
+Under \cref{con:coeffstofunc,con:cborel}, for any measurable $\vt:\Omega\rightarrow Y,$ the function $\omega \mapsto \mleft[(\rhs\circ\coeff(\omega)\mright]\mleft(v(\omega)\mright)$ is measurable.
+\ele
+
+\begin{proof}[Proof of \cref{lem:thetaborel}]
+The map $\coeff$ is measurable (by \cref{con:cborel}) and $\rhs$ is continuous  (by \cref{con:coeffstofunc}), therefore \cref{lem:contplusmeas} implies that $\fullrhs $ is measurable. Applying \cref{lem:abstractpairingborel} with $\Zo = Y,$ $\Zt=\FF$ (because $\Ys = \homspaceYF$), $\Pmap = \rhs \circ \coeff$, and $v = \vt,$ the result follows.
+\end{proof}
+
+
+\ble[$((\toform\circ\coeff)(\vo))(\vt)$
+  is measurable] \label{lem:gammaborel}
+If \cref{con:coeffstoform,con:cborel} hold and $\vo:\Omega \rightarrow X$ and $\vt:\Omega \rightarrow Y$ are measurable, then the function $\omega \mapsto \mleft[\mleft[\toform\circ\coeff(\omega)\mright]\mleft(\vo(\omega)\mright)\mright]\mleft(\vt(\omega)\mright)$ is measurable.
 \ele
 
 \begin{proof}[Proof of \cref{lem:gammaborel}]
-By \cref{lem:Pmeas} $\toprod$ is measurable
- and by \cref{lem:vstarcont} $\evalY$ is continuous. Therefore \cref{lem:contplusmeas} implies that $\comp = \evalY \circ \toprod$ is measurable.
+  Since \cref{con:coeffstoform,con:cborel} hold, $\toform\circ\coeff$ is measurable by \cref{lem:contplusmeas}. Therefore by \cref{lem:abstractpairingborel} with $\Zo = X,$ $\Zt = \Ys,$ $\Pmap = \toform\circ\coeff$ and $v = \vo$, the map $\omega \rightarrow \mleft[\toform\circ\coeff(\omega)\mright]\mleft(\vo(\omega)\mright)$ is measurable. Therefore applying \cref{lem:abstractpairingborel} again with $\Zo = Y,$ $\Zt = \FF$, $\Pmap(\omega) = \mleft[\toform\circ\coeff(\omega)\mright]\mleft(\vo(\omega)\mright)$, and $v = \vt$, the result follows.
  \end{proof}
+
 
 
 
@@ -82,7 +91,7 @@ We must show that for any $\vo \in \LtOX$ and any $\vt \in \LtOY$:
 \item The maps $\SA(\vo)$ and $\SL$ are linear and bounded on $\LtOY,$ that is, $\SA:\LtOX\rightarrow\LtOYas$ and $\SL \in \LtOYas.$
 \eit
 It follows from these two points that $\SA$ and $\SL$ are well-defined.
-Thanks to the groundwork laid in \cref{sec:prelemmanary}, the measurability of $\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)$ and $\Lcomega\big(\vt(\omega)\big)$  follows from \cref{lem:gammaborel,lem:thetaborel} (which need \cref{con:coeffstoform,con:coeffstofunc,con:C}).
+Thanks to the groundwork laid in \cref{sec:prelemmanary}, $\big[\Acomega \vo(\omega)\big]\big(\vt(\omega)\big)$ and $\Lcomega\big(\vt(\omega)\big)$  are measurable by \cref{lem:gammaborel,lem:thetaborel} (which need \cref{con:coeffstoform,con:coeffstofunc,con:C}).
 Their $\PP$-essential separability follows from \cref{con:coeffstoform,con:coeffstofunc,con:C,lem:esssep} and thus their strong measurability follows from \cref{cor:pettis} on the equivalence of measurability and strong measurability when the image is separable. Their Bochner integrability then follows from the Bochner integrability condition in \cref{thm:bochnercond} (with $V=\FF$) and the Cauchy--Schwarz inequality since
 \begin{align}
 \int_\Omega \abs{\Lcomega\big(\vt(\omega)\big)}\dd\PP(\omega)&\leq \int_\Omega \NYs{\mleft(\rhs\circ\coeff\mright)(\omega)}\NY{\vt(\omega)}\dd\PP(\omega)\nonumber\\
