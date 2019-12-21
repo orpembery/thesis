@@ -6,25 +6,23 @@ Recall $R>0$ is fixed. We let $X=Y=\HozDDR$ and define the norm $\NHokDR{v}^2 \d
 
 \bde[Compact-support spaces]\label{def:compsuppspace}
 Let
-\beqs
-\LtRDR \de \set{\fz \in \LtDR \st \supp\mleft(\fz\mright) \compcont \BR}.
-\eeqs
 \begin{align*}
+  \LtRDR \de \big\{&\fz \in \LtDR \st \supp\mleft(\fz\mright) \compcont \BR\big\},\\
 \LiRminDRRR \de \big\{&\nz \in \LiDRRR \st\supp\mleft(1-\nz\mright) \compcont \BR,\\
 &\text{there exists } \alphanz > 0 \text{ such that } \nz(\bx) \geq \alphanz \text{ almost everywhere }\big\},\\
-\hspace{-3cm}\LiRminDRRRdtd \de \Big\{&\Az \in \LiDRRRdtd \st \supp\mleft(I-\Az\mright) \compcont \BR\Big\},\text{ and}\\
+\hspace{-3cm}\LiRminDRspd \de \Big\{&\Az \in \LiDRspd \st \supp\mleft(I-\Az\mright) \compcont \BR\Big\},\text{ and}\\
 %\end{align*}
 %\begin{align*}
-&\hspace{-3cm}\WoiRminDRRRdtd \de \set{\Az \in \LiRminDRRRdtd \st\Az \in \WoiDRRRdtd}.
+&\hspace{-3cm}\WoiRminDRspd \de \set{\Az \in \LiRminDRspd \st\Az \in \WoiDRspd}.
 \end{align*}
 \ede
 
-Observe that the norm on $\LiDRRR$ induces a metric on $\LiRminDRRR,$ and similarly for $\LiRDRRRdtd,$ $\WoiRminDRRRdtd,$ and $\LtRDR.$ These spaces are not vector spaces, and are not complete, but completeness and being a vector space is not required in what follows---we only need them to be metric spaces.
+Observe that the norms on $\LiDRRR$, $\LiDRRRdtd$, $\WoiDRRRdtd$, and $\LtDR$ induce metrics on $\LiRminDRRR,$ $\LiRDRspd,$ $\WoiRminDRspd,$ and $\LtRDR$ respectively. These spaces are not vector spaces, and are not complete, but completeness and being a vector space is not required in what follows---we only need them to be metric spaces.
 
 
 \bde[Deterministic form and functional]
 
-For any choice of $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRminDRRR \times \LtRDR$, let the sesquilinear form $\aGm$ on $\HozDDR \times \HozDDR$  and the antilinear functional $\Lh$ on $\HozDDR$ be given by
+For any choice of $\mleft(\Az,\nz,\fz\mright) \in \LiRDRspd \times \LiRminDRRR \times \LtRDR$, let the sesquilinear form $\aGm$ on $\HozDDR \times \HozDDR$  and the antilinear functional $\Lh$ on $\HozDDR$ be given by
 \begin{align*}
 \aGm\mleft(\vo,\vt\mright) &\de \int_{D_R} \Big(\mleft(\Az \grad \vo\mright)\cdot \grad \vtb \rangle 
  - k^2 \nz\, \vo\,\vtb \Big)\dd\Leb- \big\langle T_R \gamma \vo,\gamma \vt\big\rangle_{\Gamma_R}, \quad\text{and}\\
@@ -36,7 +34,7 @@ For any choice of $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRminDRRR
 We now restate \cref{prob:vedp} in the notation of this \lcnamecref{chap:stochastic}.
 
 \bprob[Helmholtz EDP]\label{prob:edpstoch}
-For $\mleft(\Az,\nz,\fz\mright) \in \LiRDRRRdtd \times \LiRDRRR \times \LtRDR$ find 
+For $\mleft(\Az,\nz,\fz\mright) \in \LiRDRspd \times \LiRDRRR \times \LtRDR$ find 
 $\uz \in \HozDDR$ such that $\aGm(\uz,v) = \Lh(v) \tforall v \in \HozDDR.$
 \eprob
 
@@ -51,7 +49,7 @@ Let $\mleft(\Xo,\done\mright),\ldots,\mleft(\Xm,\dm\mright)$ be metric spaces. T
 \bde[The input space $\cC$]\label{def:cCHh}
 We let
 %\beqs
-$\cC \de \WoiRminDRRRdtd \times \LiRminDRRR \times \LtRDR$
+$\cC \de \WoiRminDRspd \times \LiRminDRRR \times \LtRDR$
 %\eeqs
 with topology given by the $\dinfty$ metric.
 \ede
@@ -91,7 +89,7 @@ We need to show that if we have $(\Am,\nm,\fm) \rightarrow (\Az,\nz,\fz)$ in $\c
 \begin{align*}
 &\biggabs{\Big[\big[\toform\mleft(\Am,\nm,\fm\mright) - \toform\mleft(\Az,\nz,\fz\mright)\big]\mleft(\vo\mright)\Big]\mleft(\vt\mright)}\\
 &\quad\quad\quad\,\,= \abs{\int_{\DR} \Big(\big(\mleft(\Am-\Az\mright)\grad \vo\big)\cdot\grad\vtb- k^2 \mleft(\nm-\nz\mright) \vo\vtb\Big)\dd\Leb}\\
-&\quad\quad\quad\,\,\leq\NLiDRRRdtd{\Am-\Az}\NLtDR{\grad \vo}\NLtDR{\grad \vt} 
+&\quad\quad\quad\,\,\leq\NLiDRop{\Am-\Az}\NLtDR{\grad \vo}\NLtDR{\grad \vt} 
 \\
 &\quad\quad\quad\,\,\quad\quad
 +k^2\NLiDRRR{\nm-\nz}\NLtDR{\vo}\NLtDR{\vt}\\
@@ -141,20 +139,20 @@ Then for any $v \in \HozDDR$ we have, for $j=0,1,$
 Continuity of $\sol$ then follows from:
 
 \ben
-\item Deriving the Helmholtz equation with coefficients $\Az$ and $\nz$ satisfied by $\ud\de\uz-\uo.$
+\item Deriving the Helmholtz equation with coefficients $\Az$ and $\nz$ satisfied by $\usd\de\uz-\uo.$
 \item\label[point]{it:contrecall} Recalling that the well-posedness result of \cref{thm:deteu} holds when $\fz \in \LtRDR$ is replaced by a right-hand side in $(\HozDDR)^*$; see, e.g., \cite[Theorem 2.34]{Mc:00}.
 \item Applying the result in \cref{it:contrecall} to obtain a bound
 %  \beqs
-  $\NHokDR{\ud} \leq C(\Az,\nz) \NHozDDRas{F}.$
+  $\NHokDR{\usd} \leq C(\Az,\nz) \NHozDDRas{F}.$
 %  \eeqs
 
-\item Showing $\NHozDDRas{F}$ depends on each of $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRRRdtd{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
-\item Eliminating the dependence on $\uo$ by writing $\uo = \uz-\ud$ and moving terms in $\ud$ to the left-hand side, to obtain a bound on $\ud$ of the form
+\item Showing $\NHozDDRas{F}$ depends on each of $\NLtDR{\grad \uo},$ $\NLtDR{\uo},$ $\NLiDRop{\Ao-\Az},$ $\NLiDRRR{\no-\nz},$ and $\NLtD{\fz-\fo}.$
+\item Eliminating the dependence on $\uo$ by writing $\uo = \uz-\usd$ and moving terms in $\usd$ to the left-hand side, to obtain a bound on $\usd$ of the form
   \begin{align*}
-&\NLtDR{\grad \ud} + k\NLtDR{\ud} \\
-&\qquad\leq \Ctilde\Big(\uz,\Az,\nz,\NLiDRRRdtd{\Ao-\Az},\NLiDRRR{\no-\nz},\NLtDR{\fz-\fo}\Big).
+&\NLtDR{\grad \usd} + k\NLtDR{\usd} \\
+&\qquad\leq \Ctilde\Big(\uz,\Az,\nz,\NLiDRop{\Ao-\Az},\NLiDRRR{\no-\nz},\NLtDR{\fz-\fo}\Big).
 \end{align*}
-\item Concluding that $\ud\rightarrow0$ in $\HozDDR$ as $(\Ao,\no,\fo) \rightarrow (\Az,\nz,\fz)$ in $\cC.$
+\item Concluding that $\usd\rightarrow0$ in $\HozDDR$ as $(\Ao,\no,\fo) \rightarrow (\Az,\nz,\fz)$ in $\cC.$
 \een\epf
 
 \ble[\Cref{con:K} for the Helmholtz stochastic EDP]\label{lem:hh-K}
@@ -186,7 +184,7 @@ To prove that \cref{con:B} holds for the Helmholtz stochastic EDP, we first stat
 
 \
 
-\noindent Let $(\Az,\nz,\fz) \in \cC$ and suppose $\Az \in \NTA{\consto}$ and $\nz \in \NTn{\constt}$. Then the solution of the Helmholtz EDP (\cref{prob:edpstoch}) exists and is unique. Furthermore, given $\kz > 0$ for all $k \geq \kz,$ the solution $\uz$ of the Helmholtz EDP satisfies the bound 
+\noindent Let $(\Az,\nz,\fz) \in \cC$ and suppose $\Az \in \NTA{\consto}$ and $\nz \in \NTn{\constt}$. Then the solution of the Helmholtz EDP (\cref{prob:edpstoch}) exists and is unique. Furthermore, given $\kz > 0$, for all $k \geq \kz,$ the solution $\uz$ of the Helmholtz EDP satisfies the bound 
 \beq\label{eq:heterobound1}
 \consto \NLtDR{\grad \uz}^2 + \constt k^2 \NLtDR{\uz}^2\leq \Co \NLtDR{\fz}^2,\,\, \text{where} \,\, \Co := 4\mleft[\frac{R^2}{\consto} + \frac{1}{\constt}\mleft(R+ \frac{d-1}{2\kz}\mright)^2\mright].
 \eeq
@@ -250,7 +248,7 @@ and thus $\rhs\circ\coeff \in \LtOYs$ since $f \in \LtOLtDR,$ i.e.~\cref{con:L} 
 
 \
 
-\noindent If $A \in \LiOLiDRRRdtd,$ $n \in \LiOLiDRRR,$ and $f$ is strongly measurable, then \cref{con:A} holds for the Helmholtz stochastic EDP.
+\noindent If $A \in \LiOLiDRspd,$ $n \in \LiOLiDRRR,$ and $f$ is strongly measurable, then \cref{con:A} holds for the Helmholtz stochastic EDP.
 \ele
 
 \bpf[Proof of \cref{lem:hh-A}]
@@ -262,17 +260,14 @@ A near-identical argument to the argument at the beginning of the proof of \cref
 imply that there exists $C(k) > 0$ such that 
 \begin{align*}
 \bigg|\Big[\mleft[\Acomega\mright](\vo)\Big](\vt)\bigg| &= \abs{\int_{\DR} \Big(\mleft(A(\omega) \grad \vo\mright)\cdot\grad \vtb - k^2n(\omega) \vo\vtb \Big)\dd\Leb- \IPGRbig{\DtN \vo}{\vt}}\\
-&\hspace{-1cm}\leq \NLiDRRRdtd{A(\omega)}  \NLtDR{\grad \vo}\NLtDR{\grad \vt}\\
-&\hspace{-1cm}\quad+ k^2 \NLiDRRR{n(\omega)}\NLtDR{\vo}\NLtDR{\vt}+ C(k) \NHhGR{\gamma\vo}\NHhGR{\gamma\vt},
+&\hspace{-1cm}\leq \NLiDRop{A(\omega)}  \NLtDR{\grad \vo}\NLtDR{\grad \vt}\\
+&\hspace{-1cm}\quad+ k^2 \NLiDRRR{n(\omega)}\NLtDR{\vo}\NLtDR{\vt}+ C(k) \NHhGR{\gamma\vo}\NHhGR{\gamma\vt}.
 \end{align*}
-where we have used the fact that the two norms
-\beq\label{eq:normsdef}
- \esssup_{\bx \in \DR} \NopCCd{A(\omega,\bx)} \quad\tand\quad\NLiDRRRdtd{A(\omega)} \de \max_{i,j \in \set{1,\ldots,d}} \NLiDRRR{A_{i,j}(\omega)}
-\eeq
-are equivalent.
+%where we have used the fact that the two norms $\NLiDRRRdtd{\cdot}$ and $\NLiDRop{\cdot}$ are equivalent.
+
 Since the trace operator $\gamma$ is continuous from $\HoDR$ to $\HhGR$ (see, e.g.~\cite[Theorem 3.38]{Mc:00}), there exists $\Ctilde > 0$ such that
 \beqs
-\Nhomspace{\mleft(\toform\circ\coeff\mright)(\omega)}\leq\Ctilde\max\set{\NLiDRRRdtd{A(\omega)},\NLiDRRR{n(\omega)},C(k)}\NHokDR{\vo}\NHokDR{\vt}.
+\Nhomspace{\mleft(\toform\circ\coeff\mright)(\omega)}\leq\Ctilde\max\set{\NLiDRop{A(\omega)},\NLiDRRR{n(\omega)},C(k)}\NHokDR{\vo}\NHokDR{\vt}.
 \eeqs
 and hence $\toform\circ\coeff \in \LiOhomspace.$
 \epf

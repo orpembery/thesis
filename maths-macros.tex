@@ -39,7 +39,7 @@
 \newcommand{\gD}{g_{D}}
 \newcommand{\Hh}[1]{H^{1/2}\mleft(#1\mright)}
 \newcommand{\HhGD}{\Hh{\GD}}
-\newcommand{\LiDpRRdtd}{\Li{\Dp;\spd}}
+\newcommand{\LiDpRRdtd}{\Li{\Dp;\RRdtd}}
 \newcommand{\LiDpRR}{\Li{\Dp;\RR}}
 \newcommand{\Li}[1]{L^{\infty}\mleft(#1\mright)}
 \newcommand{\nmin}{n_{\min}}
@@ -65,7 +65,7 @@
 \newcommand{\LtGI}{\Lt{\GI}}
 \newcommand{\LiDRR}{\Li{D;\RR}}
 \DeclareMathOperator{\supp}{supp}
-\newcommand{\LiDRRdtd}{\Li{D;\spd}}
+\newcommand{\LiDRRdtd}{\Li{D;\RRdtd}}
 \newcommand{\LiDRRdtdop}{\Li{D;\op}}
 \DeclareMathOperator{\dist}{dist}
 \newcommand{\HoD}{\Ho{D}}
@@ -99,7 +99,7 @@
 \newcommand{\NTnD}[1]{\mathrm{NT}_{\mathrm{scal},D}\mleft(#1\mright)}
 \newcommand{\NTA}[1]{\mathrm{NT}_{\mathrm{mat},\DR}\mleft(#1\mright)}
 \newcommand{\NTn}[1]{\mathrm{NT}_{\mathrm{scal},\DR}\mleft(#1\mright)}
-\newcommand{\CzoDpclosRRdtd}{\Czo{\Dpclos;\spd}}
+\newcommand{\CzoDpclosRRdtd}{\Czo{\Dpclos;\RRdtd}}
 \newcommand{\Czo}[1]{C^{0,1}\mleft(#1\mright)}
 \newcommand{\Dpclos}{\clos{\Dp}}
 \newcommand{\CzoDpclosRR}{\Czo{\Dpclos;\RR}}
@@ -154,7 +154,7 @@
 \newcommand{\epsymb}{\star}
 \newcommand{\api}{a_{\epsymb}}
 \newcommand{\vtbar}{\overline{v}_{2}}
-\newcommand{\CzoDRRRdtd}{\Czo{\DR;\spd}}
+\newcommand{\CzoDRRRdtd}{\Czo{\DR;\RRdtd}}
 \newcommand{\IPLtDR}[2]{\IP{#1}{#2}_{\LtDR}}
 \newcommand{\HtDR}{\Ht{\DR}}
 \newcommand{\Ht}[1]{H^{2}\mleft(#1\mright)}
@@ -200,9 +200,9 @@
 \newcommand{\Woi}[1]{W^{1,\infty}\mleft(#1\mright)}
 \newcommand{\enlargement}[1]{#1_{+1}}
 \newcommand{\beps}{\boldsymbol{\eps}}
-\newcommand{\WoiDRRdtd}{\Woi{D;\spd}}
+\newcommand{\WoiDRRdtd}{\Woi{D;\RRdtd}}
 \newcommand{\WoiDRR}{\Woi{D;\RR}}
-\newcommand{\WoiDpclosRRdtd}{\Woi{\Dpclos;\spd}}
+\newcommand{\WoiDpclosRRdtd}{\Woi{\Dpclos;\RRdtd}}
 \newcommand{\WoiDpclosRR}{\Woi{\Dpclos;\RR}}
 \newcommand{\km}{k_{m}}
 \newcommand{\um}{u_{m}}
@@ -323,9 +323,9 @@
 \newcommand{\CBt}{\Cfn{\ref{eq:firstboundary},2}}
 \newcommand{\CBth}{\Cfn{\ref{eq:secondboundary}}}
 \newcommand{\CRecfn}[1]{\Cfn{\ref{eq:readytorecurse},#1}}%{\Cfn{\mathrm{Rec},#1}}
-\newcommand{\CRecofn}[1]{\CRecfn{1,#1}}
+%\newcommand{\CRecofn}[1]{\CRecfn{1,#1}}
 \newcommand{\CRectfn}[1]{\CRecfn{2,#1}}
-\newcommand{\CRect}{\CRecfn{2}}
+%\newcommand{\CRect}{\CRecfn{2}}
 \newcommand{\CReco}{\CRecfn{1}}
 \newcommand{\Cfirst}{\Cfn{\ref{eq:ltthetahbound},1}}%{\Cfn{\mathrm{first}}}
 \newcommand{\Csecond}{\Cfn{\ref{eq:ltthetahbound},2}}%{\Cfn{\mathrm{second}}}
@@ -351,7 +351,7 @@
 \newcommand{\CSZm}{\CSZfn{m}}
 \newcommand{\Cefn}[1]{\Cfn{\mathrm{expansion},#1}}
 \newcommand{\Cej}{\Cefn{j}}
-\newcommand{\CBanfn}[1]{\Cfn{\mathrm{mult},1,#1}}
+\newcommand{\CBanfn}[2]{\Cfn{\mathrm{mult},#1,#2}}
 \newcommand{\Cshiftfn}[1]{\Cfn{\mathrm{shift},-#1}}
 \newcommand{\Cshiftz}{\Cfn{\mathrm{shift},0}}
 \newcommand{\Cshiftmo}{\Cfn{\mathrm{shift},1}}
@@ -361,7 +361,7 @@
 \newcommand{\Cwz}{\Cwfn{0}}
 \newcommand{\Cwo}{\Cwfn{1}}
 %\newcommand{\Ccomprfn}[1]{\Cfn{\mathrm{comp},#1}}
-\newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
+%\newcommand{\Cprod}[1]{\Cfn{\mathrm{mult},2,#1}}
 \newcommand{\Cmclean}[1]{\Cfn{H^{#1},\mathrm{prod}}}
 \newcommand{\CP}{\Cfn{\mathrm{P}}}
 % Why is this defined like this?
@@ -519,8 +519,6 @@
 \newcommand{\vhtilde}{\widetilde{v}_{h}}
 \newcommand{\add}{a_{L^{2}}}
 \newcommand{\Ldd}{L_{L^{2}}}
-\newcommand{\NLiDop}[1]{\N{#1}_{\LiDop}}
-\newcommand{\LiDop}{\Li{D;\mathrm{op}}}
 \newcommand{\DeltaAmmt}{\sdres^-{m/2}}
 %\newcommand{\DeltaAmt}{\DeltaA^{m/2}}
 \newcommand{\Deltahmmt}{\Deltah^{-m/2}}
@@ -529,10 +527,12 @@
 \newcommand{\Nmh}[1]{\N{#1}_{m,h}}
 \newcommand{\aj}{a_{j}}
 \newcommand{\phij}{\phifn{j}}
+\newcommand{\phijh}{\phifn{j,h}}
 \newcommand{\phil}{\phifn{l}}
+\newcommand{\philh}{\phifn{l,h}}
 \newcommand{\lambdaj}{\lambdafn{j}}
 \newcommand{\lambdal}{\lambdafn{l}}
-\newcommand{\philbar}{\overline{\phil}}
+\newcommand{\philhbar}{\overline{\philh}}
 \newcommand{\bsl}{b_{l}}
 \newcommand{\bsj}{b_{j}}
 \newcommand{\Njh}[1]{\N{#1}_{j,h}}
@@ -568,7 +568,7 @@
 \newcommand{\Nfn}[2]{\N{#2}_{#1}}
 \newcommand{\NHmoD}[1]{\N{#1}_{\HmoD}}
 \newcommand{\HmoD}{\Hfn{}{-1}{D}}
-\newcommand{\Etildefn}[1]{\widetilde{C}_{\ref{eq:oddrecursive},#1}}
+\newcommand{\Etildefn}[1]{C_{\ref{eq:oddrecursive},#1}}
 \newcommand{\thetah}{\theta_{h}}
 \newcommand{\IPLtGI}[2]{\IP{#1}{#2}_{\LtGI}}
 \newcommand{\Npmoh}[1]{\Nfn{p-1,h}{#1}}
@@ -601,7 +601,7 @@
 \newcommand{\Nmhn}[1]{\Nfn{m,h,n}{#1}}
 \newcommand{\Nmmhn}[1]{\Nfn{-m,h,n}{#1}}
 \newcommand{\sdsolo}{\sdsolfn{1}}
-\newcommand{\CfloordtD}{C^{\floor{d/2}}\mleft(D\mright)}
+%\newcommand{\CfloordtD}{C^{\floor{d/2}}\mleft(D\mright)}
 \newcommand{\Sn}{\sdsol}
 \newcommand{\uHt}{u_{H^{2}}}
 \newcommand{\uA}{u_{\cA}}
@@ -777,9 +777,8 @@
 \newcommand{\LqD}{\Lq{D}}
 \newcommand{\LsD}{\Lsspace{D}}
 \newcommand{\Lsspace}[1]{L^{s}\mleft(#1\mright)}
-\newcommand{\LqDRRdtd}{\Lq{D,\spd}}
+\newcommand{\LqDRRdtd}{\Lq{D,\RRdtd}}
 \newcommand{\LqDRRdtdop}{\Lq{D,\op}}
-\newcommand{\NLqDRRdtd}[1]{\Nfn{\LqDRRdtdop}{#1}}
 \newcommand{\ceil}[1]{\mleft\lceil#1\mright\rceil}
 \newcommand{\ms}{m^{*}}
 \newcommand{\nearest}{\mathtt{nearest}}
@@ -807,11 +806,11 @@
 \newcommand{\LG}{L_{G}}
 \newcommand{\LGtilde}{\widetilde{L}_{G}}
 \newcommand{\psibar}{\overline{\psi}}
-\newcommand{\NLiDRRdtd}[1]{\N{#1}_{\LiDRRdtdop}}
+\newcommand{\NLiDop}[1]{\N{#1}_{\Li{D;\op}}}
 \newcommand{\aGo}{\aG^{(1)}}
 \newcommand{\HokDs}{\mleft(\HokD\mright)^{*}}
 \newcommand{\NHokDs}[1]{\N{#1}_{\HokDs}}
-\newcommand{\spd}{\SS}%\mathrm{SPD}}
+\newcommand{\spd}{\mathsf{SPD}}
 \newcommand{\Gmat}{\mat{G}}
 \newcommand{\ImatOmega}{\Imat_{\Omega}}
 \newcommand{\nsj}{n^{(j)}}
@@ -837,3 +836,32 @@
 \newcommand{\Nop}[1]{\Nfn{\op}{#1}}
 \newcommand{\NLiDRRRsmall}[1]{\|#1\|_{\LiDRRR}}
 \newcommand{\Yhatbar}{\overline{\Yhat}}
+
+
+% From post-viva edits
+\newcommand{\bracketsans}{\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}}
+\newcommand{\bracket}{\mleft(\bracketsans\mright)}
+\newcommand{\LiDspd}{\Li{D;\spd}}
+\newcommand{\WoiDspd}{\Woi{D;\spd}}
+\newcommand{\NLiDRop}[1]{\N{#1}_{\Li{\DR;\op}}}
+\newcommand{\LiDpspd}{\Li{\Dp;\spd}}
+\newcommand{\WoiDRspd}{\Woi{\DR;\spd}}
+\newcommand{\LiDRspd}{\Li{\DR;\spd}}
+\newcommand{\LiOLiDRspd}{\Li{\Omega;\LiDRspd}}
+\newcommand{\NLqDop}[1]{\N{#1}_{\Lq{D;\op}}}
+\newcommand{\NLiDRRdtd}[1]{\N{#1}_{\LiDRRdtd}}
+\newcommand{\SNtemp}[1]{\NHfn{\max{\set{p-1,\ceil{d/2}+1}}}{D}{#1}}%{\N{#1}_{(p-1,\ceil{d/2}+1)}}
+\newcommand{\NHpmoD}[1]{\Nfn{\HpmoD}{#1}}
+\newcommand{\NHceildtpoD}[1]{\Nfn{\HceildtpoDnofrac}{#1}}
+\newcommand{\HceildtpoD}{\Hfn{}{\ceil{\frac{d}{2}}+1}{D}}
+\newcommand{\HceildtpoDnofrac}{\Hfn{}{\ceil{d/2}+1}{D}}
+\newcommand{\HmtildeD}{\Hfn{}{\mtilde}{D}}
+\newcommand{\NHmtildeD}[1]{\Nfn{\HmtildeD}{#1}}
+\newcommand{\NHjD}[1]{\Nfn{\HjD}{#1}}
+\newcommand{\HjD}{\Hfn{}{j}{D}}
+\newcommand{\Cmult}{C_{\mathrm{mult}}}
+\newcommand{\Cremfn}[1]{C_{\mathrm{rem},#1}}
+\newcommand{\usd}{u_{d}}
+\newcommand{\sfvi}{\vvec_{i}}
+\newcommand{\utb}{\overline{\ut}}
+\newcommand{\uob}{\overline{\uo}}

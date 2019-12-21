@@ -28,7 +28,7 @@ For $\alpha \geq 1$, the result is immediate from \cref{cor:gmresguaranteed}. Fo
 \beq\label{eq:gmressub}
 \frac{\Nt{\rvecm}}{\Nt{\rvecz}} \leq \mleft(\frac{2\sqrt{\alpha}}{\mleft(1+\alpha\mright)^2}\mright)^m.
 \eeq
-To obtain a bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\rvecz} = 1$) if
+To obtain a bound on the number of iterations needed to obtain the solution to within a tolerance $\eps,$ we set the right-hand side of \cref{eq:gmressub} to be less than $\eps$ and solve for $m$ to obtain that the GMRES residual is less than $\eps$ (recall we assume $\Nt{\rvecz} = 1$, see \cref{def:numGMRESitsconv}) if
 \beq\label{eq:mlower}
 m \geq \frac{\loge{\eps}}{\loge\mleft(\frac{2\alpha^{1/2}}{\mleft(1+\alpha\mright)^2}\mright)}.
 \eeq
@@ -54,7 +54,7 @@ The reason that \cref{eq:gdef} has two cases depending on $\alpha = \Ct k \NLiDR
 \begin{figure}
   \centering
   \input{G.pgf}
-  \caption[An upper bound on the number of GMRES iterations required for a nearby-preconditioned linear system.]{The function $\Gfnname$ for $\NLiDRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,40,100$ $\Ct = 0.1,$ $N=\ceil{k^3},$ and $\eps = 10^{-5}$.\label{fig:G}}
+  \caption[An upper bound on the number of GMRES iterations required for a nearby-preconditioned linear system.]{The function $\Gfnname$ for $\NLiDRR{\no-\nt} \in \mleft(0.01,1.0\mright)$, for $k=20,40,100$, $\Ct = 0.1,$ $N=\ceil{k^3},$ and $\eps = 10^{-5}$.\label{fig:G}}
     \end{figure}
 
 
