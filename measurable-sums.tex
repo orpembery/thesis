@@ -15,7 +15,7 @@ We claim
 \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright) = \bigcup_{s \in \QQFF} \bigcup_{q \in \QQU} \setsq,
 \eeq
 and the result then follows as the right-hand side is an element of the $\sigma$-algebra $\cF.$ To show \eqref{eq:sumseteq}, let $\omega \in \cup_{s \in \QQFF}\cup_{q \in \QQU} \setsq,$ and let $s \in \QQFF, q \in \QQU$ be such that $\omega \in \setsq.$ Then it follows from the triangle inequality that $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright).$
-Now let $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright),$ define $\dw \de r - \NU{\phio(\omega)+\phit(\omega)-v} > 0,$ fix $s \in \QQFF \cap (0,\dw/2),$ and choose $q \in \QQU$ such that $\NU{\phi(\omega) - v/2 -q} < s.$ Then again it follows from the triangle inequality that $\omega \in \setsq,$ and thus \eqref{eq:sumseteq} holds, as required.
+Now let $\omega \in \mleft(\phio+\phit\mright)^{-1}\mleft(\Ballspace{U}{r}{v}\mright),$ define $\dw \de r - \NU{\phio(\omega)+\phit(\omega)-v} > 0,$ fix $s \in \QQFF \cap (0,\dw/2),$ and choose $q \in \QQU$ such that $\NU{\phio(\omega) - v/2 -q} < s.$ Then again it follows from the triangle inequality that $\omega \in \setsq,$ and thus \eqref{eq:sumseteq} holds, as required.
 \epf
 
 % Corollary: finite sums lying in a separable subspace of a normed vector space are measurable
@@ -108,7 +108,7 @@ Following \cite{El:11}, we define $\Omegatilde = \set{\omega \in \Omega \st \tex
 0 & \tif \omega \not\in\Omegatilde
 \end{cases}
 \eeqs
-Observe that, by construction, the limit $\zetatilde(\omega) = \lim_{m\rightarrow\infty} \zetatilde_m(\omega)$ exists \emph{for all} $\omega \in \Omega.$ Therefore, by \cref{thm:dudley}, $\zetatilde$ is measurable.
+Observe that, by construction, the limit $\zetatilde(\omega) = \lim_{m\rightarrow\infty} \zetatilde_m(\omega)$ exists \emph{for all} $\omega \in \Omega$ and the functions $\zetatilde_m$ are measurable. Therefore, by \cref{thm:dudley}, $\zetatilde$ is measurable.
 \epf
 
 \ble\label{lem:paeseriesmeas}
@@ -137,7 +137,7 @@ The spaces $\WoiDRRRdtd$ and $\WoiDRRR$ are Banach spaces, by definition of thei
 First observe that since each of the random variables $\Yj$ in \eqref{eq:nseries} is uniformly distributed on $[-1/2,1/2],$ it follows that for all $j \in \NN$, $\esssup_{\omega \in \Omega} \abs{\Yj(\omega)} = \frac12.$
 Therefore, we can conclude that the bound $\esssup_{\omega \in \Omega} \sup_{j \in \NN} \abs{\Yj(\omega)} \leq \half$ holds.
 (For if not, then, there would exist $\Omegahat \subseteq \Omega$ with $\PP(\Omegahat) > 0$ such that for all $\omega \in \Omegahat$, $\sup_{j \in \NN} \abs{\Yj(\omega)} > \half.$
-Then there would exist $\jhat \in \NN$ such that $\abs{\Yj(\omega)} > 1/2$ for all $\omega \in \Omegahat,$ which would give the contradiction $\esssup_{\omega \in \Omega} |\Yjhat(\omega)| > \half$.)
+Then there would exist $\jhat \in \NN$ such that $\abs{\Yjhat(\omega)} > 1/2$ for all $\omega \in \Omegahat,$ which would give the contradiction $\esssup_{\omega \in \Omega} |\Yjhat(\omega)| > \half$.)
 
 It now suffices to show that for $\PP$-almost every $\omega \in \Omega,$ the partial sums of the series expansion in \eqref{eq:nseries} form a Cauchy sequence. Recall that for $\PP$-almost every $\omega \in \Omega$
 \beqs
