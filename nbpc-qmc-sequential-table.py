@@ -6,10 +6,11 @@ import fileinput
 from matplotlib import pyplot as plt
 from running_helmholtz_monte_carlo.nbpc_percentage_fit import make_fits
 import numpy as np
-from matplotlib import rc
+from matplotlib import rc, rcParams
+
+rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 
 rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/54827147
-
 
 #import pdb; pdb.set_trace()
 
@@ -87,7 +88,7 @@ plt.xlabel(r'$k$')
 
 plt.legend()
 
-plt.ylabel('Number of LU factorisations/Number of QMC points (%)')
+plt.ylabel(r'\textrm{Number of LU factorisations/Number of QMC points (%)}')
 
 plt.xticks([10,20,30])
 

@@ -877,7 +877,7 @@ The bound \cref{eq:Elman} with $\Dmat=\Imat$ was first proved in \cite[Theorem 6
 
 
 
-\cref{thm:GMRES1_intro} has the following \lcnamecref{cor:GMRES_intro} (see, e.g., , and the proofs of \cref{cor:1,cor:1a} follow from combining this with \cref{thm:1}.
+\cref{thm:GMRES1_intro} has the following \lcnamecref{cor:GMRES_intro}, and the proofs of \cref{cor:1,cor:1a} follow from combining this with \cref{thm:1}.
 
 \begin{corollary}
 \label{cor:GMRES_intro} 
@@ -1451,9 +1451,9 @@ Given we expect that the size of the balls over which nearby preconditioning is 
 
     Once we know the value of $\rideal,$ we can then calculate the numbers of centres in each dimension $\No(\rideal),\ldots,\NJ(\rideal)$ as above (recalling that the $\Nj(\rideal)$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Nj(\rideal)}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Nj(\rideal) \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
 
-We then take $\Npreactualj$ centres in each dimension, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
+We then take $\Npreactualj$ centres in each dimension and define the sets $\centresj$ with $\Nj = \Npreactualj$, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
 
-These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead replace each calculated centre with its nearest QMC point and calculate the preconditioners at these QMC points. Finally, we calculate the map $\Prenearest:\SQMC\rightarrow\Spre$, i.e., for each QMC point we find its nearest preconditioning point, and use the corresponding preconditioner for the linear solve.
+These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead replace each calculated centre with its nearest QMC point and calculate the preconditioners at these QMC points. We denote the set of preconditioning points by $\Spre$. Finally, we calculate the map $\Prenearest:\SQMC\rightarrow\Spre$, i.e., for each QMC point we find its nearest preconditioning point, and use the corresponding preconditioner for the linear solve.
 
     This algorithm is summarised more formally in \cref{alg:par}.
     
@@ -1625,12 +1625,6 @@ We first sought to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We
 \end{figure}
 
 
-\begin{table}[h!]
-  \centering
-  \input{qmc-alpha-table}
-  \caption{The quantities $\alphaz$ and $\alphao$ for different QoIs, where the QMC error $\approx C \NQMC^{\alphaz - \alphao\loge(k)}$.}\label{tab:qmcalpha}
-  \end{table}
-
 Motivated by QMC theory for other applications, e.g., \cite[Equation 4.2]{GrKuNuScSl:11}, we test experimentally the assumption that the QMC error satisfies
 \beq\label{eq:qmcerrorform}
 \QMCerror{Q}{\Nshifts} = C \NQMC^{-\alpha},
@@ -1659,6 +1653,13 @@ M(k) = \round{\logtwo\mleft(\exp\mleft(\Ctilde \alpha(k)^{-1}\mright)\mright)}.
 \eeqs
 
 Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results for the QoI being the integral of $u$ and $\grad u((1,1))$, as these seem to display slightly different convergence characteristics), in our numerical experiments below we take $\alpha(k) = 1.38 - 0.19  \loge(k).$ The resulting values of $\NQMC$ are summarised in \cref{tab:qmcpoints}.
+
+\begin{table}[h!]
+  \centering
+  \input{qmc-alpha-table}
+  \caption{The quantities $\alphaz$ and $\alphao$ for different QoIs, where the QMC error $\approx C \NQMC^{-\mleft(\alphaz - \alphao\loge(k)\mright)}$.}\label{tab:qmcalpha}
+  \end{table}
+
 
 \begin{table}[h]
   \centering
@@ -1818,11 +1819,11 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
    
 Having proved rigorous results on the effectiveness of nearby preconditioning, and also applied it to a UQ algorithm, we now review similar computational techniques (applied to other problems) which can be found in the literature. Whilst the idea of \emph{nearby} preconditioning introduced here is, as far as we are aware, novel, there has been a body of work on the closely-related idea of \emph{mean-based} preconditioning. In mean-based preconditioning a \emph{single} preconditioner is calculated corresponding to the mean of the random coefficient. This is in contrast to nearby preconditioning, where \emph{multiple} preconditioners are calculated, corresponding to each realisation in a particular subset of all the realisations. Mean-based preconditioning has been most extensively studied for the stationary diffusion equation
     \beqs
-\grad \cdot \mleft(a\grad u\mright)  = -f,
+\grad \cdot \mleft(\kappa\grad u\mright)  = -f,
 \eeqs
 with a small number of works analysing other PDEs, including two works on the Helmholtz equation. We will first explain the idea of mean-based preconditioning before we review the literature applying it to the stationary diffusion equation and other PDEs, and finally turning our attention to mean-based preconditioning for the Helmholtz equation. In general, the computational and mathematical results in the literature show that mean-based preconditioning  is effective if the variance of the random parameters is small enough, i.e.,  if most of the samples are sufficiently close to the mean.
 
-Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEM). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is computed using a Polynomial Chaos expansion (see, e.g., \cite[Section 2.4.2]{GhSp:12}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
+Mean-based preconditioning was first developed for the stationary diffusion equation in the context of so-called Stochastic Spectral Finite-Element Methods (SSFEMs). In these methods, the random field $a$ is given by a series expansion, such as a Karhunen--Lo\`eve expansion, and the dependence of $u$ on the random parameters is computed using a Polynomial Chaos expansion (see, e.g., \cite[Section 2.4.2]{GhSp:12}. The resulting problem is then discretised in the whole space $D \times \Omega$, where $D$ is the spatial domain and $\Omega$ the probability space. The resulting discrete problems involve very large matrices of the form
 \beq\label{eq:sgmatrix}
 \Amat \otimes \Gmat,
 \eeq
@@ -1830,13 +1831,13 @@ where $\Amat$ is a standard finite-element matrix, $\Gmat$ is a matrix correspon
 \beq\label{eq:mbsg}
 \Amatmean \otimes \ImatOmega,
 \eeq
-where $\Amatmean$ is the standard finite-element matrix corresponding to the mean and $\ImatOmega$ is the identity matrix associated with the discretisation on $\Omega.$ Using a mean-based preconditioner of the form \cref{eq:mbsg} gives considerable computational savings, as only one preconditioner of a standard finite-element matrix needs to be calculated.
+where $\Amatmean$ is the standard finite-element matrix corresponding to the mean of $\kappa$ and $\ImatOmega$ is the identity matrix associated with the discretisation on $\Omega.$ Using a mean-based preconditioner of the form \cref{eq:mbsg} gives considerable computational savings, as only one preconditioner of a standard finite-element matrix needs to be calculated.
 
 When stochastic Galerkin methods are used with so-called `doubly-orthogonal bases' (see, e.g., \cite[Section 3.2]{ErPoSiUl:09}), then the linear system \cref{eq:sgmatrix} decouples into many distinct standard finite-element matrices; mean-based preconditioning has also been investigated in this context (and in the context of stochastic collocation methods (see, e.g., \cite{BaNoTe:07}), where one similarly obtains many different standard finite-element matrices) as will be discussed below.
 
-The main insight gleaned from studies of mean-based preconditioning is that, as stated above, if the variance of $a$ (or any other stochastic coefficients) is sufficiently small, then mean-based preconditioning is effective.
+The main insight gleaned from studies of mean-based preconditioning is that, as stated above, if the variance of $\kappa$ (or any other stochastic coefficients) is sufficiently small, then mean-based preconditioning is effective.
 
-The initial computational work on mean-based preconditioning for the stationary diffusion equation was carried out by Ghanem and Kruger \cite{GhKr:96}, Pellissetti and Ghanem \cite{PeGh:00}, and Keese \cite{Ke:04}, with theory (proving bounds on the eigenvalues of the preconditioned matrices) following from Powell and Elman \cite{PoEl:09} and Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}. These eigenvalue bounds are analagous to results in \cref{sec:main} above, as they allow one to infer convergence properties of the iterative method used. All of the above results were for $a$ given by a (real or artificial) Karhunen--Lo\`eve expansion; that is, in the case where $a$ depends linearly on the random parameter. In the case where $a$ is a lognormal random field (and so the dependence is no longer linear), Powell and Ullmann \cite{PoUl:10} declared mean-based preconditioners to be ineffective, and so developed more advanced preconditioners; in contrast, Ullmann, Elman and Ernst \cite{UlElEr:12} transformed a stationary diffusion problem with lognormal coefficient into a stationary convection-diffusion problem with a random coefficient depending linearly on the noise, before proving eigenvalue bounds as before. With a more computational slant, Tipireddy, Phipps, and Ghanem \cite{TiPhGh:10} and Rosseel and Vandewalle \cite{RoVa:10} compared the computational properties of several mean-based preconditioners and Elman, Miller, Phipps, and Tuminaro \cite{ElMiPhTu:11} compared the computational cost of mean-based preconditioners for stochastic Galerkin and stochastic collocation methods.
+The initial computational work on mean-based preconditioning for the stationary diffusion equation was carried out by Ghanem and Kruger \cite{GhKr:96}, Pellissetti and Ghanem \cite{PeGh:00}, and Keese \cite{Ke:04}, with theory (proving bounds on the eigenvalues of the preconditioned matrices) following from Powell and Elman \cite{PoEl:09} and Ernst, Powell, Silvester, and Ullmann \cite{ErPoSiUl:09}. These eigenvalue bounds are analagous to results in \cref{sec:main} above, as they allow one to infer convergence properties of the iterative method used. All of the above results were for $\kappa$ given by a (real or artificial) Karhunen--Lo\`eve expansion; that is, in the case where $\kappa$ depends linearly on the random parameter. In the case where $\kappa$ is a lognormal random field (and so the dependence is no longer linear), Powell and Ullmann \cite{PoUl:10} declared mean-based preconditioners to be ineffective, and so developed more advanced preconditioners; in contrast, Ullmann, Elman and Ernst \cite{UlElEr:12} transformed a stationary diffusion problem with lognormal coefficient into a stationary convection-diffusion problem with a random coefficient depending linearly on the noise, before proving eigenvalue bounds as before. With a more computational slant, Tipireddy, Phipps, and Ghanem \cite{TiPhGh:10} and Rosseel and Vandewalle \cite{RoVa:10} compared the computational properties of several mean-based preconditioners and Elman, Miller, Phipps, and Tuminaro \cite{ElMiPhTu:11} compared the computational cost of mean-based preconditioners for stochastic Galerkin and stochastic collocation methods.
 
 Seeking to apply mean-based preconditioning to more challenging problems, Powell and Silvester \cite{PoSi:12} performed computational investigations for mean-based preconditioners applied to stochastic Galerkin discretisations of the steady-state Navier--Stokes equations, and Soused\'ik and Elman \cite{SoEl:16} introduced a Gauss--Seidel-type preconditioner, using mean-based ideas, for the steady-state Navier--Stokes equations. Finally, Khan, Powell, and Silvester \cite{KhPoSi:19} applied mean-based preconditioning to stochastic Galerkin discretisations of the equations for nearly-incompressible elasticity.
 
@@ -1850,7 +1851,7 @@ The work most similar to ours is the work of Jin and Cai \cite{JiCa:09}, who use
 
 We now briefly overview how one can prove probabilistic results on the effectiveness of nearby preconditioning. All of the results in \cref{sec:intronbpc,sec:num,sec:3,sec:weaknorm} above have been for deterministic (as opposed to stochastic) coefficients $A$ and $n$ (and we then applied these deterministic results to QMC methods for the Helmholtz equation in \cref{sec:nbpcqmc}). Therefore we now turn our attention to obtaining probabilistic results on the effectiveness of nearby preconditioning for stochastic Helmholtz problems, i.e., \cref{prob:msedp,prob:somsedp,prob:svsedp} from \cref{chap:stochastic}. Firstly, in \cref{cor:stonbpcas} below, we prove an `essentially deterministic' result on the effectiveness of nearby preconditioning, before proving probabilistic results on the effectiveness of nearby preconditioning applied to stochastic problems. However, we will see that our efforts to prove probabilistic results are restricted by the applicability of the Elman estimate (\cref{thm:GMRES1_intro} above).
 
-Throughout this \cref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$, i.e., for simplicity we only consider the case of random $n$, although everything we say could be easily extended to include random $A$. To maintain consistent notation with the rest of this \lcnamecref{chap:nbpc} we will use a superscript ${}^{(2)}$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.). We let $\nso \in \LiDRR$ define a \emph{deterministic} Helmholtz problem. We will use the discretisation of this deterministic Helmholtz problem to precondition the discretisations of the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
+Throughout this \lcnamecref{sec:nbpcstochastic} we consider \cref{prob:msedp} from \cref{chap:stochastic} but with $A=I$, i.e., for simplicity we only consider the case of random $n$, although everything we say could be easily extended to include random $A$. To maintain consistent notation with the rest of this \lcnamecref{chap:nbpc} we will use a superscript ${}^{(2)}$ to refer to the stochastic problem (e.g., the random coefficient will be $\nst(\omega)$, the solution will be $\ust(\omega)$, the matrices arising from the finite-element discretiation will be $\Amatt(\omega),$ etc.). We let $\nso \in \LiDRR$ define a \emph{deterministic} Helmholtz problem. We will use the discretisation of this deterministic Helmholtz problem to precondition the discretisations of the realisations of the stochastic Helmholtz problem. I.e., we will consider the performance of GMRES applied to
 \beq\label{eq:stopc}
 \AmatoI\Amatt(\omega)\uvec = \AmatoI \fvec.
 \eeq
@@ -1873,7 +1874,7 @@ to converge to within a tolerance $\eps,$ i.e., to achieve
 
 Note that $\GMRES{\eps}{\nso}{\nst}$ is a random variable, see \cref{lem:randomvariable} below.
 
-If we apply \cref{cor:1a} to the problem \cref{eq:stopc} we can straightforwardly conclude the following \lcnamecref{cor:stonbpcas}
+If we apply \cref{cor:1a} to the problem \cref{eq:stopc} we can straightforwardly conclude the following \lcnamecref{cor:stonbpcas}.
 
 \bco[Almost-sure nearby preconditioning]\label{cor:stonbpcas}
 Let $0 < \eps < 1,$ $\nst:\Omega \rightarrow \LiDRR$ satisfy the assumptions at the start of \cref{sec:hh-results}, $\no, \,\Dm,$ and $f$ be as in \cref{prob:vgen}, and let the assumptions of \cref{cor:1a} hold. Then $\GMRES{\eps}{\nso}{\nst}$ is bounded independently of $k$ almost surely if
@@ -1929,7 +1930,7 @@ There are two drawbacks of \cref{cor:stonbpcas}:
 
 Notwithstanding the fact that we are limited in the probabilistic results that we can \emph{prove} about nearby preconditioning, we will now see that we \emph{observe} reasonable probabilistic behaviour when we perform numerical experiments. We again recall that (informally) \cref{cor:stonbpcas} states that we obtain almost-surely bounded GMRES iterations if $\NLiDRR{\nso-\nst} \lesssim 1/k.$ A plausible probabalistic analogue of this result would be that we have bounded \emph{average} number of GMRES iterations if the standard deviation of $\NLiDRR{\nso-\nst}$ is of the order $1/k$. We expect this result because the standard deviation of a random variable is a (probabilistic) measure of its variation. In \cref{cor:stonbpcas} we show that the number of GMRES iterations is bounded almost surely if the variation in $\NLiDRR{\nso-\nst}$ is bounded (of the order $1/k$) almost surely. Therefore, it reasonable to assume that the probabilistic analogue of the number of GMRES iterations (the average) is bounded if the probabilistic analogue of the variation in $\NLiDRR{\nso-\nst}$ (the standard deviation) is bounded (of the order $1/k$). We will see exactly this behaviour in our numerical experiments.
 
-In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0,$ $\Aso=\Ast=I$, and $\NLiDRR{\nso-\nst}$ given by an exponential random variables with standard deviation $\sigma.$  We consider three cases:
+In our numerical experiments we use the computational setup described in \cref{app:compsetup}, with $f=1$ and $\gI=0,$ $\Aso=\Ast=I$, $\nso=1,$ and $\NLiDRR{\nso-\nst}$ given by an exponential random variables with standard deviation $\sigma.$  We consider three cases:
 \ben
 \item\label[itemcase]{it:sigma1} $\displaystyle \sigma  = 1,$
 \item\label[itemcase]{it:sigma2} $\displaystyle \sigma  = \frac{1}k,$ and
@@ -1985,5 +1986,5 @@ In our numerical experiments we use the computational setup described in \cref{a
 \input{prob-plot-rate-2.0.pgf}
 \caption{The empirical probability that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $\sigma = 1/k^2.$\label{fig:prob-plot-2.0}}
 \end{subfigure}
-\caption[The empirical probability that GMRES applied to a nearby-preconditioned linear system converges in at most 12 iterations.]{The empirical probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $N = \ceil{k^{3}}$, and $\Ct=0.1,$ with $\NLiDR{\no-\nt} \sim \Exp{\sigma}$ for different functional forms of $\sigma.$}
+\caption[The empirical probability that GMRES applied to a nearby-preconditioned linear system converges in at most 12 iterations.]{The empirical probability (calculated from 1000 realisations) that $\GMRES{\eps}{\no}{\nt}\leq 12$ for $k = 10, 20, 30, 40,$ where $R=12$, $\eps = 10^{-5}$, $\nso=1,$ and $\NLiDR{\no-\nt} \sim \Exp{\sigma}$ for different functional forms of $\sigma.$}
 \end{figure}
