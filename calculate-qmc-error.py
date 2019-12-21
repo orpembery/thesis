@@ -195,7 +195,7 @@ for ii_qoi in range(num_qois):
 
         fig_name = qoi+'-'+str(int(k))+'-error-plot'
 
-        fig.set_size_inches((5,4))
+        fig.set_size_inches((5,5))
         
         plt.savefig(fig_name+'.pgf')
 
