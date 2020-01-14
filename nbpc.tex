@@ -39,6 +39,69 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
 In \cref{sec:main} we state the main results of this \lcnamecref{chap:nbpc} on the effectiveness of nearby preconditioning, and give their analogues on the PDE level. In \cref{sec:num} we describe numerical experiments investigating the sharpness of the nearby-preconditioning results in \cref{sec:main}. In \cref{sec:3} we prove the results in \cref{sec:main}. In \cref{sec:weaknorm} we extend the results in \cref{sec:main} to hold in weaker spatial norms, and we describe numerical experiments investigating the sharpness of these new results. In \cref{sec:nbpcqmc} we then apply the idea of nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the stochastic Helmholtz equation; in \cref{sec:nbpcqmcnum} we describe two algorithms for applying nearby preconditioning to QMC methods and in \cref{sec:nbpcqmcnumerics} we describe numerical experiments on the effectiveness of nearby preconditioning applied to QMC methods. In \cref{sec:nbpclitreview} we briefly review the related literature. Finally, in \cref{sec:nbpcstochastic}, we show how one can prove probabilistic results about the behaviour of nearby preconditioning, and we describe numerical experiments that investigate these probabilistic results.
 
 \subsection{Statement of the main results}\label{sec:main}
+\optodo{Maybe need to rename the sections.}
+\optodo{Need some outline result here}
+\optodo{Almost certainly need to add in some chat}
+
+\subsection{Definition of variational problems and conditions used to prove main results}\label{sec:vpGm}
+As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP (\cref{prob:vedp}) and TEDP (\cref{prob:vtedp}) above.
+
+\bprob[General variational Helmholtz problem]\label{prob:vgen}
+Let $D, A,$ and $n$ be as in \cref{prob:tedp}. We say $u \in \HozDD$ satisfies the \defn{variational formulation of a general exterior Dirichlet problem} with $\gD = 0$ if
+\beq\label{eq:vgen}
+\aG(u,v) = \LG(v) \tfa v \in \HozDD,
+\eeq
+where
+\beq\label{eq:agen}
+\aG(w,v) \de \int_{D} \mleft(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\mright) - \DPGI{\T \trGI w}{\trGI v},
+\eeq
+$\T:\HhGI\rightarrow \HmhGI$ is a bounded linear map,  $\DPGI{\cdot}{\cdot}$ is the duality pairing on $\GI,$ and $\LG  \in \HozDDs.$
+\eprob
+
+\bre[\Cref{prob:vgen} is a generalisation of \cref{prob:vedp,prob:vtedp}]
+With the exception of some overlap in notation, it is straightforward to see that appropriate choices of $D,$ $\GI$, $\T$, and $\LG$ allow \cref{prob:vgen} to be either \cref{prob:vedp} or \cref{prob:vtedp}. Taking $D = D$, $\GI = \GR$, $\T = \DtN$ and $\LG(v) = \int_{D} f\minispace\vbar$ (for $f$ as in \cref{prob:vedp}) in \cref{prob:vgen}, we see \cref{prob:vgen} becomes \cref{prob:vedp}. However taking $D$ and $\GI$ in \cref{prob:vgen} to be the same as the $D$ and $\GI$ in \cref{prob:vtedp}, taking $\T=ik,$ and $\LG(v) = \int_{D} f\minispace\vbar + \int_{\GI} \gI \minispace\trGI \vbar$ (for $f$ and $\gI$ as in \cref{prob:vtedp}), \cref{prob:vgen} becomes \cref{prob:vtedp}.
+\ere
+
+\bre[\Cref{prob:vgen} allows for other boundary conditions]
+The strength of the general formulation in \cref{prob:vgen} is that it allows us to treat a wide variety of Helmholtz problems at once. Indeed, \emph{any} Helmholtz problem that can be written in the form \cref{eq:vgen,eq:agen} and satisfies \cref{cond:1nbpc,cond:2} below can be treated using the analysis in this \lcnamecref{chap:nbpc}.
+\ere 
+
+For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of nodal finite-element functions given by piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
+%\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
+and fixed polynomial degree $p$. Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$, with hidden constant dependent on $p$. (The assumption of quasi-uniformity can, in principle, be relaxed, see \cref{rem:ggsqu} below.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
+\bprob[Finite-element approximation of \cref{prob:vgen}]\label{prob:fevgen}
+    Find $\uh \in \Vhp$ such that
+\beq\label{eq:galerkin}
+\aG(\uh,\vh) = \LG(\vh) \tforall \vh \in \Vhp.
+\eeq
+We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vgen}).
+\eprob
+%Observe that implicit in our use of $\aE$ in \cref{eq:galerkin} is the fact that we are realising the Dirichlet-to-Neumann map $\TR$ exactly on $\GR.$
+%Definition of Galerkin method
+
+We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
+Let 
+\beq\label{eq:matrixSjdef}
+\big(\Smat_{A}\big)_{ij}\de \int_D \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
+\big(\Mmat_{n}\big)_{ij}\de \int_D n\,\phi_i\, \phi_j,
+\quad\tand\quad
+\big(\Nmat\big)_{ij}\de \int_{\GR} \T (\gamma\phi_j) \,\gamma \phi_i
+\eeq
+be the stiffness, domain-mass, and boundary-mass matrices, respectively. Note that both $\Smat_A$ and $\Mmat_n$ are \emph{real-valued}, but in general $\Nmat$ is \emph{complex-valued} (because both the  DtN operator $\DtN$ and the impedance operator $ik$ are complex-valued).
+Let
+\beq\label{eq:matrixAdef}
+\Amat \de \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
+\eeq
+and let $u_h\de \sum_j \uvec_j \phi_j$. Then \cref{eq:galerkin} implies that
+\beqs
+\Amat \uvec = \fvec,
+\eeqs
+where $(\fvec)_i \de \FE(\phi_i)$.
+Similarly to above we let 
+\beq\label{eq:matrixAjdef}
+\Amatj \de \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
+\eeq
+
 Our main results about \cref{it:nbpcq1} are \cref{cor:1,cor:1a} below. \Cref{cor:1a} gives results in the \emph{Euclidean} norm on matrices, denoted by $\|\cdot\|_2$ (induced by the Euclidean norm on vectors), whereas \Cref{cor:1} gives results in the \emph{weighted} norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$. These weighted norms are induced by the corresponding vector norms
 \beq\label{eq:Dk}
 \NDmatk{\vvec}^2\de \big( \Dmatk \vvec, \vvec\big)_2 = %\big( (\Smat_I + k^2 \Mmat_1)\vvec,\vvec\big)_2 
@@ -53,7 +116,81 @@ As described in \cref{sec:wpdisc}, the PDE analysis of the Helmholtz equation na
 The norms $\NDmatk{\cdot}$ and $\NDmatkI{\cdot}$ recently appeared in results about the convergence of domain-decomposition methods %in this norm are proved 
 for the Helmholtz equation \cite{GrSpVa:17,GrSpZo:18}, and a related norm appeared in similar results for the time-harmonic Maxwell equations \cite{BoDoGrSpTo:19}. 
 
-\Cref{cor:1,cor:1a} are proved under the \Cref{cond:1nbpc,cond:2} below. These \lcnamecrefs{cond:1nbpc} can be informally stated as 
+We first give the set-up for weighted GMRES, first introduced in by Essai in \cite{Es:98}, largely following \cite[Section 5]{GrSpVa:17}. Consider the abstract  linear system 
+% \begin{equation*}
+$\matrixC \xvec = \dvec$
+%\end{equation*}
+in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\xvecz$ be the initial guess, and define the initial residual $\rvec^0 \de \dvec- \Cmat \xvec^0$ and the standard Krylov spaces:  
+\beqs  
+\cK^m(\Cmat, \rvec^0) \de \mathrm{span}\big\{\matrixC^j \rvec^0 : j = 0, \ldots, m-1\big\}.
+\eeqs
+Analagously to the definition of $\NDk{\cdot}$ above, let $(\cdot , \cdot )_{\Dmat}$ denote the inner product on $\CC^n$ 
+induced by some Hermitian positive-definite matrix $\Dmat$, i.e.~
+%\begin{equation*}
+$(\vvec,\wvec)_{\Dmat} \de (\Dmat \vvec, \wvec)_2,$
+%\end{equation*} 
+and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\xvec^m$  to be  the unique element of $\cK^m$ satisfying  the  
+ minimal residual  property: 
+$$ \ \Vert \rvecm \Vert_\Dmat \de \Vert \dvec - \matrixC \xvec^m \Vert_\Dmat \ = \ \min_{\xvec \in \cK^m(C, \rvec^0)} \Vert {\dvec} - {\matrixC} {\xvec} \Vert_\Dmat. $$
+Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essai in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
+
+\ble[Norm equivalences of FE functions]\label{lem:normequiv}
+There exist $m_\pm >0$ and $s_+>0$, independent of $h$ (but dependent on $p$), such that
+\beq\label{eq:normequiv1}
+m_- h^{d/2} \N{\vvec}_2 \leq \N{v_h}_{\LtD} \leq m_+ h^{d/2} \N{\vvec}_2,
+\eeq
+and
+\beq\label{eq:normequiv2}
+\N{\nabla v_h}_{\LtD} \leq s_+ h^{d/2-1} \N{\vvec}_2,
+\eeq
+for all finite-element functions $v_h =\sum_i \vvec_i \phi_i \in \Vhp$.
+\ele
+
+\Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}, which are the minimal conditions needed for the proof of \cref{cor:1,cor:1a}. Therefore, in particular, \cref{cond:2} is a very weak condition on the finite-element space $\Vhp.$
+
+\begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
+$\Aso, \nso,$ and $D$ are such that, given $f\in L^2(D)$
+  the solution of \cref{prob:vgen} with
+  \beq\label{eq:LGf}
+  \LG(v) = \int_D f\vbar,
+  \eeq
+$u^{(1)}$, exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
+\beq\label{eq:bound1}
+\big\|u^{(1)}\big\|_{\HokD} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(D)} \quad \tfa k\geq k_0,
+\eeq
+where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso, D$, and $k_0$.
+\end{condition}
+
+\begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
+\label{cond:2}
+
+\
+
+\noindent\ben
+
+\item\label[itempart]{it:femasspt1} Given $\kz>0$, $h$ and $p$ are such that, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then for all $k\geq k_0$,
+  \bit
+\item The solution $u_h$ of \cref{prob:fevgen} (with $\aG = \aGo$, and $\LG(v)$ given by \cref{eq:LGf}) exists and is unique, and
+\item The error bound
+  \beq\label{eq:bound3}
+\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtD} \quad\tfa k\geq k_0, 
+\eeq
+holds, where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.
+  \eit
+
+\item Given $k_0>0$, $h$ and $p$ are such that, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in \LiDRRdtd$ and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then for all $k \geq \kz$,
+  \bit
+\item The solution $u_h$ of \cref{prob:fevgen} with $\aG = \aGo$ exists and is unique, and
+\item The error bound
+\beq\label{eq:bound4}
+\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LG}_{\HokDs} \quad\tfa k\geq k_0, 
+\eeq
+holds, where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.  
+  \eit
+\een
+\end{condition}
+
+For details of when \cref{cond:1nbpc,cond:2} are satisfied (for \cref{prob:vedp,prob:vtedp}), see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2} \cref{it:femasspt1}). \Cref{cond:1nbpc,cond:2} can be informally stated as 
 \bit
 \item the obstacle $\Dm$ and the coefficients $\Aso$ and $\nso$ are such that $u^{(1)}$ exists, is unique, and the problem is \emph{nontrapping} (in the sense described in  \cref{sec:wpdisc} above), and
 \item the meshsize $h$ and polynomial degree $p$ in the finite-element method are chosen to depend on $k$ to ensure that the 
@@ -63,8 +200,15 @@ $k\tendi$.
 \eit 
 
 
-
-
+\bre[\Cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3}]\label{rem:yesitis}
+Observe that the bound \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LG(v) = \int_{D} f\vbar,$ then
+\begin{align*}
+  \NHokDs{\LG} = \sup_{v \in \HozDD} \frac{\abs{\LG(v)}}{\NHokD{v}} &\leq\sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NHokD{v}}\\
+  &\lesssim \frac1k \sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NLtD{v}}\\
+  &= \frac{\NLtD{f}}k.
+\end{align*}
+The factor $k$ appears in \cref{eq:bound4} since we use the weighted norm $\NHokD{\cdot}$ in the definition of $\NHokDs{\cdot},$ rather than the unweighted norm $\NHoD{\cdot}.$
+\ere
 
 \bth[Answer to \cref{it:nbpcq1}: $k$-independent weighted GMRES iterations]\label{cor:1}
 
@@ -119,6 +263,7 @@ Three notes regarding \cref{cor:1,cor:1a}: (i) The $L^\infty$ norms of $\Ao-\At$
 \bre
 When $h\sim  k^{-1}$, the bounds \cref{eq:cond,eq:conda} are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect, as discussed in \cref{sec:helmfedisc}) the bound \cref{eq:conda} for standard GMRES is more pessimistic than the bound \cref{eq:cond} for weighted GMRES.
 \ere
+
 
 
 \paragraph{How sharp are \cref{cor:1,cor:1a} in their $k$-dependence?}
@@ -268,64 +413,6 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 
 We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} above.
 
-\subsection{Definition of variational problems and conditions used to prove main results}\label{sec:vpGm}
-As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP (\cref{prob:vedp}) and TEDP (\cref{prob:vtedp}) above.
-
-\bprob[General variational Helmholtz problem]\label{prob:vgen}
-Let $D, A,$ and $n$ be as in \cref{prob:tedp}. We say $u \in \HozDD$ satisfies the \defn{variational formulation of a general exterior Dirichlet problem} with $\gD = 0$ if
-\beq\label{eq:vgen}
-\aG(u,v) = \LG(v) \tfa v \in \HozDD,
-\eeq
-where
-\beq\label{eq:agen}
-\aG(w,v) \de \int_{D} \mleft(\mleft(A \grad w\mright)\cdot\grad \vbar - k^2 n\minispace w \vbar\mright) - \DPGI{\T \trGI w}{\trGI v},
-\eeq
-$\T:\HhGI\rightarrow \HmhGI$ is a bounded linear map,  $\DPGI{\cdot}{\cdot}$ is the duality pairing on $\GI,$ and $\LG  \in \HozDDs.$
-\eprob
-
-\bre[\Cref{prob:vgen} is a generalisation of \cref{prob:vedp,prob:vtedp}]
-With the exception of some overlap in notation, it is straightforward to see that appropriate choices of $D,$ $\GI$, $\T$, and $\LG$ allow \cref{prob:vgen} to be either \cref{prob:vedp} or \cref{prob:vtedp}. Taking $D = D$, $\GI = \GR$, $\T = \DtN$ and $\LG(v) = \int_{D} f\minispace\vbar$ (for $f$ as in \cref{prob:vedp}) in \cref{prob:vgen}, we see \cref{prob:vgen} becomes \cref{prob:vedp}. However taking $D$ and $\GI$ in \cref{prob:vgen} to be the same as the $D$ and $\GI$ in \cref{prob:vtedp}, taking $\T=ik,$ and $\LG(v) = \int_{D} f\minispace\vbar + \int_{\GI} \gI \minispace\trGI \vbar$ (for $f$ and $\gI$ as in \cref{prob:vtedp}), \cref{prob:vgen} becomes \cref{prob:vtedp}.
-\ere
-
-\bre[\Cref{prob:vgen} allows for other boundary conditions]
-The strength of the general formulation \cref{prob:vgen} is that it allows us to treat a wide variety of Helmholtz problems at once. Indeed, \emph{any} Helmholtz problem that can be written in the form \cref{eq:vgen,eq:agen} and satisfies \cref{cond:1nbpc,cond:2} below can be treated using the analysis in this \lcnamecref{chap:nbpc}.
-\ere 
-
-For the remainder of this \lcnamecref{chap:nbpc}, we let $(\Vhp)_{h>0}$ be a family of finite-dimensional subspaces of $\HozDD$, whose union is dense in $\HozDD$. More specifically, we let $\Vhp$ consist of nodal finite-element functions given by piecewise-polynomials on a quasi-uniform simplicial mesh $\cTh$ with mesh-size $h$
-%\ednote{Euan says: have problem that want to allow $C^{1,1}$ $\Dm$, so that statements later about $H^2$ regularity are covered, but easiest to define triangulation and hence subspaces on Lipschitz domains -- Euan to discuss with Ivan}
-and fixed polynomial degree $p$. Note that the dimension $N$ of $\Vhp$ then satisfies $N\sim h^{-d}$, with hidden constant dependent on $p$. (The assumption of quasi-uniformity can, in principle, be relaxed, see \cref{rem:ggsqu} below.) As in \cref{rem:crimes} above, we ignore any variational crimes resulting from this discretisation. We now define the finite-element approximation of \cref{prob:vgen}.
-\bprob[Finite-element approximation of \cref{prob:vgen}]\label{prob:fevgen}
-    Find $\uh \in \Vhp$ such that
-\beq\label{eq:galerkin}
-\aG(\uh,\vh) = \LG(\vh) \tforall \vh \in \Vhp.
-\eeq
-We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (the solution to \cref{prob:vgen}).
-\eprob
-%Observe that implicit in our use of $\aE$ in \cref{eq:galerkin} is the fact that we are realising the Dirichlet-to-Neumann map $\TR$ exactly on $\GR.$
-%Definition of Galerkin method
-
-We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
-Let 
-\beq\label{eq:matrixSjdef}
-\big(\Smat_{A}\big)_{ij}\de \int_D \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
-\big(\Mmat_{n}\big)_{ij}\de \int_D n\,\phi_i\, \phi_j,
-\quad\tand\quad
-\big(\Nmat\big)_{ij}\de \int_{\GR} \T (\gamma\phi_j) \,\gamma \phi_i
-\eeq
-be the stiffness, domain-mass, and boundary-mass matrices, respectively. Note that both $\Smat_A$ and $\Mmat_n$ are \emph{real-valued}, but in general $\Nmat$ is \emph{complex-valued} (because both the  DtN operator $\DtN$ and the impedance operator $ik$ are complex-valued).
-Let
-\beq\label{eq:matrixAdef}
-\Amat \de \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
-\eeq
-and let $u_h\de \sum_j \uvec_j \phi_j$. Then \cref{eq:galerkin} implies that
-\beqs
-\Amat \uvec = \fvec,
-\eeqs
-where $(\fvec)_i \de \FE(\phi_i)$.
-Similarly to above we let 
-\beq\label{eq:matrixAjdef}
-\Amatj \de \Smat_{A^{(j)}} - k^2 \Mmat_{n^{(j)}} - \Nmat.
-\eeq
 %then the weighted norm $\|\cdot\|_{\Dmat_k}$ is given by 
 %\beq\label{eq:Dk3}
 %\N{\vvec}_{\Dmat_k}^2\de   \N{v_h}^2_{\HokD}=\big( \Dmat_k \vvec,\vvec\big)_2,
@@ -333,18 +420,7 @@ Similarly to above we let
 %for
 %$v_h =\sum_i v_i \phi_i$.
 
-\ble[Norm equivalences of FE functions]\label{lem:normequiv}
-There exist $m_\pm >0$ and $s_+>0$, independent of $h$ (but dependent on $p$), such that
-\beq\label{eq:normequiv1}
-m_- h^{d/2} \N{\vvec}_2 \leq \N{v_h}_{\LtD} \leq m_+ h^{d/2} \N{\vvec}_2,
-\eeq
-and
-\beq\label{eq:normequiv2}
-\N{\nabla v_h}_{\LtD} \leq s_+ h^{d/2-1} \N{\vvec}_2,
-\eeq
-for all finite-element functions $v_h =\sum_i \vvec_i \phi_i \in \Vhp$.
-\ele
-
+\optodo{add proof link}
 \bpf[Proof of \cref{lem:normequiv}]
 We first show \cref{eq:normequiv1} by direct computation, before concluding \cref{eq:normequiv2} from \cref{eq:normequiv1} and a standard inverse inequality. Throughout this proof, when we use $\sim$ the hidden constants are independent of $\tau \in \Th,$ the mesh size $h$, and $\vh \in \Vhp,$ but may depend on $p.$
 
@@ -447,61 +523,6 @@ This property follows from the fact that, if $\uo$ and $\ut$ are solutions of th
 which follows from Green's theorem and, e.g., \cite[Lemma 4.10]{Sp:15}.
 \epf
 
-\Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}, which are the minimal conditions needed for the proof of \cref{cor:1,cor:1a}. Therefore, in particular, \cref{cond:2} is a very weak condition on the finite-element space $\Vhp.$
-
-\begin{condition}[Nontrapping bound on $u^{(1)}$]\label{cond:1nbpc}
-$\Aso, \nso,$ and $D$ are such that, given $f\in L^2(D)$
-  the solution of \cref{prob:vgen} with
-  \beq\label{eq:LGf}
-  \LG(v) = \int_D f\vbar,
-  \eeq
-$u^{(1)}$, exists, is unique, and, given $k_0>0$, $u^{(1)}$ satisfies the bound 
-\beq\label{eq:bound1}
-\big\|u^{(1)}\big\|_{\HokD} \leq C^{(1)}_{\rm bound} \N{f}_{L^2(D)} \quad \tfa k\geq k_0,
-\eeq
-where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso, D$, and $k_0$.
-\end{condition}
-
-\begin{condition}[$k$-independent accuracy of the FE solution for $a^{(1)}(\cdot,\cdot)$]
-\label{cond:2}
-
-\
-
-\noindent\ben
-
-\item\label[itempart]{it:femasspt1} Given $\kz>0$, $h$ and $p$ are such that, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then for all $k\geq k_0$,
-  \bit
-\item The solution $u_h$ of \cref{prob:fevgen} (with $\aG = \aGo$, and $\LG(v)$ given by \cref{eq:LGf}) exists and is unique, and
-\item The error bound
-  \beq\label{eq:bound3}
-\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtD} \quad\tfa k\geq k_0, 
-\eeq
-holds, where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.
-  \eit
-
-\item Given $k_0>0$, $h$ and $p$ are such that, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in \LiDRRdtd$ and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then for all $k \geq \kz$,
-  \bit
-\item The solution $u_h$ of \cref{prob:fevgen} with $\aG = \aGo$ exists and is unique, and
-\item The error bound
-\beq\label{eq:bound4}
-\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LG}_{\HokDs} \quad\tfa k\geq k_0, 
-\eeq
-holds, where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.  
-  \eit
-\een
-\end{condition}
-
-For details of when \cref{cond:1nbpc,cond:2} are satisfied (for \cref{prob:vedp,prob:vtedp}), see \cref{sec:pdetheory} (for \cref{cond:1nbpc}) and \cref{sec:helmfedisc} (for \cref{cond:2} \cref{it:femasspt1}).
-
-\bre[\Cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3}]\label{rem:yesitis}
-Observe that the bound \cref{eq:bound4} has the same $k$-dependence as \cref{eq:bound3} despite the fact that a factor $k$ appears on the right-hand side. If $\LG(v) = \int_{D} f\vbar,$ then
-\begin{align*}
-  \NHokDs{\LG} = \sup_{v \in \HozDD} \frac{\abs{\LG(v)}}{\NHokD{v}} &\leq\sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NHokD{v}}\\
-  &\lesssim \frac1k \sup_{v \in \HozDD} \frac{\NLtD{f}\NLtD{v}}{\NLtD{v}}\\
-  &= \frac{\NLtD{f}}k.
-\end{align*}
-The factor $k$ appears in \cref{eq:bound4} since we use the weighted norm $\NHokD{\cdot}$ in the definition of $\NHokDs{\cdot},$ rather than the unweighted norm $\NHoD{\cdot}.$
-\ere
 
 
 \subsection{Proof of the main ingredient of the proofs of \cref{cor:1,cor:1a}}\label{sec:proofs}
@@ -834,24 +855,7 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 
 \subsection{Proofs of the finite-element results \cref{cor:1,cor:1a}}\label{sec:mainproofs}
 
-We first give the set-up for weighted GMRES, first introduced in by Essai in \cite{Es:98}, largely following \cite[Section 5]{GrSpVa:17}. Consider the abstract  linear system 
-% \begin{equation*}
-$\matrixC \xvec = \dvec$
-%\end{equation*}
-in $\mathbb{C}^N$, where $\matrixC \in \CC^{N\times N}$ is invertible. Let $\xvecz$ be the initial guess, and define the initial residual $\rvec^0 \de \dvec- \Cmat \xvec^0$ and the standard Krylov spaces:  
-\beqs  
-\cK^m(\Cmat, \rvec^0) \de \mathrm{span}\big\{\matrixC^j \rvec^0 : j = 0, \ldots, m-1\big\}.
-\eeqs
-Analagously to the definition of $\NDk{\cdot}$ above, let $(\cdot , \cdot )_{\Dmat}$ denote the inner product on $\CC^n$ 
-induced by some Hermitian positive-definite matrix $\Dmat$, i.e.~
-%\begin{equation*}
-$(\vvec,\wvec)_{\Dmat} \de (\Dmat \vvec, \wvec)_2,$
-%\end{equation*} 
-and let $\Vert \cdot \Vert_\Dmat$ be the induced norm. For $m \geq 1$, define the $m$th GMRES iterate $\xvec^m$  to be  the unique element of $\cK^m$ satisfying  the  
- minimal residual  property: 
-$$ \ \Vert \rvecm \Vert_\Dmat \de \Vert \dvec - \matrixC \xvec^m \Vert_\Dmat \ = \ \min_{\xvec \in \cK^m(C, \rvec^0)} \Vert {\dvec} - {\matrixC} {\xvec} \Vert_\Dmat. $$
-Observe that when $\Dmat = \Imat$ this is the standard GMRES algorithm. We also note that in general, weighted GMRES requires the use of weighted Arnoldi process, also introduced by Essai in \cite{Es:98}, see also the alternative implementations of the weighted Arnoldi process in \cite{GuPe:14}.
-
+\optodo{Now need some chat here}
 
 Let 
 \beq\label{eq:fov}
