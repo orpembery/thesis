@@ -190,22 +190,22 @@ where $C^{(1)}_{\rm bound}$ is independent of $k$, but dependent on $\Aso, \nso,
 
 \noindent\ben
 
-\item\label[itempart]{it:femasspt1} Given $\kz>0$, $h$ and $p$ are such that, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then for all $k\geq k_0$,
+\item\label[itempart]{it:femasspt1} Given $\kz>0$, for all $k\geq k_0$, $h$ and $p$ are chosen such that, if $f= n\sum_j \alpha_j\phi_j$ for some $\alpha_j \in \CC$ and  $n\in \LiDR$  (i.e.~$f$ is an arbitrary element of $\Vhp$ multiplied by $n$), then 
   \bit
 \item The solution $u_h$ of \cref{prob:fevgen} (with $\aG = \aGo$, and $\LG(v)$ given by \cref{eq:LGf}) exists and is unique, and
 \item The error bound
   \beq\label{eq:bound3}
-\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtD} \quad\tfa k\geq k_0, 
+\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM1} \N{f}_{\LtD} \quad, 
 \eeq
 holds, where $C^{(1)}_{\rm FEM1}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.
   \eit
 
-\item Given $k_0>0$, $h$ and $p$ are such that, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in \LiDRRdtd$ and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then for all $k \geq \kz$,
+\item Given $k_0>0$, for all $k\geq k_0$, $h$ and $p$ are chosen such that, if $\LG(v)= (A\nabla \widetilde{f},\nabla v)_{\LtD}$, where $A\in \LiDRRdtd$ and $\widetilde{f} \de \sum_j \alpha_j \phi_j$ with $\alpha_j\in \CC$  (i.e.~$\widetilde{f}$ is an arbitrary element of $\Vhp$), then,
   \bit
 \item The solution $u_h$ of \cref{prob:fevgen} with $\aG = \aGo$ exists and is unique, and
 \item The error bound
 \beq\label{eq:bound4}
-\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LG}_{\HokDs} \quad\tfa k\geq k_0, 
+\N{u-u_h}_{\HokD} \leq C^{(1)}_{\rm FEM2}\,k\, \N{\LG}_{\HokDs} \quad, 
 \eeq
 holds, where $C^{(1)}_{\rm FEM2}$  is independent of $k$ and $h$, but dependent on $\Aso, \nso, D, k_0$, and $p$.  
   \eit
@@ -236,14 +236,14 @@ The factor $k$ appears in \cref{eq:bound4} since we use the weighted norm $\NHok
 
 \
 
-\noindent Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$, there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
+\noindent Let $\kz \geq 0,$ $k \geq \kz,$ and assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, $h$ and $p$ satisfy \cref{cond:2}, and $\Ast$ and $\nst$ are as in \cref{prob:vgen}. Then there exist constants $\Co$ and $\Ct$  independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso, p$, and $\kz$) such that if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:cond}
 C_1 \,k \,\NLiDop{\Aso-\Ast} +C_2 \, k\, \NLiDRR{\nso-\nst}
-\leq \frac{1}{2}
+\leq \frac{1}{2},
 \eeq
-for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
+then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to 
 \beq\label{eq:pcsystem1}
 (\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec
 \eeq
@@ -251,7 +251,7 @@ for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dma
 \beq\label{eq:pcsystem2}
 \Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 \eeq
- converge in a $k$-independent number of iterations for all $k\geq k_0$.
+ converge in a $k$-independent number of iterations.
  \enth
 
 The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} below. The proof of \cref{cor:1} is on \cpageref{page:cor1proof} below.
@@ -260,20 +260,19 @@ The constants $\Co$ and $\Ct$ are given explicitly  in \cref{eq:C1nbpc,eq:C2} be
 
 \
 
-\noindent Assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc} below, $h$ and $p$ satisfy \cref{cond:2} below, and $\Ast$ and $\nst$ are as in \cref{prob:vgen} below. Given $k_0>0$,
-let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{+}>0$ and $m_{\pm}>0$ be as in \cref{lem:normequiv} below (note that all these constants are independent of $k$, $h$, and $p$). Then if 
+\noindent Let $\kz \geq 0,$ $k \geq \kz,$ and assume that $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, $h$ and $p$ satisfy \cref{cond:2}, and $\Ast$ and $\nst$ are as in \cref{prob:vgen}. Let $C_1$ and $C_2$ be as in \cref{cor:1}, and let $s_{+}>0$ and $m_{\pm}>0$ be as in \cref{lem:normequiv} (note that all these constants are independent of $k$, $h$, and $p$). Then if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:conda}
  C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\NLiDop{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
+\NLiDop{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst},
 \leq \frac{1}{2}
 \eeq
-for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
+then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
 %(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 %\eeqs
- converges in a $k$-independent number of iterations for all $k\geq k_0$.
+ converges in a $k$-independent number of iterations.
  \enth
 
  The proof of \cref{cor:1a} is on \cpageref{page:cor1aproof} below.
@@ -503,9 +502,9 @@ The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{
 which defines the norm on $\Vhp$ induced by $\NHokD{\cdot},$ see \cref{eq:Dk}.
 
 \begin{theorem}[Main ingredient of the answer to \cref{it:nbpcq1}]\label{thm:1}
-Assume $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. 
+Let $\kz \geq 0,$ $k \geq \kz,$ and assume $\Dm$, $\Aso$, and $\nso$ satisfy \cref{cond:1nbpc}, and assume that $h$ and $p$ satisfy \cref{cond:2}. 
 Let the $k$- and $h$-independent constants $\mpm$ and $\splus$ be given as in \cref{lem:normequiv}.
-Then, given $\kz>0$, there exist $\Co, \Ct>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $\kz$) such that
+Then there exist $\Co, \Ct>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $\kz$) such that
 \begin{align}\nonumber
 &\max\Big\{
 \NDmatk{\Imat - (\Amat^{(1)})^{-1}\Amat^{(2)}}, 
@@ -524,10 +523,9 @@ and
 \Big\}\\
 &\hspace{0cm} 
 \leq C_1 \,\left(\frac{s_+}{m_-}\right) \,\frac{1}{h} \,
-\NLiDop{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}
+\NLiDop{\Aso-\Ast} + C_2 \, \left(\frac{m_+}{m_-} \right)k \, \NLiDRR{\nso-\nst}.
 \label{eq:main1a}
 \end{align}
-for all $k\geq k_0$. 
 \end{theorem}
 
 The proof of \cref{thm:1} is given after the following two lemmas, that are the heart of the proof of \cref{thm:1}.
@@ -549,9 +547,8 @@ and
 \Big\}\leq 
 C_2 
 %\frac{m_+}{m_-} \left[ C_{\rm FEM1}^{(1)} + C_{\rm bound}^{(1)}\right] 
-\left(\frac{m_+}{m_-}\right) \frac{\NLiDRR{n}}{k}
+\left(\frac{m_+}{m_-}\right) \frac{\NLiDRR{n}}{k},
 \eeq
-for all $k\geq k_0$,
 where
 \beq\label{eq:C2}
 C_2\de%\frac{m_+}{m_-} 
@@ -571,7 +568,7 @@ Assume that \cref{cond:1nbpc} holds, and assume that part (ii) of \cref{cond:2} 
 and
 \beq\label{eq:keybound2a}
 \max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
-\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\NLiDop{A}
+\big\| \Smat_A (\Amato)^{-1} \big\|_2\Big\} \leq C_1\,\left(\frac{s_+}{m_-}\right) \frac{1}{h}\NLiDop{A},
 \eeq
 %\begin{align}\nonumber
 %&\max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
@@ -581,7 +578,7 @@ and
 % \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right) \right]k\N{A}_{L^\infty(D)}\label{eq:keybound2}
 %% + C_{\rm bound}^{(1)}\right) \frac{\N{n}_{L^\infty(D)}}{k}.
 %\end{align}
-for all $k\geq k_0$, where
+where
 \beq\label{eq:C1nbpc}
 C_1\de%\frac{s_+}{s_-} 
 \left[ C_{\rm FEM2}^{(1)} + 
