@@ -35,13 +35,19 @@ applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ to converge in a $k$-independent numb
  for arbitrarily large $k$? 
  \een
 
+ The rigorous answer of \cref{it:nbpcq1} is contained in \cref{cor:1,cor:1a} below. However, an informal statement of the answer to \cref{it:nbpcq1} is that if
+ \beq\label{eq:informalconditionnbpc}
+k\,
+\NLi{\Aso-\Ast} \quad\text{ and } \quad k\,\NLi{\nso-\nst}
+%\Big) 
+\quad\text{ are both sufficiently small,}
+\eeq
+then GMRES applied to $(\Amat^{(1)})^{-1}\Amat^{(2)}$ in some weighted norm converges in a $k$-independent number of iterations (with \cref{eq:informalconditionnbpc} replaced by a slightly stronger condition).
+
  \subsection{Outline of the chapter}% Don't know why cleveref didn't work here
 In \cref{sec:main} we state the main results of this \lcnamecref{chap:nbpc} on the effectiveness of nearby preconditioning, and give their analogues on the PDE level. In \cref{sec:num} we describe numerical experiments investigating the sharpness of the nearby-preconditioning results in \cref{sec:main}. In \cref{sec:3} we prove the results in \cref{sec:main}. In \cref{sec:weaknorm} we extend the results in \cref{sec:main} to hold in weaker spatial norms, and we describe numerical experiments investigating the sharpness of these new results. In \cref{sec:nbpcqmc} we then apply the idea of nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the stochastic Helmholtz equation; in \cref{sec:nbpcqmcnum} we describe two algorithms for applying nearby preconditioning to QMC methods and in \cref{sec:nbpcqmcnumerics} we describe numerical experiments on the effectiveness of nearby preconditioning applied to QMC methods. In \cref{sec:nbpclitreview} we briefly review the related literature. Finally, in \cref{sec:nbpcstochastic}, we show how one can prove probabilistic results about the behaviour of nearby preconditioning, and we describe numerical experiments that investigate these probabilistic results.
 
-\subsection{Statement of the main results}\label{sec:main}
-\optodo{Maybe need to rename the sections.}
-\optodo{Need some outline result here}
-\optodo{Almost certainly need to add in some chat}
+\section{Statement of the main results}\label{sec:main}
 
 \subsection{Definition of variational problems and conditions used to prove main results}\label{sec:vpGm}
 As this \lcnamecref{chap:nbpc} concerns finite-element discretisations of the Helmholtz equation, we will work with the variational formulation of the Helmholtz equation. However, because the arguments we use do not directly rely on the boundary condition used to truncate the computational domain, we will state our Helmholtz problems in sufficient generality to include both the EDP (\cref{prob:vedp}) and TEDP (\cref{prob:vtedp}) above.
@@ -78,6 +84,8 @@ We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (th
 \eprob
 %Observe that implicit in our use of $\aE$ in \cref{eq:galerkin} is the fact that we are realising the Dirichlet-to-Neumann map $\TR$ exactly on $\GR.$
 %Definition of Galerkin method
+
+\subsection{Definition of finite-element matrices, weighted norms, and weighted GMRES} 
 
 We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
 Let 
@@ -145,6 +153,20 @@ and
 \eeq
 for all finite-element functions $v_h =\sum_i \vvec_i \phi_i \in \Vhp$.
 \ele
+
+The proof of \cref{lem:normequiv} is on \cpageref{page:normequivpf} below.
+
+\bre[Relaxing the assumption of quasi-uniformity]\label{rem:ggsqu}
+We assume that $\set{\Th}_{h>0}$ is a quasi-uniform family of meshes so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Sections 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analogous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
+\ere
+
+Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the bounds
+\beqs
+(\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
+\eeqs
+
+
+\subsection{Main results}
 
 \Cref{cor:1,cor:1a} are proved under the following two \lcnamecrefs{cond:1nbpc}, which are the minimal conditions needed for the proof of \cref{cor:1,cor:1a}. Therefore, in particular, \cref{cond:2} is a very weak condition on the finite-element space $\Vhp.$
 
@@ -264,9 +286,22 @@ Three notes regarding \cref{cor:1,cor:1a}: (i) The $L^\infty$ norms of $\Ao-\At$
 When $h\sim  k^{-1}$, the bounds \cref{eq:cond,eq:conda} are identical in their $k$-dependence; however, when $h\ll k^{-1}$ (as one needs to take to overcome the pollution effect, as discussed in \cref{sec:helmfedisc}) the bound \cref{eq:conda} for standard GMRES is more pessimistic than the bound \cref{eq:cond} for weighted GMRES.
 \ere
 
+\bre[Link to the results of \cite{GaGrSp:15}]
+A result analogous to the Euclidean-norm bounds in \cref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Aso= \Ast= I$, $\nst= 1$, and $\nso = 1 + i\eps/k^2$, with the `absorption parameter' or `shift' $\eps$ satisfying $0<\eps\lesssim k^2$. (Recall that the proof strategy used in this \lcnamecref{chap:nbpc} is based on the strategy in \cite{GaGrSp:15}.) The motivation for proving this result was that the so-called `shifted Laplacian preconditioning' of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to \cref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
+$\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
+ then give upper bounds on how large the `shift' $\eps$ can be for GMRES for $\AmatoI\Amatt$ to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
+
+%\cite[Lemma 4.1]{GaGrSp:15}
+The main differences between \cite{GaGrSp:15} and this work are that: (i)  \cite{GaGrSp:15} focused on the TEDP, not both the TEDP and the EDP,
+(ii) \cite{GaGrSp:15} focused on the particular case that $\Dm$ is star-shaped with respect to a ball, finding a $k$- and $\eps$-explicit expression for $C^{(1)}_{\rm bound}$ in this case using Morawetz identities, whereas we assume the existence of $\Cboundo,$
+(iii) \cite{GaGrSp:15} required a bound on 
+$(\Amato)^{-1}\Mmat_{n}$, analogous to the bounds in \cref{lem:keylemma1} along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $i k$), but \emph{not} on 
+$(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\|\cdot\|_2$ norm.
+%The result of \cref{thm:1}
+\ere
 
 
-\paragraph{How sharp are \cref{cor:1,cor:1a} in their $k$-dependence?}
+\subsection{How sharp are \cref{cor:1,cor:1a} in their $k$-dependence?}
 Numerical experiments in \cref{sec:num} indicate that the condition \cref{eq:cond} is sharp, i.e., that the $k$ in \cref{eq:cond} cannot be replaced by $k^\alpha$ for $\alpha<1$. This indicated sharpness of \cref{eq:cond} is also supported by the PDE-result \cref{thm:2} below. Indeed, \cref{thm:2} % and \cref{lem:1} 
  shows that the condition
 \beq\label{eq:sufficientlysmall}
@@ -411,8 +446,6 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 
 \section[Proofs of Theorems \MakeLowercase{\ref{cor:1}, \ref{cor:1a}, and \ref{thm:2}} and Lemma \MakeLowercase{\ref{lem:sharp}}]{Proofs of Theorems \ref{cor:1}, \ref{cor:1a}, and \ref{thm:2} and \newline Lemma \ref{lem:sharp}}\label{sec:3}
 
-We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} above.
-
 %then the weighted norm $\|\cdot\|_{\Dmat_k}$ is given by 
 %\beq\label{eq:Dk3}
 %\N{\vvec}_{\Dmat_k}^2\de   \N{v_h}^2_{\HokD}=\big( \Dmat_k \vvec,\vvec\big)_2,
@@ -420,8 +453,10 @@ We now state the necessary technical definitions to prove \cref{cor:1,cor:1a} ab
 %for
 %$v_h =\sum_i v_i \phi_i$.
 
-\optodo{add proof link}
+As the first step towards proving \cref{cor:1,cor:1a}, we prove \cref{lem:normequiv}, concerning norm equivalences of finite-element functions.
+
 \bpf[Proof of \cref{lem:normequiv}]
+\label{page:normequivpf}
 We first show \cref{eq:normequiv1} by direct computation, before concluding \cref{eq:normequiv2} from \cref{eq:normequiv1} and a standard inverse inequality. Throughout this proof, when we use $\sim$ the hidden constants are independent of $\tau \in \Th,$ the mesh size $h$, and $\vh \in \Vhp,$ but may depend on $p.$
 
 For any $\vh \in \Vhp$ we have (letting $\bnj$ denote a node of $\Th$)
@@ -440,14 +475,6 @@ To show \cref{eq:normequiv2} we recall the standard inverse inequality (see, e.g
 By combining \cref{eq:twiddleinverse} and the right-hand side of \cref{eq:normequiv1}, we obtain \cref{eq:normequiv2}.
 \epf
 
-\bre[Relaxing the assumption of quasi-uniformity]\label{rem:ggsqu}
-We assume that $\set{\Th}_{h>0}$ is a quasi-uniform family of meshes so that the proof of \cref{lem:normequiv} is straightforward. However, this assumption can almost certainly be relaxed. In \cite{GaGrSp:15} (on which the bulk of the arguments in this \lcnamecref{chap:nbpc} are based) Gander, Graham, and Spence prove results both for quasi-uniform meshes and also for shape-regular meshes (see \cite[Sections 3.4 and 4.1.2]{GaGrSp:15}). Given the results in \cite{GaGrSp:15} for shape-regular meshes are analagous to those they obtain for quasi-uniform meshes, we expect the results in this \lcnamecref{chap:nbpc} can also be extended to shape-regular meshes. However, we note that \cite{GaGrSp:15} only contains bounds on preconditioned mass matrices (analogous to \cref{lem:keylemma1} below) but not preconditioned stiffness matrices (analogous to \cref{lem:keylemma2} below. Therefore it remains open to prove that our results in this \lcnamecref{chap:nbpc} can be extended in their entirety to shape-regular meshes.
-\ere
-
-Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:matrixSjdef}, the bounds \cref{eq:normequiv1} and \cref{eq:normequiv2} are, respectively, the bounds
-\beqs
-(\Mmat_1 \vvec,\vvec)_2 \sim h^d \N{\vvec}^2_2 \quad\tand\quad (\Smat_I \vvec,\vvec)_2 \lesssim h^{d-2} \N{\vvec}^2_2.
-\eeqs
 
 %For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]{Br:07} the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.
 
@@ -464,64 +491,6 @@ Written in terms of the matrices $\Mmat_1$ and $\Smat_I$ defined in \cref{eq:mat
 %% (see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
 %% \epf
 
-
-Finally, we need the concept of the \emph{adjoint} sesquilinear form to $\aG(\cdot,\cdot)$.
-\begin{definition}[The adjoint sesquilinear form $\aGs(\cdot,\cdot)$]\label{def:adjoint}
-Let $D$, $A$, and $n$ be as in \cref{prob:vgen}. The adjoint sesquilinear form, $\aGs(\cdot,\cdot)$, to $\aG(\cdot,\cdot)$ defined in \cref{eq:agen} is given by
-\beq\label{eq:EDPadjoint}
-\aGs(w,v) \de \int_{D} 
-\Big((A \grad w)\cdot\grad \vb
- - k^2 n w\vb\Big) -  \DPGI{\trI w}{\T(\trI v)}.
-\eeq
-\end{definition}
-
-\noi It is then straightforward to check that
-\beq\label{eq:A*}
-\Amat^\dagger \de \Smat_A -k^2 \Mmat_n - \Nmat^\dagger
-\eeq
-(where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
-
-\ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
-
-\
-
-\noindent If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem \cref{prob:vgen}, the boundary operator $\T$ satisfies
-\beq\label{eq:DPconj}
-\DPGI{\T \psi}{\phibar} = \DPGI{\T \phi}{\psibar} \tfa \phi,\psi \in \HhGI,
-\eeq
-and
-\beq\label{eq:adjoint1}
-\aGs(u,v)= \LG(v) \quad\tfa v\in \HozDD,
-\eeq
-then $\overline{u}$ satisfies
-\beq\label{eq:adjoint2}
-\aG(\overline{u},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
-\eeq
-\ele
-
-\bpf[Proof of \cref{lem:adjoint}]
-From \cref{eq:adjoint1} we have that 
-\beqs
-\overline{\aGs(u,\overline{v})}= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
-\eeqs
-Using the definition of $\aGs(\cdot,\cdot)$ and the property \cref{eq:DPconj} in the left-hand side of this last equation, we find \cref{eq:adjoint2}.
-\epf
-
-\bco[\Cref{eq:adjoint2} holds for \cref{prob:vedp,prob:vtedp}]\label{cor:adjoint}
-If \cref{prob:vgen} is chosen to represent either \cref{prob:vedp} or \cref{prob:vtedp}, then \cref{eq:adjoint2} holds.
-\eco
-
-\bpf[Proof of \cref{cor:adjoint}]
-The only thing we need to check is that \cref{eq:DPconj} holds for both \cref{prob:vedp,prob:vtedp}. For \cref{prob:vtedp}, when $\T = ik$, the proof is straightforward. For \cref{prob:vedp} when $\T = \DtN$ we need the following property of the DtN map $\DtN$:
-\beq\label{eq:DtN}
-\DPGR{\DtN\psi}{\phibar} = \DPGR{\DtN \phi}{\psibar} \quad\tfa \phi,\psi \in H^{1/2}(\GR).
-\eeq
-This property follows from the fact that, if $\uo$ and $\ut$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{\BR}$, both satisfying the Sommerfeld radiation condition \cref{eq:src}, then
-\beqs
-\int_{\GR} (\gamma \uo)\, \dn \utb = \int_{\GR} (\gamma \ut)\,\dn \uob;
-\eeqs
-which follows from Green's theorem and, e.g., \cite[Lemma 4.10]{Sp:15}.
-\epf
 
 
 
@@ -644,7 +613,68 @@ The bounds in  \cref{eq:main1} on $\NDk{\Imat - (\Amato)^{-1}\Amatt}$ and  $\NDk
 %\eeq
 \epf
 
+\subsubsection{Proofs of \cref{lem:keylemma1,lem:keylemma2}}
+
+The proofs of \cref{lem:keylemma1,lem:keylemma2} require the concept of the \emph{adjoint} sesquilinear form to $\aG(\cdot,\cdot)$.
+
+\begin{definition}[The adjoint sesquilinear form $\aGs(\cdot,\cdot)$]\label{def:adjoint}
+Let $D$, $A$, and $n$ be as in \cref{prob:vgen}. The adjoint sesquilinear form, $\aGs(\cdot,\cdot)$, to $\aG(\cdot,\cdot)$ defined in \cref{eq:agen} is given by
+\beq\label{eq:EDPadjoint}
+\aGs(w,v) \de \int_{D} 
+\Big((A \grad w)\cdot\grad \vb
+ - k^2 n w\vb\Big) -  \DPGI{\trI w}{\T(\trI v)}.
+\eeq
+\end{definition}
+
+\noi It is then straightforward to check that
+\beq\label{eq:A*}
+\Amat^\dagger \de \Smat_A -k^2 \Mmat_n - \Nmat^\dagger
+\eeq
+(where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
+
+\ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
+
 \
+
+\noindent If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem \cref{prob:vgen}, the boundary operator $\T$ satisfies
+\beq\label{eq:DPconj}
+\DPGI{\T \psi}{\phibar} = \DPGI{\T \phi}{\psibar} \tfa \phi,\psi \in \HhGI,
+\eeq
+and
+\beq\label{eq:adjoint1}
+\aGs(u,v)= \LG(v) \quad\tfa v\in \HozDD,
+\eeq
+then $\overline{u}$ satisfies
+\beq\label{eq:adjoint2}
+\aG(\overline{u},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
+\eeq
+\ele
+
+\bpf[Proof of \cref{lem:adjoint}]
+From \cref{eq:adjoint1} we have that 
+\beqs
+\overline{\aGs(u,\overline{v})}= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
+\eeqs
+Using the definition of $\aGs(\cdot,\cdot)$ and the property \cref{eq:DPconj} in the left-hand side of this last equation, we find \cref{eq:adjoint2}.
+\epf
+
+\bco[\Cref{eq:adjoint2} holds for \cref{prob:vedp,prob:vtedp}]\label{cor:adjoint}
+If \cref{prob:vgen} is chosen to represent either \cref{prob:vedp} or \cref{prob:vtedp}, then \cref{eq:adjoint2} holds.
+\eco
+
+\bpf[Proof of \cref{cor:adjoint}]
+The only thing we need to check is that \cref{eq:DPconj} holds for both \cref{prob:vedp,prob:vtedp}. For \cref{prob:vtedp}, when $\T = ik$, the proof is straightforward. For \cref{prob:vedp} when $\T = \DtN$ we need the following property of the DtN map $\DtN$:
+\beq\label{eq:DtN}
+\DPGR{\DtN\psi}{\phibar} = \DPGR{\DtN \phi}{\psibar} \quad\tfa \phi,\psi \in H^{1/2}(\GR).
+\eeq
+This property follows from the fact that, if $\uo$ and $\ut$ are solutions of the homogeneous Helmholtz equation $\Delta u +k^2 u=0$ in $\RRd\setminus \overline{\BR}$, both satisfying the Sommerfeld radiation condition \cref{eq:src}, then
+\beqs
+\int_{\GR} (\gamma \uo)\, \dn \utb = \int_{\GR} (\gamma \ut)\,\dn \uob;
+\eeqs
+which follows from Green's theorem and, e.g., \cite[Lemma 4.10]{Sp:15}.
+\epf
+
+
 
 \bpf[Proof of \cref{lem:keylemma1}]
 \label{page:lemkeylemma1proof}
@@ -824,19 +854,6 @@ on either side of the inequality \cref{eq:mainevent2}, with these bounds coming 
 $\|\Smat_A((\Amato)^\dagger)^{-1}\|_{2}$ in \cref{eq:keybound2a} follows in a similar way to above, using \cref{eq:Fbound}.
 \epf
 
-\bre[Link to the results of \cite{GaGrSp:15}]
-A result analogous to the Euclidean-norm bounds in \cref{thm:1} was proved in \cite{GaGrSp:15} for the case that $\Aso= \Ast= I$, $\nst= 1$, and $\nso = 1 + i\eps/k^2$, with the `absorption parameter' or `shift' $\eps$ satisfying $0<\eps\lesssim k^2$. (Recall that the proof strategy used in this \lcnamecref{chap:nbpc} is based on the strategy in \cite{GaGrSp:15}.) The motivation for proving this result was that the so-called `shifted Laplacian preconditioning' of the Helmholtz equation is based on preconditioning (with these choices of parameters) $\Amatt$ with an approximation of $\Amato$. Similar to \cref{cor:1}, bounds on $\|\Imat -  (\Amato)^{-1}\Amatt \|_2$ and 
-$\|\Imat - \Amatt  (\Amato)^{-1}\|_2$
- then give upper bounds on how large the `shift' $\eps$ can be for GMRES for $\AmatoI\Amatt$ to converge in a $k$-independent number of iterations in the case when the action of $(\Amato)^{-1}$ is computed exactly.
-
-%\cite[Lemma 4.1]{GaGrSp:15}
-The main differences between \cite{GaGrSp:15} and this work are that: (i)  \cite{GaGrSp:15} focused on the TEDP, not both the TEDP and the EDP,
-(ii) \cite{GaGrSp:15} focused on the particular case that $\Dm$ is star-shaped with respect to a ball, finding a $k$- and $\eps$-explicit expression for $C^{(1)}_{\rm bound}$ in this case using Morawetz identities, whereas we assume the existence of $\Cboundo,$
-(iii) \cite{GaGrSp:15} required a bound on 
-$(\Amato)^{-1}\Mmat_{n}$, analogous to the bounds in \cref{lem:keylemma1} along with one on $(\Amato)^{-1}\Nmat$ (in the case that $T_R$ is approximated by $i k$), but \emph{not} on 
-$(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\|\cdot\|_2$ norm.
-%The result of \cref{thm:1}
-\ere
 
 %\bre[Analogue of \cref{thm:1} in a weighted norm]\label{rem:weight1}
 %The PDE analysis of the Helmholtz equation naturally takes place in the weighted $H^1$ norm $\|\cdot\|_{\HokD}$ defined by \cref{eq:1knorm}. The discrete analogue of this norm is the norm $\|\cdot\|_{\Dmat_k}$ defined by 
@@ -855,7 +872,7 @@ $(\Amato)^{-1}\Smat_{A}$, and (iv) \cite{GaGrSp:15} only proved bounds in the $\
 
 \subsection{Proofs of the finite-element results \cref{cor:1,cor:1a}}\label{sec:mainproofs}
 
-\optodo{Now need some chat here}
+We first recall properties of (weighted) GMRES that we will use to prove \cref{cor:1,cor:1a}.
 
 Let 
 \beq\label{eq:fov}
@@ -975,7 +992,7 @@ where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:
 \beq\label{eq:sphericallaplacian}
 \Delta \chi = \frac{1}{r^{d-1}} \frac{\partial}{\partial r}\mleft(r^{d-1} \frac{\partial \chi}{\partial r} \mright) + \frac1{r^2} \LapBel \chi,
 \eeq
-where $\LapBel$ is Laplace--Beltrami operator on the $d-1$-dimensional sphere (see, e.g., \cite[Equations (17.23) and (17.25)]{RiHoBe:97} for \cref{eq:sphericallaplacian} in $d=2$ and $3.$). Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
+where $\LapBel$ is the Laplace--Beltrami operator on the $d-1$-dimensional sphere (see, e.g., \cite[Equations (17.23) and (17.25)]{RiHoBe:97} for \cref{eq:sphericallaplacian} in $d=2$ and $3.$). Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
 
 We expect that \cref{eq:obs1} will be key in the proof of the sharpness of \cref{eq:PDEbound}, for the following reasons. Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since $\NLtD{\ftilde}\sim k$ and $\NHokD{e^{ikr}\chi(r)}\sim k$  and hence $\NHokD{e^{ikr}\chi(r)} \sim \NLtD{\ftilde}$ (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
 
