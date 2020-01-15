@@ -1136,31 +1136,31 @@ Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAb
 
 \
 
-\noindent Let the assumptions of \cref{cor:1} hold.  Given $k_0>0$ and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+\noindent Let the assumptions of \cref{cor:1} hold.  Given $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt} below. If 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
-\Cotilde kh^{-\frac{d}{q}} \NLqDop{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst}
+\Cotilde kh^{-\frac{d}{q}} \NLqDop{\Aso-\Ast} +\Cttilde  kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst},
 \leq \frac{1}{2}
 \eeq
-for all $k\geq k_0$, then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations for all $k\geq k_0$.
+then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associated inner product) applied to \cref{eq:pcsystem1} \emph{and} weighted GMRES working in $\|\cdot\|_{(\Dmat_k)^{-1}}$ (and the associated inner product) applied to \cref{eq:pcsystem2}  converge in a $k$-independent number of iterations.
 \enth
 
 \bth[Alternative answer to \cref{it:nbpcq1}: $k$-independent (unweighted) GMRES iterations]\label{cor:1aalt}
 
 \
 
-\noindent Let the assumptions of \cref{cor:1a} hold.  Given $k_0>0$, and $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt}. Then if 
+\noindent Let the assumptions of \cref{cor:1a} hold.  Given $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt} below. If 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condaalt}
-\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{q}-1} \NLqDop{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst} \leq \half
+\Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}{q}-1} \NLqDop{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}{q}} \NLqDRR{\nso-\nst} \leq \half,
 \eeq
-for all $k\geq k_0$, then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
+then standard GMRES (working in the Euclidean norm and inner product) applied to either of the equations \cref{eq:pcsystem1} or \cref{eq:pcsystem2}
 %\beqs
 %(\Amat^{(1)})^{-1}\Amat^{(2)}\uvec = \fvec\quad\text{ or } \quad\Amat^{(2)}(\Amat^{(1)})^{-1}\vvec = \fvec
 %\eeqs
- converges in a $k$-independent number of iterations for all $k\geq k_0$.
+ converges in a $k$-independent number of iterations.
  \enth
 
  A sketch proof of \cref{cor:1alt,cor:1aalt} is on \cpageref{page:cor1altcor1aaltproof} below.
@@ -1195,9 +1195,8 @@ Under the assumptions of \cref{lem:keylemma1}, for $n\in \LiDRR$ and for any $q 
 \eeq
 and 
 \beq\label{eq:keybound1a2}
-\max\set{\Nt{\AmatoI \Mmatn},\Nt{\Mmatn\AmatoI}} \leq \Cttilde\mleft(\frac{\mplus}{\mminus}\mright) h^{-\frac{d}q} \frac{\NLqDRR{n}}k
+\max\set{\Nt{\AmatoI \Mmatn},\Nt{\Mmatn\AmatoI}} \leq \Cttilde\mleft(\frac{\mplus}{\mminus}\mright) h^{-\frac{d}q} \frac{\NLqDRR{n}}k,
 \eeq
-for all $k\geq \kz$,
 where
 \beq\label{eq:C2tilde}
 \Cttilde\de%\frac{m_+}{m_-} 
@@ -1214,7 +1213,7 @@ Under the assumptions of \cref{lem:keylemma2}, for $A\in L^\infty(D,\RR^{d\times
 \eeq
 and
 \beq\label{eq:keybound2a2}
-\max\set{\Nt{\AmatoI \SmatA},\Nt{\SmatA\AmatoI}} \leq \Cotilde\mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1} \NLqDRR{A}
+\max\set{\Nt{\AmatoI \SmatA},\Nt{\SmatA\AmatoI}} \leq \Cotilde\mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1} \NLqDRR{A},
 \eeq
 %\begin{align}\nonumber
 %&\max\Big\{\big\| (\Amato)^{-1} \Smat_A \big\|_2, \,\,
@@ -1224,7 +1223,7 @@ and
 % \frac{1}{\min\big\{\Asomin,\nsomin\big\}}\left( \frac{1}{k_0} + 2 C^{(1)}_{\rm bound}\nsomax  \right) \right]k\N{A}_{L^\infty(D)}\label{eq:keybound2}
 %% + C_{\rm bound}^{(1)}\right) \frac{\N{n}_{L^\infty(D)}}{k}.
 %\end{align}
-for all $k\geq k_0$, where
+where
 \beq\label{eq:C1tildenbpc}
 \Cotilde \de \Cinvs\Co,
 \eeq
@@ -1240,7 +1239,7 @@ Observe that in the case $s=2$ and $q=\infty$ \cref{lem:keylemma1a,lem:keylemma2
 We can use \cref{lem:keylemma1a,lem:keylemma2a} in place of \cref{lem:keylemma1,lem:keylemma2} to obtain the following analogue of \cref{thm:1} in weaker norms.
 
 \begin{theorem}[Alternative main ingredient to answer to \cref{it:nbpcq1}]\label{thm:1alt}
-If all the assumptions of \namecref{thm:1} \ref{thm:1} hold, then, given $\kz>0$ and $q >2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $d, \Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that
+If all the assumptions of \namecref{thm:1} \ref{thm:1} hold, then there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $d, \Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that
 \begin{align}\nonumber
 &\max\set{\NDk{\Imat - \AmatoI\Amatt},\NDkI{\Imat -\Amatt\AmatoI}}\\
 &\hspace{3cm} 
@@ -1251,10 +1250,9 @@ and
 \begin{align}\nonumber
 &\max\set{\Nt{\Imat - \AmatoI\Amatt}, \Nt{\Imat -\Amatt\AmatoI}}\\
 &\hspace{0cm}
-\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1}\NLqDop{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}q}\NLqDRR{\nso-\nst}
+\leq \Cotilde \mleft(\frac{\splus}{\mminus}\mright) h^{-\frac{d}q-1}\NLqDop{\Aso-\Ast} + \Cttilde \mleft(\frac{\mplus}{\mminus}\mright) kh^{-\frac{d}q}\NLqDRR{\nso-\nst}.
 \label{eq:main1aalt}
 \end{align}
-for all $k\geq k_0$. 
 \end{theorem}
 
 The proof of \cref{thm:1alt} is identical to the proof of \cref{thm:1}, with \cref{lem:keylemma1,lem:keylemma2} replaced by \cref{lem:keylemma1a,lem:keylemma2a}.
