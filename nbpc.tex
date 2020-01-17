@@ -100,7 +100,7 @@ Let
 \beq\label{eq:matrixAdef}
 \Amat \de \Smat_{A} - k^2 \Mmat_{n} - \Nmat,
 \eeq
-and let $u_h\de \sum_j \uvec_j \phi_j$. Then \cref{eq:galerkin} implies that
+and let $u_h\de \sum_j \uvec_j \phi_j$. Then \cref{eq:galerkin} implies that the coefficient vector $\uvec = \mleft(\uveci\mright)_{i=1}^N \in \CCN$ satisfies
 \beqs
 \Amat \uvec = \fvec,
 \eeqs
@@ -151,7 +151,7 @@ and
 \beq\label{eq:normequiv2}
 \N{\nabla v_h}_{\LtD} \leq s_+ h^{d/2-1} \N{\vvec}_2,
 \eeq
-for all finite-element functions $v_h =\sum_i \vvec_i \phi_i \in \Vhp$.
+for all finite-element functions $v_h =\sum_i \vvec_i \phi_i \in \Vhp$, with $\vvec = \mleft(\vveci\mright)_{i=1}^N \in \CCN.$
 \ele
 
 The proof of \cref{lem:normequiv} is on \cpageref{page:normequivpf} below.
@@ -631,28 +631,30 @@ Let $D$, $A$, and $n$ be as in \cref{prob:vgen}. The adjoint sesquilinear form, 
 \eeq
 (where $^\dagger$ denotes conjugate transpose) is the Galerkin matrix for the sesquilinear form $\aGs(\cdot,\cdot)$; i.e.~$(\Amat^\dagger)_{ij} = \aGs(\phi_j, \phi_i)$.
 
+The following \lcnamecref{lem:adjoint} shows that if $w$ solves an adjoint Helmholtz problem, then $\wbar$ solves a (standard) Helmholtz problem with a related right-hand side.
+
 \ble[Link between variational problems involving $\aG(\cdot,\cdot)$ and $\aGs(\cdot,\cdot)$]\label{lem:adjoint}
 
 \
 
-\noindent If $\LG$ is as in \cref{prob:vgen}, $u$ is the solution to the variational problem \cref{prob:vgen}, the boundary operator $\T$ satisfies
+\noindent If the source term $\LG$ is as in \cref{prob:vgen}, $w$ is the solution to \cref{prob:vgen}, the boundary operator $\T$ satisfies
 \beq\label{eq:DPconj}
 \DPGI{\T \psi}{\phibar} = \DPGI{\T \phi}{\psibar} \tfa \phi,\psi \in \HhGI,
 \eeq
 and
 \beq\label{eq:adjoint1}
-\aGs(u,v)= \LG(v) \quad\tfa v\in \HozDD,
+\aGs(w,v)= \LG(v) \quad\tfa v\in \HozDD,
 \eeq
-then $\overline{u}$ satisfies
+then $\overline{w}$ satisfies
 \beq\label{eq:adjoint2}
-\aG(\overline{u},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
+\aG(\overline{w},v)= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
 \eeq
 \ele
 
 \bpf[Proof of \cref{lem:adjoint}]
 From \cref{eq:adjoint1} we have that 
 \beqs
-\overline{\aGs(u,\overline{v})}= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
+\overline{\aGs(w,\overline{v})}= \overline{\LG(\overline{v})} \quad\tfa v\in \HozDD.
 \eeqs
 Using the definition of $\aGs(\cdot,\cdot)$ and the property \cref{eq:DPconj} in the left-hand side of this last equation, we find \cref{eq:adjoint2}.
 \epf
@@ -1089,7 +1091,7 @@ and
 \eeq
 for some $0 < \alpha < 1/2,$ then $\NLiDRR{\nso-\nst} = 1$ for all $\alpha$, but one would expect that for small $\alpha$ the corresponding solutions of \cref{prob:edp} would satisfy $\uso \approx \ust.$ In addition, one might expect that GMRES applied to $\AmatoI\Amatt$ would converge in a $k$-independent number of iterations. Therefore, in this \lcnamecref{sec:weaknorm} we seek to obtain analogues of \cref{thm:1,cor:1,cor:1a} with the difference in $\nso-\nst$ and $\Aso-\Ast$ measured in weaker norms than the $L^\infty$ norm.
 
-The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that $1/k$ is the length scale governing the behaviour of Helmholtz problems. It is also `best' with regards to the norm used to measure $\nso-\nst$. When we measure $\nso-\nst$ in the $L^\infty$ norm as above, we are able to control the magnitude of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, and $\nso-\nst=1$ on this small set, then $\NLiDRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
+The (realistic) best-case result we could obtain would be that GMRES applied to $\AmatoI\Amatt$ converges in a $k$-independent number of iterations if $\NLoDRR{\nso-\nst} \lesssim 1/k$. This result is `best' in the sense that it depends optimally on $k$; recall the discussion in \cref{rem:physical1k} that $1/k$ is the length scale governing the behaviour of Helmholtz problems. In addition, we measure $\nso-\nst$ in the $L^\infty$ norm as above, we are able to control the magnitude of $\nso-\nst$, but not the spatial variability; if $\nso-\nst \neq 0$ only on a set of small (but nonzero) measure, and $\nso-\nst=1$ on this small set, then $\NLiDRR{\nso-\nst} = 1$, regardless of the measure of the set. In contrast, the $L^1$ norm allows us to control both the magnitude of $\nso-\nst$ and the measure of the sets on which it is nonzero.
 
 We will give numerical results indicating that this theoretical best-case result can be achieved (our numerical results actually indicate that we can obtain $k$-independent convergence when $\NLqDRR{\nso-\nst}\sim 1/k$ for any $1 \leq q < \infty$). We will also provide theory results that are, to our knowledge, the best one can prove, although they are sub-optimal in both $q$ and the dependence on $k.$
 
