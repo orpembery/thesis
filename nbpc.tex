@@ -452,6 +452,27 @@ In \cref{fig:linfinityA0,fig:linfinityA1,fig:linfinityA2,fig:linfinityn0,fig:lin
 %for
 %$v_h =\sum_i v_i \phi_i$.
 
+
+
+%For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]{Br:07} the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.
+
+%% \bpf[Sketch proof of \cref{lem:normequiv}]\opntodo{can omit this if can find a good reference. One possibility . Need to check basis scaling business.}
+%% The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtD}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
+%% %\beqs
+%% %\N{v_h}^2_{L^2(\O
+%% %\eeqs
+%% Then, \cref{eq:normequiv2} follows from \cref{eq:normequiv1} and the inequalities
+%% \beqs
+%% \N{v_h}_{L^2(D)}\lesssim \N{\nabla v_h}_{L^2(D)}\lesssim \frac{1}{h} \N{v_h}_{L^2(D)},
+%% \eeqs
+%% the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDD$
+%% (see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
+%% \epf
+
+
+
+
+\subsection{Proof of the main ingredient of the proofs of \cref{cor:1,cor:1a}}\label{sec:proofs}
 As the first step towards proving \cref{cor:1,cor:1a}, we prove \cref{lem:normequiv}, concerning norm equivalences of finite-element functions.
 
 \bpf[Proof of \cref{lem:normequiv}]
@@ -475,25 +496,6 @@ By combining \cref{eq:twiddleinverse} and the right-hand side of \cref{eq:normeq
 \epf
 
 
-%For a proof of \cref{lem:normequiv}, see\footnote{In \cite[Chapter V, Lemma 2.5]{Br:07} the assumption is made that the meshes underlying $\Vhp$ are \emph{uniform}. However, the definition of uniformity in \cite[Chapter 2, Definition 5.1(4)]{Br:07} is the same as the more standard definition of quasi-uniformity in \cref{def:quasiuniform}.} \cite[Chapter V, Lemma 2.5]{Br:07}.
-
-%% \bpf[Sketch proof of \cref{lem:normequiv}]\opntodo{can omit this if can find a good reference. One possibility . Need to check basis scaling business.}
-%% The inequalities in \cref{eq:normequiv1} follow from writing $\|v_h\|_{\LtD}$ as a sum of integrals over elements of the mesh, and then mapping to the reference element \ednote{Euan to discuss with Ivan}.
-%% %\beqs
-%% %\N{v_h}^2_{L^2(\O
-%% %\eeqs
-%% Then, \cref{eq:normequiv2} follows from \cref{eq:normequiv1} and the inequalities
-%% \beqs
-%% \N{v_h}_{L^2(D)}\lesssim \N{\nabla v_h}_{L^2(D)}\lesssim \frac{1}{h} \N{v_h}_{L^2(D)},
-%% \eeqs
-%% the first of which follows from the Poincar\'e inequality, since $v_h \in \HozDD$
-%% (see, e.g., \cite[Proposition 5.3.4]{BrSc:00}), the second of which follows from a standard inverse estimate (see, e.g., \cite[Theorem 4.5.11]{BrSc:00}).
-%% \epf
-
-
-
-
-\subsection{Proof of the main ingredient of the proofs of \cref{cor:1,cor:1a}}\label{sec:proofs}
 
 The main part of the proofs of \cref{cor:1,cor:1a} is the following \lcnamecref{thm:1}, where we work in the weighted norm
 \beq\label{eq:Dk2}
@@ -1136,7 +1138,7 @@ Replacing \cref{eq:mainevent1a,eq:Fbounda} with \cref{eq:keynboundfinal,eq:keyAb
 
 \
 
-\noindent Let the assumptions of \cref{cor:1} hold.  Given $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt} below. If 
+\noindent Let the assumptions of \cref{cor:1} hold.  Given $q >2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $d, \Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that if 
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condalt}
@@ -1150,7 +1152,7 @@ then \emph{both} weighted GMRES working in $\|\cdot\|_{\Dmat_k}$ (and the associ
 
 \
 
-\noindent Let the assumptions of \cref{cor:1a} hold.  Given $q >2$, let $\Cotilde$ and $\Cttilde$ be as in \cref{thm:1alt} below. If 
+\noindent Let the assumptions of \cref{cor:1a} hold.  Given $q >2$, there exist $\Cotilde, \Cttilde>0$, independent of $h$ and $k$ (but dependent on $d, \Dm, \Aso, \nso$, $p$, $q$, and $\kz$) such that if
 % there exists $C_2>0$, independent of $h$ and $k$ (but dependent on $\Dm, \Aso, \nso$, $p$, and $k_0$) and given explicitly in \cref{eq:C2} below,
 % such that if 
 \beq\label{eq:condaalt}
