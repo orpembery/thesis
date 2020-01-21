@@ -1375,7 +1375,13 @@ and
 \beq\label{eq:artificialklfuns}
 \psij(\bx) = \cos\mleft(\frac{j\pi}4 x\mright)\cos\mleft(\frac{\mleft(j+1\mright)\pi}4 y\mright).
 \eeq
-Observe that $\NLiDR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ Also note that $\nmin = 1 - \mleft(\sum_{j=1}^{10} j^{-2}\mright)/2 \approx 0.225.$ This expansion is based on the random-field expansion used in \cite[Section 5.1]{GiGrKuScSl:19}, although the main change we make from \cite{GiGrKuScSl:19} is to introduce the factors $1/4$ in \cref{eq:artificialklfuns}. We introduce this factor to ensure that the oscillations in the medium $n$ are `low frequency' compared to the frequency $k$ of the waves passing through the medium\footnote{The highest `frequency' associated with the oscillations in the medium is $(10+1)\pi/4 \approx 26$, whereas we consider waves with frequencies $k=10,\ldots,60$. Therefore (for $k > 26$) the waves are of a `higher frequency' than the medium. Moreover, we would see if there is any change in the behaviour of our algorithm as the frequency of the waves increases past the `frequency' of the medium. However, we do not see any such change.}. Expansions similar to \cref{eq:artificialkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Lo\`eve expansion of a random field. In a Karhunen--Lo\`eve expansion the $\Uj$ are independent random variables whose distribution is determined by the distribution of the random field, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator, see, e.g., \cite[Section 7.4]{LoPoSh:14}. Since we will be using QMC methods to approximate $\EXP{Q(u)}$ (for some quantities of interest $Q$), we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
+Observe that $\NLiDR{\psij}=1$ for all $j,$ and $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty.$ Also note that $\nmin = 1 - \mleft(\sum_{j=1}^{10} j^{-2}\mright)/2 \approx 0.225.$ This expansion is based on the random-field expansion used in \cite[Section 5.1]{GiGrKuScSl:19}, although the main change we make from \cite{GiGrKuScSl:19} is to introduce the factors $1/4$ in \cref{eq:artificialklfuns}. We introduce this factor to ensure that the oscillations in the medium $n$ are `low frequency' compared to the frequency $k$ of the waves passing through the medium\footnote{The highest `frequency' associated with the oscillations in the medium is $(10+1)\pi/4 \approx 26$, whereas we consider waves with frequencies $k=10,\ldots,60$. Therefore (for $k > 26$) the waves are of a `higher frequency' than the medium. Moreover, we would see if there is any change in the behaviour of our algorithm as the frequency of the waves increases past the `frequency' of the medium. However, we do not see any such change.}. Expansions similar to \cref{eq:artificialkl} are often decribed as `artificial Karhunen--Lo\`eve expansions' due to their similarity with the Karhunen--Lo\`eve expansion of a random field. In a Karhunen--Lo\`eve expansion the $\Uj$ are independent random variables whose distribution is determined by the distribution of the random field, and the $\lambdaj$ and $\psij$ are the eigenvalues and eigenvectors of the covariance operator, see, e.g., \cite[Section 7.4]{LoPoSh:14}.
+
+In the remainder of this \lcnamecref{sec:nbpcqmcnum} we will be using QMC methods to approximate $\EXP{Q(u)}$ (for some quantities of interest $Q$). Observe that this expectation can be written
+\beqs
+\EXP{Q(u)} = \int_{\Omega} Q(u(\omega)) \,\ddPPomega = \int_{\mleft[-\half,\half\mright]^{10}}Q(u(U_1,\ldots,U_{10})) \,\dd U_1 \cdots \dd U_{10},
+\eeqs
+where we consider $n$ (and therefore $u$) as depending on each of the Uniform random variables $\Uj$ individually. Therefore, because of this correspondence between $n$ as function on $\Omega,$ and $n$ as a function on $\mleft[-1/2,1/2\mright]^{10}$ we will sometimes instead write $n(\by)$ for $\by \in \cube{10}$, by which we mean
 \beqs
 n(\by) = 1 + \sum_{j=1}^{10} \by_{j} \sqrt{\lambdaj} \psij.
 \eeqs
@@ -1386,12 +1392,31 @@ We stress that the results in this \lcnamecref{sec:nbpcqmcnum} are strictly nume
 
 \paragraph{Terminology} Before we describe the nearby-preconditioning-QMC algorithms in detail, we establish two pieces of terminology that will be of use in describing them. Firstly, we will use the word `point' to refer to a point in the parameter space $\cube{J}$, and use phrases such as `calculate a preconditioner at the point $\by$' as shorthand for `calculate the LU decomposition of the system matrix $\Amat$ corresponding to the finite-element discretisation of the Helmholtz IIP (as described above) with coefficient $n(\by)$'.
 
-We also use the words `nearby' and `nearest' (when referring to QMC points) to mean: nearest in an approximation of the metric
-\beq\label{eq:dqmc}
-\dQMC(\byo,\byt) = \NLiDRR{n(\byo)-n(\byt)},
+We also use the words `nearby' and `nearest' (when referring to QMC points) to mean: nearest in the metric
+  \beq\label{eq:dapprox}
+\dapprox(\byo,\byt) \de \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}.%, \tfor \byo,\byt \in \cube{J}.
 \eeq
-i.e., the metric on $\cube{J}$ induced by the spatial $L^\infty$ norm. (See \cref{eq:dapprox} below for the approximation of $\dQMC$ that we use.) We use this metric to describe the geometry of our QMC points as the best rigorous results on the behaviour of nearby preconditioning (in terms of $k$-dependence) are proved in \cref{sec:3} for the $L^\infty$-norm\footnote{Although, in line with the results in \cref{sec:weaknorm}, we could instead use a spatial $L^q$ norm, for some $q \geq 1$ in \cref{eq:dqmc}.}. Therefore, when considering which QMC points will give preconditioners suitable for use with other QMC points, this metric is a natural metric to use.
 
+\paragraph{The approximate metric} The metric $\dapprox$ is an approximation of the metric
+\beq\label{eq:dqmc}
+\dQMC(\byo,\byt) = \NLiDRR{n(\byo)-n(\byt)},% \tfor \byo,\byt \in \cube{J},
+\eeq
+i.e., the metric on $\cube{J}$ induced by the spatial $L^\infty$ norm. The metric $\dapprox$ is an approximation of $\dQMC$ in the sense made precise in the following \lcnamecref{lem:approxmetric}.
+
+\ble[$\dapprox$ approximates $\dQMC$]\label{lem:approxmetric}
+For all $\byo,\byt \in \cube{J},$
+\beqs
+\dQMC\mleft(\byo,\byt\mright) \leq \dapprox\mleft(\byo,\byt\mright).
+\eeqs
+\ele
+
+The proof of \cref{lem:approxmetric} is straightforward and omitted.
+
+Observe further that the structure of $\dapprox$ is similar to that of $\dQMC$ and $\dapprox$ is a weighted $L^1$ metric on $\cube{J}$, with the weights corresponding to the terms in \cref{eq:artificialkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions).
+
+Ideally, for the purposes of utilising nearby preconditioning, we would use the metric $\dQMC$ when describing the geometry of the QMC points  (and computing the nearest QMC point), since the best rigorous results on the behaviour of nearby preconditioning (in terms of $k$-dependence) are proved in \cref{sec:3} for the spatial $L^\infty$-norm\footnote{Although, in line with the results in \cref{sec:weaknorm}, we could instead use a spatial $L^q$ norm, for some $q \geq 1$ in \cref{eq:dqmc}.}. However, computing $\dQMC$ exactly is, in principle. complicated. In contrast, it is easy to compute with $\dapprox,$ since $\dapprox$ enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric. Moreover, as discussed above, $\dapprox$ is an approximation of $\dQMC,$ and therefore we expect that it will induce a similar geometry on $\cube{J}.$
+
+\paragraph{Computational complexity of calculating the nearest point} At various points in the two nearby-preconditioning-QMC algorithms we present below, given a point $\by \in \cube{J}$ and a subset $S$ of $\cube{J}$ we must calculate $\nearest(\by,S) \in \cube{J}$, that is the element of $S$ that is closest to $\by$ in the metric $\dapprox.$ In all of the numerical results we present below, we calculate $\nearest(\by,S)$ by brute force, i.e., we calculate $\dapprox(\by,\bytilde)$ for all $\bytilde \in S,$ and choose the element of $S$ that minimises $\dapprox(\by,\bytilde)$. Since calculating $\dapprox(\by,\bytilde)$ involves $\cO\mleft(J\mright)$ operations, the brute force approach to calculating $\dapprox(\by,\bytilde)$ involves $\cO\mleft(J\abs{S}\mright)$ operations. Clearly, this method of calculating $\nearest(\by,S)$ does not scale in $J,$ the stochastic dimension, although it is computationally feasible for our numerical experiments (with $J=10$) below. See \cref{sec:nbpcfuture} below for some discussion of alternative, scalable, ways to calculate $\nearest(\by,S)$.
 
 \subsubsection{A sequential algorithm}
 We first describe a straightforward algorithm that uses nearby preconditioning to speed up a QMC calculation. We call this a `sequential' algorithm because, unlike the `parallel' algorithm that we describe below, it is intrinsically sequential and cannot be parallelised, i.e., finite-element solves for different realisations of the random field $n$ cannot be treated in parallel. Although, when performing the individual finite-element solves, one is not restricted to a single core, i.e., one can use parallelisation for each finite-element solve  if the linear systems $\Amat$ are large enough to warrant this.
@@ -1441,13 +1466,9 @@ The algorithm contains two key ideas:
   \een
   We now describe each of these two ideas in turn, before describing our final algorithm.
 
-\paragraph{Surrogate metric} Whilst the metric $\dQMC$ is the metric in which  nearby preconditioning is analysed (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with, since the  geometry it induces on $\cube{J}$ is nontrivial as this geometry is dependent on the interaction between the functions $\psij$ in the expansion \cref{eq:artificialkl}. Therefore, we work in an alternative, although related metric
-  \beq\label{eq:dapprox}
-\dapprox(\byo,\byt) \de \sum_{j=1}^{J} \sqrt{\lambdaj} \abs{{\byo}_{j} - {\byt}_{j}}, \tfor \byo,\byt \in \cube{J}.
-\eeq
-Observe that the structure of $\dapprox$ is similar to that of $\dQMC$ and for all $\byo,\byt \in \cube{J},$ the inequality $\dQMC\mleft(\byo,\byt\mright) \leq \dapprox\mleft(\byo,\byt\mright)$ holds. Also observe that $\dapprox$ is a weighted $L^1$ metric on $\cube{J}$, with the weights corresponding to the terms in \cref{eq:artificialkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions). However, it is easy to compute with $\dapprox,$ and it is obvious that it enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric.
+\paragraph{Surrogate metric} Whilst the metric $\dQMC$ is the metric in which  nearby preconditioning is analysed (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with, since the  geometry it induces on $\cube{J}$ is nontrivial as this geometry is dependent on the interaction between the functions $\psij$ in the expansion \cref{eq:artificialkl}. Therefore, we work in an alternative, although related metric HELP
 
-\paragraph{Tensor-product algorithm for locating preconditioning points} We first describe the intuition behind our use of a tensor-product rule to locate the preconditioning points (even though we do not use this intuition in the final algorithm). Once we have described this intution, we will then show how it can be adapted to provide the final algorithm. To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with balls of radius $r$ (where these balls are measured in the $\dapprox$ metric, and therefore have a similar geometry to balls on $\cube{J}$ in the $L^1$ metric). Therefore, given the centres $\bcone$ and $\bct$ of two adjacent balls, we will have
+\paragraph{Tensor-product algorithm for locating preconditioning points} We first describe the intuition behind our use of a tensor-product rule to locate the preconditioning points (even though we do not use this intuition in the final algorithm). Once we have described this intution, we will then show how it can be adapted to provide the final algorithm. To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with `balls' of radius $r$. Observe that these balls are measured in the $\dapprox$ metric, and therefore have a similar geometry to balls on $\cube{J}$ in the $L^1$ metric. Therefore, given the centres $\bcone$ and $\bct$ of two adjacent balls, we will have
 \beq\label{eq:centres2r}
 \dapprox(\bcone,\bct) = 2r.
 \eeq
@@ -1489,7 +1510,7 @@ Given we expect that the size of the balls over which nearby preconditioning is 
 
 We then take $\Npreactualj$ centres in each dimension and define the sets $\centresj$ with $\Nj = \Npreactualj$, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
 
-These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead replace each calculated centre with its nearest QMC point and calculate the preconditioners at these QMC points. We denote the set of preconditioning points by $\Spre$. Finally, we calculate the map $\Prenearest:\SQMC\rightarrow\Spre$, i.e., for each QMC point we find its nearest preconditioning point, and use the corresponding preconditioner for the linear solve.
+These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead replace each calculated centre with its nearest QMC point (calculated using brute-force) and calculate the preconditioners at these QMC points. We denote the set of preconditioning points by $\Spre$. Finally, we calculate the map $\Prenearest:\SQMC\rightarrow\Spre$, i.e., for each QMC point we find its nearest preconditioning point, and use the corresponding preconditioner for the linear solve.
 
     This algorithm is summarised more formally in \cref{alg:par}.
     
@@ -1592,7 +1613,7 @@ Having defined the randomly shifted QMC rule, one can use the standard statistic
 
 \subsubsection{$k$-dependence of the number of QMC points}
 
-We first sought to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We estimated the error $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup} with $\NQMC = 2048$ and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$), as then by \cref{thm:fembound} the finite-element error is of the order $h^2k^3 \sim (k/60)^3 \lesssim 1$ for all the values of $k$ we consider. The quantities of interest (QoIs) we considered were:
+We first sought to determine how $\QMCerror{\NQMC}{\Nshifts}$ depends on $k.$ We estimated the error $\QMCerror{\NQMC}{\Nshifts}$ for the setup described in \cref{app:compsetup} with $\NQMC = 2048$ and $\Nshifts=20$ (i.e., 40,960 PDE solves in total) for $k = 10,20,30,40,50,60$. We set $h = 0.002$ for all of the computations (as $0.002 \approx 60^{-3/2}$), as then by \cref{thm:fembound} the finite-element error is of the order $h^2k^3 \sim (k/60)^3 \lesssim 1$ for all the values of $k$ we consider\footnote{Observe that we do not let $h$ depend on $k$, in contrast to the rest of this thesis. This decision means we do not have to consider the effect of changing the mesh on the resulting interpolation of the random field $n$, and how this interpolation may affect the overall error. In addition, since $k \leq 60,$ our particular choice of mesh ensures that the finite-element error is small for all the values of $k$ we consider.}. The quantities of interest (QoIs) we considered were:
 \bit
 \item The integral of $u$ over the whole domain $\mleft[0,1\mright]^2$,
 \item The value of $u$ at the origin,
