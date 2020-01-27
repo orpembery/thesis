@@ -19,15 +19,16 @@ We define $\NWoiDRRRdtd{\cdot}$ by
 \NWoiDRRRdtd{A} \de \sup_{i,j = 1,\ldots,d} \NWoiDRRR{{A}_{i,j}}.
 \eeq
 
-We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Let $\OFP$ be a complete probability space. Throughout this \lcnamecref{chap:stochastic}, unless stated otherwise we equip a topological space with its Borel $\sigma$-algebra. See \cref{app:mtBs} for a summary of the measure-theoretic concepts used in this \lcnamecref{chap:stochastic}. Let
+We write $\Do \compcont \Dt$ if $\Do$ is a compact subset of the open set $\Dt.$ Throughout this \lcnamecref{chap:stochastic}, unless stated otherwise we equip a topological space with its Borel $\sigma$-algebra. See \cref{app:mtBs} for a summary of the measure-theoretic concepts used in this \lcnamecref{chap:stochastic}. Let
 \bit
+\item $\OFP$ be a complete probability space,
 \item $f:\Omega\rightarrow\LtDp$ be such that $\supp f(\omega) \compcont \BR$ almost surely,
-\item $n:\Omega\rightarrow \LiDpRR$ be such that $\supp(1-n) \compcont \BR$ almost surely and there exist $\nmin,$ $\nmax:\Omega\rightarrow \RR$ such that
+\item $n:\Omega\rightarrow \LiDpRR$ be such that $\supp(1-n(\omega)) \compcont \BR$ almost surely and there exist $\nmin,$ $\nmax:\Omega\rightarrow \RR$ such that
 %\beqs
 $0 < \nmin(\omega) \leq n(\omega)(\bx) \leq \nmax(\omega)$
 %\eeqs
 for almost every $\bx \in \Dp$ almost surely, and
-\item $A:\Omega\rightarrow\LiDpspd$ be such that $\supp(I-A) \compcont \BR$ and there exist $\Amin,\Amax:\Omega \rightarrow \RR$ such that $0 < \Amin(\omega) < \Amax(\omega)$ almost surely and
+\item $A:\Omega\rightarrow\LiDpspd$ be such that $\supp(I-A(\omega)) \compcont \BR$ and there exist $\Amin,\Amax:\Omega \rightarrow \RR$ such that $0 < \Amin(\omega) < \Amax(\omega)$ almost surely and
 %\beqs
 $\Amin(\omega)\abs{\bxi}^2 \leq \big(A(\omega)(\bx)\bxi\big)\cdot\bxi \leq \Amax(\omega)\abs{\bxi}^2$
 %\eeqs
