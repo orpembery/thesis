@@ -264,6 +264,11 @@ We choose this example to illustrate:
 \item Often (as in this case) $a > b.$ I.e., whilst the mesh constraint `$hk^b$ sufficiently small' makes the finite-element error small, one can only apply this mesh constraint under the more restrictive mesh constraint `$hk^a$ sufficiently small'.
 \eit
 \ere
+\begin{figure}
+  \centering
+\input{data-accuracy-graph}
+\caption{Stuff}
+\end{figure}
 
 \bde[$\hk{a}{b}$-accurate]\label{def:hkacc}
 Given $a,b>0$, we say that an $h$-finite-element method for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
