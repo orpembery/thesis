@@ -287,6 +287,15 @@ If $a=b$ we say the $h$-finite-element method is $\hka{a}$-accurate.
 Frequently a more restrictive mesh condition is needed to show existence and uniqueness of a finite-element solution, but once one has shown existence and uniqueness, the finite-element error can be bounded under a less restrictive mesh condition. Therefore, as will be made clear in \cref{sec:prooftechniques} below, the first mesh conditions \cref{eq:hkdataacca,eq:hkacca} are needed to show existence and uniqueness of the finite-element solution, and the second mesh conditions \cref{eq:hkdataaccb,eq:hkaccb} are needed to show that the finite-element error is bounded.
 \ere
 
+To give some intuition behind the definition of $\hka{a}$-accuracy, we refer to \cref{fig:dataaccuracyplot}, where we assume we have a $\hka{a}$-accurate finite-element method. Observe that if $h$ is chosen to depend on $k$ so that $hk^{a}$ is constant, then (after a pre-asymptotic phase), the relative finite-element error is constant. However, if $h$ is chosen so that $hk^{a_2}$ is constant, where $a < a_2,$ then the relative finite-element error \emph{decreases} after a pre-asymptotic phase. This decrease is because the finite-element mesh is being over-refined, and therefore all the terms in a finite-element error bound such as \cref{eq:hkacc} decrease with respect to $k.$ Similarly, if $h$ is chosen so that $hk^{a_1}$ is constant, where $a_1 < a,$ then the relative finite-element error \emph{increases} after a pre-asymptotic phase, because the finite-element mesh is being under-refined\footnote{Observe that \cref{fig:dataaccuracyplot} does not tell the whole story, since under $\hka{a}$-accuracy, one also requires $hk^{a}$ to be sufficiently small in order to guarantee that the finite-element solution $\uh(k)$ exists. Therefore, if we only have that $hk^{a_1}$ is sufficiently small, then we cannot guarantee the existence of $\uh(k).$ However, for the purposes of intuition, we ignore this detail here.}. We note that intuition for $\hk{a}{b}$-accuracy is more complex, since one must also consider the criterion \cref{eq:hkacca} for the existence of the finite-element solution.
+
+\begin{figure}
+  \centering
+\input{data-accuracy-graph}
+\caption[A schematic of the expected behaviour of an $\hka{a}$-accurate finite-element method.]{A schematic of the expected behaviour of an $\hka{a}$-accurate finite-element method, when $hk^{a_1} = C,$ $hk^{a} = C,$ and $hk^{a_2} = C,$ for $C>0$ chosen appropriately, where $0 < a_{1} < a < a_{2}.$\label{fig:dataaccuracyplot}}
+\end{figure}
+
+
 \bre[$\hka{a}$-Quasi-optimality implies (better than) $\hka{a}$-data-accuracy]
 Observe that, under standard assumptions on $u$, if the finite-element method is $\hka{a}$-quasi-optimal, then it is $\hka{a}$-data-accurate. We show this fact in the first order case, i.e., we take $p=1$ and $a=2.$ We assume $\NHtD{u} \leq\CHt k\NLtD{f}$ for some $k$-independent constant $\CHt>0$ (see, e.g., \cite[Lemma 2.12]{GaGrSp:15} for a setting in which this bound holds), and refer to  \cref{tab:qo} below for references for the fact that the first-order finite-element method is usually $\hka{2}$-quasi-optimal.
 
