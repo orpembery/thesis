@@ -54,7 +54,46 @@ For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
 
 We now give a brief summary of elementary concepts in finite-element theory. For brevity, we focus only on those concepts that we need to prove the new error bounds for finite-element discretisations of the Helmholtz equation in \cref{thm:fembound} below.
 
-Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91}. Similarly, we use $h$ to denote the diameter of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of continuous piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
+Throughout this thesis, we will assume that our finite-element space is defined on a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91} which we now recall.
+
+\bde[Conforming triangulation of simplices]
+We say that $\cT$ is a \defn{conforming triangulation of simplices over $D$} (or simply \defn{triangulation}) if $\Dclos$ is subdivided into a finite number of simplices $T \in \cT$ such that
+\ben
+\item For each $T \in \cT$, the set $T$ is closed and the interior $\Tint$ is nonempty and connected.
+\item For each $T \in \cT,$ the boundary $\partial T$ is Lipschitz.
+\item The equality \beqs
+\Dclos = \bigcup_{T \in \cT} T
+\eeqs
+holds.
+\item For each $T_1 \neq T_2 \in \cT,$ we have $\Tint_1 \cap \Tint_2 = \emptyset.$
+  \item For any $T_1 \in \cT,$ any face of $T_1$ is either a subset of $\dD$ of a face of a different simplex $T_2 \in \cT.$
+\een
+\ede
+
+We also define the mesh size of a triangulation.
+
+\bde[Mesh size]
+The \defn{mesh size} of a triangulation $\cT$ is given by
+\beqs
+h \de \max_{T \in \cT} \diam T.
+\eeqs
+We will frequently denote a triangulation with mesh size $h$ by $\Th.$
+\ede
+
+Having defined a triangulation, we are in a position to define the finite-element spaces that we will consider throughout this thesis.
+
+\bde[Finite-element space]
+Let $\Th$ be a triangulation of $D,$ and let $p\geq 1$ be an integer. We let $\Vhp$ be the set of continuous piecewise-polynomials of degree $p$ on $\Th$, i.e.
+\beqs
+\Vhp \de \set{\vh \in \CzD \st \tforall T \in \Th,\,\vh\restrict_{T} \text{ is a polynomial of degree at most }p}.
+\eeqs
+\ede
+
+% Give more convincing chat about non-conforming/isoparametric - actually only need error bound and inverse inequality
+
+
+
+%we use the terms `mesh` and `triangulation' to refer to a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91}. Similarly, we use $h$ to denote the diameter of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of continuous piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
   %%   triangulation of the domain. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
 
   %%   \bde[Triangulation]
@@ -1336,7 +1375,7 @@ and
 \begin{align*}
   \CHon(n) = \max&\Bigg\{\Pfn{p-2}\mleft(n\mright),\\
   &\Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(n\mright)}-1\mright)\\
-    &\quad\quad+\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nvar^2\nmax \Bigg]\Pfn{p-2}(\mleft(n\mright),\\
+    &\quad\quad+\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nvar^2\nmax \Bigg]\Pfn{p-2}\mleft( n\mright),\\
     &\CLtn(n)-\Pfn{p-2}\mleft(n\mright)\Bigg\},
 \end{align*}
 where the function $\Pfn{j}(x)$ is defined in \cref{eq:p} below, and the $n$-dependent constant $\En$ is defined in \cref{eq:en} below.\label{thm:fembound}
