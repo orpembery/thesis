@@ -1,0 +1,18 @@
+\subsection{Summary}
+In this \lcnamecref{chap:background} we gave the requisite background theory and setup for Helmholtz problems in heterogeneous media and their finite-element discretisation, before proving new finite-element-error bounds for the Helmholtz equation in heterogeneous media. In particular:
+
+\bit
+\item In \cref{sec:pdetheory} we gave the setup for deterministic heterogeneous Helmholtz problems, reviewed the literature around the $k$-dependence of a priori bounds on the solution of the Helmholtz equation, and discussed these results in the context of trapping phenomena.
+\item In \cref{sec:varform,sec:fetheory} we gave the setup for the finite-element discretisation of heterogeneous Helmholtz problems.
+\item In \cref{sec:helmfedisc} we introduced concepts such as $\hk{a}{b}$-accuracy as a means of classifying results on the $h$- and $k$-dependence of finite-element discretisations of the Helmholtz equation, and gave a complete survey of the literature on rigorous quasi-optimality and error bounds.
+\item In \cref{sec:prooftechniques} we discussed proof techniques for quasi-optimality and error bounds for finite-element discretisations of the Helmholtz equation, giving a detailed discussion and taxonomy of the proof techniques in the literature.
+\item Finally, in \cref{sec:fem} we proved new finite-element error bounds for higher-order finite-element methods for the Helmholtz equation in heterogeneous media. These results are the first for higher-order methods and heterogeneous media, and are explicit in their dependence on the squared slowness $n$, and are sharp in their $h$- and $k$-dependence.
+  \eit
+  
+\subsection{Future work}
+There are several possibilities for future work building on the new finite-element error bounds in \cref{sec:errbounds}. E.g.,
+\bit
+\item Using simpler proof techniques, such as Modified Schatz arguments for data-accuracy to prove error bounds that (may) have a simpler $n$-dependence that those in \cref{sec:fem}. However, such proof techniques may not give sharp $h$- and $k$-dependence for elements of degree $p > 1,$ see the discussions in \cref{sec:helmfedisc,sec:prooftechniques}.
+\item Numerical experiments confirming the $h$- and $k$-dependence of the results in \cref{sec:fem}.
+  \item Numerical experiments investigating whether the dependence on $\CAnk$ in our main result, \cref{thm:fembound}, is as predicted, or whether this dependence is pessimistic, given one expects trapping behaviour to only be manifested for very few values of $k.$
+\eit
