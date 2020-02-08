@@ -52,9 +52,76 @@ For a proof of \cref{lem:tedpform}, see \cite[Lemma A.7]{GrPeSp:19}.
   
 \subsection{Background concepts in finite-element theory}\label{sec:fetheory}
 
-We now give a brief summary of elementary concepts in finite-element theory. For brevity, we focus only on those concepts that we need to prove the new error bounds for finite-element discretisations of the Helmholtz equation in \cref{thm:fembound} below.
+We now give a brief summary of elementary concepts in finite-element theory. For brevity, we focus only on those concepts that we need to prove the new error bounds for finite-element discretisations of the Helmholtz equation in \cref{thm:fembound} below. We denote the spatial domain by $D.$
 
-Throughout this thesis, we use the terms `mesh` and `triangulation' to refer to a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91}. Similarly, we use $h$ to denote the diameter of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of continuous piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
+Throughout this thesis, we will assume that our finite-element space is defined on a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91} which we now recall.
+
+\bde[Conforming triangulation of simplices]\label{def:triangulation}
+We say that $\cT$ is a \defn{conforming triangulation of simplices over $D$} (or simply \defn{triangulation}) if $\Dclos$ is subdivided into a finite number of simplices $T \in \cT$ such that
+\ben
+\item For each $T \in \cT$, the set $T$ is closed and the interior $\Tint$ is nonempty and connected.
+\item For each $T \in \cT,$ the boundary $\partial T$ is Lipschitz.
+\item The equality \beqs
+\Dclos = \bigcup_{T \in \cT} T
+\eeqs
+holds.
+\item For each $T_1 \neq T_2 \in \cT,$ we have $\Tint_1 \cap \Tint_2 = \emptyset.$
+  \item For any $T_1 \in \cT,$ any face of $T_1$ is either a subset of $\dD$ of a face of a different simplex $T_2 \in \cT.$
+\een
+\ede
+
+We also define the mesh size of a triangulation.
+
+\bde[Mesh size]
+The \defn{mesh size} of a triangulation $\cT$ is given by
+\beqs
+h \de \max_{T \in \cT} \diam T.
+\eeqs
+We will frequently denote a triangulation with mesh size $h$ by $\Th.$
+\ede
+
+Having defined a triangulation, we are in a position to define the finite-element spaces that we will consider throughout this thesis.
+
+\bde[Finite-element space]\label{def:Vhp}
+Let $\Th$ be a triangulation of $D,$ and let $p\geq 1$ be an integer. We let $\Vhp$ be the set of continuous piecewise-polynomials of degree $p$ on $\Th$, i.e.
+\beqs
+\Vhp \de \set{\vh \in \CzD \st \tforall T \in \Th,\,\vh\restrict_{T} \text{ is a polynomial of degree at most }p}.
+\eeqs
+\ede
+
+\bre[Do $\Th$ and $\Vhp$ exist?]\label{rem:crimes}
+Observe that one can only construct a triangulation $\Th$ of $D$ if $D$ is a polyhedron (since $\dD$ must be the union of faces of simplices). However, observe that, in this case, $\Vhp$ is a conforming subspace of $\HoD$, i.e., $\Vhp \subset \HoD.$ (This inclusion is because the gradient of a function in $\Vhp$ is a piecewise-polynomial function on $\Th,$ which is clearly in $\LtDCCd.$)
+
+However, if $D$ is not a polyhedron (for example, if $D$ is Lipschitz, or $D$ is smooth), then one cannot construct a triangulation $\Th,$ and therefore cannot construct $\Vhp.$ The solution to this problem is to modify the elements near to the boundary, using, e.g., isoparametric finite elements. When using isoparametric finite elements, elements near the boundary are mapped to the reference element using finite-element functions of degree $p,$ instead of using affine functions (as for standard finite elements). The result of this higher-order mapping is that one constructs an approximation of $D$, such that the distance from boundary of the approximation to $\dD$ is $\cO\mleft(h^{p+1}\mright)$ (see, e.g., \cite[Section 4.7]{BrSc:08}). One can then construct a finite-element space on this `curved' mesh, although this finite-element pace will still be nonconforming, and so one must analyse the resulting nonconforming error, as in, e.g., \cite[Section 10.4]{BrSc:08}.
+
+However, in this thesis, we do not work with isoparametric finite elements, because:
+
+\bit
+\item This would complicate the presentation further, especially in our new results in \cref{sec:errbounds} below.
+\item Our main concern in this \lcnamecref{sec:helmfe} is the $h$- and $k$-dependence of the finite-element-error bounds, rather than the dependence on the geometry of the domain.
+\item Other literature concerning finite-element-error bounds for the Helmholtz equation does not include all the details for isoparametric finite elements, see, e.g., \cite[Top of p.785]{DuWu:15} and \cite[Top of p.5]{LaSpWu:19a}.
+\item Adapting the results we prove to the case of isoparametric finite elements should be straightforward, as detailed in \cite[Section 10.4]{BrSc:08} (although \cite[Section 10.4]{BrSc:08} works with the stationary diffusion equation, rather than the Helmholtz equation).
+\item The only properties of $\Vhp$ that we use are the existence of a best approximation (see \cref{lem:scottzhang} below) and the existence of an inverse inequality (see \cref{lem:inverseinequality} below). Since one can prove an analogous best approximation result for isoparametric finite elements (see, e.g., \cite[Theorem 4.7.3]{BrSc:08}), and we expect one can also prove an analogous inverse inequality (c.f. the proof of the standard inverse inequality in \cite[Section 4.5]{BrSc:08} with the definition of isoparametric finite elements in \cite[Section 4.7]{BrSc:08}), we expect that our original results in \cref{sec:errbounds} below will also hold in the case of isoparametric finite elements.
+  \eit
+
+  Therefore, throughout this thesis, we make the following \lcnamecref{ass:conforming} on our triangulations and finite-element spaces, for any spatial domain $D$ arising in this thesis.
+  \ere
+
+  \bas[Exact triangulation and conforming subspace]\label{ass:conforming}
+We work with a family of triangulations $\mleft(\Th\mright)_{h>0}$ and their corresponding finite-element spaces $\mleft(\Vhp\mright)_{h>0}$, where for any $h>0,$ $\Th$ is a triangulation of $D$ (in the sense of \cref{def:triangulation}), and $\Vhp$ as defined in \cref{def:Vhp} is a conforming subspace of $\HoD.$
+  \eas
+
+
+
+%%% Assumption - exact triangulation, and therefore conforming
+
+
+%    \bre[Not considering variational crimes]
+%    Throughout this thesis we assume that \cref{prob:fevtedp} is a conforming discretisation of \cref{prob:vtedp}, i.e. $\Vhp \subset \HozDD.$ This inclusion is true if $D$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevtedp} and commit a variational crime by approximating the boundary of $D$ by a polygon, or introducing mesh elements with curved boundaries using interpolated boundary conditions or isoparametric finite elements. See, e.g., \cite[Chapter 10]{BrSc:08} for an overview of the additional errors introduced by variational crimes (although not in the context of the Helmholtz equation). In this thesis we  ignore such variational crimes, and the additional errors they induce; such analysis is standard. Therefore for the remainder of this thesis we assume that \cref{lem:scottzhang} holds, even if we have not triangulated the domain $D$ exactly.
+%    \ere
+
+
+%we use the terms `mesh` and `triangulation' to refer to a conforming triangulation of simplices in the sense of Ciarlet \cite[Paragraphs (FEM1) p. 61 and ($\cT_{h}$5) p. 71]{Ci:91}. Similarly, we use $h$ to denote the diameter of a mesh\footnote{Frequently in this thesis we will consider families of meshes indexed by their mesh size $h$.}, and we use $\Vhp$ to denote the set of continuous piecewise-polynomials of degree $p$ on a mesh with mesh size $h$.
   %%   triangulation of the domain. (Note that in this thesis we use the words `mesh' and `triangulation' interchangably; strictly speaking, the term `triangulation' only makes sense in 2-d, but we ignore this technicality.
 
   %%   \bde[Triangulation]
@@ -137,9 +204,6 @@ for $1 \leq s \leq \min\set{p+1,m}.$
     For a proof of \cref{lem:scottzhang} see, e.g., \cite[Theorems 4.4.4 and 4.4.20 and Remark 4.4.27]{BrSc:08}.
 
     
-    \bre[Not considering variational crimes]\label{rem:crimes}
-    Throughout this thesis we assume that \cref{prob:fevtedp} is a conforming discretisation of \cref{prob:vtedp}, i.e. $\Vhp \subset \HozDD.$ This inclusion is true if $D$ can be triangulated; otherwise, we must modify the definition of \cref{prob:fevtedp} and commit a variational crime by approximating the boundary of $D$ by a polygon, or introducing mesh elements with curved boundaries using interpolated boundary conditions or isoparametric finite elements. See, e.g., \cite[Chapter 10]{BrSc:08} for an overview of the additional errors introduced by variational crimes (although not in the context of the Helmholtz equation). In this thesis we  ignore such variational crimes, and the additional errors they induce; such analysis is standard. Therefore for the remainder of this thesis we assume that \cref{lem:scottzhang} holds, even if we have not triangulated the domain $D$ exactly.
-    \ere
     
 
 %%     \subsection{Error bound for the heterogeneous IIP}\label{sec:errbound}
@@ -1241,7 +1305,9 @@ The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \c
 
 
 \subsection{Main result: new finite-element-error bounds}\label{sec:errbounds}
-As we are using higher-order finite elements (which we assume are of degree $p$), in order to obtain full convergence rates we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
+Recall that throughout this thesis we work under \cref{ass:conforming}, i.e., we assume the spatial domain $D$ is triangulated exactly, and the finite-element space $\Vhp$ is conforming; see the discussion in \cref{rem:crimes} above. Recall that under \cref{ass:conforming}, if our mesh family $\mleft(\Th\mright)_{h>0}$ is shape-regular, then \cref{lem:scottzhang} on the existence of a best approximation in $\Vhp$ holds. 
+
+As we are using higher-order finite elements (which we assume are of degree $p$), the arguments we use to obtain full convergence rates will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
 
 \bde[Quasi-uniform]\label{def:quasiuniform}
 Let $\set{\cTh}_{h>0}$ be a set of triangulations of $D$ indexed by their mesh size $h.$ For each $S \in \cTh,$ let $\BT$ denote the largest ball contained in $S$.
@@ -1336,7 +1402,7 @@ and
 \begin{align*}
   \CHon(n) = \max&\Bigg\{\Pfn{p-2}\mleft(n\mright),\\
   &\Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(n\mright)}-1\mright)\\
-    &\quad\quad+\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nvar^2\nmax \Bigg]\Pfn{p-2}(\mleft(n\mright),\\
+    &\quad\quad+\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nvar^2\nmax \Bigg]\Pfn{p-2}\mleft( n\mright),\\
     &\CLtn(n)-\Pfn{p-2}\mleft(n\mright)\Bigg\},
 \end{align*}
 where the function $\Pfn{j}(x)$ is defined in \cref{eq:p} below, and the $n$-dependent constant $\En$ is defined in \cref{eq:en} below.\label{thm:fembound}
