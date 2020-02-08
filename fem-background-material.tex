@@ -104,11 +104,11 @@ However, in this thesis, we do not work with isoparametric finite elements, beca
 \item The only properties of $\Vhp$ that we use are the existence of a best approximation (see \cref{lem:scottzhang} below) and the existence of an inverse inequality (see \cref{lem:inverseinequality} below). Since one can prove an analogous best approximation result for isoparametric finite elements (see, e.g., \cite[Theorem 4.7.3]{BrSc:08}), and we expect one can also prove an analogous inverse inequality (c.f. the proof of the standard inverse inequality in \cite[Section 4.5]{BrSc:08} with the definition of isoparametric finite elements in \cite[Section 4.7]{BrSc:08}), we expect that our original results in \cref{sec:errbounds} below will also hold in the case of isoparametric finite elements.
   \eit
 
-  Therefore, throughout this thesis, we make the following \lcnamecref{ass:conforming} on our finite-element spaces, for any spatial domain $D$ arising in this thesis.
+  Therefore, throughout this thesis, we make the following \lcnamecref{ass:conforming} on our triangulations and finite-element spaces, for any spatial domain $D$ arising in this thesis.
   \ere
 
   \bas[Exact triangulation and conforming subspace]\label{ass:conforming}
-For any $h>0,$ $\Th$ is a triangulation of $D$ (in the sense of \cref{def:triangulation}), and $\Vhp$ as defined in \cref{def:Vhp} is a conforming subspace of $\HoD.$
+We work with a family of triangulations $\mleft(\Th\mright)_{h>0}$ and their corresponding finite-element spaces $\mleft(\Vhp\mright)_{h>0}$, where for any $h>0,$ $\Th$ is a triangulation of $D$ (in the sense of \cref{def:triangulation}), and $\Vhp$ as defined in \cref{def:Vhp} is a conforming subspace of $\HoD.$
   \eas
 
 
@@ -1305,7 +1305,9 @@ The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \c
 
 
 \subsection{Main result: new finite-element-error bounds}\label{sec:errbounds}
-As we are using higher-order finite elements (which we assume are of degree $p$), in order to obtain full convergence rates we will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
+Recall that throughout this thesis we work under \cref{ass:conforming}, i.e., we assume the spatial domain $D$ is triangulated exactly, and the finite-element space $\Vhp$ is conforming; see the discussion in \cref{rem:crimes} above. Recall that under \cref{ass:conforming}, if our mesh family $\mleft(\Th\mright)_{h>0}$ is shape-regular, then \cref{lem:scottzhang} on the existence of a best approximation in $\Vhp$ holds. 
+
+As we are using higher-order finite elements (which we assume are of degree $p$), the arguments we use to obtain full convergence rates will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
 
 \bde[Quasi-uniform]\label{def:quasiuniform}
 Let $\set{\cTh}_{h>0}$ be a set of triangulations of $D$ indexed by their mesh size $h.$ For each $S \in \cTh,$ let $\BT$ denote the largest ball contained in $S$.
