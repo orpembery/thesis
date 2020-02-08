@@ -2,7 +2,9 @@
   \input{shift-diagram}
 % D_scat
   \filldraw[pattern=owennorthwest,scale=\shiftscale] (0,0) circle [radius=2.1]
-  \obstacle;
+  \obstaclesmooth;
+
+  \draw ($\shiftscale/\domainscale*(2.0,-0.5)$) node[fill=white] {$\GD$};
 
   \draw ($\shiftscale*(1.1,1.1)$) node[fill=white] {$\Dscat$};
 \end{tikzpicture}

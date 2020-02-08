@@ -261,7 +261,7 @@ When $hk^{(2p+1)/2p} \leq \Ct,$ the first term in the minimum \cref{eq:egmin} en
 We choose this example to illustrate:
 \bit
 \item Many results in the literature have $a \neq b$; here $a > b.$
-\item Often (as in this case) $a > b.$ I.e., whilst the mesh constraint `$hk^b$ sufficiently small' makes the finite-element error small, one can only apply this mesh constraint under the more restrictive mesh constraint `$hk^a$ sufficiently small'.
+\item Often (as in this case) $a > b.$ I.e., whilst the mesh constraint `$hk^b$ sufficiently small' makes the finite-element error small, the additional constraint `$hk^a$ sufficiently small' is \emph{more} restrictive.
 \eit
 \ere
 
@@ -1266,10 +1266,11 @@ Assume
   \eas
   The assumption $\GD \neq \emptyset$ allows us to show the elliptic projection operator defined in \cref{eq:epdef} below is well-defined (see \cref{rem:epdef} below for a more detailed discussion). The regularity assumptions on $\GD,$ $\GI$, and $A$ ensure that we can apply a shift theorem for a related stationary diffusion equation up to order $p-1$ (see \cref{thm:shift} below). The assumption on $n$ ensures that for all $m \in [0,p-1]$ and for all $v \in \HmD,$ the product $nv \in \HmD$ (see \cref{thm:banachalg} below). However, observe that we make no additional assumptions on the data $f$ and $\gI,$ and so the solution $u$ may not be smoother than $H^2.$
 
-We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}. Recall that the adjoint of \cref{prob:vtedp} is the same as \cref{prob:vtedp}, except \cref{eq:vtedp} is replaced by
+We make the following \lcnamecref{ass:htwo} on the solution of \cref{prob:vtedp}. Recall that the adjoint boundary-value problem of \cref{prob:vtedp} is the same as \cref{prob:vtedp}, except \cref{eq:vtedp} is replaced by
 \beq\label{eq:adjoint}
-\aT(v,u) = \overline{\FT(v)} \tforall v \in \HozDD.
+\aT(v,u) = \overline{\FT(v)} \tforall v \in \HozDD,
 \eeq
+see, e.g., \cite[Section 4.2]{Sp:15}.
 
 \bas\label{ass:htwo}
 For any $f \in \LtD$ and $\gI \in \LtGI,$ \cref{prob:vtedp} (and its adjoint) has a unique solution $u$ in $\HtD$, and there exists $\CAnk>0$ (possibly dependent on $A$, $n,$ and $k$) such that
@@ -1631,7 +1632,7 @@ For the purposes of the proof, it is more convenient to define $\vj = \usj/k^j,$
 \beq\label{eq:formalseriesv}
 u = \sum_{j=0}^\infty k^j\vj
 \eeq
-as in \cite{ChNi:19}. Also, in this proof, all the boundary-value problems involve included a zero Dirichlet condition on the scatterer $\GD;$ we omit this boundary condition throughout the proof for brevity.
+as in \cite{ChNi:19}. Also, in this proof, all the boundary-value problems involved included a zero Dirichlet condition on the scatterer $\GD;$ we omit this boundary condition throughout the proof for brevity.
 
 By applying the Helmholtz operator to the formal series \eqref{eq:formalseriesv}and equating powers of $k$ we obtain the following equations for $\vj \in \HjptD, j \geq 1$:
 \beqs
