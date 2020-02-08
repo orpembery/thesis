@@ -1,0 +1,16 @@
+\section{Summary and future work}
+
+\subsection{Summary}
+In this \lcnamecref{chap:mlmc} we analysed the computational cost of Monte-Carlo (MC) and Multi-Level Monte-Carlo (MLMC) methods for the Helmholtz equation. In particular:
+\bit
+\item In \cref{sec:mlmcsetup,sec:mc,sec:mlmcan} we adapted the standard Monte-Carlo and Multi-Level Monte-Carlo complexity theory to the $k$-dependent case.
+  \item In \cref{sec:mlmcapplying} we the applied the adapted theory to two Quantities of interest (QoIs), under two different assumptions on the behaviour of the underlying finite-element method, and saw that MLMC is consistently cheaper than MC, with respect to the required tolerance $\eps.$
+\eit
+
+\subsection{Future work}
+There are several immediate possibilities for building on the work in this \lcnamecref{chap:mlmc}:
+\bit
+\item Applying the adapted theory to other, more physically realistic QoIs, e.g., the far-field pattern of $u$ (see, e.g., \cite[Section 2.5]{CoKr:13}).
+\item Performing numerical experiments to investigate whether the predicted speedup of MLMC methods over MC methods is obtained in practice.
+  \item Investigating extensions of MLMC methods, as has already been done for the stationary diffusion equation, e.g., Multi-Level Quasi-Monte-Carlo methods, see, e.g., \cite{KuScScSlUl:17} and Multi-Level Markov-Chain Monte-Carlo methods \cite{DoKeScTe:15}.
+\eit

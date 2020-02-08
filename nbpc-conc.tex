@@ -1,0 +1,19 @@
+\section{Summary and future work}
+
+\subsection{Summary}
+In this \lcnamecref{chap:nbpc} we introduced, studied, and applied a nearby-preconditioning technique for multiple realisations of finite-element discretisations of heterogeneous Helmholtz problems motivated by Uncertainty Quantification (UQ). In particular:
+\bit
+\item In \cref{sec:main} we gave rigorous results on the effectiveness of nearby preconditioning, giving $k$-explicit sufficient conditions (in terms of the $L^\infty$-norm of the difference in the coefficients) for nearby-preconditioned linear systems to achieve $k$-independent numbers of GMRES iterations. These results were confirmed by numerics, and supported by analogous PDE results.
+\item In \cref{sec:weaknorm} we extended the results in \cref{sec:main}, by giving alternative $k$-explicit conditions in terms of the $L^p$-norms of the difference in the coefficients, for a range of exponents $p.$ Numerical experiments indicated these conditions were not sharp in their $k$-dependence.
+\item In \cref{sec:nbpcstochastic} we proved probabilistic analogues of the results in \cref{sec:main} and showed the results of some numerical experiments into the probabilistic behaviour of nearby preconditioning.
+  \item In \cref{sec:nbpcqmc} we applied nearby preconditioning to a Quasi-Monte-Carlo (QMC) method for the Helmholtz equation, requiring thousands of individual PDE solves. We gave numerical evidence for how the number of QMC points must scale with $k,$ and showed that nearby preconditioning applied to this problem is very effective, with around 98\% of PDE solves using a previously-calculated preconditioner.
+\eit
+  
+\subsection{Future work}
+There are many possibilities for extending, improving, and applying the work in this \lcnamecref{chap:nbpc}:
+\bit
+\item Applying the idea of nearby preconditioning to other problems for which it is computationally intensive to construct preconditioners and, where possible, proving results on the effectiveness of nearby preconditioning. For linear problems, e.g., the time-harmonic Maxwell's equations, we would expect the behaviour and proofs of effectiveness to be analogous to that for the Helmholtz equation. For nonlinear problems (e.g., the steady-state Navier-Stokes equations, see, e.g., \cite{PoSi:12}), it is less clear how effective nearby preconditioning would be, and if it is possible to prove results on its effectiveness, but this could be a profitable line of future research.
+\item Investigating stochastic-dimension-independent methods for choosing preconditioning points when applying nearby preconditioning to QMC methods. E.g., one may be able to use the nestedness of QMC points (as is the case with embedded lattice rules, see, e.g., \cite[Property 3, p.2169]{CoKuNu:06}) to choose preconditioning points in a stochastic-dimension-independent way.
+\item Applying nearby preconditioning to other UQ methods for the Helmholtz equation. For example, applying nearby preconditioning to Multi-Level Monte-Carlo methods for the Helmholtz equation (see \cref{chap:mlmc}), where a preconditioner could be calculated on one `level' (one discretisation), and then transferred other `levels', perhaps using multigrid smoothing/prolongation. Alternatively, applying nearby preconditioning Markov Chain Monte-Carlo methods for Bayesian inverse problems for the Helmholtz equation. Nearby preconditioning is a natural fit for such problems, where realisations are chosen one at a time, with the next realisation typically being close to the current one.
+  \item Analysing rigorously the behavour of QMC methods applied to the Helmholtz equation. We understand that such work is already underway in \cite{GaKuSl}, but there is clearly scope to develop the theory; in particular, in understanding how the number of QMC points should scale with $k$ in order to obtain bounded QMC error.
+\eit
