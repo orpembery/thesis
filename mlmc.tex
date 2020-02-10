@@ -169,15 +169,23 @@ To prove results on the expected computational cost and convergence of Monte-Car
 
 \ble[Convergence of $\Qhtilde$ to $Q$]\label{ass:a}
 Under \cref{def:probdataacc}
-\beqs
+\beq\label{eq:strongexpbound}
 \EXP{\abs{\Qhtilde-Q}} \leq \co k^\sigma h^{\alpha},
-\eeqs
+\eeq
 where $\co = \EXP{\cotilde}.$
 \ele
 
 \bpf[Proof of \cref{ass:a}]
 The proof is immediate from \cref{eq:Qhtilde}, \cref{def:probdataacc} and the fact that $\homega \leq h$ (by \cref{eq:homega}).
 \epf
+
+\bre[\Cref{def:probdataacc} is sufficient, but not necessary]
+The proofs of \cref{thm:hhmc,thm:mlmccomp} below (our main technical results) only require a bound on
+\beq\label{eq:weakexpbound}
+\abs{\EXP{\Qhtilde-Q}} \leq \co k^\sigma h^\alpha;
+\eeq
+a weaker condition than the bound \cref{eq:strongexpbound} which we use in these proofs. Therefore, in principle one could replace \cref{def:probdataacc}, a pathwise assumption which leads to \cref{eq:strongexpbound}, with the weaker assumption on the difference in mean \cref{eq:weakexpbound}.
+\ere
 
 Before we move on to study Monte-Carlo and Multi-Level Monte-Carlo methods, we define the notion of error that we use when studying these methods.
 
