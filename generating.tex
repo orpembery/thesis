@@ -2,27 +2,28 @@
 The main focus of this \lcnamecref{chap:stochastic} is proving well-posedness of the variational formulations of the stochastic Helmholtz equation, and a priori bounds on the solution, for the most-general class of $A$ and $n$ allowed by the deterministic bounds in \cite{GrPeSp:19}. However, in this section, motivated by the Karhunen-Lo\`eve expansion (see e.g.~\cite[p.~201ff.]{LoPoSh:14}) and similar expansions of material coefficients for the stationary diffusion equation \cite[Section 2.1]{KuNu:16}, we consider $A$ and $n$ as series expansions around known non-random fields $\Az$ and $\nz$ satisfying \cref{con:hh-hetero} (i.e., \cref{con:hh-hetero} is satisfied for $\nz,$ $\Az$ independent of $\omega \in \Omega$, and therefore $\muo,\mut$ independent of $\omega$).
 Define
 \beq\label{eq:nseries}
-A(\omega,\bx) = \Az(\bx) + \sum_{j=1}^\infty \Yj(\omega) \Psij(\bx)\quad\text{and}\quad n(\omega,\bx) = \nz(\bx) + \sum_{j=1}^\infty\Zj(\omega) \psij(\bx) ,
+A(\omega,\bx) = \Az(\bx) + \sum_{j=1}^\infty \Yj(\omega)\sqrt{\Lambdaj} \Psij(\bx)\quad\text{and}\quad n(\omega,\bx) = \nz(\bx) + \sum_{j=1}^\infty\Zj(\omega)\sqrt{\lambdaj} \psij(\bx) ,
 \eeq
 where:
 \bit
 \item $\supp\mleft(1-\Az\mright),\,\supp \mleft(I-\nz\mright) \compcont \BR,$
 \item $\Az$ and $\nz$ satisfy \cref{con:hh-hetero} with $\muo$ and $\mut$ independent of $\omega \in \Omega$
 \item $\Yj,\Zj \sim \Unif(-1/2,1/2)$ i.i.d.,
-\item $\Psij \in \WoiDRspd$ with $\supp \Psij \compcont \BR$ for all $j =1,\ldots,m$,
+  \item $\Lambdaj, \lambdaj > 0$ for all $j =1,\ldots,\infty$,
+\item $\Psij \in \WoiDRspd$ with $\supp \Psij \compcont \BR$ for all $j =1,\ldots,\infty$,
 \beq\label{eq:Apsimeas}
-\sum_{j=1}^\infty \NWoiDRRRdtd{\Psij} < \infty, \tand
+\sum_{j=1}^\infty \sqrt{\Lambdaj}\NWoiDRRRdtd{\Psij} < \infty, \tand
 \eeq
 \beq\label{eq:Apsipos}
-\sum_{j=1}^\infty \NLiDRop{\Psij} < 2\Azmin,
+\sum_{j=1}^\infty \sqrt{\Lambdaj}\NLiDRop{\Psij} < 2\Azmin,
 \eeq
 where $\Azmin > 0$ is such that $\Azmin\abs{\bxi}^2 \leq \big(\Az(\bx)\bxi\big)\cdot \bxi$ for almost every $\bx \in \Dp$ and for all $\bxi \in \CCd$.
 \item $\psij \in \WoiDRRR$ with $\supp \psij \compcont \BR$ for all $j = 1,\ldots,m$,
 \beq\label{eq:npsimeas}
-\sum_{j=1}^\infty \NWoiDRRR{\psij} < \infty, \tand
+\sum_{j=1}^\infty \sqrt{\lambdaj}\NWoiDRRR{\psij} < \infty, \tand
 \eeq
 \beq\label{eq:npsipos}
-\sum_{j=1}^\infty \NLiDRRR{\psij} < 2 \nzmin,
+\sum_{j=1}^\infty \sqrt{\lambdaj}\NLiDRRR{\psij} < 2 \nzmin,
 \eeq
 where $\nzmin \de \essinf_{\bx \in \DR} \nz(\bx).$
 \eit
@@ -39,7 +40,7 @@ The following lemmas give sufficient conditions for the series in \eqref{eq:nser
 \ble[Series expansion of $A$ satisfies \cref{con:hh-hetero}]\label{lem:Agen}
 Let $\mu > 0$, $\delta \in \mleft(0,1\mright)$ be fixed. If $\Az \in \NTA{\mu},$ and
 \beq\label{eq:Aseriescond}
-\sum_{j=1}^\infty \NLiDRop{\Psij(\bx) - \mleft(\bx\cdot\grad\mright)\Psij(\bx)} \leq 2\delta\mu,
+\sum_{j=1}^\infty \sqrt{\Lambdaj}\NLiDRop{\Psij(\bx) - \mleft(\bx\cdot\grad\mright)\Psij(\bx)} \leq 2\delta\mu,
 \eeq
 then $A \in \NTA{(1-\delta)\mu}$ almost surely.
 \ele
@@ -47,7 +48,7 @@ then $A \in \NTA{(1-\delta)\mu}$ almost surely.
 \bpf[Proof of \cref{lem:Agen}]
 Since $\Az \in \NTA{\mu},$ we have 
 \beq\label{eq:Aseries1}
-\Big(\mleft(A(\omega,\bx) - \mleft(\bx\cdot\grad\mright)A(\omega,\bx)\mright)\bxi\Big)\cdot\bxib \geq\mu \abs{\bxi}^2+\sum_{j=1}^\infty  \Big(\Yj(\omega)\mleft(\Psij(\bx)- \mleft(\bx\cdot\grad\mright)\Psij(\bx)\mright)\bxi\Big)\cdot\bxib
+\Big(\mleft(A(\omega,\bx) - \mleft(\bx\cdot\grad\mright)A(\omega,\bx)\mright)\bxi\Big)\cdot\bxib \geq\mu \abs{\bxi}^2+\sum_{j=1}^\infty  \Big(\Yj(\omega)\sqrt{\Lambdaj}\mleft(\Psij(\bx)- \mleft(\bx\cdot\grad\mright)\Psij(\bx)\mright)\bxi\Big)\cdot\bxib
 \eeq
 for all $\bxi \in \CCd,$ for almost every $\bx \in \DR,$ almost surely. As $\Yj \sim \Unif(-1/2,1/2)$ for all $j$ and the bound \eqref{eq:Aseriescond} holds, the right-hand side of \eqref{eq:Aseries1} is bounded below by
 \beqs
@@ -59,7 +60,7 @@ Since $\bxi \in \CCd$ was arbitrary, it follows that $A(\omega) \in \NTA{(1-\del
 \ble[Series expansion of $n$ satisfies \cref{con:hh-hetero}]\label{lem:ngen}
 Let $\mu > 0$ and $\delta \in \mleft(0,1\mright).$ If $\nz \in \NTn{\mu}$ and
 \beq\label{eq:nseriescond}
-\sum_{j=1}^\infty\NLiDRRR{\psij(\bx) + \bx\cdot\grad\psij(\bx)} \leq 2\delta\mu,
+\sum_{j=1}^\infty\sqrt{\lambdaj}\NLiDRRR{\psij(\bx) + \bx\cdot\grad\psij(\bx)} \leq 2\delta\mu,
 \eeq
 then $n \in \NTn{(1-\delta)\mu}.$
 \ele
