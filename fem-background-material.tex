@@ -60,7 +60,7 @@ Throughout this thesis, we will assume that our finite-element space is defined 
 We say that $\cT$ is a \defn{conforming triangulation of simplices over $D$} (or simply \defn{triangulation}) if $\Dclos$ is subdivided into a finite number of simplices $T \in \cT$ such that
 \ben
 \item For each $T \in \cT$, the set $T$ is closed and the interior $\Tint$ is nonempty and connected.
-\item For each $T \in \cT,$ the boundary $\partial T$ is Lipschitz.
+%\item For each $T \in \cT,$ the boundary $\partial T$ is Lipschitz.
 \item The equality \beqs
 \Dclos = \bigcup_{T \in \cT} T
 \eeqs
@@ -90,25 +90,28 @@ Let $\Th$ be a triangulation of $D,$ and let $p\geq 1$ be an integer. We let $\V
 \ede
 
 \bre[Do $\Th$ and $\Vhp$ exist?]\label{rem:crimes}
-Observe that one can only construct a triangulation $\Th$ of $D$ if $D$ is a polyhedron (since $\dD$ must be the union of faces of simplices). However, observe that, in this case, $\Vhp$ is a conforming subspace of $\HoD$, i.e., $\Vhp \subset \HoD.$ (This inclusion is because the gradient of a function in $\Vhp$ is a piecewise-polynomial function on $\Th,$ which is clearly in $\LtDCCd.$)
+Observe that one can only construct a triangulation $\Th$ of $D$ if $D$ is a polyhedron (since $\dD$ must be the union of faces of simplices). %However, observe that, in this case, $\Vhp$ is a conforming subspace of $\HoD$, i.e., $\Vhp \subset \HoD.$ (This inclusion is because the gradient of a function in $\Vhp$ is a piecewise-polynomial function on $\Th,$ which is clearly in $\LtDCCd.$)
 
-However, if $D$ is not a polyhedron (for example, if $D$ is Lipschitz, or $D$ is smooth), then one cannot construct a triangulation $\Th,$ and therefore cannot construct $\Vhp.$ The solution to this problem is to modify the elements near to the boundary, using, e.g., isoparametric finite elements. When using isoparametric finite elements, elements near the boundary are mapped to the reference element using finite-element functions of degree $p,$ instead of using affine functions (as for standard finite elements). The result of this higher-order mapping is that one constructs an approximation of $D$, such that the distance from boundary of the approximation to $\dD$ is $\cO\mleft(h^{p+1}\mright)$ (see, e.g., \cite[Section 4.7]{BrSc:08}). One can then construct a finite-element space on this `curved' mesh, although this finite-element pace will still be nonconforming, and so one must analyse the resulting nonconforming error, as in, e.g., \cite[Section 10.4]{BrSc:08}.
+However, if $D$ is not a polyhedron (for example, if $D$ is Lipschitz, or $D$ is smooth), then one cannot construct a triangulation $\Th,$ and therefore cannot construct $\Vhp.$ The solution to this problem is to modify the elements near to the boundary, using, e.g., isoparametric finite elements. When using isoparametric finite elements, the reference element is mapped to elements near the boundary using finite-element functions of degree $p,$ instead of using affine functions (as for standard finite elements). The result of this higher-order mapping is that one constructs an approximation of $D$, such that the distance from boundary of the approximation to $\dD$ is $\cO\mleft(h^{p+1}\mright)$ (see, e.g., \cite[Section 4.7]{BrSc:08}). One can then construct a finite-element space on this `curved' mesh, although this finite-element space will still be nonconforming (i.e., $\Vhp \not\subset \HoD$), and so one must analyse the resulting nonconforming error, as in, e.g., \cite[Section 10.4]{BrSc:08}.
 
 However, in this thesis, we do not work with isoparametric finite elements, because:
 
 \bit
-\item This would complicate the presentation further, especially in our new results in \cref{sec:errbounds} below.
-\item Our main concern in this \lcnamecref{sec:helmfe} is the $h$- and $k$-dependence of the finite-element-error bounds, rather than the dependence on the geometry of the domain.
-\item Other literature concerning finite-element-error bounds for the Helmholtz equation does not include all the details for isoparametric finite elements, see, e.g., \cite[Top of p.785]{DuWu:15} and \cite[Top of p.5]{LaSpWu:19a}.
-\item Adapting the results we prove to the case of isoparametric finite elements should be straightforward, as detailed in \cite[Section 10.4]{BrSc:08} (although \cite[Section 10.4]{BrSc:08} works with the stationary diffusion equation, rather than the Helmholtz equation).
+\item The analysis of isoparametric finite elements is standard (see, e.g.\footnote{Although \cite[Section 10.4]{BrSc:08} works with the stationary diffusion equation, rather than the Helmholtz equation.}, \cite[Section 10.4]{BrSc:08}) and would complicate the presentation of our main results on the $h$- and $k$-dependence of the finite-element-error bounds. Moreover, a similar approach is taken in other literature on the $h$-finite-element method for the Helmholtz equation, see, e.g., \cite[Top of p.785]{DuWu:15} and \cite[Top of p.5]{LaSpWu:19a}.
+  
+%% \item This would complicate the presentation further, especially in our new results in \cref{sec:errbounds} below.
+%% \item Our main concern in this \lcnamecref{sec:helmfe} is the $h$- and $k$-dependence of the finite-element-error bounds, rather than the dependence on the geometry of the domain.
+%% \item Other literature concerning finite-element-error bounds for the Helmholtz equation does not include all the details for isoparametric finite elements, see, e.g., \cite[Top of p.785]{DuWu:15} and \cite[Top of p.5]{LaSpWu:19a}.
+%% \item Adapting the results we prove to the case of isoparametric finite elements should be straightforward, as detailed in \cite[Section 10.4]{BrSc:08} (although \cite[Section 10.4]{BrSc:08} works with the stationary diffusion equation, rather than the Helmholtz equation).
+  
 \item The only properties of $\Vhp$ that we use are the existence of a best approximation (see \cref{lem:scottzhang} below) and the existence of an inverse inequality (see \cref{lem:inverseinequality} below). Since one can prove an analogous best approximation result for isoparametric finite elements (see, e.g., \cite[Theorem 4.7.3]{BrSc:08}), and we expect one can also prove an analogous inverse inequality (c.f. the proof of the standard inverse inequality in \cite[Section 4.5]{BrSc:08} with the definition of isoparametric finite elements in \cite[Section 4.7]{BrSc:08}), we expect that our original results in \cref{sec:errbounds} below will also hold in the case of isoparametric finite elements.
   \eit
 
   Therefore, throughout this thesis, we make the following \lcnamecref{ass:conforming} on our triangulations and finite-element spaces, for any spatial domain $D$ arising in this thesis.
   \ere
 
-  \bas[Exact triangulation and conforming subspace]\label{ass:conforming}
-We work with a family of triangulations $\mleft(\Th\mright)_{h>0}$ and their corresponding finite-element spaces $\mleft(\Vhp\mright)_{h>0}$, where for any $h>0,$ $\Th$ is a triangulation of $D$ (in the sense of \cref{def:triangulation}), and $\Vhp$ as defined in \cref{def:Vhp} is a conforming subspace of $\HoD.$
+  \bas[Conforming triangulation and subspace]\label{ass:conforming}
+We work with a family of triangulations $\mleft(\Th\mright)_{h>0}$ and their corresponding finite-element spaces $\mleft(\Vhp\mright)_{h>0}$, where for any $h>0,$ $\Th$ is a triangulation of $D$ (in the sense of \cref{def:triangulation}), and $\Vhp$ as defined in \cref{def:Vhp} is a subspace of $\HoD.$
   \eas
 
 
@@ -155,7 +158,7 @@ We work with a family of triangulations $\mleft(\Th\mright)_{h>0}$ and their cor
 Throughout this thesis, we only consider the $h$-finite-element method, i.e., the degree $p$ of the polynomials associated with the space is assumed fixed, and we consider refining $h.$ This is in contrast to the $p$-finite-element method, where $h$ is fixed and $p$ is increased, and the $hp$-finite-element method, where $h$ is decreased and $p$ is increased according to some rule. Throughout this \lcnamecref{sec:fetheory} we use `finite-element method' to refer to the $h$-finite-element method.
 
 \bre[Why not consider the $hp$-finite element method?]
-$hp$-finite-element methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}, who showed that the $hp$-finite-element method is quasi-optimal if $kh/p$ is sufficiently small, and $p \gtrsim 1 + \log(k)$ (i.e., we take $p$ growing logarithmically with $k$, and a ($p$-dependent) fixed number of points per wavelength). Such methods can be very effective; the error for such methods can converge exponentially with respect to the number of degrees of freedom (see, e.g., \cite[Theorem 4.51]{Sc:98}). However, their analysis relies on a fully $p$-explicit analysis of the best approximation error of the Helmholtz equation in $hp$-finite-element spaces; such analysis is currently not available for the heterogeneous problem.
+$hp$-finite-element methods for the homogeneous Helmholtz equation were analysed by Melenk and Sauter in \cite{MeSa:10,MeSa:11}, who showed that the $hp$-finite-element method is quasi-optimal if $kh/p$ is sufficiently small, and $p \gtrsim 1 + \log(k)$ (i.e., we take $p$ growing logarithmically with $k$, and a ($p$-dependent) fixed number of points per wavelength). Such methods can be very effective; the error for such methods can converge exponentially with respect to the number of degrees of freedom (see, e.g., \cite[Theorem 4.51]{Sc:98}). However, their analysis relies on a fully $p$-explicit analysis of the best approximation error of the Helmholtz equation in $hp$-finite-element spaces; such analysis is currently not available for the heterogeneous problem. Moreover, in practical applications one often works with fixed $p$, since implementing higher-order finite-elements can be challenging. Therefore it is still of interest to analyse the $h$-finite-element method.
 \ere
 
 %\ednote{I couldn't immediately see in these results that one obtains exponential convergence with respect to the number of DOFs---have I missed something, or is this result contained somewhere else?}, where they showed one can obtain an exponential rate of convergence with respect to the number of degrees of freedom.
@@ -1307,7 +1310,7 @@ The structure of the remainder of this \lcnamecref{sec:fem} is as follows. In \c
 \subsection{Main result: new finite-element-error bounds}\label{sec:errbounds}
 Recall that throughout this thesis we work under \cref{ass:conforming}, i.e., we assume the spatial domain $D$ is triangulated exactly, and the finite-element space $\Vhp$ is conforming; see the discussion in \cref{rem:crimes} above. Recall that under \cref{ass:conforming}, if our mesh family $\mleft(\Th\mright)_{h>0}$ is shape-regular, then \cref{lem:scottzhang} on the existence of a best approximation in $\Vhp$ holds. 
 
-As we are using higher-order finite elements (which we assume are of degree $p$), the arguments we use to obtain full convergence rates will require extra smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
+Since we are using higher-order finite elements (which we assume are of degree $p$), the arguments we use to obtain full convergence rates will require smoothness assumptions on $A$, $n,$ and the boundaries $\GD$ and $\GI$. We also make simple assumptions on $k,$ $\nmin$, and $\NLiDRR{n}$ in order to simplify our calculations. We first recall the definition of quasi-uniformity (c.f. \cite[Definition 4.4.13]{BrSc:08}):
 
 \bde[Quasi-uniform]\label{def:quasiuniform}
 Let $\set{\cTh}_{h>0}$ be a set of triangulations of $D$ indexed by their mesh size $h.$ For each $S \in \cTh,$ let $\BT$ denote the largest ball contained in $S$.
