@@ -1,14 +1,14 @@
-\begin{tabular}{Sc Sc Sc Sc Sc Sc}
+\begin{tabular}{Sc Sc Sc Sc Sc Sc Sc Sc}
 \toprule
 
-$k$ & \# LU factorisations & \makecell{Total \#\\linear systems} & \makecell{\# LU factorisations$/$\\\# linear systems}(\%) & \makecell{Average \#\\GMRES iterations} & \makecell{Max. \#\\GMRES iterations}\\
+$k$ & \makecell{\# LU\\factorisations} & \makecell{Total \#\\linear systems} & \makecell{\# LU factorisations$/$\\\# linear systems}(\%) & \makecell{Average \#\\GMRES\\iterations} & \makecell{Max. \#\\GMRES\\iterations} & \makecell{Average \#\\GMRES iterations\\using mean-based\\preconditioning} & \makecell{Max. \#\\GMRES iterations\\using mean-based\\preconditioning}\\
 \midrule
 
-10 &                    5 &                                2048 &                                               0.24 &                                    7.13 &                                   10 \\
+10 &                                5 &                                2048 &                                               0.24 &                                     7.13 &                                    10 &                                               9.47 &                                                 15 \\
 
-20 &                   39 &                                8192 &                                               0.48 &                                    7.26 &                                   10 \\
+20 &                               39 &                                8192 &                                               0.48 &                                     7.26 &                                    10 &                                              14.74 &                                                 40 \\
 
-30 &                  127 &                               16384 &                                               0.78 &                                    7.47 &                                   10 \\
+30 &                              127 &                               16384 &                                               0.78 &                                     7.47 &                                    10 &                                              21.00 &                                                 80 \\
 
 \bottomrule
 
