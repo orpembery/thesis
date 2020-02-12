@@ -700,7 +700,7 @@ Also, by the Aubin--Nitsche duality argument (since $\aep$ is coercive),
 \eeq
 
 Combining \cref{eq:epho,eq:eplt} is a modification of the Schatz argument above. We first adopt the notation that, for $v \in \HozDD,$ the function $\Ih v \in \Vhp$ is the function achieving the infimum in \cref{eq:wbaimpl}. We assume $\uh$ exists, and start from \cref{eq:schatz0}, but instead of introducing an arbitrary $\vh \in \Vhp$ into the second argument, we instead introduce the elliptic projection $\Ph \xi$ by Galerkin orthogonality for $u-\uh$:
-\newpage
+%\newpage
 \begin{align}
   \NLtD{u-\uh}^2 &= \aT(u-\uh,\xi-\Ph\xi)\nonumber\\
   &= \aep(u-\uh,\xi-\Ph\xi) - k^2\IPLtD{u-\uh}{\xi-\Ph\xi}\text{ by \cref{eq:aepused},}\nonumber\\
@@ -2478,11 +2478,12 @@ Then using \cref{eq:lrecursion}, we have
 which upon rearranging, and using the fact that $\shiftn{2(t-1-m)} \leq \errn{2(t-1-m)}$ and $\nvar \geq 1,$ yields \cref{eq:evenrecursivesum}, with the recurrence \cref{eq:Emt1,eq:Emt2,eq:Emt3}.
 
 If $j=2l+1,$ then we first reduce $\Nfn{-j,h}{\vh}$ to a point analogous to the even case, and then proceed as before. Let $\wh$ and $\zh$ be as at the beginning of the proof, and let $z$ solve the variational formulation\footnote{We use the variational formulation here, as we will need to bound the $H^1$-norm of $z$ by the $H^{-1}$-norm of $\wh$, which is immediate from the Lax--Milgram theorem.}  of \cref{eq:sdeq,eq:sddbc,eq:sdnbc} (i.e. \cref{eq:deltaagreen}) with $\ftilde = \wh$. Observe that we still have $\zh = \Ph z,$ and
-
 \beq\label{eq:LMHmo}
 \NHfn{1}{D}{z} \leq \frac1{\Amin} \NHfn{-1}{D}{n\wh}
 \eeq
-by the Lax--Milgram Theorem. Then
+by the Lax--Milgram Theorem.
+
+Then
 \begin{align}
 \NLtDn{\Deltah^{-1/2}\wh} &= \NLtDn{\Deltah^{1/2} \zh}\nonumber\\
 &= \IPLtDn{\Deltah \zh}{\zh} \text{ by \cref{eq:feiptrans},}\\
@@ -2681,6 +2682,7 @@ Inserting \cref{eq:secondboundarytemp2} into \cref{eq:secondboundarytemp} we obt
 \beq\label{eq:secondboundary}
 \IPLtD{\rho}{\Deltah^{m-1}\thetah} \leq \CBth \nmin^{-m}h^{1-m} \NHokD{\rho} \Nfn{m-1,h}{\thetah}.
 \eeq
+\newpage
 Therefore, from\renewcommand{\creflastconjunction}{,~} \cref{eq:deltahm,eq:firstboundary,eq:secondboundary},\renewcommand{\creflastconjunction}{\lastconj} and the Cauchy--Schwarz inequality, we have
 \begin{align*}
 \Nfn{m,h,n}{\thetah}^2 &\leq k^2 \Nfn{m-1,h,n}{\thetah}^2 + k^2 \Nfn{m-1,h,n}{\Qhn \rho}\Nfn{m-1,h,n}{\thetah}\nonumber\\
@@ -2753,7 +2755,9 @@ Consider the adjoint variational problem: Find $w \in \HozDD$ such that for all 
 \beq\label{eq:adjointtheta}
 \aT(v,w) = \IPLtD{v}{\thetah}.
 \eeq
-(I.e., $w$ solves the adjoint problem \cref{eq:adjoint} with right-hand side given by $\thetah$.) Let $\eh \de u -\uh$ be the finite-element error, put $v = \eh$ in \cref{eq:adjointtheta} and take the complex conjugate\footnote{The reason we take the complex conjugate is that to apply Galerkin orthogonality for $w-\Ph w$, the term $w-\Ph w$ must be the first argument of $\aT$. Alternatively, one could define $\widetilde{\Ph}$ to be the analogue of the elliptic projection but defined in the second argument, show analogues of the error bounds in \cref{lem:ellprojerr} and proceed with the proof of the current \lcnamecref{lem:ltthetahbound}. However, for simplicity, we instead take the complex conjugate of \cref{eq:adjointtheta}.} to obtain
+(I.e., $w$ solves the adjoint problem \cref{eq:adjoint} with right-hand side given by $\thetah$.)
+\newpage
+Let $\eh \de u -\uh$ be the finite-element error, put $v = \eh$ in \cref{eq:adjointtheta} and take the complex conjugate\footnote{The reason we take the complex conjugate is that to apply Galerkin orthogonality for $w-\Ph w$, the term $w-\Ph w$ must be the first argument of $\aT$. Alternatively, one could define $\widetilde{\Ph}$ to be the analogue of the elliptic projection but defined in the second argument, show analogues of the error bounds in \cref{lem:ellprojerr} and proceed with the proof of the current \lcnamecref{lem:ltthetahbound}. However, for simplicity, we instead take the complex conjugate of \cref{eq:adjointtheta}.} to obtain
 \begin{align*}
   \IPLtD{\thetah}{\eh} &= \overline{\aT(\eh,w-\Ph w)}\\
   &= \aep(w-\Ph w,\eh) - k^2 \IPLtDn{w-\Ph w}{\eh} + ik \IPLtGI{w - \Ph w}{\eh}
@@ -2778,7 +2782,9 @@ and
 \beq\label{eq:who}
 \NHoD{w - \Ph w} \leq 2\Cprojfn{-1} \Pfn{p-2}\mleft(n\mright)\mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}.
 \eeq
-We will be able to use \cref{eq:wlt,eq:who} to bound the terms involving $w - \Ph w$ in \cref{eq:boundingLtwo}. We first estimate the inner product terms in \cref{eq:boundingLtwo}:
+We will be able to use \cref{eq:wlt,eq:who} to bound the terms involving $w - \Ph w$ in \cref{eq:boundingLtwo}.
+\newpage
+We first estimate the inner product terms in \cref{eq:boundingLtwo}:
 \begin{align}
 \abs{\IPLtDn{w- \Ph w}{\thetah}} &= \abs{\IPLtDn{\Qhn w - \Ph w}{\thetah}}\nonumber\\
 &\leq \Nfn{p-1,h,n}{\thetah}\Nfn{-(p-1),h,n}{\Qhn w - \Ph w}\text{ by \cref{lem:intoip},}\nonumber\\
@@ -2808,7 +2814,7 @@ We now estimate the other inner product term
 &\quad\quad \mleft(\CFEMotilde h + \CFEMttilde \CAnk (hk)^p\mright)\NLtD{\thetah}\label{eq:innerprod2}
 \end{align}
  by \cref{eq:wlt}.
-
+\newpage
 We now insert \cref{eq:wlt,eq:who,eq:innerprod1,eq:innerprod2} into \cref{eq:boundingLtwo}:
 \begin{align}
 \NLtD{\thetah}^2 &\leq \Bigg[\Cc\nmax \NHokD{\rho} \mleft(\Cprojfn{0} + 2\Cprojfn{1}\mright)\nonumber\\
@@ -2902,7 +2908,7 @@ and by combining \cref{eq:sntheta,eq:ltboundwithrho2} we obtain (since $hk \leq 
     &\quad\quad\quad\quad\quad\quad\mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(n\mright)}-1\mright)\mleft( 1 +  \CAnk k(hk)^p\mright)\nonumber\\
     &\quad\quad\quad\quad\quad\quad\quad\quad+\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)\nvar^2\nmax \Bigg]\NHokD{\rho}.\label{eq:hoboundwithrho}
 \end{align}
-
+\newpage
 Substituting \cref{eq:rhoendbound} into \cref{eq:hoboundwithrho} we have
 \begin{align}
 \SNHoD{\thetah} &\leq \CHobound\Crhoendbound \Bigg[ \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright) \mleft(\frac{\CLtn(n)}{\Pfn{p-2}\mleft(n\mright)}-1\mright)\nonumber\\
