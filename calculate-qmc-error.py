@@ -58,7 +58,7 @@ for ii_k in range(len(k_list)):
 
     h_magnitude = quants['h_coarse_mag']
 
-    test_filename = '../data/data-for-num-qmc-points/' + folder_name_start + '*/*' + str(h_magnitude) + '*' + '.pickle'
+    test_filename = '../running-helmholtz-monte-carlo-data/data-for-num-qmc-points/' + folder_name_start + '*/*' + str(h_magnitude) + '*' + '.pickle'
     
     filenames = glob(test_filename)
 
