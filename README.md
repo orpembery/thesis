@@ -4,7 +4,7 @@ This repository provides all the files needed to recompile and reproduce all the
 
 In addition, the repositories described below provide the code necessary to run the numerical experiments described in the thesis.
 
-## Explanation
+## Reproducing the thesis
 
 * All the below explanations assume that one has downloaded a copy of this repository. It is useful to place this repository inside another directory, as doing anything more than recompiling the thesis will require downloading additional files, which will sit in the directory above this one.
 
@@ -13,22 +13,21 @@ In addition, the repositories described below provide the code necessary to run 
 make
 ```
 
-* To reproduce all of the analysis of the numerical results, reproduce all of the figures, and recompile the thesis one needs
-1. A LaTeX installation as described above, along with
-2. To follow these instructions:
-   1. Install the complex branch of the Firedrake software. At the time of writing, instructions on downloading the complex branch of Firedrake are located [here](https://github.com/firedrakeproject/firedrake/projects/4#card-13363715).
-   2. Activate the Firedrake venv (as described [here](https://www.firedrakeproject.org/download.html).
-   3. Run
-   ```
-   pip install pandas
-   ```
-   4. Run
-   ```
-   ./download_auxilliary_files.sh
-   ```
-   5. Ensure that the directories `../helmholtz-firedrake`, `../helmholtz-nearby-preconditioning`, `helmholtz-monte-carlo`, and `running-helmholtz-monte-carlo` are all on your `PYTHONPATH` when in the Firedrake venv.
+* To reproduce all of the analysis of the numerical results, reproduce all of the figures, and recompile the thesis:
+1. Install LaTeX as described above
+2. Install the complex branch of the Firedrake software. At the time of writing, instructions on downloading the complex branch of Firedrake are located [here](https://github.com/firedrakeproject/firedrake/projects/4#card-13363715).
+3. Activate the Firedrake venv (as described [here](https://www.firedrakeproject.org/download.html).
+4. Run
+```
+pip install pandas
+```
+5. Run
+```
+./download_auxilliary_files.sh
+```
+6. Ensure that the directories `../helmholtz-firedrake`, `../helmholtz-nearby-preconditioning`, `helmholtz-monte-carlo`, and `running-helmholtz-monte-carlo` are all on your `PYTHONPATH` when in the Firedrake venv.
 
-* To re-run the numerical experiments in the thesis, one must run the code manually. The code to run the numerical experiments is located in the repositories [running-helmholtz-monte-carlo](), [running-nbpcc](), and [prob-gmres-examples]() (although the code in these repositories requires the code in [helmholtz-firedrake](), [helmholtz-nearby-preconditioning](), and [helmholtz-monte-carlo]()). In order to make the relationship between the code and the thesis more transparent, the following table shows which scripts, in which repositories, are used to create which figures and tables in the thesis.
+* To re-run the numerical experiments in the thesis, one must run the code manually. The code to run the numerical experiments is located in the repositories [running-helmholtz-monte-carlo](https://github.com/orpembery/running-helmholtz-monte-carlo), [running-nbpc](https://github.com/orpembery/running-nbpc), and [prob-gmres-examples](https://github.com/orpembery/prob-gmres-examples) (although the code in these repositories requires the code in [helmholtz-firedrake](https://github.com/orpembery/helmholtz-firedrake), [helmholtz-nearby-preconditioning](https://github.com/orpembery/helmholtz-nearby-preconditioning), and [helmholtz-monte-carlo](https://github.com/orpembery/helmholtz-monte-carlo)). In order to make the relationship between the code and the thesis more transparent, the following table shows which scripts, in which repositories, are used to create which figures and tables in the thesis.
 
 | Figures/Tables | Scripts used to run the numerical experiment | Repository containing scripts |Scripts used to produce the Figures/Tables (in this repository)|
 |----------------|----------------------------------------------|-------------------------------|---------------------------------------------------------------|
@@ -42,9 +41,13 @@ make
 
 Note that the data  created by the scripts `qmc_error_computations` and `running_variable_m` is located in `../running-helmholtz-monte-carlo-data/data-for-num-qmc-points` and `../running-helmholtz-monte-carlo-data/data-for-nbpc-qmc` respectively. If you are running these numerical experiments again, you will need to move the data to the correct locations manually, so that the thesis correctly compiles.
 
-* Some of the scripts are for running code on Bath's HPC system [Balena](), and would need to be adapted. You may find the scripts in the repository [balena-complex-hacks]() useful for this.
+* Some of the scripts are for running code on Bath's HPC system [Balena](https://www.bath.ac.uk/corporate-information/balena-hpc-cluster/), and would need to be adapted. You may find the scripts in the repository [balena-complex-hacks](https://github.com/orpembery/balena-complex-hacks) useful for this.
 
 
+
+---
+
+For any queries, contact Owen Pembery on opembery 'at' gmail 'dot' com.
 
 
 
