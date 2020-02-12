@@ -20,9 +20,9 @@ df_master = pd.DataFrame(index=[int(k) for k in k_list],columns=['num_lu','total
 
 for k in k_list:
     
-    this_directory = '/home/owen/Documents/running-code/running-nbpc/qmc-nbpc-adaptive/'
+    this_directory = '../running-nbpc/qmc-nbpc-adaptive/'
 
-    mean_based_directory = '/home/owen/Documents/running-code/running-nbpc/qmc-mean-based-pc/'
+    mean_based_directory = '../running-nbpc/qmc-mean-based-pc/'
 
     for filename_tmp in listdir(this_directory):
         

@@ -60,10 +60,10 @@ spell:
 	aspell --mode=tex -c $$file ; \
 	done
 
-l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+l1-table.tex: l1-plot-and-table.py
 	python l1-plot-and-table.py
 
-l1*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+l1*.pgf: l1-plot-and-table.py
 	python l1-plot-and-table.py
 
 pollution*.pgf: pollution-figure.py

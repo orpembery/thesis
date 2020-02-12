@@ -15,7 +15,7 @@ pgf_latex_dict  = { 'pgf.preamble' : [r'\usepackage{mleftright}']}
 
 rcParams.update(pgf_latex_dict)
 
-this_directory = '/home/owen/Documents/running-code/prob-gmres-examples/output/'
+this_directory = '../prob-gmres-examples/output/'
 
 csv_list = []
 for filename in listdir(this_directory):
