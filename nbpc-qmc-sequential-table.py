@@ -22,12 +22,21 @@ for k in k_list:
     
     this_directory = '/home/owen/Documents/running-code/running-nbpc/qmc-nbpc-adaptive/'
 
+    mean_based_directory = '/home/owen/Documents/running-code/running-nbpc/qmc-mean-based-pc/'
+
     for filename_tmp in listdir(this_directory):
         
         if fnmatch(filename_tmp,'k-'+str(k)+'*csv'):
             filename = this_directory+filename_tmp
-
+            
     df = pd.read_csv(filename,usecols=[2,3])
+
+    for filename_tmp in listdir(mean_based_directory):
+        
+        if fnmatch(filename_tmp,'mean-based-k-'+str(k)+'*csv'):
+            filename_mean = mean_based_directory+filename_tmp
+            
+    df_mean_based = pd.read_csv(filename_mean,usecols=[3])
 
     df_master.loc[k,'num_lu'] = df.LU.sum()
 
@@ -37,22 +46,30 @@ for k in k_list:
 
     df_master.loc[k,'av_gmres'] = df.GMRES.mean()
 
+    df_master.loc[k,'av_gmres_mean'] = df_mean_based.GMRES.mean()
+
     df_master.loc[k,'max_gmres'] = df.GMRES.max()
 
+    df_master.loc[k,'max_gmres_mean'] = df_mean_based.GMRES.max()
+
+# This is a hack, because I can't get one column as ints
+
+df_master.max_gmres_mean = df_master.max_gmres_mean.astype('int64')
+    
 print(df_master)
 
-column_names = [r'\# LU factorisations',r'\makecell{Total \#\\linear systems}',r'\makecell{\# LU factorisations$/$\\\# linear systems}(\%)',r'\makecell{Average \#\\GMRES iterations}',r'\makecell{Max. \#\\GMRES iterations}']
+column_names = [r'\makecell{\# LU\\factorisations}',r'\makecell{Total \#\\linear systems}',r'\makecell{\# LU factorisations$/$\\\# linear systems}(\%)',r'\makecell{Average \#\\GMRES\\iterations}',r'\makecell{Max. \#\\GMRES\\iterations}',r'\makecell{Average \#\\GMRES iterations\\using mean-based\\preconditioning}',r'\makecell{Max. \#\\GMRES iterations\\using mean-based\\preconditioning}']
 
 float_format = '{:.2f}'.format # Based on formatting described at https://pyformat.info/#number
 # Helped debug using https://stackoverflow.com/a/20937592
 
-column_format = 'Sc Sc Sc Sc Sc'
+column_format = 'Sc Sc Sc Sc Sc Sc Sc'
 
 table_name = 'nbpc-qmc-sequential-table.tex'
 
 with open(table_name,mode='w') as table:
     df_master.to_latex(table,header=column_names,float_format=float_format,column_format=column_format)
-
+    
 # This is a hack to get the table to print like I want
 
 with fileinput.input(files=(table_name),inplace=True) as table:
