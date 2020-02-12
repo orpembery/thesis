@@ -180,7 +180,7 @@ The proof is immediate from \cref{eq:Qhtilde}, \cref{def:probdataacc} and the fa
 \epf
 
 \bre[\Cref{def:probdataacc} is sufficient, but not necessary]
-The proofs of \cref{thm:hhmc,thm:mlmccomp} below (our main technical results) only require a bound on
+The proofs of \namecrefs{thm:hhmc} \ref{thm:hhmc} and \ref{thm:mlmccomp} below (our main technical results) only require a bound on
 \beq\label{eq:weakexpbound}
 \abs{\EXP{\Qhtilde-Q}} \leq \co k^\sigma h^\alpha;
 \eeq
@@ -228,7 +228,7 @@ and the computational complexity of $\QhatMC$ satisfies
 The first term in \cref{eq:mccost} is analgous to the standard cost term one obtains in the analysis of Monte-Carlo methods (see, e.g., \cite[Section 2.1]{ClGiScTe:11}). The second term in \cref{eq:mccost} arises from the $k$-dependence of $\cref{eq:hmaxomega}$. The reason the second term in \cref{eq:mccost} has a better $\eps$-dependence than the first term is that \cref{eq:probdataacc} is an $\eps$-independent criterion, whereas ensuring the error is small (via the mesh constraint \cref{eq:hMC}) is an $\eps$-dependent criterion.
 
 \bpf[Proof of \cref{thm:hhmc}]
-The proof is almost identical to the standard proof for Monte-Carlo methods, see, e.g., \cite[Section 2.1]{ClGiScTe:11}. We can first perform a so-called bias--variance decomposition of the error
+The proof is nearly identical to the standard proof for Monte-Carlo methods, see, e.g., \cite[Section 2.1]{ClGiScTe:11}. We can first perform a so-called bias--variance decomposition of the error
 \begin{align}
 \err{\QhatMC}^2 &=  \EXP{ \abs{\EXP{Q}-\EXP{\QhatMC} + \EXP{\QhatMC} - \QhatMC}^2} \nonumber\\
 &= \abs{\EXP{Q}-\EXP{\QhatMC}}^2 + \EXP{\abs{\EXP{\QhatMC} - \QhatMC}^2} \nonumber\\
@@ -405,7 +405,7 @@ We let
 i.e., $\Cl$ is the bound on the expected cost of computing one sample of $\Qhltilde$ (see \cref{lem:c}).
 
 \bth[Computational Complexity of Multi-Level Monte-Carlo]\label{thm:mlmccomp}
-Under \cref{ass:costone,ass:omegabad,def:probdataacc,ass:coarse,ass:b}, if $L$ is given by
+Under \namecrefs{ass:costone} \ref{ass:costone}, \ref{ass:omegabad}, \ref{def:probdataacc}, \ref{ass:coarse}, and \ref{ass:b}, if $L$ is given by
 \beq\label{eq:Ldef}
 L = \max\set{\ceil{\frac1\alpha\log_{s}\mleft(\sqrt{2}\co  \Ccoarse^\alpha k^{\sigma-a\alpha} \eps^{-1}\mright)},0},
 \eeq

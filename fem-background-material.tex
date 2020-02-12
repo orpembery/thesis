@@ -276,10 +276,10 @@ An alternative motivation for taking $h \sim 1/k$ is the Nyquist--Shannon sampli
 
 These definitions may seem overly technical, however their technical definition is necessary to capture the, at times, complicated behaviour of finite-element methods for the Helmholtz equation. Whilst stating the definitions, we give some examples of what they mean for finite-element discretisations of the Helmholtz equation. These definitions are based on, and developed from, \cite[Definition 2.3]{DiMoSp:19}. We define all of these properties for \cref{prob:vtedp} only, although one could define them completely analogously for \cref{prob:vedp}.
 
-In the following definitions, we consider the \cref{prob:vtedp}, and its discretisation \cref{prob:fevtedp}, as parameterised by the wavenumber $k,$ that is, we write $u(k)$ for the solution of \cref{prob:vtedp} with wavenumber $k$, and $\uh(k)$ for its finite-element approximation, the solution of \cref{prob:fevtedp}.
+In the following definitions, we consider \cref{prob:vtedp}, and its discretisation \cref{prob:fevtedp}, as parameterised by the wavenumber $k,$ that is, we write $u(k)$ for the solution of \cref{prob:vtedp} with wavenumber $k$, and $\uh(k)$ for its finite-element approximation, the solution of \cref{prob:fevtedp}.
 
 \bde[$\hka{a}$-quasi-optimal]\label{def:hkqo}
-Given $a > 0,$ we say that an $h$-finite-element method for the Helmholtz equation is \defn{$\hka{a}$-quasi-optimal} if, given $\kz > 0$, there exist $\Co(\kz), \Cqo(\kz) > 0$ such that if
+Given $a > 0,$ we say that the $h$-finite-element method for the Helmholtz equation is \defn{$\hka{a}$-quasi-optimal} if, given $\kz > 0$, there exist $\Co(\kz), \Cqo(\kz) > 0$ such that if
 \beqs
 hk^{a} \leq \Co,
 \eeqs
@@ -291,7 +291,7 @@ for all $k \geq \kz.$
 \ede
 
 \bde[$\hk{a}{b}$-data-accurate]\label{def:hkdataacc}
-Given $a,b>0$, we say that an $h$-finite-element method for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
+Given $a,b>0$, we say that the $h$-finite-element meth\-od for \cref{prob:vtedp} is \defn{$\hk{a}{b}$-data-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
 \beq\label{eq:hkdataacca}
 hk^a \leq \Co
 \eeq
@@ -333,7 +333,7 @@ We choose this example to illustrate:
 \ere
 
 \bde[$\hk{a}{b}$-accurate]\label{def:hkacc}
-Given $a,b>0$, we say that an $h$-finite-element method for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
+Given $a,b>0$, we say that the $h$-finite-element method for the Helmholtz equation is \defn{$\hk{a}{b}$-accurate} if, given $0 < \eps < 1,$ and $\kz > 0,$ there exist $\Co(\kz),$ $\Ct(\eps,\kz) > 0$ such that if
 \beq\label{eq:hkacca}
 hk^a \leq \Co
 \eeq
@@ -505,7 +505,7 @@ However, C\'ea's Lemma relies on the coercivity of the sesquilinear form, and th
       \cite[Corollary 5.2]{DuWu:15} & $\displaystyle\hka{\frac{2p+1}{2p}}$ &  $d=2,3$, IIP, $D$ smooth, star-shaped& Error splitting\\
         \cite[Theorem 5.5]{ChNi:18}& $\displaystyle\hk{\frac{3+\sigma}{1+\alpha}}{3/2}$   &\makecell{$d=2$, TEDP with re-entrant corners,\\a priori bound grows like $k^\sigma$, $\alpha \in (1/2,1)$\\related to strength of corner singularities}& Modified Schatz\\
         \pbox{3.2cm}{\cite[Theorem 4.4 and Remark 4.5(iv)]{LiWu:19}}& $\hka{3/2}$   &\makecell{$d = 1,2,3$, full-space problem truncated with PML,\\posed in a ball}& Modified Schatz\\
-        \cite[Lemma 3.3]{WuZo:18}&$\hka{3/2}$&\makecell{IIP, $D$ convex,\\$n$ heterogeneous with $\NLiDRR{n-1} \lesssim 1/k$,\\part of an argument for a\\nonlinear heterogeneous Helmholtz problem}&Error splitting\\
+        \cite[Lemma 3.3]{WuZo:18}&$\hka{3/2}$&\makecell{IIP, $D$ convex, $n$ heterogeneous with\\$\NLiDRR{n-1} \lesssim 1/k$, part of an argument for a\\nonlinear heterogeneous Helmholtz problem}&Error splitting\\
   \cite[Theorem 5.4]{ChGaNiTo:18}&$\displaystyle\hk{\frac{p+2}{p+1}}{\frac{2p+1}{2p}}$  & \makecell{$d=2$, EDP truncated with PML,\\posed in a ball}& Modified Schatz\\
 \bottomrule
 \end{tabular}
@@ -601,7 +601,7 @@ When dealing purely with the Schatz argument for quasi-optimality (as in \cite[S
 \end{align}
 for any $\vh \in \Vhp.$
 
-We now use a modification of the standard Aubin--Nitsche duality argument to bound $\NLtD{u-\uh}$ by $\wbaadj \NHokD{u-\uh}$ (and recall that $\wbaadj$ can be made small). Let $\xi \in \HozDD$ solve the adjoint Helmholtz problem
+We now use a modified version of the standard Aubin--Nitsche duality argument to bound $\NLtD{u-\uh}$ by $\wbaadj \NHokD{u-\uh}$ (and recall that $\wbaadj$ can be made small). Let $\xi \in \HozDD$ solve the adjoint Helmholtz problem
 \beq\label{eq:xidef}
 \aT(v,\xi) = \IPLtD{v}{u-\uh} \tforall v \in \HozDD.
 \eeq
@@ -1398,9 +1398,10 @@ where
 \beqs
 \Condn(n) = \mleft(\mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)^{p-1} \mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)} \nmax^2 \Pfn{p-2}\mleft(n\mright)\mright)^{-\frac1{2p}},
 \eeqs
-\beq\label{eq:CLtn}
-\CLtn(n) = \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)^{p-1} \nvar^5 \nmin^{-(p+1)} \mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)} \Pfn{p-2}(n)^2 + \Pfn{p-2}(n)
-\eeq
+\begin{align}
+  \CLtn(n) &= \mleft(\mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)}\nmax\nmin^{-\frac{p}2}\mright)^{p-1} \nvar^5 \nmin^{-(p+1)} \mleft(\En\nvar\mright)^{\half(\floor{\frac{p-1}2}+1)} \Pfn{p-2}(n)^2\nonumber\\
+  &\quad\quad+ \Pfn{p-2}(n)\label{eq:CLtn}
+\end{align}
 and
 \begin{align*}
   \CHon(n) = \max&\Bigg\{\Pfn{p-2}\mleft(n\mright),\\
@@ -1736,7 +1737,8 @@ Let $j \in \mleft[2,p-2\mright]$ and suppose \cref{eq:expansionuj} holds for all
 \begin{align*}
   \NHfn{j+2}{D}{\vj} &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\NHfn{j}{D}{n\vfn{j-2}} + \NHfn{j+1}{D}{\vfn{j-1}}\mright)\\
   &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\Cmult\SNtemp{n}\NHfn{j}{D}{\vfn{j-2}} + \NHfn{j+1}{D}{\vfn{j-1}}\mright)\\
-  &\leq \CAj \mleft(1+\CTrjpo\mright)\mleft(\Cmult\Cefn{j-2}\SNtemp{n}\Pfn{j-2}(n) + \Cefn{j-1}\Pfn{j-1}(n)\mright)\Cfg\text{, by induction,}\\
+  &\leq \CAj \mleft(1+\CTrjpo\mright)\Big(\Cmult\Cefn{j-2}\SNtemp{n}\Pfn{j-2}(n)\\
+  &\hphantom{\leq \CAj \mleft(1+\CTrjpo\mright)\big(}\quad\quad+ \Cefn{j-1}\Pfn{j-1}(n)\Big)\Cfg\text{, by induction,}\\
 &= \Cefn{j} \Pfn{j}(n)\Cfg
 \end{align*}
 by definition of $\Cefn{j}$ and $\Pfn{j}(n).$
@@ -2026,7 +2028,7 @@ To bound the term $\NHfn{m}{D}{n\phi}$ in \cref{eq:ellprojwpart} we use  \cref{t
 Therefore we have, by definition of $\NHnfn{-m}{D}{\cdot}$ and $\NHoDn{\cdot}$,
 \begin{align}
 &  \NHnfn{-m}{D}{w-\Ph w} \leq\nonumber\\
-  &\quad\CSZfn{m+2}\CAfn{m} \CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}} \NLiDop{A} \frac{\SNtemp{n}}{\nmin^2} h^{m+1} \NHoDn{w - \Ph w}.\label{eq:wep1pt1}
+  &\,\,\CSZfn{m+2}\CAfn{m} \CBanfn{m}{\max\set{p-1,\ceil{d/2}+1}} \NLiDop{A} \frac{\SNtemp{n}}{\nmin^2} h^{m+1} \NHoDn{w - \Ph w}.\label{eq:wep1pt1}
 \end{align}
 
 Combining \cref{eq:wep1pt1,eq:wepcea}, we obtain \cref{eq:errn}.

@@ -94,7 +94,7 @@ We say that $\uh \in \Vhp$ is the \defn{finite-element approximation of $u$} (th
 
 \subsubsection{Finite-element matrices and weighted norms}
 
-We now define the matrices associated with our finite-element discretisation. Let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
+We now define the matrices associated with our finite-element discretisation. First, let $\{\phi_i, i= 1, \ldots, N\}$ be a basis for $\Vhp$ with each $\phi_i$ \emph{real-valued}.
 Let 
 \beq\label{eq:matrixSjdef}
 \big(\Smat_{A}\big)_{ij}\de \int_D \big(A \nabla \phi_j)\cdot\nabla \phi_i, \quad
@@ -405,7 +405,7 @@ It is perhaps unsurprising that the condition \cref{eq:sufficientlysmall} is a s
 
 \section[Numerical experiments investigating sharpness]{Numerical experiments investigating the sharpness of Theorems {\ref{cor:1}} and {\ref{cor:1a}}}\label{sec:num}
 
-The numerical experiments in this section seek to verify \cref{cor:1a,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify whether the condition \cref{eq:cond} is:
+The numerical experiments in this section seek to verify \cref{cor:1a,cor:1} for \cref{prob:vtedp}, and investigate their sharpness. More specifically, the experiments seek to verify if the condition \cref{eq:cond} is:
 \ben
 \item sufficient, and
 \item necessary
@@ -1009,7 +1009,7 @@ where $\chi(r)$ is chosen to have $\supp \chi \subset D$. Observe that \cref{eq:
 \beq\label{eq:sphericallaplacian}
 \Delta \chi = \frac{1}{r^{d-1}} \frac{\partial}{\partial r}\mleft(r^{d-1} \frac{\partial \chi}{\partial r} \mright) + \frac1{r^2} \LapBel \chi,
 \eeq
-where $\LapBel$ is the Laplace--Beltrami operator on the $d-1$-dimensional sphere (see, e.g., \cite[Equations (17.23) and (17.25)]{RiHoBe:97} for \cref{eq:sphericallaplacian} in $d=2$ and $3.$). Observe that $e^{ikr} \chi(r)$ has $\LapBel e^{ikr} \chi(r) = 0.$
+where $\LapBel$ is the Laplace--Beltrami operator on the $d-1$-dimensional sphere (see, e.g., \cite[Equations (17.23) and (17.25)]{RiHoBe:97} for \cref{eq:sphericallaplacian} in $d=2$ and $3.$). Observe that $\LapBel e^{ikr} \chi(r) = 0.$
 
 We expect that \cref{eq:obs1} will be key in the proof of the sharpness of \cref{eq:PDEbound}, for the following reasons. Observe that \cref{eq:obs1} proves the sharpness of the nontrapping resolvent estimate \cref{eq:bound1}, since $\NLtD{\ftilde}\sim k$ and $\NHokD{e^{ikr}\chi(r)}\sim k$  and hence $\NHokD{e^{ikr}\chi(r)} \sim \NLtD{\ftilde}$ (see, e.g., \cite[Lemma 3.10]{ChMo:08},  \cite[Lemma 4.12]{Sp:14}).
 
@@ -1414,7 +1414,7 @@ The proof of \cref{lem:approxmetric} is straightforward and omitted.
 
 Observe further that the structure of $\dapprox$ is similar to that of $\dQMC$ and $\dapprox$ is a weighted $L^1$ metric on $\cube{J}$, with the weights corresponding to the terms in \cref{eq:artificialkl}. Recall that $\sqrt{\lambdaj} \rightarrow 0$ as $j \rightarrow \infty$; therefore the higher dimensions contribute less to the value of $\dapprox$ (or, informally, points are `closer' in higher dimensions, or higher dimensions are `smaller' than lower dimensions).
 
-Ideally, for the purposes of utilising nearby preconditioning, we would use the metric $\dQMC$ when describing the geometry of the QMC points  (and computing the nearest QMC point), since the best rigorous results on the behaviour of nearby preconditioning (in terms of $k$-dependence) are proved in \cref{sec:3} for the spatial $L^\infty$-norm\footnote{Although, in line with the results in \cref{sec:weaknorm}, we could instead use a spatial $L^q$ norm, for some $q \geq 1$ in \cref{eq:dqmc}.}. However, computing $\dQMC$ exactly is, in principle. complicated. In contrast, it is easy to compute with $\dapprox,$ since $\dapprox$ enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric. Moreover, as discussed above, $\dapprox$ is an approximation of $\dQMC,$ and therefore we expect that it will induce a similar geometry on $\cube{J}.$
+Ideally, for the purposes of utilising nearby preconditioning, we would use the metric $\dQMC$ when describing the geometry of the QMC points  (and computing the nearest QMC point), since the best rigorous results on the behaviour of nearby preconditioning (in terms of their $k$-dependence) are proved in \cref{sec:3} for the spatial $L^\infty$-norm\footnote{Although, in line with the results in \cref{sec:weaknorm}, we could instead use a spatial $L^q$ norm, for some $q \geq 1$ in \cref{eq:dqmc}.}. However, computing $\dQMC$ exactly is, in principle. complicated. In contrast, it is easy to compute with $\dapprox,$ since $\dapprox$ enables one to think of $\cube{J}$ as the high-dimensional rectangle $\mleft[0,\sqrt{\lambdao}\mright]\times\cdots\times\mleft[0,\sqrt{\lambdaJ}\mright]$ equipped with the standard $L^1$ metric. Moreover, as discussed above, $\dapprox$ is an approximation of $\dQMC,$ and therefore we expect that it will induce a similar geometry on $\cube{J}.$
 
 \paragraph{Computational complexity of calculating the nearest point} At various points in the two nearby-preconditioning-QMC algorithms we present below, given a point $\by \in \cube{J}$ and a subset $S$ of $\cube{J}$ we must calculate $\nearest(\by,S) \in \cube{J}$, that is the element of $S$ that is closest to $\by$ in the metric $\dapprox.$ In all of the numerical results we present below, we calculate $\nearest(\by,S)$ by brute force, i.e., we calculate $\dapprox(\by,\bytilde)$ for all $\bytilde \in S,$ and choose the element of $S$ that minimises $\dapprox(\by,\bytilde)$. Since calculating $\dapprox(\by,\bytilde)$ involves $\cO\mleft(J\mright)$ operations, the brute force approach to calculating $\dapprox(\by,\bytilde)$ involves $\cO\mleft(J\abs{S}\mright)$ operations. Clearly, this method of calculating $\nearest(\by,S)$ does not scale in $J,$ the stochastic dimension, although it is computationally feasible for our numerical experiments (with $J=10$) below. See \cref{sec:nbpcfuture} below for a suggestion of an alternative, scalable way to calculate $\nearest(\by,S)$.
 
@@ -1508,7 +1508,7 @@ Given we expect that the size of the balls over which nearby preconditioning is 
 
     Once we know the value of $\rideal,$ we can then calculate the numbers of centres in each dimension $\No(\rideal),\ldots,\NJ(\rideal)$ as above (recalling that the $\Nj(\rideal)$ are not necessarily integers). We then obtain integers $\Npreactualj = \round{\Nj(\rideal)}$, where $\round{\cdot}$ denotes rounding to the nearest integer. (Recall $\Nj(\rideal) \geq 1$ for all $j$ by construction, so $\Npreactualj$ will be a positive integer for all $j.$)
 
-We then take $\Npreactualj$ centres in each dimension and define the sets $\centresj$ with $\Nj = \Npreactualj$, as described above. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
+We then use $\Npreactualj$ centres in each dimension and define the sets $\centresj$  as described above, with $\Nj = \Npreactualj$. We then obtain a total of $\Npreactual = \Npreactualo \times \cdots \times \NpreactualJ$ preconditioning points.
 
 These points may not be QMC points. We could simply calculate the preconditioners at these non-QMC points. However we instead replace each calculated centre with its nearest QMC point (calculated using brute-force) and calculate the preconditioners at these QMC points. We denote the set of preconditioning points by $\Spre$. Finally, we calculate the map $\Prenearest:\SQMC\rightarrow\Spre$, i.e., for each QMC point we find its nearest preconditioning point, and use the corresponding preconditioner for the linear solve.
 
@@ -1714,7 +1714,7 @@ Based on the results for the QoIs in \cref{tab:qmcalpha} (excluding the results 
 \begin{table}[h!]
   \centering
   \input{qmc-alpha-table}
-  \caption{The quantities $\alphaz$ and $\alphao$ for different QoIs, where the QMC error $\approx C \NQMC^{-\mleft(\alphaz - \alphao\loge(k)\mright)}$.}\label{tab:qmcalpha}
+  \caption{The value of $\alphaz$ and $\alphao$ for different QoIs, where the QMC error $\approx C \NQMC^{-\mleft(\alphaz - \alphao\loge(k)\mright)}$.}\label{tab:qmcalpha}
   \end{table}
 
 
@@ -1737,7 +1737,7 @@ As outlined above, we combine our sequential- and parallel-NPQMC algorithms:\lab
 
     The results for the sequential algorithm are summarised in \cref{tab:nbpcqmcseq}, for $k = 10,\,20,\,30$. The results show that nearby preconditioning is effective, with the number of preconditioners growing (approximately) linearly in $k$, but at a very low percentage of the total number of solves. Also, observe than nearby preconditioning is much more effective than mean-based preconditioning, where we use a single preconditioner, corresponding to the mean of $n$, to precondition all the realisations.
 
-    Performing a linear fit for the percentage of LU-factorisations used in the nearby-preconditioning algorithm, we obtain that the percentage of LU-factorisations grows like $-0.04 + 0.02k$ (see \cref{fig:lu}). This result indicates that although the radius of the balls in which nearby preconditioning is effective decreases with $\cO\mleft(1/k\mright)$, the fact that the number of QMC points increases with $k$ means that a large proportion of the solves are computed using a previously-calculated LU decomposition. Observe that if the number of QMC points remained constant in $k$, we would expect the number of preconditioners to (potentially) increase like $k^J$, because the number of balls of radius $\sim 1/k$ in $\cube{J}$ is $\sim k^J.$
+    Performing a linear fit for the percentage of LU-factorisations used in the nearby-pre\-con\-di\-tion\-ing algorithm, we obtain that the percentage of LU-factorisations grows like $-0.04 + 0.02k$ (see \cref{fig:lu}). This result indicates that although the radius of the balls in which nearby preconditioning is effective decreases with $\cO\mleft(1/k\mright)$, the fact that the number of QMC points increases with $k$ means that a large proportion of the solves are computed using a previously-calculated LU decomposition. Observe that if the number of QMC points remained constant in $k$, we would expect the number of preconditioners to (potentially) increase like $k^J$, because the number of balls of radius $\sim 1/k$ in $\cube{J}$ is $\sim k^J.$
 
     Based on these sequential results, we then used the parallel algorithm with a target proportion of preconditioners of ($-0.04 + 0.02k$)\%. (Although recall from our discussion above that the actual proportion of preconditioners used can vary due to rounding in the algorithm.) The results of these computations are summarised in \cref{tab:nbpcqmcpar}. We observe that the fraction of preconditioners is approximately $-0.04 + 0.02k$, but the maximum (and average) number of GMRES iterations appears to grow slowly with $k.$ This growth (which did not occur with the sequential algorithm) may be because the placement of the preconditioning points is not optimal with respect to the $\dQMC$ metric; we conjecture that oversampling the number of preconditioners needed (for example, taking a proportion of ($0.05k$)\%) may result in a bounded number of GMRES iterations Nevertheless, we see that nearby preconditioning gives considerable speedup, drastically reducing the number of preconditioners that must be calculated.
 

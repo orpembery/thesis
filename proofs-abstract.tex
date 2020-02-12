@@ -1,6 +1,6 @@
 \section[Proof of the results in Section \MakeLowercase{\ref{sec:general}}]{Proof of the results in \cref{sec:general}}\label{sec:genproof}
 
-A key ingredient in proving that the stochastic variational formulation is well-defined (\cref{lem:svarwelldefined}) is showing that the maps $\omega \mapsto \mleft[\mleft(\rhs\circ\coeff\mright)(\omega)\mright]\mleft(\vt(\omega)\mright)$ and $\omega \mapsto \mleft[\mleft[(\toform\circ\coeff(\omega)\mright]\mleft(\vo(\omega)\mright)\mright]\mleft(\vt(\omega)\mright)$ are measurable, for appropriate functions $\vo$ and $\vt$. Showing that these functions are measurable is not straightforward, because they both depend on $\omega$ in multiple places. However, the structure of the $\omega$-dependence in each case is similar, and so we first prove some general results that will be applicable to both of these cases.
+A key ingredient in proving that the stochastic variational formulation is well-defined (\namecref{lem:svarwelldefined} \ref{lem:svarwelldefined}) is showing that the maps $\omega \mapsto \mleft[\mleft(\rhs\circ\coeff\mright)(\omega)\mright]\mleft(\vt(\omega)\mright)$ and $\omega \mapsto \mleft[\mleft[(\toform\circ\coeff(\omega)\mright]\mleft(\vo(\omega)\mright)\mright]\mleft(\vt(\omega)\mright)$ are measurable, for appropriate functions $\vo$ and $\vt$. Showing that these functions are measurable is not straightforward, because they both depend on $\omega$ in multiple places. However, the structure of the $\omega$-dependence in each case is similar, and so we first prove some general results that will be applicable to both of these cases.
 
 
 \subsection{Preliminary lemmas}\label{sec:prelemmanary}
@@ -13,7 +13,10 @@ We define the map $\compPv:\Omega\rightarrow \Zt$ by
 \ede
 
 \bde[Product map]
-Let $\toprodPv:\Omega\rightarrow \homspaceZoZt \times \Zo$ be defined by $\toprodPv(\omega) = \mleft(\Pmap(\omega),v(\omega)\mright).$
+Let $\toprodPv:\Omega\rightarrow \homspaceZoZt \times \Zo$ be defined by
+\beqs
+\toprodPv(\omega) = \mleft(\Pmap(\omega),v(\omega)\mright).
+\eeqs
 \ede
 
 \ble[Product map is measurable]\label{lem:Pmeas}
