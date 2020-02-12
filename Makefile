@@ -81,7 +81,7 @@ nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
 lu-graph.pgf: nbpc-qmc-sequential-table.py
 	python nbpc-qmc-sequential-table.py
 
-nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*/*pickle
+nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py
 	python nbpc-qmc-parallel-table.py
 
 nbpc-linfinity-plot-*pgf: nbpc-linfinity-plots.py
