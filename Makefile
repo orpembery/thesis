@@ -60,10 +60,10 @@ spell:
 	aspell --mode=tex -c $$file ; \
 	done
 
-l1-table.tex: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+l1-table.tex: l1-plot-and-table.py
 	python l1-plot-and-table.py
 
-l1*.pgf: l1-plot-and-table.py ~/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/*csv
+l1*.pgf: l1-plot-and-table.py
 	python l1-plot-and-table.py
 
 pollution*.pgf: pollution-figure.py
@@ -81,7 +81,7 @@ nbpc-qmc-sequential-table.tex: nbpc-qmc-sequential-table.py
 lu-graph.pgf: nbpc-qmc-sequential-table.py
 	python nbpc-qmc-sequential-table.py
 
-nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py data/data-for-nbpc-qmc/*/*pickle
+nbpc-qmc-parallel-table.tex: nbpc-qmc-parallel-table.py
 	python nbpc-qmc-parallel-table.py
 
 nbpc-linfinity-plot-*pgf: nbpc-linfinity-plots.py
