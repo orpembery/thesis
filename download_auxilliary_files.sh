@@ -14,4 +14,7 @@ git clone https://github.com/orpembery/prob-gmres-examples.git
 
 git clone https://github.com/orpembery/running-nbpc.git
 
-# Need to do data
+curl -O https://zenodo.org/record/3665798/files/running-helmholtz-monte-carlo-data.zip
+
+unzip running-helmholtz-monte-carlo-data.zip running-helmholtz-monte-carlo-data
+
