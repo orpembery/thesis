@@ -13,7 +13,7 @@ rc('text', usetex=True) # Found out about this from https://stackoverflow.com/q/
 
 rcParams.update({'text.latex.preamble':[r'\usepackage[urw-garamond]{mathdesign}',r'\usepackage[T1]{fontenc}'],'font.size':11})
 
-this_directory = '/home/owen/Documents/running-code/running-nbpc/nbpc-scaling-l1/output/'
+this_directory = '../running-nbpc/nbpc-scaling-l1/output/'
 
 csv_list = []
 for filename in listdir(this_directory):
