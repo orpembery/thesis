@@ -1461,12 +1461,12 @@ Suppose we are given a set $\SQMC = \set{\byo,\ldots,\byNQMC}$ of QMC points and
 
 The algorithm contains two key ideas:
 \ben
-  \item Use a surrogate metric in place of $\dQMC$, and
+  \item Use an approximate metric in place of $\dQMC$, and
 \item Locate the preconditioning points according to a tensor-product rule.
   \een
   We now describe each of these two ideas in turn, before describing our final algorithm.
 
-\paragraph{Surrogate metric} Whilst the metric $\dQMC$ is the metric in which  nearby preconditioning is analysed (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with, since the  geometry it induces on $\cube{J}$ is nontrivial as this geometry is dependent on the interaction between the functions $\psij$ in the expansion \cref{eq:artificialkl}. Therefore, we work in an alternative, although related metric HELP
+\paragraph{Approximate metric} Whilst the metric $\dQMC$ is the metric in which  nearby preconditioning is analysed (as described in \cref{sec:intronbpc} above), in practice $\dQMC$ is difficult to work with. This difficulty is because the  geometry $\dQMC$ induces on $\cube{J}$ is nontrivial, since the geometry is dependent on the interaction between the functions $\psij$ in the expansion \cref{eq:artificialkl}. Therefore, we use the approximate metric $\dapprox$, defined by \cref{eq:dapprox} above.
 
 \paragraph{Tensor-product algorithm for locating preconditioning points} We first describe the intuition behind our use of a tensor-product rule to locate the preconditioning points (even though we do not use this intuition in the final algorithm). Once we have described this intution, we will then show how it can be adapted to provide the final algorithm. To understand why we use locate the preconditioning points using a tensor-product rule, we first decribe the heuristic we use. Let us assume we want to cover $\cube{J}$ with `balls' of radius $r$. Observe that these balls are measured in the $\dapprox$ metric, and therefore have a similar geometry to balls on $\cube{J}$ in the $L^1$ metric. Therefore, given the centres $\bcone$ and $\bct$ of two adjacent balls, we will have
 \beq\label{eq:centres2r}
